@@ -22,6 +22,11 @@ related:
 Welcome to your **Robotics Obsidian Vault**! This guide explains how to navigate its structure, contribute effectively, and leverage its features to create a powerful personal knowledge base on robotics.
 
 ---
+<img width="1000" alt="ROBOTICS-for-EVERYONE_MARKUS_LEARNING" src="https://github.com/user-attachments/assets/fbd16c66-221b-4efa-b6d7-fae7dce828eb" />
+
+![MARKUS_LEARNING](https://github.com/user-attachments/assets/9a965161-6fe2-40da-b817-486a1d619459)
+# MARKUS_LEARNING
+---
 
 ## Section 1: Understanding the Structure
 
