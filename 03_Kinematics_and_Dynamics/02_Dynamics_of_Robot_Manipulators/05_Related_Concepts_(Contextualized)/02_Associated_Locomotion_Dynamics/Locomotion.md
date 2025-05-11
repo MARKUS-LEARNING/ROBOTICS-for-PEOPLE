@@ -112,3 +112,12 @@ Developing effective locomotion systems involves overcoming challenges such as:
 * Handling the complexities of terrain interaction and potential slip/loss of traction.
 
 The choice of locomotion mechanism profoundly impacts a mobile robot's capabilities, limitations, and suitability for specific tasks and environments.
+
+---
+## Dataview Plugin Features
+
+To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
+
+### List of Related Concepts
+```dataview
+LIST FROM #kinematics OR #dynamics WHERE contains(file.outlinks, [[Locomotion]])
