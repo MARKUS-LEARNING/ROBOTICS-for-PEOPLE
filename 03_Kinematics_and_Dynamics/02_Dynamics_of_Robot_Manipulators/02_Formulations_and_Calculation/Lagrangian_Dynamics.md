@@ -80,6 +80,7 @@ where:
 - $V(\mathbf{q})$ is the potential energy function.
 - $\mathbf{q}$ is the vector of generalized coordinates.
 - $\dot{\mathbf{q}}$ is the vector of generalized velocities.
+- *Assumes no non-conservative forces or non-holonomic constraints unless explicitly modeled via external forces or constraints.*
 
 ### Euler-Lagrange Equations
 
