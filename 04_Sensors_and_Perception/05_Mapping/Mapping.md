@@ -105,5 +105,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ### List of Related Concepts
 ```dataview
-list from "Robot Design" or "Autonomous Navigation" or "SLAM"
-```
+LIST FROM #robotics OR #navigation WHERE contains(file.outlinks, [[Mapping]])
