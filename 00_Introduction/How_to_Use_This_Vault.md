@@ -17,32 +17,36 @@ related:
   - "[[Robotics_Vault_Dashboard]]"
 ---
 
-# 📘 How to Use This Vault
+# How to Use This Vault
 
 Welcome to your **Robotics Obsidian Vault**! This guide explains how to navigate its structure, contribute effectively, and leverage its features to create a powerful personal knowledge base on robotics.
 
 ---
 
-## 🧱 Section 1: Understanding the Structure
+## Section 1: Understanding the Structure
 
 This vault organizes knowledge into core thematic folders, detailed in the [[Vault_Taxonomy_Guide]]. Key areas include:
 
-- **`01_Glossary`**: Definitions of fundamental robotics terms.
-- **`02_Kinematics_and_Dynamics`**: The mathematics of robot motion and forces.
-- **`03_Sensors_and_Perception`**: How robots sense and interpret their environment.
-- **`04_AI_and_Robot_Control`**: Autonomy, machine learning, and control strategies.
-- **`05_ROS_and_Software_Stacks`**: [[ROS_2_Overview]] and related tools like [[Gazebo_Simulator]].
-- **`06_Robot_Types_and_Applications`**: Profiles of [[Industrial_Arms]], [[Mobile_Robots]], [[Humanoid_Robots]], etc.
-- **`07_Robotics_History_and_Future`**: Timelines [[History_of_Robotics]], [[Future_Trends_2025-2035]], and [[Robot_Ethics_and_Policy_Debates]].
-- **`08_Coding_and_Implementation`**: [[Python_ROS_Nodes]], [[C++_Motion_Planning]], and practical examples.
-- **`09_Labs_Projects_and_Tutorials`**: Hands-on work like [[Turtlesim_Projects]] and [[Sim2Real_Experiments]].
-- **`10_Tools_References_and_Links`**: External [[MOOCs_and_Courses]], [[Research_Papers_Index]], [[Simulators_and_IDEs]].
+- **`00_Introduction`**: 
+- **`01_Fundamentals_of_Robotics`**: Definitions of fundamental robotics terms.
+- **`02_Mathematics_for_Robotics**: The mathematics of robot motion and forces.
+- **`03_Kinematics_and_Dynamics`**: How robots sense and interpret their environment.
+- **`04_Sensors_and_Perception`**: Autonomy, machine learning, and control strategies.
+- **`05_AI_and_Machine_Learning`**: [[ROS_2_Overview]] and related tools like [[Gazebo_Simulator]].
+- **`06_Robot_Control`**: Profiles of [[Industrial_Arms]], [[Mobile_Robots]], [[Humanoid_Robots]], etc.
+- **`07_Robot_Operating_System_(ROS)`**: Timelines [[History_of_Robotics]], [[Future_Trends_2025-2035]], and [[Robot_Ethics_and_Policy_Debates]].
+- **`08_Robot_Types_and_Applications`**: [[Python_ROS_Nodes]], [[C++_Motion_Planning]], and practical examples.
+- **`09_Advanced_Topics`**: Hands-on work like [[Turtlesim_Projects]] and [[Sim2Real_Experiments]].
+- **`10_Research_and_Development`**: External [[MOOCs_and_Courses]], [[Research_Papers_Index]], [[Simulators_and_IDEs]].
+- **`11_Practical_Implementation`**: External [[MOOCs_and_Courses]], [[Research_Papers_Index]], [[Simulators_and_IDEs]].
+- **`12_Labs_and_Tutorials`**: External [[MOOCs_and_Courses]], [[Research_Papers_Index]], [[Simulators_and_IDEs]].
+- **`13_Tools_References_and_Links`**: External [[MOOCs_and_Courses]], [[Research_Papers_Index]], [[Simulators_and_IDEs]].
 
 Refer to the [[Vault_Taxonomy_Guide]] for detailed folder descriptions and tagging strategies.
 
 ---
 
-## 🧭 Section 2: Navigating with the Dashboard
+## Section 2: Navigating with the Dashboard
 
 The [[Robotics_Vault_Dashboard]] provides a dynamic overview of your notes, categorized by topic.
 
@@ -51,7 +55,7 @@ The [[Robotics_Vault_Dashboard]] provides a dynamic overview of your notes, cate
 
 ---
 
-## ✍️ Section 3: Adding and Editing Content
+## Section 3: Adding and Editing Content
 
 Consistency is key for a useful vault. When creating or modifying notes:
 
@@ -62,7 +66,7 @@ Consistency is key for a useful vault. When creating or modifying notes:
 
 ---
 
-## 🔁 Section 4: Maintaining the Vault
+## ``Section 4: Maintaining the Vault
 
 Treat this vault as a *living document*:
 
@@ -72,7 +76,7 @@ Treat this vault as a *living document*:
 
 ---
 
-## ✨ Section 5: Enhancing Your Experience (Optional)
+## Section 5: Enhancing Your Experience (Optional)
 
 Consider these powerful Obsidian plugins to further augment your vault:
 
