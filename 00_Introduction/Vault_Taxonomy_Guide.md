@@ -24,17 +24,21 @@ This guide explains the organizational structure used within this Robotics Obsid
 
 The vault uses a numbered folder system to group related topics logically:
 
-* **`00_Start_Here`**: Contains introductory and meta-notes about the vault itself, including purpose (`[[Vault_Purpose_and_Scope]]`), usage guides (`[[How_to_Use_This_Vault]]`), this taxonomy guide, and dashboards (`[[Robotics_Vault_Dashboard]]`).
-* **`01_Glossary`**: Definitions of key terms used throughout robotics (e.g., `[[SLAM]]`, `[[PID_Control]]`).
-* **`02_Kinematics_and_Dynamics`**: Notes related to the mathematics of robot motion, forces, and control (e.g., `[[Forward_Kinematics]]`, `[[Inverse_Kinematics]]`).
-* **`03_Sensors_and_Perception`**: Information on various sensor types (`[[LIDAR]]`, `[[Camera_Systems]]`), calibration, and how robots perceive their environment.
-* **`04_AI_and_Robot_Control`**: Focuses on artificial intelligence techniques like machine learning (`[[Reinforcement_Learning_for_Robots]]`), path planning (`[[Path_Planning_Algorithms]]`), and computer vision (`[[Computer_Vision_in_Robotics]]`) applied to robot control.
-* **`05_ROS_and_Software_Stacks`**: Details about the Robot Operating System (`[[ROS_2_Overview]]`), simulators (`[[Gazebo_Simulator]]`), and related software concepts (`[[TF_and_Topic_Architecture]]`).
-* **`06_Robot_Types_and_Applications`**: Descriptions of different robot morphologies (`[[Humanoid_Robots]]`, `[[Mobile_Robots]]`, `[[Industrial_Arms]]`) and their application domains.
-* **`07_Robotics_History_and_Future`**: Covers the evolution of robotics (`[[History_of_Robotics]]`), key figures (`[[Key_Figures_and_Labs]]`), ethical considerations (`[[Robot_Ethics_and_Policy_Debates]]`), and future trends (`[[Future_Trends_2025-2035]]`).
-* **`08_Coding_and_Implementation`**: Practical code examples (`[[Python_ROS_Nodes]]`, `[[C++_Motion_Planning]]`), tutorials for hardware interfacing, and version control (`[[Git_Integration_and_Version_Control]]`).
-* **`09_Labs_Projects_and_Tutorials`**: Hands-on experiments (`[[Sim2Real_Experiments]]`), project documentation, and learning exercises (`[[Turtlesim_Projects]]`).
-* **`10_Tools_References_and_Links`**: External resources like courses (`[[MOOCs_and_Courses]]`), research papers (`[[Research_Papers_Index]]`), simulators (`[[Simulators_and_IDEs]]`), and hardware lists (`[[Hardware_Shopping_List]]`).
+- **`00_Introduction`**: An overview of the field of robotics, its significance, and the scope of the course.
+- **`01_Fundamentals_of_Robotics`**: Definitions of fundamental robotics terms.
+- **`02_Mathematics_for_Robotics`**: The mathematics of robot motion and forces.
+- **`03_Kinematics_and_Dynamics`**: How robots sense and interpret their environment.
+- **`04_Sensors_and_Perception`**: Autonomy, machine learning, and control strategies.
+- **`05_AI_and_Machine_Learning`**: Overview of [[ROS_2_Overview]] and related tools like [[Gazebo_Simulator]].
+- **`06_Robot_Control`**: Profiles of [[Industrial_Arms]], [[Mobile_Robots]], [[Humanoid_Robots]], etc.
+- **`07_Robot_Operating_System_(ROS)`**: Timelines [[History_of_Robotics]], [[Future_Trends_2025-2035]], and [[Robot_Ethics_and_Policy_Debates]].
+- **`08_Robot_Types_and_Applications`**: Examples and applications of [[Python_ROS_Nodes]], [[C++_Motion_Planning]], and practical examples.
+- **`09_Advanced_Topics`**: Hands-on work like [[Turtlesim_Projects]] and [[Sim2Real_Experiments]].
+- **`10_Research_and_Development`**: External resources including [[MOOCs_and_Courses]], [[Research_Papers_Index]], [[Simulators_and_IDEs]].
+- **`11_Practical_Implementation`**: External resources including [[MOOCs_and_Courses]], [[Research_Papers_Index]], [[Simulators_and_IDEs]].
+- **`12_Labs_and_Tutorials`**: External resources including [[MOOCs_and_Courses]], [[Research_Papers_Index]], [[Simulators_and_IDEs]].
+- **`13_Tools_References_and_Links`**: External resources including [[MOOCs_and_Courses]], [[Research_Papers_Index]], [[Simulators_and_IDEs]].
+
 
 ## Tagging Strategy
 
