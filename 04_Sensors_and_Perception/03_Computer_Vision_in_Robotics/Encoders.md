@@ -10,7 +10,7 @@ tags:
   - control
 layout: default
 category: robotics
-author: Jordan_Smith_&_Gemini
+author: Jordan_Smith_&_le_Chat
 date: 2025-04-29
 permalink: /encoders/
 related:
@@ -99,8 +99,7 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ### List of Related Concepts
 ```dataview
-list from "Sensors" or "Control Systems" or "Feedback Control"
-```
+LIST FROM #control OR #robotics WHERE contains(file.outlinks, [[Encoders]])
 
 
 
