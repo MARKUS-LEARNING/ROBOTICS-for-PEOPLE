@@ -11,7 +11,7 @@ tags:
   - automation
 layout: default
 category: robotics
-author: Jordan_Smith_&_Gemini
+author: Jordan_Smith_&_le_Chat
 date: 2025-05-02
 permalink: /obstacle_avoidance/
 related:
@@ -109,6 +109,5 @@ Obstacle avoidance is essential in various robotic applications:
 To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
 
 ### List of Related Concepts
-
 ```dataview
-list from "Sensors" or "Range Sensor" or "LiDAR" or "Ultrasonic Sensors" or "Computer Vision"
+LIST FROM #technology OR #automation WHERE contains(file.outlinks, [[Obstacle_Avoidance]])
