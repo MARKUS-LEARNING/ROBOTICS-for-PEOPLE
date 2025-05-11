@@ -49,21 +49,17 @@ Kinematics is concerned with the relationship between the robot's joint paramete
 ### Key Equations in Kinematics
 
 - **Forward Kinematics Equation**:
-  $$
-  T = f(\theta_1, \theta_2, \ldots, \theta_n)
-  $$
+  $$T = f(\theta_1, \theta_2, \ldots, \theta_n)$$
   where $T$ is the transformation matrix representing the position and orientation of the end-effector, and $\theta_1, \theta_2, \ldots, \theta_n$ are the joint variables. This equation is fundamental in [[Forward_Kinematics|Forward Kinematics]].
   <br></br>
 
 - **Jacobian Matrix**:
-  $$
-  J = \begin{bmatrix}
+  $$J = \begin{bmatrix}
   \frac{\partial f_1}{\partial \theta_1} & \frac{\partial f_1}{\partial \theta_2} & \cdots & \frac{\partial f_1}{\partial \theta_n} \\
   \frac{\partial f_2}{\partial \theta_1} & \frac{\partial f_2}{\partial \theta_2} & \cdots & \frac{\partial f_2}{\partial \theta_n} \\
   \vdots & \vdots & \ddots & \vdots \\
   \frac{\partial f_m}{\partial \theta_1} & \frac{\partial f_m}{\partial \theta_2} & \cdots & \frac{\partial f_m}{\partial \theta_n}
-  \end{bmatrix}
-  $$
+  \end{bmatrix}$$
   where $J$ is the Jacobian matrix, $f_i$ are the forward kinematic equations, and $\theta_i$ are the joint variables. The Jacobian matrix is crucial for understanding the relationship between joint velocities and end-effector velocities.
 
 ---
@@ -85,12 +81,10 @@ Dynamics involves the study of the forces and torques that act on a robotic syst
 ### Key Equations in Dynamics
 
 - **Newton-Euler Equations**:
-  $$
-  \begin{cases}
+  $$\begin{cases}
   \sum F = m \cdot a \\
   \sum \tau = I \cdot \alpha
-  \end{cases}
-  $$
+  \end{cases}$$
   where $\sum F$ is the sum of forces, $m$ is the mass, $a$ is the acceleration, $\sum \tau$ is the sum of torques, $I$ is the moment of inertia, and $\alpha$ is the angular acceleration. These equations are fundamental in dynamics.
   <br></br>
 
