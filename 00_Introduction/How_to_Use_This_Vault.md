@@ -27,20 +27,20 @@ Welcome to your **Robotics Obsidian Vault**! This guide explains how to navigate
 
 This vault organizes knowledge into core thematic folders, detailed in the [[Vault_Taxonomy_Guide]]. Key areas include:
 
-- **`00_Introduction`**: 
+- **`00_Introduction`**: An overview of the field of robotics, its significance, and the scope of the course.
 - **`01_Fundamentals_of_Robotics`**: Definitions of fundamental robotics terms.
-- **`02_Mathematics_for_Robotics**: The mathematics of robot motion and forces.
+- **`02_Mathematics_for_Robotics`**: The mathematics of robot motion and forces.
 - **`03_Kinematics_and_Dynamics`**: How robots sense and interpret their environment.
 - **`04_Sensors_and_Perception`**: Autonomy, machine learning, and control strategies.
-- **`05_AI_and_Machine_Learning`**: [[ROS_2_Overview]] and related tools like [[Gazebo_Simulator]].
+- **`05_AI_and_Machine_Learning`**: Overview of [[ROS_2_Overview]] and related tools like [[Gazebo_Simulator]].
 - **`06_Robot_Control`**: Profiles of [[Industrial_Arms]], [[Mobile_Robots]], [[Humanoid_Robots]], etc.
 - **`07_Robot_Operating_System_(ROS)`**: Timelines [[History_of_Robotics]], [[Future_Trends_2025-2035]], and [[Robot_Ethics_and_Policy_Debates]].
-- **`08_Robot_Types_and_Applications`**: [[Python_ROS_Nodes]], [[C++_Motion_Planning]], and practical examples.
+- **`08_Robot_Types_and_Applications`**: Examples and applications of [[Python_ROS_Nodes]], [[C++_Motion_Planning]], and practical examples.
 - **`09_Advanced_Topics`**: Hands-on work like [[Turtlesim_Projects]] and [[Sim2Real_Experiments]].
-- **`10_Research_and_Development`**: External [[MOOCs_and_Courses]], [[Research_Papers_Index]], [[Simulators_and_IDEs]].
-- **`11_Practical_Implementation`**: External [[MOOCs_and_Courses]], [[Research_Papers_Index]], [[Simulators_and_IDEs]].
-- **`12_Labs_and_Tutorials`**: External [[MOOCs_and_Courses]], [[Research_Papers_Index]], [[Simulators_and_IDEs]].
-- **`13_Tools_References_and_Links`**: External [[MOOCs_and_Courses]], [[Research_Papers_Index]], [[Simulators_and_IDEs]].
+- **`10_Research_and_Development`**: External resources including [[MOOCs_and_Courses]], [[Research_Papers_Index]], [[Simulators_and_IDEs]].
+- **`11_Practical_Implementation`**: External resources including [[MOOCs_and_Courses]], [[Research_Papers_Index]], [[Simulators_and_IDEs]].
+- **`12_Labs_and_Tutorials`**: External resources including [[MOOCs_and_Courses]], [[Research_Papers_Index]], [[Simulators_and_IDEs]].
+- **`13_Tools_References_and_Links`**: External resources including [[MOOCs_and_Courses]], [[Research_Papers_Index]], [[Simulators_and_IDEs]].
 
 Refer to the [[Vault_Taxonomy_Guide]] for detailed folder descriptions and tagging strategies.
 
