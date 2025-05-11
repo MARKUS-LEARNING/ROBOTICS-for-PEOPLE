@@ -28,6 +28,9 @@ related:
 **Computer Vision** is a field of study that seeks to develop techniques to help computers "see" and interpret visual data from the world. It enables robots to understand and interact with their environment through image processing and analysis. Computer vision involves methods for acquiring, processing, analyzing, and understanding digital images, and extracting high-dimensional data from the real world to produce numerical or symbolic information.
 
 ---
+![1746635084329](https://github.com/user-attachments/assets/2de73afb-c9df-4165-92c3-d59f5d649fca)
+<font size=1>*source: https://www.mathworks.com/discovery/computer-vision/_jcr_content/mainParsys/band_1231704498_copy/mainParsys/lockedsubnav/mainParsys/columns/4d6875cb-8556-43eb-9393-53bcec9e3682/image_copy.adapt.full.medium.jpg/1746635084329.jpg](https://www.mathworks.com/discovery/computer-vision.html*</font>
+---
 
 ## Key Concepts
 
