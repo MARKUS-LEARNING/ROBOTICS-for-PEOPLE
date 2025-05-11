@@ -16,7 +16,7 @@ related:
   - "[[Vault_Taxonomy_Guide]]"
 ---
 
-# 🎯 Vault Purpose and Scope
+# Vault Purpose and Scope
 
 This vault is a **living knowledge system** for understanding, exploring, and documenting the field of **modern robotics**, with an emphasis on:
 
@@ -33,7 +33,7 @@ To become a lifelong reference and creative lab for building and applying roboti
 
 ---
 
-## 🧩 Scope
+## Scope
 
 This vault is organized around the **core components of robotics**, including:
 
@@ -48,7 +48,7 @@ This vault is organized around the **core components of robotics**, including:
 
 ---
 
-## 🧠 Key Use Cases
+## Key Use Cases
 
 - Track evolving understanding of robotics concepts and tools
 - Build cross-linked reference notes for research or implementation
@@ -58,7 +58,7 @@ This vault is organized around the **core components of robotics**, including:
 
 ---
 
-## 🛠️ Philosophy
+## Philosophy
 
 This vault supports:
 - **Incremental learning** — grow your knowledge step-by-step
