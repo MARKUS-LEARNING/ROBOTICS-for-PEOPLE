@@ -28,7 +28,7 @@ related:
 **RGB-D Sensor** is a type of sensor that captures both color (RGB) and depth (D) information, providing a comprehensive representation of the environment. It is widely used in robotics for tasks such as object recognition, navigation, and interaction with the environment. RGB-D sensors combine traditional color imaging with depth sensing, enabling robots to perceive and interpret their surroundings in three dimensions.
 
 ---
-![[RGB-D-data-recorded-by-Kinect-Camera.png]]
+![RGB-D-data-recorded-by-Kinect-Camera](https://github.com/user-attachments/assets/deab6e11-9282-4b72-a8df-9626916b1759)
 <font size=1>*source: https://www.researchgate.net/figure/RGB-D-data-recorded-by-Kinect-Camera_fig2_346715146*</font>
 ---
 
