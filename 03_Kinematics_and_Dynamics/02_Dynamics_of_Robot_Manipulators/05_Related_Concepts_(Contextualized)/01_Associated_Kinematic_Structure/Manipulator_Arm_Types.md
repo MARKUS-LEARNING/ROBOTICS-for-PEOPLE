@@ -31,6 +31,9 @@ Robot manipulators, particularly [[Industrial_Arms]], are typically classified b
 The most common joint types are [[Revolute_Joint|Revolute (R)]] (rotary) and [[Prismatic_Joint|Prismatic (P)]] (sliding/linear).
 
 ---
+![armtypes](https://github.com/user-attachments/assets/78b10059-c7c0-4d0e-83d2-8d739a276f4a)
+<font size=1>*source: https://free3d.com/3d-model/hexapod-platform-9826.html*</font>
+---
 
 ## Common Serial Manipulator Configurations
 
@@ -91,3 +94,6 @@ These configurations describe the first three joints starting from the base:
 
 Most positioning structures are combined with a wrist mechanism, typically comprising 2 or 3 Revolute joints, to provide orientation capabilities for the end-effector. A common configuration is a **spherical wrist**, where the axes of three R joints intersect at a single point (the wrist center). This design simplifies the inverse kinematics problem.
 
+---
+```dataview
+LIST FROM #robotics OR #manipulator WHERE contains(file.outlinks, [[Manipulator_Arm_Types]])
