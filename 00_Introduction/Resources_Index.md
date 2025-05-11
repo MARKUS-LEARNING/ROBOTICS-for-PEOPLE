@@ -21,13 +21,13 @@ related:
   - "[[Hardware_Shopping_List]]"
 ---
 
-# 🧰 Resources Index
+# Resources Index
 
 This is the master index for key external resources, tools, and references curated within the Robotics Vault. Use the internal links below (like `[[MOOCs_and_Courses]]`) to navigate to more detailed lists within this vault.
 
 ---
 
-## 📚 Core Textbooks & Reading
+## Core Textbooks & Reading
 
 Essential texts covering fundamental robotics concepts.
 
@@ -48,7 +48,7 @@ Links to seminal papers, surveys, and influential whitepapers. See [[Research_Pa
 
 ---
 
-## 🎓 Online Courses & MOOCs [[MOOCs_and_Courses]]
+## Online Courses & MOOCs [[MOOCs_and_Courses]]
 
 High-quality online learning materials. Find more at [[MOOCs_and_Courses]].
 
@@ -58,12 +58,11 @@ High-quality online learning materials. Find more at [[MOOCs_and_Courses]].
 
 ---
 
-## 🎥 YouTube Channels [[Best_YouTube_Channels]]
+## YouTube Channels [[Best_YouTube_Channels]]
 
 Valuable video resources for learning and staying updated. See [[Best_YouTube_Channels]] for more channels.
 
 - [Robotics with ROS](https://www.youtube.com/c/TheConstruct)
-- [Sebastian Castro – Math for Robotics](https://www.youtube.com/@sebastianrobotics)
 - [NVIDIA AI and Robotics](https://www.youtube.com/@NVIDIADeveloper)
 
 ---
@@ -78,7 +77,7 @@ Software for simulation, development, and visualization. Explore more options in
 
 ---
 
-## 🛒 Hardware & Kits [[Hardware_Shopping_List]]
+## Hardware & Kits [[Hardware_Shopping_List]]
 
 Platforms and components for building and experimenting. Check [[Hardware_Shopping_List]] for curated items.
 
@@ -88,7 +87,7 @@ Platforms and components for building and experimenting. Check [[Hardware_Shoppi
 
 ---
 
-## 📦 Obsidian Plugins (Recommended)
+## Obsidian Plugins (Recommended)
 
 Plugins enhancing the functionality of this vault.
 
@@ -99,7 +98,7 @@ Plugins enhancing the functionality of this vault.
 
 ---
 
-## 🧠 AI & Robotics Labs [[Key_Figures_and_Labs]]
+## AI & Robotics Labs [[Key_Figures_and_Labs]]
 
 Prominent research institutions driving innovation. See [[Key_Figures_and_Labs]] for more detail.
 
@@ -109,7 +108,7 @@ Prominent research institutions driving innovation. See [[Key_Figures_and_Labs]]
 
 ---
 
-## 🗃️ Notes Referencing This Index
+## Notes Referencing This Index
 
 This Dataview query shows which notes in your vault link back to this `Resources_Index` page, helping you trace how resources are used. Ensure notes reference this page in their `related:` frontmatter field (e.g., `related: ["[[Resources_Index]]"]`).
 
