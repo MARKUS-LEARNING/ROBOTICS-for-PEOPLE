@@ -33,7 +33,7 @@ related:
 The **Stewart Platform** is a type of parallel manipulator consisting of six prismatic joints connecting a base platform to a moving platform, providing six degrees of freedom. It is widely used in applications requiring precise positioning and orientation, such as flight simulators, robotic manufacturing, and medical devices. The platform's design allows for high stiffness, accuracy, and load-bearing capacity.
 
 ---
-<img src="https://preview.free3d.com/img/2015/08/2704897858003273656/zbqpc3v1.jpg"></img>
+![stewart_platform](https://github.com/user-attachments/assets/a6ff99b8-074e-4f38-9792-35201832cd3c)
 <font size=1>*source: https://free3d.com/3d-model/hexapod-platform-9826.html*</font>
 ---
 
