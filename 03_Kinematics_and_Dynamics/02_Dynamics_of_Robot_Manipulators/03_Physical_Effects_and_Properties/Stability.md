@@ -54,10 +54,15 @@ An equilibrium point is a state where the system's variables remain constant ove
 
 Lyapunov stability is a method for analyzing the stability of a system without solving the differential equations directly. It involves finding a Lyapunov function $V(x)$ that satisfies certain conditions to prove stability.
 
-- **Lyapunov Function**:
-  $$
-  V(x) > 0 \quad \text{and} \quad \dot{V}(x) \leq 0
-  $$
+**Lyapunov Function Conditions**:
+
+Let $\dot{x} = f(x) \)$ and $x = 0$ be an equilibrium point. A function $V(x)$ is a Lyapunov function if:
+
+- $V(0) = 0$
+- $V(x) > 0$ for all $x \neq 0$
+- $\dot{V}(x) = \frac{\partial V}{\partial x} f(x) \leq 0$
+
+
   where $V(x)$ is a positive definite function, and $\dot{V}(x)$ is its time derivative. If $\dot{V}(x) < 0$, the system is asymptotically stable.
 
 ### Root Locus
