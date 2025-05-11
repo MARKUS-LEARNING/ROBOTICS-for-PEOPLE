@@ -36,7 +36,7 @@ related:
 
 2. **Lever Arm**: The perpendicular distance from the pivot point to the line of action of the force. The lever arm determines the effectiveness of the force in producing torque.
 
-3. **Angular Acceleration**: The rate of change of angular velocity, which is directly related to torque through the moment of inertia.
+3. **Angular Acceleration**: The moment of inertia is a tensor that relates angular velocity to angular momentum and affects how a rigid body responds to torques.
 
 4. **Moment of Inertia**: A measure of an object's resistance to rotational acceleration, which depends on its mass distribution.
 
