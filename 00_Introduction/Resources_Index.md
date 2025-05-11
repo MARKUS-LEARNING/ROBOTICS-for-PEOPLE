@@ -62,15 +62,6 @@ High-quality online learning materials. Find more at [[MOOCs_and_Courses]].
 
 ---
 
-## YouTube Channels [[Best_YouTube_Channels]]
-
-Valuable video resources for learning and staying updated. See [[Best_YouTube_Channels]] for more channels.
-
-- [Robotics with ROS](https://www.youtube.com/c/TheConstruct)
-- [NVIDIA AI and Robotics](https://www.youtube.com/@NVIDIADeveloper)
-
----
-
 ## ⚙️ Simulators & Tools [[Simulators_and_IDEs]]
 
 Software for simulation, development, and visualization. Explore more options in [[Simulators_and_IDEs]].
