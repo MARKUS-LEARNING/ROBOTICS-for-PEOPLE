@@ -30,11 +30,15 @@ This is the master index for key external resources, tools, and references curat
 ## Core Textbooks & Reading
 
 Essential texts covering fundamental robotics concepts.
-
+### Robotics
 - *Introduction to Autonomous Robots* – Correll, Bekris, et al.
 - *Probabilistic Robotics* – Sebastian Thrun, Wolfram Burgard, Dieter Fox
 - *Modern Robotics: Mechanics, Planning, and Control* – Kevin M. Lynch & Frank C. Park
 - *Robot Modeling and Control* – Mark W. Spong, Seth Hutchinson
+### AI
+- *Deep Learning* - Goodfellow, Bengio, Courville
+- *Reinforcement Learning: An Introduction* - Sutton, Barto
+- *Artificial Intelligence: A Modern Approach* - Russell, Norvig
 
 ---
 
