@@ -12,13 +12,13 @@ permalink: /robotics-vault-dashboard/
 related:
 ---
 
-# 🧭 Robotics Vault Dashboard
+# Robotics Vault Dashboard
 
 Welcome to your Robotics Vault! Use this dashboard to explore your vault dynamically using [Dataview](https://blacksmithgu.github.io/obsidian-dataview/).
 
 ---
 
-## 📘 Glossary Terms
+## Glossary Terms
 
 ```dataview
 table title, tags
@@ -28,7 +28,7 @@ sort file.name asc
 
 ---
 
-## 🤖 Robot Types
+## Robot Types
 
 ```dataview
 table title, tags
@@ -38,7 +38,7 @@ sort file.name asc
 
 ---
 
-## 📐 Kinematics & Dynamics
+## Kinematics & Dynamics
 
 ```dataview
 table title, tags
@@ -47,7 +47,7 @@ from "02_Kinematics_and_Dynamics"
 
 ---
 
-## 🧠 AI & Control
+## AI & Control
 
 ```dataview
 table title, tags
@@ -56,7 +56,7 @@ from "04_AI_and_Robot_Control"
 
 ---
 
-## 🔬 Sensors & Perception
+## Sensors & Perception
 
 ```dataview
 table title, tags
@@ -65,7 +65,7 @@ from "03_Sensors_and_Perception"
 
 ---
 
-## 🛠️ Coding & ROS Tools
+## Coding & ROS Tools
 
 ```dataview
 table title, tags
@@ -74,7 +74,7 @@ from "08_Coding_and_Implementation"
 
 ---
 
-## 🧪 Labs and Projects
+## Labs and Projects
 
 ```dataview
 table title, tags
@@ -83,7 +83,7 @@ from "09_Labs_Projects_and_Tutorials"
 
 ---
 
-## 🧵 Historical & Future Trends
+## Historical & Future Trends
 
 ```dataview
 table title, tags
@@ -92,7 +92,7 @@ from "07_Robotics_History_and_Future"
 
 ---
 
-## 📚 Reference Tools
+## Reference Tools
 
 ```dataview
 table title, tags
