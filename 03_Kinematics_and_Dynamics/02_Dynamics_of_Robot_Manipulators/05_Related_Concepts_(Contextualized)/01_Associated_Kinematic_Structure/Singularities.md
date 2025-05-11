@@ -87,5 +87,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ### List of Related Concepts
 ```dataview
-list from "Robot Design" or "Kinematics and Dynamics" or "Control Systems"
-```
+LIST FROM #robotics OR #mathematics WHERE contains(file.outlinks, [[Singularities]])
