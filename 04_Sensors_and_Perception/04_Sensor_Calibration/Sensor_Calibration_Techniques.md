@@ -4,7 +4,7 @@ description: "Explains the process and common techniques used for calibrating va
 tags: [sensor, calibration, perception, estimation, accuracy, camera-calibration, imu-calibration, lidar-calibration, extrinsic-calibration, intrinsic-calibration, kinematic-calibration] 
 layout: default
 category: robotics
-author: Jordan_Smith_&_Gemini 
+author: Jordan_Smith_&_le_Chat
 date: 2025-04-28 # Updated date for revision
 permalink: /sensor_calibration_techniques/
 related: ["[[Sensor]]", "[[Perception]]", "[[Sensor_Fusion]]", "[[Camera_Systems]]", "[[LIDAR]]", "[[IMU_Sensors]]", "[[Kinematics]]", "[[Extrinsic Calibration]]", "[[Intrinsic Calibration]]", "[[Hand-Eye Calibration]]"] 
@@ -89,3 +89,11 @@ Most calibration procedures involve these steps:
 
 Calibration can be performed **offline** (e.g., in a lab before deployment) or **online** (during operation, sometimes called self-calibration). Online methods are often less comprehensive but can track time-varying parameters like biases. Accurate sensor calibration is fundamental for achieving high performance in robotic systems that rely on sensor feedback.
 
+---
+## Dataview Plugin Features
+
+To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
+
+### List of Related Concepts
+```dataview
+LIST FROM #robotics OR #navigation WHERE contains(file.outlinks, [[Sensor_Calibration_Techniques]])
