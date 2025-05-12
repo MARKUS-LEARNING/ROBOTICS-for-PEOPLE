@@ -83,4 +83,4 @@ To leverage the power of the Dataview plugin, you can use the following queries 
 
 - **List all algorithms related to the shortest path problem**:
   ```dataview
-  LIST FROM #Algorithms WHERE contains(file.outlinks, [[Shortest Path]])
+  LIST FROM #Algorithms WHERE contains(file.outlinks, [[Shortest_Path]])
