@@ -11,7 +11,7 @@ tags:
   - automation
 layout: default
 category: robotics
-author: Jordan_Smith_&_Gemini
+author: Jordan_Smith_&_le_Chat
 date: 2025-05-02
 permalink: /a_star_algorithm/
 related:
@@ -115,4 +115,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-list from "Path Planning" or "Dijkstra's Algorithm" or "Heuristics" or "Graph Theory"
+LIST FROM #robotics OR #deep-learning WHERE contains(file.outlinks, [[Deep_Learning_in_Robotics]])
