@@ -1,4 +1,4 @@
-# ROBOTICS-for-EVERYONE
+# ROBOTICS-for-PEOPLE
 
 ## What It Is
 
@@ -37,4 +37,4 @@ A free, markdown Obsidian-powered textbook + project vault that breaks down robo
 - Contribute to an open-source knowledge base
 - Impress schools, employers, and your future robot overlords
 
-<img width="1000" alt="ROBOTICS-for-EVERYONE_MARKUS_LEARNING" src="https://github.com/user-attachments/assets/82b135a0-1ab7-492f-bbb8-8ae50cf08fa0" />
+![Untitled(18)](https://github.com/user-attachments/assets/07b51613-1381-48f7-8eba-495bc443c662)
