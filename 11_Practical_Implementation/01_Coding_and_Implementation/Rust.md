@@ -17,13 +17,13 @@ date: 2025-05-02
 permalink: /rust_programming_language/
 related:
   - "[[Programming]]"
-  - "[[Software Development]]"
-  - "[[Robot Control]]"
-  - "[[Autonomous Systems]]"
-  - "[[Machine Learning]]"
+  - "[[Software_Development]]"
+  - "[[Robot_Control]]"
+  - "[[Autonomous_Systems]]"
+  - "[[Machine_Learning]]"
 ---
 
-# Rust (Programming Language, extensive and focus on robotics coding examples)
+# Rust (Programming Language)
 
 **Rust** is a modern programming language known for its performance and safety, making it well-suited for developing robust and efficient robotic systems. This entry explores Rust's features and applications in robotics, providing coding examples and best practices. Rust's emphasis on safety and concurrency makes it an excellent choice for developing reliable and scalable robotic applications.
 
@@ -53,16 +53,16 @@ Robotics applications in Rust involve the development of control systems, sensor
 
 ### Control Algorithm
 
-A control algorithm in Rust can be represented as a function that takes sensory inputs and produces control signals, enabling the robot to perform tasks effectively. The control signal \( u(t) \) is given by:
+A control algorithm in Rust can be represented as a function that takes sensory inputs and produces control signals, enabling the robot to perform tasks effectively. The control signal $u(t)$ is given by:
 
 $$
 u(t) = K_p e(t) + K_i \int_0^t e(\tau) d\tau + K_d \frac{de(t)}{dt}
 $$
 
 where:
-- \( u(t) \) is the control signal.
-- \( e(t) \) is the error at time \( t \).
-- \( K_p \), \( K_i \), and \( K_d \) are the proportional, integral, and derivative gains, respectively.
+- $u(t)$ is the control signal.
+- $e(t)$ is the error at time $t$.
+- $K_p$, $K_i$, and $K_d$ are the proportional, integral, and derivative gains, respectively.
 
 ### Example: Sensor Integration
 
