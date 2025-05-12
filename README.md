@@ -9,7 +9,7 @@ A free, markdown Obsidian-powered textbook + project vault that breaks down robo
 ## What's Inside
 
 - **Glossary** of key robotics terms  
-- **Kinematics, Perception, AI Control, ROS**, and more  
+- **Kinematics, Perception, AI Control**, and more  
 - **Code examples** & projects (Python, ROS 2, Rust, Gazebo)  
 - **Future trends**, ethics, and real-world applications  
 
