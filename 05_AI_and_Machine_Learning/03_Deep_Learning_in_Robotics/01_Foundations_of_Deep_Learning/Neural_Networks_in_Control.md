@@ -4,7 +4,7 @@ description: "Explores the application of Artificial Neural Networks (ANNs) for 
 tags: [neural-network, control-theory, AI, machine-learning, deep-learning, reinforcement-learning, adaptive-control, system-identification, neurocontrol] 
 layout: default
 category: robotics
-author: Jordan_Smith_&_Gemini 
+author: Jordan_Smith_&_le_Chat
 date: 2025-04-28 # Updated date for revision
 permalink: /neural_networks_in_control/
 related: ["[[Artificial Intelligence (AI)]]", "[[Machine Learning]]", "[[Deep Learning]]", "[[Reinforcement Learning (RL)]]", "[[Imitation Learning]]", "[[Control Theory]]", "[[Adaptive Control]]", "[[Computed Torque Control]]", "[[System Identification]]", "[[PID_Control]]", "[[AI_and_Robot_Control]]"] 
@@ -65,3 +65,12 @@ Neural networks are employed in various ways within robot control systems:
 
 Despite the challenges, neural networks, particularly deep learning approaches, are increasingly central to advancing robot control, enabling robots to tackle more complex tasks in less structured environments by learning directly from experience and sensor data.
 
+---
+
+## Dataview Plugin Features
+
+To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
+
+### List of Related Concepts
+```dataview
+LIST FROM #robotics OR #machine-learning WHERE contains(file.outlinks, [[Neural_Networks]])
