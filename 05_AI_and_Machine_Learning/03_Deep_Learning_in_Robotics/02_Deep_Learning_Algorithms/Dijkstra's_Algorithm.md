@@ -95,6 +95,5 @@ Dijkstra's algorithm is used in various robotic applications:
 To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
 
 ### List of Related Concepts
-
 ```dataview
-list from "Path Planning" or "A* Algorithm" or "Graph Theory" or "Shortest Path"
+LIST FROM #robotics OR #deep-learning WHERE contains(file.outlinks, [[Deep_Learning_in_Robotics]])
