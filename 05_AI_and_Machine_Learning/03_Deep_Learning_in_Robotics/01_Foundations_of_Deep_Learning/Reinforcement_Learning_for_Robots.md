@@ -4,10 +4,10 @@ description: "Explains Reinforcement Learning (RL) principles and their applicat
 tags: [reinforcement-learning, machine-learning, AI, control-theory, robot-learning, policy-learning, deep-learning, MDP] 
 layout: default
 category: robotics
-author: Jordan_Smith_&_Gemini 
+author: Jordan_Smith_&_le_Chat 
 date: 2025-04-28 # Updated date for revision
 permalink: /reinforcement_learning_for_robots/
-related: ["[[Artificial Intelligence (AI)]]", "[[Machine Learning]]", "[[Deep Learning]]", "[[Neural Networks in Control]]", "[[Control Theory]]", "[[Policy]]", "[[Value Function]]", "[[Markov Decision Process (MDP)]]", "[[Manipulation]]", "[[Locomotion]]", "[[Navigation]]", "[[Imitation Learning]]", "[[AI_and_Robot_Control]]"] 
+related: ["[[Artificial_Intelligence]]", "[[Machine_Learning]]", "[[Deep_Learning]]", "[[Neural_Networks_in_Control]]", "[[Control_Theory]]", "[[Policy]]", "[[Value_Function]]", "[[Markov_Decision_Process_(MDP)]]", "[[Manipulation]]", "[[Locomotion]]", "[[Navigation]]", "[[Imitation_Learning]]", "[[AI_and_Robot_Control]]"] 
 ---
 
 # Reinforcement Learning (RL) for Robots
@@ -87,3 +87,13 @@ Applying RL to real-world physical robots presents significant challenges compar
 
 Despite these hurdles, RL offers a powerful paradigm for endowing robots with adaptive skills and behaviors learned directly from interaction, making it a central focus of current AI and robotics research.
 
+---
+
+## Dataview Plugin Features
+
+To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
+
+### List of Related Concepts
+
+```dataview
+LIST FROM #robotics OR #machine-learning WHERE contains(file.outlinks, [[Reinforcement_Learning_for_Robots]])
