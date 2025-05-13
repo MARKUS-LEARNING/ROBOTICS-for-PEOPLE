@@ -28,7 +28,10 @@ related:
 The **End Effector** is the component of a robotic system that interacts directly with the environment or objects. It is essential for tasks such as grasping, manipulating, and tooling. The design and functionality of the end effector determine the robot's ability to perform specific tasks, making it a critical element in robotic manipulation and interaction.
 
 ---
-![[pexels-photo-8439004.webp]]
+![image](https://github.com/user-attachments/assets/c9d847e7-5afb-494a-a334-cb8fec7a0baa)
+
+
+<font size=1>*source: https://www.tuffautomation.com/blog-1/2020/8/3/types-of-end-effectors*</font>
 ---
 ## Key Concepts
 
