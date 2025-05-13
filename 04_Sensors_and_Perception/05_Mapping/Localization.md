@@ -70,17 +70,25 @@ y_{t-1} \\
 \end{bmatrix}
 $$
 
-  where $(x_t, y_t, \theta_t)$ is the robot's pose at time $t$, $\Delta s$ is the distance traveled, and $\Delta \theta$ is the change in orientation. This equation describes the odometry model for updating the robot's pose based on its movement.
-  <br></br>
+  where $(x_t, y_t, \theta_t)$ is the robot's pose at time $t$, $\Delta s$ is the distance traveled, and $\Delta$ $\theta$ is the change in orientation. This equation describes the odometry model for updating the robot's pose based on its movement.
 
-**Kalman Filter Update Equation**:
+**Kalman Filter Equations**
 
-$$
-\hat{x}_t = \hat{x}_{t-1} + K_t (z_t - H \hat{x}_{t-1})
-$$
+<img width="750" alt="image" src="https://github.com/user-attachments/assets/272ca099-1a5d-4114-8f11-0584f26731a6" />
 
-  where $\hat{x}_t$ is the estimated state at time $t$, $K_t$ is the Kalman gain, $z_t$ is the measurement, $H$ is the observation model, and $\hat{x}_{t-1}$ is the previous state estimate. This equation updates the state estimate based on new measurements.
-  <br></br>
+
+**Notation:**
+- $\hat{\mathbf{x}}$: State estimate
+- $\mathbf{P}$: State covariance
+- $\mathbf{F}$: State transition matrix
+- $\mathbf{B}$: Control input matrix
+- $\mathbf{u}$: Control vector
+- $\mathbf{Q}$: Process noise covariance
+- $\mathbf{H}$: Observation matrix
+- $\mathbf{R}$: Measurement noise covariance
+- $\mathbf{K}$: Kalman gain
+- $\mathbf{y}$: Innovation (measurement residual)
+- $\mathbf{z}$: Measurement vector
 
 **SLAM Measurement Model**:
 
