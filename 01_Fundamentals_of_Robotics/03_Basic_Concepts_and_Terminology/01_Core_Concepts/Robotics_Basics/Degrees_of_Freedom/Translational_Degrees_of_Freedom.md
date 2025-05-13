@@ -39,7 +39,7 @@ Translational motion involves movement along a straight line without rotation. I
 
 ### Cartesian Coordinates
 
-Cartesian coordinates are commonly used to describe translational motion in three-dimensional space. They define the position of a point using three coordinates: \(x\), \(y\), and \(z\).
+Cartesian coordinates are commonly used to describe translational motion in three-dimensional space. They define the position of a point using three coordinates: $x$, $y$, and $z$.
 
 ### Workspace Analysis
 
@@ -57,17 +57,17 @@ $$
 \mathbf{p} = \begin{bmatrix} x \\ y \\ z \end{bmatrix}
 $$
 
-where \(x\), \(y\), and \(z\) are the coordinates along the respective axes.
+where $x$, $y$, and $z$ are the coordinates along the respective axes.
 
 ### Translational Motion Equation
 
-The translational motion of a point from an initial position \(\mathbf{p}_0\) to a final position \(\mathbf{p}_f\) can be described by:
+The translational motion of a point from an initial position $\mathbf{p}_0$ to a final position $\mathbf{p}_f$ can be described by:
 
 $$
 \mathbf{p}_f = \mathbf{p}_0 + \mathbf{d}
 $$
 
-where \(\mathbf{d}\) is the displacement vector:
+where $\mathbf{d}$ is the displacement vector:
 
 $$
 \mathbf{d} = \begin{bmatrix} \Delta x \\ \Delta y \\ \Delta z \end{bmatrix}
@@ -75,7 +75,7 @@ $$
 
 ### Example: Robotic Arm
 
-Consider a robotic arm with three translational joints (prismatic joints) that allow linear motion along the \(x\), \(y\), and \(z\) axes. The position of the end-effector can be described by:
+Consider a robotic arm with three translational joints (prismatic joints) that allow linear motion along the $x$, $y$, and $z$ axes. The position of the end-effector can be described by:
 
 $$
 \mathbf{p} = \begin{bmatrix} x \\ y \\ z \end{bmatrix}
