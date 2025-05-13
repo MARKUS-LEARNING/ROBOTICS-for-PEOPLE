@@ -61,9 +61,7 @@ Transformations in Euclidean space, such as translations and rotations, are used
 
 The Euclidean distance between two points $\mathbf{p}_1$ and $\mathbf{p}_2$ in $n$ -dimensional space is given by:
 
-$$
-d(\mathbf{p}_1, \mathbf{p}_2) = \sqrt{\sum_{i=1}^{n} (p_{1i} - p_{2i})^2}
-$$
+<img width="348" alt="image" src="https://github.com/user-attachments/assets/19af66a4-91e7-4026-9eec-972807110dcd" />
 
 
 ​
