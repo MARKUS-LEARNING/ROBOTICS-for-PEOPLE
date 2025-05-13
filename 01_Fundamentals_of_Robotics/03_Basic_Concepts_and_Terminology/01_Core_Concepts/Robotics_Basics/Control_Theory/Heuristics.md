@@ -26,6 +26,10 @@ related:
 **Heuristics** are strategies or rules of thumb designed to produce good, though not necessarily optimal, solutions to problems. They are widely used in decision-making and problem-solving, particularly in situations where finding an optimal solution is computationally expensive or impractical. Heuristics simplify the problem-solving process by providing approximate solutions quickly, making them valuable in fields such as artificial intelligence, optimization, and game theory.
 
 ---
+![image](https://github.com/user-attachments/assets/7cbc8ab7-64a7-49a1-abc7-326235f6d518)
+
+<font size=1>*source: https://www.researchgate.net/figure/The-main-aspects-that-influence-a-robotics-task-that-includes-affordances-with_fig2_340683460*</font>
+---
 
 ## Key Concepts
 
