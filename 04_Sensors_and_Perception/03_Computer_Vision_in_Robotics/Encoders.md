@@ -64,24 +64,30 @@ related:
 ## Key Equations
 
 - **Resolution of an Incremental Encoder**:
-  $$
-  \text{Resolution} = \frac{360^\circ}{N}
-  $$
-  where $N$ is the number of pulses per revolution.
+
+$$
+\text{Resolution} = \frac{360^\circ}{N}
+$$
+
+where $N$ is the number of pulses per revolution.
   <br></br>
 
 - **Velocity Calculation**:
-  $$
-  v = \frac{\Delta \theta}{\Delta t}
-  $$
-  where $v$ is the angular velocity, $\Delta \theta$ is the change in angle, and $\Delta t$ is the change in time.
-  <br></br>
+
+$$
+v = \frac{\Delta \theta}{\Delta t}
+$$
+
+where $v$ is the angular velocity, $\Delta \theta$ is the change in angle, and $\Delta t$ is the change in time.
+<br></br>
 
 - **Position Feedback**:
-  $$
-  \theta(t) = \theta_0 + \int_{0}^{t} \omega(\tau) \, d\tau
-  $$
-  where $\theta(t)$ is the position at time $t$, $\theta_0$ is the initial position, and $\omega(\tau)$ is the angular velocity over time.
+
+$$
+\theta(t) = \theta_0 + \int_{0}^{t} \omega(\tau) \, d\tau
+$$
+
+where $\theta(t)$ is the position at time $t$, $\theta_0$ is the initial position, and $\omega(\tau)$ is the angular velocity over time.
 
 ---
 
