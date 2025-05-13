@@ -27,9 +27,6 @@ related:
   - "[[Nanorobots]]"
   - "[[Glossary]]"
 ---
-<img src=" "></img>
-<font size=1>*source: *</font>
----
 
 # Power Density
 
@@ -37,6 +34,10 @@ related:
 
 A closely related and often more critical metric in robotics, especially for mobile systems, is **Specific Power**, also commonly known as **Power-to-Weight Ratio**. This measures the power relative to the component's or system's **mass**, typically expressed in Watts per kilogram ($W/kg$).
 
+---
+<img width="510" alt="Screenshot 2025-05-13 at 16 16 59" src="https://github.com/user-attachments/assets/0d6b498c-f709-4ced-85de-8aa82b8a60c2" />
+
+<font size=1>*source: https://www.vicorpower.com/resource-library/articles/robotics/six-questions-to-consider-before-designing-your-robots-power-arc*</font>
 ---
 
 ## Relevance in Robotics
