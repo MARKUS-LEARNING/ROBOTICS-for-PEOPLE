@@ -51,23 +51,29 @@ related:
 ## Key Equations
 
 - **Control System Dynamics**:
-  $$
-  \tau = J^T \cdot F
-  $$
+
+$$
+\tau = J^T \cdot F
+$$
+  
   where $\tau$ is the torque applied by the actuators, $J$ is the Jacobian matrix that relates joint velocities to end-effector velocities, and $F$ is the force exerted by the end-effector.
   <br></br>
 
 - **Sensor Fusion**:
-  $$
-  \hat{x} = \frac{\sum_{i=1}^{n} w_i \cdot x_i}{\sum_{i=1}^{n} w_i}
-  $$
+
+$$
+\hat{x} = \frac{\sum_{i=1}^{n} w_i \cdot x_i}{\sum_{i=1}^{n} w_i}
+$$
+
   where $\hat{x}$ is the fused estimate, $x_i$ are the individual sensor measurements, and $w_i$ are the weights assigned to each sensor based on their reliability or accuracy.
   <br></br>
 
 - **PID Control**:
-  $$
-  u(t) = K_p \cdot e(t) + K_i \cdot \int e(t) \, dt + K_d \cdot \frac{de(t)}{dt}
-  $$
+
+$$
+u(t) = K_p \cdot e(t) + K_i \cdot \int e(t) \, dt + K_d \cdot \frac{de(t)}{dt}
+$$
+
   where $u(t)$ is the control input, $K_p$ is the proportional gain, $e(t)$ is the error, $K_i$ is the integral gain, and $K_d$ is the derivative gain.
 
 ---
