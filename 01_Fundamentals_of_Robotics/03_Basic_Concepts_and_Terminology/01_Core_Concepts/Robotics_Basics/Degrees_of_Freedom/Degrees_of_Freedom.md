@@ -34,10 +34,9 @@ related:
 **Degrees of Freedom (DoF)** refers to the minimum number of independent parameters required to completely specify the configuration (position and orientation) of a mechanism or a body in space. It quantifies the independent ways a system can move, providing insight into its mobility and control complexity. Understanding DoF is crucial for designing robots that can effectively interact with their environment.
 
 ---
-![image](https://github.com/user-attachments/assets/3e6ba0f5-8938-4b8f-bc1c-68031a173861)
+![image](https://github.com/user-attachments/assets/ceac21fd-7e77-487c-bf76-0c78e2410209)
 
-
-<font size=1>*source: https://medium.com/@khalil_idrissi/degrees-of-freedom-of-a-robot-c21624060d25*</font>
+<font size=1>*source: https://medium.com/@tomtenner/the-kutzbach-criterion-e1592ef88bd1*</font>
 ---
 
 ## Degrees of Freedom (DoF) Calculation
