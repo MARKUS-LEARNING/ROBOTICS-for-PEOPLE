@@ -29,8 +29,9 @@ related:
 **Statics** is the branch of mechanics that deals with the analysis of forces and moments on bodies at rest. It focuses on understanding how forces and moments interact to maintain equilibrium in physical systems. Statics is fundamental in engineering and physics, providing the basis for analyzing the stability and balance of structures, machines, and other mechanical systems.
 
 ---
-<img src=" "></img>
-<font size=1>*source: *</font>
+<img width="735" alt="image" src="https://github.com/user-attachments/assets/43301fd3-69bf-4ea6-836e-c3c6a64684d2" />
+
+<font size=1>*source: https://www.youtube.com/watch?v=eBti6XIoR5U*</font>
 ---
 
 ## Key Concepts in Statics
