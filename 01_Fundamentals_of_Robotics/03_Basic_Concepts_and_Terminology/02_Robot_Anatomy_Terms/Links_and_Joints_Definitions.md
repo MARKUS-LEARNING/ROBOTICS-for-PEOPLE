@@ -31,8 +31,12 @@ related:
 **Links and Joints Definitions** are fundamental concepts in robotics, describing the structural components and connections that enable motion in mechanical systems. Links are the rigid bodies that make up the structure of a robotic system, while joints are the connections between links that allow relative motion. Understanding these components is crucial for designing and analyzing robotic mechanisms.
 
 ---
-![[1_-8OT68AShLEt53Ho6_mckA.webp]]
+![image](https://github.com/user-attachments/assets/ffe3f005-3e6e-4cfc-b12e-bd6e0ebafa9c)
+
+
+<font size=1>*source: https://www.mdpi.com/1996-1073/14/20/6690*</font>
 ---
+
 ## Key Concepts
 
 ### Links
