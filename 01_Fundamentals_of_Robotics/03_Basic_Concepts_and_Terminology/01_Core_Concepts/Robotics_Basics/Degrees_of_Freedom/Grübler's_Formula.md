@@ -29,6 +29,11 @@ related:
 **Grübler's Formula** is used to calculate the degrees of freedom (mobility) of a kinematic chain or mechanism. It is essential for understanding and designing robotic systems, as it provides insight into how many independent parameters are needed to define the configuration of the mechanism. This formula is particularly useful in robotics for analyzing the mobility of robotic manipulators and other mechanical systems.
 
 ---
+![image](https://github.com/user-attachments/assets/3e6ba0f5-8938-4b8f-bc1c-68031a173861)
+
+
+<font size=1>*source: https://medium.com/@khalil_idrissi/degrees-of-freedom-of-a-robot-c21624060d25*</font>
+---
 
 ## Key Concepts
 
