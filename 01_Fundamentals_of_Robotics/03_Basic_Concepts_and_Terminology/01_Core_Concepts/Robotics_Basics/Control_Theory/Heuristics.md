@@ -54,17 +54,21 @@ related:
 Heuristics can be mathematically represented in various ways, depending on the problem and the algorithm used:
 
 - **Heuristic Function**: In search algorithms, a heuristic function $h(n)$ estimates the cost from a node $n$ to the goal. For example, in A* search:
-  $$
-  f(n) = g(n) + h(n)
-  $$
-  <br>
+
+$$
+f(n) = g(n) + h(n)
+$$
+<br>
+  
   where $f(n)$ is the estimated total cost from the start to the goal through node $n$, $g(n)$ is the cost from the start to $n$, and $h(n)$ is the heuristic estimate from $n$ to the goal.
   <br><br>
 - **Greedy Choice**: In greedy algorithms, the choice at each step is made to maximize or minimize a local criterion:
-  $$
-  \text{Choose } x \text{ such that } f(x) \text{ is minimized or maximized}
-  $$
-  <br>
+
+$$
+\text{Choose } x \text{ such that } f(x) \text{ is minimized or maximized}
+$$
+<br>
+  
   where $f(x)$ is the local objective function.
   <br>
 
