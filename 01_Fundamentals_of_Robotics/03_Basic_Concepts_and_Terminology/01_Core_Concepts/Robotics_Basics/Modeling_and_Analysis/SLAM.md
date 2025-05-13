@@ -38,8 +38,9 @@ related:
 SLAM addresses a fundamental "chicken-and-egg" problem: to build an accurate map, the robot needs precise knowledge of its own location, but to accurately localize itself, the robot typically needs a reliable map. Solving SLAM enables robots to navigate autonomously in unfamiliar spaces without relying on external infrastructure like GPS or pre-existing maps.
 
 ---
-<img src=" "></img>
-<font size=1>*source: *</font>
+![image](https://github.com/user-attachments/assets/a3074408-2063-47d1-91b7-9ec8b1ea3c03)
+
+<font size=1>*source: https://www.linkedin.com/pulse/beginners-guide-slam-robotics-vedant-nair-peeac/*</font>
 ---
 
 ## Purpose and Motivation
