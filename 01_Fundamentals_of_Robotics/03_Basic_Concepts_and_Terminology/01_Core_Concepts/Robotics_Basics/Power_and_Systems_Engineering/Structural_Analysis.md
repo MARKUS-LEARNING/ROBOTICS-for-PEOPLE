@@ -33,8 +33,9 @@ related:
 **Structural Analysis** is the study of how structures support and resist loads, focusing on the determination of stresses, strains, and deformations in structural components. It is a critical aspect of engineering design, ensuring that structures are safe, stable, and efficient under various loading conditions. Structural analysis is applied in fields such as civil engineering, mechanical engineering, and robotics to optimize the design and performance of structures.
 
 ---
-<img src=" "></img>
-<font size=1>*source: *</font>
+![image](https://github.com/user-attachments/assets/896c9e7c-2ddc-4629-b101-ac362e18a67d)
+
+<font size=1>*source: https://www.autodesk.com/products/robot-structural-analysis/overview*</font>
 ---
 
 ## Key Concepts
