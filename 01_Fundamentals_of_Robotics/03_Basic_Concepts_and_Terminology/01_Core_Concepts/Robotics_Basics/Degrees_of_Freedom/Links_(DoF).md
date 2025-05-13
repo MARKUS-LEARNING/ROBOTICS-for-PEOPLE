@@ -98,13 +98,13 @@ The behavior of links in a robotic system can be mathematically represented usin
 
 ### Kinematic Equations
 
-The position and orientation of a robot's end-effector can be described using homogeneous transformation matrices. For a serial manipulator with \( n \) links, the forward kinematics is given by:
+The position and orientation of a robot's end-effector can be described using homogeneous transformation matrices. For a serial manipulator with $n$ links, the forward kinematics is given by:
 
 $$
 T_n = T_1 \cdot T_2 \cdot \ldots \cdot T_n
 $$
 
-where $T_i$ represents the transformation matrix for the \( i \)-th link.
+where $T_i$ represents the transformation matrix for the $i$-th link.
 
 ### Dynamic Equations
 
