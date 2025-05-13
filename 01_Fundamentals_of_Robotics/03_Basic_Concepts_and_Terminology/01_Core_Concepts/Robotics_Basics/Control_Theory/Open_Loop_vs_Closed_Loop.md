@@ -69,7 +69,7 @@ where $Y(s)$ and $U(s)$ are the Laplace transforms of the output and input, resp
 
 ### Closed-Loop Control
 
-In a closed-loop control system, the output $y(t)$ is fed back to the controller, which adjusts the input $u(t)$based on the error \( e(t) \) between the desired output $r(t)$ and the actual output $y(t)$:
+In a closed-loop control system, the output $y(t)$ is fed back to the controller, which adjusts the input $u(t)$based on the error $e(t)$ between the desired output $r(t)$ and the actual output $y(t)$:
 
 $$
 E(s) = R(s) - Y(s)
