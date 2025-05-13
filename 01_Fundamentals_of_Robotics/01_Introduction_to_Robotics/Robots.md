@@ -114,13 +114,13 @@ The definition and capabilities of robots continue to evolve rapidly with advanc
 
 ### Kinematics
 
-The kinematics of a robot describes the motion of its components without considering the forces involved. For a robotic arm with \( n \) joints, the position and orientation of the end-effector can be described using transformation matrices:
+The kinematics of a robot describes the motion of its components without considering the forces involved. For a robotic arm with $n$ joints, the position and orientation of the end-effector can be described using transformation matrices:
 
 $$
 T = T_1 \cdot T_2 \cdot \ldots \cdot T_n
 $$
 
-where \( T_i \) is the transformation matrix for the \( i \)-th joint.
+where $T_i$ is the transformation matrix for the $i$-th joint.
 
 <br>
 
@@ -132,7 +132,7 @@ $$
 \frac{d}{dt} \left( \frac{\partial L}{\partial \dot{q}} \right) - \frac{\partial L}{\partial q} = \tau
 $$
 
-where \( L = T - V \) is the Lagrangian, \( T \) is the kinetic energy, \( V \) is the potential energy, \( q \) is the generalized coordinate, and \( \tau \) is the applied torque.
+where $L = T - V$ is the Lagrangian, $T$ is the kinetic energy, $V$ is the potential energy, $q$ is the generalized coordinate, and $\tau$ is the applied torque.
 
 <br>
 
@@ -144,7 +144,7 @@ $$
 u(t) = K_p e(t) + K_i \int e(t) \, dt + K_d \frac{de(t)}{dt}
 $$
 
-where \( u(t) \) is the control input, \( e(t) \) is the error between the desired and actual states, and \( K_p \), \( K_i \), and \( K_d \) are the proportional, integral, and derivative gains, respectively.
+where $u(t)$ is the control input, $e(t)$ is the error between the desired and actual states, and $K_p$, $K_i$, and $K_d$ are the proportional, integral, and derivative gains, respectively.
 
 ---
 
