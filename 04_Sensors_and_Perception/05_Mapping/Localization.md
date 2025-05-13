@@ -73,20 +73,20 @@ $$
   where $(x_t, y_t, \theta_t)$ is the robot's pose at time $t$, $\Delta s$ is the distance traveled, and $\Delta \theta$ is the change in orientation. This equation describes the odometry model for updating the robot's pose based on its movement.
   <br></br>
 
-- **Kalman Filter Update Equation**:
+**Kalman Filter Update Equation**:
 
-  $$
-  \hat{x}_t = \hat{x}_{t-1} + K_t (z_t - H \hat{x}_{t-1})
-  $$
+$$
+\hat{x}_t = \hat{x}_{t-1} + K_t (z_t - H \hat{x}_{t-1})
+$$
 
   where $\hat{x}_t$ is the estimated state at time $t$, $K_t$ is the Kalman gain, $z_t$ is the measurement, $H$ is the observation model, and $\hat{x}_{t-1}$ is the previous state estimate. This equation updates the state estimate based on new measurements.
   <br></br>
 
-- **SLAM Measurement Model**:
+**SLAM Measurement Model**:
 
-  $$
-  z_t = h(x_t) + v_t
-  $$
+$$
+z_t = h(x_t) + v_t
+$$
 
   where $z_t$ is the measurement at time $t$, $h(x_t)$ is the measurement function that relates the state $x_t$ to the measurement, and $v_t$ is the measurement noise. This equation is used in SLAM to relate the robot's state to the sensor measurements.
   <br></br>
