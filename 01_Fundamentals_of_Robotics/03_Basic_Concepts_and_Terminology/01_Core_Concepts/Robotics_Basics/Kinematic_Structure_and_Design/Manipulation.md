@@ -28,8 +28,9 @@ related:
 **Manipulation in Robotics** involves the use of robotic systems to interact with and manipulate objects in the environment. It enables tasks such as grasping, moving, and assembling, which are essential for applications in manufacturing, healthcare, and service industries. Manipulation requires precise control of robotic end effectors and the integration of sensors and actuators to perform tasks effectively and adaptively.
 
 ---
-![[ChatGPT Image May 9, 2025, 11_10_50 AM.png]]
-<font size=1>*source: ChatGPT*</font>
+![image](https://github.com/user-attachments/assets/f247b423-b004-4ab3-b93d-fe0bddade3db)
+
+<font size=1>*source: https://www.youtube.com/watch?v=daa7dUMQ_EA*</font>
 ---
 
 ## Key Concepts
