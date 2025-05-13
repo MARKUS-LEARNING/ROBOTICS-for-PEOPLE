@@ -48,31 +48,33 @@ related:
 
 ## Key Equations
 
-- **Odometry Model**:
-  $$
-  \begin{bmatrix}
-  x_{t} \\
-  y_{t} \\
-  \theta_{t}
-  \end{bmatrix}
-  =
-  \begin{bmatrix}
-  x_{t-1} \\
-  y_{t-1} \\
-  \theta_{t-1}
-  \end{bmatrix}
-  +
-  \begin{bmatrix}
-  \Delta s \cdot \cos(\theta_{t-1} + \Delta \theta) \\
-  \Delta s \cdot \sin(\theta_{t-1} + \Delta \theta) \\
-  \Delta \theta
-  \end{bmatrix}
-  $$
+**Odometry Model**:
+
+$$
+\begin{bmatrix}
+x_{t} \\
+y_{t} \\
+\theta_{t}
+\end{bmatrix}
+=**
+\begin{bmatrix}
+x_{t-1} \\
+y_{t-1} \\
+\theta_{t-1}
+\end{bmatrix}
++
+\begin{bmatrix}
+\Delta s \cdot \cos(\theta_{t-1} + \Delta \theta) \\
+\Delta s \cdot \sin(\theta_{t-1} + \Delta \theta) \\
+\Delta \theta
+\end{bmatrix}
+$$
 
   where $(x_t, y_t, \theta_t)$ is the robot's pose at time $t$, $\Delta s$ is the distance traveled, and $\Delta \theta$ is the change in orientation. This equation describes the odometry model for updating the robot's pose based on its movement.
   <br></br>
 
 - **Kalman Filter Update Equation**:
+
   $$
   \hat{x}_t = \hat{x}_{t-1} + K_t (z_t - H \hat{x}_{t-1})
   $$
@@ -81,6 +83,7 @@ related:
   <br></br>
 
 - **SLAM Measurement Model**:
+
   $$
   z_t = h(x_t) + v_t
   $$
