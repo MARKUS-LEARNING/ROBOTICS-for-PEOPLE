@@ -36,8 +36,9 @@ related:
 **Workspace Analysis** is a process used to evaluate and optimize the physical and functional aspects of a workspace to enhance productivity, safety, and efficiency. It involves assessing the layout, design, and ergonomics of a workspace to ensure it meets the needs of its users and supports their tasks effectively.
 
 ---
-![[workspace-analysis2.png]]
-<font size=1>*source: https://www.mdpi.com/2076-3417/10/15/5241*</font>
+![image](https://github.com/user-attachments/assets/6544c206-7141-4bad-a5cc-588b5f93eeff)
+
+<font size=1>*source: https://www.roboticsunveiled.com/robotics-task-space-and-workspace/*</font>
 ---
 
 ## Key Components of Workspace Analysis
