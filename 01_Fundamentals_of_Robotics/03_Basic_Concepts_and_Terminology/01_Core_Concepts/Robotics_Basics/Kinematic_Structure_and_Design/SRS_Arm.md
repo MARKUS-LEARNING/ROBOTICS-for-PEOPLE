@@ -31,8 +31,9 @@ related:
 The **SRS (Selective Redundancy System) Arm** is a type of robotic manipulator designed to provide enhanced dexterity and flexibility through redundant degrees of freedom. This design allows the arm to perform complex tasks in constrained environments by utilizing additional joints that provide more motion capabilities than are strictly necessary for basic tasks. The SRS Arm is particularly useful in applications requiring high precision and adaptability, such as surgery, assembly, and inspection.
 
 ---
-<img src=" "></img>
-<font size=1>*source: *</font>
+![image](https://github.com/user-attachments/assets/3ebca625-0d5b-44c0-8b68-7fc0a7bcf18d)
+
+<font size=1>*source: https://www.mdpi.com/2079-9292/13/16/3304*</font>
 ---
 
 ## Key Concepts
