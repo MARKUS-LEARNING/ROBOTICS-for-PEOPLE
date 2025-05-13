@@ -30,6 +30,11 @@ related:
 **Algebra for Robotics** encompasses the mathematical tools and techniques used to model, analyze, and control robotic systems. It provides the foundation for understanding and designing robotic behaviors, enabling the representation of spatial relationships, motion, and control strategies. Algebra is essential in robotics for tasks such as kinematic analysis, dynamic modeling, and control system design.
 
 ---
+![image](https://github.com/user-attachments/assets/aa87c575-50c8-4544-9baa-accae14018f9)
+
+
+<font size=1>*source: https://fiveable.me/computational-algebraic-geometry/unit-12/algebraic-geometry-robot-kinematics/study-guide/4XvjEgHEI5K8uvZj*</font>
+---
 
 ## Key Concepts
 
