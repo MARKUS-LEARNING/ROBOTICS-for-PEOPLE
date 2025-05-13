@@ -30,6 +30,14 @@ related:
 **Configuration Space** is a mathematical representation of all possible configurations a robotic system can assume. It is essential for motion planning and control in robotics, as it provides a framework for analyzing the feasible configurations of a robot and planning its movements within an environment. The configuration space includes all the possible positions and orientations of the robot's components, such as joint angles and end-effector positions.
 
 ---
+![image](https://github.com/user-attachments/assets/4b89a986-1b0a-47e5-83b1-0128672ad117)
+
+<font size=1>*source: https://www.researchgate.net/figure/Graphical-presentation-of-the-robot-configuration-and-operational-space-as-well-as-the_fig3_276557012*</font>
+
+![image](https://github.com/user-attachments/assets/6e41f78a-468c-4619-a038-380aeb29e01b)
+
+<font size=1>*source: https://www2.math.upenn.edu/~subhrabh/html_cache/c1de2a5f631b57bb62bc5d4335c962ef.html*</font>
+---
 
 ## Key Concepts
 
