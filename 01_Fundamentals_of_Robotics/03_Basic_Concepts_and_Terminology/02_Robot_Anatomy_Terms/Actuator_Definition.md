@@ -29,8 +29,12 @@ related:
 An **Actuator** is a device that converts energy into motion, enabling robotic systems to perform tasks by controlling the movement of mechanical components. Actuators are essential in robotics for driving joints, wheels, and other moving parts, allowing robots to interact with their environment and execute specific functions.
 
 ---
-![[Schnittbild_drehnatrieb_01.jpg]]
+![image](https://github.com/user-attachments/assets/9d6f3412-1e2a-47d6-92f7-21f904b359a2)
+
+
+<font size=1>*source: https://www.researchgate.net/figure/Diagram-of-the-robot-from-actuator-limb-to-the-whole-machine-structure-a-Actuator-is_fig1_356207708*</font>
 ---
+
 ## Key Concepts
 
 ### Types of Actuators
