@@ -51,23 +51,25 @@ related:
 The Kalman Filter is a widely used estimation technique for linear systems. It provides estimates of a system's state by predicting the state and updating it based on sensor measurements:
 
 1. **Prediction Step**:
-   $$
-   x_{k|k-1} = F x_{k-1|k-1} + B u_k
-   $$
-   $$
-   P_{k|k-1} = F P_{k-1|k-1} F^T + Q
-   $$
 
-2. **Update Step**:
-   $$
-   K_k = P_{k|k-1} H^T (H P_{k|k-1} H^T + R)^{-1}
-   $$
-   $$
-   x_{k|k} = x_{k|k-1} + K_k (z_k - H x_{k|k-1})
-   $$
-   $$
-   P_{k|k} = (I - K_k H) P_{k|k-1}
-   $$
+$$
+x_{k|k-1} = F x_{k-1|k-1} + B u_k
+$$
+$$
+P_{k|k-1} = F P_{k-1|k-1} F^T + Q
+$$
+
+3. **Update Step**:
+
+$$
+K_k = P_{k|k-1} H^T (H P_{k|k-1} H^T + R)^{-1}
+$$
+$$
+x_{k|k} = x_{k|k-1} + K_k (z_k - H x_{k|k-1})
+$$
+$$
+P_{k|k} = (I - K_k H) P_{k|k-1}
+$$
 
 where $x$ is the state estimate, $P$ is the estimate covariance, $F$ is the state transition model, $B$ is the control input model, $u_k$ is the control input, $Q$ is the process noise covariance, $H$ is the observation model, $R$ is the measurement noise covariance, $K_k$ is the Kalman gain, and $z_k$ is the measurement.
 
@@ -78,17 +80,19 @@ where $x$ is the state estimate, $P$ is the estimate covariance, $F$ is the stat
 The Particle Filter is a non-parametric estimation technique suitable for non-linear systems. It represents the probability distribution of the state using a set of particles:
 
 1. **Prediction Step**:
-   $$
-   x_k^{(i)} \sim p(x_k | x_{k-1}^{(i)}, u_k)
-   $$
 
-2. **Update Step**:
-   $$
-   w_k^{(i)} = p(z_k | x_k^{(i)})
-   $$
-   $$
-   w_k^{(i)} = \frac{w_k^{(i)}}{\sum_{j=1}^{N} w_k^{(j)}}
-   $$
+$$
+x_k^{(i)} \sim p(x_k | x_{k-1}^{(i)}, u_k)
+$$
+
+3. **Update Step**:
+
+$$
+w_k^{(i)} = p(z_k | x_k^{(i)})
+$$
+$$
+w_k^{(i)} = \frac{w_k^{(i)}}{\sum_{j=1}^{N} w_k^{(j)}}
+$$
 
 where $x_k^{(i)}$ is the state of the $i$-th particle, $w_k^{(i)}$ is the weight of the $i$-th particle, $p(x_k | x_{k-1}^{(i)}, u_k)$ is the state transition probability, and $p(z_k | x_k^{(i)})$ is the measurement likelihood.
 
