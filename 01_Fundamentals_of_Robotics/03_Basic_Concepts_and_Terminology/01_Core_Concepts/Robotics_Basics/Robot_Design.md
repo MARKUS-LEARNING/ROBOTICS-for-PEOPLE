@@ -57,24 +57,30 @@ related:
 
 ## Key Equations
 
-- **Kinematic Chain**:
-  $$
-  T = T_1 \cdot T_2 \cdot \ldots \cdot T_n
-  $$
-  where $T$ is the total transformation matrix, and $T_1, T_2, \ldots, T_n$ are the individual transformation matrices for each link in the kinematic chain.
+**Kinematic Chain**:
+
+$$
+T = T_1 \cdot T_2 \cdot \ldots \cdot T_n
+$$
+  
+  where $T$ is the total transformation matrix, and $T_1$, $T_2$, $\ldots$, $T_n$ are the individual transformation matrices for each link in the kinematic chain.
   <br>
 
-- **Control Law**:
-  $$
-  u(t) = K_p \cdot e(t) + K_d \cdot \dot{e}(t) + K_i \cdot \int e(t) \, dt
-  $$
-  where $u(t)$ is the control input, $K_p$ is the proportional gain, $e(t)$ is the error, $K_d$ is the derivative gain, $\dot{e}(t)$ is the rate of change of the error, and $K_i$ is the integral gain.
+**Control Law**:
+
+$$
+u(t) = K_p \cdot e(t) + K_d \cdot \dot{e}(t) + K_i \cdot \int e(t) \, dt
+$$
+
+where $u(t)$ is the control input, $K_p$ is the proportional gain, $e(t)$ is the error, $K_d$ is the derivative gain, $\dot{e}(t)$ is the rate of change of the error, and $K_i$ is the integral gain.
   <br>
 
-- **Sensor Fusion**:
-  $$
-  \hat{x} = \frac{\sum_{i=1}^{n} w_i \cdot x_i}{\sum_{i=1}^{n} w_i}
-  $$
+**Sensor Fusion**:
+  
+$$
+\hat{x} = \frac{\sum_{i=1}^{n} w_i \cdot x_i}{\sum_{i=1}^{n} w_i}
+$$
+  
   where $\hat{x}$ is the fused estimate, $x_i$ are the individual sensor measurements, and $w_i$ are the weights assigned to each sensor based on their reliability or accuracy.
   <br>
 
