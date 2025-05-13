@@ -67,31 +67,35 @@ related:
 Graph theory involves several mathematical representations and notations:
 
 - **Adjacency Matrix**: A matrix representation of a graph where the element at row $i$ and column $j$ is 1 if there is an edge between vertex $i$ and vertex $j$, and 0 otherwise. The adjacency matrix $A$ for a graph with $n$ vertices is defined as:
-  $$
-  A_{ij} =
-  \begin{cases}
-  1 & \text{if there is an edge between vertex } i \text{ and vertex } j \\
-  0 & \text{otherwise}
-  \end{cases}
-  $$
-  <br>
+
+$$
+A_{ij} =
+\begin{cases}
+1 & \text{if there is an edge between vertex } i \text{ and vertex } j \\
+0 & \text{otherwise}
+\end{cases}
+$$
+<br>
 
 - **Incidence Matrix**: A matrix representation of a graph where the rows correspond to vertices and the columns correspond to edges, with entries indicating the incidence of vertices with edges. The incidence matrix $B$ for a graph with $n$ vertices and $m$ edges is defined as:
-  $$
-  B_{ij} =
-  \begin{cases}
-  1 & \text{if vertex } i \text{ is incident to edge } j \\
-  0 & \text{otherwise}
-  \end{cases}
-  $$
-  <br>
+
+$$
+B_{ij} =
+\begin{cases}
+1 & \text{if vertex } i \text{ is incident to edge } j \\
+0 & \text{otherwise}
+\end{cases}
+$$
+<br>
 
 - **Degree of a Vertex**: The number of edges connected to a vertex. For a vertex $v$, the degree is denoted as $\deg(v)$ and is calculated as:
-  $$
-  \deg(v) = \sum_{i=1}^{n} A_{vi}
-  $$
-  where $A$ is the adjacency matrix of the graph.
-  <br>
+
+$$
+\deg(v) = \sum_{i=1}^{n} A_{vi}
+$$
+
+where $A$ is the adjacency matrix of the graph.
+<br>
 
 - **Graph Coloring**: An assignment of colors to the vertices of a graph such that no two adjacent vertices share the same color. Graph coloring is used in scheduling and resource allocation problems to minimize conflicts.
   <br>
