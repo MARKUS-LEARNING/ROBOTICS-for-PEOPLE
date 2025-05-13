@@ -35,7 +35,7 @@ related:
 **Constraint Analysis** is a critical process in engineering and mathematical modeling that involves identifying and evaluating the limitations or constraints within a system. These constraints can be physical, economic, environmental, or technical, and they play a crucial role in optimizing performance and feasibility.
 
 ---
-![[contraint_analysis.png]]
+![image](https://github.com/user-attachments/assets/c756f1e4-2ad5-4a0b-b3ca-facfaa2a60cf)
 <font size=1>*source: https://cjme.springeropen.com/articles/10.1186/s10033-023-00967-6/figures/1*</font>
 ---
 
