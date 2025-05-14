@@ -30,6 +30,10 @@ related:
 **Probability and Statistics for Robotics** encompass the mathematical tools and techniques used to model uncertainty, make decisions, and analyze data in robotic systems. These disciplines provide the foundation for handling variability and improving system performance, enabling robots to operate effectively in uncertain and dynamic environments. Probability and statistics are essential in robotics for tasks such as sensor data interpretation, decision-making, and learning from experience.
 
 ---
+![image](https://github.com/user-attachments/assets/89236307-d571-4dad-865a-72d61c61faa8)
+
+<font size=1>*source: https://www.researchgate.net/figure/The-probabilistic-approaches-in-robotics_fig2_29616863*</font>
+---
 
 ## Key Concepts
 
