@@ -51,37 +51,42 @@ related:
 ## Key Equations in Joint Kinematics
 
 - **Revolute Joint Motion**:
-  $$
-  \theta(t) = \theta_0 + \omega t
-  $$
+
+$$
+\theta(t) = \theta_0 + \omega t
+$$
   
   where $\theta(t)$ is the angular position of the joint at time $t$, $\theta_0$ is the initial angular position, and $\omega$ is the angular velocity. This equation describes the rotational motion of a revolute joint.
 <br></br>
 - **Prismatic Joint Motion**:
-  $$
-  d(t) = d_0 + v t
-  $$
+
+$$
+d(t) = d_0 + v t
+$$
   
   where $d(t)$ is the linear position of the joint at time $t$, $d_0$ is the initial linear position, and $v$ is the linear velocity. This equation describes the translational motion of a prismatic joint.
 <br></br>
 - **Joint Velocity**:
-  $$
-  \dot{\theta} = \frac{d\theta}{dt}
-  $$
+
+$$
+\dot{\theta} = \frac{d\theta}{dt}
+$$
  
   where $\dot{\theta}$ is the angular velocity of a revolute joint, and $\theta$ is the angular position. This equation relates the angular velocity to the rate of change of the angular position.
  <br></br>
 - **Joint Acceleration**:
-  $$
-  \ddot{\theta} = \frac{d^2\theta}{dt^2}
-  $$
+
+$$
+\ddot{\theta} = \frac{d^2\theta}{dt^2}
+$$
   
   where $\ddot{\theta}$ is the angular acceleration of a revolute joint, and $\theta$ is the angular position. This equation describes the rate of change of the angular velocity.
 <br></br>
 - **Denavit-Hartenberg Parameters**:
-  $$
-  T_i = \text{Rot}_z(\theta_i) \cdot \text{Trans}_z(d_i) \cdot \text{Trans}_x(a_i) \cdot \text{Rot}_x(\alpha_i)
-  $$
+
+$$
+T_i = \text{Rot}_z(\theta_i) \cdot \text{Trans}_z(d_i) \cdot \text{Trans}_x(a_i) \cdot \text{Rot}_x(\alpha_i)
+$$
 
   where $\theta_i$ is the joint angle, $d_i$ is the link offset, $a_i$ is the link length, and $\alpha_i$ is the twist angle. These parameters are used to describe the kinematic relationships between the links of a robotic manipulator.
   <br></br>
