@@ -55,14 +55,16 @@ Kinematics is concerned with the relationship between the robot's joint paramete
   <br></br>
 
 - **Jacobian Matrix**:
-  $$
-  J = \begin{bmatrix}
-  \frac{\partial f_1}{\partial \theta_1} & \frac{\partial f_1}{\partial \theta_2} & \cdots & \frac{\partial f_1}{\partial \theta_n} \\
-  \frac{\partial f_2}{\partial \theta_1} & \frac{\partial f_2}{\partial \theta_2} & \cdots & \frac{\partial f_2}{\partial \theta_n} \\
-  \vdots & \vdots & \ddots & \vdots \\
-  \frac{\partial f_m}{\partial \theta_1} & \frac{\partial f_m}{\partial \theta_2} & \cdots & \frac{\partial f_m}{\partial \theta_n}
-  \end{bmatrix}
-  $$
+
+$$
+J = \begin{bmatrix}
+\frac{\partial f_1}{\partial \theta_1} & \frac{\partial f_1}{\partial \theta_2} & \cdots & \frac{\partial f_1}{\partial \theta_n} \\
+\frac{\partial f_2}{\partial \theta_1} & \frac{\partial f_2}{\partial \theta_2} & \cdots & \frac{\partial f_2}{\partial \theta_n} \\
+\vdots & \vdots & \ddots & \vdots \\
+\frac{\partial f_m}{\partial \theta_1} & \frac{\partial f_m}{\partial \theta_2} & \cdots & \frac{\partial f_m}{\partial \theta_n}
+\end{bmatrix}
+$$
+ 
   where $J$ is the Jacobian matrix, $f_i$ are the forward kinematic equations, and $\theta_i$ are the joint variables. The Jacobian matrix is crucial for understanding the relationship between joint velocities and end-effector velocities.
 
 ---
