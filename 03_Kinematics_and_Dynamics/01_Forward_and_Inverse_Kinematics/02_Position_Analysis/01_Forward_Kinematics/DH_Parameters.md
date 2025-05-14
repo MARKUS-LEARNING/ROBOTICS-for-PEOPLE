@@ -32,8 +32,11 @@ related:
 **DH Parameters** (Denavit-Hartenberg Parameters) are a standardized method for representing the kinematic structure of robotic manipulators, essential for deriving forward and inverse kinematics. They provide a systematic way to describe the relative positions and orientations of adjacent links in a robotic arm, facilitating the analysis and control of robotic systems.
 
 ---
-![[39ke8.png]]
-<font size=1>*source: https://robotics.stackexchange.com/questions/21487/adding-90-degrees-to-dh-parameter*</font>
+![image](https://github.com/user-attachments/assets/3c2965c0-1030-4560-b69e-f293015a9ac6)
+
+
+
+<font size=1>*source: https://link.springer.com/chapter/10.1007/978-3-031-04870-8_1</font>
 ---
 
 ## Definition
