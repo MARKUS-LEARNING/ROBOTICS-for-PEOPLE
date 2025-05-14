@@ -86,17 +86,21 @@ Dynamics involves the study of the forces and torques that act on a robotic syst
 ### Key Equations in Dynamics
 
 - **Newton-Euler Equations**:
-  $$\begin{cases}
-  \sum F = m \cdot a \\
-  \sum \tau = I \cdot \alpha
-  \end{cases}$$
+
+$$\begin{cases}
+\sum F = m \cdot a \\
+\sum \tau = I \cdot \alpha
+\end{cases}$$
+ 
   where $\sum F$ is the sum of forces, $m$ is the mass, $a$ is the acceleration, $\sum \tau$ is the sum of torques, $I$ is the moment of inertia, and $\alpha$ is the angular acceleration. These equations are fundamental in dynamics.
   <br></br>
 
 - **Dynamic Model of a Manipulator**:
-  $$
-  M(q)\ddot{q} + C(q, \dot{q})\dot{q} + G(q) = \tau
-  $$
+
+$$
+M(q)\ddot{q} + C(q, \dot{q})\dot{q} + G(q) = \tau
+$$
+
   where $M(q)$ is the inertia matrix, $C(q, \dot{q})$ is the Coriolis and centrifugal force matrix, $G(q)$ is the gravity vector, $q$ is the vector of joint positions, $\dot{q}$ is the vector of joint velocities, $\ddot{q}$ is the vector of joint accelerations, and $\tau$ is the vector of applied torques. This equation is used to model the dynamic behavior of a manipulator.
 
 ---
