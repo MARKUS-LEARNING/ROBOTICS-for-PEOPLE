@@ -34,23 +34,39 @@ related:
 Essentially, forward kinematics solves the problem: **Given the joint configuration, where is the robot's end-effector?** This represents a mapping from the robot's [[Joint_Space]] to its [[Cartesian_Space]] or task space.
 
 ---
+![image](https://github.com/user-attachments/assets/3c2c5deb-655d-4e6d-bfab-4d692dc45af2)
+
+<font size=1>*source: https://compas.dev/compas_fab/0.28.0/examples/03_backends_ros/03_forward_and_inverse_kinematics.html*</font>
+---
 
 ## Serial Manipulators
 
-For serial manipulators (like typical robot arms), forward kinematics involves calculating the cumulative effect of the transformations across each link in the [[Kinematic_Chains]].
+For serial manipulators (like typical robot arms), **forward kinematics** involves computing the cumulative transformations across each link in the [[Kinematic_Chains|kinematic chain]].
 
-* **Method:** The standard approach is to:
-    1.  Assign coordinate frames {0}, {1}, ..., {N} to the base and each link, often following a systematic procedure like the [[DH_Parameters|Denavit-Hartenberg Convention|Denavit-Hartenberg (DH) convention]].
-    2.  Determine the [[Homogeneous_Transformation_Matrix|homogeneous transformation matrix]] $^{i-1}T_i$ relating frame {i} to frame {i-1}. This matrix is a function of the fixed link parameters (like link length and twist) and the variable joint parameter $q_i$ (either angle $\theta_i$ or displacement $d_i$).
-    3.  Calculate the overall transformation from the base frame {0} to the final link frame {N} by multiplying the individual link transformations:
-        $$
-        ^0T_N = ^0T_1 \, ^1T_2 \, \dots \, ^{N-1}T_N
-        $$
-    4.  If a specific tool frame ${T}$ is defined relative to the last link frame ${N}$ by a constant transformation $^N T_T$, the final tool pose relative to the base is:
-        $$
-        ^0T_T = ^0T_N \, ^N T_T
-        $$
+### Method
+
+1. **Assign coordinate frames**:  
+   Define frames ${0}$, ${1}$, ..., ${N}$ for the base and each link using a systematic convention—typically the [[DH_Parameters|Denavit-Hartenberg (DH) convention]].
+
+2. **Define individual transformations**:  
+   Compute the [[Homogeneous_Transformation_Matrix|homogeneous transformation matrix]] ${}^{i-1}T_i$, which relates frame ${i}$ to frame ${i-1}$. Each matrix depends on fixed link parameters (e.g., link length $a_i, twist \( \alpha_i$) and the joint variable $q_i$ (e.g., $\theta_i$ for revolute joints or $d_i$ for prismatic joints).
+
+3. **Calculate the overall transformation** from the base to the end-effector by chaining link transformations:
+
+$$
+{}^0T_N = {}^0T_1 \cdot {}^1T_2 \cdot \dots \cdot {}^{N-1}T_N
+$$
+
+4. **Incorporate the tool frame** (if defined):  
+   If a specific tool frame $\{T\}$ is attached to the final link frame $\{N\}$ via a constant transform ${}^N T_T$, the total transformation from base to tool is:
+
+$$
+{}^0T_T = {}^0T_N \cdot {}^N T_T
+$$
+
+
 * **Denavit-Hartenberg (DH):** The DH convention provides a standardized method for assigning link frames and defining the four parameters ($\theta_i, d_i, a_i, \alpha_i$) that characterize the transformation $^{i-1}T_i$.
+
 * **Solution:** For serial chain manipulators, the forward kinematics problem generally has a unique, closed-form analytical solution. Given the joint values, calculating the end-effector pose is computationally straightforward.
 
 ---
@@ -61,8 +77,14 @@ For mobile robots, the term "forward kinematics" typically refers to the instant
 
 * **Concept:** It describes how the robot chassis's linear velocity ($v_x, v_y$) and angular velocity ($\omega_z$) in a chosen frame (local robot frame or global world frame) result from the velocities of its actuated components (e.g., wheel angular velocities $\phi_L, \phi_R$).
 * **Example ([[Differential_Drive]]):** For a differential drive robot with wheel radius $r$ and wheel separation $b$, the forward kinematics relating wheel speeds to chassis velocity $(v_x, \omega_z)$ in the local frame are:
-    $$v_x = \frac{r (\phi_R + \phi_L)}{2}$$
-    $$\omega_z = \frac{r (\phi_R - \phi_L)}{b}$$
+
+$$
+v_x = \frac{r (\phi_R + \phi_L)}{2}
+$$
+    
+$$
+\omega_z = \frac{r (\phi_R - \phi_L)}{b}
+$$
 
 ---
 
