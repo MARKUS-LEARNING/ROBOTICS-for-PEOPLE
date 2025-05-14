@@ -46,8 +46,10 @@ related:
 A **link** in robotics refers to a rigid or semi-rigid component that connects [[Joints]] in a robotic system. Links are crucial for transmitting forces and enabling structured movement, defining the robot's kinematic and dynamic properties. They form the backbone of both manipulator arms and mobile robots, influencing their overall design and functionality.
 
 ---
-![[Joints-and-Links-of-Robot.png]]
-<font size=1>*source: https://www.researchgate.net/figure/Joints-and-Links-of-Robot_fig4_301895257*</font>
+![image](https://github.com/user-attachments/assets/d11e4f5a-3275-4df5-b9c3-7fcf73738886)
+
+
+<font size=1>*source: https://link.springer.com/chapter/10.1007/978-3-031-06469-2_7*</font>
 ---
 
 ## Function
@@ -101,7 +103,7 @@ The behavior of links in a robotic system can be mathematically represented usin
 
 ### Kinematic Equations
 
-The position and orientation of a robot's end-effector can be described using homogeneous transformation matrices. For a serial manipulator with \( n \) links, the forward kinematics is given by:
+The position and orientation of a robot's end-effector can be described using homogeneous transformation matrices. For a serial manipulator with $n$ links, the forward kinematics is given by:
 
 $$
 T_n = T_1 \cdot T_2 \cdot \ldots \cdot T_n
