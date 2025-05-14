@@ -35,8 +35,9 @@ related:
 **Kinematics** is the branch of mechanics that describes the motion of points, objects, and systems without considering the forces that cause the motion. In robotics, kinematics focuses on the geometric aspects of motion, including the position, velocity, acceleration, and orientation of robotic components. It is essential for understanding how robots move and interact with their environment, enabling precise control and task execution.
 
 ---
-![[dynamics-research-block-iirm_0.png]]
-<font size=1>*source: https://research.gatech.edu/robotics/foundations-overview*</font>
+![image](https://github.com/user-attachments/assets/ef14b44c-b48e-42aa-8878-720f21bb72c7)
+
+<font size=1>*source: https://robodk.com/blog/inverse-kinematics-in-robotics-what-you-need-to-know/*</font>
 ---
 
 ## Fundamental Concepts in Kinematics
@@ -62,47 +63,59 @@ related:
 ## Key Equations in Kinematics
 
 - **Forward Kinematics Equation**:
-  $$
-  T = f(\theta_1, \theta_2, \ldots, \theta_n)
-  $$
+
+$$
+T = f(\theta_1, \theta_2, \ldots, \theta_n)
+$$
+
   where $T$ is the transformation matrix representing the position and orientation of the end-effector, and $\theta_1, \theta_2, \ldots, \theta_n$ are the joint variables. This equation is fundamental in [[Forward_Kinematics|Forward Kinematics]].
 <br></br>
 - **Inverse Kinematics Equation**:
-  $$
-  \theta = f^{-1}(T)
-  $$
+
+$$
+\theta = f^{-1}(T)
+$$
+
   where $\theta$ represents the joint variables, and $T$ is the desired transformation matrix for the end-effector. This equation is central to [[Inverse_Kinematics|Inverse Kinematics]].
 <br></br>
 - **Jacobian Matrix**:
-  $$
-  J = \begin{bmatrix}
-  \frac{\partial f_1}{\partial \theta_1} & \frac{\partial f_1}{\partial \theta_2} & \cdots & \frac{\partial f_1}{\partial \theta_n} \\
-  \frac{\partial f_2}{\partial \theta_1} & \frac{\partial f_2}{\partial \theta_2} & \cdots & \frac{\partial f_2}{\partial \theta_n} \\
-  \vdots & \vdots & \ddots & \vdots \\
-  \frac{\partial f_m}{\partial \theta_1} & \frac{\partial f_m}{\partial \theta_2} & \cdots & \frac{\partial f_m}{\partial \theta_n}
-  \end{bmatrix}
-  $$
+
+$$
+J = \begin{bmatrix}
+\frac{\partial f_1}{\partial \theta_1} & \frac{\partial f_1}{\partial \theta_2} & \cdots & \frac{\partial f_1}{\partial \theta_n} \\
+\frac{\partial f_2}{\partial \theta_1} & \frac{\partial f_2}{\partial \theta_2} & \cdots & \frac{\partial f_2}{\partial \theta_n} \\
+\vdots & \vdots & \ddots & \vdots \\
+\frac{\partial f_m}{\partial \theta_1} & \frac{\partial f_m}{\partial \theta_2} & \cdots & \frac{\partial f_m}{\partial \theta_n}
+\end{bmatrix}
+$$
+ 
   where $J$ is the Jacobian matrix, $f_i$ are the forward kinematic equations, and $\theta_i$ are the joint variables. The Jacobian matrix is crucial for understanding the relationship between joint velocities and end-effector velocities.
 <br></br>
 - **Velocity Relationship**:
-  $$
-  \dot{X} = J \cdot \dot{\theta}
-  $$
+
+$$
+\dot{X} = J \cdot \dot{\theta}
+$$
+
   where $\dot{X}$ is the end-effector velocity vector, $J$ is the Jacobian matrix, and $\dot{\theta}$ is the joint velocity vector. This equation relates the velocities of the joints to the velocity of the end-effector.
 <br></br>
 - **Homogeneous Transformation Matrix**:
-  $$
-  T = \begin{bmatrix}
-  R & p \\
-  0 & 1
-  \end{bmatrix}
-  $$
+
+$$
+T = \begin{bmatrix}
+R & p \\
+0 & 1
+\end{bmatrix}
+$$
+ 
   where $R$ is the rotation matrix, and $p$ is the translation vector. This matrix is used in [[Homogeneous Transformation]] to represent the position and orientation of a rigid body in space.
 <br></br>
 - **Denavit-Hartenberg Parameters**:
-  $$
-  T_i = \text{Rot}_z(\theta_i) \cdot \text{Trans}_z(d_i) \cdot \text{Trans}_x(a_i) \cdot \text{Rot}_x(\alpha_i)
-  $$
+
+$$
+T_i = \text{Rot}_z(\theta_i) \cdot \text{Trans}_z(d_i) \cdot \text{Trans}_x(a_i) \cdot \text{Rot}_x(\alpha_i)
+$$
+
   where $\theta_i$ is the joint angle, $d_i$ is the link offset, $a_i$ is the link length, and $\alpha_i$ is the twist angle. These parameters are used to derive the forward kinematics of a robotic manipulator.
 
 ---
