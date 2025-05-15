@@ -85,13 +85,13 @@ where $h^*(n)$ is the true cost from node $n$ to the goal. Common heuristics inc
 
 3. **Path Expansion**:
    - For each neighbor of the selected node, calculate the tentative $g$ score:
-     $$
-     g(neighbor) = g(current) + c(current, neighbor)
-     $$
+
+   $g(neighbor) = g(current) + c(current, neighbor)$
+
      where $c(current, neighbor)$ is the cost to move from the current node to the neighbor.
    - If the neighbor is not in the open or closed set, or if the tentative $g$ score is lower than the previous $g$ score, update the neighbor's $g$ and $f$ values and add it to the open set.
 
-4. **Termination**:
+5. **Termination**:
    - If the goal node is selected, reconstruct the path by following the parent pointers from the goal to the start.
    - If the open set is empty and the goal has not been reached, no path exists.
 
