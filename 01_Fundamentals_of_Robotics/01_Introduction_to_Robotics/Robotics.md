@@ -13,8 +13,8 @@ tags:
   - autonomous-systems
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
-date: 2025-05-02
+author: Jordan_Smith
+date: 2026-02-14
 permalink: /robotics/
 related:
   - "[[Artificial_Intelligence]]"
@@ -76,7 +76,6 @@ T_n = T_1 \cdot T_2 \cdot \ldots \cdot T_n
 $$
 
 where $T_i$ represents the transformation matrix for the $i$ -th link.
-
 <br>
 
 ### Dynamics
@@ -100,6 +99,92 @@ u(t) = K_p e(t) + K_i \int e(t) \, dt + K_d \frac{de(t)}{dt}
 $$
 
 where $u(t)$ is the control input, $e(t)$ is the error between the desired and actual states, and $K_p$, $K_i$, and $K_d$ are the proportional, integral, and derivative gains, respectively.
+
+## Break It Down Simply
+
+The controller reacts to **error** in three ways:
+
+---
+
+### 1. Proportional (P)
+
+$$
+K_p e(t)
+$$
+
+Responds to **current error**.
+
+If error is large → output is large.
+
+**Effect:**
+- Fast response  
+- Can overshoot  
+
+---
+
+### 2. Integral (I)
+
+$$
+K_i \int e(t)\,dt
+$$
+
+Responds to **accumulated past error**.
+
+If the system is slightly off for a long time → correction grows.
+
+**Effect:**
+- Eliminates steady-state error  
+- Can cause oscillation if too high  
+
+---
+
+### 3. Derivative (D)
+
+$$
+K_d \frac{de(t)}{dt}
+$$
+
+Responds to **how fast the error is changing**.
+
+If error is changing rapidly → slows system down.
+
+**Effect:**
+- Damps motion  
+- Reduces overshoot  
+
+---
+
+## Intuition for Robotics
+
+Imagine a robot arm trying to reach a position:
+
+- **P** → pushes toward target  
+- **I** → fixes long-term bias (gravity offset)  
+- **D** → prevents overshoot and vibration  
+
+---
+
+## Why This Matters in 2026+
+
+PID is still everywhere:
+
+- Motor velocity control  
+- Drone stabilization  
+- Temperature systems  
+- Industrial arms  
+- Embedded firmware  
+
+Even advanced MPC and learning controllers often sit on top of PID loops.
+
+---
+
+## Simple Mental Model
+
+- **P = Present error**  
+- **I = Past error**  
+- **D = Future trend of error**  
+
+That is the foundation of classical control.
 
 ---
 
