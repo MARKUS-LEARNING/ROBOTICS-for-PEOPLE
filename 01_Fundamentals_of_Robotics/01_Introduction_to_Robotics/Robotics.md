@@ -67,7 +67,7 @@ related:
 
 ## Mathematical Representations
 
-### Kinematics
+### [[Kinematics]]
 
 Kinematics involves the study of the motion of robots without considering the forces that cause the motion. The position and orientation of a robot's end-effector can be described using homogeneous transformation matrices. For a serial manipulator with \( n \) links, the forward kinematics is given by:
 
@@ -78,7 +78,7 @@ $$
 where $T_i$ represents the transformation matrix for the $i$ -th link.
 <br>
 
-### Dynamics
+### [[Dynamics]]
 
 Dynamics involves the study of the relationship between the motion of robots and the forces that cause it. The dynamics of a robotic system can be described using the Euler-Lagrange equation:
 
@@ -90,9 +90,9 @@ where $L = T - V$ is the Lagrangian, $T$ is the kinetic energy, $V$ is the poten
 
 <br>
 
-### Control Systems
+### [[Control_Systems|Control Systems]]
 
-Control systems use feedback mechanisms to ensure that robots achieve desired states or behaviors. A common control algorithm is the Proportional-Integral-Derivative (PID) controller:
+Control systems use feedback mechanisms to ensure that robots achieve desired states or behaviors. A common control algorithm is the [[PID_Control|Proportional-Integral-Derivative (PID) controller]]:
 
 $$
 u(t) = K_p e(t) + K_i \int e(t) \, dt + K_d \frac{de(t)}{dt}
@@ -100,91 +100,7 @@ $$
 
 where $u(t)$ is the control input, $e(t)$ is the error between the desired and actual states, and $K_p$, $K_i$, and $K_d$ are the proportional, integral, and derivative gains, respectively.
 
-## Break It Down Simply
-
-The controller reacts to **error** in three ways:
-
----
-
-### 1. Proportional (P)
-
-$$
-K_p e(t)
-$$
-
-Responds to **current error**.
-
-If error is large → output is large.
-
-**Effect:**
-- Fast response  
-- Can overshoot  
-
----
-
-### 2. Integral (I)
-
-$$
-K_i \int e(t)\,dt
-$$
-
-Responds to **accumulated past error**.
-
-If the system is slightly off for a long time → correction grows.
-
-**Effect:**
-- Eliminates steady-state error  
-- Can cause oscillation if too high  
-
----
-
-### 3. Derivative (D)
-
-$$
-K_d \frac{de(t)}{dt}
-$$
-
-Responds to **how fast the error is changing**.
-
-If error is changing rapidly → slows system down.
-
-**Effect:**
-- Damps motion  
-- Reduces overshoot  
-
----
-
-## Intuition for Robotics
-
-Imagine a robot arm trying to reach a position:
-
-- **P** → pushes toward target  
-- **I** → fixes long-term bias (gravity offset)  
-- **D** → prevents overshoot and vibration  
-
----
-
-## Why This Matters in 2026+
-
-PID is still everywhere:
-
-- Motor velocity control  
-- Drone stabilization  
-- Temperature systems  
-- Industrial arms  
-- Embedded firmware  
-
-Even advanced MPC and learning controllers often sit on top of PID loops.
-
----
-
-## Simple Mental Model
-
-- **P = Present error**  
-- **I = Past error**  
-- **D = Future trend of error**  
-
-That is the foundation of classical control.
+e
 
 ---
 
@@ -192,19 +108,19 @@ That is the foundation of classical control.
 
 Robotics is applied in various fields, including:
 
-- **Manufacturing**: Automating production lines, assembly, welding, and material handling to improve efficiency and precision.
+- **[[Manufacturing]]**: Automating production lines, assembly, welding, and material handling to improve efficiency and precision.
   <br>
 
-- **Healthcare**: Assisting in surgeries, rehabilitation, and patient care, enhancing precision and reducing human error.
+- **[[Healthcare]]**: Assisting in surgeries, rehabilitation, and patient care, enhancing precision and reducing human error.
   <br>
 
-- **Exploration**: Exploring hazardous or inaccessible environments, such as space, underwater, or disaster zones.
+- **[[Exploration]]**: Exploring hazardous or inaccessible environments, such as space, underwater, or disaster zones.
   <br>
 
-- **Agriculture**: Monitoring crops, applying fertilizers, and harvesting produce to increase yield and efficiency.
+- **[[Agriculture]]**: Monitoring crops, applying fertilizers, and harvesting produce to increase yield and efficiency.
   <br>
 
-- **Transportation**: Developing autonomous vehicles and systems for passenger and goods transport.
+- **[[Transportation]]**: Developing autonomous vehicles and systems for passenger and goods transport.
   <br>
 
 ---
