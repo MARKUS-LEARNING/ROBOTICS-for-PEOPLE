@@ -78,6 +78,50 @@ Power density and specific power are critical metrics when comparing different a
 
 ---
 
+## Comparative Table of Actuator Power Densities
+
+The following table compares the three major actuator technologies with representative real-world components:
+
+| Property | Electric Motor | Hydraulic Actuator | Pneumatic Actuator |
+|---|---|---|---|
+| **Specific Power (W/kg)** | 100 -- 500 (motor only); 50 -- 200 (with gearbox) | 500 -- 2,000 (actuator only); 50 -- 200 (incl. HPU) | 50 -- 200 |
+| **Power Density (W/L)** | 200 -- 2,000 | 1,000 -- 10,000 | 100 -- 500 |
+| **Force/Torque Density** | Moderate | Very High | Low -- Moderate |
+| **Bandwidth** | High (100+ Hz) | Moderate (20--50 Hz) | Low (5--20 Hz) |
+| **Efficiency** | 85 -- 95% | 60 -- 80% (system) | 10 -- 30% (system) |
+| **Controllability** | Excellent (servo) | Good (servo valve) | Fair (on/off or proportional) |
+| **Maintenance** | Low | High (fluid, seals, filters) | Moderate (air quality) |
+| **Noise** | Low | Moderate -- High | High |
+| **Typical Use** | Most modern robots | Heavy construction, aircraft flight controls | Grippers, simple pick-place, food handling |
+
+### Real Motor Power-to-Weight Comparisons
+
+| Motor | Type | Continuous Torque | Mass | Specific Power (cont.) | Application |
+|---|---|---|---|---|---|
+| Maxon EC-i 40 (50W) | BLDC | 70 mNm | 0.11 kg | 455 W/kg (peak) | Small robot joints |
+| Maxon EC 90 flat (260W) | BLDC | 444 mNm | 0.60 kg | 433 W/kg (peak) | Cobot joints |
+| EMOTEQ QTL-A-195 | Frameless BLDC | 6.5 Nm | 1.2 kg | 250 W/kg (peak) | Direct-drive joints |
+| TQ ILM 85 | Frameless BLDC | 2.4 Nm | 0.34 kg | 700+ W/kg (peak) | High-performance cobots |
+| Parker Hannifin (hydraulic) | Hydraulic cylinder | 5,000 N @ 10 MPa | 2.0 kg | ~1,500 W/kg (actuator) | Heavy industrial |
+
+### Power-to-Weight Ratio Calculation
+
+The specific power of an actuator is computed as:
+
+$$
+P_{\text{specific}} = \frac{P_{\text{output}}}{m_{\text{actuator}}} = \frac{\tau \cdot \omega}{m}
+$$
+
+For a system-level comparison, include all supporting components:
+
+$$
+P_{\text{specific,system}} = \frac{P_{\text{output}}}{m_{\text{actuator}} + m_{\text{driver}} + m_{\text{gearbox}} + m_{\text{power source}}}
+$$
+
+**Key insight:** Hydraulic actuators have superior specific power at the actuator itself, but when the hydraulic power unit (HPU), hoses, and fluid are included, the system-level specific power often drops below that of a modern electric motor + gearbox. This is why the robotics industry has largely shifted to electric actuation, with hydraulics reserved for extremely high-force applications (e.g., construction equipment, Boston Dynamics Atlas's original hydraulic version).
+
+---
+
 ## Dataview Plugin Features
 
 To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:

@@ -172,6 +172,145 @@ This posterior distribution can be approximated using various techniques, such a
 
 ---
 
+## EKF-SLAM: Detailed Formulation
+
+EKF-SLAM maintains a joint state vector containing the robot pose and all landmark positions, with a full covariance matrix capturing the correlations between them.
+
+### State Vector
+
+For a 2D robot with $N$ point landmarks:
+
+$$
+\mathbf{x} = \begin{bmatrix} x_r \\ y_r \\ \theta_r \\ x_1 \\ y_1 \\ \vdots \\ x_N \\ y_N \end{bmatrix} \in \mathbb{R}^{3 + 2N}
+$$
+
+The covariance matrix $P \in \mathbb{R}^{(3+2N) \times (3+2N)}$ captures uncertainty in the robot pose and all landmark positions, plus their cross-correlations.
+
+### Prediction Step
+
+When the robot moves with control input $\mathbf{u}_t = [v_t, \omega_t]^T$ (linear and angular velocity):
+
+**State prediction:**
+
+$$
+\hat{\mathbf{x}}_{t|t-1} = \begin{bmatrix} x_r + v_t \Delta t \cos(\theta_r + \omega_t \Delta t / 2) \\ y_r + v_t \Delta t \sin(\theta_r + \omega_t \Delta t / 2) \\ \theta_r + \omega_t \Delta t \\ x_1 \\ y_1 \\ \vdots \end{bmatrix}
+$$
+
+Note: landmarks do not move, so only the robot pose entries are updated.
+
+**Covariance prediction:**
+
+$$
+P_{t|t-1} = F_t P_{t-1} F_t^T + G_t Q_t G_t^T
+$$
+
+where $F_t$ is the Jacobian of the motion model with respect to the state (identity for landmarks), $G_t$ maps noise to the state, and $Q_t$ is the process noise covariance.
+
+### Update Step
+
+When the robot observes landmark $j$ with measurement $\mathbf{z} = [r, \phi]^T$ (range and bearing):
+
+**Innovation:**
+
+$$
+\mathbf{y} = \mathbf{z} - h(\hat{\mathbf{x}}_{t|t-1})
+$$
+
+where $h(\cdot)$ is the measurement model:
+
+$$
+h(\mathbf{x}) = \begin{bmatrix} \sqrt{(x_j - x_r)^2 + (y_j - y_r)^2} \\ \text{atan2}(y_j - y_r, \, x_j - x_r) - \theta_r \end{bmatrix}
+$$
+
+**Kalman gain:**
+
+$$
+K = P_{t|t-1} H^T (H P_{t|t-1} H^T + R)^{-1}
+$$
+
+where $H = \frac{\partial h}{\partial \mathbf{x}}$ is the measurement Jacobian and $R$ is the measurement noise covariance.
+
+**State update:**
+
+$$
+\hat{\mathbf{x}}_t = \hat{\mathbf{x}}_{t|t-1} + K \mathbf{y}
+$$
+
+**Covariance update:**
+
+$$
+P_t = (I - K H) P_{t|t-1}
+$$
+
+### EKF-SLAM Pseudocode
+
+```
+EKF_SLAM(x, P, u, z):
+    # --- Prediction ---
+    x_robot = motion_model(x_robot, u)
+    F = jacobian_motion(x, u)
+    P = F * P * F^T + Q_augmented
+
+    # --- Update (for each observation z_i) ---
+    for each observed landmark j:
+        if landmark j is new:
+            initialize landmark position from (x_robot, z_j)
+            augment x and P with new landmark
+
+        y = z_j - measurement_model(x_robot, landmark_j)
+        H = jacobian_measurement(x, j)
+        S = H * P * H^T + R
+        K = P * H^T * S^{-1}
+        x = x + K * y
+        P = (I - K * H) * P
+
+    return x, P
+```
+
+---
+
+## Computational Complexity Comparison
+
+| Algorithm | Time per Step | Space | Strengths | Weaknesses |
+|---|---|---|---|---|
+| **EKF-SLAM** | $O(N^2)$ per observation ($N$ = landmarks) | $O(N^2)$ (dense covariance) | Full correlation, consistent estimates | Quadratic scaling limits to ~1000 landmarks; linearization errors |
+| **FastSLAM (particle filter)** | $O(M \log N)$ ($M$ = particles) | $O(MN)$ | Handles non-Gaussian noise, multi-modal data association | Particle depletion in high dimensions; memory scales with particles |
+| **Graph-Based SLAM** | $O(N^3)$ batch, but $O(N)$ per step with sparse solvers | $O(N)$ sparse | Scales to millions of poses; globally consistent | Primarily offline; requires good initial guess for optimization |
+| **iSAM2 (incremental)** | $O(\text{affected variables})$ per step | $O(N)$ sparse | Online, efficient incremental updates | Implementation complexity |
+
+**Practical note:** For modern applications, graph-based SLAM (via g2o, GTSAM, or Ceres) is the dominant approach. EKF-SLAM is mainly of pedagogical importance. FastSLAM remains useful for occupancy grid mapping (GMapping).
+
+---
+
+## Practical Sensor Recommendations
+
+### LiDAR for SLAM
+
+| Sensor | Type | Range | Points/sec | Price Range | Best For |
+|---|---|---|---|---|---|
+| RPLiDAR A1 | 2D, mechanical | 12 m | 8,000 | ~$100 | Low-cost indoor mobile robots |
+| Hokuyo UST-10LX | 2D, scanning | 10 m | 40,000 | ~$1,600 | Research mobile robots |
+| Velodyne VLP-16 (Puck) | 3D, 16 channels | 100 m | 300,000 | ~$4,000 | Autonomous vehicles, outdoor |
+| Ouster OS1-64 | 3D, 64 channels | 120 m | 1,310,720 | ~$6,000 | High-res outdoor mapping |
+| Livox Mid-360 | 3D, non-repetitive | 40 m | 200,000 | ~$750 | Cost-effective 3D SLAM |
+
+**LiDAR SLAM software:** LOAM, LIO-SAM, FAST-LIO2 (for LiDAR-inertial), Cartographer (Google, 2D/3D).
+
+### Cameras for Visual SLAM
+
+| Sensor | Type | Resolution | FPS | Price Range | Best For |
+|---|---|---|---|---|---|
+| Intel RealSense D435i | Stereo RGB-D + IMU | 1280x720 (depth) | 30--90 | ~$300 | Indoor navigation, manipulation |
+| Intel RealSense T265 (discontinued) | Stereo fisheye + IMU | 848x800 per eye | 30 | ~$200 | VIO/V-SLAM tracking |
+| ZED 2i (Stereolabs) | Stereo RGB + IMU | 2208x1242 | 15--100 | ~$450 | Indoor/outdoor SLAM |
+| OAK-D Pro (Luxonis) | Stereo + RGB + IMU | 1280x800 | 30--120 | ~$300 | Edge AI + SLAM |
+
+**Visual SLAM software:** ORB-SLAM3 (feature-based, monocular/stereo/RGB-D + IMU), RTAB-Map (ROS 2 compatible, multi-session), VINS-Fusion (VIO), DSO (direct sparse).
+
+**Practitioner tip:** For production mobile robots, LiDAR-inertial SLAM (e.g., FAST-LIO2 or LIO-SAM) offers the best reliability. Visual SLAM is suitable for cost-sensitive applications but struggles in textureless environments and changing lighting.
+
+---
+
 ## Dataview Plugin Features
 
 To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:

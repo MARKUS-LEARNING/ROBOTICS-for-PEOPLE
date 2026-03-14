@@ -85,6 +85,63 @@ Consider a robotic arm with electric motors driving its joints. The torque requi
 
 ---
 
+## Actuator Classification Taxonomy
+
+Actuators can be formally classified along multiple dimensions:
+
+### By Energy Domain
+
+| Category | Subcategory | Principle | Typical Output |
+|---|---|---|---|
+| **Electromagnetic** | DC brushed motor | Lorentz force | Rotary |
+| | DC brushless (BLDC) | Commutated Lorentz force | Rotary |
+| | Stepper motor | Discrete electromagnetic steps | Rotary |
+| | Linear motor | Lorentz force, linear | Linear |
+| | Voice coil | Lorentz force, limited stroke | Linear |
+| | Solenoid | Magnetic attraction | Linear (on/off) |
+| **Fluid Power** | Hydraulic cylinder | Pascal's law | Linear |
+| | Hydraulic motor | Fluid-driven rotation | Rotary |
+| | Pneumatic cylinder | Compressed gas | Linear |
+| | Pneumatic muscle (McKibben) | Braided contractile | Linear (pull only) |
+| **Smart Material** | Piezoelectric | Inverse piezoelectric effect | Linear (nm to um) |
+| | Shape memory alloy (SMA) | Martensitic phase change | Linear (contraction) |
+| | Electroactive polymer (EAP) | Electrostatic / ionic | Various |
+| **Mechanical** | Spring / elastic | Stored elastic energy | Linear / rotary |
+| | Series elastic actuator (SEA) | Motor + compliant element | Rotary |
+
+### By Motion Type
+
+- **Rotary actuators**: Produce angular output (motors, rotary hydraulic actuators)
+- **Linear actuators**: Produce translational output (cylinders, linear motors, ball screws)
+- **Oscillatory actuators**: Produce back-and-forth motion (piezo, voice coil)
+
+---
+
+## Quantitative Actuator Comparison
+
+This table provides concrete specifications to assist in actuator selection. Note: this complements the main [[Actuator]] article, which covers actuator principles in more depth. This definition article focuses on formal classification and comparative specifications.
+
+| Property | Electric (BLDC + Harmonic) | Hydraulic Cylinder | Pneumatic Cylinder | Piezoelectric |
+|---|---|---|---|---|
+| **Continuous force/torque** | 1 -- 200 Nm (joint) | 500 -- 500,000 N | 10 -- 10,000 N | 0.01 -- 100 N |
+| **Stroke / Range** | Continuous rotation | 10 mm -- 3 m | 10 mm -- 2 m | 1 um -- 1 mm |
+| **Speed** | 0.1 -- 10 rad/s (output) | 0.01 -- 1 m/s | 0.1 -- 2 m/s | kHz bandwidth |
+| **Positioning accuracy** | 0.001° (with encoder) | 0.01 -- 0.1 mm | 0.1 -- 1 mm | nm -- um |
+| **Specific power (W/kg)** | 50 -- 200 (system) | 500 -- 2,000 (actuator) | 50 -- 200 | 1 -- 10 |
+| **Efficiency** | 70 -- 90% (system) | 40 -- 70% (system) | 10 -- 30% (system) | 30 -- 50% |
+| **Backdrivability** | Excellent (direct drive) to poor (harmonic) | Poor | Good (when depressurized) | N/A |
+| **Cleanliness** | Clean | Fluid leaks possible | Clean (but noisy) | Clean |
+| **Control complexity** | Moderate (servo drive) | High (servo valve) | Low (solenoid valve) | High (charge amp) |
+
+### When to Choose Each Type
+
+- **Electric (BLDC + gearbox)**: Default choice for most modern robots. Best controllability, efficiency, and packaging.
+- **Hydraulic**: When force density is paramount and weight/cleanliness are secondary (excavators, large humanoids, aircraft).
+- **Pneumatic**: Low-cost binary actuation (open/close grippers), food-safe environments, inherent compliance.
+- **Piezoelectric**: Nanopositioning (microscopy stages, semiconductor equipment), vibration injection, ultrasonic motors.
+
+---
+
 ## Applications in Robotics
 
 - **Manipulators**: Actuators drive the joints of robotic manipulators, enabling them to perform tasks such as grasping, lifting, and assembling objects.

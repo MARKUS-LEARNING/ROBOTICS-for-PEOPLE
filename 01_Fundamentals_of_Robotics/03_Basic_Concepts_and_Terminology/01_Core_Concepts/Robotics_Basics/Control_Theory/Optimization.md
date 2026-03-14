@@ -108,6 +108,112 @@ where $x_k$ is the current solution, $\alpha$ is the step size (learning rate), 
 
 ---
 
+## Convex vs. Non-Convex Optimization in Robotics
+
+Understanding the distinction between convex and non-convex problems is critical for choosing the right solver and knowing what guarantees you can expect.
+
+### Convex Optimization
+
+A problem is **convex** if the objective function is convex and the feasible set is a convex set. Convex problems have a single global minimum, and efficient solvers can find it in polynomial time.
+
+**Robotics examples of convex problems:**
+- **Quadratic programming (QP) for whole-body control:** Given a desired end-effector acceleration, solve for joint torques that minimize effort while satisfying contact constraints. This is a QP solved at 1 kHz on humanoids like the NASA Valkyrie.
+- **Minimum-energy trajectory generation:** Given via-points and time allocation, finding a minimum-jerk or minimum-snap polynomial trajectory is a convex QP.
+- **Model Predictive Control (MPC) with linear models:** When the robot dynamics are linearized, the MPC problem becomes a QP.
+
+### Non-Convex Optimization
+
+Most real robotics problems are **non-convex** due to nonlinear dynamics, obstacle avoidance constraints, or orientation representations. Non-convex problems may have multiple local minima, and solvers can only guarantee convergence to a local optimum.
+
+**Robotics examples of non-convex problems:**
+- **Inverse kinematics** with joint limits and obstacle avoidance (multiple valid configurations).
+- **Motion planning** through cluttered environments (the free configuration space is non-convex).
+- **Simultaneous Localization and Mapping (SLAM)** as a nonlinear least-squares problem.
+- **Trajectory optimization** with full nonlinear dynamics ($M(q)\ddot{q} + C(q,\dot{q})\dot{q} + g(q) = \tau$).
+
+**Practical implication:** For non-convex problems, always run the solver from multiple initial guesses (multi-start), or use a global method (genetic algorithm, CMA-ES) for initialization followed by a local solver for refinement.
+
+---
+
+## Joint-Space Trajectory Optimization
+
+A central problem in robotics: find a trajectory $q(t)$ that moves the robot from configuration $q_0$ to $q_f$ while minimizing cost and satisfying constraints.
+
+### General Formulation
+
+$$
+\min_{q(\cdot), \tau(\cdot)} \int_0^T \mathcal{L}(q(t), \dot{q}(t), \tau(t)) \, dt
+$$
+
+subject to:
+
+$$
+M(q)\ddot{q} + C(q, \dot{q})\dot{q} + g(q) = \tau \quad \text{(dynamics)}
+$$
+
+$$
+q(0) = q_0, \quad q(T) = q_f \quad \text{(boundary conditions)}
+$$
+
+$$
+q_{\min} \leq q(t) \leq q_{\max} \quad \text{(joint limits)}
+$$
+
+$$
+|\dot{q}(t)| \leq \dot{q}_{\max} \quad \text{(velocity limits)}
+$$
+
+$$
+|\tau(t)| \leq \tau_{\max} \quad \text{(torque limits)}
+$$
+
+$$
+d(q(t), \mathcal{O}) \geq d_{\text{safe}} \quad \text{(collision avoidance)}
+$$
+
+Common choices for the cost functional $\mathcal{L}$:
+- **Minimum time:** $\mathcal{L} = 1$ (minimize $T$)
+- **Minimum effort:** $\mathcal{L} = \|\tau\|_2^2$
+- **Minimum jerk:** $\mathcal{L} = \|\dddot{q}\|_2^2$ (produces smooth, human-like motion)
+
+For a typical 6-DOF industrial arm, the joint limits might be:
+- $\dot{q}_{\max}$: 180--360 deg/s per joint (KUKA KR 6 R900: 360 deg/s on axes 4--6)
+- $\tau_{\max}$: 10--300 Nm depending on the joint (larger for shoulder/elbow, smaller for wrist)
+- $d_{\text{safe}}$: typically 5--50 mm clearance from obstacles
+
+### Direct Collocation Method
+
+In practice, the continuous problem is discretized into $N$ knot points. Using direct collocation (used by Drake, CasADi, and Trajopt):
+
+$$
+\min_{\mathbf{q}_1, \ldots, \mathbf{q}_N, \boldsymbol{\tau}_1, \ldots, \boldsymbol{\tau}_N} \sum_{k=1}^{N} \mathcal{L}(\mathbf{q}_k, \dot{\mathbf{q}}_k, \boldsymbol{\tau}_k) \, \Delta t
+$$
+
+subject to collocation constraints (e.g., Hermite-Simpson) that enforce dynamics between knot points. Typical values: $N = 20$--$100$ knot points, $\Delta t = 0.01$--$0.1$ s.
+
+---
+
+## Practical Solver Recommendations
+
+| Solver | Type | Best For | License | Typical Solve Time |
+|---|---|---|---|---|
+| **OSQP** | Convex QP | MPC, whole-body QP control | Apache 2.0 | <1 ms for small QPs |
+| **IPOPT** | Nonlinear (NLP) | Trajectory optimization, NLP | EPL | 10 ms -- 10 s |
+| **SNOPT** | Nonlinear (SQP) | Trajectory optimization (sparse) | Commercial | 10 ms -- 5 s |
+| **ECOS** | Conic (SOCP) | Convex relaxations, fast embedded | GPL | <1 ms |
+| **Gurobi** | LP/QP/MIP | Mixed-integer planning (MICP) | Commercial (free academic) | 1 ms -- 60 s |
+| **CasADi** | NLP framework | Automatic differentiation + IPOPT/SNOPT | LGPL | Depends on backend |
+| **Drake (Mathematical Program)** | Multi-solver interface | Research prototyping | BSD | Depends on backend |
+| **CVXPY** | Modeling language | Rapid prototyping of convex problems | Apache 2.0 | Depends on backend |
+
+**Practitioner guidance:**
+- For real-time MPC on a robot (1 kHz control loop), use OSQP or qpOASES --- they are designed for hot-starting and can solve moderate QPs in microseconds.
+- For offline trajectory optimization, use IPOPT through CasADi or Drake --- the automatic differentiation saves enormous development time.
+- For mixed-integer problems (e.g., contact-mode scheduling in manipulation), use Gurobi with a warm-start strategy.
+- Always provide analytical gradients if possible --- finite-difference gradients are 10--100x slower and less accurate.
+
+---
+
 ## Applications of Optimization
 
 Optimization is applied in various fields, including:
@@ -127,6 +233,12 @@ Optimization is applied in various fields, including:
 - **Finance**: Optimizing investment portfolios, managing risks, and ensuring compliance with regulatory constraints.
   <br>
 
+- **Robotics Trajectory Planning**: Computing time-optimal or energy-optimal joint trajectories subject to dynamics, joint limits, and obstacle avoidance constraints.
+  <br>
+
+- **Robot Grasping**: Optimizing contact forces subject to friction cone constraints (a second-order cone program).
+  <br>
+
 ---
 
 ## Dataview Plugin Features
@@ -137,3 +249,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #mathematics OR #operations-research WHERE contains(file.outlinks, [[Optimization]])
+```

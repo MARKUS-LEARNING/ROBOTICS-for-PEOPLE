@@ -106,35 +106,106 @@ $$
 
 where $T_i$ represents the transformation matrix for the $i$-th link.
 
-### Dynamic Equations
+### Link Deflection Under Load (Beam Bending)
 
-The dynamics of a robotic link can be described using the Euler-Lagrange equation:
-
-$$
-\frac{d}{dt} \left( \frac{\partial L}{\partial \dot{q}} \right) - \frac{\partial L}{\partial q} = \tau
-$$
-
-where $L = T - V$ is the Lagrangian, $T$ is the kinetic energy, $V$ is the potential energy, $q$ is the generalized coordinate, and $\tau$ is the applied torque.
-
-### Inertia and Momentum
-
-The inertia matrix $I$ of a link affects its dynamic response. The angular momentum $L$ of a link rotating with angular velocity $\omega$ is given by:
+In practice, robot links are not perfectly rigid. Understanding link deflection is critical for precision applications. A link can be modeled as a cantilever beam with an end load $F$:
 
 $$
-L = I \cdot \omega
+\delta_{\max} = \frac{F L^3}{3 E I}
 $$
 
-where $L$ is the angular momentum, $I$ is the inertia matrix, and $\omega$ is the angular velocity.
+where:
+- $\delta_{\max}$ is the maximum tip deflection (m)
+- $F$ is the applied force at the tip (N)
+- $L$ is the link length (m)
+- $E$ is the Young's modulus of the material (Pa)
+- $I$ is the area moment of inertia of the cross-section (m$^4$)
 
-### Statics and Stability
-
-The static equilibrium of a link under forces $F$ and torques $\tau$ is given by:
+For a distributed load $w$ (N/m) along the link:
 
 $$
-\sum F = 0 \quad \text{and} \quad \sum \tau = 0
+\delta_{\max} = \frac{w L^4}{8 E I}
 $$
 
-where $\sum F$ is the sum of forces and $\sum \tau$ is the sum of torques.
+**Common cross-sections and their area moments of inertia:**
+
+| Cross-Section | Area Moment of Inertia $I$ |
+|---|---|
+| Solid circular ($d$ = diameter) | $\frac{\pi d^4}{64}$ |
+| Hollow circular ($d_o$, $d_i$) | $\frac{\pi (d_o^4 - d_i^4)}{64}$ |
+| Solid rectangular ($b \times h$) | $\frac{b h^3}{12}$ |
+| Hollow rectangular ($b, h, t$) | $\frac{bh^3 - (b-2t)(h-2t)^3}{12}$ |
+
+**Worked example:** An aluminum link ($E = 69$ GPa) with a hollow circular cross-section ($d_o = 80$ mm, $d_i = 70$ mm), length $L = 0.5$ m, carrying a 50 N end load:
+
+$$
+I = \frac{\pi (0.08^4 - 0.07^4)}{64} = 7.46 \times 10^{-7} \text{ m}^4
+$$
+
+$$
+\delta_{\max} = \frac{50 \times 0.5^3}{3 \times 69 \times 10^9 \times 7.46 \times 10^{-7}} = 0.040 \text{ mm}
+$$
+
+This 40-micron deflection is negligible for most pick-and-place tasks but matters for precision machining or inspection applications (where tolerances may be 10 microns or less).
+
+### Natural Frequency of a Link
+
+A link's first natural frequency determines the maximum control bandwidth. For a cantilever beam with tip mass $m_{\text{tip}}$:
+
+$$
+f_n = \frac{1}{2\pi} \sqrt{\frac{3EI}{(0.24 m_{\text{link}} + m_{\text{tip}}) L^3}}
+$$
+
+where $m_{\text{link}}$ is the distributed mass of the link itself. The factor 0.24 converts the distributed beam mass to an equivalent tip mass for the first mode.
+
+> **Practitioner's rule of thumb:** The servo bandwidth should be at most 1/3 of the first structural resonance frequency to avoid exciting vibrations. If your link resonates at 30 Hz, keep your servo bandwidth below 10 Hz.
+
+---
+
+## Material Selection for Robot Links
+
+| Material | Density (kg/m$^3$) | Young's Modulus $E$ (GPa) | Yield Strength (MPa) | $E/\rho$ (Specific Stiffness) | Typical Use |
+|---|---|---|---|---|---|
+| Steel (4340) | 7,850 | 200 | 470 | 25.5 | Heavy industrial robots (KUKA KR1000) |
+| Aluminum 6061-T6 | 2,700 | 69 | 276 | 25.6 | Most robot arms (UR5e, Franka Panda) |
+| Aluminum 7075-T6 | 2,810 | 72 | 503 | 25.6 | High-strength robot links |
+| Carbon fiber composite | 1,600 | 70-230 | 600-3,500 | 44-144 | Lightweight arms, aerospace robots |
+| Titanium Ti-6Al-4V | 4,430 | 114 | 880 | 25.7 | Space robotics, medical devices |
+| ABS (3D printed) | 1,040 | 2.3 | 40 | 2.2 | Prototypes, hobby robots |
+
+> **Practitioner's note:** Specific stiffness ($E/\rho$) is roughly the same for steel, aluminum, and titanium. Choosing aluminum over steel does not make a link stiffer per unit mass -- it makes it lighter at the same stiffness. Carbon fiber composites genuinely offer higher specific stiffness but at 5-10x the cost and with anisotropic properties that complicate design.
+
+---
+
+## Link Mass Estimation
+
+### Hollow Tube Approximation
+
+Most robot links are hollow tubes or box sections. For a hollow circular tube:
+
+$$
+m = \rho \pi (r_o^2 - r_i^2) L
+$$
+
+where $r_o$ and $r_i$ are the outer and inner radii.
+
+### Practical Weight Budget
+
+For a serial manipulator, the link closest to the base carries all subsequent links, actuators, and payload. A useful rule of thumb for link mass ratios in a well-designed robot:
+
+$$
+m_i \approx \frac{m_{\text{payload}}}{(0.3)^{n-i}}
+$$
+
+where $m_i$ is the mass of link $i$ (counting from the tip), $n$ is the total number of links, and $m_{\text{payload}}$ is the payload mass. This reflects the geometric scaling: each link closer to the base must be heavier to support everything distal to it.
+
+**Example:** For a 6-DoF robot with 5 kg payload:
+- Link 6 (wrist): ~5 kg
+- Link 5: ~17 kg
+- Link 4: ~56 kg
+- ... and so on toward the base
+
+This is why base joints on industrial robots are massively built while wrist joints are compact.
 
 ---
 
@@ -157,4 +228,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #component OR #kinematics WHERE contains(file.outlinks, [[Links_(DoF)]])
-````
+```

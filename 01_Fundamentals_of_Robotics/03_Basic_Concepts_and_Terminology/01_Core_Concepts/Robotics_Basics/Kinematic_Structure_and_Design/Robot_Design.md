@@ -87,6 +87,108 @@ $$
 
 ---
 
+## Actuator Sizing Workflow
+
+Selecting the right actuators is one of the most consequential decisions in robot design. The following workflow ensures systematic, requirements-driven actuator selection:
+
+### Step 1: Load Analysis
+
+For each joint $i$, determine the worst-case load:
+
+$$
+\tau_{\text{required},i} = \tau_{\text{gravity},i} + \tau_{\text{inertia},i} + \tau_{\text{friction},i} + \tau_{\text{payload},i}
+$$
+
+- **Gravity load** (static, worst configuration): $\tau_g = \sum_j m_j g \, d_j \cos(\theta_{\text{worst}})$ where $d_j$ is the perpendicular distance from the joint axis to each mass $m_j$
+- **Inertial load** (dynamic): $\tau_a = J_{\text{reflected}} \cdot \ddot{\theta}_{\text{max}}$
+- **Friction load**: typically 5--15% of gravity + inertial loads for initial estimates
+
+### Step 2: Speed Requirements
+
+Determine the maximum joint velocity from the desired end-effector speed:
+
+$$
+\dot{\theta}_{\max,i} = \max_{\text{trajectory}} |\dot{q}_i(t)|
+$$
+
+A common starting point: industrial arms target TCP speeds of 1--3 m/s, which translates to joint speeds of 60--360 deg/s depending on kinematic configuration.
+
+### Step 3: Motor and Gear Selection
+
+Select a motor + gearbox combination such that:
+
+$$
+\tau_{\text{motor,cont}} \cdot N \cdot \eta \geq \tau_{\text{required}} \quad \text{(torque)}
+$$
+
+$$
+\frac{\omega_{\text{motor,rated}}}{N} \geq \dot{\theta}_{\max} \quad \text{(speed)}
+$$
+
+$$
+\tau_{\text{motor,peak}} \cdot N \cdot \eta \geq \tau_{\text{peak}} \quad \text{(peak demands)}
+$$
+
+### Step 4: Verify Thermal and Electrical Budget
+
+Check that the motor's continuous current draw does not exceed driver capacity, and that the total power draw across all joints fits within the power supply budget.
+
+---
+
+## Design Trade-Off Matrix
+
+A design trade-off matrix helps teams make structured decisions. Each row is a design criterion, each column is a candidate design. Entries are scores (1--5), weighted by importance:
+
+| Criterion | Weight | Design A (Harmonic) | Design B (Belt) | Design C (Direct) |
+|---|---|---|---|---|
+| Accuracy/repeatability | 0.25 | 5 | 3 | 4 |
+| Backdrivability | 0.20 | 2 | 3 | 5 |
+| Cost | 0.15 | 2 | 5 | 3 |
+| Weight | 0.15 | 3 | 4 | 4 |
+| Max torque | 0.15 | 5 | 3 | 2 |
+| Maintenance | 0.10 | 3 | 4 | 5 |
+| **Weighted Total** | **1.00** | **3.35** | **3.55** | **3.80** |
+
+The highest weighted total indicates the best design for the given priorities. Different applications will weight criteria differently -- a collaborative robot prioritizes backdrivability; an industrial welding robot prioritizes max torque and accuracy.
+
+---
+
+## Safety Factors in Structural Design
+
+### Factor of Safety (FoS)
+
+The factor of safety ensures structural components withstand loads beyond the expected maximum:
+
+$$
+\text{FoS} = \frac{\sigma_{\text{yield}}}{\sigma_{\text{applied}}}
+$$
+
+where $\sigma_{\text{yield}}$ is the material's yield strength and $\sigma_{\text{applied}}$ is the maximum expected stress.
+
+**Recommended FoS for robot design:**
+
+| Application | Typical FoS | Rationale |
+|---|---|---|
+| Static structures (base, pedestal) | 2.0 -- 3.0 | Well-characterized loads |
+| Dynamic links (arm segments) | 3.0 -- 4.0 | Fatigue, vibration, impact loads |
+| Collaborative robot links | 4.0 -- 5.0 | Human safety per ISO/TS 15066 |
+| Lifting fixtures | 5.0 -- 6.0 | Dropped-load scenarios |
+
+### Common Structural Materials for Robots
+
+| Material | Yield Strength (MPa) | Density (kg/m^3) | Strength-to-Weight | Typical Use |
+|---|---|---|---|---|
+| 6061-T6 Aluminum | 276 | 2,700 | High | Links, frames (most common) |
+| 7075-T6 Aluminum | 503 | 2,810 | Very high | High-performance links |
+| 304 Stainless Steel | 215 | 8,000 | Low | Bases, food-grade applications |
+| Carbon Fiber (UD) | 600--1,500 | 1,600 | Excellent | Lightweight links, end-effectors |
+| 3D-printed PLA | 50--60 | 1,240 | Low | Prototyping only |
+| 3D-printed Nylon (PA12) | 48 | 1,010 | Low-moderate | Functional prototypes, light-duty |
+
+**Practical tip:** For initial prototyping, use 6061-T6 aluminum extrusions (e.g., 80/20) for the structure and 3D-printed PLA for non-structural brackets. Upgrade to machined 7075 or carbon fiber only after validating the design.
+
+---
+
 ## Impact on Robotics
 
 - **Functionality and Performance**: Effective robot design ensures that robotic systems can perform their intended tasks efficiently and reliably, meeting the requirements of various applications.

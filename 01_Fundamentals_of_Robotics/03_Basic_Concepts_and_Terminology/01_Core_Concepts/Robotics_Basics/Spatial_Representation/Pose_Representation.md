@@ -104,6 +104,65 @@ R = \begin{bmatrix}
 \end{bmatrix}
 $$
 
+### Pose Composition and Inverse
+
+**Pose Composition**: When two poses are chained (e.g., frame $A$ relative to world, frame $B$ relative to $A$), the resulting pose is computed by matrix multiplication:
+
+$$
+T_{WB} = T_{WA} \cdot T_{AB}
+$$
+
+**Pose Inverse**: The inverse of a homogeneous transformation recovers the reverse transformation:
+
+$$
+T^{-1} = \begin{bmatrix}
+R^T & -R^T \mathbf{p} \\
+\mathbf{0} & 1
+\end{bmatrix}
+$$
+
+This avoids a full $4 \times 4$ matrix inversion by exploiting the orthogonality of rotation matrices ($R^{-1} = R^T$).
+
+### SLERP: Quaternion Interpolation
+
+**Spherical Linear Interpolation (SLERP)** produces smooth, constant-angular-velocity interpolation between two orientations represented as unit quaternions $q_0$ and $q_1$:
+
+$$
+\text{SLERP}(q_0, q_1, t) = \frac{\sin((1-t)\Omega)}{\sin \Omega} q_0 + \frac{\sin(t\Omega)}{\sin \Omega} q_1
+$$
+
+where $\Omega = \cos^{-1}(q_0 \cdot q_1)$ is the angle between the two quaternions and $t \in [0, 1]$ is the interpolation parameter.
+
+**Practical notes for SLERP implementation:**
+- Always check the sign of $q_0 \cdot q_1$. If negative, negate one quaternion before interpolating to ensure the shortest-path rotation.
+- When $\Omega \approx 0$ (nearly identical orientations), fall back to normalized linear interpolation (NLERP) to avoid division by zero.
+- SLERP is standard in robot trajectory generation. For a pick-and-place motion, you typically SLERP the orientation while linearly interpolating position, then combine into the full pose.
+
+---
+
+## Representation Comparison
+
+Choosing the right orientation representation is critical in practice. The table below compares the three main approaches:
+
+| Property | Euler Angles | Rotation Matrix | Quaternion |
+|---|---|---|---|
+| **Parameters** | 3 (e.g., roll, pitch, yaw) | 9 (with 6 constraints) | 4 (with 1 constraint) |
+| **Minimal representation** | Yes | No | No (but compact) |
+| **Singularities** | Yes (gimbal lock) | No | No |
+| **Composition** | Sequential rotations (order-dependent) | Matrix multiply $R_1 R_2$ | Quaternion multiply $q_1 \otimes q_2$ |
+| **Interpolation** | Poor (discontinuous) | Non-trivial | Excellent (SLERP) |
+| **Computational cost** | Low storage, high composition cost | High storage, moderate composition | Low storage, low composition |
+| **Human readability** | Excellent | Poor | Poor |
+| **Typical use** | HMI displays, joystick input | Homogeneous transforms, DH convention | Motion planning, AHRS/IMU output, game engines |
+
+**Practitioner guidance:**
+- Use **Euler angles** only for user interfaces and debugging displays. Never use them internally for computation in 3D applications.
+- Use **rotation matrices** when composing transforms in kinematic chains (DH parameters naturally produce these).
+- Use **quaternions** for trajectory interpolation, state estimation (EKF/UKF), and any application where orientation must be integrated over time.
+- The ROS `tf2` library internally uses quaternions. The URDF format specifies orientation as quaternion $(x, y, z, w)$.
+
+---
+
 ### Example: Mobile Robot
 
 Consider a mobile robot navigating in a 2D plane. Its pose can be represented using a homogeneous transformation matrix:

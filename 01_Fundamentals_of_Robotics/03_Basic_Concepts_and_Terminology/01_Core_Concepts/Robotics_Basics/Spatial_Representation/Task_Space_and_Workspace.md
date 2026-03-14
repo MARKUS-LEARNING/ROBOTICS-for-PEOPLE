@@ -20,7 +20,7 @@ permalink: /task_space_and_workspace/
 related:
   - "[[Kinematics]]"
   - "[[Motion_Planning]]"
-  - "[[ROBOTICS-for-EVERYONE/01_Fundamentals_of_Robotics/03_Basic_Concepts_and_Terminology/01_Core_Concepts/Configuration_Space]]"
+  - "[[Configuration_Space]]"
   - "[[Inverse_Kinematics]]"
   - "[[Robot_Design]]"
   - "[[Workspace_Analysis]]"
@@ -94,6 +94,79 @@ $$
 $$
 
 For a given task, such as reaching a specific point in space, inverse kinematics is used to find the joint angles $\mathbf{q}$ that achieve the desired position $\mathbf{x}$.
+
+---
+
+## Task-Space Control Formulation
+
+Rather than controlling joints independently and relying on inverse kinematics, **operational space control** (Khatib, 1987) directly controls the end-effector in task space by accounting for the full robot dynamics.
+
+### Operational Space Dynamics
+
+The robot's joint-space dynamics are:
+
+$$
+M(\mathbf{q}) \ddot{\mathbf{q}} + C(\mathbf{q}, \dot{\mathbf{q}}) \dot{\mathbf{q}} + \mathbf{g}(\mathbf{q}) = \boldsymbol{\tau} + J^T \mathbf{F}_{\text{ext}}
+$$
+
+where $M$ is the mass matrix, $C$ captures Coriolis/centrifugal terms, $\mathbf{g}$ is gravity, $\boldsymbol{\tau}$ is joint torques, and $\mathbf{F}_{\text{ext}}$ is external forces at the end-effector.
+
+The **task-space mass matrix** (also called the operational space inertia matrix) is:
+
+$$
+\Lambda(\mathbf{q}) = \left( J M^{-1} J^T \right)^{-1}
+$$
+
+The task-space control law that achieves a desired task-space acceleration $\ddot{\mathbf{x}}_d$ is:
+
+$$
+\boldsymbol{\tau} = J^T \Lambda \ddot{\mathbf{x}}_d + J^T \bar{C} \dot{\mathbf{x}} + J^T \bar{\mathbf{g}}
+$$
+
+where $\bar{C}$ and $\bar{\mathbf{g}}$ are the Coriolis and gravity terms projected into task space.
+
+**Practical advantage:** Task-space control makes the end-effector behave as a decoupled inertial system in Cartesian space, which simplifies impedance control and force control. It is used in the Franka Emika Panda's `cartesian_impedance_example_controller` and Stanford's operational space controller for the Kuka iiwa.
+
+### Task-Space PD Control (Simplified)
+
+A common simplified task-space controller uses:
+
+$$
+\mathbf{F} = \Lambda(\mathbf{q}) \left( K_p (\mathbf{x}_d - \mathbf{x}) + K_d (\dot{\mathbf{x}}_d - \dot{\mathbf{x}}) \right) + \bar{\mathbf{g}}
+$$
+
+$$
+\boldsymbol{\tau} = J^T \mathbf{F}
+$$
+
+where $K_p$ and $K_d$ are task-space stiffness and damping matrices. Typical values for a 7-DoF arm: $K_p = \text{diag}(600, 600, 600, 30, 30, 30)$ (N/m for translation, Nm/rad for rotation) and $K_d = 2\sqrt{K_p}$ for critical damping.
+
+---
+
+## Workspace Volume Estimation Methods
+
+### Analytical Methods
+
+For simple kinematic structures (e.g., planar 2R or 3R arms), the workspace boundary can be derived analytically:
+
+- **Planar 2R arm**: The workspace is an annulus with inner radius $|l_1 - l_2|$ and outer radius $l_1 + l_2$.
+- **Spherical wrist robots**: Workspace is a thick spherical shell whose boundaries depend on the arm's link lengths and joint limits.
+
+### Numerical Monte Carlo Sampling
+
+For complex robots, the workspace volume is estimated by:
+
+1. Randomly sampling $N$ configurations in joint space: $\mathbf{q}_i \sim \text{Uniform}(\mathbf{q}_{\min}, \mathbf{q}_{\max})$
+2. Computing end-effector positions via forward kinematics: $\mathbf{x}_i = f(\mathbf{q}_i)$
+3. Discretizing Cartesian space into a voxel grid and counting occupied voxels
+4. Estimating volume: $V \approx (\text{voxel size})^3 \times (\text{number of occupied voxels})$
+
+**Typical results:**
+- UR5 (850 mm reach): reachable workspace volume $\approx 1.8 \, m^3$
+- KUKA iiwa 14 (820 mm reach): reachable workspace volume $\approx 1.6 \, m^3$
+- ABB IRB 6700 (2.6 m reach): reachable workspace volume $\approx 28 \, m^3$
+
+For detailed workspace characterization, see [[Workspace_Analysis]].
 
 ---
 

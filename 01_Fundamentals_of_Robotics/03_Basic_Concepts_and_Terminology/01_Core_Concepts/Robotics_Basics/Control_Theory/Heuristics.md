@@ -78,6 +78,87 @@ $$
 
 ---
 
+## Admissible vs. Inadmissible Heuristics
+
+The distinction between admissible and inadmissible heuristics determines whether an algorithm like A* will find the optimal solution.
+
+### Admissible Heuristics
+
+A heuristic $h(n)$ is **admissible** if it never overestimates the true cost $h^*(n)$ to reach the goal:
+
+$$
+h(n) \leq h^*(n) \quad \forall\, n
+$$
+
+**Proof that A* with an admissible heuristic finds the optimal path:**
+
+Suppose A* returns a suboptimal goal node $G'$ with cost $f(G') = g(G') > g^*(G)$ (where $G$ is the optimal goal). There must exist an unexpanded node $n$ on the optimal path. For this node: $f(n) = g(n) + h(n) \leq g(n) + h^*(n) = g^*(G) < g(G') = f(G')$. But A* would have expanded $n$ before $G'$ since $f(n) < f(G')$ --- contradiction. Therefore A* must return the optimal path.
+
+### Consistent (Monotone) Heuristics
+
+A stronger condition: $h$ is **consistent** if for every node $n$ and every successor $n'$:
+
+$$
+h(n) \leq c(n, n') + h(n') \quad \text{(triangle inequality)}
+$$
+
+$$
+h(G) = 0 \quad \text{(goal condition)}
+$$
+
+Consistency implies admissibility (but not vice versa). With a consistent heuristic, A* never re-expands nodes, which is important for efficiency.
+
+### Inadmissible Heuristics
+
+An inadmissible heuristic may overestimate costs. This means A* is no longer guaranteed to find the optimal path, but it often finds good paths much faster.
+
+**Weighted A*** uses an inflated heuristic $f(n) = g(n) + w \cdot h(n)$ with $w > 1$. This produces a path at most $w$ times the optimal cost, but can be orders of magnitude faster. Typical values: $w = 1.5$--$3.0$.
+
+**Robotics application:** The `sbpl` (Search-Based Planning Lab) library used in ROS implements Anytime Repairing A* (ARA*), which starts with a large $w$ for a fast initial solution, then decreases $w$ iteratively to improve the solution. This is ideal for real-time replanning on mobile robots.
+
+---
+
+## Common Heuristics in Robotics
+
+### Workspace Heuristics (Mobile Robots)
+
+| Heuristic | Formula | Grid Type | Properties |
+|---|---|---|---|
+| Euclidean distance | $h = \sqrt{\Delta x^2 + \Delta y^2}$ | Any | Admissible, consistent |
+| Manhattan distance | $h = |\Delta x| + |\Delta y|$ | 4-connected | Admissible, consistent |
+| Diagonal (Octile) | $h = \max(|\Delta x|, |\Delta y|) + (\sqrt{2}-1)\min(|\Delta x|, |\Delta y|)$ | 8-connected | Admissible, consistent |
+| Dubins path length | Shortest path with bounded curvature | Continuous | Admissible for car-like robots |
+
+### Configuration-Space Heuristics (Manipulators)
+
+For a robot arm with joint configuration $q \in \mathbb{R}^n$:
+
+- **Joint-space $L^2$ distance:** $h(q, q_{\text{goal}}) = \|q - q_{\text{goal}}\|_2 = \sqrt{\sum_{i=1}^{n}(q_i - q_{i,\text{goal}})^2}$. Admissible if each joint can move independently at unit cost. Fast to compute but ignores obstacles.
+
+- **Weighted joint-space distance:** $h(q, q_{\text{goal}}) = \sqrt{\sum_{i=1}^{n} w_i (q_i - q_{i,\text{goal}})^2}$, where $w_i$ reflects the cost of moving joint $i$ (e.g., base joints are heavier and more expensive to move). Used in MoveIt 2's OMPL interface.
+
+- **Task-space distance:** $h = \|FK(q) - FK(q_{\text{goal}})\|_2$ where $FK$ is the forward kinematics. Admissible when the robot can move at least as fast in joint space as the end-effector moves in task space.
+
+---
+
+## Computational Complexity Trade-offs
+
+The choice of heuristic directly impacts planning speed:
+
+| Algorithm + Heuristic | Time Complexity | Nodes Expanded (typical 1000x1000 grid) | Optimality |
+|---|---|---|---|
+| Dijkstra (no heuristic, $h = 0$) | $O((V+E) \log V)$ | ~1,000,000 | Optimal |
+| A* + Euclidean | $O((V+E) \log V)$ | ~10,000--100,000 | Optimal |
+| A* + Weighted ($w=2$) | $O((V+E) \log V)$ | ~1,000--10,000 | $\leq 2 \times$ optimal |
+| Greedy Best-First ($g=0$) | $O((V+E) \log V)$ | ~1,000--5,000 | No guarantee |
+
+**Practical guidance:**
+- For real-time mobile robot navigation (10--20 Hz replanning), weighted A* with $w = 1.5$--$2.0$ is the standard choice. The suboptimality is acceptable and planning is 10--50x faster than optimal A*.
+- For manipulator motion planning, heuristics are less useful because the configuration space is high-dimensional (6--7D) and cluttered. Sampling-based planners (RRT, PRM) are preferred over grid-based search.
+- **Memory matters:** A* on a 3D voxel grid (e.g., 200 x 200 x 200 at 5 cm resolution) requires ~32 GB of memory for the open/closed lists. Use hierarchical planning (coarse-to-fine) or lattice-based planners to manage memory.
+
+---
+
 ## Applications of Heuristics
 
 Heuristics are applied in various fields to solve complex problems efficiently:
@@ -91,10 +172,13 @@ Heuristics are applied in various fields to solve complex problems efficiently:
 - **Game Theory**: Used to model decision-making in strategic situations where players use heuristics to make moves based on incomplete information.
   <br>
 
-- **Robotics**: Applied in path planning and navigation to guide robots through complex environments using approximate methods.
+- **Robotics**: Applied in path planning and navigation to guide robots through complex environments using approximate methods. A* with Euclidean heuristics is the backbone of most 2D mobile robot navigation stacks.
   <br>
 
 - **Operations Research**: Utilized in scheduling, resource allocation, and logistics to make practical decisions under uncertainty.
+  <br>
+
+- **Multi-Robot Coordination**: Conflict-Based Search (CBS) uses heuristics to plan collision-free paths for fleets of warehouse robots (e.g., Amazon Kiva/Proteus systems with 1000+ robots).
   <br>
 
 ---
@@ -106,3 +190,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 - **List all related algorithms and techniques**:
   ```dataview
   LIST FROM #Algorithms OR #Optimization WHERE contains(file.outlinks, [[Heuristics]])
+  ```
