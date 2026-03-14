@@ -13,7 +13,7 @@ tags:
   - autonomous-weapons
 layout: default
 category: robotics
-author: Jordan_Smith_&_le_Chat
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /robot_ethics_policy_debates/
 related:
@@ -47,10 +47,10 @@ While philosophical consideration of artificial beings dates back further, moder
 
 ## Key Ethical Issues and Debates
 
-1.  **[[Safety]]:** Ensuring the physical safety of humans interacting with or operating near robots is paramount. This includes:
-    * **Physical Interaction:** Safety protocols for [[Collaborative Robots|cobots]] working alongside humans.
-    * **Autonomous Systems:** Predictability, reliability, and fail-safe mechanisms for robots operating autonomously (e.g., self-driving cars, autonomous drones). Preventing unintended harm due to software errors, sensor failures, or unexpected environmental interactions.
-    * **Medical Robotics:** Ensuring patient safety during robotic surgery or assistance.
+1.  **[[Safety]]:** Ensuring the physical safety of humans interacting with or operating near robots is paramount. Engineering safety is governed by quantitative standards, not just principles:
+    * **Physical Interaction:** ISO/TS 15066 defines four collaborative operation modes. In Power and Force Limiting (PFL) mode, maximum quasi-static contact forces range from 65 N (skull/forehead) to 210 N (back/shoulders), with transient peaks up to 2x these values. Maximum pressure limits are 110–300 N/cm² depending on body region. These thresholds are derived from biomechanical pain onset data — practitioners must verify compliance through contact force measurements during risk assessment.
+    * **Autonomous Systems:** Functional safety follows IEC 61508 (Safety Integrity Levels, SIL 1–4). A SIL-2 rated system requires a probability of dangerous failure on demand $< 10^{-2}$ per hour. In practice, this demands redundant sensors, watchdog timers, and safe-state logic (e.g., controlled stop category 0 or 1 per IEC 60204). Self-driving vehicles use additional metrics: miles between disengagements ($> 10{,}000$ for Waymo) and functional safety architectures per ISO 26262 (ASIL-D for steering/braking).
+    * **Medical Robotics:** FDA Class II 510(k) clearance requires demonstrated equivalence to predicate devices. Force limits in surgical robots are application-specific — the da Vinci system limits instrument forces to $< 10$ N for soft tissue, while orthopedic systems like Mako use haptic boundaries with stiffness $> 5{,}000$ N/m to constrain cutting tools within pre-planned volumes.
 
 2.  **Job Displacement & Economic Impact:** Widespread automation raises concerns about potential job losses for human workers performing tasks that robots can automate. Debates focus on:
     * The scale and pace of displacement across different sectors.
@@ -92,7 +92,7 @@ While philosophical consideration of artificial beings dates back further, moder
 
 Addressing these ethical challenges requires proactive policy development and societal discussion:
 
-* **Regulation & Standards:** Developing clear safety standards (e.g., extending ISO standards for industrial and collaborative robots), data protection regulations (like GDPR) applied to robotics, and potentially specific rules for autonomous systems in critical domains (e.g., transport, healthcare).
+* **Regulation & Standards:** The robotics safety standards landscape includes ISO 10218 (industrial robots), ISO/TS 15066 (collaborative robots), IEC 61508 (functional safety), ISO 13849 (safety-related control systems, Performance Levels a–e), ISO 26262 (automotive, ASIL A–D), and IEC 62443 (cybersecurity for industrial systems). For practitioners, compliance requires documented risk assessment (ISO 12100), validated safety functions with diagnostic coverage $> 90\%$ (for PL d), and type-tested safety controllers (e.g., SICK Flexi Soft, Pilz PNOZ).
 * **Algorithmic Transparency & Auditing:** Mechanisms for understanding and auditing the decision-making processes of AI-driven robots, particularly regarding bias and safety.
 * **Workforce Policies:** Strategies for retraining, education, and social support to manage economic transitions driven by automation.
 * **International Agreements:** Treaties or norms governing the development and use of potentially harmful applications like LAWS.

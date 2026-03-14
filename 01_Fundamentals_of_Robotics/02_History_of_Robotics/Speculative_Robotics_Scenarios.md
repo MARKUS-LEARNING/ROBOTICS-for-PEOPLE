@@ -12,7 +12,7 @@ tags:
   - robotics-future
 layout: default
 category: robotics
-author: Jordan_Smith_&_le_Chat
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /speculative_robotics_scenarios/
 related:
@@ -41,16 +41,16 @@ Speculative robotics involves exploring potential long-term trajectories (decade
 
 ### 1. Ubiquitous Automation and Post-Scarcity Economy
 
-* **Scenario:** Highly capable general-purpose robots ([[Humanoid_Robots]], advanced [[Mobile_Robots|mobile manipulators]], [[Swarm_Robots]]) automate the vast majority of physical labor – manufacturing, logistics, [[Agricultural_Robots|agriculture]], construction, resource extraction, domestic chores.
+* **Scenario:** Highly capable general-purpose robots ([[Humanoid_Robots]], advanced [[Mobile_Robots|mobile manipulators]], [[Swarm_Robots]]) automate the vast majority of physical labor. The engineering feasibility is becoming quantifiable: current humanoids cost $\$50{,}000$–$\$150{,}000$ to manufacture, operate at 500 W average power, and can handle 5–15 kg payloads. If manufacturing cost drops below $\$20{,}000$ (Tesla's stated target) and operational reliability exceeds 10,000 hours MTBF, the economics favor robot labor for tasks paying $> \$15$/hr — which covers ~40% of current US employment by wage.
 * **Potential Implications:**
-    * **Positive:** Potential for a post-scarcity economy with abundant resources and leisure time, freeing humans from dangerous or tedious work.
-    * **Negative:** Massive job displacement, need for radical economic restructuring (e.g., universal basic income), questions about human purpose and motivation in a "post-work" world.
+    * **Positive:** Potential for a post-scarcity economy with abundant resources and leisure time, freeing humans from dangerous or tedious work. A single humanoid operating 20 hrs/day at $\$3$/hr effective cost could provide the equivalent of 2.5 FTE human workers.
+    * **Negative:** Massive job displacement, need for radical economic restructuring (e.g., universal basic income), questions about human purpose and motivation in a "post-work" world. Historical precedent (agricultural → industrial transition) suggests adaptation timescales of 20–50 years — but the pace of AI-driven robotics may compress this.
 
 ### 2. Deep Human-Robot Integration
 
 * **Scenario:** Robots become seamlessly integrated into personal lives and even human bodies.
     * **Advanced Assistance & Companionship:** Robots as highly personalized caregivers, educators, domestic helpers, and companions, potentially forming deep emotional bonds with humans. Raises questions about dependence, [[Privacy]], authenticity of emotion, and impact on human social structures.
-    * **Augmentation & [[Transhumanism]]:** Advanced robotic prosthetics, [[Exoskeletons]], neural interfaces (Brain-Computer Interfaces - BCIs), potentially leading to cyborgization – the merging of human and machine – significantly enhancing physical or cognitive capabilities. Raises profound ethical questions about human identity, inequality ("enhanced" vs. "unenhanced"), and the definition of "human".
+    * **Augmentation & [[Transhumanism]]:** Powered exoskeletons already augment human strength by factors of 2–10x (Sarcos Guardian XO: 90 kg sustained lift, 8-hr battery). Myoelectric prosthetics decode EMG signals from residual muscles at $> 90\%$ gesture classification accuracy. Brain-Computer Interfaces (BCIs) have demonstrated 62-words-per-minute typing from neural signals (Neuralink, 2024) and direct robotic arm control with 7 DOF (BrainGate). The engineering trajectory points toward closed-loop neural-robotic systems with sensory feedback — requiring bidirectional bandwidth of $> 1{,}000$ channels at $< 1$ ms latency. This raises profound ethical questions about human identity, inequality ("enhanced" vs. "unenhanced"), and the definition of "human".
 
 ### 3. [[Artificial General Intelligence (AGI)]] and Superintelligence
 
@@ -67,7 +67,7 @@ Speculative robotics involves exploring potential long-term trajectories (decade
 
 ### 5. [[Space Robotics]]: Expanding the Frontier
 
-* **Scenario:** Autonomous robotic systems become the primary agents for large-scale space exploration, asteroid mining, construction of orbital habitats or lunar/Martian bases, and potentially preparing environments for human colonization. Addresses the challenges of long distances, communication delays, and hazardous environments.
+* **Scenario:** Autonomous robotic systems become the primary agents for space exploration, asteroid mining, and extraterrestrial construction. The engineering constraints are extreme: communication delays of 4–24 minutes (Earth-Mars) demand full autonomy; radiation hardening requires specialized electronics (RAD750 processors at 200 MHz vs. consumer GHz-class chips); thermal cycling of $\pm 150°$C demands actuators and lubricants rated for vacuum operation. NASA's Mars rovers (Curiosity, Perseverance) demonstrate the current state: autonomous navigation at $\sim 200$ m/day using stereo vision and hazard avoidance, with 5-DOF sample handling arms. Scaling to construction-grade operations (regolith processing, 3D printing of habitats) requires power systems of 10–100 kW — achievable with compact fission reactors (Kilopower, 10 kWe).
 
 ---
 
