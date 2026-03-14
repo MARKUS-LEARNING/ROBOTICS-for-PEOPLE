@@ -61,10 +61,9 @@ Transformations in Euclidean space, such as translations and rotations, are used
 
 The Euclidean distance between two points $\mathbf{p}_1$ and $\mathbf{p}_2$ in $n$ -dimensional space is given by:
 
-<img width="348" alt="image" src="https://github.com/user-attachments/assets/19af66a4-91e7-4026-9eec-972807110dcd" />
-
-
-​
+$$
+d(\mathbf{p}_1, \mathbf{p}_2) = \sqrt{\sum_{i=1}^{n} (p_{1i} - p_{2i})^2}
+$$
 
 where $p_{1i}$ and $p_{2i}$ are the coordinates of the points in the $i$-th dimension.
 
@@ -104,6 +103,65 @@ d = \sqrt{(x_t - x_c)^2 + (y_t - y_c)^2 + (z_t - z_c)^2}
 $$
 
 This distance metric is used to plan the arm's motion and ensure it reaches the target position efficiently.
+
+---
+
+## Distance Metrics Comparison for Robotics
+
+While the Euclidean distance is the most natural metric in physical space, several distance metrics are useful in different robotics contexts:
+
+| Metric | Formula ($\mathbb{R}^n$) | Robotics Application |
+|---|---|---|
+| **Euclidean** ($L^2$) | $d = \sqrt{\sum (x_i - y_i)^2}$ | Path length in workspace, nearest-neighbor queries in point clouds |
+| **Manhattan** ($L^1$) | $d = \sum \lvert x_i - y_i \rvert$ | Grid-based path planning (4-connected grids), taxicab-style mobile robot navigation |
+| **Chebyshev** ($L^\infty$) | $d = \max_i \lvert x_i - y_i \rvert$ | Grid-based planning (8-connected grids), bounding-box collision checks, joint-space distance when each joint moves independently at max speed |
+
+**Practical notes:**
+- In **joint space**, the Chebyshev ($L^\infty$) metric often better predicts motion time than Euclidean distance, because the total move time is determined by the slowest joint (the one with the largest angular displacement).
+- In **configuration space** planning, the metric choice affects the behavior of sampling-based planners like RRT. The Euclidean metric in joint space is the default in most implementations (e.g., OMPL).
+- For **point cloud registration** (e.g., ICP algorithm), the Euclidean metric is used for nearest-neighbor search, typically accelerated with KD-trees.
+
+---
+
+## Coordinate Frame Transformations in Euclidean Space
+
+Robotics fundamentally involves relating quantities expressed in different coordinate frames. A rigid body transformation in 3D Euclidean space consists of a rotation $R \in SO(3)$ and a translation $\mathbf{t} \in \mathbb{R}^3$.
+
+### Transforming a Point Between Frames
+
+Given a point $\mathbf{p}^B$ expressed in frame $\{B\}$, its coordinates in frame $\{A\}$ are:
+
+$$
+\mathbf{p}^A = R^A_B \, \mathbf{p}^B + \mathbf{t}^A_B
+$$
+
+Or equivalently using the homogeneous transformation:
+
+$$
+\begin{bmatrix} \mathbf{p}^A \\ 1 \end{bmatrix} = T^A_B \begin{bmatrix} \mathbf{p}^B \\ 1 \end{bmatrix}
+$$
+
+### Chaining Transforms
+
+Transforms compose by multiplication. For frames $\{A\}$, $\{B\}$, $\{C\}$:
+
+$$
+T^A_C = T^A_B \cdot T^B_C
+$$
+
+This is the foundation of forward kinematics: the end-effector pose relative to the base is the product of all link transforms.
+
+### Velocity Transformation
+
+Velocities transform differently from points. The velocity of a point expressed in frame $\{A\}$ given its velocity in frame $\{B\}$ is:
+
+$$
+\mathbf{v}^A = R^A_B \, \mathbf{v}^B + \boldsymbol{\omega}^A_{AB} \times R^A_B \, \mathbf{p}^B
+$$
+
+where $\boldsymbol{\omega}^A_{AB}$ is the angular velocity of frame $\{B\}$ relative to frame $\{A\}$, expressed in $\{A\}$.
+
+**Practical example:** A camera mounted on a robot arm sees an object at position $\mathbf{p}^{\text{cam}}$ in the camera frame. To command the arm to grasp it, we transform through the chain: $T^{\text{base}}_{\text{cam}} = T^{\text{base}}_{\text{ee}} \cdot T^{\text{ee}}_{\text{cam}}$, where $T^{\text{ee}}_{\text{cam}}$ is the hand-eye calibration result.
 
 ---
 

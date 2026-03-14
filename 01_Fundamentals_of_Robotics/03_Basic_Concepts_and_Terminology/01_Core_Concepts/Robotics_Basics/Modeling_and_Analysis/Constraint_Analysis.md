@@ -107,6 +107,116 @@ where $g_i(x)$ are the constraint functions.
 
 ---
 
+## Robotics-Specific Constraints
+
+In robotic systems, constraints arise from physical hardware limits, safety requirements, and task specifications. Properly formulating these constraints is critical for motion planning, trajectory optimization, and real-time control.
+
+### Joint Limit Constraints
+
+Every robot joint has physical limits on position, velocity, and torque:
+
+**Position limits** (hard stops or software limits):
+
+$$
+q_{\min,i} \leq q_i \leq q_{\max,i}, \quad i = 1, \ldots, n
+$$
+
+**Velocity limits** (motor speed limits):
+
+$$
+|\dot{q}_i| \leq \dot{q}_{\max,i}
+$$
+
+**Torque/force limits** (motor current limits):
+
+$$
+|\tau_i| \leq \tau_{\max,i}
+$$
+
+**Typical values for a UR5e collaborative robot:**
+
+| Joint | Position Range | Max Velocity | Max Torque |
+|---|---|---|---|
+| Base (J1) | $\pm 360°$ | 180 deg/s | 150 Nm |
+| Shoulder (J2) | $\pm 360°$ | 180 deg/s | 150 Nm |
+| Elbow (J3) | $\pm 360°$ | 180 deg/s | 150 Nm |
+| Wrist 1 (J4) | $\pm 360°$ | 360 deg/s | 54 Nm |
+| Wrist 2 (J5) | $\pm 360°$ | 360 deg/s | 54 Nm |
+| Wrist 3 (J6) | $\pm 360°$ | 360 deg/s | 54 Nm |
+
+### Collision Avoidance Constraints
+
+Collision constraints ensure minimum distance between the robot body and obstacles:
+
+$$
+d(\mathcal{A}_k(\mathbf{q}), \mathcal{O}_j) \geq d_{\min}, \quad \forall \, k, j
+$$
+
+where $\mathcal{A}_k(\mathbf{q})$ is the $k$-th robot body at configuration $\mathbf{q}$, $\mathcal{O}_j$ is the $j$-th obstacle, and $d_{\min}$ is the minimum clearance (typically 10--50 mm in industrial settings, or larger for collaborative applications per ISO/TS 15066).
+
+Self-collision constraints similarly enforce:
+
+$$
+d(\mathcal{A}_k(\mathbf{q}), \mathcal{A}_l(\mathbf{q})) \geq d_{\text{self}}, \quad \forall \, k \neq l
+$$
+
+### Task Constraints
+
+Task constraints restrict the end-effector to satisfy application requirements:
+
+**Orientation constraint** (e.g., keep a cup level):
+
+$$
+R_z(\mathbf{q}) = \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix} \quad \text{(end-effector z-axis points up)}
+$$
+
+**Position constraint** (e.g., welding along a seam):
+
+$$
+\mathbf{p}(\mathbf{q}) \in \mathcal{S} \quad \text{(end-effector on surface } \mathcal{S} \text{)}
+$$
+
+**Velocity constraint** (e.g., constant TCP speed for dispensing):
+
+$$
+\| \dot{\mathbf{p}} \| = v_{\text{desired}}
+$$
+
+### Constraint Jacobian
+
+When constraints are expressed as $h(\mathbf{q}) = 0$, the **constraint Jacobian** is:
+
+$$
+A(\mathbf{q}) = \frac{\partial h}{\partial \mathbf{q}}
+$$
+
+The constraint Jacobian projects the joint velocity onto the constraint surface. The constrained joint velocity must satisfy:
+
+$$
+A(\mathbf{q}) \dot{\mathbf{q}} = 0
+$$
+
+For inequality constraints $g(\mathbf{q}) \leq 0$, the active set method identifies which constraints are binding at each time step and enforces them as equalities.
+
+### Constraint Handling in Trajectory Optimization
+
+Modern trajectory optimizers (e.g., TrajOpt, CHOMP, Drake) handle robot constraints by formulating a nonlinear program:
+
+$$
+\begin{align*}
+\min_{\mathbf{q}_{0:T}} \quad & \sum_{t=0}^{T-1} \| \mathbf{q}_{t+1} - \mathbf{q}_t \|^2 \\
+\text{s.t.} \quad & \mathbf{q}_{\min} \leq \mathbf{q}_t \leq \mathbf{q}_{\max} & \text{(joint limits)} \\
+& |\dot{\mathbf{q}}_t| \leq \dot{\mathbf{q}}_{\max} & \text{(velocity limits)} \\
+& d(\mathcal{A}(\mathbf{q}_t), \mathcal{O}) \geq d_{\min} & \text{(collision avoidance)} \\
+& h_{\text{task}}(\mathbf{q}_t) = 0 & \text{(task constraints)} \\
+& \mathbf{q}_0 = \mathbf{q}_{\text{start}}, \quad \mathbf{q}_T = \mathbf{q}_{\text{goal}} & \text{(boundary conditions)}
+\end{align*}
+$$
+
+This is solved using sequential quadratic programming (SQP) or interior-point methods.
+
+---
+
 ## Applications of Constraint Analysis
 
 Constraint Analysis is applied in various fields, including:

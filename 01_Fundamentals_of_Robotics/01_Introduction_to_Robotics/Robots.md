@@ -110,41 +110,62 @@ The definition and capabilities of robots continue to evolve rapidly with advanc
 
 ---
 
-## Mathematical Representations
+## Engineering Fundamentals of a Robot System
 
-### Kinematics
+Every robot, regardless of type, implements a **sense-plan-act** loop. Understanding the engineering constraints at each stage is essential for practitioners.
 
-The kinematics of a robot describes the motion of its components without considering the forces involved. For a robotic arm with $n$ joints, the position and orientation of the end-effector can be described using transformation matrices:
+### The Sense-Plan-Act Cycle Time Budget
 
-$$
-T = T_1 \cdot T_2 \cdot \ldots \cdot T_n
-$$
-
-where $T_i$ is the transformation matrix for the $i$-th joint.
-
-<br>
-
-### Dynamics
-
-The dynamics of a robot involve the relationship between the motion of the robot and the forces causing it. The Euler-Lagrange equation is often used to describe the dynamics:
+For a robot operating at a control frequency of $f$ Hz, the total cycle time budget is:
 
 $$
-\frac{d}{dt} \left( \frac{\partial L}{\partial \dot{q}} \right) - \frac{\partial L}{\partial q} = \tau
+t_{\text{cycle}} = \frac{1}{f} = t_{\text{sense}} + t_{\text{plan}} + t_{\text{act}}
 $$
 
-where $L = T - V$ is the Lagrangian, $T$ is the kinetic energy, $V$ is the potential energy, $q$ is the generalized coordinate, and $\tau$ is the applied torque.
+| Robot Type | Typical $f$ | $t_{\text{cycle}}$ | Bottleneck |
+|------------|------------|---------------------|------------|
+| Industrial arm (position control) | 1,000–8,000 Hz | 0.125–1 ms | Servo computation |
+| Mobile robot (navigation) | 10–50 Hz | 20–100 ms | Perception pipeline |
+| Humanoid (whole-body control) | 200–1,000 Hz | 1–5 ms | Dynamics solver |
+| Surgical robot (force feedback) | 1,000–3,000 Hz | 0.3–1 ms | Haptic rendering |
 
-<br>
+### Degrees of Freedom and Workspace
 
-### Control Systems
+A robot's [[Degrees_of_Freedom|degrees of freedom]] (DOF) determine what tasks it can perform. A rigid body in 3D space has 6 DOF — 3 translational $(x, y, z)$ and 3 rotational $(\phi, \theta, \psi)$. To position and orient an end-effector arbitrarily in 3D space, a manipulator needs at least 6 joints. Robots with $n > 6$ joints are **kinematically redundant**, offering extra flexibility for obstacle avoidance and singularity management.
 
-Control systems use feedback mechanisms to ensure robots achieve desired states or behaviors. A common control algorithm is the Proportional-Integral-Derivative (PID) controller:
+The [[Grübler's_Formula|Grübler-Kutzbach formula]] computes the mobility of a mechanism:
 
 $$
-u(t) = K_p e(t) + K_i \int e(t) \, dt + K_d \frac{de(t)}{dt}
+M = m(N - 1 - J) + \sum_{i=1}^{J} f_i
 $$
 
-where $u(t)$ is the control input, $e(t)$ is the error between the desired and actual states, and $K_p$, $K_i$, and $K_d$ are the proportional, integral, and derivative gains, respectively.
+where $m = 3$ (planar) or $m = 6$ (spatial), $N$ is the number of links (including ground), $J$ is the number of joints, and $f_i$ is the DOF of joint $i$.
+
+### Payload, Speed, and Precision Trade-offs
+
+Every robot design balances three competing requirements:
+
+$$
+\text{Payload} \propto \frac{\tau_{\text{max}}}{L_{\text{arm}}}, \quad \text{Speed} \propto \frac{\dot{\theta}_{\text{max}} \cdot L_{\text{arm}}}{1}, \quad \text{Precision} \propto \frac{1}{\text{compliance} + \text{backlash}}
+$$
+
+| Specification | Small Cobot (UR3e) | Industrial (FANUC M-20iA) | Heavy-Duty (FANUC M-900iB) |
+|---------------|-------------------|--------------------------|---------------------------|
+| Payload | 3 kg | 35 kg | 700 kg |
+| Reach | 500 mm | 1,811 mm | 2,832 mm |
+| Repeatability | $\pm 0.03$ mm | $\pm 0.04$ mm | $\pm 0.1$ mm |
+| Weight | 11 kg | 250 kg | 2,850 kg |
+| DOF | 6 | 6 | 6 |
+
+### Power and Energy Considerations
+
+For battery-powered mobile robots, operational endurance is governed by:
+
+$$
+t_{\text{run}} = \frac{E_{\text{battery}}}{\bar{P}_{\text{total}}} = \frac{E_{\text{battery}}}{P_{\text{motors}} + P_{\text{compute}} + P_{\text{sensors}} + P_{\text{comms}}}
+$$
+
+A typical warehouse AMR carries a 48V, 30Ah LiFePO4 battery ($E \approx 1.44$ kWh) and draws 200–500 W average, yielding 3–7 hours of operation. Regenerative braking during deceleration can recover 10–20% of drive energy.
 
 ---
 

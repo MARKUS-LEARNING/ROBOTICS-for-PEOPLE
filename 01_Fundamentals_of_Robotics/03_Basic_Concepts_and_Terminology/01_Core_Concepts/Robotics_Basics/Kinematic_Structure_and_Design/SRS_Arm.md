@@ -89,6 +89,98 @@ where $g(\mathbf{q})$ represents the constraints for obstacle avoidance.
 
 ---
 
+## Pseudoinverse and Null-Space Projection
+
+For a redundant robot (more joints than task-space dimensions), the standard inverse kinematics yields infinitely many solutions. The **Moore-Penrose pseudoinverse** provides the minimum-norm solution, and **null-space projection** enables simultaneous optimization of secondary objectives.
+
+### Pseudoinverse Solution
+
+Given the Jacobian $J \in \mathbb{R}^{m \times n}$ (with $n > m$ for a redundant robot), the pseudoinverse is:
+
+$$
+J^+ = J^T (J J^T)^{-1}
+$$
+
+The minimum-norm joint velocity that achieves a desired end-effector velocity $\dot{\mathbf{x}}$ is:
+
+$$
+\dot{\mathbf{q}} = J^+ \dot{\mathbf{x}}
+$$
+
+### Null-Space Velocity Formula
+
+The general solution for redundant robots adds an arbitrary null-space component:
+
+$$
+\dot{\mathbf{q}} = J^+ \dot{\mathbf{x}} + (I - J^+ J) \dot{\mathbf{q}}_0
+$$
+
+where:
+- $J^+ \dot{\mathbf{x}}$ is the **particular solution** (minimum-norm joint velocity achieving the desired task velocity)
+- $(I - J^+ J)$ is the **null-space projector** -- it projects $\dot{\mathbf{q}}_0$ onto the null space of $J$
+- $\dot{\mathbf{q}}_0 \in \mathbb{R}^n$ is an arbitrary joint velocity vector encoding secondary objectives
+
+The null-space component $(I - J^+ J) \dot{\mathbf{q}}_0$ produces joint motion that does **not** affect the end-effector velocity. This is the mathematical foundation of redundancy resolution.
+
+### Common Secondary Objectives
+
+The vector $\dot{\mathbf{q}}_0$ is typically chosen as the gradient of a secondary objective function $H(\mathbf{q})$:
+
+$$
+\dot{\mathbf{q}}_0 = k_0 \nabla H(\mathbf{q})
+$$
+
+where $k_0 > 0$ is a gain. Common choices for $H(\mathbf{q})$:
+
+| Objective | $H(\mathbf{q})$ | Effect |
+|---|---|---|
+| Joint limit avoidance | $-\sum \frac{1}{(q_i - q_{\min,i})(q_{\max,i} - q_i)}$ | Pushes joints away from limits |
+| Manipulability maximization | $\sqrt{\det(J J^T)}$ | Maintains dexterity |
+| Obstacle avoidance | $\min_k d(\text{link}_k, \text{obstacle})$ | Maximizes clearance |
+| Rest configuration bias | $-\| \mathbf{q} - \mathbf{q}_{\text{rest}} \|^2$ | Returns to home position |
+
+### Damped Least-Squares (DLS)
+
+Near singularities, $J^+$ amplifies noise and causes joint velocity spikes. The **damped least-squares** (Levenberg-Marquardt) pseudoinverse adds regularization:
+
+$$
+J^+_{\text{DLS}} = J^T (J J^T + \lambda^2 I)^{-1}
+$$
+
+where $\lambda$ is the damping factor (typically 0.01--0.1). Near singularities, $\lambda$ increases to limit joint velocities at the cost of tracking accuracy.
+
+---
+
+## Practical Benefits of Spherical Wrist Decoupling
+
+Many industrial 6R robots (e.g., PUMA 560, ABB IRB 6700, FANUC M-20iA) use a **spherical wrist** -- the last three joint axes intersect at a single point called the **wrist center**. This architecture provides a critical advantage: **kinematic decoupling**.
+
+### How Decoupling Works
+
+The inverse kinematics splits into two independent subproblems:
+
+1. **Position IK (joints 1--3):** Solve for the wrist center position $\mathbf{p}_w$ using the first three joints. The wrist center is offset from the end-effector by a fixed distance along the approach direction:
+
+$$
+\mathbf{p}_w = \mathbf{p}_{\text{ee}} - d_6 \cdot R_{\text{ee}} \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}
+$$
+
+2. **Orientation IK (joints 4--6):** Given the known orientation of frame 3, solve for the wrist joint angles to achieve the desired end-effector orientation:
+
+$$
+R_3^6 = (R_0^3)^{-1} \cdot R_0^6
+$$
+
+Each subproblem has at most 2 solutions per joint (elbow up/down, wrist flip), yielding up to $2^3 = 8$ total IK solutions for a general 6R arm with spherical wrist.
+
+### Why This Matters in Practice
+
+- **Closed-form IK:** Decoupling enables analytical (closed-form) inverse kinematics, which runs in microseconds. Without a spherical wrist, numerical IK is required, which is slower and may not find all solutions.
+- **Reliable path planning:** All IK solutions can be enumerated, allowing the planner to choose the best one (closest to current configuration, best manipulability, fewest joint-limit violations).
+- **For the 7-DoF SRS arm:** The extra joint provides a "swivel angle" parameter, analogous to the human elbow position. This gives a one-parameter family of IK solutions for each end-effector pose, which can be parameterized and searched efficiently.
+
+---
+
 ## Applications in Robotics
 
 - **Surgical Robots**: The SRS Arm's dexterity and precision make it ideal for surgical applications, where it can navigate around sensitive tissues and perform delicate operations.

@@ -84,6 +84,80 @@ The gripper's ability to grasp objects depends on its design and the degrees of 
 
 ---
 
+## Force-Closure Condition for Grasping
+
+A grasp achieves **force closure** when the contact forces can resist any external wrench (force and torque) applied to the grasped object. Formally:
+
+$$
+\forall \, \mathbf{w}_{\text{ext}} \in \mathbb{R}^6, \quad \exists \, \mathbf{f}_1, \ldots, \mathbf{f}_k \text{ such that } \sum_{i=1}^{k} G_i \mathbf{f}_i = -\mathbf{w}_{\text{ext}}, \quad \mathbf{f}_i \in \mathcal{FC}_i
+$$
+
+where $G_i$ is the grasp matrix column for contact $i$ and $\mathcal{FC}_i$ is the friction cone at contact $i$.
+
+**Practical test:** A force-closure grasp exists if and only if the convex hull of the contact wrenches (within friction cones) contains the origin of wrench space in its interior. For a two-finger parallel jaw gripper with Coulomb friction $\mu$:
+
+- Force closure is achieved when the two opposing contact normals are antiparallel and the line connecting the contacts passes through the object's center of mass
+- The friction coefficient must be sufficient: $\mu > 0$ for flat parallel surfaces
+
+---
+
+## Suction Cup Force Calculation
+
+Suction (vacuum) grippers are widely used in industrial applications for flat, smooth, non-porous surfaces.
+
+### Theoretical Holding Force
+
+$$
+F = \Delta P \cdot A = (P_{\text{atm}} - P_{\text{vacuum}}) \cdot \frac{\pi d^2}{4}
+$$
+
+where:
+- $\Delta P$ is the pressure differential (typically 40--80 kPa for industrial vacuum generators)
+- $d$ is the effective suction cup diameter
+
+### Practical Sizing
+
+| Cup Diameter (mm) | Effective Area (cm$^2$) | Force at 60 kPa (N) | Derated Force (N) at FoS = 2 |
+|---|---|---|---|
+| 20 | 3.14 | 18.8 | 9.4 |
+| 40 | 12.57 | 75.4 | 37.7 |
+| 60 | 28.27 | 169.6 | 84.8 |
+| 80 | 50.27 | 301.6 | 150.8 |
+| 100 | 78.54 | 471.2 | 235.6 |
+
+**Derating factors:**
+- Porous surface (cardboard): derate by 50%
+- Oily/wet surface: derate by 30--40%
+- Non-flat surface: derate by 20--50% depending on curvature
+- Dynamic loading (acceleration): apply FoS of 2--4
+
+**Practical tip:** When the pick surface is unreliable (varying porosity, oil, dust), use multi-cup arrays with individual vacuum sensors and a check-valve per cup so that one leaking cup does not depressurize the others.
+
+---
+
+## Gripper Selection Guide
+
+| Gripper Type | Mechanism | Best For | Limitations | Example Products |
+|---|---|---|---|---|
+| **Parallel jaw** | Two fingers, linear actuation | Regular-shaped rigid parts | Limited shape adaptability | Schunk PGN-plus, Robotiq 2F-85 |
+| **Angular/centric** | Fingers pivot on an arc | Cylindrical parts, centering | Lower force at open position | Schunk PGC, Festo DHPS |
+| **Three-finger adaptive** | 3 underactuated fingers | Irregular shapes, varying sizes | Slower, more complex | Robotiq 3-Finger |
+| **Vacuum (single cup)** | Suction | Flat, smooth, non-porous surfaces | Fails on porous/irregular surfaces | Schmalz, Piab |
+| **Vacuum (multi-cup array)** | Suction array | Large flat objects (sheets, panels) | Requires flat surface region | Schmalz FXP/FMP |
+| **Magnetic** | Electromagnet or permanent | Ferrous metals | Only ferrous materials, residual magnetism | Schunk EMH |
+| **Soft/compliant** | Inflatable, granular jamming | Delicate/irregular objects | Lower force, slower | Soft Robotics mGrip, Empire Robotics VERSABALL |
+| **Needle/pin** | Penetrating pins | Textiles, fabrics, foam | Damages surface | Custom solutions |
+| **Gecko-inspired** | Dry adhesion (van der Waals) | Smooth surfaces, space applications | Low force, research-stage | OnRobot Gecko Gripper |
+
+**Selection workflow:**
+1. Characterize the object: weight, material, surface finish, shape variability
+2. Determine required holding force with safety factor
+3. Narrow to gripper type based on surface and shape constraints
+4. Select specific model based on force capacity, stroke, and integration (pneumatic vs. electric)
+5. Validate with prototype testing -- lab conditions rarely match production variability
+
+---
+
 ## Applications in Robotics
 
 - **Manufacturing**: End effectors are used in manufacturing for tasks such as welding, assembly, and material handling. They enable precise and efficient manipulation of components.

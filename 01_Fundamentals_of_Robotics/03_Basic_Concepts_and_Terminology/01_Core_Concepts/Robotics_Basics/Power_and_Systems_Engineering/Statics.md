@@ -100,6 +100,113 @@ where $m_i$ are the masses of the individual parts of the body, and $(x_i, y_i, 
 
 ---
 
+## Friction Models for Robotics
+
+### Coulomb Friction Model
+
+The **Coulomb friction model** is the most fundamental friction model, relating the maximum tangential friction force to the normal contact force:
+
+$$
+f_{\text{friction}} \leq \mu N
+$$
+
+where $\mu$ is the coefficient of static friction and $N$ is the normal force at the contact. This defines a **friction cone**: the contact force must lie within a cone of half-angle $\alpha = \arctan(\mu)$ about the surface normal.
+
+In 3D, the friction cone at a contact point is:
+
+$$
+\mathcal{FC} = \left\{ \mathbf{f} \mid \sqrt{f_t^2 + f_s^2} \leq \mu f_n, \quad f_n \geq 0 \right\}
+$$
+
+where $f_n$ is the normal force component and $f_t$, $f_s$ are tangential components.
+
+**Typical friction coefficients in robotics:**
+
+| Contact Pair | $\mu_s$ (static) | $\mu_k$ (kinetic) |
+|---|---|---|
+| Rubber on metal | 0.5 -- 0.8 | 0.4 -- 0.6 |
+| Rubber on wood | 0.6 -- 0.9 | 0.4 -- 0.7 |
+| Steel on steel (dry) | 0.5 -- 0.8 | 0.4 -- 0.6 |
+| Steel on steel (lubricated) | 0.1 -- 0.2 | 0.05 -- 0.15 |
+| Rubber wheel on concrete | 0.6 -- 1.0 | 0.5 -- 0.8 |
+| Silicone gripper on glass | 0.5 -- 1.0 | 0.4 -- 0.8 |
+
+### Extended Friction Models
+
+For precise robot control, the Coulomb model is extended to include:
+
+**Viscous friction:**
+
+$$
+\tau_{\text{friction}} = \mu_c \cdot \text{sign}(\dot{q}) + b \cdot \dot{q}
+$$
+
+where $\mu_c$ is the Coulomb friction torque and $b$ is the viscous friction coefficient.
+
+**Stribeck effect** (friction reduction at low velocities, common in geared joints):
+
+$$
+\tau_{\text{friction}} = \left[ \mu_c + (\mu_s - \mu_c) e^{-|\dot{q}/v_s|^2} \right] \text{sign}(\dot{q}) + b \cdot \dot{q}
+$$
+
+where $v_s$ is the Stribeck velocity.
+
+---
+
+## Static Wrench Analysis for Robot Grippers
+
+### Wrench at a Grasp Contact
+
+When analyzing a gripper holding an object in static equilibrium, the total wrench (force and torque) exerted on the object must balance gravity and any external loads:
+
+$$
+\sum_{i=1}^{k} \mathbf{w}_i + \mathbf{w}_{\text{ext}} = \mathbf{0}
+$$
+
+where $\mathbf{w}_i = [\mathbf{f}_i^T, \, \boldsymbol{\tau}_i^T]^T$ is the wrench at contact $i$ and $\mathbf{w}_{\text{ext}}$ includes gravity.
+
+### Static Force at the Joint Level
+
+For a robot holding a static payload, the required joint torques are determined by the transpose of the Jacobian:
+
+$$
+\boldsymbol{\tau} = J^T(\mathbf{q}) \, \mathbf{F}_{\text{ee}} + \mathbf{g}(\mathbf{q})
+$$
+
+where $\mathbf{F}_{\text{ee}}$ is the wrench applied at the end-effector and $\mathbf{g}(\mathbf{q})$ is the gravity torque vector.
+
+**Practical implication:** This equation determines the continuous motor torque requirement. Motors must sustain this torque indefinitely without overheating, which is often the limiting factor in motor sizing (not peak torque).
+
+---
+
+## Center of Mass Calculation for Serial Chains
+
+For a serial manipulator with $n$ links, the overall center of mass position in the base frame is:
+
+$$
+\mathbf{r}_{\text{cm}} = \frac{\sum_{i=1}^{n} m_i \, \mathbf{r}_i(\mathbf{q})}{\sum_{i=1}^{n} m_i}
+$$
+
+where $m_i$ is the mass of link $i$ and $\mathbf{r}_i(\mathbf{q})$ is the position of link $i$'s center of mass, computed from forward kinematics.
+
+The **center of mass Jacobian** relates joint velocities to the velocity of the center of mass:
+
+$$
+\dot{\mathbf{r}}_{\text{cm}} = J_{\text{cm}}(\mathbf{q}) \, \dot{\mathbf{q}}
+$$
+
+where:
+
+$$
+J_{\text{cm}} = \frac{1}{M} \sum_{i=1}^{n} m_i J_{v,i}
+$$
+
+and $J_{v,i}$ is the linear velocity Jacobian for link $i$'s center of mass, and $M = \sum m_i$ is the total mass.
+
+**Application in balance control:** For legged robots, the center of mass must remain within the **support polygon** (convex hull of the foot contacts) for static stability. The ZMP (Zero Moment Point) criterion extends this to dynamic walking.
+
+---
+
 ## Impact on Engineering and Physics
 
 - **Structural Design**: Statics is essential for designing structures that can withstand external forces and moments without collapsing. It provides the tools and principles necessary to analyze the stability and strength of buildings, bridges, and other structures.
