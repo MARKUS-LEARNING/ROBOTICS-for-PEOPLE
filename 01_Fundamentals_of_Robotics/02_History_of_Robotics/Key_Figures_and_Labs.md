@@ -10,7 +10,7 @@ tags:
   - people
 layout: default
 category: robotics
-author: Jordan_Smith_&_le_Chat
+author: Jordan_Smith
 date: 2025-04-28
 permalink: /key_figures_and_labs_robotics/
 related:
@@ -51,9 +51,9 @@ The development of robotics has been driven by the contributions of numerous vis
 
 * **[[George Devol]] (1912-2011):** Inventor who patented the "Programmed Article Transfer" (1954), the basis for the first industrial robot. Co-founded Unimation.
 * **[[Joseph Engelberger]] (1925-2015):** Widely considered the "Father of Robotics". Co-founded Unimation with Devol and successfully commercialized the [[Unimate]] robot, installing the first one at General Motors in 1961.
-* **[[Victor Scheinman]] (1942-2016):** Designed the influential electric [[Stanford Arm]] (1969) while at Stanford. Later founded Vicarm Inc. and designed the [[PUMA]] (Programmable Universal Machine for Assembly) robot for Unimation.
-* **Hiroshi Makino (1935-2014):** Professor at Yamanashi University, Japan, who led the development of the [[SCARA]] (Selective Compliance Assembly Robot Arm) robot concept in the late 1970s, revolutionizing automated assembly.
-* **Reymond Clavel (b. 1950):** Inventor of the parallel kinematic [[Delta Robot]] at EPFL (École Polytechnique Fédérale de Lausanne) in the 1980s, enabling high-speed pick-and-place operations.
+* **[[Victor Scheinman]] (1942-2016):** Designed the influential electric [[Stanford Arm]] (1969) while at Stanford — the first 6-DOF all-electric arm, proving that DC servo motors could replace hydraulics for precision manipulation. Later founded Vicarm Inc. and designed the [[PUMA]] (Programmable Universal Machine for Assembly) robot for Unimation. The PUMA 560's kinematic structure (anthropomorphic with spherical wrist) became the de facto standard for industrial manipulators.
+* **Hiroshi Makino (1935-2014):** Professor at Yamanashi University, Japan, who led the development of the [[SCARA]] (Selective Compliance Assembly Robot Arm) robot concept in the late 1970s. His key insight was that most assembly tasks involve vertical insertion, so a robot with high stiffness in $z$ and compliance in $x$-$y$ could perform peg-in-hole assembly without expensive force control — a design still used in electronics manufacturing where cycle times below 0.5 s are standard.
+* **Reymond Clavel (b. 1950):** Inventor of the parallel kinematic [[Delta Robot]] at EPFL (1985). The Delta's engineering breakthrough was placing all motors on the fixed base, reducing moving inertia by an order of magnitude compared to serial arms. This enabled accelerations exceeding $10g$ and pick rates $> 300$ cycles/min. The closed-form inverse kinematics (each leg solved independently) keeps computation under 10 $\mu$s — critical for the $> 1$ kHz servo loops required at these speeds.
 
 ### AI and Research Pioneers (Selected Examples)
 
@@ -62,10 +62,10 @@ The development of robotics has been driven by the contributions of numerous vis
 * **Heinrich Ernst:** Developed one of the earliest computer-controlled manipulators with tactile sensing (MH-1) for his MIT PhD thesis in 1961.
 * **Charles Rosen (1917-2002):** Led the team at SRI International that developed [[Shakey]], the first integrated AI mobile robot (1966-1972).
 * **Rodney Brooks (b. 1954):** Proponent of behavior-based robotics (Subsumption Architecture). Former director of [[MIT CSAIL|MIT AI Lab/CSAIL]], co-founder of iRobot and Rethink Robotics.
-* **Marc Raibert (b. 1949):** Founder of Boston Dynamics and pioneer in dynamic legged locomotion, initially at the MIT Leg Lab.
+* **Marc Raibert (b. 1949):** Founder of Boston Dynamics and pioneer in dynamic legged locomotion at the MIT Leg Lab. His 1980s one-legged hopping robot demonstrated that dynamic balance could be decomposed into three independent controllers: hopping height (energy injection per cycle), forward speed (foot placement via the **Raibert heuristic**: $x_{\text{foot}} = x_{\text{hip}} + \dot{x} \cdot T_s/2 + k(\dot{x} - \dot{x}_d)$), and body attitude — a decomposition principle still used in modern quadruped and biped controllers.
 * **[[Masahiro Mori]] (b. 1927):** Japanese roboticist who proposed the [[Uncanny Valley]] hypothesis concerning human emotional response to robot appearance (1970).
-* **Oussama Khatib (b. 1950):** Professor at Stanford University. Major contributions to robot control (Operational Space Formulation), [[Humanoid_Robots|humanoid robotics]], haptics, and human-centered robotics.
-* **Sebastian Thrun (b. 1967):** Leading researcher in probabilistic robotics, [[SLAM]], and autonomous vehicles. Led Stanford's winning DARPA Grand Challenge team (Stanley). Co-founder of Google X and Udacity. Formerly faculty at CMU and Stanford.
+* **Oussama Khatib (b. 1950):** Professor at Stanford University. Developed the **Operational Space Formulation** (1987), which enables task-space control by computing the dynamics directly in Cartesian coordinates: $F = \Lambda(x)\ddot{x} + \mu(x, \dot{x}) + p(x)$, where $\Lambda = (J M^{-1} J^T)^{-1}$ is the task-space inertia matrix. This framework is foundational for compliant manipulation, obstacle avoidance via artificial potential fields, and whole-body control of [[Humanoid_Robots|humanoids]].
+* **Sebastian Thrun (b. 1967):** Pioneered probabilistic approaches to robotics — his work formalized [[SLAM]] as a Bayesian estimation problem: $p(x_t, m \mid z_{1:t}, u_{1:t})$, where $x_t$ is the robot pose, $m$ is the map, $z$ are observations, and $u$ are control inputs. Led Stanford's winning DARPA Grand Challenge team (Stanley, 2005) using particle filter localization fused with 5 SICK LiDARs. Co-founder of Google X and Udacity.
 * **Takeo Kanade (b. 1945):** Leading researcher in computer vision and robotics at [[CMU Robotics Institute|CMU's Robotics Institute]].
 * **Red Whittaker (b. 1948):** Pioneer in field robotics, particularly for hazardous environments (e.g., Three Mile Island, Chernobyl) and autonomous vehicles (NavLab series) at [[CMU Robotics Institute|CMU's Robotics Institute]].
 
@@ -97,7 +97,13 @@ Numerous academic and industrial labs have driven progress in robotics:
 ### Key Industrial Labs
 
 * **Early Pioneers:** Unimation, ASEA (now ABB), KUKA, Cincinnati Milacron, Fanuc, Yaskawa, IBM Research.
-* **Modern Leaders:** Boston Dynamics (legged robots, dynamic motion), Google DeepMind Robotics, Meta AI, NVIDIA (Simulation, AI hardware, Humanoids), Amazon Robotics (logistics, AMRs), Toyota Research Institute (TRI - automotive, assistive robotics), Honda Research Institute (ASIMO, humanoids), Mitsubishi Electric Research Labs (MERL), Dyson (consumer robotics).
+* **Modern Leaders:**
+    * **Boston Dynamics:** Dynamic legged locomotion — Spot (12-DOF quadruped, 14 kg payload, 1.6 m/s), Atlas (hydraulic → electric humanoid, 28 DOF, backflips via whole-body trajectory optimization)
+    * **Google DeepMind Robotics:** RT-2 and Gemini Robotics — vision-language-action models mapping natural language to motor commands
+    * **NVIDIA:** Isaac Sim/Lab for massively parallel sim-to-real transfer (thousands of environments simultaneously on GPU), GROOT for humanoid foundation models
+    * **Amazon Robotics:** Fleet coordination of 750,000+ Kiva/Proteus AMRs across warehouses using multi-agent path planning
+    * **Toyota Research Institute (TRI):** Diffusion Policy for dexterous manipulation, Large Behavior Models for household tasks
+    * **Agility Robotics:** Digit — purpose-built humanoid for logistics (16 kg payload, 1.5 m/s walking), deployed at Amazon fulfillment centers
 
 The interplay between visionary individuals and well-resourced research labs continues to fuel the rapid advancement of robotics technology and its applications.
 
