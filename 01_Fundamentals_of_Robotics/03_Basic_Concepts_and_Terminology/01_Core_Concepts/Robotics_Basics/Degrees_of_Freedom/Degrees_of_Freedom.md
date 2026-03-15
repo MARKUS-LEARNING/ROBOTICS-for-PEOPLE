@@ -2,8 +2,8 @@
 title: Degrees of Freedom (DoF)
 description: Defines Degrees of Freedom (DoF) as the number of independent parameters required to specify the configuration of a mechanism or body.
 tags:
-  - glossary-term
   - kinematics
+  - robotics
   - configuration-space
   - mobility
   - robot-design
@@ -13,7 +13,7 @@ tags:
   - parallel-robot
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-04-27
 permalink: /degrees_of_freedom/
 related:
@@ -31,12 +31,16 @@ related:
 
 # Degrees of Freedom (DoF)
 
-**Degrees of Freedom (DoF)** refers to the minimum number of independent parameters required to completely specify the configuration (position and orientation) of a mechanism or a body in space. It quantifies the independent ways a system can move, providing insight into its mobility and control complexity. Understanding DoF is crucial for designing robots that can effectively interact with their environment.
+## Intuition: What Are Degrees of Freedom?
+
+Hold a book in the air. You can slide it left/right, forward/back, and up/down — that is 3 translational freedoms. You can also tilt it (pitch), turn it (yaw), and roll it — that is 3 rotational freedoms. Together, the book has **6 degrees of freedom** in 3D space.
+
+Now set the book flat on a table. It can still slide in two directions and spin, but it cannot lift off or tilt — the table constrains it to **3 DoF**. Every joint in a robot works this way: it *allows* some motions and *constrains* others. Counting the net freedoms tells you how many independent motors (or inputs) you need to fully control the robot, and what kinds of tasks it can perform.
 
 ---
-![image](https://github.com/user-attachments/assets/ceac21fd-7e77-487c-bf76-0c78e2410209)
 
-<font size=1>*source: https://medium.com/@tomtenner/the-kutzbach-criterion-e1592ef88bd1*</font>
+**Degrees of Freedom (DoF)** refers to the minimum number of independent parameters required to completely specify the configuration (position and orientation) of a mechanism or a body in space. It quantifies the independent ways a system can move, providing insight into its mobility and control complexity. Understanding DoF is crucial for designing robots that can effectively interact with their environment.
+
 ---
 
 ## Degrees of Freedom (DoF) Calculation
@@ -55,10 +59,48 @@ $$
 
 > **Practitioner's note:** In practice, you count 6 freedoms per body in 3D (or 3 per body in 2D), then subtract the constraints imposed by each joint. See [[Grübler's_Formula]] for the full worked-out form.
 
+### Grübler-Kutzbach Criterion (Worked Example)
+
+The general mobility formula for a spatial mechanism with $N$ links (including the fixed ground link), $J$ joints, and $f_i$ freedoms per joint is:
+
+$$
+M = 6(N - 1 - J) + \sum_{i=1}^{J} f_i
+$$
+
+**Example: KUKA KR6 R900 (6R serial manipulator)**
+
+- $N = 7$ links (6 moving links + 1 fixed base)
+- $J = 6$ revolute joints, each with $f_i = 1$
+
+$$
+M = 6(7 - 1 - 6) + 6(1) = 6(0) + 6 = 6 \text{ DoF}
+$$
+
+The robot can position and orient its end-effector arbitrarily in 3D — exactly what is needed for general-purpose manipulation.
+
+**Example: Franka Emika Panda (7R redundant manipulator)**
+
+$$
+M = 6(8 - 1 - 7) + 7(1) = 0 + 7 = 7 \text{ DoF}
+$$
+
+The 7th DoF provides a 1-dimensional *self-motion manifold*: the elbow can swing while the end-effector stays fixed, enabling [[Singularities|singularity avoidance]] and obstacle clearance.
+
+**Example: Stewart platform (6-UPS parallel robot)**
+
+- $N = 14$ (1 base + 6 legs × 2 links each + 1 platform)
+- $J = 18$ (6 universal + 6 prismatic + 6 spherical), with $f_i = 2 + 1 + 3 = 6$ per leg
+
+$$
+M = 6(14 - 1 - 18) + 6(2) + 6(1) + 6(3) = 6(-5) + 12 + 6 + 18 = -30 + 36 = 6 \text{ DoF}
+$$
+
+The platform can translate in $x, y, z$ and rotate in roll, pitch, yaw — used in flight simulators and precision machining.
+
 ---
 ## DoF of Rigid Bodies
 
-- **In 3D Space**: A free rigid body has 6 DoF: 3 translational (e.g., $x$, $y$, $z$) and 3 rotational (e.g., roll $\phi$, pitch $\theta$, yaw $\psi$). These degrees allow the body to move freely in space and orient itself in any direction.
+- **In 3D Space**: A free [[Rigid_Body|rigid body]] has 6 DoF: 3 translational (e.g., $x$, $y$, $z$) and 3 rotational (e.g., roll $\phi$, pitch $\theta$, yaw $\psi$). These degrees allow the body to move freely in space and orient itself in any direction.
   <br>
 
 - **In 2D Plane**: A free rigid body moving on a plane has 3 DoF: 2 translational ($x$, $y$ position) and 1 rotational (orientation $\theta$). This configuration is common in planar robots and mechanisms constrained to two-dimensional motion.
@@ -111,7 +153,7 @@ The DoF of a mechanism is the number of independent inputs needed to determine t
 - **Singularities**: At kinematic [[Singularities]], a manipulator loses one or more DoF in its ability to move the end-effector in Cartesian space, regardless of joint velocities. Redundancy can help mitigate this.
   <br>
 
-- **Control**: The DoF determines the number of independent variables that need to be controlled. [[Motion_Control|Control strategies]] often differ based on whether the system is fully actuated (number of actuators = DoF) or underactuated.
+- **Control**: The DoF determines the number of independent variables that need to be controlled. [[Motion_Control|Control strategies]] often differ based on whether the system is fully actuated (number of [[Actuator|actuators]] = DoF) or [[Open_Loop_vs_Closed_Loop|underactuated]].
   <br>
 
 The concept of DoF is crucial for understanding a robot's mobility, dexterity, and control complexity. It plays a fundamental role in the design and analysis of robotic systems, influencing their ability to perform tasks and interact with their environment.
@@ -137,7 +179,7 @@ An **under-constrained** (or **under-actuated**) mechanism has more DoF than act
 
 **Examples:**
 - **Acrobot**: A 2-link pendulum with only 1 actuator at the elbow. It has 2 DoF but only 1 actuator, requiring swing-up control algorithms.
-- **Quadrotor**: 6 DoF (position + orientation) but only 4 actuators (rotors). Roll and pitch are controlled indirectly through differential thrust.
+- **Quadrotor**: 6 DoF (position + orientation) but only 4 [[Actuator|actuators]] (rotors). Roll and pitch are controlled indirectly through differential thrust.
 - **Cart-pole (inverted pendulum)**: 2 DoF, 1 actuator. The classic underactuated control benchmark.
 
 > **Practitioner's tip:** If Grubler's formula gives a negative or zero DoF but the mechanism clearly moves, check for special geometry (parallel axes, intersecting axes, symmetric link lengths). These create "passive constraints" that are not truly independent.
@@ -195,6 +237,19 @@ In practice, the dexterous workspace is always a subset (often much smaller) of 
 
 ---
 
+## Configuration Space and DoF
+
+The DoF of a robot defines the dimension of its **configuration space** $\mathcal{C}$. Each point in $\mathcal{C}$ is a vector of all joint variables $\mathbf{q} = (q_1, q_2, \ldots, q_n)$ that fully specifies the robot's pose.
+
+- A 6R manipulator lives in $\mathcal{C} = \mathbb{T}^6$ (a 6-dimensional torus, since each revolute joint wraps around).
+- A mobile manipulator (3 DoF base + 6 DoF arm) lives in $\mathcal{C} = SE(2) \times \mathbb{T}^6$, a 9-dimensional space.
+
+**Why this matters:** [[Graph_Theory|Path planning]] algorithms ([[A*_Algorithm|A*]], [[Dijkstra's_Algorithm|Dijkstra's]], RRT, PRM) search through $\mathcal{C}$ to find collision-free trajectories. The curse of dimensionality means that grid-based planners become impractical above ~4 DoF, which is why sampling-based planners (RRT, PRM) are standard for manipulator arms. [[Optimization|Trajectory optimization]] methods (direct collocation, shooting) also operate in $\mathcal{C}$ and scale better to high-DoF systems like humanoids (30+ DoF).
+
+Understanding a robot's DoF is therefore the first step in choosing the right planning and [[AI_and_Robot_Control|control]] strategy.
+
+---
+
 ## Dataview Plugin Features
 
 To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
@@ -202,3 +257,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 - **List all related kinematics and robotics concepts**:
   ```dataview
   LIST FROM #kinematics OR #robot-design WHERE contains(file.outlinks, [[Degrees_of_Freedom]])
+  ```
