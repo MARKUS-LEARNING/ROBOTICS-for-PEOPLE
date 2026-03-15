@@ -8,10 +8,11 @@ tags:
   - computer-science
   - discrete-mathematics
   - optimization
-  - glossary-term
+  - robotics
+  - path-planning
 layout: default
 category: mathematics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /graph_theory/
 related:
@@ -23,6 +24,14 @@ related:
 ---
 
 # Graph Theory
+
+## Intuition: Maps as Graphs
+
+Think of a road map. Cities are dots, roads are lines connecting them, and each road has a distance. This is already a graph — cities are **vertices**, roads are **edges**, and distances are **weights**. When a GPS finds the fastest route, it is solving a graph problem.
+
+Robot navigation works the same way. A mobile robot's environment is divided into a grid of cells (or a network of waypoints). Each cell is a vertex, and neighboring cells are connected by edges. Finding a collision-free path from start to goal is a shortest-path search on this graph. Every algorithm in this article — Dijkstra's, A*, PRM, RRT — is a different strategy for searching a graph efficiently.
+
+---
 
 **Graph Theory** is a branch of mathematics that studies graph structures, which are mathematical models of pairwise relations between objects. It provides a framework for analyzing complex networks and systems, making it a fundamental tool in various fields such as computer science, engineering, and social sciences. Graph theory is used to model and solve problems involving connectivity, paths, flows, and optimization.
 
@@ -187,29 +196,50 @@ The key graph-theoretic insight: RRT builds a spanning tree of the reachable con
 
 ---
 
-## Applications of Graph Theory
+## Dynamic Replanning: D* Lite
 
-Graph theory has a wide range of applications across various fields:
+Static planners (A*, Dijkstra's) assume the map is fully known. Real robots discover new obstacles as they move — a door is closed, a person steps into the path. **D* Lite** (Dynamic A* Lite) efficiently replans when the map changes, without re-searching from scratch.
 
-- **Computer Science**: Used in algorithm design, network analysis, and data structures. Examples include shortest path algorithms, network flow problems, and graph traversal techniques.
+D* Lite works backward from the goal. When new obstacles are detected, only the affected portion of the search is updated. The key operation is updating the *rhs-value* of affected vertices:
+
+$$
+rhs(s) = \min_{s' \in \text{Succ}(s)} \bigl[ c(s, s') + g(s') \bigr]
+$$
+
+A vertex is **locally consistent** when $g(s) = rhs(s)$. When an edge cost changes (obstacle detected or cleared), the affected vertices become inconsistent and are re-inserted into the priority queue for re-expansion. In practice, only a small fraction of the graph is re-processed.
+
+**Robotics context:** D* Lite is the standard replanning algorithm in the ROS 2 Nav2 stack (`NavfnPlanner` supports it). It is used on ground robots that navigate partially known environments — the robot plans an initial path, then efficiently patches it as its LIDAR or depth camera reveals new obstacles.
+
+### Lattice-Based Planning
+
+Lattice planners discretize the robot's state space (position, heading, velocity) into a regular lattice and precompute a set of motion primitives — short, dynamically feasible trajectory segments. Planning becomes a graph search over this lattice using A* or ARA*.
+
+**Advantages over grid-based planning:**
+- Motion primitives respect the robot's kinematic constraints (minimum turning radius, acceleration limits), so the resulting path is directly executable — no post-processing needed.
+- The lattice can include heading and velocity dimensions, enabling planning for car-like robots (Ackermann steering) and differential-drive robots.
+
+**Robotics context:** The `sbpl_lattice_planner` in ROS and state lattice planners in Autoware are used for autonomous vehicles and outdoor mobile robots where kinematic feasibility is critical.
+
+---
+
+## Applications of Graph Theory in Robotics
+
+- **Mobile Robot Path Planning**: Dijkstra's, A*, and D* Lite find collision-free paths on occupancy grids. Every ROS 2 Nav2 deployment uses graph-based planning.
   <br>
 
-- **Engineering**: Applied in circuit design, communication networks, and transportation systems to optimize connectivity and efficiency.
+- **Manipulator Motion Planning**: PRM and RRT construct graphs in high-dimensional configuration space (6--7 DOF) to plan arm motions through cluttered workcells. MoveIt 2 uses OMPL's graph-based planners.
   <br>
 
-- **Social Sciences**: Used to model social networks, analyze relationships, and study the spread of information or diseases.
+- **Task and Motion Planning (TAMP)**: Task-level planners use AND/OR graphs or constraint graphs to reason about object placements, grasps, and action sequences — combining discrete task logic with continuous motion planning.
   <br>
 
-- **Operations Research**: Employed in optimization problems, such as scheduling, resource allocation, and supply chain management.
+- **Multi-Robot Coordination**: Conflict-Based Search (CBS) and priority-based planners use graph search to find collision-free paths for fleets of warehouse robots (Amazon Proteus, Locus Robotics).
   <br>
 
-- **Biology**: Used to model biological networks, such as metabolic pathways and genetic interactions.
+- **SLAM Pose Graphs**: The back-end of graph-based SLAM (g2o, GTSAM) represents robot poses as vertices and odometry/loop-closure measurements as edges, then optimizes the graph to produce a consistent map.
   <br>
 
-- **Robotics Path Planning**: Dijkstra's, A*, PRM, and RRT all rely on graph theory to find collision-free paths through configuration space or workspace.
-  <br>
-
-- **Task and Motion Planning (TAMP)**: Task-level planners use AND/OR graphs or constraint graphs to reason about object placements, grasps, and action sequences.
+- **Topological Navigation**: Robots can navigate using a topological graph of named places (rooms, intersections) rather than a metric grid, reducing memory and enabling semantic reasoning about routes.
   <br>
 
 ---

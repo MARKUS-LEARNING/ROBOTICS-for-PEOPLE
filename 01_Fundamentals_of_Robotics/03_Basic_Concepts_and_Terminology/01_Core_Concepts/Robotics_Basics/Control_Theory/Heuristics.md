@@ -7,10 +7,11 @@ tags:
   - problem-solving
   - artificial-intelligence
   - optimization
-  - glossary-term
+  - robotics
+  - path-planning
 layout: default
 category: algorithms
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /heuristics/
 related:
@@ -23,12 +24,16 @@ related:
 
 # Heuristics
 
-**Heuristics** are strategies or rules of thumb designed to produce good, though not necessarily optimal, solutions to problems. They are widely used in decision-making and problem-solving, particularly in situations where finding an optimal solution is computationally expensive or impractical. Heuristics simplify the problem-solving process by providing approximate solutions quickly, making them valuable in fields such as artificial intelligence, optimization, and game theory.
+## Intuition: The "Crow Flies" Analogy
+
+Imagine you are in a city trying to reach a destination. You do not have a map, but you can see the destination's general direction. A reasonable strategy is: *at every intersection, pick the road that points most directly toward the destination* — in other words, follow the direction "as the crow flies."
+
+This is a heuristic. It does not guarantee the shortest path (a straight-line road may not exist, or a highway in the "wrong" direction may actually be faster), but it dramatically narrows the search compared to trying every possible route. In robotics path planning, the straight-line (Euclidean) distance to the goal is the most common heuristic — it tells the planner which directions are *probably* better, so it can focus its search there instead of exploring the entire map.
 
 ---
-![image](https://github.com/user-attachments/assets/7cbc8ab7-64a7-49a1-abc7-326235f6d518)
 
-<font size=1>*source: https://www.researchgate.net/figure/The-main-aspects-that-influence-a-robotics-task-that-includes-affordances-with_fig2_340683460*</font>
+**Heuristics** are strategies or rules of thumb designed to produce good, though not necessarily optimal, solutions to problems. They are widely used in decision-making and problem-solving, particularly in situations where finding an optimal solution is computationally expensive or impractical. Heuristics simplify the problem-solving process by providing approximate solutions quickly, making them valuable in fields such as artificial intelligence, optimization, and game theory.
+
 ---
 
 ## Key Concepts
@@ -156,6 +161,31 @@ The choice of heuristic directly impacts planning speed:
 - For real-time mobile robot navigation (10--20 Hz replanning), weighted A* with $w = 1.5$--$2.0$ is the standard choice. The suboptimality is acceptable and planning is 10--50x faster than optimal A*.
 - For manipulator motion planning, heuristics are less useful because the configuration space is high-dimensional (6--7D) and cluttered. Sampling-based planners (RRT, PRM) are preferred over grid-based search.
 - **Memory matters:** A* on a 3D voxel grid (e.g., 200 x 200 x 200 at 5 cm resolution) requires ~32 GB of memory for the open/closed lists. Use hierarchical planning (coarse-to-fine) or lattice-based planners to manage memory.
+
+---
+
+## Advanced Heuristic Techniques
+
+### Precomputed Backward Dijkstra (Perfect Heuristics)
+
+The strongest possible heuristic is the *true* shortest-path distance to the goal — a **perfect heuristic** where $h(n) = h^*(n)$. With a perfect heuristic, A* expands only the nodes on the optimal path (zero wasted expansions).
+
+**How to compute it:** Run Dijkstra's algorithm *backward* from the goal over the full graph and store the resulting distances. This is $O((V+E) \log V)$ as a one-time cost, but every subsequent A* query with that goal is nearly instantaneous.
+
+**When it is practical:**
+- The goal is fixed or changes infrequently (e.g., a docking station, charging pad, or home position).
+- The map is static or changes slowly (the precomputed distances remain valid).
+- Memory is available to store the distance table ($4N$ bytes for $N$ cells with 32-bit floats).
+
+For a 2000 x 2000 grid (typical indoor map at 5 cm resolution), the distance table is ~16 MB — easily fits in memory. The backward Dijkstra takes ~100 ms on modern hardware.
+
+### Pattern Databases
+
+For high-dimensional planning (manipulator arms, multi-robot systems), precomputing a full backward Dijkstra is infeasible. **Pattern databases** store heuristic values for *projections* of the state space onto lower-dimensional subspaces.
+
+For example, a 7-DOF arm's configuration space is 7-dimensional. A pattern database might project onto joints 1--3 only (a 3D subspace), precompute shortest paths in that subspace, and use those distances as a heuristic for the full 7D problem. Multiple pattern databases (different joint subsets) can be combined by taking their maximum — the resulting heuristic is still admissible and often much tighter than Euclidean distance.
+
+**Robotics context:** Pattern databases are used in the SBPL (Search-Based Planning Lab) library for high-dimensional lattice planning, and in multi-robot path planning where the joint state space grows exponentially with the number of robots.
 
 ---
 

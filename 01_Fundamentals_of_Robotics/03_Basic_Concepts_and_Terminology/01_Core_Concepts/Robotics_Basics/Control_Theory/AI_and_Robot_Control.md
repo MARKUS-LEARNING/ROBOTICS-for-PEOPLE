@@ -8,12 +8,11 @@ tags:
   - machine-learning
   - autonomous-systems
   - engineering
-  - glossary-term
   - manipulator-arm
   - mobile-robot
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /ai_and_robot_control/
 related:
@@ -28,6 +27,20 @@ related:
 # AI and Robot Control
 
 **AI and Robot Control** involve the integration of artificial intelligence techniques to enhance the autonomy, decision-making, and adaptability of robotic systems. This integration enables advanced functionalities such as autonomous navigation, task execution, and interaction with dynamic environments. AI enhances robot control by providing the ability to learn from data, make decisions under uncertainty, and adapt to changing conditions, making robots more versatile and capable of performing complex tasks.
+
+---
+
+## What Is Robot Control?
+
+At its core, robot control is a repeating three-step loop: **measure, compare, correct**.
+
+1. **Measure** — Sensors (encoders, IMUs, cameras) tell the controller where the robot is right now.
+2. **Compare** — The controller computes the *error*: the difference between where the robot *should* be and where it *actually* is.
+3. **Correct** — The controller sends a command (torque, voltage, velocity) to the motors to reduce that error.
+
+This loop runs continuously — hundreds or thousands of times per second — so the robot smoothly tracks its desired trajectory. A thermostat works the same way: it measures room temperature, compares it to the setpoint, and turns the heater on or off. Robot control simply replaces "temperature" with joint angles, end-effector positions, or forces, and replaces "heater" with electric motors or hydraulic actuators.
+
+Everything that follows — state-space models, PID tuning, reinforcement learning — is a more precise way of describing or implementing this measure-compare-correct loop.
 
 ---
 
@@ -180,6 +193,55 @@ In practice, Bayesian inference powers the particle filter (Monte Carlo Localiza
 Consider a mobile robot navigating through an environment. The robot uses AI techniques such as reinforcement learning to plan its path and avoid obstacles. The reward function guides the robot to reach its destination efficiently while avoiding collisions. Bayesian inference is used to update the robot's belief about its position and the environment based on sensor data, enabling accurate and reliable navigation.
 
 **Real-world example:** The Clearpath Jackal UGV uses a Nav2 stack (ROS 2) with an AMCL particle filter for localization and a DWB local planner (classical control) for trajectory tracking. The global planner can use either A* (classical) or a learned neural planner. The low-level motor controllers run closed-loop PID at 50 Hz, while the navigation stack runs at 10--20 Hz --- a textbook example of the hybrid classical/AI architecture.
+
+---
+
+## Advanced Control Methods
+
+### Model Predictive Control (MPC)
+
+MPC is the most powerful classical control framework for robotics. Instead of reacting only to the current error, MPC looks ahead: at each time step it solves an optimization problem over a finite prediction horizon $N$:
+
+$$
+\min_{\mathbf{u}_0, \ldots, \mathbf{u}_{N-1}} \sum_{k=0}^{N-1} \left[ \mathbf{x}_k^T Q\,\mathbf{x}_k + \mathbf{u}_k^T R\,\mathbf{u}_k \right] + \mathbf{x}_N^T Q_f\,\mathbf{x}_N
+$$
+
+subject to:
+
+$$
+\mathbf{x}_{k+1} = A\,\mathbf{x}_k + B\,\mathbf{u}_k, \quad \mathbf{x}_{\min} \leq \mathbf{x}_k \leq \mathbf{x}_{\max}, \quad \mathbf{u}_{\min} \leq \mathbf{u}_k \leq \mathbf{u}_{\max}
+$$
+
+Only the first control action $\mathbf{u}_0$ is applied; then the horizon shifts forward and the problem is re-solved. This *receding-horizon* strategy naturally handles constraints on joint positions, velocities, and torques — something PID cannot do.
+
+**Robotics applications:** Legged locomotion (MIT Cheetah, Unitree Go2), quadrotor trajectory tracking, and autonomous driving all use MPC as their primary controller.
+
+### Linear-Quadratic Regulator (LQR)
+
+LQR is the special case of MPC with an infinite horizon and no inequality constraints. It yields a constant state-feedback gain $K$ such that $\mathbf{u} = -K\,\mathbf{x}$, computed by solving the algebraic Riccati equation. LQR is computationally trivial (offline matrix computation) and provides guaranteed stability margins (at least 6 dB gain margin and 60° phase margin for single-input systems).
+
+### Adaptive and Sliding Mode Control
+
+- **Adaptive control** adjusts controller parameters online to compensate for unknown or slowly changing plant parameters (e.g., a manipulator picking up an object of unknown mass).
+- **Sliding mode control (SMC)** drives the system state onto a predefined *sliding surface* and keeps it there despite disturbances. SMC provides robustness but introduces high-frequency *chattering* that can damage actuators — practical implementations use boundary layers or higher-order sliding modes to mitigate this.
+
+---
+
+## Real-Time Implementation Considerations
+
+Running a control loop on a robot is not just a software problem — it requires deterministic timing.
+
+| Requirement | Typical Value | Why It Matters |
+|---|---|---|
+| Control loop rate | 1--10 kHz (servo), 50--500 Hz (mobile robot) | Missed deadlines cause instability or jerky motion |
+| Worst-case jitter | < 50 µs for servo loops | Varying loop timing changes the effective controller gains |
+| Real-time OS | PREEMPT_RT Linux, Xenomai, QNX, VxWorks | Standard Linux cannot guarantee timing; a garbage collection pause or scheduler preemption can cause a 10+ ms spike |
+| EtherCAT cycle time | 1 ms (typical), 125 µs (fast) | Fieldbus latency adds to the control loop delay budget |
+
+**Practical guidance:**
+- For ROS 2 robot controllers, use the `ros2_control` framework with a real-time-capable executor (`ros2_control` runs its update loop in a dedicated PREEMPT_RT thread).
+- Never allocate memory, perform file I/O, or call non-deterministic system calls inside the control loop.
+- Test worst-case latency with `cyclictest` before deploying on hardware — a controller that works in simulation may be unstable on a non-real-time OS.
 
 ---
 
