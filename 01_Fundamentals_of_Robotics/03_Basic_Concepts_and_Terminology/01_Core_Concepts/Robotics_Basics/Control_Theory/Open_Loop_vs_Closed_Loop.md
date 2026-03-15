@@ -9,12 +9,11 @@ tags:
   - feedback
   - system-design
   - engineering
-  - glossary-term
   - manipulator-arm
   - mobile-robot
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /open_loop_vs_closed_loop/
 related:
@@ -27,6 +26,14 @@ related:
 ---
 
 # Open Loop vs Closed Loop
+
+## Intuition: The Shower Temperature Analogy
+
+Think about adjusting a shower. In an **open-loop** approach, you turn the handle to a position that *should* give the right temperature based on past experience — and walk away. If the water heater fluctuates or someone flushes a toilet, the temperature drifts and you get scalded or frozen.
+
+In a **closed-loop** approach, you keep your hand in the water stream. If it gets too hot, you nudge the handle toward cold; too cold, you nudge it toward hot. You are continuously *measuring* (feeling the temperature), *comparing* (is it comfortable?), and *correcting* (adjusting the handle). This is feedback control — and it is why almost every robot joint, from a surgical arm to a warehouse AGV, uses closed-loop control.
+
+---
 
 **Open Loop vs Closed Loop** are fundamental control concepts in robotics, representing two distinct approaches to controlling systems. Open-loop control systems operate without feedback, relying solely on predefined inputs to achieve the desired output. In contrast, closed-loop control systems incorporate feedback, using the system's output to adjust the control inputs dynamically, ensuring more accurate and stable performance.
 
@@ -205,6 +212,30 @@ For a stable open-loop system ($P = 0$), this simplifies to: the Nyquist plot mu
 
 **Robotics context:** The Nyquist criterion is particularly useful for analyzing robot systems with time delay (e.g., vision-based control with 30--100 ms camera latency, or remote teleoperation with network delay). Time delay adds phase lag $e^{-j\omega T_d}$ that spirals the Nyquist plot inward, reducing stability margins.
 
+### Root Locus Method
+
+The root locus plots the trajectories of the closed-loop poles in the s-plane as a controller gain $K$ varies from $0$ to $\infty$. For a system with open-loop transfer function $KG(s)$, the closed-loop poles are the roots of:
+
+$$
+1 + K\,G(s) = 0
+$$
+
+The root locus starts at the open-loop poles (when $K = 0$) and ends at the open-loop zeros (as $K \to \infty$). By tracing how the poles move, an engineer can choose $K$ to place the closed-loop poles in a region that gives the desired transient response (damping ratio, settling time).
+
+**Robotics application:** Root locus is commonly used to tune the gain of a simple proportional or PD controller for a single robot joint. If increasing $K$ causes a pair of poles to cross into the right half-plane, the joint becomes unstable — the root locus shows exactly what gain value causes this.
+
+### Routh-Hurwitz Stability Criterion
+
+The Routh-Hurwitz criterion determines whether all roots of a polynomial have negative real parts *without actually computing the roots*. For the characteristic polynomial:
+
+$$
+a_n s^n + a_{n-1} s^{n-1} + \cdots + a_1 s + a_0 = 0
+$$
+
+construct the **Routh array** from the coefficients. The system is stable if and only if all elements in the first column of the Routh array are positive (assuming $a_n > 0$).
+
+**Why this is useful:** For a controller with tunable parameters ($K_p$, $K_d$, etc.), the Routh criterion gives algebraic inequalities on those parameters that guarantee stability — no simulation or numerical root-finding needed. This is especially valuable for deriving *stability regions* in parameter space during the design phase.
+
 ---
 
 ## When Open-Loop Control Is Actually Preferred
@@ -239,14 +270,6 @@ Stepper motors are inherently open-loop actuators. They move a precise number of
 | Safety criticality | Low | High (must detect faults) |
 | System dynamics | Well-known, repeatable | Uncertain, time-varying |
 | Example | Stepper on 3D printer Z-axis | Servo on industrial robot joint |
-
----
-
-### Example: Temperature Control
-
-Consider a temperature control system for a heating element. In an open-loop configuration, the system sets the heating element to a predetermined power level based on the desired temperature. However, this approach cannot account for external factors like ambient temperature changes.
-
-In a closed-loop configuration, a temperature sensor provides feedback on the actual temperature, allowing the controller to adjust the power level dynamically to maintain the desired temperature. This feedback mechanism ensures more accurate and stable temperature control.
 
 ---
 
