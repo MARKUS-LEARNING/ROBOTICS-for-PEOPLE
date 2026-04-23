@@ -1,6 +1,6 @@
 ---
 title: How to Use This Vault
-description: A guide to navigating, contributing to, and enhancing the Robotics Obsidian Vault.
+description: A guide to navigating, contributing to, and enhancing the ROBOTICS-for-PEOPLE Obsidian vault.
 tags:
   - guide
   - vault-meta
@@ -8,89 +8,138 @@ tags:
   - help
 layout: default
 category: robotics
-author: Jordan_Smith_&_le_Chat
-date: 2025-04-26
+author: Jordan_Smith
+date: 2026-04-23
 permalink: /how_to_use_this_vault/
 related:
-  - "[[Vault_Purpose_and_Scope]]"
   - "[[Vault_Taxonomy_Guide]]"
   - "[[Robotics_Vault_Dashboard]]"
+  - "[[Resources_Index]]"
 ---
 
 # How to Use This Vault
 
-Welcome to your **Robotics Obsidian Vault**! This guide explains how to navigate its structure, contribute effectively, and leverage its features to create a powerful personal knowledge base on robotics.
+Welcome to **ROBOTICS-for-PEOPLE** — an open, markdown-first textbook for learning robotics from first principles. The entire vault is designed to be read and edited inside [Obsidian](https://obsidian.md), but every file is plain Markdown, so it renders fine on GitHub too.
 
----
-![ROBOTICS-for-PEOPLE](https://github.com/user-attachments/assets/b372fa0c-2e4d-4f58-b95b-c154bc59e91c)
-
-![MARKUS_LEARNING](https://github.com/user-attachments/assets/9a965161-6fe2-40da-b817-486a1d619459)
-# MARKUS_LEARNING
----
-
-## Section 1: Understanding the Structure
-
-This vault organizes knowledge into core thematic folders, detailed in the [[Vault_Taxonomy_Guide]]. Key areas include:
-
-
-    00_Introduction: An overview of the field of robotics, its significance, and the scope of the course.
-    01_Fundamentals_of_Robotics: Definitions of fundamental robotics terms.
-    02_Mathematics_for_Robotics: The mathematics of robot motion and forces.
-    03_Kinematics_and_Dynamics: Study of motion and forces in robotic systems.
-    04_Sensors_and_Perception: How robots sense and interpret their environment.
-    05_AI_and_Machine_Learning: Autonomy, machine learning, and control strategies.
-    06_Robot_Control: Techniques and algorithms for controlling robotic systems.
-    07_Robot_Operating_System_(ROS): Overview of ROS 2 and related tools like Gazebo Simulator.
-    08_Robot_Types_and_Applications: Profiles of Industrial Arms, Mobile Robots, Humanoid Robots, etc.
-    09_Advanced_Topics: Future trends and robot ethics and policy debates.
-    10_Research_and_Development: Examples and applications of Python ROS Nodes, C++ Motion Planning, and practical examples.
-    11_Practical_Implementation: Hands-on work like Turtlesim Projects and Sim2Real Experiments.
-    12_Labs_and_Tutorials: External resources including MOOCs and Courses, Research Papers Index, Simulators, and IDEs.
-    13_Tools_References_and_Links: External resources including MOOCs and Courses, Research Papers Index, Simulators, and IDEs.
-
-
-Refer to the [[Vault_Taxonomy_Guide]] for detailed folder descriptions and tagging strategies.
+This guide explains how to navigate the folder structure, how to add content without breaking the link graph, and which optional plugins unlock the best experience.
 
 ---
 
-## Section 2: Navigating with the Dashboard
+## Section 1: Philosophy
 
-The [[Robotics_Vault_Dashboard]] provides a dynamic overview of your notes, categorized by topic.
+This vault is built on three commitments:
 
-**Requirement:** This dashboard relies on the **Dataview** community plugin.
-* **To Install/Enable:** Go to Obsidian `Settings` -> `Community Plugins` -> `Browse`, search for "Dataview", install it, and then enable it.
-
----
-
-## Section 3: Adding and Editing Content
-
-Consistency is key for a useful vault. When creating or modifying notes:
-
-1.  **Placement:** Create new notes within the relevant numbered folder (e.g., a note on Kalman Filters would go in `03_Sensors_and_Perception`).
-2.  **Frontmatter:** Copy the YAML frontmatter (the section between `---` at the top) from an existing note and update the `title`, `description`, `tags`, and `related` fields. Use relevant tags (see [[Vault_Taxonomy_Guide]]).
-3.  **Content:** Populate the note body with clear explanations, definitions, equations (using LaTeX `$ $` or `$$ $$`), code snippets (using ``` ``` blocks), diagrams, images, and references.
-4.  **Linking:** Use `[[Internal Links]]` generously to connect related concepts across different notes. Link to glossary terms, foundational concepts, specific examples, or related tools.
+1. **First principles before formulas.** Every concept is introduced by explaining the physical or mathematical reality it models before any equation or code appears.
+2. **Acronym hygiene.** Every acronym — ROS (Robot Operating System), SLAM (Simultaneous Localization and Mapping), EKF (Extended Kalman Filter), MPC (Model Predictive Control) — is expanded on first use in each file.
+3. **Connectivity over completeness.** A half-linked note beats an isolated polished one. The value of the vault scales with how densely its ideas are interconnected through wikilinks, tags, and `related:` frontmatter.
 
 ---
 
-## ``Section 4: Maintaining the Vault
+## Section 2: Folder Structure
 
-Treat this vault as a *living document*:
+The vault uses a flat, numbered folder system. Numbers express a suggested reading order, not a strict dependency.
 
--   **Log Changes:** Record significant updates or structural changes in the [[Version_History_Log]].
--   **Track the Future:** Add new research, predictions, or industry news to [[Future_Trends_2025-2035]].
--   **Document Practice:** Add your notes, logs, and results from experiments or tutorials under `09_Labs_Projects_and_Tutorials/`.
+| Folder | Topic |
+|---|---|
+| `00_Introduction` | Meta: how to use the vault, taxonomy, dashboard, resource index. |
+| `01_Fundamentals_of_Robotics` | Definitions, history, ethics, the robotics industry. |
+| `02_Mathematics_for_Robotics` | Linear algebra, calculus, probability, Lie groups, optimization. |
+| `03_Kinematics_and_Dynamics` | Forward/inverse kinematics, Jacobians, Newton–Euler, Lagrangian dynamics. |
+| `04_Sensors_and_Perception` | Cameras, LiDAR, IMUs, encoders, sensor fusion, point clouds. |
+| `05_AI_and_Machine_Learning` | Classical ML, deep learning, reinforcement learning, imitation learning, VLAs. |
+| `06_Robot_Control` | PID, state-space, MPC, adaptive, robust, impedance control, HRI. |
+| `07_Robot_Operating_System_(ROS)` | ROS 2 concepts — DDS (Data Distribution Service), topics, services, actions, TF, Gazebo. |
+| `08_Robot_Types_and_Applications` | Industrial arms, mobile, humanoid, drones, medical, soft, swarm, etc. |
+| `09_Advanced_Topics` | Multi-agent, manipulation, tactile, neuromorphic, quantum, ethics deep-dive. |
+| `10_Research_and_Development` | Reading papers, benchmarks, conferences (ICRA, IROS, RSS, CoRL), reproducibility. |
+| `11_Practical_Implementation` | Dev environments, Docker, CI/CD, sim-to-real, rosbag2. |
+| `12_Labs_and_Tutorials` | Hands-on exercises: Turtlesim, Sim2Real, URDF authoring. |
+| `13_Tools_References_and_Links` | MOOCs, papers index, simulators, IDEs, hardware. |
+
+For a deeper explanation, see [[Vault_Taxonomy_Guide]].
 
 ---
 
-## Section 5: Enhancing Your Experience (Optional)
+## Section 3: Navigating with the Dashboard
 
-Consider these powerful Obsidian plugins to further augment your vault:
+[[Robotics_Vault_Dashboard]] provides dynamic indexes of notes by chapter using the Dataview plugin.
 
--   **[[Obsidian Canvas|Canvas]]**: Create visual connections, mind maps, or system diagrams linking your notes.
--   **[[Excalidraw]]**: Sketch diagrams (like kinematic chains or control loops) directly within or linked to your notes.
--   **DataviewJS**: For users comfortable with JavaScript, unlock advanced querying, custom views, and dynamic visualizations beyond standard Dataview.
+**Requirement:** The [Dataview](https://blacksmithgu.github.io/obsidian-dataview/) community plugin.
+- Install: Obsidian `Settings` → `Community Plugins` → `Browse` → search "Dataview" → Install → Enable.
+- The dashboard degrades gracefully on GitHub (queries render as code blocks, not tables), so it is safe to commit.
 
 ---
 
-This vault is a tool to accelerate your learning and exploration in robotics. Adapt it, expand it, and make it your own!
+## Section 4: Adding and Editing Content
+
+Consistency is what keeps the graph useful. When creating or modifying notes, follow this checklist.
+
+**Placement.** Put the note in the folder matching its topic. A note on Kalman filters belongs in `04_Sensors_and_Perception`; a note on PID tuning belongs in `06_Robot_Control`.
+
+**Filename.** Use `Title_Case_With_Underscores.md`. Examples: `Forward_Kinematics.md`, `Extended_Kalman_Filter.md`. This makes wikilinks predictable.
+
+**Frontmatter.** Every note must start with a YAML frontmatter block. Copy from an existing note and update the relevant fields:
+
+```yaml
+---
+title: Extended Kalman Filter
+description: Nonlinear recursive state estimator used in robot localization.
+tags:
+  - sensor-fusion
+  - estimation
+  - slam
+category: robotics
+author: Jordan_Smith
+date: 2026-04-23
+related:
+  - "[[Kalman_Filter]]"
+  - "[[Sensor_Fusion]]"
+  - "[[SLAM]]"
+---
+```
+
+**Authorship.** All contributions are attributed to `Jordan_Smith`. Do not add co-authors or AI model names to the `author` field.
+
+**Content.** Explanations should lead with physical intuition, then state the mathematical model, then show code or pseudocode. Use LaTeX (`$...$` inline, `$$...$$` block) for equations. Use fenced code blocks with a language tag for code (` ```python `, ` ```cpp `, ` ```bash `).
+
+**Linking.** Use `[[Internal Link]]` generously — but only once per section per target file. The `related:` frontmatter field should list 2–5 genuinely related notes; these become graph edges without cluttering prose. See Section 6 below.
+
+---
+
+## Section 5: Enhancing Your Experience (Optional Plugins)
+
+- **[Canvas](https://help.obsidian.md/Canvas)** — visual thinking, system diagrams, mind maps of related concepts.
+- **[Excalidraw](https://github.com/zsviczian/obsidian-excalidraw-plugin)** — sketch kinematic chains, control loops, state machines directly inside notes.
+- **DataviewJS** — advanced queries with JavaScript; useful for custom indexes.
+- **Graph Analysis** — surface orphan notes, betweenness centrality, and recommended new links.
+
+---
+
+## Section 6: Maximizing Graph Connectivity
+
+The Graph View in Obsidian is powered by the `MetadataCache.resolvedLinks` table (`Record<source, Record<destination, count>>`). Every wikilink, `related:` entry, and embed adds an edge to that graph. Four rules keep edges meaningful:
+
+1. **Link on first mention.** The first time a file mentions "PID Control" or "SLAM", link it: `[[PID_Control]]`, `[[SLAM]]`. After that, use the term freely without re-linking.
+2. **Populate `related:` frontmatter.** 2–5 adjacent topics per note. Avoid dumping every loosely related file.
+3. **No broken links.** If a wikilink target does not exist, either create it as a stub or drop the link. Broken links appear as dimmed nodes in Graph View and pollute `MetadataCache.unresolvedLinks`.
+4. **Use aliases for prose flow.** `[[Open_Loop_vs_Closed_Loop|open-loop control]]` reads naturally while still creating the graph edge.
+
+---
+
+## Section 7: Contributing
+
+This is a public vault. Issues and pull requests are welcome at [github.com/MARKUS-LEARNING/ROBOTICS-for-PEOPLE](https://github.com/MARKUS-LEARNING/ROBOTICS-for-PEOPLE). The short version of the contribution workflow:
+
+```bash
+git pull                         # always pull first
+# edit notes in your local Obsidian
+git add <specific files>
+git commit -m "Describe what changed, not what file changed"
+git push
+```
+
+See `CONTRIBUTING.md` at the repo root for detail.
+
+---
+
+*This vault is a living document. Adapt it, expand it, and make it your own — that is the point.*
