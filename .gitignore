@@ -1,0 +1,12 @@
+CLAUDE.md
+
+# macOS metadata
+.DS_Store
+**/.DS_Store
+
+# Claude Code local workspace (worktrees, agent scratch)
+.claude/
+
+# Obsidian workspace-local files (keep vault portable)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json

@@ -1,104 +1,216 @@
 ---
 title: Robotics Vault Dashboard
-description: A Dataview-powered overview of your Robotics Vault
+description: A Dataview-powered dynamic index of every note in the vault, grouped by chapter.
 tags:
   - dashboard
-  - vault
+  - vault-meta
 layout: default
 category: robotics
-author: Jordan_Smith_&_le_Chat
-date: 2025-04-25
+author: Jordan_Smith
+date: 2026-04-23
 permalink: /robotics-vault-dashboard/
 related:
+  - "[[How_to_Use_This_Vault]]"
+  - "[[Vault_Taxonomy_Guide]]"
+  - "[[Resources_Index]]"
 ---
 
 # Robotics Vault Dashboard
 
-Welcome to your Robotics Vault! Use this dashboard to explore your vault dynamically using [Dataview](https://blacksmithgu.github.io/obsidian-dataview/).
+This dashboard is a live, queryable index of every note in the vault. It uses the [Dataview](https://blacksmithgu.github.io/obsidian-dataview/) community plugin — install and enable it in Obsidian for the tables below to render. On GitHub the queries appear as code blocks, which is fine.
 
 ---
 
-## Glossary Terms
+## Vault-wide Snapshot
+
+Total notes, by chapter:
 
 ```dataview
-table title, tags
-from "01_Glossary"
-sort file.name asc
+TABLE WITHOUT ID file.folder AS "Chapter", length(rows) AS "Notes"
+FROM ""
+WHERE file.folder != ""
+GROUP BY file.folder
+SORT file.folder ASC
 ```
 
 ---
 
-## Robot Types
+## 00 — Introduction
 
 ```dataview
-table title, tags
-from "06_Robot_Types_and_Applications"
-sort file.name asc
+TABLE title, tags
+FROM "00_Introduction"
+SORT file.name ASC
 ```
 
 ---
 
-## Kinematics & Dynamics
+## 01 — Fundamentals of Robotics
 
 ```dataview
-table title, tags
-from "02_Kinematics_and_Dynamics"
+TABLE title, tags
+FROM "01_Fundamentals_of_Robotics"
+SORT file.name ASC
 ```
 
 ---
 
-## AI & Control
+## 02 — Mathematics for Robotics
 
 ```dataview
-table title, tags
-from "04_AI_and_Robot_Control"
+TABLE title, tags
+FROM "02_Mathematics_for_Robotics"
+SORT file.name ASC
 ```
 
 ---
 
-## Sensors & Perception
+## 03 — Kinematics and Dynamics
 
 ```dataview
-table title, tags
-from "03_Sensors_and_Perception"
+TABLE title, tags
+FROM "03_Kinematics_and_Dynamics"
+SORT file.name ASC
 ```
 
 ---
 
-## Coding & ROS Tools
+## 04 — Sensors and Perception
 
 ```dataview
-table title, tags
-from "08_Coding_and_Implementation"
+TABLE title, tags
+FROM "04_Sensors_and_Perception"
+SORT file.name ASC
 ```
 
 ---
 
-## Labs and Projects
+## 05 — AI and Machine Learning
 
 ```dataview
-table title, tags
-from "09_Labs_Projects_and_Tutorials"
+TABLE title, tags
+FROM "05_AI_and_Machine_Learning"
+SORT file.name ASC
 ```
 
 ---
 
-## Historical & Future Trends
+## 06 — Robot Control
 
 ```dataview
-table title, tags
-from "07_Robotics_History_and_Future"
+TABLE title, tags
+FROM "06_Robot_Control"
+SORT file.name ASC
 ```
 
 ---
 
-## Reference Tools
+## 07 — Robot Operating System (ROS)
 
 ```dataview
-table title, tags
-from "10_Tools_References_and_Links"
+TABLE title, tags
+FROM "07_Robot_Operating_System_(ROS)"
+SORT file.name ASC
 ```
 
 ---
 
-✅ Make sure the [Dataview plugin](https://obsidian.md/plugins?id=dataview) is installed and enabled in your Obsidian settings to use this dashboard.
+## 08 — Robot Types and Applications
+
+```dataview
+TABLE title, tags
+FROM "08_Robot_Types_and_Applications"
+SORT file.name ASC
+```
+
+---
+
+## 09 — Advanced Topics
+
+```dataview
+TABLE title, tags
+FROM "09_Advanced_Topics"
+SORT file.name ASC
+```
+
+---
+
+## 10 — Research and Development
+
+```dataview
+TABLE title, tags
+FROM "10_Research_and_Development"
+SORT file.name ASC
+```
+
+---
+
+## 11 — Practical Implementation
+
+```dataview
+TABLE title, tags
+FROM "11_Practical_Implementation"
+SORT file.name ASC
+```
+
+---
+
+## 12 — Labs and Tutorials
+
+```dataview
+TABLE title, tags
+FROM "12_Labs_and_Tutorials"
+SORT file.name ASC
+```
+
+---
+
+## 13 — Tools, References, and Links
+
+```dataview
+TABLE title, tags
+FROM "13_Tools_References_and_Links"
+SORT file.name ASC
+```
+
+---
+
+## Maintenance Views
+
+### Notes flagged `#stub` (need expansion)
+
+```dataview
+LIST
+FROM #stub
+SORT file.name ASC
+```
+
+### Notes flagged `#review-needed`
+
+```dataview
+LIST
+FROM #review-needed
+SORT file.name ASC
+```
+
+### Orphans — notes nothing links to
+
+```dataview
+LIST
+FROM ""
+WHERE length(file.inlinks) = 0
+SORT file.name ASC
+```
+
+### Unresolved links — wikilinks to files that do not exist
+
+```dataview
+LIST file.outlinks
+FROM ""
+WHERE length(filter(file.outlinks, (l) => !l.file)) > 0
+SORT file.name ASC
+```
+
+---
+
+✅ If any table above is empty or broken, confirm the [Dataview plugin](https://obsidian.md/plugins?id=dataview) is installed and enabled.
