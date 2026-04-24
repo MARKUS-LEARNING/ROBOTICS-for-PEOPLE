@@ -11,7 +11,7 @@ type: Mechanical Concept
 application: Analysis of forces and moments on bodies at rest
 layout: default
 category: mechanics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /statics/
 related:
@@ -28,10 +28,6 @@ related:
 
 **Statics** is the branch of mechanics that deals with the analysis of forces and moments on bodies at rest. It focuses on understanding how forces and moments interact to maintain equilibrium in physical systems. Statics is fundamental in engineering and physics, providing the basis for analyzing the stability and balance of structures, machines, and other mechanical systems.
 
----
-<img width="735" alt="image" src="https://github.com/user-attachments/assets/43301fd3-69bf-4ea6-836e-c3c6a64684d2" />
-
-<font size=1>*source: https://www.youtube.com/watch?v=eBti6XIoR5U*</font>
 ---
 
 ## Key Concepts in Statics
@@ -231,3 +227,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #mechanics OR #engineering WHERE contains(file.outlinks, [[Statics]])
+```

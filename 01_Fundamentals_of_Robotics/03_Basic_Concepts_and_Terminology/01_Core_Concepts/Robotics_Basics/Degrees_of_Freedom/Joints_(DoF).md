@@ -2,7 +2,6 @@
 title: Joints
 description: Joints are critical components in robotic systems that connect links, allowing controlled motion and enabling robots to perform tasks by facilitating movement and force transmission.
 tags:
-  - glossary-term
   - component
   - motion
   - kinematics
@@ -15,28 +14,14 @@ tags:
   - robotics
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /joints/
 related:
-  - "[[Actuator]]"
-  - "[[Links]]"
-  - "[[Kinematic_Chains]]"
   - "[[Degrees_of_Freedom]]"
-  - "[[Robot_Arm_Design]]"
-  - "[[Manipulator_Dynamics]]"
-  - "[[Statics]]"
-  - "[[Material_Science]]"
-  - "[[Structural_Analysis]]"
-  - "[[Mechatronics]]"
-  - "[[Robot_Design]]"
-  - "[[Mobile_Robots]]"
-  - "[[Locomotion]]"
-  - "[[Wheeled_Mobile_Robots]]"
-  - "[[Legged_Robots]]"
-  - "[[Humanoid_Robots]]"
-  - "[[Exoskeletons]]"
-  - "[[Modular_Robotics]]"
+  - "[[Links_(DoF)]]"
+  - "[[Grübler's_Formula]]"
+  - "[[Links_and_Joints_Definitions]]"
 ---
 
 # Joints
@@ -125,8 +110,6 @@ $$
 $$
 
 where $\sum F$ is the sum of forces and $\sum \tau$ is the sum of torques.
-
----
 
 ---
 
@@ -246,3 +229,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #component OR #kinematics WHERE contains(file.outlinks, [[Joints]])
+```

@@ -16,20 +16,11 @@ author: Jordan_Smith
 date: 2025-05-09
 permalink: /optimization/
 related:
-  - "[[Mathematical_Modeling]]"
-  - "[[Operations_Research]]"
-  - "[[Algorithms]]"
-  - "[[Decision_Making]]"
-  - "[[Efficiency]]"
-  - "[[Linear_Programming]]"
-  - "[[Nonlinear_Programming]]"
-  - "[[Constraint_Analysis]]"
-  - "[[Computational_Mathematics]]"
-  - "[[Optimization_Techniques]]"
-  - "[[Objective_Function]]"
-  - "[[Feasibility_Analysis]]"
-  - "[[Gradient_Descent]]"
-  - "[[Convex_Optimization]]"
+  - "[[Control_Theory]]"
+  - "[[Feedback_Control]]"
+  - "[[Path_Planning]]"
+  - "[[Motion_Planning]]"
+  - "[[Heuristics]]"
 ---
 
 # Optimization

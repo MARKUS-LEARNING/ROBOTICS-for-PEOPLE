@@ -10,33 +10,20 @@ tags:
   - mathematical-modeling
 layout: default
 category: engineering
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-09
 permalink: /constraint_analysis/
 related:
-  - "[[Optimization]]"
-  - "[[Systems_Engineering]]"
-  - "[[Mathematical_Modeling]]"
-  - "[[Physical_Constraints]]"
-  - "[[Economic_Constraints]]"
-  - "[[Environmental_Constraints]]"
-  - "[[Technical_Constraints]]"
-  - "[[Linear_Programming]]"
-  - "[[Nonlinear_Programming]]"
-  - "[[Feasibility_Analysis]]"
-  - "[[Decision_Making]]"
-  - "[[Resource_Allocation]]"
-  - "[[Project_Management]]"
-  - "[[Risk_Management]]"
+  - "[[Configuration_Space]]"
+  - "[[Degrees_of_Freedom]]"
+  - "[[Workspace_Analysis]]"
+  - "[[Robot_Design]]"
 ---
 
 # Constraint Analysis
 
 **Constraint Analysis** is a critical process in engineering and mathematical modeling that involves identifying and evaluating the limitations or constraints within a system. These constraints can be physical, economic, environmental, or technical, and they play a crucial role in optimizing performance and feasibility.
 
----
-![image](https://github.com/user-attachments/assets/c756f1e4-2ad5-4a0b-b3ca-facfaa2a60cf)
-<font size=1>*source: https://cjme.springeropen.com/articles/10.1186/s10033-023-00967-6/figures/1*</font>
 ---
 
 ## Key Components of Constraint Analysis
@@ -246,3 +233,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #engineering OR #analysis WHERE contains(file.outlinks, [[Constraint_Analysis]])
+```

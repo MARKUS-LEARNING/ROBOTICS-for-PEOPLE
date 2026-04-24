@@ -8,12 +8,11 @@ tags:
   - translational-motion
   - mechanism-design
   - engineering
-  - glossary-term
   - manipulator-arm
   - mobile-robot
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /translational_degrees_of_freedom/
 related:
@@ -82,8 +81,6 @@ $$
 $$
 
 The workspace of the robotic arm is defined by the range of motion along each axis. For example, if each joint can move between 0 and 1 meter, the workspace is a cubic volume with side length 1 meter.
-
----
 
 ---
 

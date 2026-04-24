@@ -2,7 +2,6 @@
 title: Links
 description: "Defines Link: A rigid or semi-rigid component that connects joints in a robotic system, enabling structured movement and force transmission. Links are essential for defining the kinematic and dynamic properties of robots, both in manipulators and mobile robots."
 tags:
-  - glossary-term
   - component
   - structure
   - kinematics
@@ -16,29 +15,14 @@ type: Mechanical Concept
 application: Structural and dynamic definition in robotic systems
 layout: default
 category: robotics
-author: Jordan_Smith_&_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /link/
 related:
-  - "[[Actuator]]"
-  - "[[Joints]]"
-  - "[[Kinematic_Chains]]"
   - "[[Degrees_of_Freedom]]"
-  - "[[Robot_Arm_Design]]"
-  - "[[End_Effectors]]"
-  - "[[Manipulator_Dynamics]]"
-  - "[[Statics]]"
-  - "[[Material_Science]]"
-  - "[[Structural_Analysis]]"
-  - "[[Mechatronics]]"
-  - "[[Robot_Design]]"
-  - "[[Mobile_Robots]]"
-  - "[[Locomotion]]"
-  - "[[Wheeled_Mobile_Robots]]"
-  - "[[Legged_Robots]]"
-  - "[[Humanoid_Robots]]"
-  - "[[Exoskeletons]]"
-  - "[[Modular_Robotics]]"
+  - "[[Joints_(DoF)]]"
+  - "[[Grübler's_Formula]]"
+  - "[[Links_and_Joints_Definitions]]"
 ---
 
 # Link

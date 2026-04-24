@@ -2,7 +2,6 @@
 title: Actuator
 description: "Defines Actuator: A fundamental component that converts stored energy or a control signal into physical motion or force, enabling robots (both manipulators and mobile robots) to move and interact with their environment."
 tags:
-  - glossary-term
   - component
   - motion
   - control
@@ -16,50 +15,21 @@ tags:
   - mechatronics
 layout: default
 category: robotics
-author: Jordan_Smith_&_le_Chat
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /actuator/
 related:
-  - "[[Degrees_of_Freedom]]"
-  - "[[Kinematic_Chains]]"
-  - "[[PID_Control]]"
-  - "[[Torque_and_Force_Calculations]]"
-  - "[[Mechanisms_and_Actuation]]"
-  - "[[Robot_Hands]]"
-  - "[[Exoskeletons]]"
-  - "[[Nanorobots]]"
-  - "[[Locomotion]]"
-  - "[[Wheeled_Mobile_Robots]]"
-  - "[[Legged_Robots]]"
-  - "[[Control_Systems]]"
-  - "[[Sensors]]"
-  - "[[Feedback_Control]]"
   - "[[Electric_Motors]]"
-  - "[[Transmission_Mechanisms]]"
-  - "[[Robot_Design]]"
-  - "[[Manipulator_Dynamics]]"
-  - "[[Statics]]"
   - "[[Mechatronics]]"
-  - "[[Soft_Robotics]]"
-  - "[[Bio-inspired_Robotics]]"
-  - "[[Gears]]"
-  - "[[Backlash]]"
-  - "[[Friction]]"
-  - "[[Stiffness]]"
-  - "[[Compliance]]"
+  - "[[Control_Systems]]"
   - "[[Power_Density]]"
-  - "[[Human-Robot_Interaction]]"
+  - "[[Robot_Design]]"
 ---
 
 # Actuator
 
 An **actuator** is a fundamental component of a robot responsible for converting stored energy (typically electrical, hydraulic, or pneumatic) or a control signal into physical motion (linear or rotary) or force. Essentially, it's the "muscle" of the robot that allows it to move its joints, interact with its environment, or manipulate objects. Actuators supply the motive power for robots, enabling both manipulation tasks (like industrial arms) and [[Locomotion]] (like mobile robots). They form a critical link between the robot's [[Control_Systems]] and its physical actions in the world.
 
----
-![image](https://github.com/user-attachments/assets/df450cb9-1050-4891-b187-6b8ccd85ae8d)
-
-
-<font size=1>*source: https://www.researchgate.net/figure/Left-The-actuator-placements-and-the-actuation-topology-of-a-humanoid-robot-TELLO_fig1_345351375*</font>
 ---
 
 ## Function
@@ -142,7 +112,6 @@ To integrate this entry with the Dataview plugin, you can use the following quer
   ```dataview
   LIST FROM #component OR #mechatronics WHERE contains(file.outlinks, [[Actuator]])
   ```
-
 
 ```dataview
 TABLE file.link AS "Note" FROM #RobotDesign

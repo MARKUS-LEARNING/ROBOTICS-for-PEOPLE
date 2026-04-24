@@ -17,17 +17,10 @@ author: Jordan_Smith
 date: 2025-04-29
 permalink: /robot_ethics_policy_debates/
 related:
-  - "[[Ethics]]"
-  - "[[Artificial Intelligence (AI)]]"
-  - "[[Safety]]"
-  - "[[Collaborative Robots]]"
-  - "[[Human-Robot Interaction (HRI)]]"
-  - "[[Autonomous Weapons]]"
-  - "[[Privacy]]"
-  - "[[Bias]]"
-  - "[[Uncanny Valley]]"
-  - "[[Isaac Asimov]]"
-  - "[[Robotics_History_and_Future]]"
+  - "[[History_of_Robotics]]"
+  - "[[Future_Trends_2025-2035]]"
+  - "[[Speculative_Robotics_Scenarios]]"
+  - "[[Human-Robot_Interaction]]"
 ---
 
 # Robot Ethics and Policy Debates
@@ -58,7 +51,7 @@ While philosophical consideration of artificial beings dates back further, moder
     * Ensuring equitable distribution of economic benefits from automation.
     * The need for workforce retraining and robust social safety nets.
 
-3.  **[[Bias]] & Fairness:** AI algorithms, particularly those based on [[Machine Learning]], can inherit or amplify biases present in their training data. This can lead to discriminatory outcomes when used in robots for:
+3.  **[[Bias]] & Fairness:** AI algorithms, particularly those based on [[Machine_Learning]], can inherit or amplify biases present in their training data. This can lead to discriminatory outcomes when used in robots for:
     * **Perception:** E.g., facial recognition systems performing differently across demographic groups.
     * **Decision-Making:** E.g., biased resource allocation by logistics robots, or biased patient assessment by diagnostic support robots. Ensuring fairness and algorithmic transparency is crucial.
 
@@ -111,3 +104,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Robot_Ethics_and_Policy_Debates]])
+```

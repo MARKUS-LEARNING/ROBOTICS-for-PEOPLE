@@ -2,7 +2,6 @@
 title: Power Density
 description: Defines Power Density and Specific Power (Power-to-Weight Ratio), explaining their significance in robotics, particularly for actuators and power sources.
 tags:
-  - glossary-term
   - power-density
   - specific-power
   - power-to-weight
@@ -12,20 +11,14 @@ tags:
   - robot-design
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /power_density/
 related:
-  - "[[Actuator]]"
   - "[[Power_Systems]]"
-  - "[[Energy_Density]]"
-  - "[[Electric_Motor]]"
-  - "[[Hydraulic_Systems]]"
-  - "[[Mobile_Robots]]"
-  - "[[Legged_Robots]]"
-  - "[[Drones]]"
-  - "[[Nanorobots]]"
-  - "[[Glossary]]"
+  - "[[Actuator]]"
+  - "[[Mechatronics]]"
+  - "[[Robot_Design]]"
 ---
 
 # Power Density
@@ -35,22 +28,18 @@ related:
 A closely related and often more critical metric in robotics, especially for mobile systems, is **Specific Power**, also commonly known as **Power-to-Weight Ratio**. This measures the power relative to the component's or system's **mass**, typically expressed in Watts per kilogram ($W/kg$).
 
 ---
-<img width="510" alt="Screenshot 2025-05-13 at 16 16 59" src="https://github.com/user-attachments/assets/0d6b498c-f709-4ced-85de-8aa82b8a60c2" />
-
-<font size=1>*source: https://www.vicorpower.com/resource-library/articles/robotics/six-questions-to-consider-before-designing-your-robots-power-arc*</font>
----
 
 ## Relevance in Robotics
 
 High power density and specific power are crucial performance metrics in robotics design for several reasons:
 
 * **[[Actuator|Actuators]]**: Actuators (like [[Electric_Motor|electric motors]], [[Hydraulic Actuators|hydraulic cylinders]]) with high specific power can produce large forces or torques quickly from a smaller, lighter package. This is essential for:
-  * **Agility & Speed**: Enabling rapid movements in [[Manipulator_Arm|manipulator arms]] or dynamic [[Locomotion]] in [[Legged Robots]] and [[Drones]].
+  * **Agility & Speed**: Enabling rapid movements in [[Manipulator_Arm|manipulator arms]] or dynamic [[Locomotion]] in [[Legged_Robots]] and [[Drones]].
   * **Payload Capacity**: Lighter actuators contribute less to the robot's overall weight, potentially allowing for a higher payload capacity.
   * **Miniaturization**: Critical for developing capable [[Nanorobots]].
   * **Comparison**: [[Hydraulic_Systems|Hydraulic actuators]] generally offer very high specific power at the actuator, but the overall system specific power is reduced by the need for a bulky Hydraulic Power Unit (HPU). High-performance [[Electric_Motor|electric drives]] have significantly improved their specific power.
 
-* **[[Power Systems]]**: For energy sources like batteries or fuel cells:
+* **[[Power_Systems]]**: For energy sources like batteries or fuel cells:
   * **Specific Power ($W/kg$)**: Indicates how quickly the source can deliver energy. High specific power is needed for peak demands like fast acceleration or lifting heavy loads.
   * **[[Energy Density]] ($Wh/kg$ or $Wh/L$)**: Indicates the total amount of energy stored per unit mass or volume. This determines the robot's operational duration or range. *Note:* High power density does not necessarily mean high energy density, and vice-versa (e.g., capacitors have high power density but low energy density; some batteries have high energy density but lower power density).
 
@@ -130,3 +119,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #power-density OR #specific-power WHERE contains(file.outlinks, [[Power_Density]])
+```

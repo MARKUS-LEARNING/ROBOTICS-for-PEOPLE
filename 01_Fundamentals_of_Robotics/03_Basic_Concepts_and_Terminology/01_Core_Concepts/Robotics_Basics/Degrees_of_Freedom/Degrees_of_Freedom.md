@@ -17,16 +17,11 @@ author: Jordan_Smith
 date: 2025-04-27
 permalink: /degrees_of_freedom/
 related:
-  - "[[Kinematic_Chains]]"
-  - "[[Actuator]]"
-  - "[[Joint_Kinematics]]"
-  - "[[Workspace]]"
-  - "[[Singularities]]"
-  - "[[Manipulator_Arm_Types]]"
-  - "[[Mobile_Robots]]"
-  - "[[Legged_Robots]]"
-  - "[[Parallel_Mechanisms_and_Robots]]"
+  - "[[Joints_(DoF)]]"
+  - "[[Links_(DoF)]]"
   - "[[Grübler's_Formula]]"
+  - "[[Configuration_Space]]"
+  - "[[Workspace_Analysis]]"
 ---
 
 # Degrees of Freedom (DoF)

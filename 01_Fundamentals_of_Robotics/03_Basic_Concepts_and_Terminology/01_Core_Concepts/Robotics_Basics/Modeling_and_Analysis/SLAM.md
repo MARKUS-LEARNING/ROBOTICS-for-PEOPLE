@@ -2,7 +2,6 @@
 title: SLAM (Simultaneous Localization and Mapping)
 description: "Defines SLAM: The process by which a mobile robot builds a map of an unknown environment while simultaneously estimating its own pose within that map."
 tags:
-  - glossary-term
   - localization
   - mapping
   - estimation
@@ -11,24 +10,15 @@ tags:
   - probabilistic-robotics
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /slam/
 related:
-  - "[[Localization]]"
-  - "[[Mapping]]"
-  - "[[Perception]]"
-  - "[[Sensor_Fusion]]"
-  - "[[Kalman_Filter]]"
-  - "[[Particle_Filter]]"
-  - "[[Graph Optimization]]"
+  - "[[Sensors]]"
+  - "[[Autonomous_Robots]]"
+  - "[[Mobile_Robots]]"
   - "[[LIDAR]]"
-  - "[[Camera_Systems]]"
-  - "[[IMU_Sensors]]"
-  - "[[Odometry]]"
-  - "[[Loop_Closure]]"
-  - "[[Data_Association]]"
-  - "[[State_Estimation]]"
+  - "[[Probabilistic_Robotics]]"
 ---
 
 # SLAM (Simultaneous Localization and Mapping)
@@ -37,10 +27,6 @@ related:
 
 SLAM addresses a fundamental "chicken-and-egg" problem: to build an accurate map, the robot needs precise knowledge of its own location, but to accurately localize itself, the robot typically needs a reliable map. Solving SLAM enables robots to navigate autonomously in unfamiliar spaces without relying on external infrastructure like GPS or pre-existing maps.
 
----
-![image](https://github.com/user-attachments/assets/a3074408-2063-47d1-91b7-9ec8b1ea3c03)
-
-<font size=1>*source: https://www.linkedin.com/pulse/beginners-guide-slam-robotics-vedant-nair-peeac/*</font>
 ---
 
 ## Purpose and Motivation
@@ -83,7 +69,7 @@ SLAM involves several intertwined components and faces significant challenges:
 Modern SLAM algorithms are predominantly probabilistic, explicitly modeling uncertainty in both the robot's pose and the map. The main paradigms include:
 
 * **Filter-Based SLAM (Primarily for Online SLAM)**: These methods incrementally update the estimate of the current robot pose and the map as new sensor data arrives.
-  * **[[Kalman Filter|EKF-SLAM]]**: Historically the first main approach. Uses an Extended Kalman Filter to represent the joint posterior probability distribution over the robot pose and all map features as a single large Gaussian. Captures correlations between robot pose and feature estimates. **Challenge**: Computational complexity scales quadratically with the number of map features, limiting scalability.
+  * **[[Kalman_Filter|EKF-SLAM]]**: Historically the first main approach. Uses an Extended Kalman Filter to represent the joint posterior probability distribution over the robot pose and all map features as a single large Gaussian. Captures correlations between robot pose and feature estimates. **Challenge**: Computational complexity scales quadratically with the number of map features, limiting scalability.
     <br>
 
   * **[[Particle Filter|Particle Filter SLAM (e.g., FastSLAM)]]**: Represents the posterior distribution using a set of weighted samples (particles). Typically employs Rao-Blackwellization: each particle represents a hypothesized robot trajectory, and maintains its own map estimate conditioned on that trajectory. This exploits the conditional independence of map features given the path. **Advantages**: Scales better than EKF-SLAM (often logarithmic in map size per particle), handles non-Gaussian uncertainties and data association problems more naturally. Grid-based FastSLAM is a popular variant using occupancy grids for maps. **Challenge**: Number of particles needed can become large, especially in environments with many loops or perceptual aliasing.

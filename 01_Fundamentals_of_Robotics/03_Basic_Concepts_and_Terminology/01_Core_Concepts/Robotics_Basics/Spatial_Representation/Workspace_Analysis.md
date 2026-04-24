@@ -10,33 +10,23 @@ tags:
   - workcell-design
   - robot-design
   - engineering
-  - glossary-term
   - manipulator-arm
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-09
 permalink: /workspace_analysis/
 related:
-  - "[[Kinematics]]"
-  - "[[Task_Space_and_Workspace]]"
   - "[[Configuration_Space]]"
-  - "[[Jacobian]]"
-  - "[[Singularity]]"
+  - "[[Task_Space_and_Workspace]]"
+  - "[[Degrees_of_Freedom]]"
   - "[[Robot_Design]]"
-  - "[[Inverse_Kinematics]]"
-  - "[[Manipulator_Arm]]"
-  - "[[Forward_Kinematics]]"
 ---
 
 # Workspace Analysis
 
 **Workspace Analysis** in robotics is the systematic study of the spatial regions a robot manipulator can reach and operate within. It encompasses the computation of reachable and dexterous workspaces, the evaluation of manipulability throughout the workspace, the identification of singularities, and the practical application of this analysis to workcell layout and robot selection.
 
----
-![image](https://github.com/user-attachments/assets/6544c206-7141-4bad-a5cc-588b5f93eeff)
-
-<font size=1>*source: https://www.roboticsunveiled.com/robotics-task-space-and-workspace/*</font>
 ---
 
 ## Reachable Workspace vs. Dexterous Workspace

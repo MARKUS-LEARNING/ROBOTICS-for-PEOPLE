@@ -8,12 +8,11 @@ tags:
   - constraints
   - mechanism-design
   - engineering
-  - glossary-term
   - manipulator-arm
   - mobile-robot
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /independent_constraints_dof/
 related:
@@ -83,8 +82,6 @@ $$
 $$
 
 where $\dot{x}$ and $\dot{y}$ are the velocities in the  $x$ and $y$ directions, and $\theta$ is the orientation of the robot. This constraint limits the robot's ability to move sideways, reducing its degrees of freedom.
-
----
 
 ---
 
@@ -231,3 +228,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Independent_Constraints_(DoF)]])
+```

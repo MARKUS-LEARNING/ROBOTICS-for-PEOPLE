@@ -16,28 +16,10 @@ author: Jordan_Smith
 date: 2025-04-28
 permalink: /history_of_robotics/
 related:
-  - "[[Robot]]"
-  - "[[Automaton]]"
-  - "[[Isaac Asimov]]"
-  - "[[George Devol]]"
-  - "[[Joseph Engelberger]]"
-  - "[[Victor Scheinman]]"
-  - "[[Industrial_Arms]]"
-  - "[[Mobile_Robots]]"
-  - "[[Shakey]]"
-  - "[[Stanford Arm]]"
-  - "[[Unimate]]"
-  - "[[PUMA]]"
-  - "[[SCARA]]"
-  - "[[Delta Robot]]"
-  - "[[ROS (Robot Operating System)]]"
-  - "[[Artificial Intelligence (AI)]]"
-  - "[[Machine Learning]]"
-  - "[[Collaborative Robots]]"
-  - "[[Humanoid_Robots]]"
-  - "[[Uncanny Valley]]"
-  - "[[Masahiro Mori]]"
-  - "[[Robotics_History_and_Future]]"
+  - "[[Key_Figures_and_Labs]]"
+  - "[[Future_Trends_2025-2035]]"
+  - "[[Robotics]]"
+  - "[[Robot_Ethics_and_Policy_Debates]]"
 ---
 
 # History of Robotics
@@ -93,9 +75,9 @@ This era saw the birth of practical, computer-controlled robots primarily for in
     * **Mobile & Field Robotics:** Research intensified in autonomous mobile navigation ([[SLAM]]), and applications expanded in space, underwater, and service domains.
     * **[[Humanoid_Robots|Humanoids]] & Social Robots:** Development advanced significantly (Honda ASIMO, Sony QRIO). As robots began to take on more human-like appearances, the importance of understanding human perception of robots grew. In 1970, roboticist [[Masahiro Mori]] proposed the **[[Uncanny Valley]]** hypothesis. This influential idea suggests that as a robot's appearance becomes more human-like, human affinity towards it increases up to a point, but then drops sharply into revulsion or unease if the robot looks *almost*, but not perfectly, human. Affinity increases again only if the resemblance becomes nearly indistinguishable. This concept remains a key consideration in the design of robots intended for [[Human-Robot Interaction (HRI)]].
     * **Consumer Robots:** iRobot's Roomba (2002) became the first mass-market robot, selling millions of units. Its navigation evolved from random bounce (stochastic coverage) to [[SLAM]]-based systematic coverage using a single camera and IMU — a practical demonstration of consumer-grade localization at a < $300 price point.
-    * **[[Medical Robotics]]:** Intuitive Surgical's da Vinci system (FDA cleared 2000) demonstrated the value of robotic precision in surgery. The system provides 7-DOF wristed instruments through 8 mm trocar ports, with tremor filtering ($> 6$ Hz) and 3:1 to 5:1 motion scaling. Over 12 million procedures performed as of 2024. The Mako system (Stryker) introduced haptic boundaries for orthopedic surgery — the robot constrains the surgeon's tool within a pre-planned cutting volume using real-time force feedback at 1 kHz.
+    * **[[Medical_Robotics]]:** Intuitive Surgical's da Vinci system (FDA cleared 2000) demonstrated the value of robotic precision in surgery. The system provides 7-DOF wristed instruments through 8 mm trocar ports, with tremor filtering ($> 6$ Hz) and 3:1 to 5:1 motion scaling. Over 12 million procedures performed as of 2024. The Mako system (Stryker) introduced haptic boundaries for orthopedic surgery — the robot constrains the surgeon's tool within a pre-planned cutting volume using real-time force feedback at 1 kHz.
     * **[[ROS (Robot Operating System)]]:** Willow Garage released ROS (~2007) as an open-source middleware framework built on a publish-subscribe architecture. It standardized message passing between nodes (sensor drivers, planners, controllers) and introduced tools like `rviz` (visualization), `tf` (coordinate frame management), and `rosbag` (data logging). [[ROS_2_Overview|ROS 2]] (2017+) addressed production requirements: real-time DDS transport, lifecycle node management, and deterministic execution — essential for safety-critical applications per IEC 61508.
-    * **AI/ML Revolution:** [[Deep Learning]] transformed perception — convolutional networks achieved superhuman object detection ($> 95\%$ mAP on COCO) and enabled vision-based grasping of novel objects. New control paradigms emerged: [[Reinforcement_Learning_for_Robots|RL]] for locomotion (Boston Dynamics Atlas, ANYmal), [[Imitation_Learning|imitation learning]] from human demonstrations, and sim-to-real transfer using domain randomization. Foundation models (RT-2, Octo) now map language instructions directly to robot actions.
+    * **AI/ML Revolution:** [[Deep_Learning]] transformed perception — convolutional networks achieved superhuman object detection ($> 95\%$ mAP on COCO) and enabled vision-based grasping of novel objects. New control paradigms emerged: [[Reinforcement_Learning_for_Robots|RL]] for locomotion (Boston Dynamics Atlas, ANYmal), [[Imitation_Learning|imitation learning]] from human demonstrations, and sim-to-real transfer using domain randomization. Foundation models (RT-2, Octo) now map language instructions directly to robot actions.
     * **[[Collaborative_Robots|Cobots]]:** Universal Robots (founded 2005) pioneered force-limited collaborative robots. The UR5 and successors comply with ISO/TS 15066, limiting quasi-static contact forces to $< 150$ N and transient forces to $< 250$ N at any body contact point. This eliminated safety caging for applications under the power and force limiting (PFL) safety mode, making automation accessible to SMEs with typical deployment times of $< 1$ day.
     * **Humanoid Renaissance:** A surge in humanoid development targets general-purpose labor. Tesla Optimus, Figure AI (Figure 02), Agility Robotics (Digit), and Boston Dynamics (electric Atlas) are pursuing full-size humanoids with 30+ DOF, whole-body control, and AI-driven task execution. The engineering challenge is simultaneous bipedal balance (stabilization at $> 200$ Hz), dexterous manipulation, and real-time perception — requiring compute budgets of 50–200 TOPS on edge hardware.
 
@@ -120,3 +102,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[History_of_Robotics]])
+```

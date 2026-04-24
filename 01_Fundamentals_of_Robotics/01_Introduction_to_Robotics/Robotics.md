@@ -17,21 +17,11 @@ author: Jordan_Smith
 date: 2026-02-14
 permalink: /robotics/
 related:
-  - "[[Artificial_Intelligence]]"
-  - "[[Autonomous_Robots]]"
+  - "[[Robots]]"
+  - "[[History_of_Robotics]]"
   - "[[Control_Systems]]"
-  - "[[Sensors]]"
-  - "[[Actuator]]"
-  - "[[Kinematics]]"
-  - "[[Dynamics]]"
-  - "[[Computer_Vision]]"
-  - "[[Machine_Learning]]"
   - "[[Mechatronics]]"
   - "[[Human-Robot_Interaction]]"
-  - "[[SLAM]]"
-  - "[[Path_Planning]]"
-  - "[[Manipulator_Dynamics]]"
-  - "[[Probabilistic_Robotics]]"
 ---
 
 # Robotics
@@ -165,3 +155,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #technology OR #automation WHERE contains(file.outlinks, [[Robotics]])
+```

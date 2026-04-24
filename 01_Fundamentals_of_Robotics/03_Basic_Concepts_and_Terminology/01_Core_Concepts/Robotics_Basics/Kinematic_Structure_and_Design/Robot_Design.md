@@ -8,33 +8,28 @@ tags:
   - electronics
   - software
   - design
-  - glossary-term
 type: Engineering Discipline
 application: Creation and optimization of robotic systems
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /robot-design/
 related:
   - "[[Mechatronics]]"
   - "[[Kinematics_and_Dynamics]]"
-  - "[[Control Systems]]"
+  - "[[Control_Systems]]"
   - "[[Actuator]]"
   - "[[Sensors]]"
-  - "[[Manipulator Arm]]"
-  - "[[Wheeled Mobile Robots]]"
-  - "[[Legged Robots]]"
+  - "[[Manipulator_Arm]]"
+  - "[[Wheeled_Mobile_Robots]]"
+  - "[[Legged_Robots]]"
 ---
 
 # Robot Design
 
 **Robot Design** involves the creation and optimization of robotic systems, integrating mechanical, electrical, and software components to achieve desired functionality. It encompasses the development of robotic structures, actuation systems, sensing capabilities, control algorithms, and software interfaces. Effective robot design requires a multidisciplinary approach, combining principles from mechanics, electronics, computer science, and control theory to create robust, efficient, and adaptable robotic systems.
 
----
-![image](https://github.com/user-attachments/assets/12ae6fdc-a872-4ca4-a8a0-1aecc8bbc815)
-
-<font size=1>*source: https://www.theatlantic.com/technology/archive/2011/08/unimate-the-story-of-george-devol-and-the-first-robotic-arm/243716/*</font>
 ---
 
 ## Key Concepts in Robot Design
@@ -213,3 +208,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #robotics OR #engineering WHERE contains(file.outlinks, [[Robot_Design]])
+```
