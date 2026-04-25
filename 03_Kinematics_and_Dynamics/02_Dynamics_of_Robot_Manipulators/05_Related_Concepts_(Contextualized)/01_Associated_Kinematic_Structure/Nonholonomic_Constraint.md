@@ -7,13 +7,12 @@ tags:
   - wheeled-robot
   - locomotion
   - nonholonomic
-  - glossary-term
   - mechanism
   - manipulator-arm
   - mobile-robot
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /nonholonomic_constraint/
 related:
@@ -94,3 +93,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #kinematics OR #mobile-robot WHERE contains(file.outlinks, [[Nonholonomic_Constraint]])
+```

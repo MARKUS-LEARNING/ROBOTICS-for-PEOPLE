@@ -7,12 +7,11 @@ tags:
   - kinematics
   - mechanical-engineering
   - engineering
-  - glossary-term
   - manipulator-arm
   - mobile-robot
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /mechanism_design/
 related:
@@ -113,3 +112,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #robotics OR #mechanical-engineering WHERE contains(file.outlinks, [[Mechanism_Design]])
+```

@@ -13,7 +13,7 @@ tags:
   - actuator
 layout: default
 category: robotics
-author: Jordan_Smith_&_Gemini
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /mechanisms_and_actuation/
 related:
@@ -52,7 +52,7 @@ The study of robot mechanisms often focuses on [[Kinematics]] (the geometry of m
     * **[[Gearbox|Gears]]:** Spur, helical, bevel, worm gears. Used for speed reduction and torque amplification. Planetary gear trains and specialized low-backlash gears like harmonic drives (strain wave gearing) and cycloidal drives (e.g., Nabtesco RV gears) are common in robotics for compact, high-ratio reduction. Key characteristics are gear ratio, efficiency, stiffness, and backlash (play between teeth).
     * **Belts and Pulleys:** Timing belts provide synchronized motion transmission without slip. V-belts are simpler but allow slip. Used for moderate distances and ratios. Lower stiffness than gears, can introduce compliance.
     * **Cables / Tendons:** Lightweight, high tensile strength. Often used for remote actuation in [[Robot_Hands]] or lightweight arms. Require pre-tensioning. Can suffer from friction (especially in sheaths) and stretching (compliance).
-    * **Linkages:** Combinations of rigid links (e.g., four-bar linkages, slider-cranks) used to create specific motion paths or coupling between joints (e.g., pantographs in some [[Legged Robots|legged robot]] designs).
+    * **Linkages:** Combinations of rigid links (e.g., four-bar linkages, slider-cranks) used to create specific motion paths or coupling between joints (e.g., pantographs in some [[Legged_Robots|legged robot]] designs).
     * **Ball Screws / Lead Screws:** Efficiently convert rotary motion (from a motor) into precise linear motion. Commonly used for [[Prismatic Joint|prismatic joints]] in [[Industrial_Arms|industrial robots]] or positioning stages.
 
 ---
@@ -95,3 +95,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #robotics OR #mechanical-engineering WHERE contains(file.outlinks, [[Mechanisms_and_Actuation]])
+```

@@ -11,7 +11,7 @@ tags:
   - configuration-space
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-03
 permalink: /motion_planning/
 related:
@@ -90,3 +90,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #motion-planning OR #robotics WHERE contains(file.outlinks, [[Motion_Planning]])
+```

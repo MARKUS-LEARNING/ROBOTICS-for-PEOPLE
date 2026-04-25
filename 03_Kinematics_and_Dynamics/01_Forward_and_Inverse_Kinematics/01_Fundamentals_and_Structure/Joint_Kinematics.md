@@ -11,7 +11,7 @@ type: Robotic Concept
 application: Analysis of joint motion in robotic systems
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /joint-kinematics/
 related:
@@ -32,8 +32,6 @@ related:
 **Joint Kinematics** focuses on the study of the motion of individual joints within a robotic system, describing how they contribute to the overall movement and positioning of the robot. It involves analyzing the geometric and kinematic properties of joints, such as their range of motion, velocity, and acceleration, to understand how they influence the robot's ability to perform tasks. Joint kinematics is essential for designing and controlling robotic systems, ensuring that they can move precisely and efficiently within their environment.
 
 ---
-<img src="https://math.libretexts.org/@api/deki/files/60560/robot_diagram_2.jpeg?revision=1"></img>
-<font size=1>*source: https://math.libretexts.org/Bookshelves/Linear_Algebra/Matrix_Algebra_with_Computational_Applications_%28Colbry%29/15%3A_08_Pre-Class_Assignment_-_Robotics_and_Reference_Frames/15.2%3A_2D_Forward_Kinematics*</font>
 ---
 
 ## Types of Joints
@@ -111,3 +109,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 ```dataview
 LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Joint_Kinematics]])
+```

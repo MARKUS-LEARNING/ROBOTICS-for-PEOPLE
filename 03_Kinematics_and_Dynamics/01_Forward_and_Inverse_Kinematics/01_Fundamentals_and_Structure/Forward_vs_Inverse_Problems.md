@@ -9,12 +9,11 @@ tags:
   - inverse-problem
   - problem-solving
   - engineering
-  - glossary-term
   - manipulator-arm
   - mobile-robot
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /forward_vs_inverse_problems/
 related:
@@ -31,9 +30,6 @@ related:
 **Forward vs Inverse Problems** are fundamental concepts in robotics, representing two distinct approaches to solving problems related to motion, control, and system analysis. Forward problems involve determining the outcome or effect given a set of inputs or causes, while inverse problems involve finding the inputs or causes that produce a desired outcome or effect. Understanding these concepts is crucial for designing and controlling robotic systems effectively.
 
 ---
-![image](https://github.com/user-attachments/assets/efd36242-58f9-4ebd-9836-7c274978c633)
-
-<font size=1>*source: https://www.researchgate.net/figure/Relationship-between-forward-and-inverse-kinematics_fig1_319127421*</font>
 ---
 
 ## Key Concepts
@@ -116,3 +112,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Forward_vs_Inverse_Problems]])
+```

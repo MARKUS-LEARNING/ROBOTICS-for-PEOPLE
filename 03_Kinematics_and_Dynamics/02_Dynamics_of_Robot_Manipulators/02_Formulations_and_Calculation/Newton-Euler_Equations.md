@@ -11,7 +11,7 @@ tags:
   - engineering
 layout: default
 category: robotics
-author: Jordan_Smith_&_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /newton_euler_equations/
 related:
@@ -105,3 +105,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #control OR #robotics WHERE contains(file.outlinks, [[Newton-Euler_Equations]])
+```

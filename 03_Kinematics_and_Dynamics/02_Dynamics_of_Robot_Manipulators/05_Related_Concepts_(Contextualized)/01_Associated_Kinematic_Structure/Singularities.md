@@ -11,7 +11,7 @@ type: Robotic Concept
 application: Analysis of configurations leading to loss of degrees of freedom
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /singularities/
 related:
@@ -88,3 +88,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 ```dataview
 LIST FROM #robotics OR #mathematics WHERE contains(file.outlinks, [[Singularities]])
+```

@@ -9,7 +9,7 @@ tags:
   - industrial-robot
 layout: default
 category: robotics
-author: Jordan_Smith_&_Gemini
+author: Jordan_Smith
 date: 2025-04-28
 permalink: /manipulator_arm_types/
 related:
@@ -31,8 +31,6 @@ Robot manipulators, particularly [[Industrial_Arms]], are typically classified b
 The most common joint types are [[Revolute_Joint|Revolute (R)]] (rotary) and [[Prismatic_Joint|Prismatic (P)]] (sliding/linear).
 
 ---
-![armtypes](https://github.com/user-attachments/assets/78b10059-c7c0-4d0e-83d2-8d739a276f4a)
-<font size=1>*source: https://free3d.com/3d-model/hexapod-platform-9826.html*</font>
 ---
 
 ## Common Serial Manipulator Configurations
@@ -97,3 +95,4 @@ Most positioning structures are combined with a wrist mechanism, typically compr
 ---
 ```dataview
 LIST FROM #robotics OR #manipulator WHERE contains(file.outlinks, [[Manipulator_Arm_Types]])
+```

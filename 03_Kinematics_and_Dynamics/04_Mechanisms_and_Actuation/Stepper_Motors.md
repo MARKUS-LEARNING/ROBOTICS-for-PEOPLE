@@ -10,7 +10,7 @@ tags:
   - control
 layout: default
 category: robotics
-author: Jordan_Smith_&_Gemini
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /stepper-motors/
 related:
@@ -98,3 +98,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 ```dataview
 LIST FROM #robotics OR #mechanical-engineering WHERE contains(file.outlinks, [[Stepper_Motors]])
+```

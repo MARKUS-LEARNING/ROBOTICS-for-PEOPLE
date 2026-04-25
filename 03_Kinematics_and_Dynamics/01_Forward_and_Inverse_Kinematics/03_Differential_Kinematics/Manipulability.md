@@ -8,13 +8,12 @@ tags:
   - manipulability
   - control
   - engineering
-  - glossary-term
   - mechanism
   - manipulator-arm
   - mobile-robot
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /manipulability/
 related:
@@ -37,7 +36,7 @@ related:
 
 ### Manipulability Ellipsoid
 
-The manipulability ellipsoid is a geometric representation of a robot's ability to move in different directions. It is derived from the [[Jacobian Matrix|Jacobian]] of the robot, which relates joint velocities to end-effector velocities.
+The manipulability ellipsoid is a geometric representation of a robot's ability to move in different directions. It is derived from the [[Jacobian_Matrix|Jacobian]] of the robot, which relates joint velocities to end-effector velocities.
 
 - **Mathematical Representation**:
   The manipulability ellipsoid is defined by the eigenvalues and eigenvectors of the matrix $J(\mathbf{q})J^T(\mathbf{q})$, where $J(\mathbf{q})$ is the Jacobian matrix. The ellipsoid's axes are aligned with the eigenvectors, and their lengths are proportional to the square roots of the eigenvalues.
@@ -90,3 +89,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Manipulability]])
+```

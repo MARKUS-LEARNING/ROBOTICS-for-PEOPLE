@@ -7,13 +7,12 @@ tags:
   - inverse-kinematics
   - control
   - engineering
-  - glossary-term
   - mechanism
   - manipulator-arm
   - mobile-robot
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /analytical_ik_solutions/
 related:
@@ -35,7 +34,7 @@ related:
 
 ## Inverse Kinematics Problem
 
-The inverse kinematics problem involves finding the set of joint angles or positions $\mathbf{q}$ that will place the end-effector of a robotic manipulator at a desired position and orientation $\mathbf{x_d}$. This is the reverse of the [[Forward Kinematics|forward kinematics]] problem, which calculates the end-effector pose given the joint configurations.
+The inverse kinematics problem involves finding the set of joint angles or positions $\mathbf{q}$ that will place the end-effector of a robotic manipulator at a desired position and orientation $\mathbf{x_d}$. This is the reverse of the [[Forward_Kinematics|forward kinematics]] problem, which calculates the end-effector pose given the joint configurations.
 
 ### Mathematical Representation
 
@@ -86,3 +85,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Analytical_IK_Solutions]])
+```

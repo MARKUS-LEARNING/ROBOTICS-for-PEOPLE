@@ -2,7 +2,6 @@
 title: Kinematic Chains
 description: "Defines Kinematic Chain: An assembly of rigid bodies (links) connected by joints, forming the structural skeleton of a robot or mechanism."
 tags:
-  - glossary-term
   - kinematics
   - mechanism
   - structure
@@ -10,7 +9,7 @@ tags:
   - joint
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-04-28
 permalink: /kinematic_chain/
 related:
@@ -29,7 +28,6 @@ A **kinematic chain** is an assembly of rigid bodies, called **links**, connecte
 
 ---
 ![[Kinematic-chain-for-the-UR5-robot.png]]
-<font size=1>*source: https://www.researchgate.net/figure/Kinematic-chain-for-the-UR5-robot_fig1_352115594*</font>
 ---
 
 ## Components
@@ -100,3 +98,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #component OR #kinematics WHERE contains(file.outlinks, [[Kinematic_Chains]])
+```

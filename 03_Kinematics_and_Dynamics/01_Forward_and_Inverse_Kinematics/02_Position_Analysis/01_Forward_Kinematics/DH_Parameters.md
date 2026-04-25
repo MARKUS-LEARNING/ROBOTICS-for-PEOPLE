@@ -8,13 +8,12 @@ tags:
   - dh-parameters
   - robot-design
   - engineering
-  - glossary-term
   - mechanism
   - manipulator-arm
   - mobile-robot
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /dh_parameters/
 related:
@@ -32,11 +31,6 @@ related:
 **DH Parameters** (Denavit-Hartenberg Parameters) are a standardized method for representing the kinematic structure of robotic manipulators, essential for deriving forward and inverse kinematics. They provide a systematic way to describe the relative positions and orientations of adjacent links in a robotic arm, facilitating the analysis and control of robotic systems.
 
 ---
-![image](https://github.com/user-attachments/assets/3c2965c0-1030-4560-b69e-f293015a9ac6)
-
-
-
-<font size=1>*source: https://link.springer.com/chapter/10.1007/978-3-031-04870-8_1</font>
 ---
 
 ## Definition
@@ -85,3 +79,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[DH_Parameters]])
+```

@@ -11,7 +11,7 @@ type: Robotic Concept
 application: Analysis of motion and forces in robotic systems
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /kinematics-and-dynamics/
 related:
@@ -31,9 +31,6 @@ related:
 **Kinematics and Dynamics** are fundamental branches of robotics that deal with the motion and forces of robotic systems, essential for understanding and controlling robotic movement. Kinematics focuses on the geometric aspects of motion, describing the position, velocity, and acceleration of robotic components without considering the forces that cause the motion. Dynamics, on the other hand, involves the study of forces and torques that act on a robotic system, influencing its motion and stability.
 
 ---
-![image](https://github.com/user-attachments/assets/b54b7731-1d42-4dbc-b181-8729df9dd3e8)
-
-<font size=1>*source: https://www.igmr.rwth-aachen.de/cms/igmr/studium/lehrveranstaltungen/master/~vfxhz/arkad/?lidx=1*</font>
 ---
 
 ## Kinematics
@@ -129,3 +126,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ```dataview
 LIST FROM #robotics OR #mathematics WHERE contains(file.outlinks, [[Kinematics_and_Dynamics]])
 
+```

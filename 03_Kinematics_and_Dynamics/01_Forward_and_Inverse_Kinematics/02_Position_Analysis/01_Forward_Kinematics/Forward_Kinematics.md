@@ -10,7 +10,7 @@ tags:
   - DH-convention
 layout: default
 category: robotics
-author: Jordan_Smith_&_le_Chat
+author: Jordan_Smith
 date: 2025-04-28
 permalink: /forward_kinematics/
 related:
@@ -34,9 +34,6 @@ related:
 Essentially, forward kinematics solves the problem: **Given the joint configuration, where is the robot's end-effector?** This represents a mapping from the robot's [[Joint_Space]] to its [[Cartesian_Space]] or task space.
 
 ---
-![image](https://github.com/user-attachments/assets/3c2c5deb-655d-4e6d-bfab-4d692dc45af2)
-
-<font size=1>*source: https://compas.dev/compas_fab/0.28.0/examples/03_backends_ros/03_forward_and_inverse_kinematics.html*</font>
 ---
 
 ## Serial Manipulators
@@ -113,3 +110,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Forward_Kinematics]])
+```

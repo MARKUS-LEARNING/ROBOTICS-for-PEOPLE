@@ -8,13 +8,12 @@ tags:
   - singularities
   - control
   - engineering
-  - glossary-term
   - mechanism
   - manipulator-arm
   - mobile-robot
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /singularities_dynamic_effects/
 related:
@@ -37,11 +36,11 @@ related:
 
 ## Kinematic Singularities
 
-Kinematic singularities occur when the robot's [[Jacobian Matrix|Jacobian]] becomes singular, i.e., its determinant is zero. This results in a loss of degrees of freedom, making it impossible to control the robot's motion in certain directions.
+Kinematic singularities occur when the robot's [[Jacobian_Matrix|Jacobian]] becomes singular, i.e., its determinant is zero. This results in a loss of degrees of freedom, making it impossible to control the robot's motion in certain directions.
 
 ### Types of Kinematic Singularities
 
-1. **Boundary Singularities**: Occur at the boundary of the robot's [[Workspace Analysis|workspace]], where the manipulator is fully extended or folded.
+1. **Boundary Singularities**: Occur at the boundary of the robot's [[Workspace_Analysis|workspace]], where the manipulator is fully extended or folded.
 2. **Internal Singularities**: Occur within the workspace, often due to the alignment of multiple joint axes, leading to a loss of control in specific directions.
 
 ### Mathematical Representation
@@ -88,7 +87,7 @@ where $\mathbf{\omega}$ is the angular velocity vector, $\mathbf{r}$ is the posi
 
 ## Impact on Robotics
 
-- **Control Systems**: Singularities and dynamic effects must be considered in the design of control systems to ensure stable and precise operation of the robot. Techniques such as [[Computed Torque Control]] and [[Adaptive Control]] can help mitigate these effects.
+- **Control Systems**: Singularities and dynamic effects must be considered in the design of control systems to ensure stable and precise operation of the robot. Techniques such as [[Computed_Torque_Control]] and [[Adaptive_Control]] can help mitigate these effects.
 - **Robot Design**: Understanding singularities and dynamic effects is essential for designing robots with optimal kinematic and dynamic properties, ensuring reliable performance in various tasks and environments.
 - **Workspace Analysis**: Identifying singularities within the robot's workspace helps in planning trajectories that avoid these configurations, ensuring smooth and controllable motion.
 
@@ -102,3 +101,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Singularities_Dynamic_Effects]])
+```

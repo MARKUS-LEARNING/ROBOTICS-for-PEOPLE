@@ -11,19 +11,19 @@ type: Robotic Concept
 application: Regulation of robotic movement for precise task execution
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /motion-control/
 related:
-  - "[[Robot Design]]"
-  - "[[Control Systems]]"
+  - "[[Robot_Design]]"
+  - "[[Control_Systems]]"
   - "[[Kinematics_and_Dynamics]]"
-  - "[[Manipulator Arm]]"
+  - "[[Manipulator_Arm]]"
   - "[[Actuator]]"
   - "[[Sensors]]"
-  - "[[Feedback Control]]"
-  - "[[PID Control]]"
-  - "[[Trajectory Planning]]"
+  - "[[Feedback_Control]]"
+  - "[[PID_Control]]"
+  - "[[Trajectory_Planning]]"
 ---
 
 # Motion Control
@@ -66,7 +66,7 @@ related:
   $$
   q_d(t) = f(t)
   $$
-  where $q_d(t)$ is the desired trajectory, and $f(t)$ is a function that defines the desired positions, velocities, and accelerations over time. This equation is central to [[Trajectory Planning]], which ensures smooth and efficient robot motion.
+  where $q_d(t)$ is the desired trajectory, and $f(t)$ is a function that defines the desired positions, velocities, and accelerations over time. This equation is central to [[Trajectory_Planning]], which ensures smooth and efficient robot motion.
 
 ---
 

@@ -8,12 +8,11 @@ tags:
   - product-of-exponentials
   - transformations
   - engineering
-  - glossary-term
   - manipulator-arm
   - mobile-robot
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /product_of_exponentials/
 related:
@@ -28,10 +27,6 @@ related:
 
 The **Product of Exponentials** is a mathematical concept used to represent and analyze the motion and transformations of robotic systems. It provides a framework for understanding continuous motion and control, enabling the representation of complex transformations as a product of simpler exponential mappings. This concept is particularly useful in robotics for tasks such as motion planning, control, and kinematic analysis.
 
----
-<img width="318" alt="image" src="https://github.com/user-attachments/assets/d7c17d0a-ddfe-4f00-9b42-3d3d048387e1" />
-
-<font size=1>*source: https://www.youtube.com/watch?app=desktop&v=27jUrkFdyks*</font>
 ---
 
 ## Key Concepts
@@ -105,3 +100,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #robotics OR #mathematics WHERE contains(file.outlinks, [[Product_of_Exponentials]])
+```

@@ -11,7 +11,7 @@ type: Mechanical Property
 application: Resistance to deformation in mechanical systems
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /stiffness/
 related:
@@ -84,3 +84,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 ```dataview
 LIST FROM #control OR #robotics WHERE contains(file.outlinks, [[Stiffness]])
+```

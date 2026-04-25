@@ -7,7 +7,6 @@ tags:
   - mechanics
   - control
   - engineering
-  - glossary-term
   - kinematics
   - dynamics
   - mechanism
@@ -15,7 +14,7 @@ tags:
   - mobile-robot
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /robot-gaits/
 related:
@@ -115,3 +114,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #robotics OR #locomotion WHERE contains(file.outlinks, [[Robot_Gaits]])
+```

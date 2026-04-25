@@ -10,7 +10,7 @@ tags:
   - robot-types
 layout: default
 category: robotics
-author: Jordan_Smith_&_Gemini
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /locomotion/
 related:
@@ -94,7 +94,7 @@ The analysis and design of locomotion systems involve several core concepts:
 * **[[Stability]]:** The ability of the robot to maintain balance and resist falling over.
     * **Static Stability:** Achieved when the robot's center of gravity projected vertically falls within the support polygon formed by its ground contact points while stationary. Typically requires 3+ wheels or 6+ legs (for static walking gaits).
     * **Dynamic Stability:** Maintaining balance during motion through active control, even if the center of gravity momentarily falls outside the support polygon. Essential for running, hopping, and most bipedal locomotion.
-* **[[Kinematics]]:** Describes the geometry of motion without considering forces. For locomotion, this includes analyzing [[Degrees_of_Freedom]], reachability, maneuverability, and deriving [[Forward_Kinematics|forward]]/[[Inverse_Kinematics|inverse]] velocity models relating actuator speeds to chassis motion. [[Nonholonomic Constraint|Nonholonomic constraints]] (like wheel no-slip conditions) are critical.
+* **[[Kinematics]]:** Describes the geometry of motion without considering forces. For locomotion, this includes analyzing [[Degrees_of_Freedom]], reachability, maneuverability, and deriving [[Forward_Kinematics|forward]]/[[Inverse_Kinematics|inverse]] velocity models relating actuator speeds to chassis motion. [[Nonholonomic_Constraint|Nonholonomic constraints]] (like wheel no-slip conditions) are critical.
 * **[[Dynamics]]:** Considers the forces ([[Torque_and_Force_Calculations]]) and inertias involved in generating motion. Essential for analyzing energy consumption, stability during dynamic maneuvers, and designing model-based controllers. Includes interaction forces with the environment (traction, friction, buoyancy, drag).
 * **Efficiency:** Often measured by the energy consumed per unit distance traveled (e.g., specific resistance). Wheeled locomotion is generally most efficient on prepared surfaces, while legged locomotion can be more efficient on certain types of rough or soft terrain.
 * **Terrain Interaction:** How the locomotion mechanism interacts with the ground surface (friction, slip, sinkage, compliance). Crucial for predicting performance and designing robust systems for specific environments (e.g., terramechanics for planetary rovers).
@@ -121,3 +121,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 ```dataview
 LIST FROM #kinematics OR #dynamics WHERE contains(file.outlinks, [[Locomotion]])
+```

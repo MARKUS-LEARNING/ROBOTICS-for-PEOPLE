@@ -11,7 +11,7 @@ type: Robotic Concept
 application: Analysis of motion in robotic systems
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /kinematics/
 related:
@@ -35,9 +35,6 @@ related:
 **Kinematics** is the branch of mechanics that describes the motion of points, objects, and systems without considering the forces that cause the motion. In robotics, kinematics focuses on the geometric aspects of motion, including the position, velocity, acceleration, and orientation of robotic components. It is essential for understanding how robots move and interact with their environment, enabling precise control and task execution.
 
 ---
-![image](https://github.com/user-attachments/assets/ef14b44c-b48e-42aa-8878-720f21bb72c7)
-
-<font size=1>*source: https://robodk.com/blog/inverse-kinematics-in-robotics-what-you-need-to-know/*</font>
 ---
 
 ## Fundamental Concepts in Kinematics
@@ -108,7 +105,7 @@ R & p \\
 \end{bmatrix}
 $$
  
-  where $R$ is the rotation matrix, and $p$ is the translation vector. This matrix is used in [[Homogeneous Transformation]] to represent the position and orientation of a rigid body in space.
+  where $R$ is the rotation matrix, and $p$ is the translation vector. This matrix is used in [[Homogeneous_Transformation]] to represent the position and orientation of a rigid body in space.
 <br></br>
 - **Denavit-Hartenberg Parameters**:
 
@@ -149,3 +146,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 ```dataview
 LIST FROM #component OR #kinematics WHERE contains(file.outlinks, [[Kinematics]])
+```

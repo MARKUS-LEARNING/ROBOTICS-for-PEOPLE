@@ -2,7 +2,6 @@
 title: Joints
 description: Joints are critical components in robotic systems that connect links, allowing controlled motion and enabling robots to perform tasks by facilitating movement and force transmission.
 tags:
-  - glossary-term
   - component
   - motion
   - kinematics
@@ -15,7 +14,7 @@ tags:
   - robotics
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /joints/
 related:
@@ -44,8 +43,6 @@ related:
 **Joints** are critical components in robotic systems that connect [[Links]], allowing controlled motion and enabling robots to perform tasks by facilitating movement and force transmission. They are essential for defining the [[Kinematic_Chains]] and [[Degrees_of_Freedom]] of a robot, influencing both its design and functionality. Joints are used in various robotic systems, including manipulator arms, mobile robots, and humanoid robots, to achieve precise and coordinated movements.
 
 ---
-<img src="https://images-provider.frontiersin.org/api/ipx/w=410&f=webp/https://www.frontiersin.org/files/Articles/770514/frobt-08-770514-HTML/image_m/frobt-08-770514-g001.jpg"></img>
-<font size=1>*source: https://www.frontiersin.org/journals/robotics-and-ai/articles/10.3389/frobt.2021.770514/full*</font>
 ---
 
 ## Function
@@ -150,3 +147,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #component OR #kinematics WHERE contains(file.outlinks, [[Joints]])
+```

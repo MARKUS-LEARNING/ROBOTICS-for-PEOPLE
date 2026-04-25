@@ -10,7 +10,7 @@ tags:
   - via-points
 layout: default
 category: robotics
-author: Jordan_Smith_&_le_Chat
+author: Jordan_Smith
 date: 2025-05-03
 permalink: /trajectory_planning/
 related:
@@ -37,7 +37,7 @@ related:
 
 It's important to distinguish between a path and a trajectory:
 
-* **Path:** A purely geometric description of the sequence of configurations (poses) the robot should follow. It specifies the locus of points in the configuration space but contains no timing information. Path planning algorithms (see [[Path Planning Algorithms]]) typically output such geometric paths.
+* **Path:** A purely geometric description of the sequence of configurations (poses) the robot should follow. It specifies the locus of points in the configuration space but contains no timing information. Path planning algorithms (see [[Path_Planning_Algorithms]]) typically output such geometric paths.
 * **Trajectory:** A path parameterized by time. It specifies *when* the robot should be at each configuration along the path, implicitly or explicitly defining velocity and acceleration profiles at every point in time. Trajectory planning adds this crucial time-scheduling aspect to a geometric path.
 
 ---
@@ -60,7 +60,7 @@ Trajectory planning can be performed in different configuration spaces:
 * **Cons:**
     * The resulting path of the end-effector in Cartesian space is generally complex (not a straight line or simple curve) and hard to predict or constrain.
 
-### 2. [[Cartesian Space]] Trajectories (Task Space Trajectories)
+### 2. [[Cartesian_Space]] Trajectories (Task Space Trajectories)
 
 * **Concept:** The trajectory is planned directly for the end-effector's pose (position and orientation) in Cartesian space over time.
 * **Method:** Typically involves:
@@ -104,3 +104,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #motion-planning OR #kinematics WHERE contains(file.outlinks, [[Trajectory_Planning]])
+```

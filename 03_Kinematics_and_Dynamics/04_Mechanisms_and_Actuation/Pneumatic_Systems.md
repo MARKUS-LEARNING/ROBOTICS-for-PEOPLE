@@ -12,7 +12,7 @@ tags:
   - mechanism
 layout: default
 category: robotics
-author: Jordan_Smith_&_Gemini
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /pneumatic_systems/
 related:
@@ -22,8 +22,8 @@ related:
   - "[[Industrial_Arms]]"
   - "[[Robot_Hands]]"
   - "[[Soft_Robotics]]"
-  - "[[Control Systems]]"
-  - "[[Power Systems]]"
+  - "[[Control_Systems]]"
+  - "[[Power_Systems]]"
   - "[[Hydraulic_Systems]]"
   - "[[Kinematics_and_Dynamics]]"
 ---
@@ -103,3 +103,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #robotics OR #mechanical-engineering WHERE contains(file.outlinks, [[Pneumatic_Systems]])
+```

@@ -11,7 +11,7 @@ tags:
   - control-theory
 layout: default
 category: robotics
-author: Jordan_Smith_&_le_Chat
+author: Jordan_Smith
 date: 2025-04-28
 permalink: /jacobian_matrix/
 related:
@@ -29,7 +29,7 @@ related:
 
 # Jacobian Matrix
 
-The **Jacobian matrix** (often simply called the **Jacobian**) in robotics, denoted as $J(\mathbf{q})$, is a fundamental tool in [[Kinematics]] and [[Dynamics]]. It is a configuration-dependent matrix that relates the velocities in [[Joints|joint space]] to the velocities in [[Cartesian Space|Cartesian space]] (also called task space or operational space).
+The **Jacobian matrix** (often simply called the **Jacobian**) in robotics, denoted as $J(\mathbf{q})$, is a fundamental tool in [[Kinematics]] and [[Dynamics]]. It is a configuration-dependent matrix that relates the velocities in [[Joints|joint space]] to the velocities in [[Cartesian_Space|Cartesian space]] (also called task space or operational space).
 
 Specifically, it maps the vector of joint velocities $\dot{\mathbf{q}}$ to the end-effector's spatial velocity (twist), $\mathcal{V}$, expressed in a chosen reference frame {k}:
 
@@ -102,3 +102,4 @@ The Jacobian matrix is a central tool in many areas of robotics:
 
 ```dataview
 LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Jacobian_Matrix]])
+```

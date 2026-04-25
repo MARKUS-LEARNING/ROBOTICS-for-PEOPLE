@@ -10,7 +10,7 @@ tags:
   - control
 layout: default
 category: robotics
-author: Jordan_Smith_&_Gemini
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /servo-motors/
 related:
@@ -25,7 +25,7 @@ related:
   - "[[Transmission_Mechanisms]]"
   - "[[Feedback_Control]]"
   - "[[Manipulator_Arm]]"
-  - "[[Legged Robots]]"
+  - "[[Legged_Robots]]"
   - "[[Wheeled_Mobile_Robots]]"
   - "[[Human-Robot_Interaction]]"
   - "[[Mechatronics]]"
@@ -92,3 +92,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 ```dataview
 LIST FROM #robotics OR #mechanical-engineering WHERE contains(file.outlinks, [[Servo_Motors]])
+```

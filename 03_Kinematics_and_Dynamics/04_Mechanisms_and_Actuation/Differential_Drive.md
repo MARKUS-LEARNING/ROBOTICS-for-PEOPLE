@@ -7,13 +7,12 @@ tags:
   - wheeled-robot
   - locomotion
   - nonholonomic
-  - glossary-term
   - mechanism
   - manipulator-arm
   - mobile-robot
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /differential_drive/
 related:
@@ -90,7 +89,7 @@ If $\phi_R = \phi_L$ (straight motion), then $\omega_z = 0$ and $R \to \infty$. 
 
 ### Nonholonomic Constraint
 
-The differential drive mechanism imposes a [[Nonholonomic Constraint|nonholonomic constraint]]: the robot cannot move instantaneously sideways. In its local frame {R}, the velocity component along the $Y_R$ axis (the wheel axis) must be zero: $v_y = 0$. This makes it a Type(2,0) mobile robot according to the mobility classification.
+The differential drive mechanism imposes a [[Nonholonomic_Constraint|nonholonomic constraint]]: the robot cannot move instantaneously sideways. In its local frame {R}, the velocity component along the $Y_R$ axis (the wheel axis) must be zero: $v_y = 0$. This makes it a Type(2,0) mobile robot according to the mobility classification.
 
 ---
 
@@ -130,3 +129,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #kinematics OR #mobile-robot WHERE contains(file.outlinks, [[Differential_Drive]])
+```

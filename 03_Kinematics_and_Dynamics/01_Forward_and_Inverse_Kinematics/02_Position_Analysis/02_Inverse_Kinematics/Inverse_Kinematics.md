@@ -10,7 +10,7 @@ tags:
   - cartesian-space
 layout: default
 category: robotics
-author: Jordan_Smith_&_le_Chat
+author: Jordan_Smith
 date: 2025-04-28
 permalink: /inverse_kinematics/
 related:
@@ -20,7 +20,7 @@ related:
   - "[[Singularities]]"
   - "[[Degrees_of_Freedom]]"
   - "[[Joint Space]]"
-  - "[[Cartesian Space]]"
+  - "[[Cartesian_Space]]"
   - "[[Manipulator_Arm_Types]]"
   - "[[Jacobian_Matrix]]"
   - "[[ROBOTICS-for-EVERYONE/03_Kinematics_and_Dynamics/03_Trajectory_Planning/Configuration_Space]]"
@@ -92,3 +92,4 @@ For mobile robots, "inverse kinematics" typically refers to the calculation of t
 ---
 ```dataview
 LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Inverse_Kinematics]])
+```

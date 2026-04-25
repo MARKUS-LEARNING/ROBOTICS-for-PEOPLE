@@ -12,7 +12,7 @@ tags:
   - engineering
 layout: default
 category: robotics
-author: Jordan_Smith_&_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /mechanics/
 related:
@@ -116,3 +116,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 ```dataview
 LIST FROM #mechanism WHERE contains(file.outlinks, [[Mechanics]])
+```
