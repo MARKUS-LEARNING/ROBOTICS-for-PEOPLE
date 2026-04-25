@@ -1,129 +1,153 @@
 ---
 title: Kinematics and Dynamics
-description: "Kinematics and Dynamics are fundamental branches of robotics that deal with the motion and forces of robotic systems, essential for understanding and controlling robotic movement."
+description: Chapter overview. Kinematics is the geometry of motion (where, how fast). Dynamics is the physics of motion (why, how forced). Together they are the language every robot mechanism is described in.
 tags:
   - robotics
+  - kinematics
+  - dynamics
   - mechanics
-  - engineering
-  - motion
-  - control
-type: Robotic Concept
-application: Analysis of motion and forces in robotic systems
+  - chapter-overview
+type: Chapter Overview
+application: Mechanics of robotic systems
 layout: default
 category: robotics
 author: Jordan_Smith
 date: 2025-04-29
 permalink: /kinematics-and-dynamics/
 related:
-  - "[[Robot_Design]]"
-  - "[[Control_Systems]]"
-  - "[[Manipulator_Arm]]"
+  - "[[Kinematics]]"
+  - "[[Dynamics]]"
   - "[[Forward_Kinematics]]"
   - "[[Inverse_Kinematics]]"
-  - "[[Degrees_of_Freedom]]"
-  - "[[Singularities]]"
-  - "[[Motion_Control]]"
+  - "[[Jacobian_Matrix]]"
+  - "[[Manipulator_Dynamics]]"
   - "[[Trajectory_Planning]]"
+  - "[[Mechanisms_and_Actuation]]"
 ---
 
 # Kinematics and Dynamics
 
-**Kinematics and Dynamics** are fundamental branches of robotics that deal with the motion and forces of robotic systems, essential for understanding and controlling robotic movement. Kinematics focuses on the geometric aspects of motion, describing the position, velocity, and acceleration of robotic components without considering the forces that cause the motion. Dynamics, on the other hand, involves the study of forces and torques that act on a robotic system, influencing its motion and stability.
+This chapter is the mechanical heart of the vault. Two complementary disciplines describe every robot:
+
+- **[[Kinematics]]** — the geometry of motion: position, velocity, acceleration, *force-free*.
+- **[[Dynamics]]** — the physics of motion: mass, inertia, force, torque, *force-driven*.
+
+Together they constitute *mechanics*, the science of bodies in motion. The two halves were separated as scientific subjects in 1834 by André-Marie Ampère, who coined the term *kinematics* to mark the study of pure motion-geometry as distinct from the study of its causes.
+
+> **Etymology.** *Kinematics* — Greek *kinēma*, "movement." *Dynamics* — Greek *dynamis*, "power" or "force." *Mechanics* — Greek *mēchanē*, "machine" or "device" (the same root as *machine* itself).
 
 ---
+
+## Why both, in one chapter
+
+A complete robot model needs both halves:
+
+| Question | Kinematics? | Dynamics? |
+|---|---|---|
+| Where will the gripper end up? | Yes | No |
+| Will the robot reach this pose? | Yes | No |
+| What joint angles produce this pose? | Yes (IK) | No |
+| What torque does the elbow motor need? | No | Yes |
+| Can the robot lift a 5 kg payload? | No | Yes |
+| How does the arm respond when bumped? | No | Yes |
+| Is this trajectory smooth in joint space? | Yes | No |
+| Is this trajectory feasible at runtime? | No | Yes (torque limits, gravity comp) |
+
+In practice, the two interleave constantly: motion plans live in kinematic space, but the controllers that execute them are dynamic.
+
 ---
 
-## Kinematics
+## Chapter map
 
-Kinematics is concerned with the relationship between the robot's joint parameters (e.g., angles, velocities) and the position and orientation of its end-effector. It is crucial for determining the reachable workspace and planning the motion of the robot.
+### 1. Forward and Inverse Kinematics — `01_Forward_and_Inverse_Kinematics/`
 
-### Key Concepts in Kinematics
+The geometry layer. Frames, links, joints, kinematic chains, and the maps between joint space and task space:
 
-1. **Forward Kinematics**: The process of calculating the position and orientation of the end-effector given the joint parameters. This is essential for understanding the robot's current configuration and planning its motion.
+- [[Kinematics]] — the chapter's keystone
+- [[Joints]], [[Links]], [[Joint_Kinematics]], [[Kinematic_Chains]]
+- [[Cartesian_Space]], [[Configuration_Space]]
+- [[Homogeneous_Transformation]] — the $4 \times 4$ workhorse
+- [[Forward_Kinematics]] and [[DH_Parameters]] / [[Product_of_Exponentials]] — the two standard parameterizations
+- [[Inverse_Kinematics]] — closed-form ([[Analytical_IK_Solutions]]) vs. iterative ([[Numerical_IK_Solutions]])
+- [[Jacobian_Matrix]] — velocity, force, singularity, and manipulability all live here
+- [[Manipulability]], [[Instantaneous_Center_of_Rotation_(ICR)]]
 
-2. **Inverse Kinematics**: The process of determining the joint parameters required to achieve a desired position and orientation of the end-effector. This is crucial for task execution and control.
+### 2. Dynamics of Robot Manipulators — `02_Dynamics_of_Robot_Manipulators/`
 
-3. **Degrees of Freedom**: The number of independent parameters that define the configuration of a robotic system. Understanding the degrees of freedom is essential for analyzing the robot's capabilities and constraints.
+The physics layer. Forces, torques, inertias, and equations of motion:
 
-4. **Jacobian Matrix**: A matrix that relates the joint velocities to the end-effector velocities. It is crucial for understanding the robot's ability to move in different directions and for controlling its motion.
+- [[Dynamics]] — the chapter's keystone for forces
+- [[Newton-Euler_Equations]], [[Lagrangian_Dynamics]] — the two classical derivations
+- [[Manipulator_Dynamics]] — the canonical $M(\boldsymbol{\theta}) \ddot{\boldsymbol{\theta}} + C \dot{\boldsymbol{\theta}} + \mathbf{g} = \boldsymbol{\tau}$
+- [[Inertia]], [[Angular_Momentum]], [[Rotational_Dynamics]], [[Rigid_Body_Dynamics]]
+- [[Torque]], [[Torque_and_Force_Calculations]], [[Friction]], [[Stiffness]], [[Stability]]
+- [[Linear_Quadratic_Regulator_(LQR)]] — the optimal-control bridge
+- Specialized cases: [[Parallel_Mechanisms_and_Robots]], [[Stewart_Platform]], [[Singularities]], [[Nonholonomic_Constraint]], [[Locomotion]], [[Robot_Gaits]]
 
-### Key Equations in Kinematics
+### 3. Trajectory Planning — `03_Trajectory_Planning/`
 
-- **Forward Kinematics Equation**:
-  $$T = f(\theta_1, \theta_2, \ldots, \theta_n)$$
-  
-  where $T$ is the transformation matrix representing the position and orientation of the end-effector, and $\theta_1, \theta_2, \ldots, \theta_n$ are the joint variables. This equation is fundamental in [[Forward_Kinematics|Forward Kinematics]].
-  <br></br>
+What path does the robot take through configuration space?
 
-- **Jacobian Matrix**:
+- [[Trajectory_Planning]], [[Motion_Planning]], [[Path_Planning]], [[Motion_Control]]
+- [[Search_Algorithms]], [[Sampling-Based_Planning]]
+- [[Configuration_Space]], [[Collision_Detection]], [[Backlash]]
+
+### 4. Mechanisms and Actuation — `04_Mechanisms_and_Actuation/`
+
+The hardware that turns commanded torques into actual motion:
+
+- [[Mechanisms_and_Actuation]] — the section overview
+- Actuators: [[Electric_Motors]], [[Servo_Motors]], [[Stepper_Motors]], [[Hydraulic_Systems]], [[Pneumatic_Systems]], [[Variable_Stiffness_Actuators]]
+- Transmission: [[Transmission_Mechanisms]], [[Gears]], [[Ball_Screw]], [[Remote_Actuation]]
+- Design: [[Mechanism_Design]], [[Mechanics]]
+
+---
+
+## The two equations to memorize
+
+Almost every concept in the chapter folds back into one of these two equations.
+
+### Forward kinematics (geometry)
 
 $$
-J = \begin{bmatrix}
-\frac{\partial f_1}{\partial \theta_1} & \frac{\partial f_1}{\partial \theta_2} & \cdots & \frac{\partial f_1}{\partial \theta_n} \\
-\frac{\partial f_2}{\partial \theta_1} & \frac{\partial f_2}{\partial \theta_2} & \cdots & \frac{\partial f_2}{\partial \theta_n} \\
-\vdots & \vdots & \ddots & \vdots \\
-\frac{\partial f_m}{\partial \theta_1} & \frac{\partial f_m}{\partial \theta_2} & \cdots & \frac{\partial f_m}{\partial \theta_n}
-\end{bmatrix}
+T_{\text{ee}}(\boldsymbol{\theta}) = T_{0,1}(\theta_1) \, T_{1,2}(\theta_2) \, \cdots \, T_{n-1, n}(\theta_n)
 $$
- 
-  where $J$ is the Jacobian matrix, $f_i$ are the forward kinematic equations, and $\theta_i$ are the joint variables. The Jacobian matrix is crucial for understanding the relationship between joint velocities and end-effector velocities.
+
+A composition of $4 \times 4$ rigid-body transforms — one per joint — yielding the end-effector pose as a function of joint angles. Cheap to evaluate, exact, and uniquely defined. The Jacobian $J = \partial T_{\text{ee}} / \partial \boldsymbol{\theta}$ falls out by differentiation.
+
+### Manipulator equation (physics)
+
+$$
+M(\boldsymbol{\theta}) \ddot{\boldsymbol{\theta}} + C(\boldsymbol{\theta}, \dot{\boldsymbol{\theta}}) \dot{\boldsymbol{\theta}} + \mathbf{g}(\boldsymbol{\theta}) = \boldsymbol{\tau} + J^T \mathbf{F}_{\text{ext}}
+$$
+
+The torque-balance for an $n$-link manipulator: inertia × acceleration, plus velocity-coupled (Coriolis/centrifugal) terms, plus gravity, equals applied torque plus reflected external wrench.
+
+Together these two equations describe every serial-arm robot from a desktop SCARA to a humanoid.
 
 ---
 
-## Dynamics
+## How this chapter feeds the rest of the vault
 
-Dynamics involves the study of the forces and torques that act on a robotic system, influencing its motion and stability. It is essential for designing control systems that can accurately predict and control the robot's movement.
-
-### Key Concepts in Dynamics
-
-1. **Equations of Motion**: The mathematical models that describe the relationship between the forces acting on a robot and its resulting motion. These equations are derived using principles from classical mechanics.
-
-2. **Inertia and Mass Properties**: The distribution of mass and inertia within the robot, which affects its dynamic response to forces and torques.
-
-3. **Friction and Damping**: The resistive forces that oppose motion, including both static and dynamic friction, which must be accounted for in dynamic models.
-
-4. **External Forces and Torques**: The forces and torques applied to the robot by its environment or by the objects it interacts with, which influence its dynamic behavior.
-
-### Key Equations in Dynamics
-
-- **Newton-Euler Equations**:
-
-$$\begin{cases}
-\sum F = m \cdot a \\
-\sum \tau = I \cdot \alpha
-\end{cases}$$
- 
-  where $\sum F$ is the sum of forces, $m$ is the mass, $a$ is the acceleration, $\sum \tau$ is the sum of torques, $I$ is the moment of inertia, and $\alpha$ is the angular acceleration. These equations are fundamental in dynamics.
-  <br></br>
-
-- **Dynamic Model of a Manipulator**:
-
-$$
-M(q)\ddot{q} + C(q, \dot{q})\dot{q} + G(q) = \tau
-$$
-
-  where $M(q)$ is the inertia matrix, $C(q, \dot{q})$ is the Coriolis and centrifugal force matrix, $G(q)$ is the gravity vector, $q$ is the vector of joint positions, $\dot{q}$ is the vector of joint velocities, $\ddot{q}$ is the vector of joint accelerations, and $\tau$ is the vector of applied torques. This equation is used to model the dynamic behavior of a manipulator.
+- **Robot Control** ([[Control_Theory]], [[PID_Control]], [[Model_Predictive_Control]]) — every controller is a feedback law on the dynamic model.
+- **AI / Machine Learning** ([[Reinforcement_Learning]], imitation learning) — policies output actions in joint or task space, decoded by kinematics.
+- **Sensors & Perception** — pose estimates from [[SLAM]] live in $SE(3)$, the same Lie group as kinematic transforms.
+- **ROS** — the `tf2` library and `URDF` description format codify exactly the kinematic-tree formalism described here.
 
 ---
 
-## Impact on Robotics
+## Recommended reading
 
-- **Motion Planning and Control**: Understanding kinematics and dynamics is essential for planning and controlling the motion of robotic systems, ensuring that they can perform tasks accurately and efficiently.
-
-- **Design and Optimization**: Analyzing the kinematics and dynamics of a robot helps in designing systems that can operate effectively within their environment, optimizing their reach, stability, and performance.
-
-- **Safety and Reliability**: Knowing the dynamic behavior of a robot is crucial for ensuring its safety and reliability, particularly in environments where it interacts with humans or other objects.
-
-- **Adaptability and Flexibility**: Kinematics and dynamics enable robots to adapt to changing environments and tasks, providing the flexibility needed for diverse applications.
+- Lynch & Park, *Modern Robotics* (free online) — the modern PoE-first textbook covering both kinematics and dynamics
+- Spong, Hutchinson, Vidyasagar, *Robot Modeling and Control* — staple comprehensive textbook
+- Murray, Li, Sastry, *A Mathematical Introduction to Robotic Manipulation* (free online) — screw-theoretic foundation
+- Featherstone, *Rigid Body Dynamics Algorithms* — the canonical algorithmic reference for fast computation
+- Tedrake, *Underactuated Robotics* (free MIT course) — when the simple cases run out
 
 ---
 
-## Dataview Plugin Features
+## Dataview
 
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
 ```dataview
-LIST FROM #robotics OR #mathematics WHERE contains(file.outlinks, [[Kinematics_and_Dynamics]])
-
+LIST FROM #kinematics OR #dynamics OR #robotics WHERE contains(file.outlinks, [[Kinematics_and_Dynamics]])
 ```
