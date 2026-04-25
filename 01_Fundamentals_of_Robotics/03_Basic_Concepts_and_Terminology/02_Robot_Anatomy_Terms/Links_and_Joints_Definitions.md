@@ -8,12 +8,11 @@ tags:
   - joints
   - mechanism-design
   - engineering
-  - glossary-term
   - manipulator-arm
   - mobile-robot
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /links_and_joints_definitions/
 related:
@@ -30,11 +29,6 @@ related:
 
 **Links and Joints Definitions** are fundamental concepts in robotics, describing the structural components and connections that enable motion in mechanical systems. Links are the rigid bodies that make up the structure of a robotic system, while joints are the connections between links that allow relative motion. Understanding these components is crucial for designing and analyzing robotic mechanisms.
 
----
-![image](https://github.com/user-attachments/assets/ffe3f005-3e6e-4cfc-b12e-bd6e0ebafa9c)
-
-
-<font size=1>*source: https://www.mdpi.com/1996-1073/14/20/6690*</font>
 ---
 
 ## Key Concepts
@@ -190,3 +184,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Links_and_Joints_Definitions]])
+```

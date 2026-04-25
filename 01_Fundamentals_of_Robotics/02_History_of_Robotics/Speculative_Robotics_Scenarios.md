@@ -18,17 +18,8 @@ permalink: /speculative_robotics_scenarios/
 related:
   - "[[Future_Trends_2025-2035]]"
   - "[[Robot_Ethics_and_Policy_Debates]]"
-  - "[[Artificial Intelligence (AI)]]"
-  - "[[Artificial General Intelligence (AGI)]]"
-  - "[[Humanoid_Robots]]"
-  - "[[Human-Robot Interaction (HRI)]]"
-  - "[[Transhumanism]]"
-  - "[[Space Robotics]]"
-  - "[[Soft_Robotics]]"
-  - "[[Swarm_Robots]]"
-  - "[[Bio-inspired_Robotics]]"
-  - "[[Isaac Asimov]]"
-  - "[[Robotics_History_and_Future]]"
+  - "[[History_of_Robotics]]"
+  - "[[Key_Figures_and_Labs]]"
 ---
 
 # Speculative Robotics Scenarios
@@ -93,3 +84,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Speculative_Robotics_Scenarios]])
+```

@@ -2,7 +2,6 @@
 title: Power Systems
 description: "Power Systems encompass the technologies and components used to generate, store, convert, and distribute electrical power in robotic systems, ensuring efficient and reliable operation."
 tags:
-  - glossary-term
   - power-systems
   - energy-storage
   - power-conversion
@@ -11,29 +10,20 @@ tags:
   - energy-management
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /power_systems/
 related:
+  - "[[Power_Density]]"
   - "[[Actuator]]"
-  - "[[Power Density]]"
-  - "[[Energy Density]]"
-  - "[[Battery_Technology]]"
-  - "[[Fuel_Cells]]"
-  - "[[Solar_Power]]"
-  - "[[Energy_Harvesting]]"
-  - "[[Mobile_Robots]]"
-  - "[[Autonomous_Systems]]"
+  - "[[Mechatronics]]"
+  - "[[Robot_Design]]"
 ---
 
 # Power Systems
 
 **Power Systems** encompass the technologies and components used to generate, store, convert, and distribute electrical power in robotic systems, ensuring efficient and reliable operation. These systems are crucial for enabling robots to perform tasks autonomously, especially in mobile and remote applications where access to external power sources is limited. Effective power management is essential for optimizing the performance and longevity of robotic systems.
 
----
-![image](https://github.com/user-attachments/assets/eb9f599e-29f0-4eb3-b98c-190e4c406f6b)
-
-<font size=1>*source: https://encyclopedia.pub/entry/50918*</font>
 ---
 
 ## Key Components
@@ -236,3 +226,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #power-systems OR #energy-management WHERE contains(file.outlinks, [[Power_Systems]])
+```

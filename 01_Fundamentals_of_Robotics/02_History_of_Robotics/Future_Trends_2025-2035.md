@@ -17,27 +17,15 @@ author: Jordan_Smith
 date: 2025-04-28
 permalink: /future_trends_robotics_2025-2035/
 related:
-  - "[[Artificial_Intelligence]]"
-  - "[[Machine_Learning]]"
-  - "[[Deep_Learning]]"
-  - "[[Reinforcement_Learning_for_Robots]]"
-  - "[[Imitation_Learning]]"
-  - "[[Foundation_Models]]"
-  - "[[Humanoid_Robots]]"
-  - "[[Collaborative_Robots]]"
-  - "[[Cloud_Robotics]]"
-  - "[[RaaS]]"
-  - "[[Perception]]"
-  - "[[Manipulation]]"
-  - "[[Soft_Robotics]]"
-  - "[[Precision_Agriculture]]"
+  - "[[History_of_Robotics]]"
+  - "[[Key_Figures_and_Labs]]"
   - "[[Robot_Ethics_and_Policy_Debates]]"
-  - "[[Robotics_History_and_Future]]"
+  - "[[Speculative_Robotics_Scenarios]]"
 ---
 
 # Future Trends in Robotics (2025-2035)
 
-The field of robotics is advancing at an unprecedented pace, driven largely by breakthroughs in [[Artificial Intelligence (AI)]], [[Machine Learning|ML]], improved sensors, actuators, and computational power. Based on current research trajectories and industry adoption patterns, several key trends are expected to shape the landscape of robotics significantly between 2025 and 2035.
+The field of robotics is advancing at an unprecedented pace, driven largely by breakthroughs in [[Artificial Intelligence (AI)]], [[Machine_Learning|ML]], improved sensors, actuators, and computational power. Based on current research trajectories and industry adoption patterns, several key trends are expected to shape the landscape of robotics significantly between 2025 and 2035.
 
 ---
 
@@ -59,7 +47,7 @@ $$
 Applications in logistics (piece picking at $> 600$ picks/hr), lab automation, and healthcare are scaling rapidly.
 
 3.  **Enhanced Human-Robot Interaction & Collaboration:**
-    * **[[Collaborative Robots|Cobots]]:** Market growth will continue, driven by ease of use, falling costs, and adoption by small and medium-sized enterprises (SMEs). Cobots will become more capable, integrating better sensing (vision, force) and potentially AI for more adaptive interaction.
+    * **[[Collaborative_Robots|Cobots]]:** Market growth will continue, driven by ease of use, falling costs, and adoption by small and medium-sized enterprises (SMEs). Cobots will become more capable, integrating better sensing (vision, force) and potentially AI for more adaptive interaction.
     * **[[Human-Robot Interaction (HRI)]]:** Interfaces will become more natural, utilizing speech, gesture, and context awareness. Research focuses on safe physical interaction, trust, intuitive teaching (like [[Robot Programming by Demonstration]]), and shared autonomy.
 
 4.  **Advanced [[Perception]] and [[Manipulation]]:**
@@ -113,3 +101,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Future_Trends_2025-2035]])
+```

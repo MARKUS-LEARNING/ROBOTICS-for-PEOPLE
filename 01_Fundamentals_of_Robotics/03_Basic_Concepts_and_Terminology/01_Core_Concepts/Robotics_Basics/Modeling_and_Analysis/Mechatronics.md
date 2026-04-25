@@ -12,7 +12,7 @@ type: Engineering Discipline
 application: Integration of mechanical, electronic, and control systems
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /mechatronics/
 related:

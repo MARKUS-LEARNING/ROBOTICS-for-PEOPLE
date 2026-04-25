@@ -8,12 +8,11 @@ tags:
   - kinematics
   - euclidean-space
   - engineering
-  - glossary-term
   - manipulator-arm
   - mobile-robot
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /euclidean_space/
 related:
@@ -29,10 +28,6 @@ related:
 
 **Euclidean Space** is a mathematical space characterized by the familiar properties of Euclidean geometry. It provides the framework for understanding spatial relationships and motion, making it foundational in robotics for tasks involving positioning, navigation, and manipulation. Euclidean space is defined by a set of axioms that describe the behavior of points, lines, and planes in a flat, continuous space.
 
----
-![image](https://github.com/user-attachments/assets/015cdb7d-b0d4-42d6-85a2-4028716519a9)
-
-<font size=1>*source: https://sciencephotogallery.com/featured/three-dimensional-euclidean-space-science-photo-library.html*</font>
 ---
 
 ## Key Concepts
@@ -182,3 +177,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #robotics OR #mathematics WHERE contains(file.outlinks, [[Euclidean_Space]])
+```

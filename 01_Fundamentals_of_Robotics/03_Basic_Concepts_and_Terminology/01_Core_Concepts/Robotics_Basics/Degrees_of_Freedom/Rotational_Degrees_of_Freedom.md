@@ -8,12 +8,11 @@ tags:
   - rotational-motion
   - mechanism-design
   - engineering
-  - glossary-term
   - manipulator-arm
   - mobile-robot
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /rotational_degrees_of_freedom/
 related:
@@ -94,8 +93,6 @@ R = R_z(\psi) R_y(\theta) R_x(\phi)
 $$
 
 This allows the arm to perform tasks such as grasping objects at different angles and orientations.
-
----
 
 ---
 
@@ -260,3 +257,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Rotational_Degrees_of_Freedom]])
+```

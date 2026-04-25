@@ -7,11 +7,10 @@ tags:
   - end-effector
   - tooling
   - engineering
-  - glossary-term
   - mobile-robot
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /end_effector_definition/
 related:
@@ -28,11 +27,7 @@ related:
 The **End Effector** is the component of a robotic system that interacts directly with the environment or objects. It is essential for tasks such as grasping, manipulating, and tooling. The design and functionality of the end effector determine the robot's ability to perform specific tasks, making it a critical element in robotic manipulation and interaction.
 
 ---
-![image](https://github.com/user-attachments/assets/c9d847e7-5afb-494a-a334-cb8fec7a0baa)
 
-
-<font size=1>*source: https://www.tuffautomation.com/blog-1/2020/8/3/types-of-end-effectors*</font>
----
 ## Key Concepts
 
 ### Types of End Effectors
@@ -175,3 +170,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #robotics OR #manipulator-arm WHERE contains(file.outlinks, [[End_Effector_Definition]])
+```

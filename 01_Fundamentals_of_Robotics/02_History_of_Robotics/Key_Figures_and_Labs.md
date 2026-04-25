@@ -15,23 +15,9 @@ date: 2025-04-28
 permalink: /key_figures_and_labs_robotics/
 related:
   - "[[History_of_Robotics]]"
-  - "[[Artificial_Intelligence]]"
-  - "[[Industrial_Arms]]"
-  - "[[Mobile_Robots]]"
-  - "[[Humanoid_Robots]]"
-  - "[[Unimate]]"
-  - "[[Shakey]]"
-  - "[[Stanford_Arm]]"
-  - "[[George_Devol]]"
-  - "[[Joseph_Engelberger]]"
-  - "[[Victor_Scheinman]]"
-  - "[[Isaac_Asimov]]"
-  - "[[Masahiro Mori]]"
-  - "[[Uncanny Valley]]"
-  - "[[Robotics_History_and_Future]]"
-  - "[[MIT_CSAIL]]"
-  - "[[Stanford_AI_Lab]]"
-  - "[[CMU_Robotics_Institute]]"
+  - "[[Future_Trends_2025-2035]]"
+  - "[[Robotics]]"
+  - "[[Research_Papers_Index]]"
 ---
 
 # Key Figures and Labs in Robotics History
@@ -117,3 +103,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Key_Figures_and_Labs]])
+```

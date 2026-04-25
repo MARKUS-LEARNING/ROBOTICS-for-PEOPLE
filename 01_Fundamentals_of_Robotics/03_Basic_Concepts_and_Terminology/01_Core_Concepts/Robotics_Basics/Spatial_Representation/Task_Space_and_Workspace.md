@@ -9,12 +9,11 @@ tags:
   - workspace
   - robot-design
   - engineering
-  - glossary-term
   - manipulator-arm
   - mobile-robot
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /task_space_and_workspace/
 related:
@@ -30,11 +29,6 @@ related:
 
 **Task Space and Workspace** are fundamental concepts in robotics, representing the operational environment and the capabilities of a robotic system to perform tasks within that environment. The task space refers to the set of all possible tasks a robot can execute, while the workspace represents the physical space within which the robot can operate. Understanding these spaces is crucial for designing and controlling robotic systems to ensure they can effectively perform their intended functions.
 
----
-![image](https://github.com/user-attachments/assets/b0aa943a-09e9-4f1e-9777-6ccfc181e9dd)
-
-
-<font size=1>*source: https://www.roboticsunveiled.com/robotics-task-space-and-workspace/*</font>
 ---
 
 ## Key Concepts
@@ -187,3 +181,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Task_Space_and_Workspace]])
+```

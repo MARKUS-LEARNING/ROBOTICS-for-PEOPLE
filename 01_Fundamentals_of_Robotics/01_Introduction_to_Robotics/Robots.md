@@ -2,7 +2,6 @@
 title: Robots
 description: "Defines 'Robot' and outlines its core characteristics, etymology, and basic types within the field of robotics."
 tags:
-  - glossary-term
   - robot
   - definition
   - robotics
@@ -11,20 +10,15 @@ tags:
   - machine
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /robot/
 related:
   - "[[Robotics]]"
-  - "[[History_of_Robotics]]"
-  - "[[Sensors]]"
-  - "[[Perception]]"
-  - "[[AI_and_Robot_Control]]"
   - "[[Actuator]]"
-  - "[[Automation]]"
-  - "[[Autonomy]]"
-  - "[[Robot_Types_and_Applications]]"
-  - "[[Glossary]]"
+  - "[[Sensors]]"
+  - "[[Autonomous_Robots]]"
+  - "[[Degrees_of_Freedom]]"
 ---
 
 # Robot
@@ -36,7 +30,6 @@ A **Robot** is generally defined as a machine—especially one programmable by a
 <font size=1>*source: https://www.redbarnrobotics.com/*</font>
 ---
 
----
 <img src="https://novoscriptorium.files.wordpress.com/2018/04/list-7-early-automatons-archytas-51243621-e.jpeg?w=686&h=385&crop=1"></img>
 <font size=3>The history of robots traces back to 350 B.C.E., as noted by Smithsonian magazine, with the mathematician Archytas of Tarentum creating a mechanical wooden dove. This early invention, powered by compressed air or steam, could fly up to 200 meters and is often regarded as the first robot and possibly the first drone, marking a significant milestone in autonomous flight.</font>
 <font size=1>*source: https://novoscriptorium.com/2018/04/20/archytas-of-tarentum-the-father-of-robotics/*</font>
@@ -177,3 +170,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #robotics OR #automation WHERE contains(file.outlinks, [[Robots]])
+```
