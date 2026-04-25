@@ -8,13 +8,12 @@ tags:
   - kinematics
   - dynamics
   - mechanism
-  - glossary-term
   - actuator
   - motion
   - mobile-robot
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /stewart_platform/
 related:
@@ -33,8 +32,6 @@ related:
 The **Stewart Platform** is a type of parallel manipulator consisting of six prismatic joints connecting a base platform to a moving platform, providing six degrees of freedom. It is widely used in applications requiring precise positioning and orientation, such as flight simulators, robotic manufacturing, and medical devices. The platform's design allows for high stiffness, accuracy, and load-bearing capacity.
 
 ---
-![stewart_platform](https://github.com/user-attachments/assets/a6ff99b8-074e-4f38-9792-35201832cd3c)
-<font size=1>*source: https://free3d.com/3d-model/hexapod-platform-9826.html*</font>
 ---
 
 ## Components of the Stewart Platform
@@ -101,3 +98,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #robotics OR #manipulator WHERE contains(file.outlinks, [[Stewart_Platform]])
+```

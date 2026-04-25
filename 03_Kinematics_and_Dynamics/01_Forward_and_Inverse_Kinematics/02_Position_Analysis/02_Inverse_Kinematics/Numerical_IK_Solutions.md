@@ -8,13 +8,12 @@ tags:
   - numerical-methods
   - control
   - engineering
-  - glossary-term
   - mechanism
   - manipulator-arm
   - mobile-robot
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /numerical_ik_solutions/
 related:
@@ -97,3 +96,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Numerical_IK_Solutions]])
+```

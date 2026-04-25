@@ -7,7 +7,6 @@ tags:
   - engineering
   - actuators
   - design
-  - glossary-term
   - component
   - motion
   - kinematics
@@ -20,7 +19,7 @@ type: Mechanical Component
 application: Efficient and precise linear motion in mechanical systems
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /ball-screw/
 related:
@@ -115,3 +114,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #mechanics OR #engineering WHERE contains(file.outlinks, [[Ball_Screw]])
+```

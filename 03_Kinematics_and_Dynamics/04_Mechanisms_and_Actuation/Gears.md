@@ -11,7 +11,7 @@ type: Mechanical Component
 application: Transmission of motion and power in mechanical systems
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /gears/
 related:
@@ -99,3 +99,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 ```dataview
 LIST FROM #kinematics OR #mobile-robot WHERE contains(file.outlinks, [[Gears]])
+```

@@ -11,7 +11,7 @@ type: Robotic Concept
 application: Parallel kinematic structures for precise and stable motion
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /parallel-mechanisms-and-robots/
 related:
@@ -106,3 +106,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 ```dataview
 LIST FROM #control OR #robotics WHERE contains(file.outlinks, [[Parallel_Mechanisms_and_Robots]])
+```

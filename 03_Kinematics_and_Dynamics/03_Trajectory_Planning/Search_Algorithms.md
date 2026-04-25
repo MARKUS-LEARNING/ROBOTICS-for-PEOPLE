@@ -9,7 +9,7 @@ tags:
   - computer-science
 layout: default
 category: algorithms
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /search_algorithms/
 related:

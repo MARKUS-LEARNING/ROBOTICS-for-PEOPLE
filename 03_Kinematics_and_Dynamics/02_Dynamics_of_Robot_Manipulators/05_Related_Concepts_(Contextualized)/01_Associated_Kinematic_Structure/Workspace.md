@@ -11,15 +11,15 @@ type: Robotic Concept
 application: Defining the operational space of robotic systems
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /workspace/
 related:
-  - "[[Robot Design]]"
+  - "[[Robot_Design]]"
   - "[[Kinematics_and_Dynamics]]"
-  - "[[Manipulator Arm]]"
+  - "[[Manipulator_Arm]]"
   - "[[Singularities]]"
-  - "[[Control Systems]]"
+  - "[[Control_Systems]]"
 ---
 
 # Workspace

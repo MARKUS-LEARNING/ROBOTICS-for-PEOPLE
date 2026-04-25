@@ -11,7 +11,7 @@ tags:
   - automation
 layout: default
 category: robotics
-author: Jordan_Smith_&_Gemini
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /path_planning/
 related:
@@ -110,3 +110,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 list from "Obstacle Avoidance" or "A* Algorithm" or "Dijkstra's Algorithm" or "RRT" or "Potential Fields"
+```

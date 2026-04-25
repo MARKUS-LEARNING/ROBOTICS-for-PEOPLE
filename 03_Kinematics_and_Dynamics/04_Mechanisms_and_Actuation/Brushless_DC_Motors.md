@@ -8,7 +8,6 @@ tags:
   - robotics
   - mechatronics
   - control
-  - glossary-term
   - actuator
   - motion
   - kinematics
@@ -18,7 +17,7 @@ tags:
   - mobile-robot
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /brushless-dc-motors/
 related:
@@ -140,3 +139,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #component OR #actuation WHERE contains(file.outlinks, [[Brushless_DC_Motors]])
+```

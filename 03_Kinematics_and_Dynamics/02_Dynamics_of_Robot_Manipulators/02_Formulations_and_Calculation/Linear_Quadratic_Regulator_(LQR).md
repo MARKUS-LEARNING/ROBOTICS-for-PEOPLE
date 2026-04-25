@@ -9,13 +9,12 @@ tags:
   - control-theory
   - dynamics
   - engineering
-  - glossary-term
   - mechanism
   - manipulator-arm
   - mobile-robot
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /linear_quadratic_regulator/
 related:
@@ -110,3 +109,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #control OR #robotics WHERE contains(file.outlinks, [[Linear_Quadratic_Regulator_(LQR)]])
+```

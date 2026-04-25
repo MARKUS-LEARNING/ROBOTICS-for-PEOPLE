@@ -1,90 +1,195 @@
 ---
 title: Singularities
-description: Singularities in robotics refer to configurations or states where the robotic system loses one or more degrees of freedom, leading to issues in control, motion, or force application.
+description: Configurations where the Jacobian loses rank and the manipulator loses one or more directions of instantaneous motion. The places where IK breaks, joint velocities explode, and force control becomes ill-posed.
 tags:
   - robotics
   - kinematics
-  - dynamics
+  - singularities
+  - jacobian
+  - manipulator
   - control
-  - engineering
 type: Robotic Concept
-application: Analysis of configurations leading to loss of degrees of freedom
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /singularities/
 related:
-  - "[[Robot_Design]]"
-  - "[[Kinematics_and_Dynamics]]"
-  - "[[Control_Systems]]"
-  - "[[Manipulator_Arm]]"
-  - "[[Actuator]]"
+  - "[[Kinematics]]"
+  - "[[Forward_Kinematics]]"
+  - "[[Inverse_Kinematics]]"
+  - "[[Jacobian_Matrix]]"
+  - "[[Manipulability]]"
+  - "[[Workspace]]"
+  - "[[Linear_Algebra_for_Robotics]]"
 ---
 
 # Singularities
 
-**Singularities** in robotics refer to configurations or states where the robotic system loses one or more degrees of freedom, leading to issues in control, motion, or force application. These configurations can result in the robot being unable to move in certain directions or apply forces effectively. Understanding and avoiding singularities is crucial for ensuring the robustness and reliability of robotic systems, particularly in manipulators and other articulated mechanisms.
+A **singularity** is a configuration $\boldsymbol{\theta}^*$ where the manipulator's [[Jacobian_Matrix|Jacobian]] $J(\boldsymbol{\theta}^*)$ loses rank — the matrix mapping joint velocities to end-effector twists becomes rank-deficient. At a singularity, certain directions of end-effector motion become *instantaneously impossible* regardless of how the joints move, and the inverse mapping (joint velocities from end-effector velocities) becomes ill-defined.
+
+> **Etymology.** From Latin *singularis*, "single" or "individual," from *singulus*, "alone." In mathematics a *singularity* is a point where a function "goes singular" — undefined, infinite, or otherwise misbehaved. In robotics the relevant misbehavior is rank loss in the Jacobian.
 
 ---
 
-## Types of Singularities
+## Why singularities matter
 
-1. **Kinematic Singularities**: Occur when the Jacobian matrix, which relates joint velocities to end-effector velocities, becomes singular (non-invertible). This leads to a loss of control over the end-effector's motion in certain directions.
+Three problems arise simultaneously at a singularity:
 
-2. **Dynamic Singularities**: Arise from the dynamic equations of motion and can lead to uncontrollable forces or accelerations, even if the kinematic configuration is not singular.
+1. **Some end-effector motions become unreachable.** In the singular direction(s), no choice of $\dot{\boldsymbol{\theta}}$ produces motion.
+2. **Inverse kinematics blows up.** $\dot{\boldsymbol{\theta}} = J^{-1} \mathcal{V}$ requires infinite joint velocities to produce finite Cartesian velocity in the lost direction(s).
+3. **Force-control fails.** External wrenches in the singular direction are absorbed without producing reaction torques in the joints — the robot cannot resist them.
 
-3. **Boundary Singularities**: Occur at the boundaries of the robot's workspace, where the robot reaches its physical limits and can no longer move in certain directions.
-
-4. **Internal Singularities**: Happen within the robot's workspace and are often due to the alignment of multiple joint axes, leading to a loss of controllability.
-
----
-
-## Key Equations
-
-- **Jacobian Matrix**:
-  $$
-  J = \begin{bmatrix}
-  \frac{\partial f_1}{\partial q_1} & \frac{\partial f_1}{\partial q_2} & \cdots & \frac{\partial f_1}{\partial q_n} \\
-  \frac{\partial f_2}{\partial q_1} & \frac{\partial f_2}{\partial q_2} & \cdots & \frac{\partial f_2}{\partial q_n} \\
-  \vdots & \vdots & \ddots & \vdots \\
-  \frac{\partial f_m}{\partial q_1} & \frac{\partial f_m}{\partial q_2} & \cdots & \frac{\partial f_m}{\partial q_n}
-  \end{bmatrix}
-  $$
-  where $J$ is the Jacobian matrix, $f_i$ are the forward kinematic equations, and $q_i$ are the joint variables. Singularities occur when $\det(J) = 0$.
-  <br></br>
-
-- **Manipulability Measure**:
-  $$
-  w = \sqrt{\det(J \cdot J^T)}
-  $$
-  where $w$ is the manipulability measure, which quantifies the robot's ability to move and apply forces in different directions. A value of $w = 0$ indicates a singular configuration.
-  <br></br>
-
-- **Condition Number**:
-  $$
-  \kappa(J) = \|J\| \cdot \|J^{-1}\|
-  $$
-  where $\kappa(J)$ is the condition number of the Jacobian matrix, which indicates the sensitivity of the robot's motion to changes in joint configurations. High values of $\kappa(J)$ suggest proximity to a singularity.
+The robot is structurally weaker, controllably worse, and numerically explosive — all at the same configuration.
 
 ---
 
-## Impact on Robotics
+## The mathematical definition
 
-- **Control and Stability**: Singularities can lead to loss of control and instability in robotic systems, making it essential to avoid or manage these configurations effectively.
+For an $m \times n$ Jacobian:
 
-- **Workspace Analysis**: Understanding singularities helps in analyzing and optimizing the robot's workspace, ensuring that it can perform tasks without encountering uncontrollable configurations.
+- **Singular configuration** $\boldsymbol{\theta}^*$ ⇔ $\text{rank}(J(\boldsymbol{\theta}^*)) < \min(m, n)$.
+- For square Jacobians ($m = n = 6$): equivalent to $\det J = 0$.
+- For non-square Jacobians: detected by SVD — singular when the smallest singular value $\sigma_n$ approaches zero.
 
-- **Design and Planning**: The study of singularities influences the design and motion planning of robotic systems, ensuring that they operate within safe and controllable configurations.
+The **manipulability index** quantifies distance to a singularity:
 
-- **Safety and Reliability**: Avoiding singularities is crucial for maintaining the safety and reliability of robotic operations, particularly in applications involving human interaction or critical tasks.
+$$
+w(\boldsymbol{\theta}) = \sqrt{\det(J J^T)} = \sigma_1 \sigma_2 \cdots \sigma_m
+$$
+
+$w = 0$ exactly when $J$ is singular. See [[Manipulability]].
 
 ---
 
-## Dataview Plugin Features
+## Three flavors
 
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
+### 1. Boundary singularity
 
-### List of Related Concepts
+Occurs at the workspace boundary — the arm is fully extended or fully folded. The lost direction is *along* the radial direction of reach.
+
+**Example:** A 2R planar arm with $\det J = L_1 L_2 \sin\theta_2$ is singular when $\theta_2 = 0$ (arm straight) or $\theta_2 = \pm\pi$ (arm folded).
+
+These are unavoidable structural features of the robot's geometry — every reachable workspace has a boundary.
+
+### 2. Interior singularity
+
+Occurs *inside* the workspace where joint axes happen to align. The lost direction does *not* coincide with the workspace boundary.
+
+**Example: wrist singularity.** A 6-DoF arm with a [[DH_Parameters|spherical wrist]] (last three axes intersect) becomes singular when the second-wrist joint reaches $\theta_5 = 0$ — joints 4 and 6 align, and rotation about that axis becomes redundant. Roll commands at that instant produce no motion in the lost direction.
+
+**Example: shoulder singularity.** Joints 1 and 4 align such that joint 1 rotation has no effect on the wrist position.
+
+**Example: elbow singularity.** Same as the boundary case for the inner triangle of the arm.
+
+### 3. Algorithmic singularity
+
+A singularity introduced by *the way the inverse problem is solved*, not by the geometry itself. Common in redundancy resolution: a chosen secondary task can drive the null-space projection to be rank-deficient even though the primary task is not.
+
+---
+
+## Worked example — 6-R arm wrist singularity
+
+Most industrial 6-R arms have a spherical wrist (joints 4-5-6 axes intersect at a point). Their Jacobian factors as:
+
+$$
+\det J = \det J_p \cdot \det J_o = (\text{position-block determinant}) \cdot (\sin\theta_5)
+$$
+
+Wrist singularity: $\theta_5 = 0$. The first and third wrist axes align. Cartesian motions perpendicular to the aligned axis are lost.
+
+Practically, a UR5 driving through the "elbow flip" pose at $\theta_5 = 0$ exhibits a momentary controller stutter as TRAC-IK or KDL detect the singular Jacobian and re-seed the IK from a nearby branch.
+
+---
+
+## Detection
+
+**For a square Jacobian:** monitor $\det J$. Sign changes flag a singularity crossing.
+
+**For any Jacobian:** monitor the smallest singular value $\sigma_n$ of $J$ via SVD or its proxy:
+
+$$
+\sigma_{\text{min}}(J) = \sqrt{\lambda_{\text{min}}(J^T J)}
+$$
+
+Or use the manipulability index $w(\boldsymbol{\theta}) = \sqrt{\det(J J^T)}$. Industrial controllers typically alarm when $\sigma_{\text{min}}$ falls below a threshold (e.g., $10^{-3}$).
+
+The **condition number** $\kappa(J) = \sigma_{\text{max}}/\sigma_{\text{min}}$ is the standard quantitative measure of how anisotropic the Jacobian is — large $\kappa$ means near-singular.
+
+---
+
+## Mitigation
+
+### Damped least squares (Levenberg-Marquardt)
+
+The dominant practical fix. Replace $J^\dagger$ with
+
+$$
+J^\dagger_\lambda = J^T (J J^T + \lambda^2 I)^{-1}
+$$
+
+The damping factor $\lambda$ trades accuracy for stability. Adaptive schemes set $\lambda$ proportional to a singularity-distance metric — $\lambda \propto 1/\sigma_n$ ramps up smoothly as the manipulator approaches a singularity. See [[Inverse_Kinematics]] and [[Optimization_for_Robotics]].
+
+### Singularity-robust pseudoinverse (Nakamura-Hanafusa)
+
+Modify the SVD pseudoinverse by replacing small singular values with damped versions. Equivalent to DLS in the limit but smoother near transitions.
+
+### Null-space avoidance
+
+For redundant arms ($n > 7$), use the null-space term to push away from singularities:
+
+$$
+\dot{\boldsymbol{\theta}} = J^\dagger \mathcal{V} + (I - J^\dagger J) \nabla w(\boldsymbol{\theta})
+$$
+
+The secondary task is to *increase* manipulability while satisfying the primary task. Standard in the Stack-of-Tasks framework.
+
+### Trajectory planning
+
+Plan paths in [[Configuration_Space|configuration space]] that *don't pass through* known singular regions. Off-line planners (TrajOpt, CHOMP, STOMP) can include manipulability as a soft constraint.
+
+### Mechanical design
+
+Some manipulators are designed to push singularities to the workspace edges. The **Pieper criterion** (three intersecting joints or three parallel joints) ensures closed-form IK while keeping interior singularities tractable. Most industrial arms (UR, KUKA, ABB) follow this pattern.
+
+---
+
+## Singularity-free is impossible for most manipulators
+
+A theorem from differential topology: any smooth map from a compact $n$-dimensional joint space to a higher-dimensional or topologically nontrivial task space *must* have singularities. Concretely:
+
+- A 6-R arm cannot avoid all interior singularities — its Jacobian determinant changes sign across them.
+- Only specific compositions (e.g., orthogonal-axis 7-DoF arms with redundancy resolution) can stay reasonably far from singularity over their workspace.
+- Spherical wrists *will* have wrist singularities; this is a structural feature, not a flaw.
+
+The engineering goal is therefore not to eliminate singularities but to keep workspace useful regions *far enough* from them.
+
+---
+
+## Special case: parallel mechanisms
+
+In a [[Parallel_Mechanisms_and_Robots|parallel manipulator]] (Stewart platform, Delta), singularities have a richer taxonomy:
+
+- **Forward / direct singularity:** platform gains an uncontrolled DoF — *very dangerous* (small applied force causes large platform motion).
+- **Inverse singularity:** platform loses a DoF — analogous to the serial-arm case.
+- **Combined singularity:** both happen simultaneously, only on specific geometries.
+
+See [[Parallel_Mechanisms_and_Robots]] and [[Singularities_Dynamic_Effects]].
+
+---
+
+## Recommended reading
+
+- Lynch & Park, *Modern Robotics*, §5.3 — singularities in body and space Jacobians
+- Spong, Hutchinson, Vidyasagar, *Robot Modeling and Control*, §4.6 — geometric classification
+- Nakamura & Hanafusa (1986), *Inverse kinematic solutions with singularity robustness for robot manipulator control* — the SVD-damped pseudoinverse paper
+- Sciavicco & Siciliano, *Modelling and Control of Robot Manipulators* — exhaustive worked examples on industrial arms
+- Park & Brockett (1994), *Kinematic dexterity of robotic mechanisms* — manipulability theory
+
+---
+
+## Dataview
+
 ```dataview
-LIST FROM #robotics OR #mathematics WHERE contains(file.outlinks, [[Singularities]])
+LIST FROM #singularities OR #kinematics WHERE contains(file.outlinks, [[Singularities]])
+```

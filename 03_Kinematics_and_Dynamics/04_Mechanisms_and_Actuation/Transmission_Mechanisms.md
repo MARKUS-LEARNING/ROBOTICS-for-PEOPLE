@@ -11,7 +11,7 @@ type: Mechanism
 application: Power and motion transfer in robotic systems
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /transmission-mechanisms/
 related:
@@ -93,3 +93,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 ```dataview
 LIST FROM #robotics OR #mechanical-engineering WHERE contains(file.outlinks, [[Transmission_Mechanisms]])
+```

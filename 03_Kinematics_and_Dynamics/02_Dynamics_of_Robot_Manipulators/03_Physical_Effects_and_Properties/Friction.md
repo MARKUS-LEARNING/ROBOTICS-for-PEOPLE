@@ -10,7 +10,7 @@ tags:
   - tribology
 layout: default
 category: robotics
-author: Jordan_Smith_&_le_Chat
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /friction/
 related:
@@ -90,3 +90,4 @@ LIST FROM #component OR #kinematics WHERE contains(file.outlinks, [[Friction]])
 
 
 
+```

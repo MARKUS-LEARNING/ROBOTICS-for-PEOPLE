@@ -7,12 +7,11 @@ tags:
   - cartesian-space
   - kinematics
   - engineering
-  - glossary-term
   - manipulator-arm
   - mobile-robot
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /cartesian_space/
 related:
@@ -28,9 +27,7 @@ related:
 **Cartesian Space** is a three-dimensional coordinate system used to describe the position and orientation of objects. It provides a framework for spatial representation and analysis in robotics, enabling the precise description of locations and movements. Cartesian space is defined by three orthogonal axes: the x-axis, y-axis, and z-axis, which intersect at the origin. This coordinate system is fundamental in robotics for tasks such as motion planning, control, and interaction with the environment.
 
 ---
-<img src="https://blog.robotarmstore.com/wp-content/uploads/2018/01/2000px-coord_system_ca_0-svg.png?w=490&h=474"></img>
 <br>
-<font size=1>*source: https://blog.robotarmstore.com/2018/01/10/introduction-to-cartesian-coordinates-vectors-and-transformation-matrices/*</font>
 ---
 ## Key Concepts
 
@@ -109,3 +106,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #robotics OR #mathematics WHERE contains(file.outlinks, [[Cartesian_Space]])
+```

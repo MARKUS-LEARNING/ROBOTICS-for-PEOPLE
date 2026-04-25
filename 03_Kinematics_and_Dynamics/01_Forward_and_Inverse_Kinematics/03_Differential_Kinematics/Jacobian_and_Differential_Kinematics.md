@@ -9,13 +9,12 @@ tags:
   - differential-kinematics
   - control
   - engineering
-  - glossary-term
   - mechanism
   - manipulator-arm
   - mobile-robot
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /jacobian_and_differential_kinematics/
 related:
@@ -88,3 +87,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Jacobian_and_Differential_Kinematics]])
+```

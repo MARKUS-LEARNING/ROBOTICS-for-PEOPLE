@@ -11,7 +11,7 @@ type: Engineering Discipline
 application: Analysis of forces and motions in robotic manipulators
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /manipulator-dynamics/
 related:
@@ -78,7 +78,7 @@ related:
 
 - **Safety and Stability**: Ensuring that manipulators operate safely and stably under various conditions, accounting for dynamic effects such as vibrations and external disturbances.
 
-- **Design and Integration**: The study of manipulator dynamics is a critical aspect of [[Robot Design]] and [[Control Systems]], influencing the development of robotic systems that can effectively interact with their environment.
+- **Design and Integration**: The study of manipulator dynamics is a critical aspect of [[Robot_Design]] and [[Control_Systems]], influencing the development of robotic systems that can effectively interact with their environment.
 
 ---
 
@@ -89,3 +89,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 ```dataview
 LIST FROM #control OR #robotics WHERE contains(file.outlinks, [[Manipulator_Dynamics]])
+```
