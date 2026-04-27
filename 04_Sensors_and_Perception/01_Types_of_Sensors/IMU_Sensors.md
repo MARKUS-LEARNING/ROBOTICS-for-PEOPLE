@@ -15,7 +15,7 @@ tags:
   - sensor-fusion
 layout: default
 category: robotics
-author: Jordan_Smith_&_Gemini
+author: Jordan_Smith
 date: 2025-04-28
 permalink: /imu_sensors/
 related:

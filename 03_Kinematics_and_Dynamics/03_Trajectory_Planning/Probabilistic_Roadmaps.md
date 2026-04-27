@@ -10,7 +10,7 @@ tags:
   - probabilistic
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-03
 permalink: /probabilistic_roadmaps/
 related:

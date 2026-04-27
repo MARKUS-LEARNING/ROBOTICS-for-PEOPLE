@@ -12,7 +12,7 @@ tags:
   - control-systems
 layout: default
 category: robotics
-author: Jordan_Smith_&_Le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /perception/
 related:

@@ -2,7 +2,6 @@
 title: Sensor Fusion
 description: "Defines Sensor Fusion: The process of combining data from multiple sensors to produce a more accurate, complete, and reliable estimate than possible from individual sensors."
 tags:
-  - glossary-term
   - perception
   - estimation
   - SLAM
@@ -12,7 +11,7 @@ tags:
   - bayesian
 layout: default
 category: robotics
-author: Jordan_Smith_&_Gemini
+author: Jordan_Smith
 date: 2025-04-28
 permalink: /sensor_fusion/
 related:

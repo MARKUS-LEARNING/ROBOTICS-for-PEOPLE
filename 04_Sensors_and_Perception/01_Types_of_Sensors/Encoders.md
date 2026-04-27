@@ -10,7 +10,7 @@ tags:
   - control
 layout: default
 category: robotics
-author: Jordan_Smith_&_le_Chat
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /encoders/
 related:

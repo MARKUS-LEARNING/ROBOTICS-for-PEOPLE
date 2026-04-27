@@ -4,7 +4,7 @@ description: "Explains the process and common techniques used for calibrating va
 tags: [sensor, calibration, perception, estimation, accuracy, camera-calibration, imu-calibration, lidar-calibration, extrinsic-calibration, intrinsic-calibration, kinematic-calibration] 
 layout: default
 category: robotics
-author: Jordan_Smith_&_le_Chat
+author: Jordan_Smith
 date: 2025-04-28 # Updated date for revision
 permalink: /sensor_calibration_techniques/
 related: ["[[Sensor]]", "[[Perception]]", "[[Sensor_Fusion]]", "[[Camera_Systems]]", "[[LIDAR]]", "[[IMU_Sensors]]", "[[Kinematics]]", "[[Extrinsic Calibration]]", "[[Intrinsic Calibration]]", "[[Hand-Eye Calibration]]"] 

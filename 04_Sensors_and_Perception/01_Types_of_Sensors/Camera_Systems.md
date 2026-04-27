@@ -11,7 +11,7 @@ tags:
   - optics
 layout: default
 category: robotics
-author: Jordan_Smith_&_Gemini
+author: Jordan_Smith
 date: 2025-04-28
 permalink: /camera_systems/
 related:
@@ -88,7 +88,7 @@ Modern digital cameras primarily use one of two sensor technologies to convert p
 Camera systems are integral to numerous robotics applications:
 
 * **[[Perception]]:** Core sensor for [[Computer Vision]] tasks like object detection, recognition, tracking, and semantic segmentation (understanding scene content).
-* **[[Localization]], Mapping, and [[SLAM]]:** Enables [[Visual Odometry]] (estimating robot motion from visual changes), Visual SLAM (V-SLAM) for map building and localization, and place recognition (identifying previously visited locations). Often fused with [[IMU_Sensors]] (Visual-Inertial Odometry/SLAM - VIO/VI-SLAM) for improved robustness.
+* **[[Localization]], Mapping, and [[SLAM]]:** Enables [[Visual_Odometry]] (estimating robot motion from visual changes), Visual SLAM (V-SLAM) for map building and localization, and place recognition (identifying previously visited locations). Often fused with [[IMU_Sensors]] (Visual-Inertial Odometry/SLAM - VIO/VI-SLAM) for improved robustness.
 * **Navigation:** Detecting obstacles, identifying navigable paths (e.g., road/lane tracking), reading signs, visual servoing for goal reaching.
 * **Manipulation:** Visually locating objects for grasping, tracking object pose during manipulation, visual servoing for precise alignment (e.g., peg-in-hole).
 * **Human-Robot Interaction (HRI):** Detecting and recognizing humans, tracking faces and gaze, interpreting gestures and expressions.

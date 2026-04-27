@@ -11,7 +11,7 @@ type: Device
 application: Measurement and detection in robotic systems
 layout: default
 category: robotics
-author: Jordan_Smith_&_Gemini
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /sensors/
 related:

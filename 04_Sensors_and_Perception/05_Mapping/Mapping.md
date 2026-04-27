@@ -11,7 +11,7 @@ type: Robotic Concept
 application: Creating environmental representations for navigation
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-04-29
 permalink: /mapping/
 related:
