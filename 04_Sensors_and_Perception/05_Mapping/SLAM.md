@@ -2,7 +2,6 @@
 title: SLAM (Simultaneous Localization and Mapping)
 description: "Defines SLAM: The process by which a mobile robot builds a map of an unknown environment while simultaneously estimating its own pose within that map."
 tags:
-  - glossary-term
   - localization
   - mapping
   - estimation
@@ -11,7 +10,7 @@ tags:
   - probabilistic-robotics
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /slam/
 related:
@@ -21,7 +20,7 @@ related:
   - "[[Sensor_Fusion]]"
   - "[[Kalman_Filter]]"
   - "[[Particle_Filter]]"
-  - "[[Graph Optimization]]"
+  - "[[Graph_Optimization]]"
   - "[[LIDAR]]"
   - "[[Camera_Systems]]"
   - "[[IMU_Sensors]]"
@@ -82,7 +81,7 @@ Modern SLAM algorithms are predominantly probabilistic, explicitly modeling unce
   * **[[Kalman Filter|EKF-SLAM]]**: Historically the first main approach. Uses an Extended Kalman Filter to represent the joint posterior probability distribution over the robot pose and all map features as a single large Gaussian. Captures correlations between robot pose and feature estimates. **Challenge**: Computational complexity scales quadratically with the number of map features, limiting scalability.
     <br>
 
-  * **[[Particle Filter|Particle Filter SLAM (e.g., FastSLAM)]]**: Represents the posterior distribution using a set of weighted samples (particles). Typically employs Rao-Blackwellization: each particle represents a hypothesized robot trajectory, and maintains its own map estimate conditioned on that trajectory. This exploits the conditional independence of map features given the path. **Advantages**: Scales better than EKF-SLAM (often logarithmic in map size per particle), handles non-Gaussian uncertainties and data association problems more naturally. Grid-based FastSLAM is a popular variant using occupancy grids for maps. **Challenge**: Number of particles needed can become large, especially in environments with many loops or perceptual aliasing.
+  * **[[Particle_Filter|Particle Filter SLAM (e.g., FastSLAM)]]**: Represents the posterior distribution using a set of weighted samples (particles). Typically employs Rao-Blackwellization: each particle represents a hypothesized robot trajectory, and maintains its own map estimate conditioned on that trajectory. This exploits the conditional independence of map features given the path. **Advantages**: Scales better than EKF-SLAM (often logarithmic in map size per particle), handles non-Gaussian uncertainties and data association problems more naturally. Grid-based FastSLAM is a popular variant using occupancy grids for maps. **Challenge**: Number of particles needed can become large, especially in environments with many loops or perceptual aliasing.
     <br>
 
 * **Graph-Based SLAM (Primarily for Full SLAM)**: These methods formulate SLAM as a graph optimization problem.

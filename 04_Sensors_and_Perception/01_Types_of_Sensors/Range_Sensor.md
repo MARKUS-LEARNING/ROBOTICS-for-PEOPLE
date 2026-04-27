@@ -11,7 +11,7 @@ tags:
   - automation
 layout: default
 category: robotics
-author: Jordan_Smith_&_Gemini
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /range_sensor/
 related:

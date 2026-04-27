@@ -4,7 +4,7 @@ description: "Describes ultrasonic sensors used in robotics, including their tim
 tags: [sensor, range-sensor, ultrasound, sonar, perception, obstacle-avoidance, mobile-robot, time-of-flight] 
 layout: default
 category: robotics
-author: Jordan_Smith_&_le_Chat 
+author: Jordan_Smith
 date: 2025-04-28 # Updated date for revision
 permalink: /ultrasonic_sensors/
 related: ["[[Sensor]]", "[[Range_Sensor]]", "[[Perception]]", "[[Obstacle Avoidance]]", "[[Mapping]]", "[[Mobile_Robots]]", "[[Time-of-Flight]]", "[[LIDAR]]", "[[Sensor_Fusion]]"] 

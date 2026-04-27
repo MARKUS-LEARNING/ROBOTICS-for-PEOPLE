@@ -7,12 +7,11 @@ tags:
   - perception
   - rgb-d-sensor
   - engineering
-  - glossary-term
   - manipulator-arm
   - mobile-robot
 layout: default
 category: robotics
-author: Jordan_Smith_and_le_Chat
+author: Jordan_Smith
 date: 2025-05-02
 permalink: /rgb-d_sensor/
 related:
