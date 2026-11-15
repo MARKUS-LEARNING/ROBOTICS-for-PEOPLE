@@ -17,26 +17,45 @@ I welcome contributions in many forms:
 
 ## Getting Started
 
-### Prerequisites
-- Basic knowledge of Git and Markdown
-- Familiarity with robotics concepts
+### What to work on
+The [Frontier](00_Introduction/Frontier.md) is the to-do list, rebuilt from the textbook itself:
+- **Most wanted notes:** topics other notes already link to, ranked by how many are waiting, each with the file name to create.
+- **Stubs:** notes that exist but need writing.
+- **Thin subfields:** parts of robotics with fewer than three notes.
+- **Drafts awaiting a review pass**, by chapter.
 
-### Setting Up the Environment
-1. Fork the repository.
-2. Clone your fork to your local machine.
-3. Set up your development environment.
+A part of robotics that isn't on the map at all is welcome too. Add it to `tools/subfields.yml` in the same pull request as its first note.
 
-### Submitting Contributions
+### Setting up
+1. Fork the repository and clone your fork.
+2. Open the folder in [Obsidian](https://obsidian.md) as a vault. The vault settings are included: enable community plugins when asked, so the Dataview views work. Any Markdown editor works too.
+3. Install the checker: `pip install pyyaml` (Python 3.10+).
 
-1. Create a new branch for your contribution.
-2. Make your changes and commit them with clear, descriptive messages.
-3. Submit a pull request and fill out the provided template.
+### Writing a note
+1. Create the file where it belongs (`Title_Case_With_Underscores.md`, one note per topic, no duplicate names).
+2. Start it with the schema v2 frontmatter from the [Vault Taxonomy Guide](00_Introduction/Vault_Taxonomy_Guide.md#frontmatter-schema-v2): `title`, `description`, `tags`, `type`, `level`, `subfield`, `status`, `author`, `date`, plus `prerequisites` and `related` where they apply.
+3. Use tags from `tools/tags.yml`. If you really need a new one, add it there in the same pull request.
+4. Link on first mention with `[[Note_Name]]`. Only link to notes that exist, or to a topic listed on the Frontier.
+
+### Before you open a pull request
+```bash
+python3 tools/vault.py lint            # schema, tags, prerequisites, unclosed code blocks
+python3 tools/vault.py fix-links       # finds links that misspell an existing note (--write fixes them)
+python3 tools/vault.py pages --write   # rebuilds the Subfield Atlas, Learning Paths, Frontier and README stats
+```
+Commit what `pages --write` changes. Continuous integration runs the same checks and builds the website. Two rules always apply: the number of broken links may only go down, and prerequisites may not form a loop.
+
+### Submitting
+1. Create a branch for your contribution.
+2. Commit with clear, descriptive messages.
+3. Open a pull request describing what you added or changed.
 
 ## Content Guidelines
 
-- **Writing Style**: Use a clear, concise, and technical tone.
-- **Formatting**: Follow Markdown best practices for formatting text and code blocks.
-- **Citations**: Always cite your sources and give credit to original authors.
+- **Writing style:** clear, concise and technical, but written so a newcomer can follow. Explain from first principles before the formalism.
+- **Structure:** the deepest entries follow the keystone template: where the word comes from → first principles → maths and physics → a worked example → tooling → a reading list.
+- **Formatting:** Markdown, with LaTeX maths (`$...$`, `$$...$$`) and fenced code blocks that are always closed.
+- **Citations:** always cite your sources and give credit to original authors.
 
 ## License
 
