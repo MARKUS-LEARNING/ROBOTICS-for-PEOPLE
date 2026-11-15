@@ -1,121 +1,139 @@
 ---
 title: Reinforcement Learning for Robots
-description: Explains Reinforcement Learning (RL) principles and their application to robotic control, including key concepts, algorithms, applications, and challenges.
+description: "How reinforcement learning actually reaches real robots: training in massively parallel simulation, domain randomisation, teacher-student distillation, rapid adaptation, and RL on hardware. Why locomotion became RL's big success and where manipulation still needs other methods."
 tags:
   - reinforcement-learning
-  - machine-learning
-  - artificial-intelligence
-  - control-theory
   - robot-learning
+  - sim-to-real
+  - locomotion
+  - legged-robot
   - deep-learning
-  - mdp
 type: method
 level: intermediate
 subfield:
   - robot-learning
-status: draft
+  - legged-humanoid
+  - control
+status: keystone
 author: Jordan_Smith
 date: 2025-04-28
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
   - "[[Reinforcement_Learning]]"
+  - "[[Neural_Networks]]"
 related:
-  - "[[Artificial_Intelligence]]"
-  - "[[Machine_Learning]]"
-  - "[[Deep_Learning]]"
-  - "[[Neural_Networks_in_Control]]"
-  - "[[Control_Theory]]"
   - "[[Policy]]"
-  - "[[Manipulation]]"
-  - "[[Locomotion]]"
-  - "[[Navigation]]"
   - "[[Imitation_Learning]]"
-  - "[[AI_and_Robot_Control]]"
+  - "[[Locomotion]]"
+  - "[[Legged_Robots]]"
+  - "[[World_Models]]"
+  - "[[Sim2Real_Experiments]]"
+key_takeaways:
+  - "Robot RL is mostly trained in simulation: thousands of parallel robots on a GPU, then transferred to hardware."
+  - "The transfer works because of domain randomisation, privileged teacher policies distilled into realistic students, and online adaptation to the real dynamics."
+  - "Locomotion is RL's clearest success; contact-rich manipulation increasingly combines imitation pretraining with RL fine-tuning."
+sources:
+  - "Hwangbo, J. et al. (2019). Learning Agile and Dynamic Motor Skills for Legged Robots. https://arxiv.org/abs/1901.08652"
+  - "Lee, J. et al. (2020). Learning Quadrupedal Locomotion over Challenging Terrain. https://arxiv.org/abs/2010.11251"
+  - "Kumar, A. et al. (2021). RMA: Rapid Motor Adaptation for Legged Robots. https://arxiv.org/abs/2107.04034"
+  - "Rudin, N. et al. (2021). Learning to Walk in Minutes Using Massively Parallel Deep Reinforcement Learning. https://arxiv.org/abs/2109.11978"
+  - "Radosavovic, I. et al. (2023). Real-World Humanoid Locomotion with Reinforcement Learning. https://arxiv.org/abs/2303.03381"
+  - "Tobin, J. et al. (2017). Domain Randomization for Transferring Deep Neural Networks from Simulation to the Real World. https://arxiv.org/abs/1703.06907"
+  - "OpenAI et al. (2019). Solving Rubik's Cube with a Robot Hand. https://arxiv.org/abs/1910.07113"
+  - "Kaufmann, E. et al. (2023). Champion-level drone racing using deep reinforcement learning. https://www.nature.com/articles/s41586-023-06419-4"
+  - "Kalashnikov, D. et al. (2018). QT-Opt: Scalable Deep Reinforcement Learning for Vision-Based Robotic Manipulation. https://arxiv.org/abs/1806.10293"
+  - "NVIDIA, Mittal, M. et al. (2025). Isaac Lab: A GPU-Accelerated Simulation Framework for Multi-Modal Robot Learning. https://arxiv.org/abs/2511.04831"
+  - "NVIDIA (2026). Isaac Lab 3.0 release notes. https://github.com/isaac-sim/IsaacLab/releases/tag/v3.0.0"
 ---
 
-# Reinforcement Learning (RL) for Robots
+# Reinforcement Learning for Robots
 
-**Reinforcement Learning (RL)** is a paradigm within [[Machine_Learning|Machine Learning]] where an agent (e.g., a robot) learns to achieve a goal in an environment by taking sequential actions and receiving feedback in the form of rewards or penalties. Unlike supervised learning, RL does not require labeled input-output pairs. Instead, the agent learns optimal behavior (a control [[Policy]]) through trial-and-error interaction, aiming to maximize its cumulative reward over time. RL is particularly relevant for robotics as it allows robots to acquire complex skills in situations where analytical models are difficult to derive or where adaptation to unknown environments is required.
+[[Reinforcement_Learning]] promises robots that learn skills nobody knows how to program: running over rubble, catching themselves after a shove, spinning an object in the fingers. The catch is experience. RL needs millions of attempts, and a real robot that tries a million times will break itself, its surroundings and its operator's patience. Robot RL is therefore mostly the craft of **learning in simulation and arriving on hardware intact**.
 
----
+> **Etymology.** *Robot* comes from Czech *robota*, "forced labour", coined for Karel Čapek's 1920 play *R.U.R.* (the word was his brother Josef's suggestion). A century later, robots trained by reinforcement learn their labour the way Čapek's could not: by being rewarded for doing it well.
 
-## Core Concepts (Markov Decision Process - MDP)
+## The standard pipeline
 
-RL problems are often formalized using the framework of a **[[Markov Decision Process (MDP)|Markov Decision Process]] (MDP)**, defined by:
+```
+ design reward + randomisation ─► train in GPU simulation (PPO, 1000s of robots) ─► distil / adapt ─► deploy on hardware
+          ▲                                                                                          │
+          └──────────────────────── watch failures on the real robot, fix the simulation ◄───────────┘
+```
 
-* **Agent:** The robot acting as the learner and decision-maker.
-* **Environment:** The physical world or simulation the robot interacts with.
-* **State ($s$):** A representation of the situation at a given time (e.g., robot joint angles, velocities, object poses, sensor readings). Assumed to satisfy the Markov property (future state depends only on the current state and action, not past history).
-* **Action ($a$):** A control command the agent can execute in a state (e.g., joint torque, motor velocity). Actions can be discrete or continuous.
-* **Reward ($r$):** A scalar signal $r(s, a, s')$ received after taking action $a$ in state $s$ and transitioning to state $s'$. Indicates the immediate desirability of the transition. Designing effective reward functions is crucial but often challenging (reward shaping).
-* **[[Policy]] ($\pi$):** The agent's learned strategy or controller, typically a mapping from states to actions ($\pi: s \mapsto a$). Can be deterministic or stochastic.
-* **[[Value Function]]:** Estimates the expected long-term cumulative reward (often discounted over time):
-    * **State-Value Function ($V^{\pi}(s)$):** Expected return starting from state $s$ and following policy $\pi$.
-    * **Action-Value Function ($Q^{\pi}(s, a)$):** Expected return starting from state $s$, taking action $a$, and then following policy $\pi$.
+**1. Write the task as an MDP.** Observations (joint angles and velocities, base orientation, previous action, optionally height maps or camera images), actions (usually joint position targets for a PD controller running at 500–1000 Hz) and a reward made of many weighted terms: track the commanded velocity, keep the body level, penalise energy, foot slip and jerky actions.
 
-The agent's goal is to find an optimal policy $\pi^*$ that maximizes the expected cumulative reward (expected value).
+**2. Train massively in parallel.** On one GPU, simulators such as Isaac Lab or MuJoCo Playground step thousands of robots at once. Rudin et al. (2021) showed a quadruped learning to walk in minutes this way. PPO is the usual algorithm because its updates are stable and it scales with batch size.
 
----
+**3. Close the sim-to-real gap.** A simulator is never exactly the robot. The main tools:
 
-## Learning Process
+| Technique | Idea | Landmark |
+|---|---|---|
+| **Domain randomisation** | Vary masses, friction, motor strength, latency, terrain and sensor noise in training, so the real robot looks like one more variation | Tobin et al. 2017; OpenAI's Rubik's Cube hand, 2019 |
+| **Actuator modelling** | Learn the real motor's response from logged data and put it in the simulator | Hwangbo et al. 2019 (ANYmal) |
+| **Teacher-student distillation** | A teacher trained with privileged information (exact terrain, friction) is imitated by a student that only sees real sensors | Lee et al. 2020 |
+| **Rapid adaptation** | The policy infers the current dynamics from recent history and adjusts within a fraction of a second | Kumar et al. 2021 (RMA) |
+| **System identification** | Measure the real robot's parameters and calibrate the simulator before training | Classical; see [[Sim2Real_Experiments]] |
 
-The core of RL involves the agent iteratively interacting with the environment:
-1. Observe the current state $s$.
-2. Select an action $a$ based on the current policy $\pi$.
-3. Execute action $a$, transition to a new state $s'$, and receive reward $r$.
-4. Update the policy $\pi$ and/or value function $V/Q$ based on the observed transition $(s, a, r, s')$.
+**4. Deploy and iterate.** Watch where the real robot fails, attribute the failure to a gap (physics, sensing, actuation, latency), fix the simulator, retrain.
 
-A fundamental challenge in RL is the **exploration vs. exploitation** trade-off: the agent must balance exploiting its current knowledge to maximize immediate reward (taking actions believed to be good) with exploring new actions to potentially discover better strategies.
+## Worked example: what a locomotion reward looks like
 
----
+A velocity-tracking reward for a quadruped, of the kind used in Isaac Lab's locomotion tasks, sums terms like these each control step:
 
-## [[Deep_Learning|Deep]] Reinforcement Learning (DRL)
+| Term | Expression (sketch) | Weight sign |
+|---|---|---|
+| Track commanded forward/sideways speed | $\exp(-\lVert v^{cmd}_{xy} - v_{xy} \rVert^2 / 0.25)$ | + |
+| Track commanded turning rate | $\exp(-(\omega^{cmd}_z - \omega_z)^2 / 0.25)$ | + |
+| Keep the body from bouncing | $v_z^2$ | − |
+| Low joint torques (energy) | $\lVert \tau \rVert^2$ | − |
+| Smooth actions | $\lVert a_t - a_{t-1} \rVert^2$ | − |
+| Feet in the air long enough (a real gait) | air time per footstep | + |
+| Body or thighs touch the ground | contact indicator | − |
 
-DRL combines RL with [[Deep_Learning|Deep Learning]], using [[Neural_Networks_in_Control|deep neural networks]] as powerful function approximators for the policy and/or value functions. This allows RL to handle high-dimensional state spaces (e.g., raw camera images) and action spaces (e.g., continuous joint torques) and learn highly complex, nonlinear policies. DRL is the driving force behind many recent successes of RL in robotics.
+No term says "trot". The gait emerges because it is the cheapest way to satisfy all of them at once, and changing a single weight can change the gait. This is why reward design is still skilled work.
 
----
+## Where RL works, and where it struggles
 
-## Common RL Algorithm Families
+| Domain | Status (late 2026) | Why |
+|---|---|---|
+| **Legged and humanoid locomotion** | Routine. Sim-trained policies run on commercial quadrupeds and humanoids | Contact is mostly between feet and ground, simulators model it well, and the reward is easy to state |
+| **Agile flight** | Champion-level drone racing has been demonstrated | Dynamics are well modelled; the reward is lap time |
+| **In-hand dexterity** | Demonstrated, with heavy randomisation | Many contacts and fingers are hard to simulate accurately |
+| **Everyday manipulation** | Mostly [[Imitation_Learning]] first, RL to refine | Rewards are hard to write for "fold the shirt", and soft objects are hard to simulate |
 
-* **Value-Based Methods:** Learn an optimal action-value function $Q^*(s,a)$. The optimal policy is then implicitly defined by choosing the action that maximizes $Q^*(s,a)$ in any given state.
-    * *Examples:* Q-learning, Deep Q-Networks (DQN - uses deep NNs for Q-function approximation, seminal work by Mnih et al.).
-* **Policy-Based Methods:** Directly learn the parameters of the policy $\pi(a|s; \theta)$ without explicitly learning a value function. Often uses policy gradient methods to adjust parameters $\theta$ to increase expected reward.
-    * *Examples:* REINFORCE, A3C (Asynchronous Advantage Actor-Critic), PPO (Proximal Policy Optimization).
-* **Actor-Critic Methods:** Combine aspects of value-based and policy-based methods. Learn both a policy (the "actor") and a value function (the "critic"). The critic evaluates the actions taken by the actor, providing feedback to improve the policy.
-    * *Examples:* DDPG (Deep Deterministic Policy Gradient), SAC (Soft Actor-Critic).
+On real hardware, RL is used where samples are cheap enough: QT-Opt (Kalashnikov et al. 2018) learned grasping from 580,000 real attempts on a fleet of arms. More recently, RL is increasingly used *after* imitation: a policy that already roughly works is improved from its own successes and failures, on the real robot or in simulation.
 
----
+## Humanoids
 
-## Applications in Robotics
+Radosavovic et al. (2023) trained a transformer policy on a history of observations entirely in simulation and deployed it zero-shot on the Digit humanoid outdoors; it adapted its gait to terrain from context alone. By 2026 that recipe (large-scale simulation, randomisation, a history-conditioned policy) is the default starting point for humanoid walking, and research has moved to whole-body skills that combine locomotion with manipulation.
 
-RL and DRL are increasingly applied to challenging robotics problems:
+## State of the art (as of November 2026)
 
-* **[[Manipulation]]:** Learning dexterous grasping in clutter, complex assembly tasks, tool use, handling deformable objects. Seminal work by Levine et al. demonstrated DRL for complex manipulation skills learned end-to-end. Zeng et al. used DRL for learning pushing/grasping synergies.
-* **[[Locomotion]]:** Learning dynamic walking gaits for bipedal and quadrupedal robots, agile flight control for drones.
-* **[[Navigation]]:** Learning obstacle avoidance policies, adaptive path following, autonomous exploration strategies for mobile robots.
-* **[[Human-Robot_Interaction|HRI]]:** Learning adaptive interaction behaviors based on human feedback or social cues.
+- **Simulation platforms.** Isaac Lab 3.0 (generally available 20 October 2026) offers one task API over several physics backends, including PhysX and the open-source Newton engine with its MuJoCo-Warp, VBD and MPM solvers. Isaac Sim is now optional. MuJoCo 4.0 and MuJoCo Playground 1.0 (November 2026) target the same GPU-parallel training.
+- **Deformables and fluids enter the loop.** Newton's VBD and MPM solvers bring cloth, cables and liquids into GPU-parallel RL, the kind of object that kept manipulation out of reach.
+- **RL as fine-tuning.** Generalist [[Vision-Language-Action_Models]] are trained by imitation, then improved with reward, mirroring the pretrain-then-RL recipe of language models.
+- **Learned simulators.** Training inside video [[World_Models]] is a research direction to watch, not yet a production tool.
 
----
+## Tooling
 
-## Challenges for RL in Robotics
+| Tool | Role |
+|---|---|
+| Isaac Lab 3.0 | GPU-parallel robot learning framework (BSD-3), RSL-RL and other RL libraries |
+| MuJoCo Playground | GPU-parallel environments on MuJoCo / MJX / MuJoCo Warp |
+| Genesis | GPU multi-physics simulator for robot learning |
+| RSL-RL | Fast PPO used for most locomotion work |
+| LeRobot | Hugging Face library spanning imitation and RL on real hardware |
 
-Applying RL to real-world physical robots presents significant challenges compared to simulated domains or games:
+## Reading list
 
-* **Sample Efficiency:** RL algorithms often require millions of interaction samples to learn effectively. Collecting this much data on a physical robot is time-consuming, costly (wear and tear), and potentially dangerous.
-* **Sim-to-Real Transfer:** Training policies in simulation is much faster and safer, but transferring these policies to the real world is difficult due to discrepancies between the simulation and reality (the "sim-to-real gap"). Techniques to bridge this gap include domain randomization, system identification, and domain adaptation.
-* **Reward Function Design:** Specifying a reward function that correctly encodes the desired task and encourages efficient learning without leading to unexpected or unsafe "loopholes" is often non-trivial (reward shaping).
-* **Safety and Stability:** Ensuring that the robot operates safely during the exploration phase of learning and that the final learned policy is stable and reliable is critical, especially for safety-critical applications. Formal verification of learned policies remains an open challenge.
-* **High-Dimensional State/Action Spaces:** Robotics problems often involve continuous and high-dimensional state (e.g., sensor data) and action (e.g., joint torques) spaces, which pose challenges for many RL algorithms.
-* **Partial Observability:** Real-world sensors provide noisy and incomplete state information, violating the full observability assumption of standard MDPs. Techniques for POMDPs or incorporating memory (e.g., using RNNs) are needed.
+- Hwangbo et al. 2019, *Learning Agile and Dynamic Motor Skills for Legged Robots*.
+- Lee et al. 2020, *Learning Quadrupedal Locomotion over Challenging Terrain*.
+- Kumar et al. 2021, *RMA: Rapid Motor Adaptation for Legged Robots*.
+- Rudin et al. 2021, *Learning to Walk in Minutes Using Massively Parallel Deep RL*.
+- Radosavovic et al. 2023, *Real-World Humanoid Locomotion with Reinforcement Learning*.
 
-Despite these hurdles, RL offers a powerful paradigm for endowing robots with adaptive skills and behaviors learned directly from interaction, making it a central focus of current AI and robotics research.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Reinforcement_Learning_for_Robots]])

@@ -1,104 +1,92 @@
 ---
 title: Transfer Learning
-description: Transfer Learning is a machine learning technique where a pre-trained model is used as the starting point for a model on a second task, leveraging knowledge from one domain to improve learning in another.
+description: "Reusing what a model learned on one task or dataset to learn another faster: pretrained vision encoders, fine-tuning and parameter-efficient adaptation (LoRA), cross-embodiment transfer between robots, and sim-to-real transfer."
 tags:
   - transfer-learning
-  - machine-learning
-  - artificial-intelligence
-  - mobile-robot
+  - deep-learning
+  - robot-learning
+  - foundation-models
+  - sim-to-real
 type: method
 level: intermediate
 subfield:
   - robot-learning
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
   - "[[Deep_Learning]]"
 related:
-  - "[[Machine_Learning]]"
-  - "[[Neural_Networks]]"
-  - "[[Robot_Control]]"
-  - "[[Data_Analysis]]"
-  - "[[Model_Training]]"
+  - "[[Vision-Language-Action_Models]]"
+  - "[[Imitation_Learning]]"
+  - "[[Reinforcement_Learning_for_Robots]]"
+  - "[[Convolutional_Neural_Networks]]"
+key_takeaways:
+  - "Transfer learning starts from a model trained on lots of data and adapts it to a task with little data."
+  - "In robotics it shows up three ways: pretrained perception, cross-embodiment transfer between robots, and sim-to-real transfer."
+  - "Parameter-efficient fine-tuning (LoRA) lets a multi-billion-parameter robot model be adapted on one GPU."
+sources:
+  - "Yosinski, J. et al. (2014). How transferable are features in deep neural networks? https://arxiv.org/abs/1411.1792"
+  - "Radford, A. et al. (2021). Learning Transferable Visual Models From Natural Language Supervision. https://arxiv.org/abs/2103.00020"
+  - "Nair, S. et al. (2022). R3M: A Universal Visual Representation for Robot Manipulation. https://arxiv.org/abs/2203.12601"
+  - "Hu, E. et al. (2021). LoRA: Low-Rank Adaptation of Large Language Models. https://arxiv.org/abs/2106.09685"
+  - "Open X-Embodiment Collaboration (2023). Open X-Embodiment: Robotic Learning Datasets and RT-X Models. https://arxiv.org/abs/2310.08864"
 ---
 
 # Transfer Learning
 
-**Transfer Learning** is a machine learning technique where a pre-trained model is used as the starting point for a model on a second task. It leverages knowledge from one domain to improve learning in another, making it particularly useful in scenarios where labeled data is scarce or expensive to obtain. Transfer learning is widely used in robotics for tasks such as object recognition, navigation, and control, where the model can benefit from the pre-trained knowledge to adapt and perform effectively in new environments.
+**Transfer learning** means starting from a model that already learned something useful and adapting it to a new problem, instead of learning from scratch. A network trained on millions of internet images already knows edges, textures and objects; a robot that must recognise a few hundred parts in a factory can reuse that knowledge and learn from far fewer examples.
 
----
+For robots, where every training example is expensive to collect, transfer learning is not an optimisation. It is how almost every learned robot system is built.
 
-## Key Concepts
+> **Etymology.** *Transfer* is from Latin *transferre*, "to carry across" (*trans* + *ferre*, "to bear"). Educational psychologists studied *transfer of training* from the early 1900s (Thorndike and Woodworth, 1901): does learning Latin make you better at geometry? Machine learning revived the question in the 1990s, asking when knowledge from one task helps another.
 
-### Pre-trained Models
+## Why it works
 
-Pre-trained models are models that have been trained on a large dataset for a specific task. These models capture general features and patterns that can be transferred to new tasks, reducing the need for extensive training data and computational resources.
+Early layers of deep networks learn general features (edges, colours, simple shapes); later layers become task-specific. Yosinski et al. (2014) measured this directly: copying early layers between tasks helped almost always, while copying later layers helped only between similar tasks. Large models trained on broad data push the general part much further.
 
-### Fine-Tuning
+## The three kinds of transfer in robotics
 
-Fine-tuning involves adjusting the parameters of a pre-trained model to adapt it to a new task. This process allows the model to specialize in the new task while retaining the general knowledge acquired from the original training.
+| Kind | From → to | Example |
+|---|---|---|
+| **Perception transfer** | Web images and text → robot vision | Pretrained encoders such as CLIP (Radford et al. 2021) or R3M (Nair et al. 2022, trained on human video) as a policy's visual front end |
+| **Cross-embodiment transfer** | Many robots → a new robot | Open X-Embodiment's RT-X models: training on data from many robots improved performance on each; generalist [[Vision-Language-Action_Models]] fine-tuned to a new arm |
+| **Sim-to-real transfer** | Simulation → hardware | Locomotion policies trained in simulation; see [[Reinforcement_Learning_for_Robots]] |
 
-### Feature Extraction
+## Ways to adapt a pretrained model
 
-Feature extraction involves using the pre-trained model to extract relevant features from the input data, which are then used to train a new model. This approach leverages the model's ability to capture essential characteristics of the data, improving the performance of the new task.
+| Method | What is trained | When to use |
+|---|---|---|
+| **Feature extraction** | Only a new head; the pretrained model is frozen | Very little data |
+| **Full fine-tuning** | All weights | Plenty of data and compute |
+| **Parameter-efficient fine-tuning** | Small added modules (LoRA, adapters) | Large models, limited compute |
+| **Co-training** | New task data mixed with the original data | Keeping old abilities while adding new ones |
 
-### Domain Adaptation
+**LoRA** (Hu et al. 2021) freezes a weight matrix $W \in \mathbb{R}^{d \times k}$ and learns a low-rank update $\Delta W = BA$ with $B \in \mathbb{R}^{d \times r}$, $A \in \mathbb{R}^{r \times k}$ and $r \ll \min(d, k)$.
 
-Domain adaptation involves adapting a model trained on one domain to perform well on a different but related domain. This is particularly useful in robotics, where the model needs to adapt to varying environmental conditions and tasks.
+## Worked example: LoRA's saving
 
----
+One 4096 × 4096 projection matrix has about 16.8 million weights. A LoRA update with rank $r = 16$ trains $4096 \times 16 + 16 \times 4096 = 131{,}072$ weights: under 1% as many. Across a multi-billion-parameter VLA, LoRA fine-tuning can fit on a single GPU, which is why it is the common way to adapt open robot foundation models to a new robot or task.
 
-## Mathematical Formulation
+## Risks
 
-### Feature Extraction with Pre-trained Models
+- **Negative transfer**: knowledge from a dissimilar source can hurt.
+- **Catastrophic forgetting**: fine-tuning on a narrow task can erase general abilities; co-training on the original data reduces it.
+- **Embodiment mismatch**: a policy pretrained on parallel grippers transfers poorly to a five-fingered hand without enough new data.
 
-In feature extraction, the pre-trained model $f$ is used to extract features from the input data $x$:
+## State of the art (as of November 2026)
 
-$$
-z = f(x)
-$$
+Generalist robot models are explicitly designed for transfer: pretrained once on many robots and tasks, then post-trained per robot. Gemini Robotics On-Device 2 is described by Google DeepMind as adapting to new embodiments with a few hours of data, and NVIDIA reports fine-tuning GR00T 2 to new tasks from five demonstrations (vendor figures).
 
-where:
-- $z$ is the extracted feature vector.
-- $f$ is the pre-trained model.
-- $x$ is the input data.
+## Reading list
 
-The extracted features $z$ are then used to train a new model for the specific task.
+- Yosinski et al. 2014, *How transferable are features in deep neural networks?*
+- Hu et al. 2021, *LoRA*.
+- Open X-Embodiment Collaboration 2023: cross-embodiment transfer.
 
-### Fine-Tuning with Transfer Learning
-
-In fine-tuning, the pre-trained model $f$ is adjusted to adapt to the new task. The model's parameters $\theta$ are updated based on the new task's data:
-
-$$
-\theta' = \theta - \alpha \nabla J(\theta)
-$$
-
-where:
-- $\theta$ is the vector of model parameters.
-- $\alpha$ is the learning rate.
-- $\nabla J(\theta)$ is the gradient of the loss function with respect to the parameters.
-
-### Example: Object Recognition
-
-Consider a robotic system using transfer learning for object recognition. The model is initially pre-trained on a large dataset of images, capturing general features and patterns. The model is then fine-tuned on a smaller dataset specific to the robotic task, adapting the pre-trained knowledge to recognize and classify objects in the robot's environment.
-
----
-
-## Applications in Robotics
-
-- **Object Recognition**: Transfer learning is used to recognize and classify objects in the environment, leveraging pre-trained models to improve accuracy and adaptability.
-- **Navigation**: Enables robots to navigate through their environment, using transfer learning to adapt to new paths and obstacles.
-- **Control Systems**: Transfer learning is used to design control algorithms that regulate the behavior of robotic systems, enabling precise and adaptive control.
-- **Adaptive Learning**: Allows robots to adapt and perform tasks effectively in varying conditions, leveraging pre-trained knowledge to improve learning efficiency.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Transfer_Learning]])
