@@ -20,9 +20,6 @@ related:
   - "[[Obstacle_Avoidance]]"
   - "[[A*_Algorithm]]"
   - "[[Dijkstra's_Algorithm]]"
-  - "[[RRT]]"
-  - "[[PRM]]"
-  - "[[Potential_Fields]]"
   - "[[Autonomous_Navigation]]"
   - "[[SLAM]]"
 ---

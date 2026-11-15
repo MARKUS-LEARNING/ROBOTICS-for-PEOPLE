@@ -18,7 +18,6 @@ prerequisites:
   - "[[Artificial_Intelligence]]"
 related:
   - "[[Artificial_Intelligence]]"
-  - "[[Cognitive_Systems]]"
   - "[[Robot_Control]]"
   - "[[Decision_Making]]"
   - "[[Data_Analysis]]"

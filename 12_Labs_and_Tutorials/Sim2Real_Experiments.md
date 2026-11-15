@@ -22,9 +22,6 @@ related:
   - "[[Gazebo_Simulator]]"
   - "[[Reinforcement_Learning]]"
   - "[[Machine_Learning]]"
-  - "[[Domain_Randomization]]"
-  - "[[System_Identification]]"
-  - "[[Robotics_Software]]"
   - "[[Labs_Projects_and_Tutorials]]"
   - "[[Future_Trends_2025-2035]]"
 ---

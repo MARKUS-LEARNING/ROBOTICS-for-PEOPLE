@@ -22,8 +22,6 @@ related:
   - "[[Sensors]]"
   - "[[LIDAR]]"
   - "[[Ultrasonic_Sensors]]"
-  - "[[Infrared_Sensors]]"
-  - "[[Radar]]"
   - "[[SLAM]]"
   - "[[Obstacle_Avoidance]]"
   - "[[Autonomous_Navigation]]"

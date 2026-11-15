@@ -25,7 +25,6 @@ related:
   - "[[Path_Planning]]"
   - "[[Robot_Control]]"
   - "[[Collision_Avoidance]]"
-  - "[[Sampling-Based_Algorithms]]"
   - "[[Optimization_Techniques]]"
 ---
 

@@ -18,7 +18,6 @@ last_reviewed: 2026-04-27
 related:
   - "[[Navigation]]"
   - "[[Localization]]"
-  - "[[Satellite_Communication]]"
   - "[[Robot_Design]]"
   - "[[Autonomous_Systems]]"
 ---

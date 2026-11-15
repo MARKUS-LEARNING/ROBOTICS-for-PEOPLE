@@ -16,8 +16,6 @@ author: Jordan_Smith
 date: 2025-05-02
 related:
   - "[[Programming]]"
-  - "[[Control_Algorithms]]"
-  - "[[Data_Processing]]"
   - "[[Robot_Operating_System_(ROS)]]"
   - "[[Robot_Design]]"
 ---

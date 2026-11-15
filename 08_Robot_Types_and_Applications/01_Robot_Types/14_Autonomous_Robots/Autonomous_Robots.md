@@ -29,8 +29,6 @@ related:
   - "[[Sensor_Fusion]]"
   - "[[Mobile_Robots]]"
   - "[[Humanoid_Robots]]"
-  - "[[Drone_Technology]]"
-  - "[[Swarm_Robotics]]"
   - "[[Artificial_Intelligence]]"
 ---
 

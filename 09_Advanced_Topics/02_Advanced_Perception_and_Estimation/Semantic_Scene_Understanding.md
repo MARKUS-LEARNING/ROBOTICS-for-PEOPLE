@@ -23,8 +23,6 @@ related:
   - "[[Computer_Vision]]"
   - "[[SLAM]]"
   - "[[Object_Detection]]"
-  - "[[Scene_Segmentation]]"
-  - "[[Contextual_Reasoning]]"
   - "[[Machine_Learning]]"
   - "[[Deep_Learning]]"
 ---

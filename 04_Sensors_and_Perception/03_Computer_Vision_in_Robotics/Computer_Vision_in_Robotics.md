@@ -31,7 +31,6 @@ related:
   - "[[Visual_Odometry]]"
   - "[[Localization]]"
   - "[[Object_Recognition]]"
-  - "[[Pose_Estimation]]"
   - "[[Visual_Servoing]]"
   - "[[Deep_Learning]]"
   - "[[Machine_Learning]]"

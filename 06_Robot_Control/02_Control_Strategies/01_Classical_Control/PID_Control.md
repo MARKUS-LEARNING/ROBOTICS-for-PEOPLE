@@ -20,8 +20,6 @@ related:
   - "[[Actuator]]"
   - "[[Feedback_Control]]"
   - "[[Motion_Control]]"
-  - "[[Trajectory_Tracking]]"
-  - "[[Independent-Joint_Control]]"
 ---
 
 # PID Control (Proportional-Integral-Derivative Control)

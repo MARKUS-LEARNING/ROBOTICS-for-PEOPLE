@@ -19,7 +19,6 @@ related:
   - "[[Mobile_Robots]]"
   - "[[Drones]]"
   - "[[Manipulator_Arm_Types]]"
-  - "[[Precision_Agriculture]]"
   - "[[Perception]]"
   - "[[Computer_Vision_in_Robotics]]"
   - "[[Navigation]]"

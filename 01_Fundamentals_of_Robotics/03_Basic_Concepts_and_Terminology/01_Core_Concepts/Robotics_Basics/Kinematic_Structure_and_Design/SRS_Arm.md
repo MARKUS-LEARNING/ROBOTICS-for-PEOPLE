@@ -17,9 +17,7 @@ author: Jordan_Smith
 date: 2025-05-02
 last_reviewed: 2026-04-25
 related:
-  - "[[Robotic Manipulators]]"
   - "[[Kinematics]]"
-  - "[[Redundant Robots]]"
   - "[[Inverse_Kinematics]]"
   - "[[Workspace_Analysis]]"
   - "[[Mechanism_Design]]"

@@ -22,8 +22,6 @@ related:
   - "[[Kinematics]]"
   - "[[Degrees_of_Freedom]]"
   - "[[Mechanism_Design]]"
-  - "[[Kutzbach's_Criterion]]"
-  - "[[Chebychev-Grübler-Kutzbach_Criterion]]"
 ---
 
 # Grübler's Formula

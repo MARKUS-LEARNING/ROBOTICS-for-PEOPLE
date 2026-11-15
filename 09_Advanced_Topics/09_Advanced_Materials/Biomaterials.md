@@ -24,8 +24,6 @@ related:
   - "[[Smart_Materials]]"
   - "[[Composite_Materials]]"
   - "[[Nanotechnology]]"
-  - "[[Tissue_Engineering]]"
-  - "[[Regenerative_Medicine]]"
 ---
 
 # Biomaterials

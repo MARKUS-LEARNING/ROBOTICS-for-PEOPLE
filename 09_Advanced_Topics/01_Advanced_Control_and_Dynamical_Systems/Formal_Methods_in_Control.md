@@ -22,8 +22,6 @@ related:
   - "[[Control_Theory]]"
   - "[[Dynamics]]"
   - "[[Lyapunov_Stability]]"
-  - "[[Model_Checking]]"
-  - "[[Reachability_Analysis]]"
   - "[[Optimal_Control]]"
   - "[[Robust_Control_Methods]]"
 ---

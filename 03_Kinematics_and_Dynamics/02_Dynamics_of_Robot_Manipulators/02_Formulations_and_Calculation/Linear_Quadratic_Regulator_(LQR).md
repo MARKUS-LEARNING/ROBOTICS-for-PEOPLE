@@ -25,7 +25,6 @@ related:
   - "[[Pontryagin's_Minimum_Principle]]"
   - "[[Hamilton-Jacobi-Bellman_Equation]]"
   - "[[Dynamics]]"
-  - "[[Riccati_Equation]]"
 ---
 
 # Linear Quadratic Regulator (LQR)

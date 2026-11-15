@@ -20,7 +20,6 @@ related:
   - "[[Machine_Learning]]"
   - "[[Robot_Control]]"
   - "[[Data_Analysis]]"
-  - "[[Communication]]"
 ---
 
 # Natural Language Processing Basics

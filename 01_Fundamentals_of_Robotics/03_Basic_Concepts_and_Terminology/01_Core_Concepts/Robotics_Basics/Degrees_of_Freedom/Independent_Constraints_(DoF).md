@@ -24,7 +24,6 @@ related:
   - "[[Mechanism_Design]]"
   - "[[Constraint_Analysis]]"
   - "[[Grübler's_Formula]]"
-  - "[[Holonomic_Constraints]]"
   - "[[Nonholonomic_Constraint]]"
 ---
 

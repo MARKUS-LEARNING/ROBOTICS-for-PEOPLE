@@ -21,8 +21,6 @@ related:
   - "[[Shortest_Path]]"
   - "[[Dijkstra's_Algorithm]]"
   - "[[A*_Algorithm]]"
-  - "[[Network_Analysis]]"
-  - "[[Combinatorial_Optimization]]"
 ---
 
 # Graph Theory

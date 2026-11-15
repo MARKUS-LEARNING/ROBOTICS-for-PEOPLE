@@ -21,8 +21,6 @@ related:
   - "[[Control_Systems]]"
   - "[[Manipulator_Arm]]"
   - "[[Stewart_Platform]]"
-  - "[[Delta_Robot]]"
-  - "[[Hexapod_Robots]]"
   - "[[Kinematic_Chains]]"
   - "[[Joint_Kinematics]]"
 ---

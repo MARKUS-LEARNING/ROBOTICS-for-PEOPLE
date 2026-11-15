@@ -15,7 +15,6 @@ prerequisites:
   - "[[Bio-inspired_Robotics]]"
 related:
   - "[[Bio-inspired_Robotics]]"
-  - "[[Biomimetics]]"
   - "[[Exploration]]"
   - "[[Manipulation]]"
   - "[[Locomotion]]"

@@ -18,9 +18,7 @@ date: 2025-04-28
 related:
   - "[[Robots]]"
   - "[[Multi_Robot_Systems]]"
-  - "[[Distributed_Systems]]"
   - "[[Self-Organization]]"
-  - "[[Emergent_Behavior]]"
   - "[[Bio-inspired_Robotics]]"
   - "[[Mobile_Robots]]"
   - "[[Drones]]"

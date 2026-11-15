@@ -25,7 +25,6 @@ related:
   - "[[Feedback_Linearization]]"
   - "[[Sliding_Mode_Control]]"
   - "[[Lyapunov_Stability]]"
-  - "[[Backstepping]]"
   - "[[Adaptive_Control]]"
   - "[[Robust_Control]]"
 ---

@@ -21,7 +21,6 @@ related:
   - "[[Newton-Euler_Equations]]"
   - "[[Momentum]]"
   - "[[Angular_Momentum]]"
-  - "[[Kinetic_Energy]]"
   - "[[Rotational_Dynamics]]"
 ---
 

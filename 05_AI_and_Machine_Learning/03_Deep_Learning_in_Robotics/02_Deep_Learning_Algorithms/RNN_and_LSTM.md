@@ -21,7 +21,6 @@ related:
   - "[[Machine_Learning]]"
   - "[[Deep_Learning]]"
   - "[[Robot_Control]]"
-  - "[[Time_Series_Prediction]]"
 ---
 
 # RNN and LSTM

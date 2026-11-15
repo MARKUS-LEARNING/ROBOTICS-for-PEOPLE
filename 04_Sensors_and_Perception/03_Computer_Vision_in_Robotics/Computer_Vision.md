@@ -27,7 +27,6 @@ related:
   - "[[Deep_Learning]]"
   - "[[SLAM]]"
   - "[[Object_Recognition]]"
-  - "[[Image_Processing]]"
 ---
 
 # Computer Vision

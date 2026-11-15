@@ -19,7 +19,6 @@ related:
   - "[[Coding_and_Implementation]]"
   - "[[Robot_Operating_System_(ROS)]]"
   - "[[Custom_Packages_and_Nodes]]"
-  - "[[Software Engineering]]"
   - "[[Python_ROS_Nodes]]"
   - "[[C++_Motion_Planning]]"
 ---

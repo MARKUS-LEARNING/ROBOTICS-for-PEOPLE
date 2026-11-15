@@ -21,14 +21,12 @@ date: 2025-04-28
 related:
   - "[[Robot_Operating_System_(ROS)]]"
   - "[[DDS]]"
-  - "[[Quality_of_Service_(QoS)]]"
   - "[[Nodes]]"
   - "[[Topics]]"
   - "[[Services]]"
   - "[[Actions]]"
   - "[[Colcon]]"
   - "[[Launch_Files]]"
-  - "[[Real-Time_Systems]]"
 ---
 
 # ROS 2 Overview

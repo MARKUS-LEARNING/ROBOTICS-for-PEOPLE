@@ -27,7 +27,6 @@ related:
   - "[[URDF]]"
   - "[[MoveIt2]]"
   - "[[Control_Systems]]"
-  - "[[PID_Controller]]"
   - "[[Actuator]]"
   - "[[Joints]]"
   - "[[Trajectory_Planning]]"

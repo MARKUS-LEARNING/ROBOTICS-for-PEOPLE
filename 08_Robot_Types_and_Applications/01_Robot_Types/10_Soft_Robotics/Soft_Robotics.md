@@ -30,7 +30,6 @@ related:
   - "[[Tactile_Sensing]]"
   - "[[Manipulation]]"
   - "[[Grasping]]"
-  - "[[Materials_Science]]"
   - "[[Continuum_Mechanics]]"
   - "[[Pneumatic_Systems]]"
   - "[[Human-Robot_Interaction]]"

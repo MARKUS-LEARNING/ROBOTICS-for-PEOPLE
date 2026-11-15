@@ -25,8 +25,6 @@ related:
   - "[[Neural_Networks_in_Control]]"
   - "[[Control_Theory]]"
   - "[[Policy]]"
-  - "[[Value_Function]]"
-  - "[[Markov_Decision_Process_(MDP)]]"
   - "[[Manipulation]]"
   - "[[Locomotion]]"
   - "[[Navigation]]"

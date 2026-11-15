@@ -24,7 +24,6 @@ related:
   - "[[Hamilton-Jacobi-Bellman_Equation]]"
   - "[[State_Space_Representation]]"
   - "[[Dynamics]]"
-  - "[[Calculus_of_Variations]]"
 ---
 
 # Pontryagin's Minimum Principle

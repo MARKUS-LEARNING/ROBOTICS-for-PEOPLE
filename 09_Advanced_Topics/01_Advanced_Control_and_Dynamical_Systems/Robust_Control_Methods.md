@@ -21,7 +21,6 @@ prerequisites:
 related:
   - "[[Control_Theory]]"
   - "[[Optimal_Control]]"
-  - "[[H-infinity_Control]]"
   - "[[Sliding_Mode_Control]]"
   - "[[Lyapunov_Stability]]"
   - "[[Adaptive_Control]]"

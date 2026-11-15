@@ -26,7 +26,6 @@ related:
   - "[[Dynamic_Programming]]"
   - "[[Convex_Optimization]]"
   - "[[Dynamics]]"
-  - "[[Receding_Horizon_Control]]"
 ---
 
 # Model Predictive Control (MPC)

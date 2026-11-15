@@ -19,10 +19,7 @@ prerequisites:
   - "[[Feedback_Control]]"
 related:
   - "[[Control_Theory]]"
-  - "[[LTI_Systems]]"
-  - "[[Laplace_Transform]]"
   - "[[Bode_Plot]]"
-  - "[[Nyquist_Plot]]"
   - "[[Pole-Zero_Analysis]]"
   - "[[Feedback_Control]]"
   - "[[Stability]]"

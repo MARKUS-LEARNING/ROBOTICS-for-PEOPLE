@@ -22,7 +22,6 @@ related:
   - "[[Inertia]]"
   - "[[Rotational_Dynamics]]"
   - "[[Newton-Euler_Equations]]"
-  - "[[Motors]]"
 ---
 
 # Torque

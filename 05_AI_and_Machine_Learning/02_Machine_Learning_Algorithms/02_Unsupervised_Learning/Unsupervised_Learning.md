@@ -16,8 +16,6 @@ prerequisites:
   - "[[Machine_Learning]]"
 related:
   - "[[Machine_Learning]]"
-  - "[[Clustering]]"
-  - "[[Dimensionality_Reduction]]"
   - "[[Robot_Control]]"
   - "[[Data_Analysis]]"
 ---
