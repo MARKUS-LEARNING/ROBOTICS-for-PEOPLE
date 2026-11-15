@@ -38,5 +38,25 @@ class Dataview(unittest.TestCase):
         self.assertEqual((out, c), ('See this and No Such Note abc but `[[No_Such_Note_q]]`.', 2))
 
 
+class NotePages(unittest.TestCase):
+    def test_facet_tags(self):
+        fm = {'level': 'advanced', 'status': 'draft', 'type': 'method', 'subfield': ['control', 'planning']}
+        self.assertEqual(S.facet_tags(fm), ['level/advanced', 'status/draft', 'type/method', 'subfield/control', 'subfield/planning'])
+
+    def test_meta_strip_has_read_first_next_up_and_graph_link(self):
+        b = vault.Book(vault.Vault()); nxt = S.next_up(b)
+        n = next(x for x in b.notes if x.name == 'Kalman_Filter')
+        strip = S.meta_strip(n, b, nxt, 'https://example.org/site')
+        self.assertIn('**Read first:**', strip)
+        self.assertIn('**Next up:**', strip)
+        self.assertIn('(https://example.org/site/explore/?focus=Kalman_Filter)', strip)
+        self.assertIn('\n>\n', strip)          # each item on its own line inside the callout
+
+    def test_light_default_patch_applies_cleanly(self):
+        with open(os.path.join(vault.ROOT, 'site', 'patches', 'default-light.patch')) as fh:
+            p = fh.read()
+        self.assertIn('+const userPref = "light"', p)
+
+
 if __name__ == '__main__':
     unittest.main()

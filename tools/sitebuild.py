@@ -261,19 +261,38 @@ def unlink_missing(body: str, v: V.Vault, n: V.Note) -> tuple[str, int]:
     return '\n'.join(out), count
 
 
-def meta_strip(n: V.Note, b: V.Book) -> str:
+def next_up(b: V.Book) -> dict:
+    """path -> notes that list it as a prerequisite (what this note unlocks), in reading order."""
+    out = collections.defaultdict(list)
+    for n in b.notes:
+        for p in b.prereq.get(n.path, []):
+            out[p.path].append(n)
+    return {k: sorted(v, key=lambda n: b.rank.get(n.path, 0)) for k, v in out.items()}
+
+
+def meta_strip(n: V.Note, b: V.Book, nxt: dict, base: str) -> str:
     fm = n.frontmatter
     sfs = b.sfs
     level = str(fm.get('level', '')).capitalize()
     status = {'keystone': 'Keystone entry', 'reviewed': 'Reviewed', 'draft': 'Draft', 'stub': 'Stub: help write it'}.get(fm.get('status'), '')
     subs = ' · '.join(f'[[Subfield_Atlas#{sfs[s]["title"]}|{sfs[s]["title"]}]]' for s in fm.get('subfield') or [] if s in sfs)
-    lines = [f'> [!abstract] {level} · {status}' + (f' · {subs}' if subs else '')]
+    head = f'> [!abstract] {level} · {status}' + (f' · {subs}' if subs else '')
+    a = str(fm.get('as_of') or '')
+    if V.MONTH.match(a):
+        head += f' · Current as of {datetime.date(int(a[:4]), int(a[5:]), 1).strftime("%b %Y")}'
+    elif b.fast(n):
+        head += ' · Not yet checked against 2026 sources'
+    lines = [head]
     pre = b.prereq.get(n.path) or []
     if pre:
         lines.append('> **Read first:** ' + ' · '.join(b.link(p) for p in pre))
-    for t in fm.get('key_takeaways') or []:
-        lines.append(f'> - {t}')
-    return '\n'.join(lines) + '\n'
+    after = nxt.get(n.path) or []
+    if after:
+        lines.append('> **Next up:** ' + ' · '.join(b.link(p) for p in after[:6]) + (f' · and {len(after) - 6} more' if len(after) > 6 else ''))
+    lines.append(f'> [See it in the graph]({base}/explore/?focus={urllib.parse.quote(n.name)})')
+    takeaways = [f'> - {t}' for t in fm.get('key_takeaways') or []]
+    # a blank quoted line between items keeps each on its own line inside the callout
+    return '\n>\n'.join(lines) + ('\n>\n' + '\n'.join(takeaways) if takeaways else '') + '\n'
 
 
 def replace_h1(body: str, block: str) -> str:
@@ -285,7 +304,7 @@ def replace_h1(body: str, block: str) -> str:
     return '\n' + block + '\n' + body
 
 
-def home_page(b: V.Book) -> str:
+def home_page(b: V.Book, base: str = BASE_URL) -> str:
     v = b.v
     miss = b.missing()
     lv = collections.Counter(n.frontmatter.get('level') for n in b.notes)
@@ -309,6 +328,9 @@ def home_page(b: V.Book) -> str:
          '- **Into learning-based robotics?** [[Learning_Paths#Learning-based robotics|Machine learning to robot learning]].',
          '- **Researching?** Start at [[Learning_Paths#Researcher: the edge of the field|the edge of the field]].', '',
          '## The map', '',
+         f'<a class="explore-cta" href="{base}/explore/">Explore the graph of robotics in 3D →</a>', '',
+         'Every note is a point, every link a thread. Colour it by subfield, level or status, filter it, search it, and follow any '
+         'note\'s chain of prerequisites back to first principles.', '',
          'The [[Subfield_Atlas|Subfield Atlas]] lays out every subfield, from the core stack to the domains robots work in and the frontier still being invented. '
          f'Notes are tagged by level: {lv["beginner"]} beginner, {lv["intermediate"]} intermediate, {lv["advanced"]} advanced and {lv["research"]} research.', '',
          '## Chapters', '']
@@ -332,6 +354,27 @@ def home_page(b: V.Book) -> str:
     return '\n'.join(L) + '\n'
 
 
+def facet_tags(fm: dict) -> list:
+    """Nested tags added on the site copy only, so Quartz builds an index page for every level, status, type and subfield."""
+    out = [f'level/{fm["level"]}', f'status/{fm["status"]}', f'type/{fm["type"]}'] if fm.get('level') else []
+    return out + [f'subfield/{s}' for s in fm.get('subfield') or []]
+
+
+def apply_patches(qz: str):
+    """Apply site/patches/*.patch to the Quartz checkout; skip one already applied, fail loudly if one no longer fits."""
+    import subprocess
+    pdir = os.path.join(V.ROOT, 'site', 'patches')
+    for p in sorted(os.listdir(pdir)):
+        if not p.endswith('.patch'):
+            continue
+        path = os.path.join(pdir, p)
+        if subprocess.run(['git', 'apply', '--reverse', '--check', path], cwd=qz, capture_output=True).returncode == 0:
+            continue
+        r = subprocess.run(['git', 'apply', path], cwd=qz, capture_output=True, text=True)
+        if r.returncode:
+            raise SystemExit(f'{p} does not apply to this Quartz version: {r.stderr.strip()}')
+
+
 def cmd_prep(a):
     qz = os.path.abspath(a.quartz); content = os.path.join(qz, 'content')
     if os.path.isdir(content):
@@ -339,16 +382,22 @@ def cmd_prep(a):
     os.makedirs(content)
     for f in ('quartz.config.ts', 'quartz.layout.ts'):
         shutil.copy(os.path.join(V.ROOT, 'site', f), os.path.join(qz, f))
-    v = V.Vault(); b = V.Book(v); q = Query(b); stats = collections.Counter()
+    shutil.copy(os.path.join(V.ROOT, 'site', 'custom.scss'), os.path.join(qz, 'quartz', 'styles', 'custom.scss'))
+    apply_patches(qz)
+    shutil.rmtree(os.path.join(qz, '.quartz-cache'), ignore_errors=True)   # rebuild with the patched sources
+    base = a.base_url.rstrip('/')
+    v = V.Vault(); b = V.Book(v); q = Query(b); stats = collections.Counter(); nxt = next_up(b)
     for n in v.notes:
         fm_text, body = split_frontmatter(n.raw)
         fm = dict(n.frontmatter or {})
         if fm.get('last_reviewed'):
             fm['modified'] = str(fm['last_reviewed'])
+        if n.frontmatter and n.frontmatter.get('type') != 'guide':
+            fm['tags'] = list(fm.get('tags') or []) + facet_tags(n.frontmatter)
         body = compile_dataview(body, q, stats)
         body, c = unlink_missing(body, v, n); stats['unlinked'] += c
         if n.frontmatter and n.frontmatter.get('type') != 'guide' and n.path in b.prereq:
-            body = replace_h1(body, meta_strip(n, b))
+            body = replace_h1(body, meta_strip(n, b, nxt, base))
         else:
             body = re.sub(r'\A\s*# [^\n]+\n', '\n', body)
         out = os.path.join(content, n.path)
@@ -357,10 +406,12 @@ def cmd_prep(a):
             fh.write('---\n' + yaml.safe_dump(json.loads(json.dumps(fm, default=str)), allow_unicode=True, sort_keys=False) + '---\n' + body)
         stats['notes'] += 1
     for att in v.attachments:
+        if att.split('/')[0] in V.SKIP_DIRS or '/' not in att:        # tooling and repo files are not part of the textbook
+            continue
         dst = os.path.join(content, att); os.makedirs(os.path.dirname(dst), exist_ok=True)
         shutil.copy(os.path.join(V.ROOT, att), dst)
     with open(os.path.join(content, 'index.md'), 'w', encoding='utf-8') as fh:
-        fh.write(home_page(b))
+        fh.write(home_page(b, base))
     print(f'prep: {stats["notes"]} notes -> {content}; Dataview: {stats["compiled"]} queries compiled, '
           f'{stats["live_only"]} left as live-only (GROUP BY / FLATTEN / unsupported); '
           f'{stats["unlinked"]} links to unwritten notes shown as text')
@@ -394,12 +445,13 @@ def graph(b: V.Book, base: str) -> dict:
             if isinstance(r, V.Note):
                 rel.append(r.name)
         nodes.append({
-            'id': n.name, 'title': V.Book.title(n), 'path': n.path, 'url': url(n.path, base), 'raw_url': raw_url(n.path, base),
+            'id': n.name, 'title': V.Book.title(n), 'path': n.path, 'slug': slug(n.path), 'url': url(n.path, base), 'raw_url': raw_url(n.path, base),
             'description': fm.get('description'), 'type': fm.get('type'), 'level': fm.get('level'),
             'subfield': fm.get('subfield') or [], 'status': fm.get('status'), 'tags': n.tags,
             'prerequisites': [p.name for p in b.prereq.get(n.path, [])], 'related': rel,
             'key_takeaways': fm.get('key_takeaways') or [], 'date': str(fm.get('date')) if fm.get('date') else None,
             'last_reviewed': str(fm['last_reviewed']) if fm.get('last_reviewed') else None,
+            'as_of': str(fm['as_of']) if fm.get('as_of') else None, 'sources': [str(x) for x in fm.get('sources') or []],
             'chapter': n.chapter, 'word_count': n.word_count, 'inbound_links': len(b.inbound.get(n.path, ())),
         })
         seen = set()
@@ -472,6 +524,15 @@ def cmd_export(a):
         valid = 'valid against graph.schema.json'
     except ImportError:
         valid = 'not validated (pip install jsonschema)'
+    explore_src = os.path.join(V.ROOT, 'site', 'explore'); explore_dst = os.path.join(out, 'explore')
+    os.makedirs(os.path.join(explore_dst, 'vendor'), exist_ok=True)
+    for f in os.listdir(explore_src):
+        shutil.copy(os.path.join(explore_src, f), os.path.join(explore_dst, f))
+    for lib in ('3d-force-graph', 'force-graph'):
+        src = os.path.join(V.ROOT, 'site', 'node_modules', lib, 'dist', f'{lib}.min.js')
+        if not os.path.isfile(src):
+            raise SystemExit(f'{src} missing: run `npm ci` in site/ first')
+        shutil.copy(src, os.path.join(explore_dst, 'vendor', f'{lib}.min.js'))
     for n in notes:
         dst = os.path.join(out, 'raw', n.path); os.makedirs(os.path.dirname(dst), exist_ok=True)
         with open(dst, 'w', encoding='utf-8') as fh:
@@ -520,7 +581,8 @@ def cmd_check(a):
                 tgt = os.path.normpath(os.path.join(dp, urllib.parse.unquote(href)))
                 if not any(os.path.isfile(c) for c in (tgt, tgt + '.html', os.path.join(tgt, 'index.html'))):
                     dead.append(f'{os.path.relpath(p, pub)} -> {href}')
-    for need in ('index.html', 'llms.txt', 'llms-full.txt', 'graph.json', 'graph.schema.json', 'sitemap.xml'):
+    for need in ('index.html', 'llms.txt', 'llms-full.txt', 'graph.json', 'graph.schema.json', 'sitemap.xml',
+                 'explore/index.html', 'explore/explore.js', 'explore/vendor/3d-force-graph.min.js', 'explore/vendor/force-graph.min.js'):
         if not os.path.isfile(os.path.join(pub, need)):
             dead.append(f'missing {need}')
     print(f'check: {pages} pages, {total} internal links, {len(dead)} problems')
@@ -532,7 +594,9 @@ def cmd_check(a):
 def main(argv=None):
     ap = argparse.ArgumentParser(prog="sitebuild.py", description=__doc__.split('\n\n')[0])
     sub = ap.add_subparsers(dest='cmd', required=True)
-    p = sub.add_parser('prep'); p.add_argument('--quartz', required=True); p.set_defaults(fn=cmd_prep)
+    p = sub.add_parser('prep'); p.add_argument('--quartz', required=True)
+    p.add_argument('--base-url', default=BASE_URL, help='where the site is served (for links into /explore/)')
+    p.set_defaults(fn=cmd_prep)
     p = sub.add_parser('export'); p.add_argument('--out', required=True); p.add_argument('--base-url', default=BASE_URL)
     p.set_defaults(fn=cmd_export)
     p = sub.add_parser('check', help='every internal link in the built site resolves'); p.add_argument('--public', required=True)
