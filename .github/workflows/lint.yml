@@ -28,3 +28,5 @@ jobs:
         run: python tools/vault.py stats
       - name: Lint
         run: python tools/vault.py lint --github $LINT_MODE
+      - name: Generated pages are up to date (Subfield Atlas, Frontier, Learning Paths)
+        run: python tools/vault.py pages --check
