@@ -369,6 +369,7 @@ vocabulary:
   - forward-kinematics
   - foundation-models
   - frequency-domain
+  - friction
   - future-of-robotics
   - gait
   - gazebo
