@@ -357,6 +357,8 @@ def cmd_prep(a):
             fh.write('---\n' + yaml.safe_dump(json.loads(json.dumps(fm, default=str)), allow_unicode=True, sort_keys=False) + '---\n' + body)
         stats['notes'] += 1
     for att in v.attachments:
+        if att.split('/')[0] in V.SKIP_DIRS or '/' not in att:        # tooling and repo files are not part of the textbook
+            continue
         dst = os.path.join(content, att); os.makedirs(os.path.dirname(dst), exist_ok=True)
         shutil.copy(os.path.join(V.ROOT, att), dst)
     with open(os.path.join(content, 'index.md'), 'w', encoding='utf-8') as fh:
