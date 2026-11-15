@@ -18,7 +18,7 @@ status: draft
 author: Jordan_Smith
 date: 2025-04-28
 related:
-  - "[[ROS (Robot Operating System)]]"
+  - "[[Robot_Operating_System_(ROS)]]"
   - "[[Visualization]]"
   - "[[TF_and_Topic_Architecture]]"
   - "[[URDF]]"
@@ -36,7 +36,7 @@ related:
 
 # RViz Tutorial: Introduction to ROS Visualization
 
-**RViz** (ROS Visualization tool) is a powerful and highly configurable 3D visualization environment specifically designed for the [[ROS (Robot Operating System)]]. It allows developers and users to view the state of a robot, its sensors, and the surrounding environment by subscribing to various ROS [[Topics]] and graphically displaying the data in a 3D scene.
+**RViz** (ROS Visualization tool) is a powerful and highly configurable 3D visualization environment specifically designed for the [[Robot_Operating_System_(ROS)|ROS (Robot Operating System)]]. It allows developers and users to view the state of a robot, its sensors, and the surrounding environment by subscribing to various ROS [[Topics]] and graphically displaying the data in a 3D scene.
 
 **Important Distinction:** RViz is purely a *visualization* tool. It does **not** simulate physics or robot behavior; that is the role of simulators like [[Gazebo_Simulator]]. RViz simply displays data that is being *published* by other ROS [[Nodes]] (which could be running on a real robot or in a simulation).
 

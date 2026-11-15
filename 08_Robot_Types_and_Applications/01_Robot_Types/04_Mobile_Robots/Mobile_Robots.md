@@ -48,7 +48,7 @@ A typical autonomous mobile robot integrates several essential subsystems:
 
 * **Platform/Chassis:** The main structural body housing components.
 * **[[Locomotion]] System:** The mechanism enabling movement (e.g., wheels, legs, tracks, propellers). Covered in detail in [[Locomotion]].
-* **[[Sensor|Sensors]]:**
+* **[[Sensors]]:**
     * **Proprioceptive:** Measure internal state (e.g., [[IMU_Sensors]] for orientation/acceleration, [[Odometry|wheel encoders]] for distance traveled).
     * **Exteroceptive:** Measure properties of the external environment (e.g., [[LIDAR]] or [[Ultrasonic_Sensors]] for rangefinding, [[Camera_Systems]] for vision, [[GPS]] for global position).
 * **Control System:** Onboard computing hardware and software responsible for:

@@ -30,7 +30,7 @@ related:
 
 # Turtlesim Projects
 
-**Turtlesim** is a lightweight, 2D simulator that comes standard with many [[ROS (Robot Operating System)|ROS]] distributions. It features a simple graphical window where one or more "turtle" robots move within a 2D plane, optionally drawing trails behind them. While visually basic, Turtlesim is an invaluable tool for beginners learning core ROS concepts without the complexity of real hardware or advanced simulators like [[Gazebo_Simulator]].
+**Turtlesim** is a lightweight, 2D simulator that comes standard with many [[Robot_Operating_System_(ROS)|ROS]] distributions. It features a simple graphical window where one or more "turtle" robots move within a 2D plane, optionally drawing trails behind them. While visually basic, Turtlesim is an invaluable tool for beginners learning core ROS concepts without the complexity of real hardware or advanced simulators like [[Gazebo_Simulator]].
 
 Its primary purpose is educational: providing a hands-on way to understand and experiment with fundamental ROS mechanisms.
 

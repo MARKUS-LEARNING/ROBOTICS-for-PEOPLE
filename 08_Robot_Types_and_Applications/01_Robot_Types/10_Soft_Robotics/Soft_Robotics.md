@@ -26,7 +26,7 @@ related:
   - "[[Pneumatic_Systems]]"
   - "[[Electroactive_Polymers]]"
   - "[[Shape_Memory_Alloys]]"
-  - "[[Sensor]]"
+  - "[[Sensors]]"
   - "[[Tactile_Sensing]]"
   - "[[Manipulation]]"
   - "[[Grasping]]"
@@ -78,7 +78,7 @@ Driving motion in soft bodies often requires non-traditional actuation methods:
 
 ---
 
-## [[Sensor|Sensing]] Challenges and Methods
+## [[Sensors|Sensing]] Challenges and Methods
 
 Integrating sensors into continuously deforming bodies is a major challenge. Traditional rigid sensors are often unsuitable. Approaches include:
 

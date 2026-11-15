@@ -86,7 +86,7 @@ Effective robot design requires considering mechanisms and actuation together:
 * **[[Dynamics]]:** The mechanism's mass and inertia distribution, combined with actuator power/torque limits, determine the robot's achievable accelerations and overall dynamic performance. [[Transmission]] efficiency affects required actuator power.
 * **Stiffness & Compliance:** Overall system stiffness depends on both link/structural stiffness and the stiffness of joints, [[Actuator|actuators]], and [[Transmission|transmissions]]. Low stiffness can lead to vibrations and poor positioning accuracy. Controlled compliance can be beneficial for force control or safety.
 * **Backlash & Friction:** Inherent properties of mechanisms (especially [[Transmission|transmissions]] like [[Gearbox|gears]]) that introduce play and energy loss, impacting precision positioning and control performance. [[Direct Drive]] eliminates transmission backlash.
-* **Precision & Repeatability:** Affected by mechanism tolerances, joint/transmission backlash, [[Actuator]] resolution, [[Sensor|sensor]] accuracy, and controller performance.
+* **Precision & Repeatability:** Affected by mechanism tolerances, joint/transmission backlash, [[Actuator]] resolution, [[Sensors|sensor]] accuracy, and controller performance.
 * **Power & Efficiency:** Matching actuators and [[Transmission|transmissions]] to handle required loads efficiently throughout the [[Workspace]] and task cycle.
 * **Integration & Packaging:** Fitting actuators, [[Transmission|transmissions]], wiring, and sensors within the physical volume constraints of the robot links and structure.
 

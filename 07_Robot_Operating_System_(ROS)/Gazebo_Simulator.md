@@ -34,7 +34,7 @@ related:
 
 # Gazebo Simulator
 
-**Gazebo** is a powerful, open-source 3D robotics simulator that enables the simulation of complex robots, sensors, and objects within realistic indoor and outdoor environments. It is capable of simulating rigid body dynamics with high fidelity, generating realistic sensor feedback, and provides strong integration with the [[ROS (Robot Operating System)]] framework, making it a cornerstone tool for robotics development, testing, and research.
+**Gazebo** is a powerful, open-source 3D robotics simulator that enables the simulation of complex robots, sensors, and objects within realistic indoor and outdoor environments. It is capable of simulating rigid body dynamics with high fidelity, generating realistic sensor feedback, and provides strong integration with the [[Robot_Operating_System_(ROS)|ROS (Robot Operating System)]] framework, making it a cornerstone tool for robotics development, testing, and research.
 
 ---
 

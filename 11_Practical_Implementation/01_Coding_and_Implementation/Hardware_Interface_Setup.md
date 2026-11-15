@@ -42,7 +42,7 @@ related:
 
 # Hardware Interface Setup in Robotics
 
-**Hardware Interface Setup** is the crucial process of physically connecting robotic [[Sensor|sensors]] and [[Actuator|actuators]] to the robot's main computer (or microcontrollers) and configuring the software layer to enable communication and control. This involves managing both the physical connection (cables, ports) and the software protocols required to send commands and receive data, effectively bridging the gap between the robot's software "brain" and its physical interaction with the world. Within the [[ROS (Robot Operating System)|ROS]] ecosystem, this typically involves setting up hardware drivers implemented as [[Nodes|ROS nodes]].
+**Hardware Interface Setup** is the crucial process of physically connecting robotic [[Sensors|sensors]] and [[Actuator|actuators]] to the robot's main computer (or microcontrollers) and configuring the software layer to enable communication and control. This involves managing both the physical connection (cables, ports) and the software protocols required to send commands and receive data, effectively bridging the gap between the robot's software "brain" and its physical interaction with the world. Within the [[Robot_Operating_System_(ROS)|ROS]] ecosystem, this typically involves setting up hardware drivers implemented as [[Nodes|ROS nodes]].
 
 ---
 

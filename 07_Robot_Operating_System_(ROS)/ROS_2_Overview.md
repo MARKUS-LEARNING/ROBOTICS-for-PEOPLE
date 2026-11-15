@@ -33,7 +33,7 @@ related:
 
 # ROS 2 Overview
 
-**ROS 2** is the second generation of the **[[ROS (Robot Operating System)]]**, representing a significant redesign of the original ROS (ROS 1) framework. It aims to address limitations encountered in ROS 1 and provide features needed for modern robotics applications, particularly in areas like multi-robot systems, real-time control, embedded systems, and commercial/production environments. While retaining the core philosophy of modularity and distributed communication, ROS 2 introduces substantial changes to its underlying architecture and tools.
+**ROS 2** is the second generation of the **[[Robot_Operating_System_(ROS)|ROS (Robot Operating System)]]**, representing a significant redesign of the original ROS (ROS 1) framework. It aims to address limitations encountered in ROS 1 and provide features needed for modern robotics applications, particularly in areas like multi-robot systems, real-time control, embedded systems, and commercial/production environments. While retaining the core philosophy of modularity and distributed communication, ROS 2 introduces substantial changes to its underlying architecture and tools.
 
 ---
 
@@ -42,7 +42,7 @@ related:
 ROS 2 was developed to overcome specific shortcomings of ROS 1 and introduce new capabilities:
 
 * **Communication Middleware ([[DDS]]):**
-    * **ROS 1:** Uses a custom TCP/UDP-based communication system (TCPROS/UDPROS) requiring a central [[ROS (Robot Operating System)|ROS Master]] for node discovery.
+    * **ROS 1:** Uses a custom TCP/UDP-based communication system (TCPROS/UDPROS) requiring a central [[Robot_Operating_System_(ROS)|ROS Master]] for node discovery.
     * **ROS 2:** Built on top of the industry-standard **[[DDS|Data Distribution Service]]** (or an abstraction layer called RMW - ROS Middleware Interface - allowing different DDS implementations like Fast DDS, Cyclone DDS, etc.). This provides:
         * **Decentralized Discovery:** Eliminates the single point of failure of the ROS Master. [[Nodes]] discover each other automatically using DDS mechanisms.
         * **Improved Performance:** DDS implementations are often optimized for low-latency, high-throughput communication.

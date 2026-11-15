@@ -20,7 +20,7 @@ date: 2025-04-28
 prerequisites:
   - "[[ROS_2_Overview]]"
 related:
-  - "[[ROS (Robot Operating System)]]"
+  - "[[Robot_Operating_System_(ROS)]]"
   - "[[Nodes]]"
   - "[[Topics]]"
   - "[[Services]]"
@@ -34,7 +34,7 @@ related:
 
 # Custom Packages and Nodes in ROS
 
-While the [[ROS (Robot Operating System)]] ecosystem provides a vast collection of publicly available software packages for common robotics tasks (e.g., navigation, perception, simulation), most real-world robotics applications require the development of custom software to implement specific algorithms, control unique hardware, or orchestrate system behavior. In ROS, custom software development primarily involves creating **custom packages** and **custom nodes**.
+While the [[Robot_Operating_System_(ROS)|ROS (Robot Operating System)]] ecosystem provides a vast collection of publicly available software packages for common robotics tasks (e.g., navigation, perception, simulation), most real-world robotics applications require the development of custom software to implement specific algorithms, control unique hardware, or orchestrate system behavior. In ROS, custom software development primarily involves creating **custom packages** and **custom nodes**.
 
 ---
 

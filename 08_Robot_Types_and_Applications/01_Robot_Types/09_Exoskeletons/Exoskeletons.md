@@ -21,7 +21,7 @@ related:
   - "[[Wearable_Robotics]]"
   - "[[Human-Robot_Interaction]]"
   - "[[Actuator]]"
-  - "[[Sensor]]"
+  - "[[Sensors]]"
   - "[[Control_Systems]]"
   - "[[Biomechanics]]"
   - "[[Rehabilitation_Robotics]]"
@@ -62,10 +62,10 @@ Developing effective exoskeletons involves integrating several technologies:
 
 * **Mechanical Design:** Structures must be lightweight yet strong, with [[Joint_Kinematics|joints]] closely aligned with human anatomical joints to allow natural movement. Comfortable and secure human attachment interfaces are crucial.
 * **[[Actuator|Actuation]]:** Providing sufficient power in a compact, lightweight form is a major challenge. Common approaches include:
-    * [[Electric_Motor|Electric Motors]] with [[Transmission|transmissions]] ([[Gearbox|gears]], ball screws). Series Elastic Actuators (SEAs) are often used to introduce compliance and allow for better force control.
+    * [[Electric_Motors|Electric Motors]] with [[Transmission|transmissions]] ([[Gearbox|gears]], ball screws). Series Elastic Actuators (SEAs) are often used to introduce compliance and allow for better force control.
     * [[Hydraulic_Systems|Hydraulics]]: Offer high [[Power_Density]] for strength augmentation but require a bulky power unit.
     * [[Pneumatic Actuators]]: Can be lightweight (e.g., McKibben artificial muscles) but require a compressed air source and can be harder to control precisely.
-* **[[Sensor|Sensing]]:** Critical for monitoring both the human user and the exoskeleton state:
+* **[[Sensors|Sensing]]:** Critical for monitoring both the human user and the exoskeleton state:
     * **[[IMU_Sensors]]:** Measure limb segment orientation and angular velocity.
     * **Joint Angle Sensors:** Encoders or potentiometers measure robot joint positions.
     * **Force/Torque Sensors:** Measure interaction forces between the user and the exoskeleton, or between the exoskeleton and the environment (e.g., ground reaction forces).

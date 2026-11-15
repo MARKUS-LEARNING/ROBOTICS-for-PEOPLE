@@ -87,7 +87,7 @@ Building on the structure suggested in [[Manipulator_Control_Experiments]], docu
 * **Setup (Real World):**
     * Physical Robot: Specific hardware model, controller/firmware versions.
     * Sensors: Real sensors used, calibration status.
-    * Control Interface: Software used to command the real robot ([[ROS (Robot Operating System)|ROS]] nodes, custom drivers).
+    * Control Interface: Software used to command the real robot ([[Robot_Operating_System_(ROS)|ROS]] nodes, custom drivers).
     * Environment: Description of the physical test setup.
 * **Sim2Real Transfer Technique:**
     * Detail the specific method employed (e.g., For Domain Randomization: list parameters randomized and their ranges. For System ID: describe parameters identified and how. For Adaptation: describe the algorithm).

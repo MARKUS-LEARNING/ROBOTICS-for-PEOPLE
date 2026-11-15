@@ -24,7 +24,7 @@ last_reviewed: 2026-04-27
 prerequisites:
   - "[[Perception]]"
 related:
-  - "[[Sensor]]"
+  - "[[Sensors]]"
   - "[[Perception]]"
   - "[[Sensor_Fusion]]"
   - "[[Camera_Systems]]"

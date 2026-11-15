@@ -23,7 +23,7 @@ prerequisites:
   - "[[AI_and_Robot_Control]]"
   - "[[Computer_Vision_in_Robotics]]"
 related:
-  - "[[ROS (Robot Operating System)]]"
+  - "[[Robot_Operating_System_(ROS)]]"
   - "[[Artificial_Intelligence]]"
   - "[[Machine_Learning]]"
   - "[[Deep_Learning]]"
@@ -39,7 +39,7 @@ related:
 
 # ROS AI Integration
 
-**ROS AI Integration** refers to the methodologies and practices used to connect [[Artificial_Intelligence|AI]], [[Machine_Learning|ML]], [[Deep_Learning|deep learning]], and related algorithms (such as [[Computer_Vision_in_Robotics|computer vision]] and [[Reinforcement_Learning_for_Robots|reinforcement learning]]) with the [[ROS (Robot Operating System)]] framework. The primary goal is to leverage the advanced perception, learning, decision-making, and control capabilities offered by AI/ML within the modular, distributed, and tool-rich environment provided by ROS.
+**ROS AI Integration** refers to the methodologies and practices used to connect [[Artificial_Intelligence|AI]], [[Machine_Learning|ML]], [[Deep_Learning|deep learning]], and related algorithms (such as [[Computer_Vision_in_Robotics|computer vision]] and [[Reinforcement_Learning_for_Robots|reinforcement learning]]) with the [[Robot_Operating_System_(ROS)|ROS (Robot Operating System)]] framework. The primary goal is to leverage the advanced perception, learning, decision-making, and control capabilities offered by AI/ML within the modular, distributed, and tool-rich environment provided by ROS.
 
 ---
 

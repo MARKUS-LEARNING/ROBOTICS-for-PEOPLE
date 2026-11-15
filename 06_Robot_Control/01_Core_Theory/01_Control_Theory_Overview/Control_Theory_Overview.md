@@ -32,7 +32,7 @@ related:
   - "[[Kinematics]]"
   - "[[Dynamics]]"
   - "[[Actuator]]"
-  - "[[Sensor]]"
+  - "[[Sensors]]"
   - "[[Glossary]]"
 ---
 
@@ -48,7 +48,7 @@ related:
 * **Controller**: An algorithm or device that calculates the necessary control inputs (e.g., motor torques/voltages) to drive the system towards a desired state or trajectory.
 * **Plant**: The physical system being controlled (e.g., the robot arm, mobile robot base).
 * **Control Input (u)**: Variables manipulated by the controller (e.g., [[Actuator]] commands).
-* **System Output (y) / State (x)**: Variables measured or estimated from the system ([[Sensor]] readings like joint angles, end-effector pose, contact forces).
+* **System Output (y) / State (x)**: Variables measured or estimated from the system ([[Sensors|Sensor]] readings like joint angles, end-effector pose, contact forces).
 * **Setpoint / Reference / Desired Trajectory ($y_d$, $x_d$)**: The target value or time-varying path the system output should follow.
 * **Error (e)**: The difference between the desired setpoint/trajectory and the actual measured output (e = $y_d - y$).
 * **[[Feedback_Control]] (Closed-Loop)**: The controller uses measurements of the *actual* system output (feedback) to calculate the error and continuously adjust the control input to reduce this error. This makes the system robust to disturbances and modeling inaccuracies.

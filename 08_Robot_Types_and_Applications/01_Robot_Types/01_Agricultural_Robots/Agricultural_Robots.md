@@ -46,7 +46,7 @@ Robots are being developed and deployed across the entire agricultural cycle:
     *(Example: Autonomous tractor potentially performing planting)*
 
 2.  **Crop Monitoring & Management:**
-    * **Scouting Robots:** Ground-based mobile robots or [[Drones]] equipped with [[Camera_Systems|Camera Systems]] (including multispectral or thermal cameras) and other [[Sensor|sensors]] to monitor crop health, detect diseases or pest infestations, assess soil moisture, and estimate yield.
+    * **Scouting Robots:** Ground-based mobile robots or [[Drones]] equipped with [[Camera_Systems|Camera Systems]] (including multispectral or thermal cameras) and other [[Sensors|sensors]] to monitor crop health, detect diseases or pest infestations, assess soil moisture, and estimate yield.
     * **Precision Spraying/Fertilizing:** Robots that apply pesticides, herbicides, or fertilizers only where needed, identified through sensor data and [[Computer_Vision_in_Robotics|computer vision]], minimizing chemical usage.
     ![Agricultural Drone Monitoring](https://www.researchgate.net/publication/348883371/figure/fig1/AS:986748967301124@1612270011941/Agricultural-drone-spraying-pesticides-in-rural-area.jpg)
     *(Example: Agricultural drone likely used for crop monitoring or spraying)*

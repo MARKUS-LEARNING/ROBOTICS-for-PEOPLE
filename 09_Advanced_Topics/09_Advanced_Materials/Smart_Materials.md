@@ -23,7 +23,7 @@ related:
   - "[[Material_Science]]"
   - "[[Robot_Design]]"
   - "[[Actuator]]"
-  - "[[Sensor]]"
+  - "[[Sensors]]"
   - "[[Nanotechnology]]"
   - "[[Biomaterials]]"
   - "[[Composite_Materials]]"

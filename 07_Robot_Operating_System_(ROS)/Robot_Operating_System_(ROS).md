@@ -1,6 +1,9 @@
 ---
 title: Robot Operating System (ROS)
 description: The Robot Operating System (ROS) is a flexible framework for writing robot software, providing the tools, libraries, and conventions that simplify the task of creating complex and robust robot behavior across a wide variety of robotic platforms.
+aliases:
+  - ROS
+  - ROS (Robot Operating System)
 tags:
   - ros
   - software-engineering

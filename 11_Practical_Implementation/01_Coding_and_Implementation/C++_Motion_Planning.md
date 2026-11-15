@@ -30,7 +30,7 @@ related:
   - "[[Trajectory_Planning]]"
   - "[[C++]]"
   - "[[Python_ROS_Nodes]]"
-  - "[[ROS_(Robot_Operating_System)]]"
+  - "[[Robot_Operating_System_(ROS)]]"
   - "[[MoveIt]]"
   - "[[OMPL]]"
   - "[[FCL]]"
@@ -44,7 +44,7 @@ related:
 
 # C++ Motion Planning
 
-**C++ Motion Planning** refers to the development and implementation of algorithms using the C++ programming language to compute collision-free paths and trajectories for robots, such as [[Industrial_Arms|manipulator arms]] or [[Mobile_Robots]]. While motion planning concepts are language-agnostic, C++ is frequently chosen for implementation in robotics due to its performance characteristics, control over system resources, and prevalence in core robotics frameworks like [[ROS (Robot Operating System)]].
+**C++ Motion Planning** refers to the development and implementation of algorithms using the C++ programming language to compute collision-free paths and trajectories for robots, such as [[Industrial_Arms|manipulator arms]] or [[Mobile_Robots]]. While motion planning concepts are language-agnostic, C++ is frequently chosen for implementation in robotics due to its performance characteristics, control over system resources, and prevalence in core robotics frameworks like [[Robot_Operating_System_(ROS)|ROS (Robot Operating System)]].
 
 ---
 
@@ -91,7 +91,7 @@ Instead of implementing complex algorithms from scratch, developers typically le
     * **Environment:** Collision geometry often represented using FCL's internal structures or PCL point clouds. Occupancy grids might use multi-dimensional arrays or specialized libraries. Robot models parsed from [[URDF]]/SDF using libraries like `urdfdom` or ROS-specific parsers.
     * **Paths/Trajectories:** Represented as sequences (`std::vector`) of states or waypoints, potentially using library-specific classes (e.g., `moveit_msgs::RobotTrajectory`, `ompl::geometric::PathGeometric`).
 * **Algorithms:** C++ implementations leverage efficiency through pointers, references, optimized loops, and efficient data structures (e.g., k-d trees from FLANN or nanoflann for nearest-neighbor searches in sampling-based planners). Object-Oriented Programming (OOP) principles help structure complex planning algorithms and state representations.
-* **[[ROS (Robot Operating System)|ROS]] Integration:**
+* **[[Robot_Operating_System_(ROS)|ROS]] Integration:**
     * C++ nodes (`rclcpp`/`roscpp`) encapsulate planning functionality.
     * Planning requests are often handled via ROS [[Services]] (for simpler path requests) or [[Actions]] (for complex planning with feedback, like in MoveIt's `/move_group` action).
     * Nodes subscribe to [[Topics]] carrying sensor data (`sensor_msgs/PointCloud2`, `sensor_msgs/JointState`), goal specifications (`geometry_msgs/PoseStamped`), or map updates (`nav_msgs/OccupancyGrid`).

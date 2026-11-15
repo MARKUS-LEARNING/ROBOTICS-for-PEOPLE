@@ -21,7 +21,7 @@ last_reviewed: 2026-04-27
 prerequisites:
   - "[[Perception]]"
 related:
-  - "[[Sensor]]"
+  - "[[Sensors]]"
   - "[[Range_Sensor]]"
   - "[[Perception]]"
   - "[[Obstacle_Avoidance]]"
