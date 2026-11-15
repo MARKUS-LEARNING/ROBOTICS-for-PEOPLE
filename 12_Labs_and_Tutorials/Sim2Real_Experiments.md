@@ -28,7 +28,7 @@ related:
 
 # Sim2Real Experiments
 
-**Sim2Real (Simulation-to-Reality) transfer** is a critical process in modern robotics, particularly for developing controllers using [[Machine_Learning|Machine Learning]] techniques like [[Reinforcement_Learning|Reinforcement Learning (RL)]] or [[Imitation Learning]]. It involves training a robot's control policy or algorithm within a [[Simulation]] environment (like [[Gazebo_Simulator]]) and then successfully deploying that policy onto the physical robot hardware to perform the task in the real world.
+**Sim2Real (Simulation-to-Reality) transfer** is a critical process in modern robotics, particularly for developing controllers using [[Machine_Learning|Machine Learning]] techniques like [[Reinforcement_Learning|Reinforcement Learning (RL)]] or [[Imitation_Learning|Imitation Learning]]. It involves training a robot's control policy or algorithm within a [[Simulation]] environment (like [[Gazebo_Simulator]]) and then successfully deploying that policy onto the physical robot hardware to perform the task in the real world.
 
 The primary motivations for leveraging simulation are clear:
 * **Speed:** Simulation runs much faster than real-time, allowing for accelerated training.

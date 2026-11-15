@@ -124,7 +124,7 @@ Based on common manipulator control concepts, here are some areas you might cond
 
 ### Learning-Based Control
 
-* Use [[Reinforcement_Learning|RL]] or [[Imitation Learning]] to train control policies for manipulation tasks, often starting in simulation ([[Gazebo_Simulator]]).
+* Use [[Reinforcement_Learning|RL]] or [[Imitation_Learning|Imitation Learning]] to train control policies for manipulation tasks, often starting in simulation ([[Gazebo_Simulator]]).
 
 ---
 

@@ -71,7 +71,7 @@ While basic linear control theory forms the foundation, robotics often involves 
 * **Optimal Control:** Formulates control design as an optimization problem to minimize a cost function (e.g., energy, time, error magnitude) subject to system dynamics and constraints.
 * **[[Force Control]]:** Explicitly controls the interaction forces between the robot and its environment. Essential for tasks involving contact, such as assembly, grinding, or physical human-robot interaction. Includes methods like impedance control and hybrid position/force control.
 * **[[Visual Servoing]]:** Uses visual information directly from [[Camera_Systems]] in the feedback loop to control the robot's motion relative to visual targets.
-* **Learning-Based Control:** Employs [[Machine_Learning|Machine Learning]] techniques like [[Reinforcement_Learning|Reinforcement Learning (RL)]] or [[Imitation Learning]] to learn control policies from data or interaction, potentially bypassing the need for explicit models. See [[Neural_Networks_in_Control]].
+* **Learning-Based Control:** Employs [[Machine_Learning|Machine Learning]] techniques like [[Reinforcement_Learning|Reinforcement Learning (RL)]] or [[Imitation_Learning|Imitation Learning]] to learn control policies from data or interaction, potentially bypassing the need for explicit models. See [[Neural_Networks_in_Control]].
 
 Control systems are fundamental to enabling robots to perform useful tasks by bridging the gap between desired behavior and the complex physics of the real world.
 
