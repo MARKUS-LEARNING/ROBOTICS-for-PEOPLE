@@ -2,20 +2,18 @@
 title: Feature Engineering and Data Preprocessing
 description: Feature Engineering and Data Preprocessing are essential steps in preparing data for machine learning models, involving the transformation and manipulation of raw data to improve model performance and accuracy.
 tags:
-  - robotics
   - feature-engineering
   - data-preprocessing
   - machine-learning
   - data-analysis
-  - engineering
-  - glossary-term
-  - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: intermediate
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /feature_engineering_and_data_preprocessing/
 related:
   - "[[Machine_Learning]]"
   - "[[Data_Analysis]]"

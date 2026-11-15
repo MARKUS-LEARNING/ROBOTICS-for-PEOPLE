@@ -2,19 +2,20 @@
 title: Machine Learning
 description: Machine Learning is a subset of artificial intelligence that involves the development of algorithms that allow robots to learn from and make decisions based on data, enabling adaptive and intelligent behavior.
 tags:
-  - robotics
   - machine-learning
   - artificial-intelligence
   - data-analysis
-  - engineering
-  - glossary-term
-  - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: intermediate
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /machine_learning/
+prerequisites:
+  - "[[Artificial_Intelligence]]"
+  - "[[Probability_and_Statistics_for_Robotics]]"
 related:
   - "[[Artificial_Intelligence]]"
   - "[[Data_Analysis]]"

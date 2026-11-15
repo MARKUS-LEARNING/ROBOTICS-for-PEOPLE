@@ -2,19 +2,19 @@
 title: Natural Language Processing Basics
 description: Natural Language Processing (NLP) Basics involve the techniques and methodologies used to enable robots to interpret, understand, and generate human language, facilitating tasks such as communication and data analysis.
 tags:
-  - robotics
   - natural-language-processing
   - artificial-intelligence
   - machine-learning
-  - engineering
-  - glossary-term
-  - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: intermediate
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /natural_language_processing_basics/
+prerequisites:
+  - "[[Artificial_Intelligence]]"
 related:
   - "[[Artificial_Intelligence]]"
   - "[[Machine_Learning]]"

@@ -2,19 +2,20 @@
 title: Agents and Environments
 description: Agents and Environments refer to the interaction between autonomous systems (agents) and their surroundings (environments), defining how robots perceive, interpret, and act upon their environment to achieve specific goals.
 tags:
-  - robotics
   - agents-and-environments
   - artificial-intelligence
-  - control-systems
-  - engineering
-  - glossary-term
+  - control
   - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: beginner
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /agents_and_environments/
+prerequisites:
+  - "[[Artificial_Intelligence]]"
 related:
   - "[[Artificial_Intelligence]]"
   - "[[Control_Systems]]"

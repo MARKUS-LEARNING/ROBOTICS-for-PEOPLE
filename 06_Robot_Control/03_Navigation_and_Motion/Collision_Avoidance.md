@@ -1,19 +1,21 @@
 ---
 title: Collision Avoidance
-description: "Collision Avoidance in robotics involves strategies and algorithms designed to prevent robots from colliding with obstacles or other entities in their environment."
+description: Collision Avoidance in robotics involves strategies and algorithms designed to prevent robots from colliding with obstacles or other entities in their environment.
 tags:
-  - robotics
   - safety
   - control
   - navigation
-  - engineering
-type: Robotic Concept
-application: Preventing collisions in robotic systems
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: intermediate
+subfield:
+  - mobile-robots
+  - planning
+status: draft
+author: Jordan_Smith
 date: 2025-04-29
-permalink: /collision-avoidance/
+prerequisites:
+  - "[[Path_Planning]]"
+  - "[[Trajectory_Planning]]"
 related:
   - "[[Robot_Design]]"
   - "[[Control_Systems]]"

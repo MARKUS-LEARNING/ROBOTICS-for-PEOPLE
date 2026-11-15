@@ -2,22 +2,28 @@
 title: C++ Motion Planning
 description: Discusses the implementation of motion planning algorithms using C++, highlighting common libraries, ROS integration, and performance considerations.
 tags:
-  - C++
+  - cpp
   - motion-planning
   - path-planning
   - robotics-software
-  - ROS
-  - OMPL
-  - MoveIt
-  - FCL
-  - PCL
-  - implementation
-  - coding
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+  - ros
+  - ompl
+  - moveit
+  - fcl
+  - pcl
+  - programming
+type: tutorial
+level: intermediate
+subfield:
+  - software
+  - planning
+status: draft
+author: Jordan_Smith
 date: 2025-04-29
-permalink: /c++_motion_planning/
+prerequisites:
+  - "[[Configuration_Space]]"
+  - "[[RViz_Tutorial]]"
+  - "[[Trajectory_Planning]]"
 related:
   - "[[Motion_Planning]]"
   - "[[Path_Planning_Algorithms]]"

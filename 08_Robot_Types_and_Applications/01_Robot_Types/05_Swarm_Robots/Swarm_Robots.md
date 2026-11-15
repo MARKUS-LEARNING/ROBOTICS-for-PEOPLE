@@ -7,13 +7,14 @@ tags:
   - multi-robot-systems
   - distributed-control
   - emergent-behavior
-  - bio-inspired
-  - collective-robotics
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+  - bio-inspired-robotics
+type: robot-type
+level: beginner
+subfield:
+  - multi-robot
+status: draft
+author: Jordan_Smith
 date: 2025-04-28
-permalink: /swarm_robots/
 related:
   - "[[Robots]]"
   - "[[Multi-Robot_Systems]]"

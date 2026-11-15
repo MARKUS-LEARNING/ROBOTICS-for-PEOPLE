@@ -1,19 +1,22 @@
 ---
 title: Shortest Path
-description: "The shortest path problem is a fundamental concept in graph theory and algorithms, involving finding the shortest route between two points in a graph or network."
+description: The shortest path problem is a fundamental concept in graph theory and algorithms, involving finding the shortest route between two points in a graph or network.
 tags:
-  - robotics
   - path-planning
   - algorithms
   - graph-traversal
   - navigation
-  - control-systems
+  - control
   - automation
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: intermediate
+subfield:
+  - planning
+status: draft
+author: Jordan_Smith
 date: 2025-04-29
-permalink: /shortest_path/
+prerequisites:
+  - "[[Graph_Theory]]"
 related:
   - "[[Path_Planning]]"
   - "[[A*_Algorithm]]"

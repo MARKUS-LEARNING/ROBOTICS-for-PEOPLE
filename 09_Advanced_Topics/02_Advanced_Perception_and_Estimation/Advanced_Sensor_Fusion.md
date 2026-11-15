@@ -2,22 +2,21 @@
 title: Advanced Sensor Fusion
 description: Advanced Sensor Fusion involves integrating data from multiple sensors to enhance the accuracy and reliability of perception in robotic systems, using techniques such as factor graphs and multi-modal fusion.
 tags:
-  - robotics
   - perception
   - sensor-fusion
-  - data-fusion
   - factor-graphs
-  - multi-modal-fusion
-  - engineering
-  - glossary-term
   - mechanism
-  - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: method
+level: advanced
+subfield:
+  - estimation-mapping
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /advanced_sensor_fusion/
+prerequisites:
+  - "[[Sensor_Fusion]]"
+  - "[[Kalman_Filter]]"
 related:
   - "[[Sensor_Systems]]"
   - "[[Data_Fusion]]"

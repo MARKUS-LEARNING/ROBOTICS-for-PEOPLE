@@ -2,19 +2,16 @@
 title: CUDA (Robotics)
 description: CUDA (Compute Unified Device Architecture) is a parallel computing platform and programming model developed by NVIDIA for general computing on graphical processing units (GPUs), enabling tasks such as real-time processing, simulation, and machine learning in robotics.
 tags:
-  - robotics
   - cuda
   - parallel-computing
   - high-performance-processing
-  - engineering
-  - glossary-term
-  - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: tool
+level: intermediate
+subfield:
+  - software
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /cuda_robotics/
 related:
   - "[[Parallel_Computing]]"
   - "[[High-Performance_Processing]]"

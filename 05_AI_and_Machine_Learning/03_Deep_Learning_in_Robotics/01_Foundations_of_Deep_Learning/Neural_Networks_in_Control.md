@@ -1,13 +1,39 @@
 ---
 title: Neural Networks in Control
-description: "Explores the application of Artificial Neural Networks (ANNs) for modeling, identification, and control of robotic systems (Neurocontrol)."
-tags: [neural-network, control-theory, AI, machine-learning, deep-learning, reinforcement-learning, adaptive-control, system-identification, neurocontrol] 
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
-date: 2025-04-28 # Updated date for revision
-permalink: /neural_networks_in_control/
-related: ["[[Artificial Intelligence (AI)]]", "[[Machine Learning]]", "[[Deep Learning]]", "[[Reinforcement Learning (RL)]]", "[[Imitation Learning]]", "[[Control Theory]]", "[[Adaptive Control]]", "[[Computed Torque Control]]", "[[System Identification]]", "[[PID_Control]]", "[[AI_and_Robot_Control]]"] 
+description: Explores the application of Artificial Neural Networks (ANNs) for modeling, identification, and control of robotic systems (Neurocontrol).
+tags:
+  - neural-networks
+  - control-theory
+  - artificial-intelligence
+  - machine-learning
+  - deep-learning
+  - reinforcement-learning
+  - adaptive-control
+  - system-identification
+  - neurocontrol
+type: method
+level: intermediate
+subfield:
+  - robot-learning
+  - control
+status: draft
+author: Jordan_Smith
+date: 2025-04-28
+prerequisites:
+  - "[[Neural_Networks]]"
+  - "[[Feedback_Control]]"
+related:
+  - "[[Artificial Intelligence (AI)]]"
+  - "[[Machine Learning]]"
+  - "[[Deep Learning]]"
+  - "[[Reinforcement Learning (RL)]]"
+  - "[[Imitation Learning]]"
+  - "[[Control Theory]]"
+  - "[[Adaptive Control]]"
+  - "[[Computed Torque Control]]"
+  - "[[System Identification]]"
+  - "[[PID_Control]]"
+  - "[[AI_and_Robot_Control]]"
 ---
 
 # Neural Networks in Control (Neurocontrol)

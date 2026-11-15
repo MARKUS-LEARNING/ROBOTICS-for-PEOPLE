@@ -2,17 +2,20 @@
 title: State Space Representation
 description: State Space Representation is a mathematical framework used to describe and analyze dynamic systems in terms of state variables, which capture the system's internal states and their evolution over time.
 tags:
-  - robotics
-  - control-systems
+  - control
   - dynamics
   - state-space
   - linear-systems
-  - engineering
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: concept
+level: intermediate
+subfield:
+  - control
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /state_space_representation/
+prerequisites:
+  - "[[Linear_Algebra_for_Robotics]]"
+  - "[[Feedback_Control]]"
 related:
   - "[[Control_Theory_and_Principles]]"
   - "[[Dynamics]]"

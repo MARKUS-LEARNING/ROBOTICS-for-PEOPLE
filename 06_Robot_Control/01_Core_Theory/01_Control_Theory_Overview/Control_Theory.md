@@ -3,20 +3,19 @@ title: Control Theory
 description: Control Theory provides the mathematical and conceptual framework for designing and analyzing control systems, essential for ensuring stability, performance, and robustness in robotic and automated systems.
 tags:
   - control
-  - robotics
   - stability
   - dynamics
-  - feedback
-  - engineering
-  - glossary-term
+  - feedback-control
   - mechanism
-  - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: intermediate
+subfield:
+  - control
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /control_theory/
+prerequisites:
+  - "[[Open_Loop_vs_Closed_Loop]]"
 related:
   - "[[Feedback_Control]]"
   - "[[PID_Control]]"

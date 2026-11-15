@@ -2,19 +2,23 @@
 title: Autonomous Robots
 description: Autonomous Robots are systems capable of performing tasks without human intervention, using sensors, algorithms, and decision-making capabilities to navigate and interact with their environment.
 tags:
-  - robotics
-  - autonomy
-  - AI
+  - autonomous-systems
+  - artificial-intelligence
   - machine-learning
-  - control-systems
+  - control
   - navigation
   - perception
   - decision-making
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: robot-type
+level: beginner
+subfield:
+  - mobile-robots
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /autonomous_robots/
+prerequisites:
+  - "[[Artificial_Intelligence]]"
 related:
   - "[[Perception]]"
   - "[[Computer_Vision]]"

@@ -3,20 +3,20 @@ title: Adaptive Control Theory
 description: Adaptive Control Theory focuses on designing control systems that can adjust to changing conditions and uncertainties, ensuring robust performance and stability in dynamic environments.
 tags:
   - control
-  - robotics
   - adaptive-control
   - control-theory
   - dynamics
-  - engineering
-  - glossary-term
   - mechanism
   - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: method
+level: advanced
+subfield:
+  - control
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /adaptive_control_theory/
+prerequisites:
+  - "[[Control_Theory]]"
 related:
   - "[[Control_Theory]]"
   - "[[Optimal_Control]]"

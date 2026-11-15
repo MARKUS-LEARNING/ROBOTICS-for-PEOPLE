@@ -2,21 +2,23 @@
 title: Semantic Scene Understanding (Beyond Geometric Mapping)
 description: Semantic Scene Understanding involves interpreting the environment beyond geometric mapping, focusing on the meaning and context of objects and their relationships within a scene.
 tags:
-  - robotics
   - perception
   - computer-vision
   - scene-understanding
   - semantic-mapping
-  - engineering
-  - glossary-term
   - mechanism
-  - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: advanced
+subfield:
+  - estimation-mapping
+  - perception
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /semantic_scene_understanding/
+prerequisites:
+  - "[[SLAM]]"
+  - "[[Computer_Vision]]"
 related:
   - "[[Computer_Vision]]"
   - "[[SLAM]]"

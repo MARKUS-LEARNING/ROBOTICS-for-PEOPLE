@@ -2,19 +2,16 @@
 title: Robot Control
 description: Robot Control involves the techniques and methodologies used to regulate the behavior of robotic systems, enabling them to perform tasks autonomously and adapt to their environment.
 tags:
-  - robotics
-  - robot-control
-  - control-systems
+  - control
   - automation
-  - engineering
-  - glossary-term
-  - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: overview
+level: intermediate
+subfield:
+  - control
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /robot_control/
 related:
   - "[[Control_Systems]]"
   - "[[Autonomous_Systems]]"

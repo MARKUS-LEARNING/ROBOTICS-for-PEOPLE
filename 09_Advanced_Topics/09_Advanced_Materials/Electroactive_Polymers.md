@@ -3,17 +3,20 @@ title: Electroactive Polymers
 description: Electroactive Polymers (EAPs) are materials that change shape or size in response to an electrical stimulus, making them useful for actuation and sensing in robotic systems.
 tags:
   - materials
-  - robotics
   - polymers
   - actuators
   - sensors
-type: Material
-application: Actuators and sensors in robotic systems
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: component
+level: advanced
+subfield:
+  - mechanisms-actuation
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /electroactive-polymers/
+prerequisites:
+  - "[[Robot_Design]]"
+  - "[[Actuator]]"
+  - "[[Mechatronics]]"
 related:
   - "[[Material_Science]]"
   - "[[Robot_Design]]"

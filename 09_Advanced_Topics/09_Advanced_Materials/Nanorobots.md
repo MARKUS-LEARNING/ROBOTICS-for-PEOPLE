@@ -1,19 +1,20 @@
 ---
 title: Nanorobots
-description: "Nanorobots are robotic devices with dimensions on the nanoscale, capable of performing tasks at the molecular or atomic level."
+description: Nanorobots are robotic devices with dimensions on the nanoscale, capable of performing tasks at the molecular or atomic level.
 tags:
-  - robotics
   - nanotechnology
-  - engineering
-  - medicine
+  - medical-robots
   - materials
-type: Robot Type
-application: Precision tasks at the nanoscale
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: robot-type
+level: advanced
+subfield:
+  - micro-nano
+  - medical-robotics
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /nanorobots/
+prerequisites:
+  - "[[Nanotechnology]]"
 related:
   - "[[Robot_Design]]"
   - "[[Nanotechnology]]"

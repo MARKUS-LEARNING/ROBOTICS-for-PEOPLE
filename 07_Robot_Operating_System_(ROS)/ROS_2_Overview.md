@@ -2,20 +2,22 @@
 title: ROS 2 Overview
 description: Provides an overview of ROS 2, the second generation of the Robot Operating System, highlighting its key features, improvements over ROS 1, and core concepts.
 tags:
-  - ROS
-  - ROS2
+  - ros
+  - ros2
   - middleware
   - robotics-software
-  - DDS
-  - QoS
+  - dds
+  - qos
   - real-time
   - colcon
   - software-stack
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: overview
+level: intermediate
+subfield:
+  - software
+status: draft
+author: Jordan_Smith
 date: 2025-04-28
-permalink: /ros_2_overview/
 related:
   - "[[Robot_Operating_System_(ROS)]]"
   - "[[DDS]]"

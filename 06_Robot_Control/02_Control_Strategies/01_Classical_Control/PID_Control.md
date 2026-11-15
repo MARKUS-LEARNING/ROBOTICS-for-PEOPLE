@@ -2,16 +2,19 @@
 title: PID Control
 description: Defines Proportional-Integral-Derivative (PID) Control, a common feedback control loop mechanism used in robotics and automation.
 tags:
-  - glossary-term
   - control-theory
   - feedback-control
-  - algorithm
-  - controller
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+  - algorithms
+  - control
+type: method
+level: intermediate
+subfield:
+  - control
+status: draft
+author: Jordan_Smith
 date: 2025-04-28
-permalink: /pid_control/
+prerequisites:
+  - "[[Feedback_Control]]"
 related:
   - "[[Control_Theory_and_Principles]]"
   - "[[Actuator]]"

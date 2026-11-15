@@ -2,18 +2,18 @@
 title: Robotics Lab Template
 description: A best practices template for researching labs online, creating your own labs, conducting labs, taking professional notes, and sharing results.
 tags:
-  - robotics
-  - labs
-  - templates
+  - vault-meta
   - best_practices
   - research
-  - notes
-  - sharing
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: lab
+level: beginner
+subfield:
+  - software
+status: draft
+author: Jordan_Smith
 date: 2025-05-12
-permalink: /robotics_lab_template/
+prerequisites:
+  - "[[Labs_Projects_and_Tutorials]]"
 related:
   - "[[Labs_Projects_and_Tutorials]]"
   - "[[Research_Methods]]"
@@ -119,5 +119,5 @@ This template provides a structured approach to researching labs online, creatin
 
 ```dataview
 LIST
-FROM "Labs"
-WHERE contains(tags, "robotics")
+FROM "12_Labs_and_Tutorials"
+WHERE type = "lab"

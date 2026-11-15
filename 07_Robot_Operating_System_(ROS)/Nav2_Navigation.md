@@ -2,21 +2,29 @@
 title: Nav2 Navigation Stack
 description: Covers the ROS 2 Navigation Stack (Nav2), the framework for autonomous mobile robot navigation including global/local planning, costmaps, recovery behaviors, and the behavior tree-based task orchestration system.
 tags:
-  - Nav2
+  - nav2
   - navigation
-  - ROS2
+  - ros2
   - mobile-robot
   - path-planning
   - costmap
-  - SLAM
+  - slam
   - behavior-tree
   - robotics-software
-  - autonomous
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+  - autonomous-systems
+type: tool
+level: intermediate
+subfield:
+  - software
+  - planning
+  - mobile-robots
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /nav2_navigation/
+prerequisites:
+  - "[[LIDAR]]"
+  - "[[ROS_2_Overview]]"
+  - "[[Robot_Operating_System_(ROS)]]"
 related:
   - "[[Robot_Operating_System_(ROS)]]"
   - "[[ROS_2_Overview]]"
@@ -270,5 +278,5 @@ LIST FROM #navigation OR #mobile-robot WHERE contains(file.outlinks, [[Nav2_Navi
 ```
 
 ```dataview
-TABLE title, description FROM #ROS WHERE contains(file.tags, "navigation")
+TABLE title, description FROM #ros WHERE contains(file.tags, "navigation")
 ```

@@ -2,19 +2,19 @@
 title: Adaptive Control
 description: Adaptive Control is a control strategy used in robotics to handle uncertainties and variations in system dynamics, enabling robust and flexible control of robotic systems by adjusting control parameters in real-time.
 tags:
-  - robotics
-  - control-systems
+  - control
   - adaptive-control
   - dynamics
-  - engineering
-  - glossary-term
   - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: method
+level: intermediate
+subfield:
+  - control
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /adaptive_control/
+prerequisites:
+  - "[[Feedback_Control]]"
 related:
   - "[[Control_Theory]]"
   - "[[Dynamics]]"

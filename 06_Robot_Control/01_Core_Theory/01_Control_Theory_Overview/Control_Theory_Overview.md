@@ -2,22 +2,23 @@
 title: Control Systems Overview
 description: Provides an overview of Control Systems and Control Theory, explaining core concepts like feedback, stability, and common strategies used in robotics.
 tags:
-  - glossary-term
   - control-theory
-  - control-systems
-  - feedback
+  - control
+  - feedback-control
   - stability
-  - robot-control
-  - PID
-  - core-concept
+  - pid
   - dynamics
   - state-space
   - transfer-function
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: overview
+level: intermediate
+subfield:
+  - control
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /control_systems_overview/
+prerequisites:
+  - "[[Open_Loop_vs_Closed_Loop]]"
 related:
   - "[[Control_Theory]]"
   - "[[Feedback_Control]]"

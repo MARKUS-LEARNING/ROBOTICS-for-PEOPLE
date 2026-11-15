@@ -4,16 +4,19 @@ description: Overview of industrial robot arms (manipulators), including their h
 tags:
   - robot-types
   - industrial-robot
-  - manipulator
+  - manipulator-arm
   - automation
   - manufacturing
-  - cobot
+  - collaborative-robots
   - robotics-history
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: robot-type
+level: beginner
+subfield:
+  - manipulation
+  - industrial-automation
+status: draft
+author: Jordan_Smith
 date: 2025-04-28
-permalink: /industrial_arms/
 related:
   - "[[Robots]]"
   - "[[Manipulator_Arm_Types]]"

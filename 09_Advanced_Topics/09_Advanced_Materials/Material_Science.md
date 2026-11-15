@@ -2,20 +2,22 @@
 title: Material Science
 description: Material Science is the study of the properties and behaviors of materials, focusing on their structure, composition, and applications in engineering and technology.
 tags:
-  - science
-  - engineering
   - materials
-  - properties
-  - structure
+  - structures
   - composition
-  - robotics
   - design
   - innovation
-layout: default
-category: science
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: advanced
+subfield:
+  - mechanisms-actuation
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /material_science/
+prerequisites:
+  - "[[Robot_Design]]"
+  - "[[Actuator]]"
+  - "[[Mechatronics]]"
 related:
   - "[[Robot_Design]]"
   - "[[Links]]"

@@ -5,18 +5,19 @@ tags:
   - hardware
   - shopping-list
   - components
-  - parts
-  - resources
   - references
   - electronics
   - wishlist
   - sensors
   - actuators
-layout: default
-category: robotics
-author: Jordan_Smith_&_Claude
+type: reference
+level: beginner
+subfield:
+  - electronics-embedded
+  - mechanisms-actuation
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /hardware_shopping_list/
 related:
   - "[[Resources_Index]]"
   - "[[Microcontroller]]"
@@ -277,5 +278,5 @@ LIST FROM #hardware OR #components WHERE contains(file.outlinks, [[Hardware_Shop
 ```
 
 ```dataview
-TABLE title, description FROM #resources WHERE contains(file.tags, "hardware")
+TABLE title, description FROM #references WHERE contains(file.tags, "hardware")
 ```

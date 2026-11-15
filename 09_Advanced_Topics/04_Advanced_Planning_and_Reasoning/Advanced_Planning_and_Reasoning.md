@@ -2,20 +2,20 @@
 title: Advanced Planning and Reasoning for Robotics
 description: Advanced Planning and Reasoning for Robotics involves the application of sophisticated techniques to enable robots to make decisions, solve problems, and perform tasks in complex and dynamic environments, enhancing their autonomy and adaptability.
 tags:
-  - robotics
-  - advanced-planning
+  - motion-planning
   - reasoning
   - artificial-intelligence
-  - control-systems
-  - engineering
-  - glossary-term
-  - manipulator-arm
+  - control
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: overview
+level: advanced
+subfield:
+  - planning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /advanced_planning_and_reasoning_for_robotics/
+prerequisites:
+  - "[[Motion_Planning]]"
 related:
   - "[[Artificial_Intelligence]]"
   - "[[Control_Systems]]"

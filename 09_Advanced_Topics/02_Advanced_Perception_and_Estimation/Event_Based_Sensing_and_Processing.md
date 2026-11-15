@@ -2,21 +2,22 @@
 title: Event-Based Sensing and Processing
 description: Event-Based Sensing and Processing involves processing data triggered by specific events, enabling real-time and efficient perception in dynamic environments.
 tags:
-  - robotics
   - perception
   - event-based-sensing
-  - real-time-processing
-  - sensor-systems
-  - engineering
-  - glossary-term
+  - real-time
+  - sensors
   - mechanism
-  - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: advanced
+subfield:
+  - perception
+  - frontiers
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /event_based_sensing_and_processing/
+prerequisites:
+  - "[[Camera_Systems]]"
 related:
   - "[[Sensors]]"
   - "[[Real-Time_Processing]]"

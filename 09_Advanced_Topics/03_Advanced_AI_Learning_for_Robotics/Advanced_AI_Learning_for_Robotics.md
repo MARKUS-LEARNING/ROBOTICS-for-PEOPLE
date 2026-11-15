@@ -2,19 +2,21 @@
 title: Advanced AI Learning for Robotics
 description: Advanced AI Learning for Robotics involves the application of cutting-edge artificial intelligence techniques to enable robots to learn, adapt, and make decisions in complex and dynamic environments, enhancing their autonomy and performance.
 tags:
-  - robotics
-  - advanced-ai-learning
+  - robot-learning
   - artificial-intelligence
   - machine-learning
-  - engineering
-  - glossary-term
-  - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: overview
+level: advanced
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /advanced_ai_learning_for_robotics/
+prerequisites:
+  - "[[Machine_Learning]]"
+  - "[[Artificial_Intelligence]]"
+  - "[[Deep_Learning]]"
 related:
   - "[[Artificial_Intelligence]]"
   - "[[Machine_Learning]]"

@@ -2,19 +2,19 @@
 title: Turtlesim Projects
 description: An overview of the Turtlesim simulator in ROS and a collection point for projects and experiments using it to learn ROS concepts.
 tags:
-  - Turtlesim
-  - ROS
-  - tutorial
-  - project
-  - lab
+  - turtlesim
+  - ros
   - simulation
-  - learning
-  - beginner
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+  - education
+type: tutorial
+level: beginner
+subfield:
+  - software
+status: draft
+author: Jordan_Smith
 date: 2025-04-29
-permalink: /turtlesim_projects/
+prerequisites:
+  - "[[Labs_Projects_and_Tutorials]]"
 related:
   - "[[ROS_2_Overview]]"
   - "[[Nodes]]"

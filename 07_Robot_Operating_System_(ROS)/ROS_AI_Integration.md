@@ -2,8 +2,8 @@
 title: ROS AI Integration
 description: Discusses the integration of Artificial Intelligence (AI) and Machine Learning (ML) techniques with the Robot Operating System (ROS).
 tags:
-  - ROS
-  - AI
+  - ros
+  - artificial-intelligence
   - machine-learning
   - deep-learning
   - reinforcement-learning
@@ -11,11 +11,17 @@ tags:
   - integration
   - robotics-software
   - middleware
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: tool
+level: intermediate
+subfield:
+  - software
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-04-28
-permalink: /ros_ai_integration/
+prerequisites:
+  - "[[AI_and_Robot_Control]]"
+  - "[[Computer_Vision_in_Robotics]]"
 related:
   - "[[ROS (Robot Operating System)]]"
   - "[[Artificial Intelligence (AI)]]"

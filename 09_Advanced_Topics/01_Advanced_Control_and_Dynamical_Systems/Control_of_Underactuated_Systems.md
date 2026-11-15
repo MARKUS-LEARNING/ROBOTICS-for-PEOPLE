@@ -3,20 +3,20 @@ title: Control of Underactuated Systems
 description: The control of underactuated systems involves managing systems with fewer control inputs than degrees of freedom, requiring specialized strategies to achieve desired performance and stability.
 tags:
   - control
-  - robotics
   - underactuated-systems
   - control-theory
   - dynamics
-  - engineering
-  - glossary-term
   - mechanism
-  - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: method
+level: advanced
+subfield:
+  - control
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /control_of_underactuated_systems/
+prerequisites:
+  - "[[Control_Theory]]"
 related:
   - "[[Control_Theory]]"
   - "[[Dynamics]]"

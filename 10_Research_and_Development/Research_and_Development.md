@@ -2,20 +2,16 @@
 title: Research and Development (Robotics, extensive and future-focused, bleeding edge)
 description: This entry explores the extensive and future-focused research and development in robotics, highlighting the bleeding-edge advancements and innovative approaches that are shaping the field and driving the development of intelligent and adaptive robotic systems.
 tags:
-  - robotics
   - research-and-development
-  - future-focused
-  - bleeding-edge
+  - future-of-robotics
   - artificial-intelligence
-  - engineering
-  - glossary-term
-  - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: overview
+level: research
+subfield:
+  - research-practice
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /research_and_development_robotics/
 related:
   - "[[Artificial_Intelligence]]"
   - "[[Machine_Learning]]"

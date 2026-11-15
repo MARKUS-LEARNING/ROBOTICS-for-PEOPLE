@@ -2,18 +2,16 @@
 title: Wheeled Mobile Robots
 description: Wheeled Mobile Robots are robotic systems that use wheels for locomotion, providing efficient and stable movement across various terrains.
 tags:
-  - robotics
   - mobility
   - mechanics
   - control
-  - engineering
-type: Robot Type
-application: Efficient and stable locomotion in robotic systems
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: robot-type
+level: beginner
+subfield:
+  - mobile-robots
+status: draft
+author: Jordan_Smith
 date: 2025-04-29
-permalink: /wheeled-mobile-robots/
 related:
   - "[[Robot_Design]]"
   - "[[Mechatronics]]"

@@ -7,13 +7,15 @@ tags:
   - bipedal
   - locomotion
   - manipulation
-  - AI
-  - HRI
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+  - artificial-intelligence
+  - human-robot-interaction
+type: robot-type
+level: beginner
+subfield:
+  - legged-humanoid
+status: draft
+author: Jordan_Smith
 date: 2025-04-28
-permalink: /humanoid_robots/
 related:
   - "[[Robots]]"
   - "[[Legged_Robots]]"

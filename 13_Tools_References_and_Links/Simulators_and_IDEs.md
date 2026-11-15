@@ -2,23 +2,23 @@
 title: Simulators and IDEs
 description: A comprehensive reference for simulation tools, visualization environments, and Integrated Development Environments (IDEs) used in robotics research and development, covering physics simulators, cloud tools, and editors.
 tags:
-  - simulator
-  - IDE
-  - software
-  - tools
-  - development
-  - Gazebo
-  - MuJoCo
-  - ROS
-  - VSCode
   - simulation
-  - coding
+  - ide
+  - software-engineering
+  - tools
+  - gazebo
+  - mujoco
+  - ros
+  - vscode
+  - programming
   - references
-layout: default
-category: robotics
-author: Jordan_Smith_&_Claude
+type: reference
+level: beginner
+subfield:
+  - software
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /simulators_and_ides/
 related:
   - "[[Simulation]]"
   - "[[Gazebo_Simulator]]"
@@ -263,9 +263,9 @@ Website: [qt.io/product/development-tools](https://www.qt.io/product/development
 ## Dataview Plugin Features
 
 ```dataview
-LIST FROM #simulator OR #IDE WHERE contains(file.outlinks, [[Simulators_and_IDEs]])
+LIST FROM #simulation OR #ide WHERE contains(file.outlinks, [[Simulators_and_IDEs]])
 ```
 
 ```dataview
-TABLE title, description FROM #tools WHERE contains(file.tags, "simulator")
+TABLE title, description FROM #tools WHERE contains(file.tags, "simulation")
 ```

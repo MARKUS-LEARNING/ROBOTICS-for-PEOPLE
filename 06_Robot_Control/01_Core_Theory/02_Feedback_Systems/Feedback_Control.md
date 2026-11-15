@@ -3,18 +3,17 @@ title: Feedback Control
 description: Feedback Control is a system that uses the output of a process to adjust its input, ensuring stability and accuracy in robotic systems.
 tags:
   - control
-  - robotics
   - automation
   - mechatronics
-  - systems
-type: Control System
-control_strategy: Feedback Control
-application: Ensuring stability and accuracy in robotic systems
-layout: default
-category: robotics
-author: Jordan_Smith_&_Le_Chat
+type: concept
+level: intermediate
+subfield:
+  - control
+status: draft
+author: Jordan_Smith
 date: 2025-04-29
-permalink: /feedback-control/
+prerequisites:
+  - "[[Open_Loop_vs_Closed_Loop]]"
 related:
   - "[[Control Systems]]"
   - "[[Sensors]]"

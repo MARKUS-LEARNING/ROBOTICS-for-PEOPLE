@@ -1,13 +1,37 @@
 ---
 title: Reinforcement Learning for Robots
-description: "Explains Reinforcement Learning (RL) principles and their application to robotic control, including key concepts, algorithms, applications, and challenges."
-tags: [reinforcement-learning, machine-learning, AI, control-theory, robot-learning, policy-learning, deep-learning, MDP] 
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat 
-date: 2025-04-28 # Updated date for revision
-permalink: /reinforcement_learning_for_robots/
-related: ["[[Artificial_Intelligence]]", "[[Machine_Learning]]", "[[Deep_Learning]]", "[[Neural_Networks_in_Control]]", "[[Control_Theory]]", "[[Policy]]", "[[Value_Function]]", "[[Markov_Decision_Process_(MDP)]]", "[[Manipulation]]", "[[Locomotion]]", "[[Navigation]]", "[[Imitation_Learning]]", "[[AI_and_Robot_Control]]"] 
+description: Explains Reinforcement Learning (RL) principles and their application to robotic control, including key concepts, algorithms, applications, and challenges.
+tags:
+  - reinforcement-learning
+  - machine-learning
+  - artificial-intelligence
+  - control-theory
+  - robot-learning
+  - deep-learning
+  - mdp
+type: method
+level: intermediate
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
+date: 2025-04-28
+prerequisites:
+  - "[[Reinforcement_Learning]]"
+related:
+  - "[[Artificial_Intelligence]]"
+  - "[[Machine_Learning]]"
+  - "[[Deep_Learning]]"
+  - "[[Neural_Networks_in_Control]]"
+  - "[[Control_Theory]]"
+  - "[[Policy]]"
+  - "[[Value_Function]]"
+  - "[[Markov_Decision_Process_(MDP)]]"
+  - "[[Manipulation]]"
+  - "[[Locomotion]]"
+  - "[[Navigation]]"
+  - "[[Imitation_Learning]]"
+  - "[[AI_and_Robot_Control]]"
 ---
 
 # Reinforcement Learning (RL) for Robots

@@ -2,18 +2,21 @@
 title: Microelectromechanical Systems (MEMS)
 description: Microelectromechanical Systems (MEMS) are miniaturized devices that integrate mechanical and electrical components on a common silicon substrate, typically ranging from 1 to 100 micrometers in size.
 tags:
-  - technology
-  - robotics
   - sensors
   - actuators
-  - engineering
-type: Technology
-application: Miniaturized sensors and actuators in robotic systems
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: advanced
+subfield:
+  - micro-nano
+  - mechanisms-actuation
+  - perception
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /mems/
+prerequisites:
+  - "[[Robot_Design]]"
+  - "[[Actuator]]"
+  - "[[Mechatronics]]"
 related:
   - "[[Material_Science]]"
   - "[[Robot_Design]]"

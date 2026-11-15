@@ -2,20 +2,20 @@
 title: Artificial Intelligence
 description: Artificial Intelligence (AI) is the simulation of human intelligence processes by machines, especially computer systems, enabling them to perform tasks that typically require human intelligence.
 tags:
-  - robotics
-  - AI
+  - artificial-intelligence
   - machine-learning
   - deep-learning
   - neural-networks
   - decision-making
   - autonomous-systems
   - algorithms
-  - glossary-term
-layout: default
-category: robotics
-author: Jordan_Smith_&_Le_Chat
+type: overview
+level: beginner
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /artificial_intelligence/
 related:
   - "[[Machine_Learning]]"
   - "[[Deep_Learning_in_Robotics]]"

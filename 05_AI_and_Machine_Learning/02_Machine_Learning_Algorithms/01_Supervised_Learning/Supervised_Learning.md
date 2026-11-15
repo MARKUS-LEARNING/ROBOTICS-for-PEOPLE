@@ -2,19 +2,19 @@
 title: Supervised Learning
 description: Supervised Learning is a type of machine learning where a model is trained on a labeled dataset, enabling it to make predictions or decisions based on input data, widely used in robotics for tasks such as classification and regression.
 tags:
-  - robotics
   - supervised-learning
   - machine-learning
   - artificial-intelligence
-  - engineering
-  - glossary-term
-  - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: method
+level: intermediate
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /supervised_learning/
+prerequisites:
+  - "[[Machine_Learning]]"
 related:
   - "[[Machine_Learning]]"
   - "[[Classification]]"

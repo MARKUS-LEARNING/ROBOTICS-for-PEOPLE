@@ -2,18 +2,16 @@
 title: Cable-Driven Robots
 description: Cable-Driven Robots use cables or tendons to actuate joints or manipulate objects, providing flexibility, lightweight design, and high speed.
 tags:
-  - robotics
-  - actuation
+  - actuators
   - mechanics
-  - engineering
   - control
-type: Robot Type
-application: Flexible and lightweight actuation in robotic systems
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: robot-type
+level: beginner
+subfield:
+  - soft-robotics
+status: draft
+author: Jordan_Smith
 date: 2025-04-29
-permalink: /cable-driven-robots/
 related:
   - "[[Robot_Design]]"
   - "[[Mechatronics]]"

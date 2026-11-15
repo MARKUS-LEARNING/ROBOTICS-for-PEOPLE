@@ -2,21 +2,25 @@
 title: Parallel Robots
 description: Parallel robots are robotic systems that utilize parallel kinematic chains to connect a base platform to a moving platform, providing high stiffness, precision, and load-bearing capabilities.
 tags:
-  - robotics
-  - manipulator
+  - manipulator-arm
   - parallel-robot
   - kinematics
   - dynamics
   - mechanism
-  - glossary-term
-  - actuator
+  - actuators
   - motion
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: robot-type
+level: beginner
+subfield:
+  - modular-reconfigurable
+  - kinematics-dynamics
+  - mechanisms-actuation
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /parallel_robots/
+prerequisites:
+  - "[[Robot_Design]]"
+  - "[[Actuator]]"
 related:
   - "[[Stewart_Platform]]"
   - "[[Kinematics]]"

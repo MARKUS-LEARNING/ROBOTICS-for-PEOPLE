@@ -2,20 +2,20 @@
 title: Convolutional Neural Networks
 description: Convolutional Neural Networks (CNNs) are a type of deep neural network designed for processing grid-like data, such as images, widely used in robotics for tasks such as image recognition, object detection, and scene understanding.
 tags:
-  - robotics
   - convolutional-neural-networks
   - deep-learning
   - machine-learning
   - artificial-intelligence
-  - engineering
-  - glossary-term
-  - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: method
+level: intermediate
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /convolutional_neural_networks/
+prerequisites:
+  - "[[Deep_Learning]]"
 related:
   - "[[Deep_Learning_in_Robotics]]"
   - "[[Image_Recognition]]"

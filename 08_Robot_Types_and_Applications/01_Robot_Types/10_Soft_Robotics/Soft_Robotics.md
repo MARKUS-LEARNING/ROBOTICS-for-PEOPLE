@@ -4,16 +4,21 @@ description: Overview of Soft Robotics, a field focusing on robots constructed f
 tags:
   - robot-types
   - soft-robotics
-  - bio-inspired
+  - bio-inspired-robotics
   - compliance
-  - actuation
+  - actuators
   - materials
-  - HRI
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+  - human-robot-interaction
+type: robot-type
+level: beginner
+subfield:
+  - soft-robotics
+  - mechanisms-actuation
+status: draft
+author: Jordan_Smith
 date: 2025-04-29
-permalink: /soft_robotics/
+prerequisites:
+  - "[[Actuator]]"
 related:
   - "[[Robots]]"
   - "[[Bio-inspired_Robotics]]"

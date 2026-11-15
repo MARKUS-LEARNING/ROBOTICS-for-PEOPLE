@@ -2,19 +2,20 @@
 title: Control Systems
 description: Defines Control Systems and Control Theory, explaining core concepts like feedback, stability, and common strategies used in robotics.
 tags:
-  - glossary-term
   - control-theory
-  - control-systems
-  - feedback
+  - control
+  - feedback-control
   - stability
-  - robot-control
-  - PID
-  - core-concept
-layout: default
-category: robotics
-author: Jordan_Smith_&_Gemini
+  - pid
+type: concept
+level: intermediate
+subfield:
+  - control
+status: draft
+author: Jordan_Smith
 date: 2025-04-29
-permalink: /control_systems/
+prerequisites:
+  - "[[Feedback_Control]]"
 related:
   - "[[Control Theory]]"
   - "[[Feedback_Control]]"

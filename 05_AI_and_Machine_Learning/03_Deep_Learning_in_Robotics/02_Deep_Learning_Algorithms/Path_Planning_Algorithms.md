@@ -2,19 +2,20 @@
 title: Path Planning Algorithms
 description: Path Planning Algorithms are computational methods used in robotics to determine the optimal path from a starting point to a destination, enabling tasks such as autonomous navigation and obstacle avoidance.
 tags:
-  - robotics
   - path-planning
   - navigation
-  - control-systems
-  - engineering
-  - glossary-term
-  - manipulator-arm
+  - control
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: method
+level: intermediate
+subfield:
+  - planning
+  - mobile-robots
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /path_planning_algorithms/
+prerequisites:
+  - "[[Path_Planning]]"
 related:
   - "[[Navigation]]"
   - "[[Control_Systems]]"

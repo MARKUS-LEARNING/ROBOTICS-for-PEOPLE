@@ -1,19 +1,22 @@
 ---
 title: Dijkstra's Algorithm
-description: "Dijkstra's Algorithm is a classic algorithm used to find the shortest path between nodes in a graph, commonly used in robotics for path planning."
+description: Dijkstra's Algorithm is a classic algorithm used to find the shortest path between nodes in a graph, commonly used in robotics for path planning.
 tags:
-  - robotics
   - path-planning
   - algorithms
   - graph-traversal
   - navigation
-  - control-systems
+  - control
   - automation
-layout: default
-category: robotics
-author: Jordan_Smith_&_Gemini
+type: method
+level: intermediate
+subfield:
+  - planning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /dijkstras_algorithm/
+prerequisites:
+  - "[[Graph_Theory]]"
 related:
   - "[[Path_Planning]]"
   - "[[A*_Algorithm]]"

@@ -2,19 +2,17 @@
 title: Arduino
 description: Arduino is an open-source electronics platform used for building digital devices and interactive objects that can sense and control physical devices, widely used in robotics for prototyping and developing embedded control systems.
 tags:
-  - robotics
   - arduino
   - embedded-systems
   - hardware
-  - engineering
-  - glossary-term
-  - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: tool
+level: intermediate
+subfield:
+  - electronics-embedded
+  - software
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /arduino/
 related:
   - "[[Embedded_Systems]]"
   - "[[Microcontrollers]]"

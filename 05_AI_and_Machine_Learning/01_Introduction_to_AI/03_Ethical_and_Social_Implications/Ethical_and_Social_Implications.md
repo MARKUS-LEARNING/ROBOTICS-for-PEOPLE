@@ -1,20 +1,17 @@
 ---
-title: Ethical and Social Implications (# AI & Robotics)
+title: "Ethical and Social Implications (# AI & Robotics)"
 description: This entry explores the ethical and social implications of AI and robotics, addressing the challenges and considerations in their development and deployment, and their impact on society.
 tags:
-  - robotics
   - ethics
-  - social-implications
+  - social-impact
   - artificial-intelligence
-  - engineering
-  - glossary-term
-  - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: intermediate
+subfield:
+  - ethics-society
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /ethical_and_social_implications/
 related:
   - "[[Artificial_Intelligence]]"
   - "[[Robotics]]"

@@ -2,20 +2,19 @@
 title: Bias, Variance, and Overfitting
 description: Bias, Variance, and Overfitting are key concepts in machine learning that describe the trade-offs and challenges in model training, crucial for developing models that generalize well to new data.
 tags:
-  - robotics
   - bias-variance-tradeoff
   - overfitting
   - machine-learning
   - model-evaluation
-  - engineering
-  - glossary-term
-  - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: intermediate
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /bias_variance_overfitting/
+prerequisites:
+  - "[[Machine_Learning]]"
 related:
   - "[[Machine_Learning]]"
   - "[[Model_Evaluation]]"

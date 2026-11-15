@@ -2,20 +2,24 @@
 title: TF and Topic Architecture
 description: Explains the core ROS communication architecture based on asynchronous Topics and the TF (Transform) library for managing coordinate frames.
 tags:
-  - ROS
-  - TF
-  - topic
+  - ros
+  - tf
+  - topics
   - architecture
   - middleware
   - robotics-software
-  - coordinate-frame
-  - communication
+  - spatial-math
+  - communication-protocols
   - software-stack
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: tool
+level: intermediate
+subfield:
+  - software
+status: draft
+author: Jordan_Smith
 date: 2025-04-28
-permalink: /tf_and_topic_architecture/
+prerequisites:
+  - "[[Robot_Operating_System_(ROS)]]"
 related:
   - "[[Robot_Operating_System_(ROS)]]"
   - "[[Topics]]"

@@ -2,19 +2,19 @@
 title: Deep Learning in Robotics
 description: Deep Learning in Robotics involves the use of deep neural networks to enable robots to learn complex patterns and make decisions based on large datasets, enhancing capabilities such as perception, control, and interaction.
 tags:
-  - robotics
   - deep-learning
   - artificial-intelligence
   - machine-learning
-  - engineering
-  - glossary-term
-  - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: overview
+level: intermediate
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /deep_learning_in_robotics/
+prerequisites:
+  - "[[Deep_Learning]]"
 related:
   - "[[Artificial_Intelligence]]"
   - "[[Neural_Networks]]"

@@ -2,22 +2,21 @@
 title: Research Papers Index
 description: A curated index of seminal and influential research papers in robotics, organized by topic, with a paper note template and guide for building a personal research library within this vault.
 tags:
-  - index
+  - vault-meta
   - research
   - papers
-  - reading-list
   - references
-  - bibliography
-  - literature
-  - SLAM
+  - slam
   - manipulation
   - reinforcement-learning
   - navigation
-layout: default
-category: robotics
-author: Jordan_Smith_&_Claude
+type: reference
+level: beginner
+subfield:
+  - research-practice
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /research_papers_index/
 related:
   - "[[Resources_Index]]"
   - "[[SLAM_with_ROS]]"

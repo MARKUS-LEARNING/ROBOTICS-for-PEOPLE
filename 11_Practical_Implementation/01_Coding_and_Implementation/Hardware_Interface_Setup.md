@@ -3,23 +3,28 @@ title: Hardware Interface Setup
 description: Discusses common methods and considerations for connecting physical sensors and actuators to a robot's control computer and integrating them with software, particularly ROS.
 tags:
   - hardware
-  - interface
-  - ROS
-  - driver
-  - sensor
-  - actuator
-  - serial
-  - USB
-  - CAN
-  - EtherCAT
-  - coding
-  - implementation
+  - hardware-interface
+  - ros
+  - sensors
+  - actuators
+  - communication-protocols
+  - usb
+  - can-bus
+  - ethercat
+  - programming
   - software-stack
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: tutorial
+level: intermediate
+subfield:
+  - software
+  - electronics-embedded
+status: draft
+author: Jordan_Smith
 date: 2025-04-29
-permalink: /hardware_interface_setup/
+prerequisites:
+  - "[[ROS_2_Overview]]"
+  - "[[RViz_Tutorial]]"
+  - "[[Actions]]"
 related:
   - "[[ROS_2_Overview]]"
   - "[[Custom_Packages_and_Nodes]]"

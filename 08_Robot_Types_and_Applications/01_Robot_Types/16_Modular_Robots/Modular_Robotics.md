@@ -2,7 +2,6 @@
 title: Modular Robotics
 description: Modular Robotics involves the design and construction of robots using modular components, allowing for flexibility, reconfigurability, and adaptability in robotic systems.
 tags:
-  - robotics
   - modularity
   - design
   - flexibility
@@ -10,11 +9,13 @@ tags:
   - adaptability
   - mechatronics
   - customization
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: robot-type
+level: beginner
+subfield:
+  - modular-reconfigurable
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /modular_robotics/
 related:
   - "[[Robot_Design]]"
   - "[[Links]]"

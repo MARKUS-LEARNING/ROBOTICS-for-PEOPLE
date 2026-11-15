@@ -2,20 +2,25 @@
 title: URDF
 description: Explains the Unified Robot Description Format (URDF), the XML-based standard used in ROS to describe a robot's physical structure, kinematics, dynamics, visual appearance, and collision geometry.
 tags:
-  - URDF
-  - ROS
+  - urdf
+  - ros
   - robot-model
   - kinematics
   - robotics-software
-  - XML
+  - xml
   - simulation
-  - TF
+  - tf
   - xacro
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: tool
+level: intermediate
+subfield:
+  - software
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /urdf/
+prerequisites:
+  - "[[ROS_2_Overview]]"
+  - "[[Robot_Operating_System_(ROS)]]"
 related:
   - "[[Robot_Operating_System_(ROS)]]"
   - "[[ROS_2_Overview]]"
@@ -306,9 +311,9 @@ ros2 launch urdf_launch display.launch.py urdf_package:=my_robot urdf_package_pa
 ## Dataview Plugin Features
 
 ```dataview
-LIST FROM #URDF OR #robot-model WHERE contains(file.outlinks, [[URDF]])
+LIST FROM #urdf OR #robot-model WHERE contains(file.outlinks, [[URDF]])
 ```
 
 ```dataview
-TABLE title, description FROM #ROS WHERE contains(file.tags, "URDF")
+TABLE title, description FROM #ros WHERE contains(file.tags, "urdf")
 ```

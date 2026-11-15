@@ -4,18 +4,16 @@ description: Overview of robots used in agriculture (Agribots), covering applica
 tags:
   - robot-types
   - agriculture
-  - agribot
   - automation
-  - precision-agriculture
-  - farming
-  - harvesting
   - mobile-robot
-  - drone
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+  - aerial-robotics
+type: robot-type
+level: beginner
+subfield:
+  - agriculture
+status: draft
+author: Jordan_Smith
 date: 2025-04-28
-permalink: /agricultural_robots/
 related:
   - "[[Robots]]"
   - "[[Mobile_Robots]]"

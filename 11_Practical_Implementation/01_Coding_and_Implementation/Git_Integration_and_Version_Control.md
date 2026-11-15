@@ -2,19 +2,19 @@
 title: Git Integration and Version Control
 description: Discusses the importance and application of Git and version control systems (VCS) in managing robotics software development, particularly within the ROS ecosystem.
 tags:
-  - Git
-  - version-control
+  - git
   - robotics-software
-  - development
   - collaboration
-  - ROS
-  - coding
+  - ros
+  - programming
   - software-engineering
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: tool
+level: intermediate
+subfield:
+  - software
+status: draft
+author: Jordan_Smith
 date: 2025-04-29
-permalink: /git_integration_version_control/
 related:
   - "[[Coding_and_Implementation]]"
   - "[[Robot_Operating_System_(ROS)]]"

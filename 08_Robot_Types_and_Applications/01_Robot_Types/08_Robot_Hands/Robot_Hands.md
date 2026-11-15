@@ -8,15 +8,19 @@ tags:
   - end-effector
   - gripper
   - dexterity
-  - HRI
+  - human-robot-interaction
   - hardware
-  - sensor
-  - actuator
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+  - sensors
+  - actuators
+type: robot-type
+level: beginner
+subfield:
+  - manipulation
+status: draft
+author: Jordan_Smith
 date: 2025-04-29
-permalink: /robot_hands/
+prerequisites:
+  - "[[Manipulation]]"
 related:
   - "[[Manipulation]]"
   - "[[End-Effector]]"

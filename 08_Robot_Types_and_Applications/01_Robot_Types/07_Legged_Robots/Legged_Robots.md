@@ -11,11 +11,13 @@ tags:
   - stability
   - gait
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: robot-type
+level: beginner
+subfield:
+  - legged-humanoid
+status: draft
+author: Jordan_Smith
 date: 2025-04-29
-permalink: /legged_robots/
 related:
   - "[[Robots]]"
   - "[[Mobile_Robots]]"

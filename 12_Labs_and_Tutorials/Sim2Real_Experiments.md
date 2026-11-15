@@ -2,21 +2,21 @@
 title: Sim2Real Experiments
 description: Guide for documenting experiments focused on transferring robot controllers or policies developed in simulation to real-world hardware (Sim2Real).
 tags:
-  - sim2real
+  - sim-to-real
   - simulation
   - robot-learning
-  - RL
+  - reinforcement-learning
   - transfer-learning
   - experiment
-  - lab
-  - project
   - domain-randomization
-  - reality-gap
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: lab
+level: beginner
+subfield:
+  - robot-learning
+  - software
+status: draft
+author: Jordan_Smith
 date: 2025-04-29
-permalink: /sim2real_experiments/
 related:
   - "[[Simulation]]"
   - "[[Gazebo_Simulator]]"

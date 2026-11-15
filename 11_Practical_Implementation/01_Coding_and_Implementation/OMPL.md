@@ -2,18 +2,24 @@
 title: OMPL
 description: OMPL (Open Motion Planning Library) is an open-source library for motion planning, providing tools and algorithms for computing collision-free paths for robotic systems.
 tags:
-  - robotics
   - motion-planning
   - path-planning
   - open-source
   - algorithms
   - automation
-  - control-systems
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+  - control
+type: tool
+level: intermediate
+subfield:
+  - software
+  - planning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /ompl/
+prerequisites:
+  - "[[Path_Planning]]"
+  - "[[Motion_Planning]]"
+  - "[[Collision_Avoidance]]"
 related:
   - "[[Motion_Planning]]"
   - "[[Path_Planning]]"

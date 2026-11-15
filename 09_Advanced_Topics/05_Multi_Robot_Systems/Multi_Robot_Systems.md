@@ -2,19 +2,16 @@
 title: Multi-Robot Systems
 description: Multi-Robot Systems involve the coordination and cooperation of multiple robots to perform tasks, enhancing efficiency, robustness, and adaptability in various applications such as search and rescue, exploration, and logistics.
 tags:
-  - robotics
   - multi-robot-systems
-  - collaborative-robotics
-  - swarm-intelligence
-  - engineering
-  - glossary-term
-  - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+  - collaborative-robots
+  - swarm-robotics
+type: concept
+level: advanced
+subfield:
+  - multi-robot
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /multi_robot_systems/
 related:
   - "[[Collaborative_Robotics]]"
   - "[[Swarm_Intelligence]]"

@@ -3,20 +3,20 @@ title: Transfer Function
 description: The Transfer Function is a mathematical representation of the relationship between the input and output of a linear time-invariant (LTI) system in the frequency domain, used extensively in control theory and system analysis.
 tags:
   - control
-  - robotics
   - dynamics
   - frequency-domain
   - linear-systems
-  - engineering
-  - glossary-term
   - mechanism
-  - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: intermediate
+subfield:
+  - control
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /transfer_function/
+prerequisites:
+  - "[[Calculus_for_Robotics]]"
+  - "[[Feedback_Control]]"
 related:
   - "[[Control_Theory]]"
   - "[[LTI_Systems]]"

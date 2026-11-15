@@ -3,20 +3,20 @@ title: Hamilton-Jacobi-Bellman Equation
 description: The Hamilton-Jacobi-Bellman (HJB) Equation is a partial differential equation central to optimal control theory, used to determine the optimal value function and derive optimal control policies.
 tags:
   - control
-  - robotics
   - optimization
   - optimal-control
   - dynamics
-  - engineering
-  - glossary-term
   - mechanism
-  - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: advanced
+subfield:
+  - control
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /hamilton_jacobi_bellman_equation/
+prerequisites:
+  - "[[Control_Theory]]"
+  - "[[State_Space_Representation]]"
 related:
   - "[[Control_Theory]]"
   - "[[Optimal_Control]]"

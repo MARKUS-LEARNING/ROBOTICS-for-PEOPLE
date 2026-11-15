@@ -2,20 +2,21 @@
 title: Optimization and Loss Functions
 description: Optimization and Loss Functions are fundamental concepts in machine learning, involving the techniques and methodologies used to train models by minimizing the error between predicted and actual outputs.
 tags:
-  - robotics
   - optimization
   - loss-functions
   - machine-learning
   - model-training
-  - engineering
-  - glossary-term
-  - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: method
+level: intermediate
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /optimization_and_loss_functions/
+prerequisites:
+  - "[[Machine_Learning]]"
+  - "[[Optimization]]"
 related:
   - "[[Machine_Learning]]"
   - "[[Model_Training]]"

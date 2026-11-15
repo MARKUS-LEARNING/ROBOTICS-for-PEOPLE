@@ -2,21 +2,23 @@
 title: Gazebo Simulator
 description: Describes the Gazebo 3D robotics simulator, its features, robot/environment modeling, and its integration with ROS.
 tags:
-  - Gazebo
+  - gazebo
   - simulation
   - robotics-software
-  - ROS
-  - physics-engine
-  - 3D
+  - ros
+  - 3d
   - testing
-  - development
-  - URDF
-  - SDF
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+  - urdf
+  - sdf
+type: tool
+level: intermediate
+subfield:
+  - software
+status: draft
+author: Jordan_Smith
 date: 2025-04-28
-permalink: /gazebo_simulator/
+prerequisites:
+  - "[[Robot_Operating_System_(ROS)]]"
 related:
   - "[[Robot_Operating_System_(ROS)]]"
   - "[[Simulation]]"

@@ -2,19 +2,16 @@
 title: MATLAB (Robotics)
 description: MATLAB is a high-level programming language and interactive environment used extensively in robotics for algorithm development, data analysis, and simulation, providing tools and functions that facilitate the design and implementation of robotic systems.
 tags:
-  - robotics
   - matlab
-  - programming-language
+  - programming
   - simulation
-  - engineering
-  - glossary-term
-  - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: tool
+level: intermediate
+subfield:
+  - software
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /matlab_robotics/
 related:
   - "[[Programming]]"
   - "[[Simulation]]"

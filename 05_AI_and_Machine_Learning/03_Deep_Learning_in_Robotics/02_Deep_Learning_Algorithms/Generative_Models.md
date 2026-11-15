@@ -2,19 +2,18 @@
 title: Generative Models
 description: Generative Models are a class of machine learning models that learn to generate new data samples that resemble a given dataset, widely used in robotics for tasks such as simulation, data augmentation, and creative content generation.
 tags:
-  - robotics
   - generative-models
   - machine-learning
   - artificial-intelligence
-  - engineering
-  - glossary-term
-  - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: intermediate
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /generative_models/
+prerequisites:
+  - "[[Deep_Learning]]"
 related:
   - "[[Machine_Learning]]"
   - "[[Artificial_Intelligence]]"

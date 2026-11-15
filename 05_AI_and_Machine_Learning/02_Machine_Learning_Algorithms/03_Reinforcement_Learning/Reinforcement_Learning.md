@@ -2,19 +2,20 @@
 title: Reinforcement Learning
 description: Reinforcement Learning is a type of machine learning where an agent learns to make decisions by performing actions in an environment to achieve a goal, widely used in robotics for tasks such as control and optimization.
 tags:
-  - robotics
   - reinforcement-learning
   - machine-learning
-  - control-systems
-  - engineering
-  - glossary-term
-  - manipulator-arm
+  - control
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: method
+level: intermediate
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /reinforcement_learning/
+prerequisites:
+  - "[[Machine_Learning]]"
+  - "[[Optimization]]"
 related:
   - "[[Machine_Learning]]"
   - "[[Control_Systems]]"

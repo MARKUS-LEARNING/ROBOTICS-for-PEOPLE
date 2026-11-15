@@ -2,20 +2,24 @@
 title: Python ROS Nodes
 description: Guide to creating ROS nodes using Python (rospy for ROS 1, rclpy for ROS 2), covering core concepts, setup, use cases, and comparison with C++.
 tags:
-  - Python
-  - ROS
+  - python
+  - ros
   - rospy
   - rclpy
-  - node
+  - nodes
   - robotics-software
-  - development
-  - coding
-  - implementation
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+  - programming
+type: tutorial
+level: intermediate
+subfield:
+  - software
+status: draft
+author: Jordan_Smith
 date: 2025-04-29
-permalink: /python_ros_nodes/
+prerequisites:
+  - "[[Robot_Operating_System_(ROS)]]"
+  - "[[Actions]]"
+  - "[[Custom_Packages_and_Nodes]]"
 related:
   - "[[Python_for_Robotics]]"
   - "[[Robot_Operating_System_(ROS)]]"

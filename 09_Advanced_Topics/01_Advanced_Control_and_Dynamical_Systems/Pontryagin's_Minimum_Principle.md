@@ -3,20 +3,21 @@ title: Pontryagin's Minimum Principle
 description: Pontryagin's Minimum Principle is a fundamental theorem in optimal control theory that provides a necessary condition for optimality, used to determine the optimal control strategy for dynamic systems.
 tags:
   - control
-  - robotics
   - optimization
   - optimal-control
   - dynamics
-  - engineering
-  - glossary-term
   - mechanism
   - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: advanced
+subfield:
+  - control
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /pontryagins_minimum_principle/
+prerequisites:
+  - "[[Control_Theory]]"
+  - "[[State_Space_Representation]]"
 related:
   - "[[Control_Theory]]"
   - "[[Optimal_Control]]"

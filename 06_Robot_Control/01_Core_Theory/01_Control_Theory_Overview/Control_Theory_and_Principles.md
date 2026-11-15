@@ -1,19 +1,21 @@
 ---
 title: Control Theory
-description: "Control Theory is the study of how to manipulate the parameters affecting the behavior of a system to produce the desired or optimal outcome."
+description: Control Theory is the study of how to manipulate the parameters affecting the behavior of a system to produce the desired or optimal outcome.
 tags:
-  - robotics
-  - control-systems
+  - control
   - dynamics
-  - feedback
+  - feedback-control
   - stability
-  - engineering
   - automation
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: concept
+level: intermediate
+subfield:
+  - control
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /control_theory/
+prerequisites:
+  - "[[Control_Theory]]"
 related:
   - "[[Dynamics]]"
   - "[[Feedback_Control]]"

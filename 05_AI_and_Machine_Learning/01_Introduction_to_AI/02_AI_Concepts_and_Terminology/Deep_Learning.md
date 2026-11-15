@@ -2,19 +2,19 @@
 title: Deep Learning
 description: Deep Learning is a subset of machine learning that uses multi-layered neural networks to model and solve complex problems, enabling robots to perform tasks such as image recognition, natural language processing, and autonomous decision-making.
 tags:
-  - robotics
   - deep-learning
   - machine-learning
   - artificial-intelligence
-  - engineering
-  - glossary-term
-  - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: intermediate
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /deep_learning/
+prerequisites:
+  - "[[Neural_Networks]]"
 related:
   - "[[Machine_Learning]]"
   - "[[Neural_Networks_Basics]]"

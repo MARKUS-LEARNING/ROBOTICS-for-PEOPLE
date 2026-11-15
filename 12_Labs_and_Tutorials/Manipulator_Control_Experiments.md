@@ -3,19 +3,22 @@ title: Manipulator Control Experiments
 description: A collection and guide for documenting practical experiments related to the control of robotic manipulators.
 tags:
   - experiment
-  - lab
-  - project
-  - manipulator
+  - manipulator-arm
   - control-theory
-  - robot-arm
-  - ROS
-  - MoveIt
-  - Gazebo
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+  - ros
+  - moveit
+  - gazebo
+type: lab
+level: intermediate
+subfield:
+  - manipulation
+  - control
+status: draft
+author: Jordan_Smith
 date: 2025-04-29
-permalink: /manipulator_control_experiments/
+prerequisites:
+  - "[[PID_Control]]"
+  - "[[Manipulation]]"
 related:
   - "[[Labs_Projects_and_Tutorials]]"
   - "[[Manipulation]]"

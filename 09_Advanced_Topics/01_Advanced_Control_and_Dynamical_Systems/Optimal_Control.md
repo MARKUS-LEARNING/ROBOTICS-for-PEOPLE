@@ -3,20 +3,21 @@ title: Optimal Control
 description: Optimal Control is a branch of control theory that focuses on finding control strategies that minimize or maximize a cost function subject to system dynamics and constraints.
 tags:
   - control
-  - robotics
   - optimization
   - optimal-control
   - dynamics
-  - engineering
-  - glossary-term
   - mechanism
-  - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: method
+level: advanced
+subfield:
+  - control
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /optimal_control/
+prerequisites:
+  - "[[Control_Theory]]"
+  - "[[State_Space_Representation]]"
+  - "[[Linear_Quadratic_Regulator_(LQR)]]"
 related:
   - "[[Control_Theory]]"
   - "[[Dynamics]]"

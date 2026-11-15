@@ -2,19 +2,14 @@
 title: Drones
 description: Drones, or unmanned aerial vehicles (UAVs), are robotic systems designed to operate autonomously or semi-autonomously in the air, performing tasks such as surveillance, delivery, and environmental monitoring.
 tags:
-  - robotics
-  - drones
-  - unmanned-aerial-vehicles
   - aerial-robotics
-  - engineering
-  - glossary-term
-  - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: robot-type
+level: beginner
+subfield:
+  - aerial-robotics
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /drones/
 related:
   - "[[Aerial_Robotics]]"
   - "[[Unmanned_Systems]]"

@@ -2,19 +2,20 @@
 title: Embodied AI
 description: Embodied AI refers to the integration of artificial intelligence within physical robotic systems, enabling them to interact with and adapt to their environment through sensory inputs and motor actions.
 tags:
-  - robotics
   - embodied-ai
   - artificial-intelligence
   - machine-learning
-  - engineering
-  - glossary-term
   - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: intermediate
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /embodied_ai/
+prerequisites:
+  - "[[Artificial_Intelligence]]"
 related:
   - "[[Artificial_Intelligence]]"
   - "[[Robotics]]"

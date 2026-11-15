@@ -3,20 +3,21 @@ title: Hybrid Systems and Control
 description: Hybrid Systems and Control involves the study and management of systems that exhibit both continuous and discrete dynamic behaviors, requiring specialized strategies to handle transitions and interactions between different modes of operation.
 tags:
   - control
-  - robotics
   - hybrid-systems
   - control-theory
   - dynamics
-  - engineering
-  - glossary-term
   - mechanism
   - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: method
+level: advanced
+subfield:
+  - control
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /hybrid_systems_and_control/
+prerequisites:
+  - "[[Control_Theory]]"
+  - "[[State_Space_Representation]]"
 related:
   - "[[Control_Theory]]"
   - "[[Dynamics]]"

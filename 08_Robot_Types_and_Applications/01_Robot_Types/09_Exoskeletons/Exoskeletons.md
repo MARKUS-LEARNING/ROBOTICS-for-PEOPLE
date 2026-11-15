@@ -4,17 +4,18 @@ description: Overview of robotic exoskeletons, wearable devices designed to augm
 tags:
   - robot-types
   - exoskeleton
-  - wearable-robotics
-  - HRI
+  - human-robot-interaction
   - assistive-robotics
   - rehabilitation
   - augmentation
   - biomechanics
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: robot-type
+level: beginner
+subfield:
+  - assistive-rehabilitation
+status: draft
+author: Jordan_Smith
 date: 2025-04-29
-permalink: /exoskeletons/
 related:
   - "[[Robots]]"
   - "[[Wearable_Robotics]]"

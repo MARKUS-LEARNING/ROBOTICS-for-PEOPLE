@@ -2,20 +2,23 @@
 title: Custom Packages and Nodes
 description: Explains how to create custom software components (packages and nodes) within the ROS framework to implement specific robotic functionalities.
 tags:
-  - ROS
+  - ros
   - package
-  - node
+  - nodes
   - robotics-software
-  - development
   - catkin
   - colcon
   - middleware
   - software-stack
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: tool
+level: intermediate
+subfield:
+  - software
+status: draft
+author: Jordan_Smith
 date: 2025-04-28
-permalink: /custom_packages_and_nodes/
+prerequisites:
+  - "[[ROS_2_Overview]]"
 related:
   - "[[ROS (Robot Operating System)]]"
   - "[[Nodes]]"

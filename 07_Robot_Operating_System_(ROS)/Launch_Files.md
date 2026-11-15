@@ -2,19 +2,24 @@
 title: Launch Files
 description: Explains the ROS launch system, which provides a mechanism for starting and configuring multiple nodes simultaneously with a single command, covering both ROS 1 XML launch files and ROS 2 Python-based launch files.
 tags:
-  - ROS
-  - ROS2
+  - ros
+  - ros2
   - launch
   - robotics-software
   - configuration
   - middleware
   - software-stack
   - colcon
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: tool
+level: intermediate
+subfield:
+  - software
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /launch_files/
+prerequisites:
+  - "[[ROS_2_Overview]]"
+  - "[[Robot_Operating_System_(ROS)]]"
 related:
   - "[[Robot_Operating_System_(ROS)]]"
   - "[[ROS_2_Overview]]"
@@ -230,9 +235,9 @@ Launch files are the primary mechanism for defining and deploying complete robot
 ## Dataview Plugin Features
 
 ```dataview
-LIST FROM #ROS OR #robotics-software WHERE contains(file.outlinks, [[Launch_Files]])
+LIST FROM #ros OR #robotics-software WHERE contains(file.outlinks, [[Launch_Files]])
 ```
 
 ```dataview
-TABLE title, description FROM #ROS WHERE contains(file.tags, "launch")
+TABLE title, description FROM #ros WHERE contains(file.tags, "launch")
 ```

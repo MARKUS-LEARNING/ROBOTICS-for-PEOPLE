@@ -3,17 +3,19 @@ title: Shape Memory Alloys
 description: Shape Memory Alloys (SMAs) are materials that can return to a predefined shape upon heating, exhibiting unique properties like superelasticity and shape memory effect.
 tags:
   - materials
-  - robotics
-  - engineering
   - actuators
   - sensors
-type: Material
-application: Actuators and sensors in robotic systems
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: component
+level: advanced
+subfield:
+  - mechanisms-actuation
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /shape-memory-alloys/
+prerequisites:
+  - "[[Robot_Design]]"
+  - "[[Actuator]]"
+  - "[[Mechatronics]]"
 related:
   - "[[Material_Science]]"
   - "[[Robot_Design]]"

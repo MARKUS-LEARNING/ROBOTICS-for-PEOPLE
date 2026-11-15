@@ -2,19 +2,19 @@
 title: Transfer Learning
 description: Transfer Learning is a machine learning technique where a pre-trained model is used as the starting point for a model on a second task, leveraging knowledge from one domain to improve learning in another.
 tags:
-  - robotics
   - transfer-learning
   - machine-learning
   - artificial-intelligence
-  - engineering
-  - glossary-term
-  - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: method
+level: intermediate
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /transfer_learning/
+prerequisites:
+  - "[[Deep_Learning]]"
 related:
   - "[[Machine_Learning]]"
   - "[[Neural_Networks]]"

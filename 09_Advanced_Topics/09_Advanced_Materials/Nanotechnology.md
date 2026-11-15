@@ -2,18 +2,15 @@
 title: Nanotechnology
 description: Nanotechnology involves the manipulation and engineering of materials and devices at the nanoscale, typically between 1 and 100 nanometers.
 tags:
-  - technology
   - materials
-  - science
-  - robotics
-  - engineering
-type: Technology
-application: Advanced materials and devices at the nanoscale
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: advanced
+subfield:
+  - micro-nano
+  - mechanisms-actuation
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /nanotechnology/
 related:
   - "[[Material_Science]]"
   - "[[Robot_Design]]"

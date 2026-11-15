@@ -3,21 +3,23 @@ title: Feedback Linearization
 description: Feedback Linearization is a control technique used to transform nonlinear systems into equivalent linear systems through state feedback, enabling the application of linear control methods.
 tags:
   - control
-  - robotics
   - nonlinear-systems
   - feedback-linearization
   - control-theory
   - dynamics
-  - engineering
-  - glossary-term
   - mechanism
   - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: method
+level: advanced
+subfield:
+  - control
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /feedback_linearization/
+prerequisites:
+  - "[[Control_Theory]]"
+  - "[[PID_Control]]"
+  - "[[State_Space_Representation]]"
 related:
   - "[[Control_Theory]]"
   - "[[Nonlinear_Control_Theory]]"

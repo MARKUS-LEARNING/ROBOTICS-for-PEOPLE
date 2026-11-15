@@ -2,20 +2,21 @@
 title: RViz Tutorial
 description: An introduction to RViz, the primary 3D visualization tool for ROS, covering its purpose, key features, and basic usage.
 tags:
-  - RViz
-  - ROS
+  - rviz
+  - ros
   - visualization
   - debugging
   - robotics-software
-  - TF
-  - sensor-data
-  - tutorial
+  - tf
+  - sensors
   - software-stack
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: tutorial
+level: intermediate
+subfield:
+  - software
+status: draft
+author: Jordan_Smith
 date: 2025-04-28
-permalink: /rviz_tutorial/
 related:
   - "[[ROS (Robot Operating System)]]"
   - "[[Visualization]]"
