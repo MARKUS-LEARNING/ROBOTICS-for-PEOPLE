@@ -177,6 +177,19 @@ python3 tools/vault.py fix-links        # find links that misspell an existing n
 
 The [[Subfield_Atlas]], [[Learning_Paths]] and [[Frontier]] are generated from every note's frontmatter. After adding or editing notes, run `pages --write` and commit the result; CI fails if they are out of date.
 
+### The website and the agent files
+
+Every push to `main` publishes the vault as a website on GitHub Pages and generates files for AI agents: `llms.txt`, `llms-full.txt`, one text file per chapter, `graph.json` (the knowledge graph, described by `tools/graph.schema.json`), and the raw Markdown of every note. To build it locally (Node 22 and Python 3.10+):
+
+```bash
+git clone --depth 1 --branch v4.5.2 https://github.com/jackyzha0/quartz.git .quartz && (cd .quartz && npm ci)
+python3 tools/sitebuild.py prep --quartz .quartz        # copy the vault, compile Dataview, add metadata strips
+(cd .quartz && npx quartz build -d content -o public --serve)
+python3 tools/sitebuild.py export --out .quartz/public  # llms.txt, graph.json, raw/
+```
+
+On the site, each note opens with a strip showing its level, status, subfields and what to read first. Dataview queries are compiled to static lists and tables, and links to notes not written yet show as plain text.
+
 `obsidian-check` uses the official [Obsidian CLI](https://help.obsidian.md/cli). It needs Obsidian 1.12+ running with this folder open as a vault, and Settings → General → Command line interface turned on. It checks that the tooling and Obsidian agree on every unresolved link and tag.
 
 Every pull request runs the same lint in GitHub Actions. One rule always applies: **the number of unresolved links may only go down.** The baseline is in `tools/baseline.json`.

@@ -23,3 +23,7 @@ CLAUDE.md
 __pycache__/
 *.pyc
 .venv/
+
+# Site build (Quartz checkout and output)
+.quartz/
+public/
