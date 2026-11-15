@@ -16,7 +16,7 @@ permalink: /sampling_based_planning/
 related:
   - "[[Motion_Planning]]"
   - "[[Path_Planning_Algorithms]]"
-  - "[[ROBOTICS-for-EVERYONE/03_Kinematics_and_Dynamics/03_Trajectory_Planning/Configuration_Space]]"
+  - "[[Configuration_Space]]"
   - "[[Collision_Detection]]"
   - "[[Probabilistic_Roadmaps]]"
   - "[[Rapidly-exploring_Random_Trees]]"

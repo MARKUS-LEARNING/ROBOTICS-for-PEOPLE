@@ -30,7 +30,7 @@ related:
   - "[[FCL]]"
   - "[[PCL]]"
   - "[[Collision_Detection]]"
-  - "[[ROBOTICS-for-EVERYONE/03_Kinematics_and_Dynamics/03_Trajectory_Planning/Configuration_Space]]"
+  - "[[Configuration_Space]]"
   - "[[URDF]]"
   - "[[SLAM]]"
   - "[[Coding_and_Implementation]]"
@@ -44,7 +44,7 @@ related:
 
 ## Core Problem Revisited
 
-The fundamental goal remains the same as described in [[Path Planning Algorithms]]: find a geometrically valid sequence of robot configurations (a *path*) from a start state to a goal state within the robot's [[ROBOTICS-for-EVERYONE/03_Kinematics_and_Dynamics/03_Trajectory_Planning/Configuration_Space]], while avoiding collisions with obstacles defined in the [[Workspace]]. Often, this path is then time-parameterized to create a smooth, executable *trajectory* specifying velocity and acceleration profiles ([[Trajectory_Planning]]). Both path and trajectory planning stages often leverage C++ implementations.
+The fundamental goal remains the same as described in [[Path Planning Algorithms]]: find a geometrically valid sequence of robot configurations (a *path*) from a start state to a goal state within the robot's [[Configuration_Space]], while avoiding collisions with obstacles defined in the [[Workspace]]. Often, this path is then time-parameterized to create a smooth, executable *trajectory* specifying velocity and acceleration profiles ([[Trajectory_Planning]]). Both path and trajectory planning stages often leverage C++ implementations.
 
 ---
 
@@ -81,7 +81,7 @@ Instead of implementing complex algorithms from scratch, developers typically le
 ## Implementation Aspects in C++
 
 * **Representations:**
-    * **Robot State/[[ROBOTICS-for-EVERYONE/03_Kinematics_and_Dynamics/03_Trajectory_Planning/Configuration_Space]]:** Often represented using standard C++ data structures (`std::vector<double>`) or specialized classes/structs, sometimes defined by the planning library (e.g., `ompl::base::State`).
+    * **Robot State/[[Configuration_Space]]:** Often represented using standard C++ data structures (`std::vector<double>`) or specialized classes/structs, sometimes defined by the planning library (e.g., `ompl::base::State`).
     * **Environment:** Collision geometry often represented using FCL's internal structures or PCL point clouds. Occupancy grids might use multi-dimensional arrays or specialized libraries. Robot models parsed from [[URDF]]/SDF using libraries like `urdfdom` or ROS-specific parsers.
     * **Paths/Trajectories:** Represented as sequences (`std::vector`) of states or waypoints, potentially using library-specific classes (e.g., `moveit_msgs::RobotTrajectory`, `ompl::geometric::PathGeometric`).
 * **Algorithms:** C++ implementations leverage efficiency through pointers, references, optimized loops, and efficient data structures (e.g., k-d trees from FLANN or nanoflann for nearest-neighbor searches in sampling-based planners). Object-Oriented Programming (OOP) principles help structure complex planning algorithms and state representations.

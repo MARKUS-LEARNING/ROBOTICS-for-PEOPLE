@@ -20,7 +20,7 @@ related:
   - "[[Dynamics]]"
   - "[[Trajectory_Planning]]"
   - "[[Obstacle_Avoidance]]"
-  - "[[ROBOTICS-for-EVERYONE/03_Kinematics_and_Dynamics/03_Trajectory_Planning/Configuration_Space]]"
+  - "[[Configuration_Space]]"
   - "[[Collision_Detection]]"
   - "[[Sampling-Based_Planning]]"
   - "[[Graph-Based_Planning]]"

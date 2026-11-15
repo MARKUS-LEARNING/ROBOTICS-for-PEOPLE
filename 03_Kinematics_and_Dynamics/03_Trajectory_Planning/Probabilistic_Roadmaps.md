@@ -16,7 +16,7 @@ permalink: /probabilistic_roadmaps/
 related:
   - "[[Motion_Planning]]"
   - "[[Path_Planning_Algorithms]]"
-  - "[[ROBOTICS-for-EVERYONE/03_Kinematics_and_Dynamics/03_Trajectory_Planning/Configuration_Space]]"
+  - "[[Configuration_Space]]"
   - "[[Collision_Detection]]"
   - "[[Sampling-Based_Planning]]"
 ---

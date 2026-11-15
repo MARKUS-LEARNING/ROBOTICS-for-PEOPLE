@@ -16,7 +16,7 @@ date: 2025-05-03
 permalink: /collision_detection/
 related:
   - "[[Motion_Planning]]"
-  - "[[ROBOTICS-for-EVERYONE/03_Kinematics_and_Dynamics/03_Trajectory_Planning/Configuration_Space]]"
+  - "[[Configuration_Space]]"
   - "[[Obstacle_Avoidance]]"
   - "[[Sensors]]"
   - "[[Path_Planning_Algorithms]]"
