@@ -330,6 +330,7 @@ vocabulary:
   - dh-parameters
   - differential-equations
   - differential-kinematics
+  - diffusion-models
   - digital-signal-processing
   - discrete-mathematics
   - distance-measurement
@@ -366,6 +367,7 @@ vocabulary:
   - forces
   - formal-methods
   - forward-kinematics
+  - foundation-models
   - frequency-domain
   - future-of-robotics
   - gait
@@ -390,6 +392,7 @@ vocabulary:
   - hydraulics
   - ide
   - image-processing
+  - imitation-learning
   - implants
   - imu
   - imu-calibration
@@ -620,6 +623,7 @@ vocabulary:
   - velocity
   - verification
   - via-points
+  - vision-language-action
   - visual-servoing
   - visualization
   - vscode
@@ -627,6 +631,7 @@ vocabulary:
   - wishlist
   - workcell-design
   - workspace
+  - world-models
   - xacro
   - xml
   - youtube
