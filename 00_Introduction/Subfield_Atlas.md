@@ -46,9 +46,9 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 
 *What robots are and how the field fits together: definitions, robot anatomy, and the big picture that connects every other subfield.* (`subfield: foundations`)
 
-**Start here:** [[Robotics]] → [[Robot_Design]] → [[Actuator]] → [[Mechatronics]]
+**Start here:** [[Robotics]] → [[Robot_Design|Robot Design]] → [[Actuator]] → [[Mechatronics]]
 
-**All 8 notes, in reading order:** [[Robotics]] · [[Robot_Design]] · [[Actuator]] · [[Mechatronics]] · [[Robots]] · [[Links_and_Joints_Definitions]] · [[End_Effector_Definition]] · [[Actuator_Definition]]
+**All 8 notes, in reading order:** [[Robotics]] · [[Robot_Design|Robot Design]] · [[Actuator]] · [[Mechatronics]] · [[Robots]] · [[Links_and_Joints_Definitions|Links and Joints Definitions]] · [[End_Effector_Definition|End Effector Definition]] · [[Actuator_Definition|Actuator Definition]]
 
 ### Mathematics for Robotics
 
@@ -56,95 +56,95 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 
 **Keystones:** [[Product_of_Exponentials|Product of Exponentials (PoE)]]
 
-**Start here:** [[Optimization]] → [[Graph_Theory]] → [[Pose_Representation]] → [[Euclidean_Space]]
+**Start here:** [[Optimization]] → [[Graph_Theory|Graph Theory]] → [[Pose_Representation|Pose Representation]] → [[Euclidean_Space|Euclidean Space]]
 
-**All 15 notes, in reading order:** [[Optimization]] · [[Graph_Theory]] · [[Pose_Representation]] · [[Euclidean_Space]] · [[Linear_Algebra_for_Robotics]] · [[Lie_Groups|Lie Groups (SO(3), SE(3))]] · [[Euler_Angles]] · [[Quaternions]] · [[Rotation_Matrix]] · [[Bayesian_Inference]] · [[Calculus_for_Robotics]] · [[Probability_and_Statistics_for_Robotics]] · [[Optimization_for_Robotics]] · [[Homogeneous_Transformation]] · [[Product_of_Exponentials|Product of Exponentials (PoE)]]
+**All 15 notes, in reading order:** [[Optimization]] · [[Graph_Theory|Graph Theory]] · [[Pose_Representation|Pose Representation]] · [[Euclidean_Space|Euclidean Space]] · [[Linear_Algebra_for_Robotics|Linear Algebra for Robotics]] · [[Lie_Groups|Lie Groups (SO(3), SE(3))]] · [[Euler_Angles|Euler Angles]] · [[Quaternions]] · [[Rotation_Matrix|Rotation Matrix]] · [[Bayesian_Inference|Bayesian Inference]] · [[Calculus_for_Robotics|Calculus for Robotics]] · [[Probability_and_Statistics_for_Robotics|Probability and Statistics for Robotics]] · [[Optimization_for_Robotics|Optimization for Robotics]] · [[Homogeneous_Transformation|Homogeneous Transformation]] · [[Product_of_Exponentials|Product of Exponentials (PoE)]]
 
 ### Kinematics and Dynamics
 
 *How bodies and chains move and why: forward/inverse/differential kinematics, Jacobians, Newton-Euler and Lagrangian dynamics.* (`subfield: kinematics-dynamics`)
 
-**Keystones:** [[Kinematics_and_Dynamics]] · [[Kinematics]] · [[Dynamics]] · [[Forward_Kinematics|Forward Kinematics (FK)]] · [[Jacobian_Matrix]] · [[Inverse_Kinematics|Inverse Kinematics (IK)]] · [[Singularities]] · [[DH_Parameters|DH Parameters (Denavit-Hartenberg)]] · [[Manipulability]] · [[Product_of_Exponentials|Product of Exponentials (PoE)]]
+**Keystones:** [[Kinematics_and_Dynamics|Kinematics and Dynamics]] · [[Kinematics]] · [[Dynamics]] · [[Forward_Kinematics|Forward Kinematics (FK)]] · [[Jacobian_Matrix|Jacobian Matrix]] · [[Inverse_Kinematics|Inverse Kinematics (IK)]] · [[Singularities]] · [[DH_Parameters|DH Parameters (Denavit-Hartenberg)]] · [[Manipulability]] · [[Product_of_Exponentials|Product of Exponentials (PoE)]]
 
-**Start here:** [[Degrees_of_Freedom|Degrees of Freedom (DoF)]] → [[Statics]] → [[Workspace_Analysis]] → [[Grübler's_Formula]]
+**Start here:** [[Degrees_of_Freedom|Degrees of Freedom (DoF)]] → [[Statics]] → [[Workspace_Analysis|Workspace Analysis]] → [[Grübler's_Formula|Grübler's Formula]]
 
-**All 64 notes, in reading order:** [[Degrees_of_Freedom|Degrees of Freedom (DoF)]] · [[Statics]] · [[Workspace_Analysis]] · [[Grübler's_Formula]] · [[Pose_Representation]] · [[Joints_(DoF)|Joints]] · [[Links_(DoF)|Links]] · [[Task_Space_and_Workspace]] · [[Constraint_Analysis]] · [[Independent_Constraints_(DoF)]] · [[Rotational_Degrees_of_Freedom]] · [[SRS_Arm]] · [[Translational_Degrees_of_Freedom]] · [[Parallel_Robots]] · [[Kinematics_and_Dynamics]] · [[Mechanisms_and_Actuation]] · [[Kinematics]] · [[Dynamics]] · [[Locomotion]] · [[Configuration_Space]] · [[Kinematic_Chains]] · [[Links]] · [[Manipulator_Dynamics]] · [[Workspace]] · [[Joint_Kinematics]] · [[Stiffness]] · [[Friction]] · [[Homogeneous_Transformation]] · [[Forward_Kinematics|Forward Kinematics (FK)]] · [[Jacobian_Matrix]] · [[Inverse_Kinematics|Inverse Kinematics (IK)]] · [[Singularities]] · [[Joints]] · [[DH_Parameters|DH Parameters (Denavit-Hartenberg)]] · [[Nonholonomic_Constraint]] · [[Inertia]] · [[Manipulability]] · [[Motion_Control]] · [[Parallel_Mechanisms_and_Robots]] · [[Rigid_Body_Dynamics]] · [[Stability]] · [[Manipulator_Arm_Types]] · [[Newton-Euler_Equations]] · [[Torque]] · [[Cartesian_Space]] · [[DC_Motors]] · [[Product_of_Exponentials|Product of Exponentials (PoE)]] · [[Rotational_Dynamics]] · [[Angular_Momentum]] · [[Torque_and_Force_Calculations|Joints]] · [[Robot_Gaits]] · [[Stewart_Platform]] · [[Analytical_IK_Solutions]] · [[Instantaneous_Center_of_Rotation_(ICR)]] · [[Nonholonomic_Systems]] · [[Numerical_IK_Solutions]] · [[Ball_Screw]] · [[Brushless_DC_Motors]] · [[Lagrangian_Dynamics]] · [[Linear_Quadratic_Regulator_(LQR)]] · [[Mechanics]] · [[Singularities_Dynamic_Effects|Singularities and Dynamic Effects]] · [[Forward_vs_Inverse_Problems]] · [[Jacobian_and_Differential_Kinematics]]
+**All 64 notes, in reading order:** [[Degrees_of_Freedom|Degrees of Freedom (DoF)]] · [[Statics]] · [[Workspace_Analysis|Workspace Analysis]] · [[Grübler's_Formula|Grübler's Formula]] · [[Pose_Representation|Pose Representation]] · [[Joints_(DoF)|Joints]] · [[Links_(DoF)|Links]] · [[Task_Space_and_Workspace|Task Space and Workspace]] · [[Constraint_Analysis]] · [[Independent_Constraints_(DoF)|Independent Constraints (DoF)]] · [[Rotational_Degrees_of_Freedom|Rotational Degrees of Freedom]] · [[SRS_Arm|SRS Arm]] · [[Translational_Degrees_of_Freedom|Translational Degrees of Freedom]] · [[Parallel_Robots|Parallel Robots]] · [[Kinematics_and_Dynamics|Kinematics and Dynamics]] · [[Mechanisms_and_Actuation|Mechanisms and Actuation]] · [[Kinematics]] · [[Dynamics]] · [[Locomotion]] · [[Configuration_Space|Configuration Space]] · [[Kinematic_Chains|Kinematic Chains]] · [[Links]] · [[Manipulator_Dynamics|Manipulator Dynamics]] · [[Workspace]] · [[Joint_Kinematics|Joint Kinematics]] · [[Stiffness]] · [[Friction]] · [[Homogeneous_Transformation|Homogeneous Transformation]] · [[Forward_Kinematics|Forward Kinematics (FK)]] · [[Jacobian_Matrix|Jacobian Matrix]] · [[Inverse_Kinematics|Inverse Kinematics (IK)]] · [[Singularities]] · [[Joints]] · [[DH_Parameters|DH Parameters (Denavit-Hartenberg)]] · [[Nonholonomic_Constraint|Nonholonomic Constraint]] · [[Inertia]] · [[Manipulability]] · [[Motion_Control|Motion Control]] · [[Parallel_Mechanisms_and_Robots|Parallel Mechanisms and Robots]] · [[Rigid_Body_Dynamics|Rigid Body Dynamics]] · [[Stability]] · [[Manipulator_Arm_Types|Manipulator Arm Types]] · [[Newton-Euler_Equations|Newton-Euler Equations]] · [[Torque]] · [[Cartesian_Space|Cartesian Space]] · [[DC_Motors|DC Motors]] · [[Product_of_Exponentials|Product of Exponentials (PoE)]] · [[Rotational_Dynamics|Rotational Dynamics]] · [[Angular_Momentum|Angular Momentum]] · [[Torque_and_Force_Calculations|Joints]] · [[Robot_Gaits|Robot Gaits]] · [[Stewart_Platform|Stewart Platform]] · [[Analytical_IK_Solutions|Analytical IK Solutions]] · [[Instantaneous_Center_of_Rotation_(ICR)|Instantaneous Center of Rotation (ICR)]] · [[Nonholonomic_Systems|Nonholonomic Systems]] · [[Numerical_IK_Solutions|Numerical IK Solutions]] · [[Ball_Screw|Ball Screw]] · [[Brushless_DC_Motors|Brushless DC Motors]] · [[Lagrangian_Dynamics|Lagrangian Dynamics]] · [[Linear_Quadratic_Regulator_(LQR)|Linear Quadratic Regulator (LQR)]] · [[Mechanics]] · [[Singularities_Dynamic_Effects|Singularities and Dynamic Effects]] · [[Forward_vs_Inverse_Problems|Forward vs Inverse Problems]] · [[Jacobian_and_Differential_Kinematics|Jacobian and Differential Kinematics]]
 
 ### Mechanisms, Actuation and Materials
 
 *Joints, linkages, gears and transmissions, motors, hydraulics and pneumatics, and the materials robots are made of.* (`subfield: mechanisms-actuation`)
 
-**Start here:** [[Robot_Design]] → [[Actuator]] → [[Mechatronics]] → [[Power_Density]]
+**Start here:** [[Robot_Design|Robot Design]] → [[Actuator]] → [[Mechatronics]] → [[Power_Density|Power Density]]
 
-**All 41 notes, in reading order:** [[Robot_Design]] · [[Actuator]] · [[Mechatronics]] · [[Power_Density]] · [[Structural_Analysis]] · [[Grübler's_Formula]] · [[Links_and_Joints_Definitions]] · [[Actuator_Definition]] · [[Soft_Robotics]] · [[Parallel_Robots]] · [[Hardware_Shopping_List]] · [[Mechanisms_and_Actuation]] · [[Kinematic_Chains]] · [[Electric_Motors]] · [[Transmission_Mechanisms]] · [[Gears]] · [[Backlash]] · [[Servo_Motors]] · [[Mechanism_Design]] · [[Stepper_Motors]] · [[Hydraulic_Systems]] · [[DC_Motors]] · [[Differential_Drive]] · [[Pneumatic_Systems]] · [[Remote_Actuation]] · [[Stewart_Platform]] · [[Variable_Stiffness_Actuators]] · [[Ball_Screw]] · [[Brushless_DC_Motors]] · [[Mechanics]] · [[Direct_Drive_Robots]] · [[Harmonic_Drive]] · [[Piezoelectricity]] · [[Material_Science]] · [[Nanotechnology]] · [[Composite_Materials]] · [[Shape_Memory_Alloys]] · [[Biomaterials]] · [[Electroactive_Polymers]] · [[Smart_Materials]] · [[MEMS|Microelectromechanical Systems (MEMS)]]
+**All 41 notes, in reading order:** [[Robot_Design|Robot Design]] · [[Actuator]] · [[Mechatronics]] · [[Power_Density|Power Density]] · [[Structural_Analysis|Structural Analysis]] · [[Grübler's_Formula|Grübler's Formula]] · [[Links_and_Joints_Definitions|Links and Joints Definitions]] · [[Actuator_Definition|Actuator Definition]] · [[Soft_Robotics|Soft Robotics]] · [[Parallel_Robots|Parallel Robots]] · [[Hardware_Shopping_List|Hardware Shopping List]] · [[Mechanisms_and_Actuation|Mechanisms and Actuation]] · [[Kinematic_Chains|Kinematic Chains]] · [[Electric_Motors|Electric Motors]] · [[Transmission_Mechanisms|Transmission Mechanisms]] · [[Gears]] · [[Backlash]] · [[Servo_Motors|Servo Motors]] · [[Mechanism_Design|Mechanism Design]] · [[Stepper_Motors|Stepper Motors]] · [[Hydraulic_Systems|Hydraulic Systems]] · [[DC_Motors|DC Motors]] · [[Differential_Drive|Differential Drive]] · [[Pneumatic_Systems|Pneumatic Systems]] · [[Remote_Actuation|Remote Actuation]] · [[Stewart_Platform|Stewart Platform]] · [[Variable_Stiffness_Actuators|Variable Stiffness Actuators]] · [[Ball_Screw|Ball Screw]] · [[Brushless_DC_Motors|Brushless DC Motors]] · [[Mechanics]] · [[Direct_Drive_Robots|Direct Drive Robots]] · [[Harmonic_Drive|Harmonic Drive]] · [[Piezoelectricity]] · [[Material_Science|Material Science]] · [[Nanotechnology]] · [[Composite_Materials|Composite Materials]] · [[Shape_Memory_Alloys|Shape Memory Alloys]] · [[Biomaterials]] · [[Electroactive_Polymers|Electroactive Polymers]] · [[Smart_Materials|Smart Materials]] · [[MEMS|Microelectromechanical Systems (MEMS)]]
 
 ### Sensing and Perception
 
 *Sensors and turning their signals into understanding: cameras, LIDAR, IMUs, computer vision, calibration.* (`subfield: perception`)
 
-**Keystones:** [[Sensors]] · [[Sensor_Fusion]] · [[Perception]] · [[Mapping]] · [[Camera_Systems]] · [[LIDAR|LIDAR (Light Detection and Ranging)]] · [[IMU_Sensors|IMU Sensors (Inertial Measurement Unit)]] · [[Computer_Vision]]
+**Keystones:** [[Sensors]] · [[Sensor_Fusion|Sensor Fusion]] · [[Perception]] · [[Mapping]] · [[Camera_Systems|Camera Systems]] · [[LIDAR|LIDAR (Light Detection and Ranging)]] · [[IMU_Sensors|IMU Sensors (Inertial Measurement Unit)]] · [[Computer_Vision|Computer Vision]]
 
-**Start here:** [[Sensors]] → [[Sensor_Fusion]] → [[Perception]] → [[Mapping]]
+**Start here:** [[Sensors]] → [[Sensor_Fusion|Sensor Fusion]] → [[Perception]] → [[Mapping]]
 
-**All 21 notes, in reading order:** [[Sensors]] · [[Sensor_Fusion]] · [[Perception]] · [[Mapping]] · [[Computer_Vision_in_Robotics]] · [[Camera_Systems]] · [[LIDAR|LIDAR (Light Detection and Ranging)]] · [[IMU_Sensors|IMU Sensors (Inertial Measurement Unit)]] · [[Computer_Vision]] · [[Obstacle_Avoidance]] · [[RGB-D_Sensor]] · [[Sensor_Calibration_Techniques]] · [[Encoders]] · [[Range_Sensor]] · [[Ultrasonic_Sensors]] · [[Resolvers]] · [[Piezoelectricity]] · [[MEMS|Microelectromechanical Systems (MEMS)]] · [[Active_Perception_and_Sensing]] · [[Event_Based_Sensing_and_Processing|Event-Based Sensing and Processing]] · [[Semantic_Scene_Understanding|Semantic Scene Understanding (Beyond Geometric Mapping)]]
+**All 21 notes, in reading order:** [[Sensors]] · [[Sensor_Fusion|Sensor Fusion]] · [[Perception]] · [[Mapping]] · [[Computer_Vision_in_Robotics|Computer Vision in Robotics]] · [[Camera_Systems|Camera Systems]] · [[LIDAR|LIDAR (Light Detection and Ranging)]] · [[IMU_Sensors|IMU Sensors (Inertial Measurement Unit)]] · [[Computer_Vision|Computer Vision]] · [[Obstacle_Avoidance|Obstacle Avoidance]] · [[RGB-D_Sensor|RGB-D Sensor]] · [[Sensor_Calibration_Techniques|Sensor Calibration Techniques]] · [[Encoders]] · [[Range_Sensor|Range Sensor]] · [[Ultrasonic_Sensors|Ultrasonic Sensors]] · [[Resolvers]] · [[Piezoelectricity]] · [[MEMS|Microelectromechanical Systems (MEMS)]] · [[Active_Perception_and_Sensing|Active Perception and Sensing]] · [[Event_Based_Sensing_and_Processing|Event-Based Sensing and Processing]] · [[Semantic_Scene_Understanding|Semantic Scene Understanding (Beyond Geometric Mapping)]]
 
 ### State Estimation, Localization and Mapping
 
 *Knowing where the robot is and what is around it: filters, sensor fusion, localization, mapping and SLAM.* (`subfield: estimation-mapping`)
 
-**Keystones:** [[Sensor_Fusion]] · [[Perception]] · [[Kalman_Filter]] · [[Localization]] · [[Mapping]]
+**Keystones:** [[Sensor_Fusion|Sensor Fusion]] · [[Perception]] · [[Kalman_Filter|Kalman Filter]] · [[Localization]] · [[Mapping]]
 
-**Start here:** [[Sensor_Fusion]] → [[Perception]] → [[Bayesian_Inference]] → [[Kalman_Filter]]
+**Start here:** [[Sensor_Fusion|Sensor Fusion]] → [[Perception]] → [[Bayesian_Inference|Bayesian Inference]] → [[Kalman_Filter|Kalman Filter]]
 
-**All 14 notes, in reading order:** [[Sensor_Fusion]] · [[Perception]] · [[Bayesian_Inference]] · [[Kalman_Filter]] · [[Localization]] · [[Mapping]] · [[SLAM|SLAM (Simultaneous Localization and Mapping)]] · [[GPS]] · [[Estimation]] · [[SLAM_with_ROS]] · [[Probabilistic_Robotics]] · [[Active_Perception_and_Sensing]] · [[Advanced_Sensor_Fusion]] · [[Semantic_Scene_Understanding|Semantic Scene Understanding (Beyond Geometric Mapping)]]
+**All 14 notes, in reading order:** [[Sensor_Fusion|Sensor Fusion]] · [[Perception]] · [[Bayesian_Inference|Bayesian Inference]] · [[Kalman_Filter|Kalman Filter]] · [[Localization]] · [[Mapping]] · [[SLAM|SLAM (Simultaneous Localization and Mapping)]] · [[GPS]] · [[Estimation]] · [[SLAM_with_ROS|SLAM with ROS]] · [[Probabilistic_Robotics|Probabilistic Robotics]] · [[Active_Perception_and_Sensing|Active Perception and Sensing]] · [[Advanced_Sensor_Fusion|Advanced Sensor Fusion]] · [[Semantic_Scene_Understanding|Semantic Scene Understanding (Beyond Geometric Mapping)]]
 
 ### Motion Planning and Decision Making
 
 *Deciding where to go and how: path and trajectory planning, sampling-based planners, task planning and behaviour trees.* (`subfield: planning`)
 
-**Start here:** [[Heuristics]] → [[Trajectory_Planning]] → [[Path_Planning]] → [[Configuration_Space]]
+**Start here:** [[Heuristics]] → [[Trajectory_Planning|Trajectory Planning]] → [[Path_Planning|Path Planning]] → [[Configuration_Space|Configuration Space]]
 
-**All 19 notes, in reading order:** [[Heuristics]] · [[Trajectory_Planning]] · [[Path_Planning]] · [[Configuration_Space]] · [[Motion_Planning]] · [[Collision_Detection]] · [[Sampling-Based_Planning]] · [[Search_Algorithms]] · [[Probabilistic_Roadmaps]] · [[Path_Planning_Algorithms]] · [[Dijkstra's_Algorithm]] · [[A*_Algorithm]] · [[Shortest_Path]] · [[Collision_Avoidance]] · [[MoveIt2|MoveIt 2]] · [[Nav2_Navigation|Nav2 Navigation Stack]] · [[C++_Motion_Planning]] · [[OMPL]] · [[Advanced_Planning_and_Reasoning|Advanced Planning and Reasoning for Robotics]]
+**All 19 notes, in reading order:** [[Heuristics]] · [[Trajectory_Planning|Trajectory Planning]] · [[Path_Planning|Path Planning]] · [[Configuration_Space|Configuration Space]] · [[Motion_Planning|Motion Planning]] · [[Collision_Detection|Collision Detection]] · [[Sampling-Based_Planning|Sampling-Based Planning]] · [[Search_Algorithms|Search Algorithms]] · [[Probabilistic_Roadmaps|Probabilistic Roadmaps]] · [[Path_Planning_Algorithms|Path Planning Algorithms]] · [[Dijkstra's_Algorithm|Dijkstra's Algorithm]] · [[A*_Algorithm|A* Algorithm]] · [[Shortest_Path|Shortest Path]] · [[Collision_Avoidance|Collision Avoidance]] · [[MoveIt2|MoveIt 2]] · [[Nav2_Navigation|Nav2 Navigation Stack]] · [[C++_Motion_Planning|C++ Motion Planning]] · [[OMPL]] · [[Advanced_Planning_and_Reasoning|Advanced Planning and Reasoning for Robotics]]
 
 ### Control
 
 *Making the body do what the plan says: feedback, PID, state-space, optimal, adaptive, robust and interaction control.* (`subfield: control`)
 
-**Start here:** [[AI_and_Robot_Control]] → [[Open_Loop_vs_Closed_Loop]] → [[Robot_Control]] → [[Control_Theory_Overview|Control Systems Overview]]
+**Start here:** [[AI_and_Robot_Control|AI and Robot Control]] → [[Open_Loop_vs_Closed_Loop|Open Loop vs Closed Loop]] → [[Robot_Control|Robot Control]] → [[Control_Theory_Overview|Control Systems Overview]]
 
-**All 33 notes, in reading order:** [[AI_and_Robot_Control]] · [[Open_Loop_vs_Closed_Loop]] · [[Robot_Control]] · [[Control_Theory_Overview|Control Systems Overview]] · [[Motion_Control]] · [[Stability]] · [[Linear_Quadratic_Regulator_(LQR)]] · [[Encoders]] · [[Resolvers]] · [[Control_Theory]] · [[Feedback_Control]] · [[Neural_Networks_in_Control]] · [[Control_Systems]] · [[PID_Control]] · [[Adaptive_Control]] · [[Compliance|Compliance (Robotics)]] · [[State_Space_Representation]] · [[Computed_Torque_Control]] · [[Transfer_Function]] · [[Robust_Control]] · [[Control_Theory_and_Principles|Control Theory]] · [[Manipulator_Control_Experiments]] · [[Optimal_Control]] · [[Hamilton-Jacobi-Bellman_Equation]] · [[Model_Predictive_Control_(MPC)]] · [[Pontryagin's_Minimum_Principle]] · [[Nonlinear_Control_Theory]] · [[Robust_Control_Methods]] · [[Feedback_Linearization]] · [[Adaptive_Control_Theory]] · [[Control_of_Underactuated_Systems]] · [[Formal_Methods_in_Control|Formal Methods in Control (Verification, Synthesis)]] · [[Hybrid_Systems_and_Control]]
+**All 33 notes, in reading order:** [[AI_and_Robot_Control|AI and Robot Control]] · [[Open_Loop_vs_Closed_Loop|Open Loop vs Closed Loop]] · [[Robot_Control|Robot Control]] · [[Control_Theory_Overview|Control Systems Overview]] · [[Motion_Control|Motion Control]] · [[Stability]] · [[Linear_Quadratic_Regulator_(LQR)|Linear Quadratic Regulator (LQR)]] · [[Encoders]] · [[Resolvers]] · [[Control_Theory|Control Theory]] · [[Feedback_Control|Feedback Control]] · [[Neural_Networks_in_Control|Neural Networks in Control]] · [[Control_Systems|Control Systems]] · [[PID_Control|PID Control]] · [[Adaptive_Control|Adaptive Control]] · [[Compliance|Compliance (Robotics)]] · [[State_Space_Representation|State Space Representation]] · [[Computed_Torque_Control|Computed Torque Control]] · [[Transfer_Function|Transfer Function]] · [[Robust_Control|Robust Control]] · [[Control_Theory_and_Principles|Control Theory]] · [[Manipulator_Control_Experiments|Manipulator Control Experiments]] · [[Optimal_Control|Optimal Control]] · [[Hamilton-Jacobi-Bellman_Equation|Hamilton-Jacobi-Bellman Equation]] · [[Model_Predictive_Control_(MPC)|Model Predictive Control (MPC)]] · [[Pontryagin's_Minimum_Principle|Pontryagin's Minimum Principle]] · [[Nonlinear_Control_Theory|Nonlinear Control Theory]] · [[Robust_Control_Methods|Robust Control Methods]] · [[Feedback_Linearization|Feedback Linearization]] · [[Adaptive_Control_Theory|Adaptive Control Theory]] · [[Control_of_Underactuated_Systems|Control of Underactuated Systems]] · [[Formal_Methods_in_Control|Formal Methods in Control (Verification, Synthesis)]] · [[Hybrid_Systems_and_Control|Hybrid Systems and Control]]
 
 ### AI and Robot Learning
 
 *Machine learning, deep learning, reinforcement and imitation learning, foundation and vision-language-action models.* (`subfield: robot-learning`)
 
-**Start here:** [[Artificial_Intelligence]] → [[AI_and_Robot_Control]] → [[Agents_and_Environments]] → [[Artificial_Intelligence_vs_Machine_Learning_vs_Deep_Learning]]
+**Start here:** [[Artificial_Intelligence|Artificial Intelligence]] → [[AI_and_Robot_Control|AI and Robot Control]] → [[Agents_and_Environments|Agents and Environments]] → [[Artificial_Intelligence_vs_Machine_Learning_vs_Deep_Learning|Artificial Intelligence vs Machine Learning vs Deep Learning]]
 
-**All 35 notes, in reading order:** [[Artificial_Intelligence]] · [[AI_and_Robot_Control]] · [[Agents_and_Environments]] · [[Artificial_Intelligence_vs_Machine_Learning_vs_Deep_Learning]] · [[Autonomous_Robots]] · [[Sim2Real_Experiments]] · [[Computer_Vision_in_Robotics]] · [[Machine_Learning]] · [[Reinforcement_Learning]] · [[Neural_Networks]] · [[Deep_Learning]] · [[Deep_Learning_in_Robotics]] · [[Reinforcement_Learning_for_Robots]] · [[Neural_Networks_in_Control]] · [[Supervised_Learning]] · [[Unsupervised_Learning]] · [[Convolutional_Neural_Networks]] · [[Neural_Networks_and_Backpropagation]] · [[Activation_Functions_(ReLU,_Sigmoid,_Tanh)]] · [[Autoencoders]] · [[Bias,_Variance,_and_Overfitting]] · [[Classification_vs_Regression_vs_Clustering]] · [[CNN_in_Robotics]] · [[Decision_Trees_and_Rule-Based_Systems]] · [[Embodied_AI]] · [[Feature_Engineering_and_Data_Preprocessing]] · [[Generative_Models]] · [[Knowledge_Representation_and_Reasoning]] · [[Natural_Language_Processing_Basics]] · [[Optimization_and_Loss_Functions]] · [[RNN_and_LSTM]] · [[Semi-Supervised_Learning]] · [[Transfer_Learning]] · [[ROS_AI_Integration]] · [[Advanced_AI_Learning_for_Robotics]]
+**All 35 notes, in reading order:** [[Artificial_Intelligence|Artificial Intelligence]] · [[AI_and_Robot_Control|AI and Robot Control]] · [[Agents_and_Environments|Agents and Environments]] · [[Artificial_Intelligence_vs_Machine_Learning_vs_Deep_Learning|Artificial Intelligence vs Machine Learning vs Deep Learning]] · [[Autonomous_Robots|Autonomous Robots]] · [[Sim2Real_Experiments|Sim2Real Experiments]] · [[Computer_Vision_in_Robotics|Computer Vision in Robotics]] · [[Machine_Learning|Machine Learning]] · [[Reinforcement_Learning|Reinforcement Learning]] · [[Neural_Networks|Neural Networks]] · [[Deep_Learning|Deep Learning]] · [[Deep_Learning_in_Robotics|Deep Learning in Robotics]] · [[Reinforcement_Learning_for_Robots|Reinforcement Learning for Robots]] · [[Neural_Networks_in_Control|Neural Networks in Control]] · [[Supervised_Learning|Supervised Learning]] · [[Unsupervised_Learning|Unsupervised Learning]] · [[Convolutional_Neural_Networks|Convolutional Neural Networks]] · [[Neural_Networks_and_Backpropagation|Neural Networks and Backpropagation]] · [[Activation_Functions_(ReLU,_Sigmoid,_Tanh)|Activation Functions (ReLU, Sigmoid, Tanh)]] · [[Autoencoders]] · [[Bias,_Variance,_and_Overfitting|Bias, Variance, and Overfitting]] · [[Classification_vs_Regression_vs_Clustering|Classification vs Regression vs Clustering]] · [[CNN_in_Robotics|CNN in Robotics]] · [[Decision_Trees_and_Rule-Based_Systems|Decision Trees and Rule-Based Systems]] · [[Embodied_AI|Embodied AI]] · [[Feature_Engineering_and_Data_Preprocessing|Feature Engineering and Data Preprocessing]] · [[Generative_Models|Generative Models]] · [[Knowledge_Representation_and_Reasoning|Knowledge Representation and Reasoning]] · [[Natural_Language_Processing_Basics|Natural Language Processing Basics]] · [[Optimization_and_Loss_Functions|Optimization and Loss Functions]] · [[RNN_and_LSTM|RNN and LSTM]] · [[Semi-Supervised_Learning|Semi-Supervised Learning]] · [[Transfer_Learning|Transfer Learning]] · [[ROS_AI_Integration|ROS AI Integration]] · [[Advanced_AI_Learning_for_Robotics|Advanced AI Learning for Robotics]]
 
 ### Robot Software and Middleware
 
 *ROS 2 and its ecosystem, simulation, build tools, and the engineering practice of shipping robot code.* (`subfield: software`)
 
-**Start here:** [[Labs_Projects_and_Tutorials|Labs Projects and Tutorials (Robotics)]] → [[Serial_Communication_Tutorials|Serial Communication Tutorials (Robotics)]] → [[Sim2Real_Experiments]] → [[Robotics_Lab_Template]]
+**Start here:** [[Labs_Projects_and_Tutorials|Labs Projects and Tutorials (Robotics)]] → [[Serial_Communication_Tutorials|Serial Communication Tutorials (Robotics)]] → [[Sim2Real_Experiments|Sim2Real Experiments]] → [[Robotics_Lab_Template|Robotics Lab Template]]
 
-**All 32 notes, in reading order:** [[Labs_Projects_and_Tutorials|Labs Projects and Tutorials (Robotics)]] · [[Serial_Communication_Tutorials|Serial Communication Tutorials (Robotics)]] · [[Sim2Real_Experiments]] · [[Robotics_Lab_Template]] · [[Turtlesim_Projects]] · [[Simulators_and_IDEs]] · [[Robot_Operating_System_(ROS)]] · [[ROS_2_Overview]] · [[RViz_Tutorial]] · [[Gazebo_Simulator]] · [[URDF]] · [[Actions]] · [[TF_and_Topic_Architecture]] · [[Custom_Packages_and_Nodes]] · [[Launch_Files]] · [[MoveIt2|MoveIt 2]] · [[Nav2_Navigation|Nav2 Navigation Stack]] · [[SLAM_with_ROS]] · [[ros2_control]] · [[rosbag2]] · [[ROS_AI_Integration]] · [[Python_ROS_Nodes]] · [[C++|C++ (Robotics)]] · [[C++_Motion_Planning]] · [[Python_for_Robotics]] · [[Arduino]] · [[Git_Integration_and_Version_Control]] · [[Hardware_Interface_Setup]] · [[OMPL]] · [[MATLAB|MATLAB (Robotics)]] · [[CUDA|CUDA (Robotics)]] · [[Rust|Rust (Programming Language, extensive and focus on robotics coding examples)]]
+**All 32 notes, in reading order:** [[Labs_Projects_and_Tutorials|Labs Projects and Tutorials (Robotics)]] · [[Serial_Communication_Tutorials|Serial Communication Tutorials (Robotics)]] · [[Sim2Real_Experiments|Sim2Real Experiments]] · [[Robotics_Lab_Template|Robotics Lab Template]] · [[Turtlesim_Projects|Turtlesim Projects]] · [[Simulators_and_IDEs|Simulators and IDEs]] · [[Robot_Operating_System_(ROS)|Robot Operating System (ROS)]] · [[ROS_2_Overview|ROS 2 Overview]] · [[RViz_Tutorial|RViz Tutorial]] · [[Gazebo_Simulator|Gazebo Simulator]] · [[URDF]] · [[Actions]] · [[TF_and_Topic_Architecture|TF and Topic Architecture]] · [[Custom_Packages_and_Nodes|Custom Packages and Nodes]] · [[Launch_Files|Launch Files]] · [[MoveIt2|MoveIt 2]] · [[Nav2_Navigation|Nav2 Navigation Stack]] · [[SLAM_with_ROS|SLAM with ROS]] · [[ros2_control]] · [[rosbag2]] · [[ROS_AI_Integration|ROS AI Integration]] · [[Python_ROS_Nodes|Python ROS Nodes]] · [[C++|C++ (Robotics)]] · [[C++_Motion_Planning|C++ Motion Planning]] · [[Python_for_Robotics|Python for Robotics]] · [[Arduino]] · [[Git_Integration_and_Version_Control|Git Integration and Version Control]] · [[Hardware_Interface_Setup|Hardware Interface Setup]] · [[OMPL]] · [[MATLAB|MATLAB (Robotics)]] · [[CUDA|CUDA (Robotics)]] · [[Rust|Rust (Programming Language, extensive and focus on robotics coding examples)]]
 
 ### Electronics, Power and Embedded Systems
 
 *Power systems, batteries, motor drivers, buses (CAN, EtherCAT), microcontrollers and real-time computing.* (`subfield: electronics-embedded`)
 
-**Start here:** [[Mechatronics]] → [[Power_Density]] → [[Power_Systems]] → [[Serial_Communication_Tutorials|Serial Communication Tutorials (Robotics)]]
+**Start here:** [[Mechatronics]] → [[Power_Density|Power Density]] → [[Power_Systems|Power Systems]] → [[Serial_Communication_Tutorials|Serial Communication Tutorials (Robotics)]]
 
-**All 9 notes, in reading order:** [[Mechatronics]] · [[Power_Density]] · [[Power_Systems]] · [[Serial_Communication_Tutorials|Serial Communication Tutorials (Robotics)]] · [[Hardware_Shopping_List]] · [[ros2_control]] · [[Arduino]] · [[Microcontroller]] · [[Hardware_Interface_Setup]]
+**All 9 notes, in reading order:** [[Mechatronics]] · [[Power_Density|Power Density]] · [[Power_Systems|Power Systems]] · [[Serial_Communication_Tutorials|Serial Communication Tutorials (Robotics)]] · [[Hardware_Shopping_List|Hardware Shopping List]] · [[ros2_control]] · [[Arduino]] · [[Microcontroller]] · [[Hardware_Interface_Setup|Hardware Interface Setup]]
 
 ### Systems Engineering, Safety and Testing
 
 *Integrating everything into a robot that works, is safe, and can be tested, verified and maintained.* (`subfield: systems-engineering`)
 
-**Start here:** [[Robot_Design]] → [[Robotics_Ethics_Safety_and_Society|Robotics Ethics, Safety, and Society]]
+**Start here:** [[Robot_Design|Robot Design]] → [[Robotics_Ethics_Safety_and_Society|Robotics Ethics, Safety, and Society]]
 
-**All 2 notes, in reading order:** [[Robot_Design]] · [[Robotics_Ethics_Safety_and_Society|Robotics Ethics, Safety, and Society]]
+**All 2 notes, in reading order:** [[Robot_Design|Robot Design]] · [[Robotics_Ethics_Safety_and_Society|Robotics Ethics, Safety, and Society]]
 
 ## Body: how robots are shaped and move
 
@@ -165,9 +165,9 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 
 **Keystones:** [[Manipulability]]
 
-**Start here:** [[Manipulation|Manipulation (Robotics)]] → [[End_Effector_Definition]] → [[SRS_Arm]] → [[Manipulator_Arm]]
+**Start here:** [[Manipulation|Manipulation (Robotics)]] → [[End_Effector_Definition|End Effector Definition]] → [[SRS_Arm|SRS Arm]] → [[Manipulator_Arm|Manipulator Arm]]
 
-**All 9 notes, in reading order:** [[Manipulation|Manipulation (Robotics)]] · [[End_Effector_Definition]] · [[SRS_Arm]] · [[Manipulator_Arm]] · [[Industrial_Arms]] · [[Robot_Hands]] · [[Manipulability]] · [[MoveIt2|MoveIt 2]] · [[Manipulator_Control_Experiments]]
+**All 9 notes, in reading order:** [[Manipulation|Manipulation (Robotics)]] · [[End_Effector_Definition|End Effector Definition]] · [[SRS_Arm|SRS Arm]] · [[Manipulator_Arm|Manipulator Arm]] · [[Industrial_Arms|Industrial Arms]] · [[Robot_Hands|Robot Hands]] · [[Manipulability]] · [[MoveIt2|MoveIt 2]] · [[Manipulator_Control_Experiments|Manipulator Control Experiments]]
 
 ### Mobile Robots and Navigation
 
@@ -175,17 +175,17 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 
 **Keystones:** [[LIDAR|LIDAR (Light Detection and Ranging)]]
 
-**Start here:** [[Wheeled_Mobile_Robots]] → [[Mobile_Robots]] → [[Autonomous_Robots]] → [[Omnidirectional_Robots]]
+**Start here:** [[Wheeled_Mobile_Robots|Wheeled Mobile Robots]] → [[Mobile_Robots|Mobile Robots]] → [[Autonomous_Robots|Autonomous Robots]] → [[Omnidirectional_Robots|Omnidirectional Robots]]
 
-**All 15 notes, in reading order:** [[Wheeled_Mobile_Robots]] · [[Mobile_Robots]] · [[Autonomous_Robots]] · [[Omnidirectional_Robots]] · [[Nonholonomic_Constraint]] · [[Differential_Drive]] · [[Instantaneous_Center_of_Rotation_(ICR)]] · [[SLAM|SLAM (Simultaneous Localization and Mapping)]] · [[LIDAR|LIDAR (Light Detection and Ranging)]] · [[GPS]] · [[Path_Planning_Algorithms]] · [[Autonomous_Navigation]] · [[Collision_Avoidance]] · [[Nav2_Navigation|Nav2 Navigation Stack]] · [[SLAM_with_ROS]]
+**All 15 notes, in reading order:** [[Wheeled_Mobile_Robots|Wheeled Mobile Robots]] · [[Mobile_Robots|Mobile Robots]] · [[Autonomous_Robots|Autonomous Robots]] · [[Omnidirectional_Robots|Omnidirectional Robots]] · [[Nonholonomic_Constraint|Nonholonomic Constraint]] · [[Differential_Drive|Differential Drive]] · [[Instantaneous_Center_of_Rotation_(ICR)|Instantaneous Center of Rotation (ICR)]] · [[SLAM|SLAM (Simultaneous Localization and Mapping)]] · [[LIDAR|LIDAR (Light Detection and Ranging)]] · [[GPS]] · [[Path_Planning_Algorithms|Path Planning Algorithms]] · [[Autonomous_Navigation|Autonomous Navigation]] · [[Collision_Avoidance|Collision Avoidance]] · [[Nav2_Navigation|Nav2 Navigation Stack]] · [[SLAM_with_ROS|SLAM with ROS]]
 
 ### Legged Locomotion and Humanoids
 
 *Walking and running machines, from quadrupeds to full humanoids: gaits, balance, whole-body control.* (`subfield: legged-humanoid`)
 
-**Start here:** [[Legged_Robots]] → [[Humanoid_Robots]]
+**Start here:** [[Legged_Robots|Legged Robots]] → [[Humanoid_Robots|Humanoid Robots]]
 
-**All 2 notes, in reading order:** [[Legged_Robots]] · [[Humanoid_Robots]]
+**All 2 notes, in reading order:** [[Legged_Robots|Legged Robots]] · [[Humanoid_Robots|Humanoid Robots]]
 
 ### Aerial Robotics
 
@@ -199,25 +199,25 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 
 *Robots made of compliant materials, continuum and cable-driven bodies.* (`subfield: soft-robotics`)
 
-**Start here:** [[Soft_Robotics]] → [[Cable-Driven_Robots]]
+**Start here:** [[Soft_Robotics|Soft Robotics]] → [[Cable-Driven_Robots|Cable-Driven Robots]]
 
-**All 2 notes, in reading order:** [[Soft_Robotics]] · [[Cable-Driven_Robots]]
+**All 2 notes, in reading order:** [[Soft_Robotics|Soft Robotics]] · [[Cable-Driven_Robots|Cable-Driven Robots]]
 
 ### Bio-inspired Robotics
 
 *Borrowing from animals and plants: biomimetic design, morphology and locomotion.* (`subfield: bio-inspired`)
 
-**Start here:** [[Bio-inspired_Robotics]] → [[Bio_Inspired_and_Biomimetic_Robotics|Bio-Inspired and Biomimetic Robotics]]
+**Start here:** [[Bio-inspired_Robotics|Bio-inspired Robotics]] → [[Bio_Inspired_and_Biomimetic_Robotics|Bio-Inspired and Biomimetic Robotics]]
 
-**All 2 notes, in reading order:** [[Bio-inspired_Robotics]] · [[Bio_Inspired_and_Biomimetic_Robotics|Bio-Inspired and Biomimetic Robotics]]
+**All 2 notes, in reading order:** [[Bio-inspired_Robotics|Bio-inspired Robotics]] · [[Bio_Inspired_and_Biomimetic_Robotics|Bio-Inspired and Biomimetic Robotics]]
 
 ### Modular, Reconfigurable and Parallel Robots
 
 *Robots that change shape or are built from repeated modules, and parallel mechanisms.* (`subfield: modular-reconfigurable`)
 
-**Start here:** [[Modular_Robotics]] → [[Parallel_Robots]] → [[Reconfigurable_Robots]] → [[Specialized_Robot_Morphologies]]
+**Start here:** [[Modular_Robotics|Modular Robotics]] → [[Parallel_Robots|Parallel Robots]] → [[Reconfigurable_Robots|Reconfigurable Robots]] → [[Specialized_Robot_Morphologies|Specialized Robot Morphologies]]
 
-**All 4 notes, in reading order:** [[Modular_Robotics]] · [[Parallel_Robots]] · [[Reconfigurable_Robots]] · [[Specialized_Robot_Morphologies]]
+**All 4 notes, in reading order:** [[Modular_Robotics|Modular Robotics]] · [[Parallel_Robots|Parallel Robots]] · [[Reconfigurable_Robots|Reconfigurable Robots]] · [[Specialized_Robot_Morphologies|Specialized Robot Morphologies]]
 
 ### Micro- and Nanorobotics
 
@@ -245,41 +245,41 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 
 *Factories, warehouses and supply chains: industrial arms, cobots, AMRs, workcells.* (`subfield: industrial-automation`)
 
-**Start here:** [[History_of_Robotics]] → [[Industrial_Arms]] → [[Collaborative_Robots|Collaborative Robots (Cobots)]]
+**Start here:** [[History_of_Robotics|History of Robotics]] → [[Industrial_Arms|Industrial Arms]] → [[Collaborative_Robots|Collaborative Robots (Cobots)]]
 
-**All 3 notes, in reading order:** [[History_of_Robotics]] · [[Industrial_Arms]] · [[Collaborative_Robots|Collaborative Robots (Cobots)]]
+**All 3 notes, in reading order:** [[History_of_Robotics|History of Robotics]] · [[Industrial_Arms|Industrial Arms]] · [[Collaborative_Robots|Collaborative Robots (Cobots)]]
 
 ### Field Robotics
 
 *Robots outdoors and in extreme environments: mining, construction, disaster response, inspection.* (`subfield: field-robotics`)
 
-**Start here:** [[Underwater_and_Space_Robots]]
+**Start here:** [[Underwater_and_Space_Robots|Underwater and Space Robots]]
 
-**All 1 notes, in reading order:** [[Underwater_and_Space_Robots]]
+**All 1 notes, in reading order:** [[Underwater_and_Space_Robots|Underwater and Space Robots]]
 
 ### Agricultural Robotics
 
 *Planting, weeding, harvesting and monitoring crops and livestock.* (`subfield: agriculture`)
 
-**Start here:** [[Agricultural_Robots]]
+**Start here:** [[Agricultural_Robots|Agricultural Robots]]
 
-**All 1 notes, in reading order:** [[Agricultural_Robots]]
+**All 1 notes, in reading order:** [[Agricultural_Robots|Agricultural Robots]]
 
 ### Marine and Underwater Robotics
 
 *AUVs, ROVs and surface vessels.* (`subfield: marine-robotics`)
 
-**Start here:** [[Underwater_and_Space_Robots]]
+**Start here:** [[Underwater_and_Space_Robots|Underwater and Space Robots]]
 
-**All 1 notes, in reading order:** [[Underwater_and_Space_Robots]]
+**All 1 notes, in reading order:** [[Underwater_and_Space_Robots|Underwater and Space Robots]]
 
 ### Space Robotics
 
 *Planetary rovers, orbital manipulators and in-space assembly.* (`subfield: space-robotics`)
 
-**Start here:** [[Underwater_and_Space_Robots]]
+**Start here:** [[Underwater_and_Space_Robots|Underwater and Space Robots]]
 
-**All 1 notes, in reading order:** [[Underwater_and_Space_Robots]]
+**All 1 notes, in reading order:** [[Underwater_and_Space_Robots|Underwater and Space Robots]]
 
 ### Medical and Surgical Robotics
 
@@ -307,9 +307,9 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 
 *Animatronics, robot art and performance, toys, and robots as teaching tools.* (`subfield: creative-education`)
 
-**Start here:** [[Course_Notes_Collection]] → [[MOOCs_and_Courses]]
+**Start here:** [[Course_Notes_Collection|Course Notes Collection]] → [[MOOCs_and_Courses|MOOCs and Courses]]
 
-**All 2 notes, in reading order:** [[Course_Notes_Collection]] · [[MOOCs_and_Courses]]
+**All 2 notes, in reading order:** [[Course_Notes_Collection|Course Notes Collection]] · [[MOOCs_and_Courses|MOOCs and Courses]]
 
 ## Society: robots among people
 
@@ -325,41 +325,41 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 
 *Working with, near and for people: collaboration, communication, teleoperation, social robots.* (`subfield: human-robot-interaction`)
 
-**Start here:** [[Collaborative_Robots|Collaborative Robots (Cobots)]] → [[Human-Robot_Interaction]] → [[Advanced_Human_Robot_Interaction_(HRI)|Advanced Human-Robot Interaction (HRI)]]
+**Start here:** [[Collaborative_Robots|Collaborative Robots (Cobots)]] → [[Human-Robot_Interaction|Human-Robot Interaction]] → [[Advanced_Human_Robot_Interaction_(HRI)|Advanced Human-Robot Interaction (HRI)]]
 
-**All 3 notes, in reading order:** [[Collaborative_Robots|Collaborative Robots (Cobots)]] · [[Human-Robot_Interaction]] · [[Advanced_Human_Robot_Interaction_(HRI)|Advanced Human-Robot Interaction (HRI)]]
+**All 3 notes, in reading order:** [[Collaborative_Robots|Collaborative Robots (Cobots)]] · [[Human-Robot_Interaction|Human-Robot Interaction]] · [[Advanced_Human_Robot_Interaction_(HRI)|Advanced Human-Robot Interaction (HRI)]]
 
 ### Multi-Robot Systems and Swarms
 
 *Many robots at once: coordination, distributed control, swarm intelligence.* (`subfield: multi-robot`)
 
-**Start here:** [[Swarm_Robots]] → [[Multi_Robot_Systems|Multi-Robot Systems]]
+**Start here:** [[Swarm_Robots|Swarm Robots]] → [[Multi_Robot_Systems|Multi-Robot Systems]]
 
-**All 2 notes, in reading order:** [[Swarm_Robots]] · [[Multi_Robot_Systems|Multi-Robot Systems]]
+**All 2 notes, in reading order:** [[Swarm_Robots|Swarm Robots]] · [[Multi_Robot_Systems|Multi-Robot Systems]]
 
 ### Ethics, Safety and Society
 
 *What robots should do, who they affect, and how we govern them.* (`subfield: ethics-society`)
 
-**Start here:** [[Robot_Ethics_and_Policy_Debates]] → [[Speculative_Robotics_Scenarios]] → [[Ethical_and_Social_Implications|Ethical and Social Implications (# AI & Robotics)]] → [[Robotics_Ethics_Safety_and_Society|Robotics Ethics, Safety, and Society]]
+**Start here:** [[Robot_Ethics_and_Policy_Debates|Robot Ethics and Policy Debates]] → [[Speculative_Robotics_Scenarios|Speculative Robotics Scenarios]] → [[Ethical_and_Social_Implications|Ethical and Social Implications (# AI & Robotics)]] → [[Robotics_Ethics_Safety_and_Society|Robotics Ethics, Safety, and Society]]
 
-**All 4 notes, in reading order:** [[Robot_Ethics_and_Policy_Debates]] · [[Speculative_Robotics_Scenarios]] · [[Ethical_and_Social_Implications|Ethical and Social Implications (# AI & Robotics)]] · [[Robotics_Ethics_Safety_and_Society|Robotics Ethics, Safety, and Society]]
+**All 4 notes, in reading order:** [[Robot_Ethics_and_Policy_Debates|Robot Ethics and Policy Debates]] · [[Speculative_Robotics_Scenarios|Speculative Robotics Scenarios]] · [[Ethical_and_Social_Implications|Ethical and Social Implications (# AI & Robotics)]] · [[Robotics_Ethics_Safety_and_Society|Robotics Ethics, Safety, and Society]]
 
 ### History and Futures of Robotics
 
 *Where robotics came from, who built it, and where it might go.* (`subfield: history-future`)
 
-**Start here:** [[History_of_Robotics]] → [[Future_Trends_2025-2035|Future Trends in Robotics (2025-2035)]] → [[Key_Figures_and_Labs|Key Figures and Labs in Robotics History]] → [[Robot_Ethics_and_Policy_Debates]]
+**Start here:** [[History_of_Robotics|History of Robotics]] → [[Future_Trends_2025-2035|Future Trends in Robotics (2025-2035)]] → [[Key_Figures_and_Labs|Key Figures and Labs in Robotics History]] → [[Robot_Ethics_and_Policy_Debates|Robot Ethics and Policy Debates]]
 
-**All 5 notes, in reading order:** [[History_of_Robotics]] · [[Future_Trends_2025-2035|Future Trends in Robotics (2025-2035)]] · [[Key_Figures_and_Labs|Key Figures and Labs in Robotics History]] · [[Robot_Ethics_and_Policy_Debates]] · [[Speculative_Robotics_Scenarios]]
+**All 5 notes, in reading order:** [[History_of_Robotics|History of Robotics]] · [[Future_Trends_2025-2035|Future Trends in Robotics (2025-2035)]] · [[Key_Figures_and_Labs|Key Figures and Labs in Robotics History]] · [[Robot_Ethics_and_Policy_Debates|Robot Ethics and Policy Debates]] · [[Speculative_Robotics_Scenarios|Speculative Robotics Scenarios]]
 
 ### Research Practice
 
 *Reading and writing papers, benchmarks, datasets, conferences and reproducibility.* (`subfield: research-practice`)
 
-**Start here:** [[Resources_Index]] → [[Research_Papers_Index]] → [[Research_and_Development|Research and Development (Robotics, extensive and future-focused, bleeding edge)]]
+**Start here:** [[Resources_Index|Resources Index]] → [[Research_Papers_Index|Research Papers Index]] → [[Research_and_Development|Research and Development (Robotics, extensive and future-focused, bleeding edge)]]
 
-**All 3 notes, in reading order:** [[Resources_Index]] · [[Research_Papers_Index]] · [[Research_and_Development|Research and Development (Robotics, extensive and future-focused, bleeding edge)]]
+**All 3 notes, in reading order:** [[Resources_Index|Resources Index]] · [[Research_Papers_Index|Research Papers Index]] · [[Research_and_Development|Research and Development (Robotics, extensive and future-focused, bleeding edge)]]
 
 ## Frontier: directions still being invented
 
@@ -371,8 +371,8 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 
 *Directions still being invented: bio-hybrid and living machines, neuromorphic and event-based systems, quantum sensing, self-assembling and self-repairing robots, and ideas nobody has named yet.* (`subfield: frontiers`)
 
-**Start here:** [[Future_Trends_2025-2035|Future Trends in Robotics (2025-2035)]] → [[Speculative_Robotics_Scenarios]] → [[Event_Based_Sensing_and_Processing|Event-Based Sensing and Processing]]
+**Start here:** [[Future_Trends_2025-2035|Future Trends in Robotics (2025-2035)]] → [[Speculative_Robotics_Scenarios|Speculative Robotics Scenarios]] → [[Event_Based_Sensing_and_Processing|Event-Based Sensing and Processing]]
 
-**All 3 notes, in reading order:** [[Future_Trends_2025-2035|Future Trends in Robotics (2025-2035)]] · [[Speculative_Robotics_Scenarios]] · [[Event_Based_Sensing_and_Processing|Event-Based Sensing and Processing]]
+**All 3 notes, in reading order:** [[Future_Trends_2025-2035|Future Trends in Robotics (2025-2035)]] · [[Speculative_Robotics_Scenarios|Speculative Robotics Scenarios]] · [[Event_Based_Sensing_and_Processing|Event-Based Sensing and Processing]]
 
 <!-- end generated -->

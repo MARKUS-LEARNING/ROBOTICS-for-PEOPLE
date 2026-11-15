@@ -914,7 +914,7 @@ class Book:
 
     def link(self, n, table=False):
         t = self.title(n)
-        if t == n.name or t == n.name.replace('_', ' '):
+        if t == n.name:
             return f'[[{n.name}]]'
         return f'[[{n.name}{chr(92) if table else ""}|{t}]]'
 
@@ -970,7 +970,7 @@ def page_frontier(b: Book) -> str:
     refs = sum(e[1] for e in miss.values())
     L.append(f'**{len(miss)} notes are wanted**: existing notes link to them {refs} times, but they have not been written yet. '
              f'**{len(stubs)} stub{"s" if len(stubs) != 1 else ""}** need{"s" if len(stubs) == 1 else ""} content, and **{len(thin)} subfields** have fewer than three notes.\n')
-    L.append('Pick one, write it, and open a pull request. The [[Vault_Taxonomy_Guide]] has the frontmatter template; '
+    L.append('Pick one, write it, and open a pull request. The [[Vault_Taxonomy_Guide|Vault Taxonomy Guide]] has the frontmatter template; '
              '`python3 tools/vault.py lint` checks your note before you submit.\n')
     ranked = sorted(miss.values(), key=lambda e: (-e[1], e[0].lower()))
     L.append('## Most wanted\n')
@@ -1047,7 +1047,7 @@ def page_paths(b: Book) -> str:
     for name, desc, ns in personas:
         L.append(f'### {name}\n\n{desc}\n\n{path(ns)}\n')
     L.append('## Paths through each subfield\n')
-    L.append('Every subfield with three or more notes, in reading order. The [[Subfield_Atlas]] describes each subfield; '
+    L.append('Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|Subfield Atlas]] describes each subfield; '
              'the [[Frontier]] lists the ones still waiting for notes.\n')
     for k, s in b.sfs.items():
         ns = b.by_sub.get(k, [])

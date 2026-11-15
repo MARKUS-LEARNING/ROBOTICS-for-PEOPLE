@@ -25,7 +25,7 @@ It is the best place to start contributing, for people and for AI agents alike.
 
 **353 notes are wanted**: existing notes link to them 781 times, but they have not been written yet. **1 stub** needs content, and **13 subfields** have fewer than three notes.
 
-Pick one, write it, and open a pull request. The [[Vault_Taxonomy_Guide]] has the frontmatter template; `python3 tools/vault.py lint` checks your note before you submit.
+Pick one, write it, and open a pull request. The [[Vault_Taxonomy_Guide|Vault Taxonomy Guide]] has the frontmatter template; `python3 tools/vault.py lint` checks your note before you submit.
 
 ## Most wanted
 
@@ -33,56 +33,56 @@ Ranked by how many links already point at the missing note. The file name to cre
 
 | # | Wanted note | Links | Linked from | Likely subfield |
 |---:|---|---:|---|---|
-| 1 | **Topics** `Topics.md` | 29 | [[ROS_2_Overview]], [[RViz_Tutorial]], [[Gazebo_Simulator]] +10 | Robot Software and Middleware |
-| 2 | **Services** `Services.md` | 23 | [[ROS_2_Overview]], [[Gazebo_Simulator]], [[Actions]] +8 | Robot Software and Middleware |
-| 3 | **Nodes** `Nodes.md` | 20 | [[ROS_2_Overview]], [[RViz_Tutorial]], [[Actions]] +9 | Robot Software and Middleware |
-| 4 | **Autonomous Systems** `Autonomous_Systems.md` | 16 | [[Robot_Control]], [[Robot_Operating_System_(ROS)]], [[AI_and_Robot_Control]] +13 | Robot Software and Middleware |
-| 5 | **Navigation** `Navigation.md` | 16 | [[Mobile_Robots]], [[Locomotion]], [[Gazebo_Simulator]] +7 | Mobile Robots and Navigation |
-| 6 | **Data Analysis** `Data_Analysis.md` | 15 | [[Machine_Learning]], [[Artificial_Intelligence]], [[Supervised_Learning]] +12 | AI and Robot Learning |
-| 7 | **Odometry** `Odometry.md` | 12 | [[SLAM\|SLAM (Simultaneous Localization and Mapping)]], [[Mobile_Robots]], [[Locomotion]] +5 | Mobile Robots and Navigation |
-| 8 | **Robot Types and Applications** `Robot_Types_and_Applications.md` | 10 | [[Legged_Robots]], [[Mobile_Robots]], [[Humanoid_Robots]] +7 | Legged Locomotion and Humanoids |
-| 9 | **Messages** `Messages.md` | 9 | [[ROS_2_Overview]], [[TF_and_Topic_Architecture]], [[Custom_Packages_and_Nodes]] +2 | Robot Software and Middleware |
-| 10 | **Transmission** `Transmission.md` | 9 | [[Mechanisms_and_Actuation]], [[Exoskeletons]] | Mechanisms, Actuation and Materials |
-| 11 | **Grasping** `Grasping.md` | 8 | [[Manipulation\|Manipulation (Robotics)]], [[Soft_Robotics]], [[Robot_Hands]] +1 | Manipulation and Grasping |
-| 12 | **Bipedal Locomotion** `Bipedal_Locomotion.md` | 7 | [[Legged_Robots]], [[Mobile_Robots]], [[Locomotion]] +1 | Legged Locomotion and Humanoids |
-| 13 | **End-Effector** `End-Effector.md` | 7 | [[Manipulator_Arm]], [[Mechanisms_and_Actuation]], [[Sensor_Calibration_Techniques]] +2 | Manipulation and Grasping |
-| 14 | **FCL** `FCL.md` | 7 | [[C++_Motion_Planning]], [[Manipulator_Control_Experiments]] | Robot Software and Middleware |
-| 15 | **Lyapunov Stability** `Lyapunov_Stability.md` | 7 | [[Control_Theory]], [[Stability]], [[Nonlinear_Control_Theory]] +4 | Control |
-| 16 | **Simulation** `Simulation.md` | 7 | [[Gazebo_Simulator]], [[Sim2Real_Experiments]], [[MATLAB\|MATLAB (Robotics)]] +2 | Robot Software and Middleware |
-| 17 | **Force Control** `Force_Control.md` | 6 | [[Control_Systems]], [[Exoskeletons]], [[Robot_Hands]] +1 | Control |
-| 18 | **Gearbox** `Gearbox.md` | 6 | [[Mechanisms_and_Actuation]], [[Exoskeletons]], [[Hydraulic_Systems]] | Mechanisms, Actuation and Materials |
-| 19 | **Imitation Learning** `Imitation_Learning.md` | 6 | [[Control_Systems]], [[Neural_Networks_in_Control]], [[Robot_Hands]] +2 | Control |
-| 20 | **Model Training** `Model_Training.md` | 6 | [[Neural_Networks]], [[Neural_Networks_and_Backpropagation]], [[Activation_Functions_(ReLU,_Sigmoid,_Tanh)]] +3 | AI and Robot Learning |
-| 21 | **MoveIt** `MoveIt.md` | 6 | [[C++_Motion_Planning]], [[Manipulator_Control_Experiments]] | Robot Software and Middleware |
-| 22 | **Particle Filter** `Particle_Filter.md` | 6 | [[SLAM\|SLAM (Simultaneous Localization and Mapping)]], [[Localization]], [[Kalman_Filter]] +3 | State Estimation, Localization and Mapping |
-| 23 | **Pneumatic Actuators** `Pneumatic_Actuators.md` | 6 | [[Exoskeletons]], [[Soft_Robotics]], [[Robot_Hands]] +1 | Mechanisms, Actuation and Materials |
-| 24 | **Neural Networks Basics** `Neural_Networks_Basics.md` | 5 | [[Machine_Learning]], [[Deep_Learning]], [[Activation_Functions_(ReLU,_Sigmoid,_Tanh)]] +2 | AI and Robot Learning |
-| 25 | **PCL** `PCL.md` | 5 | [[C++_Motion_Planning]], [[Manipulator_Control_Experiments]] | Robot Software and Middleware |
-| 26 | **Programming** `Programming.md` | 5 | [[C++\|C++ (Robotics)]], [[Python_for_Robotics]], [[Microcontroller]] +2 | Robot Software and Middleware |
-| 27 | **Safety** `Safety.md` | 5 | [[Industrial_Arms]], [[Exoskeletons]], [[Soft_Robotics]] +2 | Ethics, Safety and Society |
-| 28 | **Unimate** `Unimate.md` | 5 | [[History_of_Robotics]], [[Hydraulic_Systems]], [[Key_Figures_and_Labs\|Key Figures and Labs in Robotics History]] | History and Futures of Robotics |
-| 29 | **Visual Servoing** `Visual_Servoing.md` | 5 | [[Control_Systems]], [[Computer_Vision_in_Robotics]], [[Manipulator_Control_Experiments]] | Control |
-| 30 | **Autonomy** `Autonomy.md` | 4 | [[Robots]], [[Underwater_and_Space_Robots]] | Foundations of Robotics |
-| 31 | **Axis Angle** `Axis_Angle.md` | 4 | [[Linear_Algebra_for_Robotics]], [[Euler_Angles]], [[Quaternions]] +1 | Mathematics for Robotics |
-| 32 | **Bipedal Locomotion** `Bipedal_Locomotion.md` | 4 | [[Legged_Robots]], [[Locomotion]], [[Humanoid_Robots]] +1 | Legged Locomotion and Humanoids |
-| 33 | **Coding and Implementation** `Coding_and_Implementation.md` | 4 | [[Python_ROS_Nodes]], [[C++_Motion_Planning]], [[Git_Integration_and_Version_Control]] +1 | Robot Software and Middleware |
-| 34 | **Decision Making** `Decision_Making.md` | 4 | [[Artificial_Intelligence]], [[Heuristics]], [[Search_Algorithms]] +1 | AI and Robot Learning |
+| 1 | **Topics** `Topics.md` | 29 | [[ROS_2_Overview\|ROS 2 Overview]], [[RViz_Tutorial\|RViz Tutorial]], [[Gazebo_Simulator\|Gazebo Simulator]] +10 | Robot Software and Middleware |
+| 2 | **Services** `Services.md` | 23 | [[ROS_2_Overview\|ROS 2 Overview]], [[Gazebo_Simulator\|Gazebo Simulator]], [[Actions]] +8 | Robot Software and Middleware |
+| 3 | **Nodes** `Nodes.md` | 20 | [[ROS_2_Overview\|ROS 2 Overview]], [[RViz_Tutorial\|RViz Tutorial]], [[Actions]] +9 | Robot Software and Middleware |
+| 4 | **Autonomous Systems** `Autonomous_Systems.md` | 16 | [[Robot_Control\|Robot Control]], [[Robot_Operating_System_(ROS)\|Robot Operating System (ROS)]], [[AI_and_Robot_Control\|AI and Robot Control]] +13 | Robot Software and Middleware |
+| 5 | **Navigation** `Navigation.md` | 16 | [[Mobile_Robots\|Mobile Robots]], [[Locomotion]], [[Gazebo_Simulator\|Gazebo Simulator]] +7 | Mobile Robots and Navigation |
+| 6 | **Data Analysis** `Data_Analysis.md` | 15 | [[Machine_Learning\|Machine Learning]], [[Artificial_Intelligence\|Artificial Intelligence]], [[Supervised_Learning\|Supervised Learning]] +12 | AI and Robot Learning |
+| 7 | **Odometry** `Odometry.md` | 12 | [[SLAM\|SLAM (Simultaneous Localization and Mapping)]], [[Mobile_Robots\|Mobile Robots]], [[Locomotion]] +5 | Mobile Robots and Navigation |
+| 8 | **Robot Types and Applications** `Robot_Types_and_Applications.md` | 10 | [[Legged_Robots\|Legged Robots]], [[Mobile_Robots\|Mobile Robots]], [[Humanoid_Robots\|Humanoid Robots]] +7 | Legged Locomotion and Humanoids |
+| 9 | **Messages** `Messages.md` | 9 | [[ROS_2_Overview\|ROS 2 Overview]], [[TF_and_Topic_Architecture\|TF and Topic Architecture]], [[Custom_Packages_and_Nodes\|Custom Packages and Nodes]] +2 | Robot Software and Middleware |
+| 10 | **Transmission** `Transmission.md` | 9 | [[Mechanisms_and_Actuation\|Mechanisms and Actuation]], [[Exoskeletons]] | Mechanisms, Actuation and Materials |
+| 11 | **Grasping** `Grasping.md` | 8 | [[Manipulation\|Manipulation (Robotics)]], [[Soft_Robotics\|Soft Robotics]], [[Robot_Hands\|Robot Hands]] +1 | Manipulation and Grasping |
+| 12 | **Bipedal Locomotion** `Bipedal_Locomotion.md` | 7 | [[Legged_Robots\|Legged Robots]], [[Mobile_Robots\|Mobile Robots]], [[Locomotion]] +1 | Legged Locomotion and Humanoids |
+| 13 | **End-Effector** `End-Effector.md` | 7 | [[Manipulator_Arm\|Manipulator Arm]], [[Mechanisms_and_Actuation\|Mechanisms and Actuation]], [[Sensor_Calibration_Techniques\|Sensor Calibration Techniques]] +2 | Manipulation and Grasping |
+| 14 | **FCL** `FCL.md` | 7 | [[C++_Motion_Planning\|C++ Motion Planning]], [[Manipulator_Control_Experiments\|Manipulator Control Experiments]] | Robot Software and Middleware |
+| 15 | **Lyapunov Stability** `Lyapunov_Stability.md` | 7 | [[Control_Theory\|Control Theory]], [[Stability]], [[Nonlinear_Control_Theory\|Nonlinear Control Theory]] +4 | Control |
+| 16 | **Simulation** `Simulation.md` | 7 | [[Gazebo_Simulator\|Gazebo Simulator]], [[Sim2Real_Experiments\|Sim2Real Experiments]], [[MATLAB\|MATLAB (Robotics)]] +2 | Robot Software and Middleware |
+| 17 | **Force Control** `Force_Control.md` | 6 | [[Control_Systems\|Control Systems]], [[Exoskeletons]], [[Robot_Hands\|Robot Hands]] +1 | Control |
+| 18 | **Gearbox** `Gearbox.md` | 6 | [[Mechanisms_and_Actuation\|Mechanisms and Actuation]], [[Exoskeletons]], [[Hydraulic_Systems\|Hydraulic Systems]] | Mechanisms, Actuation and Materials |
+| 19 | **Imitation Learning** `Imitation_Learning.md` | 6 | [[Control_Systems\|Control Systems]], [[Neural_Networks_in_Control\|Neural Networks in Control]], [[Robot_Hands\|Robot Hands]] +2 | Control |
+| 20 | **Model Training** `Model_Training.md` | 6 | [[Neural_Networks\|Neural Networks]], [[Neural_Networks_and_Backpropagation\|Neural Networks and Backpropagation]], [[Activation_Functions_(ReLU,_Sigmoid,_Tanh)\|Activation Functions (ReLU, Sigmoid, Tanh)]] +3 | AI and Robot Learning |
+| 21 | **MoveIt** `MoveIt.md` | 6 | [[C++_Motion_Planning\|C++ Motion Planning]], [[Manipulator_Control_Experiments\|Manipulator Control Experiments]] | Robot Software and Middleware |
+| 22 | **Particle Filter** `Particle_Filter.md` | 6 | [[SLAM\|SLAM (Simultaneous Localization and Mapping)]], [[Localization]], [[Kalman_Filter\|Kalman Filter]] +3 | State Estimation, Localization and Mapping |
+| 23 | **Pneumatic Actuators** `Pneumatic_Actuators.md` | 6 | [[Exoskeletons]], [[Soft_Robotics\|Soft Robotics]], [[Robot_Hands\|Robot Hands]] +1 | Mechanisms, Actuation and Materials |
+| 24 | **Neural Networks Basics** `Neural_Networks_Basics.md` | 5 | [[Machine_Learning\|Machine Learning]], [[Deep_Learning\|Deep Learning]], [[Activation_Functions_(ReLU,_Sigmoid,_Tanh)\|Activation Functions (ReLU, Sigmoid, Tanh)]] +2 | AI and Robot Learning |
+| 25 | **PCL** `PCL.md` | 5 | [[C++_Motion_Planning\|C++ Motion Planning]], [[Manipulator_Control_Experiments\|Manipulator Control Experiments]] | Robot Software and Middleware |
+| 26 | **Programming** `Programming.md` | 5 | [[C++\|C++ (Robotics)]], [[Python_for_Robotics\|Python for Robotics]], [[Microcontroller]] +2 | Robot Software and Middleware |
+| 27 | **Safety** `Safety.md` | 5 | [[Industrial_Arms\|Industrial Arms]], [[Exoskeletons]], [[Soft_Robotics\|Soft Robotics]] +2 | Ethics, Safety and Society |
+| 28 | **Unimate** `Unimate.md` | 5 | [[History_of_Robotics\|History of Robotics]], [[Hydraulic_Systems\|Hydraulic Systems]], [[Key_Figures_and_Labs\|Key Figures and Labs in Robotics History]] | History and Futures of Robotics |
+| 29 | **Visual Servoing** `Visual_Servoing.md` | 5 | [[Control_Systems\|Control Systems]], [[Computer_Vision_in_Robotics\|Computer Vision in Robotics]], [[Manipulator_Control_Experiments\|Manipulator Control Experiments]] | Control |
+| 30 | **Autonomy** `Autonomy.md` | 4 | [[Robots]], [[Underwater_and_Space_Robots\|Underwater and Space Robots]] | Foundations of Robotics |
+| 31 | **Axis Angle** `Axis_Angle.md` | 4 | [[Linear_Algebra_for_Robotics\|Linear Algebra for Robotics]], [[Euler_Angles\|Euler Angles]], [[Quaternions]] +1 | Mathematics for Robotics |
+| 32 | **Bipedal Locomotion** `Bipedal_Locomotion.md` | 4 | [[Legged_Robots\|Legged Robots]], [[Locomotion]], [[Humanoid_Robots\|Humanoid Robots]] +1 | Legged Locomotion and Humanoids |
+| 33 | **Coding and Implementation** `Coding_and_Implementation.md` | 4 | [[Python_ROS_Nodes\|Python ROS Nodes]], [[C++_Motion_Planning\|C++ Motion Planning]], [[Git_Integration_and_Version_Control\|Git Integration and Version Control]] +1 | Robot Software and Middleware |
+| 34 | **Decision Making** `Decision_Making.md` | 4 | [[Artificial_Intelligence\|Artificial Intelligence]], [[Heuristics]], [[Search_Algorithms\|Search Algorithms]] +1 | AI and Robot Learning |
 | 35 | **End Effectors** `End_Effectors.md` | 4 | [[Manipulation\|Manipulation (Robotics)]], [[Links]], [[Links_(DoF)\|Links]] | Kinematics and Dynamics |
-| 36 | **Extended Kalman Filter** `Extended_Kalman_Filter.md` | 4 | [[Linear_Algebra_for_Robotics]], [[Calculus_for_Robotics]], [[Bayesian_Inference]] | Mathematics for Robotics |
-| 37 | **Gait** `Gait.md` | 4 | [[Legged_Robots]] | Legged Locomotion and Humanoids |
-| 38 | **Gimbal Lock** `Gimbal_Lock.md` | 4 | [[Euler_Angles]], [[Quaternions]], [[Rotation_Matrix]] +1 | Mathematics for Robotics |
-| 39 | **Imitation Learning** `Imitation_Learning.md` | 4 | [[Reinforcement_Learning_for_Robots]], [[History_of_Robotics]], [[Future_Trends_2025-2035\|Future Trends in Robotics (2025-2035)]] +1 | History and Futures of Robotics |
-| 40 | **Isaac Asimov** `Isaac_Asimov.md` | 4 | [[History_of_Robotics]], [[Key_Figures_and_Labs\|Key Figures and Labs in Robotics History]], [[Robot_Ethics_and_Policy_Debates]] +1 | History and Futures of Robotics |
-| 41 | **Object Recognition** `Object_Recognition.md` | 4 | [[Perception]], [[Computer_Vision]], [[RGB-D_Sensor]] +1 | Sensing and Perception |
-| 42 | **Policy** `Policy.md` | 4 | [[Reinforcement_Learning_for_Robots]], [[ROS_AI_Integration]] | AI and Robot Learning |
-| 43 | **Prismatic Joint** `Prismatic_Joint.md` | 4 | [[Joint_Kinematics]], [[Manipulator_Arm_Types]], [[Links_and_Joints_Definitions]] | Kinematics and Dynamics |
-| 44 | **Revolute Joint** `Revolute_Joint.md` | 4 | [[Joint_Kinematics]], [[Manipulator_Arm_Types]], [[Links_and_Joints_Definitions]] | Kinematics and Dynamics |
-| 45 | **ROV** `ROV.md` | 4 | [[Locomotion]], [[Hydraulic_Systems]], [[Underwater_and_Space_Robots]] | Kinematics and Dynamics |
-| 46 | **Stability Analysis** `Stability_Analysis.md` | 4 | [[State_Space_Representation]], [[Open_Loop_vs_Closed_Loop]], [[Robust_Control]] +1 | Control |
+| 36 | **Extended Kalman Filter** `Extended_Kalman_Filter.md` | 4 | [[Linear_Algebra_for_Robotics\|Linear Algebra for Robotics]], [[Calculus_for_Robotics\|Calculus for Robotics]], [[Bayesian_Inference\|Bayesian Inference]] | Mathematics for Robotics |
+| 37 | **Gait** `Gait.md` | 4 | [[Legged_Robots\|Legged Robots]] | Legged Locomotion and Humanoids |
+| 38 | **Gimbal Lock** `Gimbal_Lock.md` | 4 | [[Euler_Angles\|Euler Angles]], [[Quaternions]], [[Rotation_Matrix\|Rotation Matrix]] +1 | Mathematics for Robotics |
+| 39 | **Imitation Learning** `Imitation_Learning.md` | 4 | [[Reinforcement_Learning_for_Robots\|Reinforcement Learning for Robots]], [[History_of_Robotics\|History of Robotics]], [[Future_Trends_2025-2035\|Future Trends in Robotics (2025-2035)]] +1 | History and Futures of Robotics |
+| 40 | **Isaac Asimov** `Isaac_Asimov.md` | 4 | [[History_of_Robotics\|History of Robotics]], [[Key_Figures_and_Labs\|Key Figures and Labs in Robotics History]], [[Robot_Ethics_and_Policy_Debates\|Robot Ethics and Policy Debates]] +1 | History and Futures of Robotics |
+| 41 | **Object Recognition** `Object_Recognition.md` | 4 | [[Perception]], [[Computer_Vision\|Computer Vision]], [[RGB-D_Sensor\|RGB-D Sensor]] +1 | Sensing and Perception |
+| 42 | **Policy** `Policy.md` | 4 | [[Reinforcement_Learning_for_Robots\|Reinforcement Learning for Robots]], [[ROS_AI_Integration\|ROS AI Integration]] | AI and Robot Learning |
+| 43 | **Prismatic Joint** `Prismatic_Joint.md` | 4 | [[Joint_Kinematics\|Joint Kinematics]], [[Manipulator_Arm_Types\|Manipulator Arm Types]], [[Links_and_Joints_Definitions\|Links and Joints Definitions]] | Kinematics and Dynamics |
+| 44 | **Revolute Joint** `Revolute_Joint.md` | 4 | [[Joint_Kinematics\|Joint Kinematics]], [[Manipulator_Arm_Types\|Manipulator Arm Types]], [[Links_and_Joints_Definitions\|Links and Joints Definitions]] | Kinematics and Dynamics |
+| 45 | **ROV** `ROV.md` | 4 | [[Locomotion]], [[Hydraulic_Systems\|Hydraulic Systems]], [[Underwater_and_Space_Robots\|Underwater and Space Robots]] | Kinematics and Dynamics |
+| 46 | **Stability Analysis** `Stability_Analysis.md` | 4 | [[State_Space_Representation\|State Space Representation]], [[Open_Loop_vs_Closed_Loop\|Open Loop vs Closed Loop]], [[Robust_Control\|Robust Control]] +1 | Control |
 | 47 | **State Estimation** `State_Estimation.md` | 4 | [[SLAM\|SLAM (Simultaneous Localization and Mapping)]], [[Perception]], [[Estimation]] | State Estimation, Localization and Mapping |
-| 48 | **Stereo Vision** `Stereo_Vision.md` | 4 | [[Sensor_Calibration_Techniques]], [[Computer_Vision_in_Robotics]] | Sensing and Perception |
-| 49 | **Tactile Sensing** `Tactile_Sensing.md` | 4 | [[Soft_Robotics]], [[Robot_Hands]] | Soft and Continuum Robotics |
-| 50 | **AUV** `AUV.md` | 3 | [[Locomotion]], [[Underwater_and_Space_Robots]] | Kinematics and Dynamics |
+| 48 | **Stereo Vision** `Stereo_Vision.md` | 4 | [[Sensor_Calibration_Techniques\|Sensor Calibration Techniques]], [[Computer_Vision_in_Robotics\|Computer Vision in Robotics]] | Sensing and Perception |
+| 49 | **Tactile Sensing** `Tactile_Sensing.md` | 4 | [[Soft_Robotics\|Soft Robotics]], [[Robot_Hands\|Robot Hands]] | Soft and Continuum Robotics |
+| 50 | **AUV** `AUV.md` | 3 | [[Locomotion]], [[Underwater_and_Space_Robots\|Underwater and Space Robots]] | Kinematics and Dynamics |
 
 ## Stubs to fill
 
