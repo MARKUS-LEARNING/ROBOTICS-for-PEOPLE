@@ -1,7 +1,7 @@
 # Frontmatter schema v2 for ROBOTICS-for-PEOPLE notes. Enforced by `python3 tools/vault.py lint`.
 # Documented for humans in 00_Introduction/Vault_Taxonomy_Guide.md; keep the two in sync.
 
-version: 2
+version: 2.1
 
 fields:
   title:         {required: true,  kind: string}
@@ -18,6 +18,8 @@ fields:
   last_reviewed: {required: false, kind: date}
   key_takeaways: {required: false, kind: list,   item: string, max: 5}
   aliases:       {required: false, kind: list,   item: string}
+  as_of:         {required: false, kind: month}                    # YYYY-MM: when the state-of-the-art content was last brought up to date
+  sources:       {required: false, kind: list,   item: source}     # citations: "Author or org (Year). Title. URL"; 3+ required with as_of
 
 # Fields from schema v1 that `vault.py migrate` removes. Lint reports them while they remain.
 removed: [layout, permalink, category, application, control_strategy]

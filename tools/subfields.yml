@@ -6,6 +6,8 @@
 #
 # Adding a subfield: add an entry here (key in kebab-case), then tag notes with it. `folders` and `tags` are only
 # hints used by `vault.py migrate` to propose values; authors have the final say in each note's frontmatter.
+# `fast_moving: true` marks subfields where notes need an `as_of` date and are listed on the Frontier when they fall
+# more than 12 months behind the most recently updated note.
 #
 # group: core      = the stack every robot is built on
 #        body      = how robots are shaped and move
@@ -66,12 +68,14 @@ subfields:
   robot-learning:
     title: AI and Robot Learning
     group: core
+    fast_moving: true
     description: "Machine learning, deep learning, reinforcement and imitation learning, foundation and vision-language-action models."
     folders: [05_AI_and_Machine_Learning, 09_Advanced_Topics/03_Advanced_AI_Learning_for_Robotics]
     tags: [artificial-intelligence, machine-learning, deep-learning, reinforcement-learning, neural-networks, robot-learning, embodied-ai]
   software:
     title: Robot Software and Middleware
     group: core
+    fast_moving: true
     description: "ROS 2 and its ecosystem, simulation, build tools, and the engineering practice of shipping robot code."
     folders: [07_Robot_Operating_System_(ROS), 11_Practical_Implementation, 12_Labs_and_Tutorials]
     tags: [ros, ros2, robotics-software, middleware, simulation, gazebo, software-engineering, programming]
@@ -92,6 +96,7 @@ subfields:
   manipulation:
     title: Manipulation and Grasping
     group: body
+    fast_moving: true
     description: "Arms, grippers and hands: grasping, dexterous and in-hand manipulation, tactile sensing."
     folders: [08_Robot_Types_and_Applications/01_Robot_Types/03_Industrial_Arms, 08_Robot_Types_and_Applications/01_Robot_Types/08_Robot_Hands]
     tags: [manipulator-arm, manipulation, grasping, end-effector, gripper, dexterity]
@@ -104,6 +109,7 @@ subfields:
   legged-humanoid:
     title: Legged Locomotion and Humanoids
     group: body
+    fast_moving: true
     description: "Walking and running machines, from quadrupeds to full humanoids: gaits, balance, whole-body control."
     folders: [08_Robot_Types_and_Applications/01_Robot_Types/02_Humanoid_Robots, 08_Robot_Types_and_Applications/01_Robot_Types/07_Legged_Robots]
     tags: [legged-robot, humanoid, locomotion, gait, bipedal, quadruped, hexapod]
@@ -230,6 +236,7 @@ subfields:
   frontiers:
     title: Emerging Frontiers
     group: frontier
+    fast_moving: true
     description: "Directions still being invented: bio-hybrid and living machines, neuromorphic and event-based systems, quantum sensing, self-assembling and self-repairing robots, and ideas nobody has named yet."
     folders: []
     tags: [neurocontrol, event-based-sensing, speculative-robotics]

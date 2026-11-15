@@ -13,7 +13,7 @@ Usage (from the vault root, Python 3.10+, PyYAML):
 """
 from __future__ import annotations
 
-import argparse, collections, json, os, re, sys, unicodedata
+import argparse, collections, json, os, re, sys, unicodedata, urllib.parse
 from dataclasses import dataclass, field
 
 import yaml
@@ -169,7 +169,7 @@ def load_note(path: str) -> Note:
         heading = None
         if '#' in tgt:
             tgt, heading = tgt.split('#', 1)
-        n.links.append(Link(target=tgt.replace('%20', ' '), heading=heading, alias=None, embed=False, source='body', relative=True))
+        n.links.append(Link(target=urllib.parse.unquote(tgt), heading=heading, alias=None, embed=False, source='body', relative=True))
     if fm:
         fm_links(fm, n.links)
     for tm in INLINE_TAG.finditer(clean):
@@ -180,20 +180,23 @@ def load_note(path: str) -> Note:
 
 
 class Vault:
-    def __init__(self, root: str = ROOT):
+    def __init__(self, root: str = ROOT, repo_docs: bool = False):
+        """repo_docs=True also indexes README.md, CONTRIBUTING.md... as notes, as Obsidian itself does."""
         self.root = root
         self.notes: list[Note] = []
         self.attachments: list[str] = []
         for dp, dns, fns in os.walk(root):
-            dns[:] = sorted(d for d in dns if d not in SKIP_DIRS and not d.startswith('.'))
+            # hidden folders are invisible to Obsidian; tooling folders hold no notes but their files can still be linked
+            dns[:] = sorted(d for d in dns if not d.startswith('.') and d not in ('node_modules', 'public'))
+            tooling = os.path.relpath(dp, root).split(os.sep)[0] in SKIP_DIRS
             for fn in sorted(fns):
-                p = os.path.join(dp, fn)
-                if fn.endswith('.md'):
-                    if dp == root and fn in SKIP_FILES:
-                        continue
+                p = os.path.join(dp, fn); rel = nfc(os.path.relpath(p, root).replace(os.sep, '/'))
+                if fn.endswith('.md') and not tooling:
+                    if dp == root and fn in SKIP_FILES and not repo_docs:
+                        self.attachments.append(rel); continue
                     self.notes.append(load_note(p))
-                elif not fn.startswith('.') and dp != root:      # root files (LICENSE) are repo files, not attachments
-                    self.attachments.append(nfc(os.path.relpath(p, root).replace(os.sep, '/')))
+                elif not fn.startswith('.') and '.' in fn:      # Obsidian does not index files without an extension
+                    self.attachments.append(rel)
         self.by_name: dict[str, list[Note]] = collections.defaultdict(list)
         self.by_path: dict[str, Note] = {}
         for n in self.notes:
@@ -317,6 +320,8 @@ def cmd_tags(a):
 
 # ----------------------------------------------------------------------------------------------------------------- lint
 DATE = re.compile(r'^\d{4}-\d{2}-\d{2}$')
+MONTH = re.compile(r'^\d{4}-(0[1-9]|1[0-2])$')
+SOURCE = re.compile(r'\((19|20)\d{2}[a-z]?\).*https?://\S+', re.S)
 FILENAME_OK = re.compile(r'^[A-Za-z0-9][A-Za-z0-9_\-()+.,\'&]*$')
 
 
@@ -361,6 +366,8 @@ def check_note(n: Note, v: Vault, schema: dict, tm: TagMap, subfields: set, L: L
             L.add('error', 'field-value', n.path, f'`{f}: {val}` not one of {spec["values"]}')
         elif kind == 'date' and not DATE.match(str(val)):
             L.add('error', 'field-date', n.path, f'`{f}: {val}` is not YYYY-MM-DD')
+        elif kind == 'month' and not MONTH.match(str(val)):
+            L.add('error', 'field-month', n.path, f'`{f}: {val}` is not YYYY-MM')
         elif kind == 'list':
             if not isinstance(val, list):
                 L.add('error', 'field-kind', n.path, f'`{f}` must be a list'); continue
@@ -372,6 +379,8 @@ def check_note(n: Note, v: Vault, schema: dict, tm: TagMap, subfields: set, L: L
                     canon = tm.canonical(str(item))
                     hint = f' (use `{canon}`)' if canon and canon != str(item) and canon in tm.vocabulary else ' (dropped or not in tools/tags.yml)'
                     L.add('error', 'tag-vocabulary', n.path, f'tag `{item}`{hint}')
+                elif it == 'source' and not SOURCE.search(str(item)):
+                    L.add('error', 'source-format', n.path, f'source {str(item)[:60]!r} needs a year in parentheses and an http(s) URL')
                 elif it == 'subfield' and str(item) not in subfields:
                     L.add('error', 'subfield-unknown', n.path, f'subfield `{item}` not in tools/subfields.yml')
                 elif it == 'wikilink':
@@ -380,6 +389,8 @@ def check_note(n: Note, v: Vault, schema: dict, tm: TagMap, subfields: set, L: L
                         L.add('error', 'field-wikilink', n.path, f'`{f}` item {item!r} is not a [[wikilink]]')
                     elif v.resolve(lk, n) is None:
                         L.add('warning' if f == 'related' else 'error', f'{f}-unresolved', n.path, f'`{f}` points to missing note [[{lk.target}]]')
+    if fm.get('as_of') and len(fm.get('sources') or []) < 3:
+        L.add('error', 'sources-required', n.path, f'a note with `as_of` needs at least 3 `sources` (has {len(fm.get("sources") or [])})')
     if unclosed_fence(n.body):
         L.add('error', 'fence-unclosed', n.path, 'the note ends inside a code block that is never closed (run `vault.py fix-fences --write`)')
     for t in n.invalid_tags:
@@ -470,7 +481,7 @@ def cmd_lint(a):
 
 # --------------------------------------------------------------------------------------------------------------- migrate
 FIELD_ORDER = ['title', 'description', 'aliases', 'tags', 'type', 'level', 'subfield', 'status', 'author', 'date',
-               'last_reviewed', 'prerequisites', 'related', 'key_takeaways']
+               'last_reviewed', 'as_of', 'prerequisites', 'related', 'key_takeaways', 'sources']
 V1_TYPE = {'robotic concept': 'concept', 'mechanical concept': 'concept', 'concept': 'concept', 'mechanical property': 'concept',
            'physical phenomenon': 'concept', 'engineering discipline': 'concept', 'interdisciplinary field': 'concept',
            'technology': 'concept', 'system': 'concept', 'control system': 'concept', 'robot type': 'robot-type',
@@ -749,6 +760,49 @@ def cmd_fix_dataview(a):
     print(f'{changed} notes have Dataview queries to update' + ('' if a.write else ' (dry run; --write to apply)'))
 
 
+# ---------------------------------------------------------------------------------------------------------- trim-related
+def trim_related_text(fm_text: str, drop: set) -> tuple[str, int]:
+    """Remove `related:` items whose link target (lower-cased) is in `drop`. Works on the text, so nothing else moves."""
+    out, in_related, removed = [], False, 0
+    for line in fm_text.split('\n'):
+        if re.match(r'^[A-Za-z_][\w-]*:', line):
+            in_related = line.startswith('related:')
+        m = re.match(r'^\s+-\s+"?\[\[([^\]|#]+)(?:[#|][^\]]*)?\]\]"?\s*$', line) if in_related else None
+        if m and nfc(m.group(1).strip()).lower() in drop:
+            removed += 1; continue
+        out.append(line)
+    return '\n'.join(out), removed
+
+
+def stray_related_targets(v: Vault) -> set:
+    """Missing notes that only a single `related:` entry in the whole vault points at: stray 'see also' links."""
+    refs = collections.Counter(); from_related = collections.Counter()
+    for n in v.notes:
+        for l in n.links:
+            if l.target and v.resolve(l, n) is None:
+                k = nfc(l.target).lower(); refs[k] += 1
+                if l.source == 'frontmatter':
+                    from_related[k] += 1
+    return {k for k, c in refs.items() if c == 1 and from_related[k] == 1}
+
+
+def cmd_trim_related(a):
+    v = Vault(); drop = stray_related_targets(v); total = files = 0
+    for n in v.notes:
+        if n.fm_text is None:
+            continue
+        new_fm, c = trim_related_text(n.fm_text, drop)
+        if c:
+            total += c; files += 1
+            if a.write:
+                head = n.raw[:n.raw.index(n.fm_text)]
+                tail = n.raw[n.raw.index(n.fm_text) + len(n.fm_text):]
+                with open(os.path.join(ROOT, n.path), 'w', encoding='utf-8') as fh:
+                    fh.write(head + new_fm + tail)
+    print(f'{total} stray `related:` links to notes that nothing else mentions, in {files} notes' +
+          (' (removed)' if a.write else ' (dry run; --write to remove)'))
+
+
 # ------------------------------------------------------------------------------------------------------------ fix-fences
 def unclosed_fence(body: str) -> str | None:
     """The opening fence (e.g. '```') if the note ends inside a code block that was never closed, else None."""
@@ -928,6 +982,28 @@ class Book:
                     e = out.setdefault(k, [t, 0, {}]); e[1] += 1; e[2][n.path] = n
         return out
 
+    def fast(self, n) -> bool:
+        return any(self.sfs.get(k, {}).get('fast_moving') for k in n.frontmatter.get('subfield') or [])
+
+    def newest_as_of(self):
+        months = [str(n.frontmatter['as_of']) for n in self.notes if MONTH.match(str(n.frontmatter.get('as_of', '')))]
+        return max(months) if months else None
+
+    def behind(self):
+        """Notes in fast-moving subfields with no `as_of`, or one more than 12 months older than the newest `as_of` in the
+        vault. Measured against the vault itself, not today's date, so the generated pages are reproducible."""
+        ref = self.newest_as_of()
+        def months(m):
+            y, mo = map(int, m.split('-')); return y * 12 + mo
+        out = []
+        for n in self.notes:
+            if not self.fast(n):
+                continue
+            a = str(n.frontmatter.get('as_of') or '')
+            if not MONTH.match(a) or (ref and months(ref) - months(a) > 12):
+                out.append(n)
+        return out
+
     def likely_subfield(self, sources):
         c = collections.Counter(s for n in sources for s in (n.frontmatter or {}).get('subfield') or [])
         return c.most_common(1)[0][0] if c else None
@@ -969,15 +1045,18 @@ def page_frontier(b: Book) -> str:
     thin = [k for k in b.sfs if len(b.by_sub.get(k, [])) < 3]
     refs = sum(e[1] for e in miss.values())
     L.append(f'**{len(miss)} notes are wanted**: existing notes link to them {refs} times, but they have not been written yet. '
+             f'**{len(b.behind())} notes** in fast-moving subfields need bringing up to date. '
              f'**{len(stubs)} stub{"s" if len(stubs) != 1 else ""}** need{"s" if len(stubs) == 1 else ""} content, and **{len(thin)} subfields** have fewer than three notes.\n')
     L.append('Pick one, write it, and open a pull request. The [[Vault_Taxonomy_Guide|Vault Taxonomy Guide]] has the frontmatter template; '
              '`python3 tools/vault.py lint` checks your note before you submit.\n')
     ranked = sorted(miss.values(), key=lambda e: (-e[1], e[0].lower()))
+    top = [e for e in ranked if e[1] >= 3]
     L.append('## Most wanted\n')
-    L.append('Ranked by how many links already point at the missing note. The file name to create is in `code`.\n')
+    L.append(f'The {len(top)} missing notes that three or more links already point at, most wanted first. '
+             'The file name to create is in `code`.\n')
     L.append('| # | Wanted note | Links | Linked from | Likely subfield |')
     L.append('|---:|---|---:|---|---|')
-    for i, (t, c, src) in enumerate(ranked[:50], 1):
+    for i, (t, c, src) in enumerate(top, 1):
         srcs = sorted(src.values(), key=lambda n: -len(b.inbound.get(n.path, ())))
         more = f' +{len(srcs) - 3}' if len(srcs) > 3 else ''
         sf = b.likely_subfield(srcs)
@@ -985,6 +1064,20 @@ def page_frontier(b: Book) -> str:
         L.append(f'| {i} | **{t.replace("_", " ")}** `{fname}.md` | {c} | ' + ', '.join(b.link(n, table=True) for n in srcs[:3]) + more +
                  f' | {b.sfs[sf]["title"] if sf in b.sfs else "—"} |')
     L.append('')
+    behind = b.behind(); ref = b.newest_as_of()
+    L.append('## Behind the cutting edge\n')
+    L.append('Robot learning, software, humanoids, manipulation and the frontier move fast. Notes in those subfields need an `as_of` '
+             'date (the month their state-of-the-art content was last brought up to date) and a list of `sources`. '
+             + (f'A note is listed here if it has no `as_of`, or one more than 12 months older than the newest in the textbook ({ref}).'
+                if ref else 'A note is listed here until it has an `as_of`.') + '\n')
+    bys = collections.defaultdict(list)
+    for n in behind:
+        bys[next(k for k in n.frontmatter.get('subfield') if b.sfs.get(k, {}).get('fast_moving'))].append(n)
+    for k in [k for k in b.sfs if k in bys]:
+        ns = sorted(bys[k], key=lambda n: (-len(b.inbound.get(n.path, ())), b.title(n)))
+        L.append(f'**{b.sfs[k]["title"]}** ({len(ns)}): ' + ' · '.join(b.link(n) for n in ns) + '\n')
+    if not behind:
+        L.append('*Every note in a fast-moving subfield is up to date.*\n')
     L.append('## Stubs to fill\n')
     L.append('\n'.join(f'- {b.link(n)}: {n.frontmatter.get("description", "")}' for n in stubs) or '*None right now.*')
     L.append('')
@@ -1056,6 +1149,31 @@ def page_paths(b: Book) -> str:
     return '\n'.join(L)
 
 
+def page_whats_new(b: Book) -> str:
+    L = []
+    cur = sorted([n for n in b.notes if MONTH.match(str(n.frontmatter.get('as_of', '')))],
+                 key=lambda n: (str(n.frontmatter['as_of']), b.title(n).lower()), reverse=True)
+    L.append(f'**{len(cur)} notes** carry an `as_of` date: their state-of-the-art content was checked against current sources that month. '
+             f'**{len(b.behind())} notes** in fast-moving subfields are waiting for the same treatment (see [[Frontier]]).\n')
+    L.append('## Brought up to date\n')
+    if cur:
+        by_m = collections.defaultdict(list)
+        for n in cur:
+            by_m[str(n.frontmatter['as_of'])].append(n)
+        for m in sorted(by_m, reverse=True):
+            L.append(f'**{m}**: ' + ' · '.join(b.link(n) for n in by_m[m]) + '\n')
+    else:
+        L.append('*No notes carry an `as_of` date yet.*\n')
+    def recent(field, k=25):
+        ns = [n for n in b.notes if DATE.match(str(n.frontmatter.get(field, '')))]
+        return sorted(ns, key=lambda n: (str(n.frontmatter[field]), b.title(n).lower()), reverse=True)[:k]
+    L.append('## Recently reviewed\n')
+    L.append('\n'.join(f'- {n.frontmatter["last_reviewed"]}: {b.link(n)} · *{n.frontmatter.get("status")}*' for n in recent('last_reviewed')) or '*None yet.*')
+    L.append('\n## Recently added\n')
+    L.append('\n'.join(f'- {n.frontmatter["date"]}: {b.link(n)} · *{n.frontmatter.get("level")}*' for n in recent('date')))
+    return '\n'.join(L)
+
+
 PAGES = {
     '00_Introduction/Subfield_Atlas.md': (page_atlas, 'Subfield Atlas',
         'A map of robotics as a field without edges: every subfield, how many notes cover it at each level, its keystone notes and where to start.',
@@ -1071,6 +1189,11 @@ PAGES = {
         'A textbook about a field that is still being invented is never finished. This page is the list of what to write next, '
         'built from the textbook itself: every time a note links to a topic that has no note yet, that topic appears here, '
         'ranked by how many notes are waiting for it.\n\nIt is the best place to start contributing, for people and for AI agents alike.'),
+    '00_Introduction/Whats_New.md': (page_whats_new, "What's New",
+        'A living changelog: notes recently brought up to date with current sources, recently reviewed, and recently added.',
+        ['vault-meta'], ['[[Frontier]]', '[[Subfield_Atlas]]', '[[Learning_Paths]]'],
+        'Robotics changes month by month, and so does this textbook. This page lists what has changed recently, '
+        'built from each note\'s `as_of`, `last_reviewed` and `date` fields.'),
     '00_Introduction/Learning_Paths.md': (page_paths, 'Learning Paths',
         'Reading orders through the textbook, built from each note\'s prerequisites and level: one path per kind of reader and one per subfield.',
         ['vault-meta', 'learning-paths'], ['[[Subfield_Atlas]]', '[[Frontier]]', '[[How_to_Use_This_Vault]]'],
@@ -1163,10 +1286,7 @@ def cmd_obsidian_check(a):
     info = dict(l.split('\t', 1) for l in cli('vault').strip().splitlines() if '\t' in l)
     if os.path.realpath(info.get('path', '')) != os.path.realpath(ROOT):
         raise SystemExit(f'Obsidian\'s vault is {info.get("path")}, not {ROOT}; pass vault=<name> or open this folder in Obsidian')
-    v = Vault()
-    for f in SKIP_FILES:                       # Obsidian indexes the repo docs too
-        if os.path.exists(os.path.join(ROOT, f)):
-            v.notes.append(load_note(os.path.join(ROOT, f)))
+    v = Vault(repo_docs=True)                  # Obsidian indexes the repo docs too
     mine = collections.Counter()
     for n in v.notes:
         for l in n.links:
@@ -1258,6 +1378,9 @@ def main(argv=None):
     p = sub.add_parser('pages', help='rebuild Subfield Atlas, Frontier and Learning Paths in 00_Introduction')
     p.add_argument('--write', action='store_true'); p.add_argument('--check', action='store_true', help='exit 1 if out of date')
     p.set_defaults(fn=cmd_pages)
+    p = sub.add_parser('trim-related', help='remove related: links to missing notes that nothing else mentions')
+    p.add_argument('--write', action='store_true')
+    p.set_defaults(fn=cmd_trim_related)
     p = sub.add_parser('fix-fences', help='close code blocks left open at the end of a note')
     p.add_argument('--write', action='store_true')
     p.set_defaults(fn=cmd_fix_fences)

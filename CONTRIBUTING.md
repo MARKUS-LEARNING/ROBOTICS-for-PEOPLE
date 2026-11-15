@@ -36,6 +36,7 @@ A part of robotics that isn't on the map at all is welcome too. Add it to `tools
 2. Start it with the schema v2 frontmatter from the [Vault Taxonomy Guide](00_Introduction/Vault_Taxonomy_Guide.md#frontmatter-schema-v2): `title`, `description`, `tags`, `type`, `level`, `subfield`, `status`, `author`, `date`, plus `prerequisites` and `related` where they apply.
 3. Use tags from `tools/tags.yml`. If you really need a new one, add it there in the same pull request.
 4. Link on first mention with `[[Note_Name]]`. Only link to notes that exist, or to a topic listed on the Frontier.
+5. Writing about something that changes fast (robot learning, simulation, software, humanoids, manipulation)? Check it against primary sources: papers, official docs, release notes. List at least three in `sources:` as `"Author or org (Year). Title. URL"`, and set `as_of:` to the current month (`YYYY-MM`).
 
 ### Before you open a pull request
 ```bash
