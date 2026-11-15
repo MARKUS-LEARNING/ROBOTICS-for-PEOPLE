@@ -131,4 +131,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #computer-vision WHERE contains(file.outlinks, [[Computer_Vision_in_Robotics]])
+LIST FROM "" WHERE contains(file.outlinks, [[Computer_Vision_in_Robotics]])
+```

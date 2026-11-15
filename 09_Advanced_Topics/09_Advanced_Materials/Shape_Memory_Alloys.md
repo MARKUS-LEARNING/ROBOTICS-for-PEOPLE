@@ -111,4 +111,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #materials OR #robotics WHERE contains(file.outlinks, [[Shape_Memory_Alloys]])
+LIST FROM "" WHERE contains(file.outlinks, [[Shape_Memory_Alloys]])
+```

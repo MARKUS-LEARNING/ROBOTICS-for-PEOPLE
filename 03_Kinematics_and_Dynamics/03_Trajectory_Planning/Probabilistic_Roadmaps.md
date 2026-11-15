@@ -114,4 +114,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #motion-planning WHERE contains(file.outlinks, [[Probabilistic_Roadmaps]])
+LIST FROM "" WHERE contains(file.outlinks, [[Probabilistic_Roadmaps]])
+```

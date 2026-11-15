@@ -84,4 +84,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #bio-inspired-design WHERE contains(file.outlinks, [[Bio_Inspired_and_Biomimetic_Robotics]])
+LIST FROM "" WHERE contains(file.outlinks, [[Bio_Inspired_and_Biomimetic_Robotics]])
+```

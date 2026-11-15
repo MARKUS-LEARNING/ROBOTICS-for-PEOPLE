@@ -113,4 +113,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #perception WHERE contains(file.outlinks, [[Active_Perception_and_Sensing]])
+LIST FROM "" WHERE contains(file.outlinks, [[Active_Perception_and_Sensing]])
+```

@@ -83,4 +83,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ### List of Related Concepts
 ```dataview
-LIST FROM #robot-design OR #robotics   WHERE contains(file.outlinks, [[Piezoelectricity]])
+LIST FROM ""   WHERE contains(file.outlinks, [[Piezoelectricity]])
+```

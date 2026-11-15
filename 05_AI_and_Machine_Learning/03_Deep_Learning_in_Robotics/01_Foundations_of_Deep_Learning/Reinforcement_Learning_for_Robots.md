@@ -120,4 +120,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #machine-learning WHERE contains(file.outlinks, [[Reinforcement_Learning_for_Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Reinforcement_Learning_for_Robots]])
+```

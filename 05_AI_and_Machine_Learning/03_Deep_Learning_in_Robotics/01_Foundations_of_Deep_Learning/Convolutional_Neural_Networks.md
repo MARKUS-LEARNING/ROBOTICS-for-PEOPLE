@@ -102,4 +102,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #deep-learning WHERE contains(file.outlinks, [[Convolutional_Neural_Networks]])
+LIST FROM "" WHERE contains(file.outlinks, [[Convolutional_Neural_Networks]])
+```

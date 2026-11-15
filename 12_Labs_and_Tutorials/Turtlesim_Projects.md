@@ -99,4 +99,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #labs OR #robotics WHERE contains(file.outlinks, [[Turtlesim_Projects]])
+LIST FROM "" WHERE contains(file.outlinks, [[Turtlesim_Projects]])
+```

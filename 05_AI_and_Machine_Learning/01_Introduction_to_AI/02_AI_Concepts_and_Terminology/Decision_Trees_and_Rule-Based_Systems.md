@@ -93,4 +93,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #machine-learning WHERE contains(file.outlinks, [[Decision_Trees_and_Rule-Based_Systems]])
+LIST FROM "" WHERE contains(file.outlinks, [[Decision_Trees_and_Rule-Based_Systems]])
+```

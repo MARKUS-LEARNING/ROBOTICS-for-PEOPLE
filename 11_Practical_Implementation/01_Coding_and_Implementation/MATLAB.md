@@ -81,3 +81,4 @@ function main()
     controlSignal = processSensorData(data);
     fprintf('Control Signal: speed = %f, direction = %f\n', controlSignal.speed, controlSignal.direction);
 end
+```

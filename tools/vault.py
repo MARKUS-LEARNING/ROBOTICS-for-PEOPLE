@@ -380,6 +380,8 @@ def check_note(n: Note, v: Vault, schema: dict, tm: TagMap, subfields: set, L: L
                         L.add('error', 'field-wikilink', n.path, f'`{f}` item {item!r} is not a [[wikilink]]')
                     elif v.resolve(lk, n) is None:
                         L.add('warning' if f == 'related' else 'error', f'{f}-unresolved', n.path, f'`{f}` points to missing note [[{lk.target}]]')
+    if unclosed_fence(n.body):
+        L.add('error', 'fence-unclosed', n.path, 'the note ends inside a code block that is never closed (run `vault.py fix-fences --write`)')
     for t in n.invalid_tags:
         L.add('error', 'tag-invalid', n.path, f'tag `{t}` is not a valid Obsidian tag (no spaces or punctuation like +), so Obsidian ignores it')
     if not FILENAME_OK.match(n.name):
@@ -745,6 +747,32 @@ def cmd_fix_dataview(a):
                 with open(os.path.join(ROOT, n.path), 'w', encoding='utf-8') as fh:
                     fh.write(n.raw[:len(n.raw) - len(n.body)] + new_body)
     print(f'{changed} notes have Dataview queries to update' + ('' if a.write else ' (dry run; --write to apply)'))
+
+
+# ------------------------------------------------------------------------------------------------------------ fix-fences
+def unclosed_fence(body: str) -> str | None:
+    """The opening fence (e.g. '```') if the note ends inside a code block that was never closed, else None."""
+    fence = None
+    for line in body.split('\n'):
+        m = FENCE.match(line)
+        if fence is None and m:
+            fence = m.group(2)[0] * len(m.group(2)); continue
+        if fence is not None and m and m.group(2).startswith(fence) and not m.group(3).strip():
+            fence = None
+    return fence
+
+
+def cmd_fix_fences(a):
+    """Close code blocks left open at the end of a note. Obsidian tolerates them; GitHub, Quartz and Dataview tooling do not."""
+    v = Vault(); fixed = 0
+    for n in v.notes:
+        f = unclosed_fence(n.body)
+        if f:
+            fixed += 1
+            if a.write:
+                with open(os.path.join(ROOT, n.path), 'w', encoding='utf-8') as fh:
+                    fh.write(n.raw.rstrip('\n') + '\n' + f + '\n')
+    print(f'{fixed} notes end inside an unclosed code block' + (' (closed)' if a.write else ' (dry run; --write to close them)'))
 
 
 # ------------------------------------------------------------------------------------------------------------- fix-links
@@ -1193,6 +1221,9 @@ def main(argv=None):
     p = sub.add_parser('pages', help='rebuild Subfield Atlas, Frontier and Learning Paths in 00_Introduction')
     p.add_argument('--write', action='store_true'); p.add_argument('--check', action='store_true', help='exit 1 if out of date')
     p.set_defaults(fn=cmd_pages)
+    p = sub.add_parser('fix-fences', help='close code blocks left open at the end of a note')
+    p.add_argument('--write', action='store_true')
+    p.set_defaults(fn=cmd_fix_fences)
     p = sub.add_parser('fix-links', help='repoint links that misspell an existing note ([[Machine Learning]] -> Machine_Learning)')
     p.add_argument('--write', action='store_true')
     p.set_defaults(fn=cmd_fix_links)

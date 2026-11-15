@@ -106,4 +106,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #control OR #robotics WHERE contains(file.outlinks, [[Transfer_Function]])
+LIST FROM "" WHERE contains(file.outlinks, [[Transfer_Function]])
+```

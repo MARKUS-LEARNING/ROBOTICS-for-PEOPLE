@@ -111,3 +111,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #control-theory OR #feedback-control WHERE contains(file.outlinks, [[PID_Control]])
+```

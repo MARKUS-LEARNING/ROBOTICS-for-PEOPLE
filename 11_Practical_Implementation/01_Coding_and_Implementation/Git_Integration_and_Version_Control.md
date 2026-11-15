@@ -78,4 +78,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #implementation  OR #coding WHERE contains(file.outlinks, [[Git_Integration_and_Version_Control]])
+LIST FROM "" WHERE contains(file.outlinks, [[Git_Integration_and_Version_Control]])
+```

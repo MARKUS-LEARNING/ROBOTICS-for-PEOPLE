@@ -80,4 +80,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ### List of Related Concepts
 ```dataview
-LIST FROM #camera OR #sensor   WHERE contains(file.outlinks, [[Range_Sensor]])
+LIST FROM #camera OR #sensors   WHERE contains(file.outlinks, [[Range_Sensor]])
+```

@@ -122,4 +122,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #technology OR #materials WHERE contains(file.outlinks, [[Nanotechnology]])
+LIST FROM "" WHERE contains(file.outlinks, [[Nanotechnology]])
+```

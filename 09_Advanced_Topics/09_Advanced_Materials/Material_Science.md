@@ -148,4 +148,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #science OR #engineering WHERE contains(file.outlinks, [[Material_Science]])
+LIST FROM "" WHERE contains(file.outlinks, [[Material_Science]])
+```

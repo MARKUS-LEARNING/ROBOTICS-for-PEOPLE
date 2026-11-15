@@ -114,4 +114,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #machine-learning WHERE contains(file.outlinks, [[Classification_vs_Regression_vs_Clustering]])
+LIST FROM "" WHERE contains(file.outlinks, [[Classification_vs_Regression_vs_Clustering]])
+```

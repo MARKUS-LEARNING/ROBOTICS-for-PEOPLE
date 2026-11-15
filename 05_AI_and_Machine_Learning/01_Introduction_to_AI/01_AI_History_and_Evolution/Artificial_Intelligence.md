@@ -107,4 +107,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 - **List all related components and concepts**:
   ```dataview
-  LIST FROM #component OR #mechatronics WHERE contains(file.outlinks, [[Artificial_Intelligence]])
+  LIST FROM #components OR #mechatronics WHERE contains(file.outlinks, [[Artificial_Intelligence]])
+```

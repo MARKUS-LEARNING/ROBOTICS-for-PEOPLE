@@ -87,4 +87,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #machine-learning WHERE contains(file.outlinks, [[Bias,_Variance,_and_Overfitting]])
+LIST FROM "" WHERE contains(file.outlinks, [[Bias,_Variance,_and_Overfitting]])
+```

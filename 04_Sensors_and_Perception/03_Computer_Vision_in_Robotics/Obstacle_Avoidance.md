@@ -114,4 +114,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ### List of Related Concepts
 ```dataview
-LIST FROM #technology OR #automation WHERE contains(file.outlinks, [[Obstacle_Avoidance]])
+LIST FROM "" WHERE contains(file.outlinks, [[Obstacle_Avoidance]])
+```

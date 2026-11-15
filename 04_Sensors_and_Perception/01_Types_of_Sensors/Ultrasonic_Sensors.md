@@ -105,4 +105,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ### List of Related Concepts
 ```dataview
-LIST FROM #robotics OR #sensor   WHERE contains(file.outlinks, [[Ultrasonic_Sensors]])
+LIST FROM ""   WHERE contains(file.outlinks, [[Ultrasonic_Sensors]])
+```

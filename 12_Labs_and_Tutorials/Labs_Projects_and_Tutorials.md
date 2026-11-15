@@ -156,3 +156,4 @@ Here are some potential project ideas and labs that can help you apply the conce
 LIST
 FROM "12_Labs_and_Tutorials"
 WHERE type = "lab" OR type = "tutorial"
+```
