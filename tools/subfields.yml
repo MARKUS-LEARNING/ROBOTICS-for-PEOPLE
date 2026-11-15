@@ -15,6 +15,12 @@
 
 subfields:
   # ------------------------------------------------------------------------------------------------ core
+  foundations:
+    title: Foundations of Robotics
+    group: core
+    description: "What robots are and how the field fits together: definitions, robot anatomy, and the big picture that connects every other subfield."
+    folders: [01_Fundamentals_of_Robotics/01_Introduction_to_Robotics, 01_Fundamentals_of_Robotics/03_Basic_Concepts_and_Terminology/02_Robot_Anatomy_Terms]
+    tags: [robot-design, mechatronics, robot-types]
   mathematics:
     title: Mathematics for Robotics
     group: core

@@ -349,7 +349,7 @@ def check_note(n: Note, v: Vault, schema: dict, tm: TagMap, subfields: set, L: L
     for f, spec in fields.items():
         val = fm.get(f)
         if val in (None, '', []):
-            if spec.get('required'):
+            if spec.get('required') and fm.get('type') not in (spec.get('optional_for_types') or []):
                 L.add('error', 'field-required', n.path, f'missing `{f}`')
             continue
         kind = spec['kind']
@@ -417,6 +417,9 @@ def cmd_lint(a):
     schema = load_yaml('schema.yml')
     sf_conf = load_yaml('subfields.yml').get('subfields') or {}
     L = Lint()
+    for k, val in tm.synonyms.items():
+        if val.lower() in tm.synonyms and tm.synonyms[val.lower()] != val:
+            L.add('error', 'config', 'tools/tags.yml', f'synonym `{k}` -> `{val}` points to another synonym (`{val}` -> `{tm.synonyms[val.lower()]}`)')
     if not tm.vocabulary:
         L.add('error', 'config', 'tools/tags.yml', 'vocabulary is empty (run `vault.py tags --init-vocabulary`)')
     for key, sf in sf_conf.items():
@@ -461,6 +464,287 @@ def cmd_lint(a):
             print(f'  [{s}] {r}: {p}: {m}')
     if a.enforce and errors:
         sys.exit(1)
+
+
+# --------------------------------------------------------------------------------------------------------------- migrate
+FIELD_ORDER = ['title', 'description', 'aliases', 'tags', 'type', 'level', 'subfield', 'status', 'author', 'date',
+               'last_reviewed', 'prerequisites', 'related', 'key_takeaways']
+V1_TYPE = {'robotic concept': 'concept', 'mechanical concept': 'concept', 'concept': 'concept', 'mechanical property': 'concept',
+           'physical phenomenon': 'concept', 'engineering discipline': 'concept', 'interdisciplinary field': 'concept',
+           'technology': 'concept', 'system': 'concept', 'control system': 'concept', 'robot type': 'robot-type',
+           'sensor': 'component', 'mechanical component': 'component', 'material': 'component', 'actuator': 'component',
+           'device': 'component', 'mechanism': 'component', 'mechanical system': 'component', 'chapter overview': 'overview'}
+CHAPTER_LEVEL = {'00': 'beginner', '01': 'beginner', '02': 'intermediate', '03': 'intermediate', '04': 'intermediate',
+                 '05': 'intermediate', '06': 'intermediate', '07': 'intermediate', '08': 'beginner', '09': 'advanced',
+                 '10': 'research', '11': 'intermediate', '12': 'beginner', '13': 'beginner'}
+LEVEL_RANK = {'beginner': 0, 'intermediate': 1, 'advanced': 2, 'research': 3}
+# Chapters that have had a review pass (PRs #7-#11), with the date the pass merged
+REVIEWED = {'00': '2026-04-23', '01': '2026-04-25', '02': '2026-04-25', '03': '2026-04-25', '04': '2026-04-27'}
+KEYSTONES = {'Kinematics', 'Dynamics', 'Kinematics_and_Dynamics', 'Inverse_Kinematics', 'Forward_Kinematics', 'Singularities',
+             'Jacobian_Matrix', 'Manipulability', 'DH_Parameters', 'Product_of_Exponentials',            # PR #10
+             'LIDAR', 'Camera_Systems', 'Sensors', 'IMU_Sensors', 'Localization', 'Sensor_Fusion', 'Perception',
+             'Mapping', 'Computer_Vision', 'Kalman_Filter'}                                                # PR #11
+METHOD_WORDS = re.compile(r'(Control|Filter|Algorithm|Planning|Planner|Learning|Estimation|SLAM|Regression|Search|Calibration|'
+                          r'Fusion|Solutions|Method|Tuning|Optimization|Avoidance|Detection|Recognition|Tracking|Servoing|'
+                          r'Localization|Mapping|Linearization|Decomposition|Programming|Networks?|Transformers?)(_|$)')
+COMPONENT_WORDS = re.compile(r'(Motors?|Sensors?|Camera|LIDAR|IMU|Encoders?|Gears?|Gearbox|Drive|Actuators?|Joints?|Links?|Gripper|'
+                             r'Screw|Microcontroller|Arduino|Battery|Batteries|Bearing|Belt|Spring|Hand|Hands|End_Effector)(_|$)')
+
+
+def chapter_key(n: Note) -> str:
+    return n.chapter[:2] if n.chapter[:2].isdigit() else '99'
+
+
+def folder_matches(path: str, prefixes) -> int:
+    best = 0
+    for p in prefixes or []:
+        if path.startswith(p.rstrip('/') + '/'):
+            best = max(best, len(p))
+    return best
+
+
+def propose(n: Note, v: Vault, tm: TagMap, sfs: dict, general: list, inbound: dict) -> dict:
+    """Schema v2 frontmatter proposed from the v1 frontmatter, the folder, the tags and the link graph."""
+    fm = dict(n.frontmatter or {})
+    out = {}
+    out['title'] = fm.get('title') or n.name.replace('_', ' ')
+    out['description'] = fm.get('description')
+    # tags: canonical, conditional bulk tags checked against folder + text, doc-type tags become `type`
+    type_from_tag, tags = None, []
+    for t in n.fm_tags + n.inline_tags:
+        k = t.strip().lstrip('#').lower()
+        if k in tm.to_type and not type_from_tag:
+            type_from_tag = tm.to_type[k]
+        c = tm.canonical(t)
+        if c is None or c in tags:
+            continue
+        if c in tm.conditional and not tm.conditional[c].search(n.path + '\n' + n.body):
+            continue
+        tags.append(c)
+    out['tags'] = tags
+    # type
+    v1 = str(fm.get('type') or '').strip().lower()
+    ch = chapter_key(n); name = n.name
+    parent = re.sub(r'^\d+_', '', n.path.split('/')[-2]) if n.path.count('/') else ''
+    if v1 in V1_TYPE:
+        typ = V1_TYPE[v1]
+    elif type_from_tag:
+        typ = type_from_tag
+    elif ch == '00':
+        typ = 'reference' if 'Resources' in name else 'guide'
+    elif ch == '13' or 'Resources' in name or 'Reading' in name or 'Courses' in name:
+        typ = 'reference'
+    elif ch == '12':
+        typ = 'lab' if re.search(r'Lab', name) else 'tutorial'
+    elif ch == '08':
+        typ = 'robot-type'
+    elif (name == parent and sum(1 for m in v.notes if m.path.startswith(os.path.dirname(n.path) + '/')) >= 3) \
+            or re.search(r'(Introduction|Overview)', name) or name.replace('_', '').lower() == n.chapter[3:].replace('_', '').lower():
+        typ = 'overview'
+    elif ch == '07' or name in ('Python', 'C++', 'Rust', 'Git', 'Docker', 'Gazebo', 'MuJoCo'):
+        typ = 'tool'
+    elif COMPONENT_WORDS.search(name):
+        typ = 'component'
+    elif METHOD_WORDS.search(name):
+        typ = 'method'
+    else:
+        typ = 'concept'
+    out['type'] = typ
+    # level
+    out['level'] = CHAPTER_LEVEL.get(ch, 'intermediate')
+    # subfield: the most specific folder hint first, then the subfields the tags vote for
+    scores = []
+    in_general = folder_matches(n.path, general) and not any(folder_matches(n.path, s.get('folders')) for s in sfs.values())
+    for key, s in sfs.items():
+        f = 0 if in_general else folder_matches(n.path, s.get('folders'))
+        votes = len(set(tags) & set(s.get('tags') or []))
+        scores.append((f, votes, key))
+    by_folder = sorted([x for x in scores if x[0]], key=lambda x: (-x[0], -x[1]))
+    chosen = [by_folder[0][2]] if by_folder else []
+    for f, votes, key in sorted(scores, key=lambda x: -x[1]):
+        if len(chosen) >= 3 or votes < (2 if chosen else 1):
+            break
+        if key not in chosen:
+            chosen.append(key)
+    if typ == 'guide':
+        chosen = []                       # vault guides describe the vault, not a part of robotics
+    elif not chosen:
+        chosen = [{'02': 'mathematics', '03': 'kinematics-dynamics', '05': 'robot-learning', '06': 'control', '07': 'software',
+                   '10': 'research-practice', '11': 'software', '12': 'software', '13': 'research-practice'}.get(ch, 'foundations')]
+    out['subfield'] = chosen
+    # status
+    if n.word_count < 150:
+        st = 'stub'
+    elif name in KEYSTONES:
+        st = 'keystone'
+    elif ch in REVIEWED:
+        st = 'reviewed'
+    else:
+        st = 'draft'
+    out['status'] = st
+    out['author'] = 'Jordan_Smith'
+    d = fm.get('date')
+    out['date'] = d.isoformat() if hasattr(d, 'isoformat') else (str(d).split()[0] if d else None)
+    if st in ('reviewed', 'keystone') and ch in REVIEWED:
+        out['last_reviewed'] = REVIEWED[ch]
+    out['related'] = fm.get('related') if isinstance(fm.get('related'), list) else None
+    for k in ('aliases', 'prerequisites', 'key_takeaways', 'last_reviewed'):
+        if fm.get(k) and k not in out:
+            out[k] = fm[k]
+    # values that are already valid schema v2 win, so re-running the migration never undoes a hand edit
+    fields = load_yaml('schema.yml')['fields']
+    for k in ('type', 'level', 'status'):
+        if str(fm.get(k)) in fields[k]['values']:
+            out[k] = fm[k]
+    if isinstance(fm.get('subfield'), list) and fm['subfield'] and all(s in sfs for s in fm['subfield']):
+        out['subfield'] = fm['subfield']
+    if isinstance(fm.get('last_reviewed'), str) or hasattr(fm.get('last_reviewed'), 'isoformat'):
+        lr = fm['last_reviewed']; out['last_reviewed'] = lr.isoformat() if hasattr(lr, 'isoformat') else lr
+    return out
+
+
+def propose_prerequisites(props: dict, v: Vault, inbound: dict) -> None:
+    """Up to 3 prerequisites per note, chosen among the notes it links to. A prerequisite comes from an earlier chapter
+    at the same or an easier level, or from the same chapter at an easier level, or is the same chapter's overview.
+    Every chosen edge also goes strictly backwards in one global order, so the prerequisite graph has no cycles."""
+    def order(n):
+        p = props[n.path]
+        return (chapter_key(n), LEVEL_RANK[p['level']], 0 if p['type'] == 'overview' else 1, -len(inbound.get(n.path, ())), n.path)
+    for n in v.notes:
+        if n.path not in props or (n.frontmatter or {}).get('prerequisites') or props[n.path]['type'] in ('guide', 'reference'):
+            continue
+        me = order(n); mp = props[n.path]
+        cands = {}
+        for l in n.links:
+            r = v.resolve(l, n)
+            if not (isinstance(r, Note) and r is not n and r.path in props) or order(r) >= me:
+                continue
+            rp = props[r.path]; rc, nc = chapter_key(r), chapter_key(n)
+            if rp['type'] in ('guide', 'reference') or rc == '00':
+                continue
+            # it must be about the same part of robotics (or be maths, which everything builds on)
+            if not (set(rp['subfield']) & set(mp['subfield']) or 'mathematics' in rp['subfield']):
+                continue
+            lr, ln = LEVEL_RANK[rp['level']], LEVEL_RANK[mp['level']]
+            # a same-level overview counts only when it introduces this note's own section (or the whole chapter)
+            home = re.sub(r'/0?0_Introduction[^/]*$', '', os.path.dirname(r.path))
+            own_section = (os.path.dirname(n.path) + '/').startswith(home + '/')
+            if (rc < nc and lr <= ln) or (rc == nc and lr < ln) or \
+                    (rc == nc and lr == ln and rp['type'] == 'overview' and mp['type'] != 'overview' and own_section):
+                cands[r.path] = r
+        best = sorted(cands.values(), key=lambda r: (-len(inbound.get(r.path, ())), r.path))[:3]
+        if best:
+            props[n.path]['prerequisites'] = [f'[[{r.name}]]' for r in best]
+
+
+PLAIN_OK = re.compile(r'^[A-Za-z0-9(][^:#\n]*$')
+
+
+def yaml_scalar(s) -> str:
+    s = str(s)
+    if PLAIN_OK.match(s) and not s.endswith((' ', '-')) and s.lower() not in ('yes', 'no', 'true', 'false', 'null', 'on', 'off') \
+            and not re.match(r'^[\d.\-+e]+$', s) and "'" not in s[:1] and ' - ' not in s[:3]:
+        return s
+    return json.dumps(s, ensure_ascii=False)      # a JSON string is a valid YAML double-quoted scalar
+
+
+def emit_frontmatter(d: dict) -> str:
+    lines = []
+    keys = [k for k in FIELD_ORDER if k in d] + [k for k in d if k not in FIELD_ORDER]
+    for k in keys:
+        val = d[k]
+        if val is None or val == []:
+            continue
+        if isinstance(val, list):
+            lines.append(f'{k}:')
+            for item in val:
+                item = str(item)
+                lines.append(f'  - "{item}"' if item.startswith('[[') else f'  - {yaml_scalar(item)}')
+        else:
+            lines.append(f'{k}: {val if k in ("date", "last_reviewed") else yaml_scalar(val)}')
+    return '\n'.join(lines)
+
+
+def cmd_migrate(a):
+    v, tm = Vault(), TagMap()
+    sconf = load_yaml('subfields.yml'); sfs = sconf.get('subfields') or {}
+    overrides = {}
+    if a.overrides:
+        with open(a.overrides, encoding='utf-8') as fh:
+            overrides = yaml.safe_load(fh) or {}
+    inbound = v.backlinks()
+    props = {n.path: propose(n, v, tm, sfs, sconf.get('general_folders') or [], inbound) for n in v.notes if n.fm_text is not None}
+    # human/agent corrections, keyed by vault path or note name; applied before prerequisites are chosen
+    by_key = {n.name: n.path for n in v.notes}
+    resolved = {}
+    for key, o in overrides.items():
+        path = key if key in props else by_key.get(nfc(str(key)))
+        if path not in props:
+            raise SystemExit(f'override for unknown note {key!r}')
+        resolved[path] = o
+        props[path].update({k: val for k, val in o.items() if k != 'prerequisites'})
+    propose_prerequisites(props, v, inbound)
+    for path, o in resolved.items():
+        if 'prerequisites' in o:
+            props[path]['prerequisites'] = o['prerequisites'] or None
+    chapters = set(a.chapters.split(',')) if a.chapters else None
+    rows, changed = [], 0
+    for n in v.notes:
+        if n.path not in props or (chapters and chapter_key(n) not in chapters):
+            continue
+        p = props[n.path]
+        rows.append((n.path, p['type'], p['level'], ','.join(p['subfield']), p['status'],
+                     ' '.join(x.strip('[]"') for x in p.get('prerequisites') or []), ' '.join(p['tags'])))
+        if a.write:
+            text = '---\n' + emit_frontmatter(p) + '\n---\n' + n.body
+            back = yaml.safe_load(FRONTMATTER.match(text).group(1))
+            for k, val in p.items():          # round-trip guard: what we wrote is what we meant
+                want = [str(x) for x in val] if isinstance(val, list) else (str(val) if val is not None else None)
+                got = back.get(k); got = [str(x) for x in got] if isinstance(got, list) else (str(got) if got is not None else None)
+                if want not in (None, []) and want != got:
+                    raise SystemExit(f'round-trip mismatch in {n.path} field {k}: {want!r} != {got!r}')
+            if text != n.raw:
+                with open(os.path.join(ROOT, n.path), 'w', encoding='utf-8') as fh:
+                    fh.write(text)
+                changed += 1
+    if a.report:
+        with open(a.report, 'w', encoding='utf-8') as fh:
+            fh.write('path\ttype\tlevel\tsubfield\tstatus\tprerequisites\ttags\n')
+            fh.writelines('\t'.join(r) + '\n' for r in rows)
+    print(f'{len(rows)} notes proposed' + (f', {changed} files rewritten' if a.write else ' (dry run; --write to apply)'))
+
+
+DV_BLOCK = re.compile(r'(^[ \t]*```dataview[^\n]*\n)(.*?)(^[ \t]*```)', re.S | re.M)
+
+
+def rewrite_dataview(query: str, tm: TagMap) -> str:
+    """Map tag references in a Dataview query to the v2 vocabulary. A FROM chain that relied on a dropped catch-all tag
+    (#robotics was on nearly every note) becomes FROM "" so the query keeps its meaning."""
+    def from_chain(m):
+        tags = re.findall(r'#([\w/-]+)', m.group(2))
+        if any(tm.canonical(t) is None for t in tags):
+            return m.group(1) + '""'
+        out = m.group(2)
+        for t in tags:
+            out = re.sub(r'#' + re.escape(t) + r'\b', '#' + tm.canonical(t), out)
+        return m.group(1) + out
+    q = re.sub(r'(\bFROM\s+)(#[\w/-]+(?:\s+OR\s+#[\w/-]+)*)', from_chain, query, flags=re.I)
+    def contains_tag(m):
+        c = tm.canonical(m.group(3).lstrip('#'))
+        return m.group(0) if c is None else f'{m.group(1)}{m.group(2)}"{"#" if m.group(3).startswith("#") else ""}{c}")'
+    return re.sub(r'(contains\(\s*)((?:file\.)?tags,\s*)"([^"]+)"\)', contains_tag, q)
+
+
+def cmd_fix_dataview(a):
+    v, tm = Vault(), TagMap(); changed = 0
+    for n in v.notes:
+        new_body = DV_BLOCK.sub(lambda m: m.group(1) + rewrite_dataview(m.group(2), tm) + m.group(3), n.body)
+        if new_body != n.body:
+            changed += 1
+            if a.write:
+                with open(os.path.join(ROOT, n.path), 'w', encoding='utf-8') as fh:
+                    fh.write(n.raw[:len(n.raw) - len(n.body)] + new_body)
+    print(f'{changed} notes have Dataview queries to update' + ('' if a.write else ' (dry run; --write to apply)'))
 
 
 # -------------------------------------------------------------------------------------------------------- obsidian-check
@@ -563,6 +847,14 @@ def main(argv=None):
     p.add_argument('--limit', type=int, default=200)
     p.add_argument('--update-baseline', action='store_true', help='record the current unresolved-link count')
     p.set_defaults(fn=cmd_lint)
+    p = sub.add_parser('migrate', help='propose (and with --write apply) schema v2 frontmatter')
+    p.add_argument('--chapters', help='comma-separated chapter numbers, e.g. 00,01')
+    p.add_argument('--write', action='store_true'); p.add_argument('--report', help='write proposals as TSV')
+    p.add_argument('--overrides', help='YAML of {path: {field: value}} corrections')
+    p.set_defaults(fn=cmd_migrate)
+    p = sub.add_parser('fix-dataview', help='map tag references inside ```dataview blocks to the v2 vocabulary')
+    p.add_argument('--write', action='store_true')
+    p.set_defaults(fn=cmd_fix_dataview)
     p = sub.add_parser('obsidian-check', help="compare with Obsidian's own index via the Obsidian CLI (local only)")
     p.add_argument('--obsidian', help='path to the obsidian CLI'); p.add_argument('--vault', help='Obsidian vault name')
     p.set_defaults(fn=cmd_obsidian_check)
