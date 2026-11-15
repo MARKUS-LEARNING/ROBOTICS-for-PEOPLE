@@ -2,18 +2,21 @@
 title: Cartesian Space
 description: Cartesian Space is a three-dimensional coordinate system used to describe the position and orientation of objects, providing a framework for spatial representation and analysis in robotics.
 tags:
-  - robotics
   - mathematics
   - cartesian-space
   - kinematics
-  - engineering
   - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /cartesian_space/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Pose_Representation]]"
 related:
   - "[[Kinematics]]"
   - "[[Coordinate_Systems]]"
@@ -105,5 +108,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #mathematics WHERE contains(file.outlinks, [[Cartesian_Space]])
+LIST FROM "" WHERE contains(file.outlinks, [[Cartesian_Space]])
 ```

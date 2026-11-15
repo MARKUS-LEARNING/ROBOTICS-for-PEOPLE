@@ -2,17 +2,17 @@
 title: Resources Index
 description: Master index of curated external resources — books, papers, courses, simulators, hardware — cross-linked to the detailed lists in Chapter 13.
 tags:
-  - index
-  - resources
-  - tools
-  - links
-  - references
   - vault-meta
-layout: default
-category: robotics
+  - references
+  - tools
+type: reference
+level: beginner
+subfield:
+  - research-practice
+status: reviewed
 author: Jordan_Smith
 date: 2026-04-23
-permalink: /resources_index/
+last_reviewed: 2026-04-23
 related:
   - "[[MOOCs_and_Courses]]"
   - "[[Research_Papers_Index]]"

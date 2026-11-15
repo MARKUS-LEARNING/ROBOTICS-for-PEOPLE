@@ -2,17 +2,22 @@
 title: Encoders
 description: Encoders are sensors that provide feedback on the position, velocity, or direction of motion in robotic systems, essential for precise control and automation.
 tags:
-  - sensor
-  - feedback
+  - sensors
+  - feedback-control
   - position
   - velocity
-  - robotics
   - control
-layout: default
-category: robotics
+type: component
+level: intermediate
+subfield:
+  - perception
+  - control
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /encoders/
+last_reviewed: 2026-04-27
+prerequisites:
+  - "[[Sensors]]"
 related:
   - "[[Sensors]]"
   - "[[Control Systems]]"

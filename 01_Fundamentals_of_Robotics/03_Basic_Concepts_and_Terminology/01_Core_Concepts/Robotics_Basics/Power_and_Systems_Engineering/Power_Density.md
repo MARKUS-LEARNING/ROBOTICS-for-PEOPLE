@@ -3,17 +3,19 @@ title: Power Density
 description: Defines Power Density and Specific Power (Power-to-Weight Ratio), explaining their significance in robotics, particularly for actuators and power sources.
 tags:
   - power-density
-  - specific-power
-  - power-to-weight
-  - actuator
+  - actuators
   - power-systems
   - performance-metric
   - robot-design
-layout: default
-category: robotics
+type: concept
+level: beginner
+subfield:
+  - electronics-embedded
+  - mechanisms-actuation
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /power_density/
+last_reviewed: 2026-04-25
 related:
   - "[[Power_Systems]]"
   - "[[Actuator]]"
@@ -118,5 +120,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #power-density OR #specific-power WHERE contains(file.outlinks, [[Power_Density]])
+LIST FROM #power-density OR #power-density WHERE contains(file.outlinks, [[Power_Density]])
 ```

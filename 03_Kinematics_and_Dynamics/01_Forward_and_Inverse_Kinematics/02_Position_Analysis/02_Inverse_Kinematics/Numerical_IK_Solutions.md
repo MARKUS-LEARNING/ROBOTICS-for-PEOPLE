@@ -2,20 +2,22 @@
 title: Numerical IK Solutions
 description: Numerical IK Solutions involve iterative or optimization-based methods to solve the inverse kinematics problem, particularly for complex robotic systems where analytical solutions are not feasible.
 tags:
-  - robotics
   - kinematics
   - inverse-kinematics
   - numerical-methods
   - control
-  - engineering
   - mechanism
   - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
+type: method
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /numerical_ik_solutions/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Optimization]]"
 related:
   - "[[Kinematics]]"
   - "[[Dynamics]]"
@@ -95,5 +97,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Numerical_IK_Solutions]])
+LIST FROM "" WHERE contains(file.outlinks, [[Numerical_IK_Solutions]])
 ```

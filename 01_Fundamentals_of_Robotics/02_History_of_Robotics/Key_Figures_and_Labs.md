@@ -2,17 +2,16 @@
 title: Key Figures and Labs in Robotics History
 description: Highlights some of the influential individuals and research institutions that have shaped the field of robotics.
 tags:
-  - history
   - robotics-history
   - research
-  - pioneers
-  - labs
-  - people
-layout: default
-category: robotics
+type: reference
+level: beginner
+subfield:
+  - history-future
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-28
-permalink: /key_figures_and_labs_robotics/
+last_reviewed: 2026-04-25
 related:
   - "[[History_of_Robotics]]"
   - "[[Future_Trends_2025-2035]]"
@@ -102,5 +101,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Key_Figures_and_Labs]])
+LIST FROM "" WHERE contains(file.outlinks, [[Key_Figures_and_Labs]])
 ```

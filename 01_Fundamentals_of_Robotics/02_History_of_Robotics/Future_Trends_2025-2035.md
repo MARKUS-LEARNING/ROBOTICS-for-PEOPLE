@@ -2,20 +2,23 @@
 title: Future Trends in Robotics (2025-2035)
 description: An outlook on key technological, application, and research trends expected to shape the field of robotics over the next decade.
 tags:
-  - future-trends
-  - robotics
-  - AI
+  - future-of-robotics
+  - artificial-intelligence
   - machine-learning
   - humanoid
-  - cobot
-  - RaaS
-  - forecast
-  - robotics-future
-layout: default
-category: robotics
+  - collaborative-robots
+  - robotics-as-a-service
+type: concept
+level: beginner
+subfield:
+  - history-future
+  - frontiers
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-28
-permalink: /future_trends_robotics_2025-2035/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[History_of_Robotics]]"
 related:
   - "[[History_of_Robotics]]"
   - "[[Key_Figures_and_Labs]]"
@@ -100,5 +103,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Future_Trends_2025-2035]])
+LIST FROM "" WHERE contains(file.outlinks, [[Future_Trends_2025-2035]])
 ```

@@ -2,18 +2,20 @@
 title: RGB-D Sensor
 description: RGB-D Sensor is a type of sensor that captures both color (RGB) and depth (D) information, providing a comprehensive representation of the environment for tasks such as object recognition, navigation, and interaction.
 tags:
-  - robotics
   - sensors
   - perception
-  - rgb-d-sensor
-  - engineering
-  - manipulator-arm
+  - rgb-d
   - mobile-robot
-layout: default
-category: robotics
+type: component
+level: intermediate
+subfield:
+  - perception
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /rgb-d_sensor/
+last_reviewed: 2026-04-27
+prerequisites:
+  - "[[Sensors]]"
 related:
   - "[[Sensors]]"
   - "[[Computer_Vision]]"

@@ -2,19 +2,20 @@
 title: Pose Representation
 description: Pose Representation is the mathematical description of the position and orientation of a robotic system in space, essential for navigation, manipulation, and interaction with the environment.
 tags:
-  - robotics
   - kinematics
-  - pose-representation
-  - spatial-representation
+  - spatial-math
   - robot-design
-  - engineering
   - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
+type: concept
+level: beginner
+subfield:
+  - mathematics
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /pose_representation/
+last_reviewed: 2026-04-25
 related:
   - "[[Kinematics]]"
   - "[[Homogeneous_Transformation]]"
@@ -194,5 +195,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Pose_Representation]])
+LIST FROM "" WHERE contains(file.outlinks, [[Pose_Representation]])
 ```

@@ -3,19 +3,25 @@ title: Mechanisms and Actuation
 description: Explores the relationship between robot mechanisms (structures that transmit motion) and actuation (sources of motion), including types of transmissions and design considerations.
 tags:
   - mechanism
-  - actuation
+  - actuators
   - kinematics
   - dynamics
   - transmission
   - robot-design
   - hardware
-  - component
-  - actuator
-layout: default
-category: robotics
+  - components
+type: overview
+level: intermediate
+subfield:
+  - mechanisms-actuation
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /mechanisms_and_actuation/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Actuator]]"
+  - "[[Degrees_of_Freedom]]"
 related:
   - "[[Actuator]]"
   - "[[Kinematic_Chains]]"
@@ -94,5 +100,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #mechanical-engineering WHERE contains(file.outlinks, [[Mechanisms_and_Actuation]])
+LIST FROM "" WHERE contains(file.outlinks, [[Mechanisms_and_Actuation]])
 ```

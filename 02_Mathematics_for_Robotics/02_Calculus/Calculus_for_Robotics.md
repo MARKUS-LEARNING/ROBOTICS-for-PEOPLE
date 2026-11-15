@@ -7,13 +7,16 @@ tags:
   - differential-equations
   - optimization
   - dynamics
-  - robotics
-  - foundations
-layout: default
-category: mathematics
+type: concept
+level: intermediate
+subfield:
+  - mathematics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /calculus_for_robotics/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Optimization]]"
 related:
   - "[[Differential_Equations]]"
   - "[[Optimization]]"

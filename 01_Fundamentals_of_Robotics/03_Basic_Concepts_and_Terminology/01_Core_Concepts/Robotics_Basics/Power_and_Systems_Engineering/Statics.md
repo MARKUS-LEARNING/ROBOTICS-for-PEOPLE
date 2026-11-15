@@ -1,19 +1,19 @@
 ---
 title: Statics
-description: "Statics is the branch of mechanics that deals with the analysis of forces and moments on bodies at rest."
+description: Statics is the branch of mechanics that deals with the analysis of forces and moments on bodies at rest.
 tags:
   - mechanics
-  - engineering
   - physics
   - equilibrium
   - forces
-type: Mechanical Concept
-application: Analysis of forces and moments on bodies at rest
-layout: default
-category: mechanics
+type: concept
+level: beginner
+subfield:
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /statics/
+last_reviewed: 2026-04-25
 related:
   - "[[Mechanics]]"
   - "[[Engineering_Design]]"
@@ -226,5 +226,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #mechanics OR #engineering WHERE contains(file.outlinks, [[Statics]])
+LIST FROM "" WHERE contains(file.outlinks, [[Statics]])
 ```

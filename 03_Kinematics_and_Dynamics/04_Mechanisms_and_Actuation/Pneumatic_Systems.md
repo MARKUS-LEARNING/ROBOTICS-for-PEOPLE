@@ -3,18 +3,23 @@ title: Pneumatic Systems
 description: Describes pneumatic systems used for actuation in robotics, including components, operating principles, advantages, disadvantages, and common applications.
 tags:
   - pneumatics
-  - actuation
+  - actuators
   - power-systems
   - robot-design
   - industrial-robot
   - soft-robotics
-  - actuator
   - mechanism
-layout: default
-category: robotics
+type: component
+level: intermediate
+subfield:
+  - mechanisms-actuation
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /pneumatic_systems/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Actuator]]"
+  - "[[Mechanisms_and_Actuation]]"
 related:
   - "[[Actuator]]"
   - "[[Pneumatic_Actuators]]"
@@ -102,5 +107,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #mechanical-engineering WHERE contains(file.outlinks, [[Pneumatic_Systems]])
+LIST FROM "" WHERE contains(file.outlinks, [[Pneumatic_Systems]])
 ```

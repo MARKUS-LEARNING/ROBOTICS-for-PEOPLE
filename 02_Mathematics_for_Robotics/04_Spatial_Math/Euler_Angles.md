@@ -7,12 +7,14 @@ tags:
   - rotation
   - euler-angles
   - orientation
-  - robotics
-layout: default
-category: mathematics
+type: concept
+level: intermediate
+subfield:
+  - mathematics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /euler_angles/
+last_reviewed: 2026-04-25
 related:
   - "[[Rotation_Matrix]]"
   - "[[Quaternions]]"

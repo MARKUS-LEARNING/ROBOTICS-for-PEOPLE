@@ -2,19 +2,20 @@
 title: SRS Arm
 description: The SRS (Selective Redundancy System) Arm is a type of robotic manipulator designed to provide enhanced dexterity and flexibility through redundant degrees of freedom, enabling complex tasks in constrained environments.
 tags:
-  - robotics
   - manipulator-arm
   - kinematics
   - redundancy
   - mechanical-design
-  - engineering
   - mechanism
-  - mobile-robot
-layout: default
-category: robotics
+type: robot-type
+level: beginner
+subfield:
+  - manipulation
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /srs_arm/
+last_reviewed: 2026-04-25
 related:
   - "[[Robotic Manipulators]]"
   - "[[Kinematics]]"
@@ -192,5 +193,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[SRS_Arm]])
+LIST FROM "" WHERE contains(file.outlinks, [[SRS_Arm]])
 ```

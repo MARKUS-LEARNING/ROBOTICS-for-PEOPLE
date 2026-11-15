@@ -2,17 +2,22 @@
 title: Perception
 description: The pipeline that converts raw sensor measurements into a useful internal representation of the robot's body and environment. The bridge between physics (what the sensor measured) and decision-making (what the robot should do).
 tags:
-  - robotics
   - perception
   - sensors
   - state-estimation
   - computer-vision
   - sensor-fusion
-layout: default
-category: robotics
+type: overview
+level: intermediate
+subfield:
+  - perception
+  - estimation-mapping
+status: keystone
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /perception/
+last_reviewed: 2026-04-27
+prerequisites:
+  - "[[Sensors]]"
 related:
   - "[[Sensors]]"
   - "[[Sensor_Fusion]]"
@@ -153,5 +158,5 @@ Steps 1-2 are signal processing; 3-4 are learned vision; 5-6 are geometry; 7-8 a
 ## Dataview
 
 ```dataview
-LIST FROM #perception OR #robotics WHERE contains(file.outlinks, [[Perception]])
+LIST FROM "" WHERE contains(file.outlinks, [[Perception]])
 ```

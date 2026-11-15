@@ -2,19 +2,21 @@
 title: History of Robotics
 description: A historical overview of the field of robotics, from early concepts and industrial beginnings to modern advancements driven by AI and computing, including the Uncanny Valley concept.
 tags:
-  - history
   - robotics-history
   - industrial-robot
-  - AI
-  - timeline
+  - artificial-intelligence
   - automation
   - uncanny-valley
-  - HRI
-layout: default
-category: robotics
+  - human-robot-interaction
+type: overview
+level: beginner
+subfield:
+  - history-future
+  - industrial-automation
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-28
-permalink: /history_of_robotics/
+last_reviewed: 2026-04-25
 related:
   - "[[Key_Figures_and_Labs]]"
   - "[[Future_Trends_2025-2035]]"
@@ -101,5 +103,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[History_of_Robotics]])
+LIST FROM "" WHERE contains(file.outlinks, [[History_of_Robotics]])
 ```

@@ -2,18 +2,20 @@
 title: Path Planning
 description: Path Planning is the process of finding an optimal or feasible path for a robot to travel from a start location to a goal location while avoiding obstacles.
 tags:
-  - robotics
   - navigation
   - path-planning
   - algorithms
   - obstacle-avoidance
-  - control-systems
+  - control
   - automation
-layout: default
-category: robotics
+type: method
+level: intermediate
+subfield:
+  - planning
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /path_planning/
+last_reviewed: 2026-04-25
 related:
   - "[[Obstacle_Avoidance]]"
   - "[[A*_Algorithm]]"

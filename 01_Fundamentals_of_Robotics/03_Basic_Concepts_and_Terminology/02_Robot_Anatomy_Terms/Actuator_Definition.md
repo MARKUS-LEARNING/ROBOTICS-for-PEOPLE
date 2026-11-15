@@ -2,18 +2,20 @@
 title: Actuator Definition
 description: An Actuator is a device that converts energy into motion, enabling robotic systems to perform tasks by controlling the movement of mechanical components.
 tags:
-  - robotics
   - actuators
   - mechanical-design
-  - control-systems
-  - engineering
+  - control
   - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
+type: component
+level: beginner
+subfield:
+  - foundations
+  - mechanisms-actuation
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /actuator_definition/
+last_reviewed: 2026-04-25
 related:
   - "[[Robotic_Manipulators]]"
   - "[[Electric_Motors]]"
@@ -152,5 +154,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #mechanical-design WHERE contains(file.outlinks, [[Actuator_Definition]])
+LIST FROM "" WHERE contains(file.outlinks, [[Actuator_Definition]])
 ```

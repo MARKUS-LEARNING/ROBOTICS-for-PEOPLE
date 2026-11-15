@@ -2,19 +2,22 @@
 title: Grübler's Formula
 description: Grübler's Formula is used to calculate the degrees of freedom (mobility) of a kinematic chain or mechanism, essential for understanding and designing robotic systems.
 tags:
-  - robotics
   - kinematics
   - degrees-of-freedom
   - mechanism-design
-  - engineering
   - mechanism
   - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
+type: concept
+level: beginner
+subfield:
+  - kinematics-dynamics
+  - mechanisms-actuation
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /grublers_formula/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Degrees_of_Freedom]]"
 related:
   - "[[Kinematics]]"
   - "[[Degrees_of_Freedom]]"
@@ -185,5 +188,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Grübler's_Formula]])
+LIST FROM "" WHERE contains(file.outlinks, [[Grübler's_Formula]])
 ```

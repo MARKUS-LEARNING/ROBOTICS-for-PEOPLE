@@ -2,18 +2,19 @@
 title: Workspace
 description: The workspace of a robot refers to the volume of space that the robot can reach with its end-effector, defining the operational limits of the robotic system.
 tags:
-  - robotics
   - kinematics
   - mechanics
   - design
-  - engineering
-type: Robotic Concept
-application: Defining the operational space of robotic systems
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /workspace/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Kinematics_and_Dynamics]]"
 related:
   - "[[Robot_Design]]"
   - "[[Kinematics_and_Dynamics]]"

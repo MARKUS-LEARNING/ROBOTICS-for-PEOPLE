@@ -2,18 +2,21 @@
 title: Remote Actuation
 description: Remote Actuation refers to the control and operation of actuators from a distance, enabling robotic systems to perform tasks without direct physical interaction.
 tags:
-  - robotics
   - control
   - actuators
   - teleoperation
-  - engineering
-type: Concept
-application: Remote control of actuators in robotic systems
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - mechanisms-actuation
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /remote-actuation/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Robot_Design]]"
+  - "[[Actuator]]"
+  - "[[Mechatronics]]"
 related:
   - "[[Robot_Design]]"
   - "[[Mechatronics]]"
@@ -84,5 +87,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #mechanical-engineering WHERE contains(file.outlinks, [[Remote_Actuation]])
+LIST FROM "" WHERE contains(file.outlinks, [[Remote_Actuation]])
 ```

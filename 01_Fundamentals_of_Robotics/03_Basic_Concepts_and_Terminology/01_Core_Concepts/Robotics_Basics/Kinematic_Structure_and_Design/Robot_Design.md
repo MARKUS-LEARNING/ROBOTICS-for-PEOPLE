@@ -2,19 +2,20 @@
 title: Robot Design
 description: Robot Design involves the creation and optimization of robotic systems, integrating mechanical, electrical, and software components to achieve desired functionality.
 tags:
-  - robotics
-  - engineering
   - mechanics
   - electronics
-  - software
+  - software-engineering
   - design
-type: Engineering Discipline
-application: Creation and optimization of robotic systems
-layout: default
-category: robotics
+type: concept
+level: beginner
+subfield:
+  - foundations
+  - systems-engineering
+  - mechanisms-actuation
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /robot-design/
+last_reviewed: 2026-04-25
 related:
   - "[[Mechatronics]]"
   - "[[Kinematics_and_Dynamics]]"
@@ -207,5 +208,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #engineering WHERE contains(file.outlinks, [[Robot_Design]])
+LIST FROM "" WHERE contains(file.outlinks, [[Robot_Design]])
 ```

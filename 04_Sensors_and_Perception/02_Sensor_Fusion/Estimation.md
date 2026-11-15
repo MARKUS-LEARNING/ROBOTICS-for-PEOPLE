@@ -1,19 +1,22 @@
 ---
 title: Estimation
-description: "Estimation in robotics involves the use of algorithms and techniques to approximate or predict unknown quantities, such as positions, velocities, or other parameters, based on available data."
+description: Estimation in robotics involves the use of algorithms and techniques to approximate or predict unknown quantities, such as positions, velocities, or other parameters, based on available data.
 tags:
-  - robotics
-  - estimation
-  - filtering
+  - state-estimation
   - sensors
   - localization
-  - control-systems
+  - control
   - algorithms
-layout: default
-category: robotics
+type: method
+level: intermediate
+subfield:
+  - estimation-mapping
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /estimation/
+last_reviewed: 2026-04-27
+prerequisites:
+  - "[[Probability_and_Statistics_for_Robotics]]"
 related:
   - "[[Kalman_Filter]]"
   - "[[Particle_Filter]]"

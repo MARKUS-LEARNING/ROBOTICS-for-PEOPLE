@@ -2,19 +2,20 @@
 title: Mechatronics
 description: Mechatronics is an interdisciplinary field that combines mechanical engineering, electronics, computer engineering, and control engineering to design and create intelligent systems and products.
 tags:
-  - robotics
-  - engineering
   - mechanics
   - electronics
   - control
   - design
-type: Engineering Discipline
-application: Integration of mechanical, electronic, and control systems
-layout: default
-category: robotics
+type: concept
+level: beginner
+subfield:
+  - foundations
+  - electronics-embedded
+  - mechanisms-actuation
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /mechatronics/
+last_reviewed: 2026-04-25
 related:
   - "[[Robot_Design]]"
   - "[[Control_Systems]]"

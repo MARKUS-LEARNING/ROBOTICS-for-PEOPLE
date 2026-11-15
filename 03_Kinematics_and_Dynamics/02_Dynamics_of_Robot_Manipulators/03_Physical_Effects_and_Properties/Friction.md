@@ -4,15 +4,19 @@ description: Friction is a force that resists the relative motion or tendency of
 tags:
   - physics
   - mechanics
-  - robotics
   - dynamics
   - control
   - tribology
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /friction/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Kinematics_and_Dynamics]]"
 related:
   - "[[Kinematics_and_Dynamics]]"
   - "[[Control_Systems]]"
@@ -85,7 +89,7 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #component OR #kinematics WHERE contains(file.outlinks, [[Friction]])
+LIST FROM #components OR #kinematics WHERE contains(file.outlinks, [[Friction]])
 
 
 

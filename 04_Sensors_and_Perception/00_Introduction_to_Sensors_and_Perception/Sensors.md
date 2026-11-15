@@ -2,18 +2,19 @@
 title: Sensors
 description: Devices that convert physical phenomena (light, motion, force, temperature) into measurable signals. The "feelers" through which a robot acquires any information at all about its body or its environment.
 tags:
-  - robotics
   - sensors
   - measurement
   - transduction
   - perception
   - mechatronics
-type: Device
-layout: default
-category: robotics
+type: overview
+level: intermediate
+subfield:
+  - perception
+status: keystone
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /sensors/
+last_reviewed: 2026-04-27
 related:
   - "[[Perception]]"
   - "[[Sensor_Fusion]]"
@@ -174,5 +175,5 @@ Time synchronization deserves special emphasis — it is the most-overlooked sou
 ## Dataview
 
 ```dataview
-LIST FROM #sensors OR #robotics WHERE contains(file.outlinks, [[Sensors]])
+LIST FROM "" WHERE contains(file.outlinks, [[Sensors]])
 ```

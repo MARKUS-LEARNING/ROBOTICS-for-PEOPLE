@@ -1,13 +1,35 @@
 ---
 title: Hydraulic Systems
-description: "Describes hydraulic systems used for actuation in robotics, including their components, operating principles, advantages, disadvantages, and applications."
-tags: [hydraulics, actuation, power-systems, robot-design, industrial-robot, legged-robot, actuator, mechanism] 
-layout: default
-category: robotics
+description: Describes hydraulic systems used for actuation in robotics, including their components, operating principles, advantages, disadvantages, and applications.
+tags:
+  - hydraulics
+  - actuators
+  - power-systems
+  - robot-design
+  - industrial-robot
+  - legged-robot
+  - mechanism
+type: component
+level: intermediate
+subfield:
+  - mechanisms-actuation
+status: reviewed
 author: Jordan_Smith
-date: 2025-04-29 # Updated date for revision
-permalink: /hydraulic_systems/
-related: ["[[Actuator]]", "[[Hydraulic_Actuators]]", "[[Mechanisms_and_Actuation]]", "[[Industrial_Arms]]", "[[Legged_Robots]]", "[[Control_Systems]]", "[[Power_Systems]]", "[[Unimate]]", "[[Kinematics_and_Dynamics]]"] 
+date: 2025-04-29
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Actuator]]"
+  - "[[Mechanisms_and_Actuation]]"
+related:
+  - "[[Actuator]]"
+  - "[[Hydraulic_Actuators]]"
+  - "[[Mechanisms_and_Actuation]]"
+  - "[[Industrial_Arms]]"
+  - "[[Legged_Robots]]"
+  - "[[Control_Systems]]"
+  - "[[Power_Systems]]"
+  - "[[Unimate]]"
+  - "[[Kinematics_and_Dynamics]]"
 ---
 
 # Hydraulic Systems in Robotics

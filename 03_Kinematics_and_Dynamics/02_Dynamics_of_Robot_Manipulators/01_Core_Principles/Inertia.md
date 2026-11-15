@@ -2,18 +2,19 @@
 title: Inertia
 description: Inertia is a fundamental property of matter that resists changes in its state of motion, crucial for understanding the dynamics of robotic systems.
 tags:
-  - robotics
   - dynamics
   - physics
   - rigid-body
   - motion
-  - control-systems
-  - engineering
-layout: default
-category: robotics
+  - control
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /inertia/
+last_reviewed: 2026-04-25
 related:
   - "[[Dynamics]]"
   - "[[Rigid_Body_Dynamics]]"
@@ -112,5 +113,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #dynamics OR #rotational-motion WHERE contains(file.outlinks, [[Inertia]])
+LIST FROM #dynamics OR #rotation WHERE contains(file.outlinks, [[Inertia]])
 ```

@@ -2,18 +2,21 @@
 title: Transmission Mechanisms
 description: Transmission Mechanisms are systems used to transfer power and motion from a source to a point of application in robotic systems.
 tags:
-  - robotics
   - mechanics
-  - engineering
   - actuators
   - design
-type: Mechanism
-application: Power and motion transfer in robotic systems
-layout: default
-category: robotics
+type: component
+level: intermediate
+subfield:
+  - mechanisms-actuation
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /transmission-mechanisms/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Robot_Design]]"
+  - "[[Actuator]]"
+  - "[[Mechatronics]]"
 related:
   - "[[Robot_Design]]"
   - "[[Mechatronics]]"
@@ -92,5 +95,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ### List of Related Concepts
 ```dataview
-LIST FROM #robotics OR #mechanical-engineering WHERE contains(file.outlinks, [[Transmission_Mechanisms]])
+LIST FROM "" WHERE contains(file.outlinks, [[Transmission_Mechanisms]])
 ```

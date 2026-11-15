@@ -2,17 +2,18 @@
 title: End Effector Definition
 description: The End Effector is the component of a robotic system that interacts directly with the environment or objects, essential for tasks such as grasping, manipulating, and tooling.
 tags:
-  - robotics
   - manipulator-arm
   - end-effector
   - tooling
-  - engineering
-  - mobile-robot
-layout: default
-category: robotics
+type: component
+level: beginner
+subfield:
+  - foundations
+  - manipulation
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /end_effector_definition/
+last_reviewed: 2026-04-25
 related:
   - "[[Robotic_Manipulators]]"
   - "[[Grasping]]"
@@ -169,5 +170,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #manipulator-arm WHERE contains(file.outlinks, [[End_Effector_Definition]])
+LIST FROM "" WHERE contains(file.outlinks, [[End_Effector_Definition]])
 ```

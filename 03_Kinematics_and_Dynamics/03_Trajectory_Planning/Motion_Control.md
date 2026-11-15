@@ -2,18 +2,20 @@
 title: Motion Control
 description: Motion Control in robotics involves the regulation of a robot's movement to achieve precise and coordinated actions, essential for task execution and interaction with the environment.
 tags:
-  - robotics
   - control
   - kinematics
   - dynamics
-  - engineering
-type: Robotic Concept
-application: Regulation of robotic movement for precise task execution
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - control
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /motion-control/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Kinematics_and_Dynamics]]"
 related:
   - "[[Robot_Design]]"
   - "[[Control_Systems]]"

@@ -2,18 +2,20 @@
 title: Collision Detection
 description: Describes Collision Detection, the process of identifying and preventing collisions between a robot and its environment or itself, crucial for safe and efficient robot operation.
 tags:
-  - robotics
   - motion-planning
   - path-planning
-  - collision-avoidance
+  - obstacle-avoidance
   - safety
   - sensors
   - algorithms
-layout: default
-category: robotics
+type: method
+level: intermediate
+subfield:
+  - planning
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-03
-permalink: /collision_detection/
+last_reviewed: 2026-04-25
 related:
   - "[[Motion_Planning]]"
   - "[[Configuration_Space]]"
@@ -127,5 +129,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #motion-planning WHERE contains(file.outlinks, [[Collision_Detection]])
+LIST FROM "" WHERE contains(file.outlinks, [[Collision_Detection]])
 ```

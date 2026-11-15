@@ -2,17 +2,22 @@
 title: Resolvers
 description: Resolvers are rotary transformers used to measure the angular position, velocity, and acceleration of a rotating component, providing precise feedback in robotic systems.
 tags:
-  - sensor
-  - feedback
+  - sensors
+  - feedback-control
   - position
   - velocity
-  - robotics
   - control
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - perception
+  - control
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /resolvers/
+last_reviewed: 2026-04-27
+prerequisites:
+  - "[[Sensors]]"
 related:
   - "[[Sensors]]"
   - "[[Control Systems]]"

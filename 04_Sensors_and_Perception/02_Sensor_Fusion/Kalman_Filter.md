@@ -8,11 +8,17 @@ tags:
   - sensor-fusion
   - probabilistic-robotics
   - control
-layout: default
-category: robotics
+type: method
+level: intermediate
+subfield:
+  - estimation-mapping
+status: keystone
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /kalman_filter/
+last_reviewed: 2026-04-27
+prerequisites:
+  - "[[Bayesian_Inference]]"
+  - "[[Linear_Algebra_for_Robotics]]"
 related:
   - "[[Sensor_Fusion]]"
   - "[[Estimation]]"

@@ -2,17 +2,22 @@
 title: Localization
 description: The process of estimating a robot's pose (position and orientation) within a known map or environment. Three flavors — pose tracking, global localization, and the kidnapped-robot problem — solved by a recurring family of probabilistic algorithms (EKF, MCL, AMCL, scan matching, factor graphs).
 tags:
-  - robotics
   - localization
   - state-estimation
   - probabilistic-robotics
   - mobile-robot
   - mapping
-layout: default
-category: robotics
+type: method
+level: intermediate
+subfield:
+  - estimation-mapping
+status: keystone
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /localization/
+last_reviewed: 2026-04-27
+prerequisites:
+  - "[[Kalman_Filter]]"
+  - "[[Sensor_Fusion]]"
 related:
   - "[[Mapping]]"
   - "[[SLAM]]"

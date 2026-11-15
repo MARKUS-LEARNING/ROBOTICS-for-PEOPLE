@@ -2,17 +2,19 @@
 title: Sampling-Based Planning
 description: Describes Sampling-Based Planning, a method for motion planning that uses random sampling to explore the configuration space and find feasible paths.
 tags:
-  - robotics
   - motion-planning
   - path-planning
   - algorithms
   - sampling
-  - probabilistic
-layout: default
-category: robotics
+  - probabilistic-robotics
+type: method
+level: intermediate
+subfield:
+  - planning
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-03
-permalink: /sampling_based_planning/
+last_reviewed: 2026-04-25
 related:
   - "[[Motion_Planning]]"
   - "[[Path_Planning_Algorithms]]"
@@ -125,5 +127,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #motion-planning WHERE contains(file.outlinks, [[Sampling-Based_Planning]])
+LIST FROM "" WHERE contains(file.outlinks, [[Sampling-Based_Planning]])
 ```

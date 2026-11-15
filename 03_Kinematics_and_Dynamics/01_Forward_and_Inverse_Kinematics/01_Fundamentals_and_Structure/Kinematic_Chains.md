@@ -4,14 +4,20 @@ description: "Defines Kinematic Chain: An assembly of rigid bodies (links) conne
 tags:
   - kinematics
   - mechanism
-  - structure
-  - link
-  - joint
-layout: default
-category: robotics
+  - structures
+  - links
+  - joints
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+  - mechanisms-actuation
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-28
-permalink: /kinematic_chain/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Degrees_of_Freedom]]"
 related:
   - "[[Links]]"
   - "[[Joint_Kinematics]]"
@@ -97,5 +103,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #component OR #kinematics WHERE contains(file.outlinks, [[Kinematic_Chains]])
+LIST FROM #components OR #kinematics WHERE contains(file.outlinks, [[Kinematic_Chains]])
 ```

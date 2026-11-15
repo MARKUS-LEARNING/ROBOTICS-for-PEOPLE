@@ -2,21 +2,19 @@
 title: Structural Analysis
 description: Structural Analysis is the study of how structures support and resist loads, focusing on the determination of stresses, strains, and deformations in structural components.
 tags:
-  - engineering
   - mechanics
   - structures
-  - analysis
   - design
-  - stress
-  - strain
-  - deformation
-  - robotics
+  - solid-mechanics
   - materials
-layout: default
-category: engineering
+type: concept
+level: beginner
+subfield:
+  - mechanisms-actuation
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /structural_analysis/
+last_reviewed: 2026-04-25
 related:
   - "[[Robot_Design]]"
   - "[[Links]]"
@@ -230,5 +228,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #engineering OR #mechanics WHERE contains(file.outlinks, [[Structural_Analysis]])
+LIST FROM "" WHERE contains(file.outlinks, [[Structural_Analysis]])
 ```

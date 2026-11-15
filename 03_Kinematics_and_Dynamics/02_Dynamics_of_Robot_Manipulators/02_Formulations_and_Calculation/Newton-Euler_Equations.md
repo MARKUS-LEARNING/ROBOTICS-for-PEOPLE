@@ -2,18 +2,19 @@
 title: Newton-Euler Equations
 description: The Newton-Euler Equations are fundamental equations in dynamics that describe the relationship between forces, torques, and the motion of rigid bodies.
 tags:
-  - robotics
   - dynamics
   - physics
   - rigid-body
   - motion
-  - control-systems
-  - engineering
-layout: default
-category: robotics
+  - control
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /newton_euler_equations/
+last_reviewed: 2026-04-25
 related:
   - "[[Dynamics]]"
   - "[[Kinematics]]"
@@ -104,5 +105,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #control OR #robotics WHERE contains(file.outlinks, [[Newton-Euler_Equations]])
+LIST FROM "" WHERE contains(file.outlinks, [[Newton-Euler_Equations]])
 ```

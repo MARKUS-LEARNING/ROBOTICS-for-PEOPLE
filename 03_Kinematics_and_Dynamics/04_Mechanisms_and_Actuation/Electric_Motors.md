@@ -2,18 +2,24 @@
 title: Electric Motors
 description: Electric Motors are devices that convert electrical energy into mechanical motion, essential for driving various robotic systems and enabling movement and manipulation.
 tags:
-  - component
-  - actuation
+  - components
+  - actuators
   - motion
   - electrical
-  - robotics
   - mechatronics
   - control
-layout: default
-category: robotics
+type: component
+level: intermediate
+subfield:
+  - mechanisms-actuation
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /electric-motors/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Robot_Design]]"
+  - "[[Actuator]]"
+  - "[[Mechatronics]]"
 related:
   - "[[Actuator]]"
   - "[[Mechanisms_and_Actuation]]"

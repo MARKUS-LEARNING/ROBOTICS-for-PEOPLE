@@ -4,15 +4,22 @@ description: The map from joint angles to end-effector pose. A composition of ri
 tags:
   - kinematics
   - forward-kinematics
-  - manipulator
+  - manipulator-arm
   - mobile-robot
-  - DH-parameters
+  - dh-parameters
   - product-of-exponentials
-layout: default
-category: robotics
+type: method
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: keystone
 author: Jordan_Smith
 date: 2025-04-28
-permalink: /forward_kinematics/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Degrees_of_Freedom]]"
+  - "[[Homogeneous_Transformation]]"
+  - "[[Rotation_Matrix]]"
 related:
   - "[[Kinematics]]"
   - "[[Inverse_Kinematics]]"

@@ -8,13 +8,15 @@ tags:
   - locomotion
   - nonholonomic
   - mechanism
-  - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+  - mobile-robots
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /nonholonomic_constraint/
+last_reviewed: 2026-04-25
 related:
   - "[[Differential_Drive]]"
   - "[[Wheeled_Mobile_Robots]]"

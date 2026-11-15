@@ -6,14 +6,16 @@ tags:
   - spatial-math
   - rotation
   - quaternions
-  - SO3
-  - robotics
+  - so3
   - orientation
-layout: default
-category: mathematics
+type: concept
+level: intermediate
+subfield:
+  - mathematics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /quaternions/
+last_reviewed: 2026-04-25
 related:
   - "[[Rotation_Matrix]]"
   - "[[Euler_Angles]]"

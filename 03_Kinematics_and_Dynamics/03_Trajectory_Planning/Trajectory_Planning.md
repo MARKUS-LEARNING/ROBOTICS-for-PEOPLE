@@ -8,11 +8,14 @@ tags:
   - control-theory
   - splines
   - via-points
-layout: default
-category: robotics
+type: overview
+level: intermediate
+subfield:
+  - planning
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-03
-permalink: /trajectory_planning/
+last_reviewed: 2026-04-25
 related:
   - "[[Path_Planning_Algorithms]]"
   - "[[Kinematics]]"

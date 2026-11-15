@@ -9,12 +9,16 @@ tags:
   - magnetometer
   - inertial-navigation
   - state-estimation
-type: Sensor
-layout: default
-category: robotics
+type: component
+level: intermediate
+subfield:
+  - perception
+status: keystone
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /imu_sensors/
+last_reviewed: 2026-04-27
+prerequisites:
+  - "[[Sensors]]"
 related:
   - "[[Sensors]]"
   - "[[Perception]]"

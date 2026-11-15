@@ -1,19 +1,20 @@
 ---
 title: Parallel Mechanisms and Robots
-description: "Parallel Mechanisms and Robots utilize multiple kinematic chains working in parallel to achieve precise, stable, and efficient motion, often used in applications requiring high stiffness and accuracy."
+description: Parallel Mechanisms and Robots utilize multiple kinematic chains working in parallel to achieve precise, stable, and efficient motion, often used in applications requiring high stiffness and accuracy.
 tags:
-  - robotics
   - mechanics
   - kinematics
   - control
-  - engineering
-type: Robotic Concept
-application: Parallel kinematic structures for precise and stable motion
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /parallel-mechanisms-and-robots/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Kinematics_and_Dynamics]]"
 related:
   - "[[Robot_Design]]"
   - "[[Kinematics_and_Dynamics]]"
@@ -105,5 +106,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ### List of Related Concepts
 ```dataview
-LIST FROM #control OR #robotics WHERE contains(file.outlinks, [[Parallel_Mechanisms_and_Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Parallel_Mechanisms_and_Robots]])
 ```

@@ -4,19 +4,25 @@ description: Explores the role and techniques of computer vision (CV) in enablin
 tags:
   - computer-vision
   - perception
-  - AI
+  - artificial-intelligence
   - image-processing
-  - sensor
+  - sensors
   - camera
   - machine-learning
   - deep-learning
   - visual-servoing
-  - SLAM
-layout: default
-category: robotics
+  - slam
+type: overview
+level: intermediate
+subfield:
+  - perception
+  - robot-learning
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-28
-permalink: /computer_vision_in_robotics/
+last_reviewed: 2026-04-27
+prerequisites:
+  - "[[Perception]]"
 related:
   - "[[Perception]]"
   - "[[Camera_Systems]]"

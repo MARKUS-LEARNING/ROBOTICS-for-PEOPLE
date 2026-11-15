@@ -2,15 +2,13 @@
 title: Vault Taxonomy Guide
 description: The organizational structure (folders, tags, linking) of the ROBOTICS-for-PEOPLE vault.
 tags:
-  - guide
-  - taxonomy
-  - organization
   - vault-meta
-layout: default
-category: robotics
+type: guide
+level: beginner
+status: reviewed
 author: Jordan_Smith
 date: 2026-04-23
-permalink: /vault_taxonomy_guide/
+last_reviewed: 2026-04-23
 related:
   - "[[How_to_Use_This_Vault]]"
   - "[[Robotics_Vault_Dashboard]]"

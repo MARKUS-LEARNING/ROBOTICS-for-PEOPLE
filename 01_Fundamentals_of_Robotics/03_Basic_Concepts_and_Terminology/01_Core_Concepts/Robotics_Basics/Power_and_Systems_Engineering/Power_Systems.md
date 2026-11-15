@@ -1,18 +1,16 @@
 ---
 title: Power Systems
-description: "Power Systems encompass the technologies and components used to generate, store, convert, and distribute electrical power in robotic systems, ensuring efficient and reliable operation."
+description: Power Systems encompass the technologies and components used to generate, store, convert, and distribute electrical power in robotic systems, ensuring efficient and reliable operation.
 tags:
   - power-systems
-  - energy-storage
-  - power-conversion
-  - power-distribution
-  - robotics
-  - energy-management
-layout: default
-category: robotics
+type: concept
+level: beginner
+subfield:
+  - electronics-embedded
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /power_systems/
+last_reviewed: 2026-04-25
 related:
   - "[[Power_Density]]"
   - "[[Actuator]]"
@@ -225,5 +223,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #power-systems OR #energy-management WHERE contains(file.outlinks, [[Power_Systems]])
+LIST FROM #power-systems OR #power-systems WHERE contains(file.outlinks, [[Power_Systems]])
 ```

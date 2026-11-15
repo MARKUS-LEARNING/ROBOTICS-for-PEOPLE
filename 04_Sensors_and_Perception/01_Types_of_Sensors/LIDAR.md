@@ -9,12 +9,17 @@ tags:
   - autonomous-driving
   - mobile-robot
   - point-cloud
-type: Sensor
-layout: default
-category: robotics
+type: component
+level: intermediate
+subfield:
+  - perception
+  - mobile-robots
+status: keystone
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /lidar/
+last_reviewed: 2026-04-27
+prerequisites:
+  - "[[Sensors]]"
 related:
   - "[[Sensors]]"
   - "[[Perception]]"

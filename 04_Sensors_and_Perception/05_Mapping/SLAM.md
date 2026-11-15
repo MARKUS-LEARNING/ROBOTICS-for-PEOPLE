@@ -4,15 +4,23 @@ description: "Defines SLAM: The process by which a mobile robot builds a map of 
 tags:
   - localization
   - mapping
-  - estimation
+  - state-estimation
   - navigation
   - mobile-robot
   - probabilistic-robotics
-layout: default
-category: robotics
+type: method
+level: intermediate
+subfield:
+  - estimation-mapping
+  - mobile-robots
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /slam/
+last_reviewed: 2026-04-27
+prerequisites:
+  - "[[Localization]]"
+  - "[[Mapping]]"
+  - "[[Kalman_Filter]]"
 related:
   - "[[Localization]]"
   - "[[Mapping]]"

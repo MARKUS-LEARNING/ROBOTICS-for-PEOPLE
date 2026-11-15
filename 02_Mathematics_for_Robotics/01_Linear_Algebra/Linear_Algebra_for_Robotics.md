@@ -6,14 +6,17 @@ tags:
   - linear-algebra
   - vectors
   - matrices
-  - transformations
-  - robotics
-  - foundations
-layout: default
-category: mathematics
+  - spatial-math
+type: concept
+level: intermediate
+subfield:
+  - mathematics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /linear_algebra_for_robotics/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Pose_Representation]]"
 related:
   - "[[Rotation_Matrix]]"
   - "[[Homogeneous_Transformation]]"

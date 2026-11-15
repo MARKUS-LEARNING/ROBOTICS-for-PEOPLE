@@ -3,15 +3,20 @@ title: Manipulator Arm Types
 description: Classifies common robotic manipulator arm types based on their kinematic structure, primarily the first three joints determining positioning capabilities.
 tags:
   - kinematics
-  - manipulator
+  - manipulator-arm
   - robot-types
   - classification
   - industrial-robot
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-28
-permalink: /manipulator_arm_types/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Degrees_of_Freedom]]"
 related:
   - "[[Kinematics]]"
   - "[[Degrees_of_Freedom]]"
@@ -94,5 +99,5 @@ Most positioning structures are combined with a wrist mechanism, typically compr
 
 ---
 ```dataview
-LIST FROM #robotics OR #manipulator WHERE contains(file.outlinks, [[Manipulator_Arm_Types]])
+LIST FROM "" WHERE contains(file.outlinks, [[Manipulator_Arm_Types]])
 ```

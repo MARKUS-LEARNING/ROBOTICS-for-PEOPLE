@@ -2,13 +2,13 @@
 title: Robotics Vault Dashboard
 description: A Dataview-powered dynamic index of every note in the vault, grouped by chapter.
 tags:
-  - dashboard
   - vault-meta
-layout: default
-category: robotics
+type: guide
+level: beginner
+status: reviewed
 author: Jordan_Smith
 date: 2026-04-23
-permalink: /robotics-vault-dashboard/
+last_reviewed: 2026-04-23
 related:
   - "[[How_to_Use_This_Vault]]"
   - "[[Vault_Taxonomy_Guide]]"

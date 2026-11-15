@@ -2,18 +2,22 @@
 title: Obstacle Avoidance
 description: Obstacle Avoidance is the capability of a robotic system to detect and navigate around obstacles in its environment, ensuring safe and efficient operation.
 tags:
-  - robotics
   - navigation
   - obstacle-detection
   - path-planning
   - sensors
-  - control-systems
+  - control
   - automation
-layout: default
-category: robotics
+type: method
+level: intermediate
+subfield:
+  - perception
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /obstacle_avoidance/
+last_reviewed: 2026-04-27
+prerequisites:
+  - "[[Sensors]]"
 related:
   - "[[Sensors]]"
   - "[[Range_Sensor]]"

@@ -3,17 +3,19 @@ title: Harmonic Drive
 description: A Harmonic Drive is a mechanical gear system that uses a flexible spline, a wave generator, and a circular spline to transmit motion with high precision and efficiency.
 tags:
   - mechanics
-  - robotics
-  - engineering
   - actuators
   - gears
-type: Mechanical System
-application: High precision motion transmission in robotic systems
-layout: default
-category: robotics
+type: component
+level: intermediate
+subfield:
+  - mechanisms-actuation
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /harmonic-drive/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Robot_Design]]"
+  - "[[Mechatronics]]"
 related:
   - "[[Robot_Design]]"
   - "[[Mechatronics]]"

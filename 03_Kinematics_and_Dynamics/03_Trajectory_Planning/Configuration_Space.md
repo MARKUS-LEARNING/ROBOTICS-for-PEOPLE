@@ -1,18 +1,24 @@
 ---
 title: Configuration Space
-description: "Describes Configuration Space (C-Space), a concept in robotics representing all possible configurations of a robotic system, used for motion planning and collision detection."
+description: Describes Configuration Space (C-Space), a concept in robotics representing all possible configurations of a robotic system, used for motion planning and collision detection.
 tags:
-  - robotics
   - motion-planning
   - path-planning
   - collision-detection
   - kinematics
   - degrees-of-freedom
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - planning
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-03
-permalink: /configuration_space/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Degrees_of_Freedom]]"
+  - "[[Workspace_Analysis]]"
 related:
   - "[[Motion_Planning]]"
   - "[[Kinematics]]"
@@ -187,5 +193,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Configuration_Space]])
+LIST FROM "" WHERE contains(file.outlinks, [[Configuration_Space]])
 ```

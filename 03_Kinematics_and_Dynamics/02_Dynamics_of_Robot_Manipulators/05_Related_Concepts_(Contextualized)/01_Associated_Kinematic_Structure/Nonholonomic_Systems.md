@@ -2,18 +2,19 @@
 title: Nonholonomic Systems
 description: Nonholonomic Systems are systems whose state depends on the path taken and cannot be integrated to give generalized coordinates.
 tags:
-  - robotics
   - control
   - mechanics
   - dynamics
-  - engineering
-type: System
-application: Systems with path-dependent constraints in robotics
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /nonholonomic-systems/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Kinematics_and_Dynamics]]"
 related:
   - "[[Robot_Design]]"
   - "[[Mechatronics]]"

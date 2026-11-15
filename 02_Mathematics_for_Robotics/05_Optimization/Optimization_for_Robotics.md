@@ -6,13 +6,15 @@ tags:
   - optimization
   - trajectory-optimization
   - control
-  - robotics
   - numerical-methods
-layout: default
-category: mathematics
+type: method
+level: intermediate
+subfield:
+  - mathematics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /optimization_for_robotics/
+last_reviewed: 2026-04-25
 related:
   - "[[Calculus_for_Robotics]]"
   - "[[Linear_Algebra_for_Robotics]]"

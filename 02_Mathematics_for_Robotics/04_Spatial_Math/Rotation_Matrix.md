@@ -5,15 +5,17 @@ tags:
   - mathematics
   - spatial-math
   - rotation
-  - SO3
+  - so3
   - linear-algebra
   - kinematics
-  - robotics
-layout: default
-category: mathematics
+type: concept
+level: intermediate
+subfield:
+  - mathematics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /rotation_matrix/
+last_reviewed: 2026-04-25
 related:
   - "[[Linear_Algebra_for_Robotics]]"
   - "[[Euler_Angles]]"

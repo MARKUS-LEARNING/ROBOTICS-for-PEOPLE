@@ -1,6 +1,6 @@
 ---
 title: Mechanics
-description: "Mechanics is a fundamental branch of physics that deals with the motion of objects and the forces that cause that motion, essential for understanding and designing robotic systems."
+description: Mechanics is a fundamental branch of physics that deals with the motion of objects and the forces that cause that motion, essential for understanding and designing robotic systems.
 tags:
   - physics
   - motion
@@ -8,13 +8,19 @@ tags:
   - kinematics
   - dynamics
   - statics
-  - robotics
-  - engineering
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - mechanisms-actuation
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /mechanics/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Robot_Design]]"
+  - "[[Mechatronics]]"
+  - "[[Statics]]"
 related:
   - "[[Kinematics]]"
   - "[[Dynamics]]"

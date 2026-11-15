@@ -3,17 +3,18 @@ title: Stiffness
 description: Stiffness is a measure of the resistance of an elastic body to deformation under an applied force.
 tags:
   - mechanics
-  - robotics
-  - engineering
   - materials
   - control
-type: Mechanical Property
-application: Resistance to deformation in mechanical systems
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /stiffness/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Kinematics_and_Dynamics]]"
 related:
   - "[[Robot_Design]]"
   - "[[Mechatronics]]"
@@ -83,5 +84,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ### List of Related Concepts
 ```dataview
-LIST FROM #control OR #robotics WHERE contains(file.outlinks, [[Stiffness]])
+LIST FROM "" WHERE contains(file.outlinks, [[Stiffness]])
 ```

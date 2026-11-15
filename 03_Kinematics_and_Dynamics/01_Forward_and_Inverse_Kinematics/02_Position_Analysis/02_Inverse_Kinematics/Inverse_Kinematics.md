@@ -4,15 +4,21 @@ description: Given a desired end-effector pose, find joint angles that achieve i
 tags:
   - kinematics
   - inverse-kinematics
-  - manipulator
+  - manipulator-arm
   - control
   - jacobian
   - optimization
-layout: default
-category: robotics
+type: method
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: keystone
 author: Jordan_Smith
 date: 2025-04-28
-permalink: /inverse_kinematics/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Forward_Kinematics]]"
+  - "[[Jacobian_Matrix]]"
 related:
   - "[[Kinematics]]"
   - "[[Forward_Kinematics]]"

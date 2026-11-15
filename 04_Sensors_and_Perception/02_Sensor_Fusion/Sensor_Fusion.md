@@ -8,11 +8,18 @@ tags:
   - perception
   - kalman-filter
   - probabilistic-robotics
-layout: default
-category: robotics
+type: overview
+level: intermediate
+subfield:
+  - estimation-mapping
+  - perception
+status: keystone
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /sensor_fusion/
+last_reviewed: 2026-04-27
+prerequisites:
+  - "[[Sensors]]"
+  - "[[Probability_and_Statistics_for_Robotics]]"
 related:
   - "[[Sensors]]"
   - "[[Perception]]"
@@ -178,5 +185,5 @@ The IMU dominates because it's currently more confident. The fused estimate has 
 ## Dataview
 
 ```dataview
-LIST FROM #sensor-fusion OR #robotics WHERE contains(file.outlinks, [[Sensor_Fusion]])
+LIST FROM "" WHERE contains(file.outlinks, [[Sensor_Fusion]])
 ```
