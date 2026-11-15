@@ -32,7 +32,7 @@ related:
   - "[[Mapping]]"
   - "[[SLAM]]"
   - "[[Perception]]"
-  - "[[Path Planning Algorithms]]"
+  - "[[Path_Planning_Algorithms]]"
   - "[[Robot_Types_and_Applications]]"
 ---
 
@@ -53,8 +53,8 @@ A typical autonomous mobile robot integrates several essential subsystems:
     * **Exteroceptive:** Measure properties of the external environment (e.g., [[LIDAR]] or [[Ultrasonic_Sensors]] for rangefinding, [[Camera_Systems]] for vision, [[GPS]] for global position).
 * **Control System:** Onboard computing hardware and software responsible for:
     * **[[Perception]]:** Interpreting sensor data.
-    * **[[Navigation]]:** The combination of [[Localization]] (determining position), [[Mapping]] (building environment representations), and [[Path Planning Algorithms|path planning]] (finding collision-free routes).
-    * **[[Motion_Control]]:** Executing planned paths or reactive behaviors (like [[Obstacle Avoidance]]) by commanding the locomotion system.
+    * **[[Navigation]]:** The combination of [[Localization]] (determining position), [[Mapping]] (building environment representations), and [[Path_Planning_Algorithms|path planning]] (finding collision-free routes).
+    * **[[Motion_Control]]:** Executing planned paths or reactive behaviors (like [[Obstacle_Avoidance|Obstacle Avoidance]]) by commanding the locomotion system.
     * **Decision Making:** Higher-level reasoning and task management ([[AI_and_Robot_Control]]).
 * **Power Source:** Provides energy for operation (e.g., batteries, fuel cells, internal combustion engines).
 
@@ -78,11 +78,11 @@ Mobile robots are often categorized by their primary mode of locomotion:
 
 Developing autonomous mobile robots involves addressing several core challenges:
 
-* **[[Navigation]]:** Enabling the robot to successfully plan and execute movement from a starting point to a goal location, encompassing [[Localization]], [[Mapping]], and [[Path Planning Algorithms|Path Planning]]. This is arguably the central problem in mobile robotics.
+* **[[Navigation]]:** Enabling the robot to successfully plan and execute movement from a starting point to a goal location, encompassing [[Localization]], [[Mapping]], and [[Path_Planning_Algorithms|Path Planning]]. This is arguably the central problem in mobile robotics.
 * **[[Perception]]:** Equipping the robot with sensors and algorithms to interpret its surroundings reliably, detect obstacles, identify landmarks, and build environmental models.
 * **[[Localization]]:** Accurately estimating the robot's own position and orientation within its environment, often using [[Sensor_Fusion]] techniques to combine data from various sensors ([[SLAM]] addresses simultaneous mapping and localization).
 * **[[Motion_Control]]:** Precisely controlling the robot's actuators to follow desired paths or execute specific maneuvers, considering the robot's [[Kinematics]] and [[Dynamics]].
-* **[[Obstacle Avoidance]]:** Reacting to unexpected static or dynamic obstacles detected in real-time.
+* **[[Obstacle_Avoidance|Obstacle Avoidance]]:** Reacting to unexpected static or dynamic obstacles detected in real-time.
 * **Power Management:** Operating efficiently to maximize mission duration given limited onboard energy storage.
 * **Robustness & Reliability:** Functioning consistently in complex, dynamic, and potentially harsh real-world conditions.
 

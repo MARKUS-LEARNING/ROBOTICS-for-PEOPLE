@@ -70,7 +70,7 @@ Compared to [[Wheeled_Mobile_Robots]] or [[Tracked Robots]], legged robots offer
 
 Despite their advantages, legged robots present significant challenges:
 
-* **Control Complexity:** Managing the high [[Degrees_of_Freedom]] of multiple articulated limbs requires sophisticated [[Control Systems]] for coordination, balance, and [[Gait]] generation. Dynamic stability is particularly difficult.
+* **Control Complexity:** Managing the high [[Degrees_of_Freedom]] of multiple articulated limbs requires sophisticated [[Control_Systems|Control Systems]] for coordination, balance, and [[Gait]] generation. Dynamic stability is particularly difficult.
 * **[[Stability]]:** Maintaining balance is a primary challenge.
     * **Static Stability:** Possible for robots with 3+ legs forming a sufficiently wide support base relative to the center of gravity. Requires slow, deliberate gaits for robots with fewer than 6 legs.
     * **Dynamic Stability:** Required for bipeds, quadrupeds (in faster gaits), and monopods. Needs active control based on sensor feedback ([[IMU_Sensors]], joint encoders, foot contact sensors) to prevent falling. Concepts like the [[Zero Moment Point (ZMP)]] are crucial for analyzing and controlling dynamic balance in walking robots.

@@ -71,7 +71,7 @@ Here are some classic Turtlesim projects to practice core ROS skills:
     * **Concepts Learned:** Creating a ROS node, creating a Publisher, using ROS message types (`geometry_msgs/Twist`), controlling timing (`rospy.Rate` / `rclpy.Rate`), basic open-loop control.
 
 2.  **Go-to-Goal Controller:**
-    * **Goal:** Write a node that makes the turtle drive towards a target (x, y) coordinate. The node should subscribe to `/turtle1/pose` to get the current position and orientation, calculate the distance and angle error to the goal, and publish appropriate linear and angular velocities to `/turtle1/cmd_vel` using a simple proportional [[Control Theory|controller]]. Stop when close enough to the goal.
+    * **Goal:** Write a node that makes the turtle drive towards a target (x, y) coordinate. The node should subscribe to `/turtle1/pose` to get the current position and orientation, calculate the distance and angle error to the goal, and publish appropriate linear and angular velocities to `/turtle1/cmd_vel` using a simple proportional [[Control_Theory|controller]]. Stop when close enough to the goal.
     * **Concepts Learned:** Creating a Subscriber, defining callback functions, basic feedback control logic, using TF math (for angles) or `atan2`.
 
 3.  **Pen Control and Services:**

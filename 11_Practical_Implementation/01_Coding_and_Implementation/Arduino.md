@@ -15,7 +15,7 @@ author: Jordan_Smith
 date: 2025-05-02
 related:
   - "[[Embedded_Systems]]"
-  - "[[Microcontrollers]]"
+  - "[[Microcontroller]]"
   - "[[Sensor_Integration]]"
   - "[[Robot_Design]]"
   - "[[Control_Systems]]"

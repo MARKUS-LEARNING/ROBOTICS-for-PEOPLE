@@ -747,6 +747,84 @@ def cmd_fix_dataview(a):
     print(f'{changed} notes have Dataview queries to update' + ('' if a.write else ' (dry run; --write to apply)'))
 
 
+# ------------------------------------------------------------------------------------------------------------- fix-links
+def near_miss_index(v: Vault) -> dict:
+    """Normalized spellings -> note: 'machine learning', 'Reinforcement Learning (RL)', 'Torques' all find their note."""
+    def norm(s):
+        return re.sub(r'[\s\-_]+', '_', re.sub(r'\.md$', '', nfc(str(s)).lower())).strip('_')
+    idx = {}
+    for n in v.notes:
+        fm = n.frontmatter or {}
+        names = [n.name, re.sub(r'_?\([^)]*\)$', '', n.name)]
+        if fm.get('title'):
+            names += [str(fm['title']), re.sub(r'\s*\([^)]*\)$', '', str(fm['title']))]
+        names += [str(x) for x in fm.get('aliases') or []]
+        for s in names:
+            idx.setdefault(norm(s), n)
+    def find(target):
+        base = target.split('/')[-1]
+        for c in (base, re.sub(r'\s*\([^)]*\)$', '', base), re.sub(r's$', '', base)):
+            if norm(c) in idx:
+                return idx[norm(c)]
+        return None
+    return find
+
+
+def fix_links_in(text: str, fix) -> tuple[str, int]:
+    """Rewrite [[target|alias]] outside fenced and inline code. `fix(target) -> new target or None`."""
+    out, count, fence = [], 0, None
+    def repl(m):
+        nonlocal count
+        embed, inner = m.group(1), m.group(2)
+        esc = '\\|' in inner
+        parts = inner.replace('\\|', '|').split('|', 1)
+        tgt, alias = parts[0], (parts[1] if len(parts) > 1 else None)
+        head = ''
+        if '#' in tgt:
+            tgt, h = tgt.split('#', 1); head = '#' + h
+        new = fix(tgt.strip())
+        if not new:
+            return m.group(0)
+        count += 1
+        shown = alias if alias is not None else (tgt.strip() if not head else None)
+        sep = '\\|' if esc else '|'
+        return f'{embed}[[{new}{head}' + (f'{sep}{shown}' if shown and shown != new else '') + ']]'
+    for line in text.split('\n'):
+        m = FENCE.match(line)
+        if fence is None and m:
+            fence = m.group(2)[0] * len(m.group(2)); out.append(line); continue
+        if fence is not None:
+            if m and m.group(2).startswith(fence) and not m.group(3).strip():
+                fence = None
+            out.append(line); continue
+        pieces = re.split(r'(`+[^`]*`+)', line)          # keep inline code untouched
+        out.append(''.join(p if p.startswith('`') else WIKILINK.sub(repl, p) for p in pieces))
+    return '\n'.join(out), count
+
+
+def cmd_fix_links(a):
+    """Point links at the note they obviously mean ([[Machine Learning]] -> [[Machine_Learning|Machine Learning]])."""
+    v = Vault(); find = near_miss_index(v)
+    def fix(target):
+        lk = Link(target=target, heading=None, alias=None, embed=False, source='body')
+        if not target or v.resolve(lk, None) is not None:
+            return None
+        n = find(target)
+        return n.name if n else None
+    total, files = 0, 0
+    for n in v.notes:
+        fm_part = n.raw[:len(n.raw) - len(n.body)]
+        new_fm, c1 = re.subn(r'"\[\[([^\]|#]+)\]\]"', lambda m: f'"[[{fix(m.group(1)) or m.group(1)}]]"', fm_part)
+        c1 = sum(1 for m in re.finditer(r'"\[\[([^\]|#]+)\]\]"', fm_part) if fix(m.group(1)))
+        new_body, c2 = fix_links_in(n.body, fix)
+        if c1 + c2:
+            total += c1 + c2; files += 1
+            if a.write:
+                with open(os.path.join(ROOT, n.path), 'w', encoding='utf-8') as fh:
+                    fh.write(new_fm + new_body)
+    print(f'{total} links in {files} notes point to an existing note under another spelling' + ('' if a.write else ' (dry run; --write to apply)'))
+
+
 # -------------------------------------------------------------------------------------------------------- obsidian-check
 def cmd_obsidian_check(a):
     """Compare this module's view of the vault with Obsidian's own metadata cache, through the Obsidian CLI
@@ -855,6 +933,9 @@ def main(argv=None):
     p = sub.add_parser('fix-dataview', help='map tag references inside ```dataview blocks to the v2 vocabulary')
     p.add_argument('--write', action='store_true')
     p.set_defaults(fn=cmd_fix_dataview)
+    p = sub.add_parser('fix-links', help='repoint links that misspell an existing note ([[Machine Learning]] -> Machine_Learning)')
+    p.add_argument('--write', action='store_true')
+    p.set_defaults(fn=cmd_fix_links)
     p = sub.add_parser('obsidian-check', help="compare with Obsidian's own index via the Obsidian CLI (local only)")
     p.add_argument('--obsidian', help='path to the obsidian CLI'); p.add_argument('--vault', help='Obsidian vault name')
     p.set_defaults(fn=cmd_obsidian_check)

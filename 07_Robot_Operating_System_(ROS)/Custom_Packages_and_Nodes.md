@@ -26,7 +26,7 @@ related:
   - "[[Services]]"
   - "[[Actions]]"
   - "[[Messages]]"
-  - "[[Launch Files]]"
+  - "[[Launch_Files]]"
   - "[[ROS_2_Overview]]"
   - "[[Python_ROS_Nodes]]"
   - "[[Git_Integration_and_Version_Control]]"
@@ -54,7 +54,7 @@ A **package** is the fundamental unit of software organization and distribution 
     * `msg/`: Contains custom [[Messages|message (.msg) definitions]].
     * `srv/`: Contains custom [[Services|service (.srv) definitions]].
     * `action/`: Contains custom [[Actions|action (.action) definitions]].
-    * `launch/`: Contains [[Launch Files|launch files (.launch, .launch.py, .launch.xml)]] used to start nodes.
+    * `launch/`: Contains [[Launch_Files|launch files (.launch, .launch.py, .launch.xml)]] used to start nodes.
     * `config/`: Contains configuration files (e.g., YAML parameter files).
     * `CMakeLists.txt`: (Required for C++ packages) Build instructions for CMake, used by Catkin/Colcon. Specifies executables, libraries, dependencies, and code generation steps for messages/services/actions.
     * `package.xml`: (Required) Manifest file containing package metadata (name, version, author, license), build system dependencies (e.g., `ament_cmake`, `catkin`), build tool dependencies (e.g., `rosidl_default_generators`), and runtime dependencies (other ROS packages needed).

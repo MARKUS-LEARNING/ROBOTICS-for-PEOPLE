@@ -22,7 +22,7 @@ related:
   - "[[Inertia]]"
   - "[[Momentum]]"
   - "[[Forces]]"
-  - "[[Torques]]"
+  - "[[Torque]]"
   - "[[Manipulator_Dynamics]]"
 ---
 

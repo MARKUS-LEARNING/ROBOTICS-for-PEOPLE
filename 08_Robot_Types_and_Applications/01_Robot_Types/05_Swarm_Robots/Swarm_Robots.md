@@ -17,7 +17,7 @@ author: Jordan_Smith
 date: 2025-04-28
 related:
   - "[[Robots]]"
-  - "[[Multi-Robot_Systems]]"
+  - "[[Multi_Robot_Systems]]"
   - "[[Distributed_Systems]]"
   - "[[Self-Organization]]"
   - "[[Emergent_Behavior]]"
@@ -29,7 +29,7 @@ related:
 
 # Swarm Robots
 
-**Swarm Robotics** is a field focused on the coordination of large numbers of relatively simple robots, often referred to as a swarm. It takes inspiration from the collective behavior observed in social insects (like ants, bees, termites) and other biological systems (like flocks of birds or schools of fish). The core idea is that complex, useful global behaviors can arise from numerous local interactions between simple individual robots operating under decentralized control, without needing a central coordinator or complex individual capabilities. Swarm robotics is considered a subfield of [[Multi-Robot Systems]].
+**Swarm Robotics** is a field focused on the coordination of large numbers of relatively simple robots, often referred to as a swarm. It takes inspiration from the collective behavior observed in social insects (like ants, bees, termites) and other biological systems (like flocks of birds or schools of fish). The core idea is that complex, useful global behaviors can arise from numerous local interactions between simple individual robots operating under decentralized control, without needing a central coordinator or complex individual capabilities. Swarm robotics is considered a subfield of [[Multi_Robot_Systems|Multi-Robot Systems]].
 
 ---
 
@@ -60,7 +60,7 @@ Coordination in swarms relies on mechanisms that function with local information
 
 ## Distinction from General Multi-Robot Systems (MRS)
 
-While swarm robotics falls under the umbrella of [[Multi-Robot Systems]], it represents a specific approach. General MRS can involve smaller numbers of potentially complex, heterogeneous robots with sophisticated individual capabilities, often relying on explicit communication protocols, task allocation mechanisms, and sometimes centralized or hierarchical coordination strategies. In contrast, swarm robotics emphasizes massive parallelism through large numbers of simple, often homogeneous, agents using decentralized control and local interactions leading to emergent behavior.
+While swarm robotics falls under the umbrella of [[Multi_Robot_Systems|Multi-Robot Systems]], it represents a specific approach. General MRS can involve smaller numbers of potentially complex, heterogeneous robots with sophisticated individual capabilities, often relying on explicit communication protocols, task allocation mechanisms, and sometimes centralized or hierarchical coordination strategies. In contrast, swarm robotics emphasizes massive parallelism through large numbers of simple, often homogeneous, agents using decentralized control and local interactions leading to emergent behavior.
 
 ---
 

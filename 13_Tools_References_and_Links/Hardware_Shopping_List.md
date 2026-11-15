@@ -24,7 +24,7 @@ related:
   - "[[LIDAR]]"
   - "[[Camera_Systems]]"
   - "[[IMU_Sensors]]"
-  - "[[Actuators]]"
+  - "[[Actuator]]"
   - "[[Arduino]]"
   - "[[Python_for_Robotics]]"
   - "[[ROS_2_Overview]]"

@@ -24,7 +24,7 @@ related:
   - "[[Sensor]]"
   - "[[Range_Sensor]]"
   - "[[Perception]]"
-  - "[[Obstacle Avoidance]]"
+  - "[[Obstacle_Avoidance]]"
   - "[[Mapping]]"
   - "[[Mobile_Robots]]"
   - "[[Time-of-Flight]]"
@@ -34,7 +34,7 @@ related:
 
 # Ultrasonic Sensors
 
-**Ultrasonic Sensors**, sometimes referred to as **sonar** (Sound Navigation and Ranging), are a type of active [[Range Sensor|range sensor]] commonly used in robotics, particularly for [[Obstacle Avoidance]]. They operate by emitting high-frequency sound waves (ultrasound, typically in the 40 kHz to 180 kHz range, well above human hearing) and detecting the echoes reflected from objects in the environment.
+**Ultrasonic Sensors**, sometimes referred to as **sonar** (Sound Navigation and Ranging), are a type of active [[Range_Sensor|range sensor]] commonly used in robotics, particularly for [[Obstacle_Avoidance|Obstacle Avoidance]]. They operate by emitting high-frequency sound waves (ultrasound, typically in the 40 kHz to 180 kHz range, well above human hearing) and detecting the echoes reflected from objects in the environment.
 
 ---
 
@@ -92,7 +92,7 @@ Ultrasonic sensors suffer from several significant limitations that impact their
 
 Despite their limitations, the low cost and simplicity of ultrasonic sensors make them widely used, particularly for:
 
-* **[[Obstacle Avoidance]]:** Providing basic detection of nearby obstacles for low-speed [[Mobile_Robots]], often used in arrays or rings.
+* **[[Obstacle_Avoidance|Obstacle Avoidance]]:** Providing basic detection of nearby obstacles for low-speed [[Mobile_Robots]], often used in arrays or rings.
 * **[[Mapping]]:** Suitable for creating coarse occupancy grid maps, though the poor angular resolution limits map detail and accuracy.
 * **Proximity Detection:** Simple presence/absence detection within their range.
 

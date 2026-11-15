@@ -18,7 +18,7 @@ related:
   - "[[Control_Systems]]"
   - "[[Actuator]]"
   - "[[Wheeled_Mobile_Robots]]"
-  - "[[Manipulator Arm]]"
+  - "[[Manipulator_Arm]]"
   - "[[Legged_Robots]]"
   - "[[Sensors]]"
 ---

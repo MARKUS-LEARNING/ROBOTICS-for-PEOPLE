@@ -28,7 +28,7 @@ related:
   - "[[MoveIt2]]"
   - "[[Control_Systems]]"
   - "[[PID_Controller]]"
-  - "[[Actuators]]"
+  - "[[Actuator]]"
   - "[[Joints]]"
   - "[[Trajectory_Planning]]"
   - "[[Gazebo_Simulator]]"

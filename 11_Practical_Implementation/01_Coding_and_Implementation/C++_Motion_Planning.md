@@ -50,7 +50,7 @@ related:
 
 ## Core Problem Revisited
 
-The fundamental goal remains the same as described in [[Path Planning Algorithms]]: find a geometrically valid sequence of robot configurations (a *path*) from a start state to a goal state within the robot's [[Configuration_Space]], while avoiding collisions with obstacles defined in the [[Workspace]]. Often, this path is then time-parameterized to create a smooth, executable *trajectory* specifying velocity and acceleration profiles ([[Trajectory_Planning]]). Both path and trajectory planning stages often leverage C++ implementations.
+The fundamental goal remains the same as described in [[Path_Planning_Algorithms|Path Planning Algorithms]]: find a geometrically valid sequence of robot configurations (a *path*) from a start state to a goal state within the robot's [[Configuration_Space]], while avoiding collisions with obstacles defined in the [[Workspace]]. Often, this path is then time-parameterized to create a smooth, executable *trajectory* specifying velocity and acceleration profiles ([[Trajectory_Planning]]). Both path and trajectory planning stages often leverage C++ implementations.
 
 ---
 
@@ -73,7 +73,7 @@ Instead of implementing complex algorithms from scratch, developers typically le
 * **[[OMPL]] (Open Motion Planning Library):** A powerful, open-source C++ library focused purely on motion planning. It provides state-of-the-art implementations of many sampling-based algorithms (PRM, RRT, RRT*, KPIECE, etc.) and interfaces for defining state spaces, state validity checkers (collision checking), and goal conditions. It is widely used both standalone and as a core planning engine within frameworks like MoveIt.
 * **[[MoveIt]] (ROS/ROS 2):** A comprehensive open-source framework built on ROS/ROS 2, primarily in C++, specifically for [[Manipulation|manipulation]] tasks. MoveIt integrates:
     * **Planners:** Typically uses [[OMPL]] plugins for planning.
-    * **[[Collision Detection]]:** Uses [[FCL]] for efficient collision checking against environment models (often OctoMaps built from sensor data).
+    * **[[Collision_Detection|Collision Detection]]:** Uses [[FCL]] for efficient collision checking against environment models (often OctoMaps built from sensor data).
     * **[[Kinematics]]:** Interfaces with [[Forward_Kinematics|forward]] and [[Inverse_Kinematics|inverse kinematics]] solvers.
     * **[[Perception]]:** Integrates with sensor processing nodes (e.g., to update collision environments).
     * **[[Trajectory_Planning]]:** Includes modules for post-processing paths into smooth, executable trajectories (e.g., TOTG, TOPP-RA).

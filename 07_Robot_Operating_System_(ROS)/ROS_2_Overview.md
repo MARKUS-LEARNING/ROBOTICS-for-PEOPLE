@@ -69,7 +69,7 @@ ROS 2 was developed to overcome specific shortcomings of ROS 1 and introduce new
     * **ROS 1:** Primarily used **Catkin**, an extension of CMake.
     * **ROS 2:** Uses **Colcon** as the standard build tool. Colcon is a meta-build tool that orchestrates underlying build systems like CMake (for C++) and Python's setuptools. It works with the **Ament** build system framework, which provides CMake macros and Python packages to simplify package development.
 
-* **[[Launch Files]]:**
+* **[[Launch_Files|Launch Files]]:**
     * **ROS 1:** Used XML-based `.launch` files.
     * **ROS 2:** Uses **Python-based `.launch.py` files**. This provides significantly more flexibility, allowing programmatic logic, conditionals, loops, and easier integration with external tools within the launch description. XML and YAML formats are also supported for simpler cases.
 

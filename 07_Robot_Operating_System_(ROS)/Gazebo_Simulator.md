@@ -25,7 +25,7 @@ related:
   - "[[URDF]]"
   - "[[SDF]]"
   - "[[Robotics Software]]"
-  - "[[Reinforcement Learning (RL)]]"
+  - "[[Reinforcement_Learning]]"
   - "[[Topics]]"
   - "[[Services]]"
   - "[[Plugins]]"
@@ -71,7 +71,7 @@ Gazebo's tight integration with ROS is one of its key strengths, facilitated pri
     * **Robot State:** Simulated joint states are often published on the `/joint_states` topic, which can be used by `robot_state_publisher` to compute and broadcast [[TF_and_Topic_Architecture|TF (transform)]] frames for the simulated robot. Simulated ground truth odometry might be published on `/odom`.
     * **Simulation Control:** ROS [[Services]] are typically provided to pause, unpause, reset the simulation, and spawn or delete models.
     * **Simulation Time:** Gazebo can publish simulation time on the `/clock` topic. Setting the ROS parameter `/use_sim_time` to `true` causes ROS nodes to use Gazebo's clock instead of the system clock, ensuring synchronization between ROS and the simulation.
-* **Launching:** Simulations are typically launched using ROS [[Launch Files]], which start the Gazebo server (`gzserver`), the Gazebo client GUI (`gzclient`), load a world file, spawn robot models (using `spawn_model` node/service), and start necessary ROS bridge nodes (like `robot_state_publisher`).
+* **Launching:** Simulations are typically launched using ROS [[Launch_Files|Launch Files]], which start the Gazebo server (`gzserver`), the Gazebo client GUI (`gzclient`), load a world file, spawn robot models (using `spawn_model` node/service), and start necessary ROS bridge nodes (like `robot_state_publisher`).
 
 ---
 
@@ -80,7 +80,7 @@ Gazebo's tight integration with ROS is one of its key strengths, facilitated pri
 Gazebo is widely used in the robotics community for:
 
 * **Algorithm Development:** Testing and debugging control algorithms, navigation stacks ([[Navigation]]), [[SLAM]] systems, [[Perception]] algorithms, and manipulation strategies in a controlled and repeatable environment.
-* **[[Reinforcement Learning (RL)|RL Training]]:** Providing a fast, safe, and parallelizable environment to train robot control policies using RL, mitigating the high sample complexity and safety concerns of real-world training.
+* **[[Reinforcement_Learning|RL Training]]:** Providing a fast, safe, and parallelizable environment to train robot control policies using RL, mitigating the high sample complexity and safety concerns of real-world training.
 * **Visualization and Debugging:** Visualizing robot models, sensor data, and algorithm outputs within a 3D environment. Complements tools like [[RViz_Tutorial|RViz]].
 * **Education and Research:** A standard platform for teaching robotics concepts and conducting research experiments without requiring expensive hardware.
 * **System Integration Testing:** Verifying the interaction between different ROS nodes and software components before deploying on a physical robot.

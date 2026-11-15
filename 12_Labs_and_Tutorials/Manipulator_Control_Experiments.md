@@ -22,13 +22,13 @@ prerequisites:
 related:
   - "[[Labs_Projects_and_Tutorials]]"
   - "[[Manipulation]]"
-  - "[[Control Theory]]"
+  - "[[Control_Theory]]"
   - "[[PID_Control]]"
-  - "[[Computed Torque Control]]"
+  - "[[Computed_Torque_Control]]"
   - "[[Force Control]]"
   - "[[Visual Servoing]]"
   - "[[Joint Space]]"
-  - "[[Cartesian Space]]"
+  - "[[Cartesian_Space]]"
   - "[[Kinematics]]"
   - "[[Dynamics]]"
   - "[[ROS (Robot Operating System)]]"
@@ -38,7 +38,7 @@ related:
 
 # Manipulator Control Experiments
 
-This note serves as a central collection point and organizational template for documenting practical experiments conducted on controlling [[Manipulator_Arm_Types|robotic manipulator arms]]. Implementing and testing control algorithms, whether in simulation or on physical hardware, is crucial for gaining a deep understanding of [[Control Theory|control theory]], robot [[Dynamics]], [[Kinematics]], and the challenges of real-world implementation.
+This note serves as a central collection point and organizational template for documenting practical experiments conducted on controlling [[Manipulator_Arm_Types|robotic manipulator arms]]. Implementing and testing control algorithms, whether in simulation or on physical hardware, is crucial for gaining a deep understanding of [[Control_Theory|control theory]], robot [[Dynamics]], [[Kinematics]], and the challenges of real-world implementation.
 
 See also: [[Labs_Projects_and_Tutorials]] for other projects.
 
@@ -56,7 +56,7 @@ It's highly recommended to document each experiment thoroughly for reproducibili
 * **Setup:**
     * **Robot Model:** Specify the manipulator used (e.g., Simulated Franka Emika Panda in [[Gazebo_Simulator]], physical [[Arduino]]-based SCARA arm). Link to its [[URDF]] or description `[[My_Robot_Description]]`.
     * **Software:** List the key software components ([[ROS (Robot Operating System)|ROS]] version, [[MoveIt]], [[OMPL]], specific [[Python_ROS_Nodes|Python]]/[[C++_Motion_Planning|C++]] code packages, [[MATLAB]]/Simulink). Link to relevant code repositories using [[Git_Integration_and_Version_Control]].
-    * **Control Algorithm:** Detail the specific algorithm implemented (e.g., Independent Joint PID, [[Computed Torque Control]], Resolved Motion Rate Control).
+    * **Control Algorithm:** Detail the specific algorithm implemented (e.g., Independent Joint PID, [[Computed_Torque_Control|Computed Torque Control]], Resolved Motion Rate Control).
     * **Environment:** Describe the experimental environment (e.g., [[Gazebo_Simulator]] world file, physical setup description).
 * **Procedure:**
     * Provide step-by-step instructions on how to replicate the experiment.
@@ -92,7 +92,7 @@ Based on common manipulator control concepts, here are some areas you might cond
     * Command the robot to follow the trajectory using a PID or other controller.
     * Measure and analyze tracking accuracy.
 
-### [[Cartesian Space]] Control
+### [[Cartesian_Space|Cartesian Space]] Control
 
 * **Position Control:**
     * Use [[Inverse_Kinematics]] to command the end-effector to specific Cartesian poses.
@@ -108,7 +108,7 @@ Based on common manipulator control concepts, here are some areas you might cond
 
 ### [[Dynamics]]-Based Control
 
-* **[[Computed Torque Control]]:**
+* **[[Computed_Torque_Control|Computed Torque Control]]:**
     * Implement the computed torque control law using the robot's [[Inverse_Dynamics]] model.
     * Compare tracking performance against simpler PID control.
     * Investigate sensitivity to errors in dynamic parameters.
@@ -124,7 +124,7 @@ Based on common manipulator control concepts, here are some areas you might cond
 
 ### Learning-Based Control
 
-* Use [[Reinforcement Learning (RL)|RL]] or [[Imitation Learning]] to train control policies for manipulation tasks, often starting in simulation ([[Gazebo_Simulator]]).
+* Use [[Reinforcement_Learning|RL]] or [[Imitation Learning]] to train control policies for manipulation tasks, often starting in simulation ([[Gazebo_Simulator]]).
 
 ---
 

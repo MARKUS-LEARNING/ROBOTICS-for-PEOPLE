@@ -30,7 +30,7 @@ related:
 
 # Exoskeletons
 
-**Exoskeletons** (in the context of robotics) are wearable mechanical or electromechanical structures designed to be worn by a person, typically mirroring the user's limb structure. Powered exoskeletons utilize [[Actuator|actuators]] to apply forces and torques aligned with the user's joints, aiming to augment strength/endurance, assist movement, or restore lost function. They represent a significant area within [[Wearable Robotics]] and [[Human-Robot Interaction (HRI)]].
+**Exoskeletons** (in the context of robotics) are wearable mechanical or electromechanical structures designed to be worn by a person, typically mirroring the user's limb structure. Powered exoskeletons utilize [[Actuator|actuators]] to apply forces and torques aligned with the user's joints, aiming to augment strength/endurance, assist movement, or restore lost function. They represent a significant area within [[Wearable Robotics]] and [[Human-Robot_Interaction|Human-Robot Interaction (HRI)]].
 
 *(Note: This differs from passive exoskeletons, which provide support via springs or elastic elements without active power.)*
 
@@ -72,7 +72,7 @@ Developing effective exoskeletons involves integrating several technologies:
     * **Physiological Sensors:**
         * *EMG (Electromyography):* Detects electrical signals from muscle activation to infer user intent.
         * *EEG (Electroencephalography):* Detects brain signals, sometimes explored for direct neural control (BCI).
-* **[[Control Systems|Control Strategies]]:** The core challenge is coordinating the exoskeleton's actions with the user's intent and movements seamlessly and safely. Common strategies include:
+* **[[Control_Systems|Control Strategies]]:** The core challenge is coordinating the exoskeleton's actions with the user's intent and movements seamlessly and safely. Common strategies include:
     * **Trajectory Control:** Guiding the user's limbs along predefined paths (common in rehabilitation).
     * **Assist-as-Needed:** Monitoring user effort and providing assistance only when necessary or proportional to weakness.
     * **Intent Detection:** Using EMG, EEG, force sensors, or kinematic cues (early motion detection) to predict the user's desired movement and initiate exoskeleton assistance proactively.

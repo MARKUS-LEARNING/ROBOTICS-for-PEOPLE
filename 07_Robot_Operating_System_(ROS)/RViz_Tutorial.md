@@ -81,7 +81,7 @@ RViz achieves its flexibility through a system of configurable **Displays**.
 1.  **Launch RViz:**
     * ROS 1: `rosrun rviz rviz`
     * ROS 2: `ros2 run rviz2 rviz2`
-    * Alternatively, launch RViz via a [[Launch Files|launch file]], often with a pre-loaded configuration: `roslaunch my_package my_rviz.launch` or `ros2 launch my_package my_rviz.launch.py`.
+    * Alternatively, launch RViz via a [[Launch_Files|launch file]], often with a pre-loaded configuration: `roslaunch my_package my_rviz.launch` or `ros2 launch my_package my_rviz.launch.py`.
 2.  **Set Fixed Frame:** In the "Global Options" section of the "Displays" panel (usually on the left), select an appropriate fixed frame from the dropdown list (e.g., `/map`, `/odom`, `/base_link`). The frame must exist in the TF tree being published. The background grid represents the XY plane of this fixed frame.
 3.  **Add Displays:** Click the "Add" button at the bottom of the Displays panel. Select the desired display type (e.g., `TF`, `RobotModel`, `LaserScan`) from the list and click "OK".
 4.  **Configure Displays:** Expand the newly added display in the list. Configure its specific parameters:

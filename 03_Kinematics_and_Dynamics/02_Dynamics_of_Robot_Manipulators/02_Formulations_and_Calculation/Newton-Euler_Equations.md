@@ -23,7 +23,7 @@ related:
   - "[[Inertia]]"
   - "[[Momentum]]"
   - "[[Forces]]"
-  - "[[Torques]]"
+  - "[[Torque]]"
 ---
 
 # Newton-Euler Equations
