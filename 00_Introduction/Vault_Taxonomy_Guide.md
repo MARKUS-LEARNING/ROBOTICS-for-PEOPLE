@@ -190,10 +190,13 @@ Every push to `main` publishes the vault as a website on GitHub Pages and genera
 
 ```bash
 git clone --depth 1 --branch v4.5.2 https://github.com/jackyzha0/quartz.git .quartz && (cd .quartz && npm ci)
+(cd site && npm ci)                                       # the Explore page's graph libraries (Obsidian is set to ignore site/node_modules)
 python3 tools/sitebuild.py prep --quartz .quartz        # copy the vault, compile Dataview, add metadata strips
 (cd .quartz && npx quartz build -d content -o public --serve)
-python3 tools/sitebuild.py export --out .quartz/public  # llms.txt, graph.json, raw/
+python3 tools/sitebuild.py export --out .quartz/public  # llms.txt, graph.json, raw/, explore/
 ```
+
+Every citation in a note's `sources:` is checked by `python3 tools/check_sources.py`: each URL must answer, and arXiv titles must match arXiv's own record. CI runs it on every pull request.
 
 On the site, each note opens with a strip showing its level, status, subfields and what to read first. Dataview queries are compiled to static lists and tables, and links to notes not written yet show as plain text.
 
