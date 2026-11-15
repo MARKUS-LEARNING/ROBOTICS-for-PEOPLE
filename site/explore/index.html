@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Explore · Robotics for People</title>
+  <meta name="description" content="The whole robotics textbook as a living graph: every note a point, every link a thread. Colour it by subfield, level or status, filter it, search it, and trace any note's prerequisites back to first principles.">
+  <meta property="og:title" content="Explore the graph of robotics · Robotics for People">
+  <meta property="og:description" content="Every note a point, every link a thread: an interactive 3D and 2D map of a free, open robotics textbook.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap">
+  <link rel="stylesheet" href="explore.css">
+  <script>
+    // Same theme as the textbook: white unless the reader switched the site to dark.
+    try { if (localStorage.getItem("theme") === "dark") document.documentElement.setAttribute("data-theme", "dark") } catch (e) {}
+  </script>
+</head>
+<body>
+  <div id="graph" aria-label="Interactive graph of every note in the textbook"></div>
+
+  <header id="controls">
+    <div class="brand">
+      <a href="../" class="back" title="Back to the textbook">← Robotics for People</a>
+      <h1>Explore</h1>
+    </div>
+
+    <label class="search">
+      <span class="visually-hidden">Find a note</span>
+      <input id="search" type="search" placeholder="Find a note…" list="note-list" autocomplete="off">
+      <datalist id="note-list"></datalist>
+    </label>
+
+    <div class="row">
+      <div class="seg" role="group" aria-label="View">
+        <button id="view-3d" type="button" aria-pressed="true">3D globe</button>
+        <button id="view-2d" type="button" aria-pressed="false">2D map</button>
+      </div>
+      <button id="toggle-filters" type="button" class="ghost-btn" aria-expanded="false" aria-controls="filters">Filters</button>
+    </div>
+
+    <div id="filters" hidden>
+      <label class="field">Colour by
+        <select id="colour-by">
+          <option value="group">Subfield group</option>
+          <option value="subfield">Subfield</option>
+          <option value="level">Level</option>
+          <option value="status">Status</option>
+          <option value="chapter">Chapter</option>
+        </select>
+      </label>
+      <fieldset><legend>Level</legend><div id="f-level" class="chips"></div></fieldset>
+      <fieldset><legend>Status</legend><div id="f-status" class="chips"></div></fieldset>
+      <fieldset><legend>Subfield group</legend><div id="f-group" class="chips"></div></fieldset>
+      <label class="field">Subfield
+        <select id="f-subfield"><option value="">All subfields</option></select>
+      </label>
+      <label class="field">Type
+        <select id="f-type"><option value="">All types</option></select>
+      </label>
+      <fieldset><legend>Show</legend>
+        <div class="chips">
+          <label class="chip"><input type="checkbox" id="e-prerequisite" checked> Prerequisites</label>
+          <label class="chip"><input type="checkbox" id="e-links_to" checked> Links</label>
+          <label class="chip"><input type="checkbox" id="e-related"> Related</label>
+          <label class="chip"><input type="checkbox" id="e-wanted"> Notes still to write</label>
+        </div>
+      </fieldset>
+      <button id="reset" type="button" class="ghost-btn">Reset</button>
+    </div>
+    <p id="count" aria-live="polite"></p>
+  </header>
+
+  <aside id="legend" aria-label="Colour key"></aside>
+
+  <aside id="detail" hidden aria-live="polite">
+    <button id="close" type="button" class="close" aria-label="Close">×</button>
+    <p id="d-kicker" class="kicker"></p>
+    <h2 id="d-title"></h2>
+    <p id="d-meta" class="meta"></p>
+    <p id="d-desc"></p>
+    <div id="d-pre"></div>
+    <div id="d-next"></div>
+    <div class="actions">
+      <a id="d-open" class="primary" href="#">Open note</a>
+      <button id="d-path" type="button" class="ghost-btn" aria-pressed="false">Path to here</button>
+    </div>
+  </aside>
+
+  <p id="loading">Loading the graph…</p>
+
+  <script src="vendor/3d-force-graph.min.js"></script>
+  <script src="vendor/force-graph.min.js"></script>
+  <script src="explore.js"></script>
+</body>
+</html>

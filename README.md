@@ -2,7 +2,7 @@
 
 **A free, open, living textbook for robotics, the field without edges.** Written for people, and readable by AI agents.
 
-**[Read it online](https://markus-learning.github.io/ROBOTICS-for-PEOPLE/)** · [Start here](00_Introduction/Learning_Paths.md) · [The map of robotics](00_Introduction/Subfield_Atlas.md) · [Help write it](00_Introduction/Frontier.md) · [For agents: `llms.txt`](https://markus-learning.github.io/ROBOTICS-for-PEOPLE/llms.txt)
+**[Read it online](https://markus-learning.github.io/ROBOTICS-for-PEOPLE/)** · [Explore the graph](https://markus-learning.github.io/ROBOTICS-for-PEOPLE/explore/) · [Start here](00_Introduction/Learning_Paths.md) · [The map of robotics](00_Introduction/Subfield_Atlas.md) · [Help write it](00_Introduction/Frontier.md) · [For agents: `llms.txt`](https://markus-learning.github.io/ROBOTICS-for-PEOPLE/llms.txt)
 
 Robotics is not one subject. It is where mathematics, mechanics, electronics, computing, biology, design and ethics meet, and it keeps reaching into places nobody planned for: surgery and farming, the deep sea and orbit, prosthetics, swarms, machines made of soft or living materials, and ideas nobody has named yet. This textbook maps that whole territory, from what a robot is to the open problems at the edge of the field, and it grows every time someone adds a note.
 
@@ -45,7 +45,8 @@ Every path puts each note after the notes it builds on, so you can start anywher
 
 ## Read it your way
 
-- **On the web.** [markus-learning.github.io/ROBOTICS-for-PEOPLE](https://markus-learning.github.io/ROBOTICS-for-PEOPLE/) has search, a graph view, backlinks and tag pages. Every note opens with its level, its subfields and what to read first.
+- **On the web.** [markus-learning.github.io/ROBOTICS-for-PEOPLE](https://markus-learning.github.io/ROBOTICS-for-PEOPLE/) has search, backlinks, and an index page for every tag, level, status, type and subfield. Every note opens with its level, its subfields, what to read first and what comes next.
+- **As a map.** [Explore](https://markus-learning.github.io/ROBOTICS-for-PEOPLE/explore/) shows the whole textbook as a 3D globe or a 2D map. Colour it by subfield, level or status, filter it, search it, and trace any note's prerequisites back to first principles.
 - **In Obsidian.** Clone the repo and open the folder as a vault. The vault settings are included: enable community plugins when Obsidian asks, and the [Dataview](https://blacksmithgu.github.io/obsidian-dataview/) plugin makes the [dashboard](00_Introduction/Robotics_Vault_Dashboard.md) and the per-note lists live.
    ```bash
    git clone https://github.com/MARKUS-LEARNING/ROBOTICS-for-PEOPLE.git
