@@ -2,25 +2,23 @@
 title: Omnidirectional Robots
 description: Omnidirectional Robots are mobile robotic systems capable of moving in any direction, providing high maneuverability and flexibility in navigation.
 tags:
-  - robotics
   - mobility
   - mechanics
   - control
-  - engineering
-type: Robot Type
-application: High maneuverability and flexible navigation in robotic systems
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: robot-type
+level: beginner
+subfield:
+  - mobile-robots
+status: draft
+author: Jordan_Smith
 date: 2025-04-29
-permalink: /omnidirectional-robots/
 related:
   - "[[Robot_Design]]"
   - "[[Mechatronics]]"
   - "[[Control_Systems]]"
   - "[[Actuator]]"
   - "[[Wheeled_Mobile_Robots]]"
-  - "[[Manipulator Arm]]"
+  - "[[Manipulator_Arm]]"
   - "[[Legged_Robots]]"
   - "[[Sensors]]"
 ---
@@ -86,4 +84,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #automation WHERE contains(file.outlinks, [[Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Robots]])
+```

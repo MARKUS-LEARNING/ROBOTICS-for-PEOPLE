@@ -2,19 +2,19 @@
 title: Robust Control
 description: Robust Control is a control strategy used in robotics to ensure stability and performance in the presence of uncertainties and disturbances, providing reliable operation under varying conditions.
 tags:
-  - robotics
-  - control-systems
+  - control
   - robust-control
   - dynamics
-  - engineering
-  - glossary-term
   - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: method
+level: intermediate
+subfield:
+  - control
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /robust_control/
+prerequisites:
+  - "[[Feedback_Control]]"
 related:
   - "[[Control_Theory]]"
   - "[[Robot_Dynamics]]"
@@ -98,4 +98,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #control-systems WHERE contains(file.outlinks, [[Robust_Control]])
+LIST FROM "" WHERE contains(file.outlinks, [[Robust_Control]])
+```

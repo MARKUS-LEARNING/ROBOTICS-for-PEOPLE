@@ -2,20 +2,22 @@
 title: ROS 2 Overview
 description: Provides an overview of ROS 2, the second generation of the Robot Operating System, highlighting its key features, improvements over ROS 1, and core concepts.
 tags:
-  - ROS
-  - ROS2
+  - ros
+  - ros2
   - middleware
   - robotics-software
-  - DDS
-  - QoS
+  - dds
+  - qos
   - real-time
   - colcon
   - software-stack
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: overview
+level: intermediate
+subfield:
+  - software
+status: draft
+author: Jordan_Smith
 date: 2025-04-28
-permalink: /ros_2_overview/
 related:
   - "[[Robot_Operating_System_(ROS)]]"
   - "[[DDS]]"
@@ -31,7 +33,7 @@ related:
 
 # ROS 2 Overview
 
-**ROS 2** is the second generation of the **[[ROS (Robot Operating System)]]**, representing a significant redesign of the original ROS (ROS 1) framework. It aims to address limitations encountered in ROS 1 and provide features needed for modern robotics applications, particularly in areas like multi-robot systems, real-time control, embedded systems, and commercial/production environments. While retaining the core philosophy of modularity and distributed communication, ROS 2 introduces substantial changes to its underlying architecture and tools.
+**ROS 2** is the second generation of the **[[Robot_Operating_System_(ROS)|ROS (Robot Operating System)]]**, representing a significant redesign of the original ROS (ROS 1) framework. It aims to address limitations encountered in ROS 1 and provide features needed for modern robotics applications, particularly in areas like multi-robot systems, real-time control, embedded systems, and commercial/production environments. While retaining the core philosophy of modularity and distributed communication, ROS 2 introduces substantial changes to its underlying architecture and tools.
 
 ---
 
@@ -40,7 +42,7 @@ related:
 ROS 2 was developed to overcome specific shortcomings of ROS 1 and introduce new capabilities:
 
 * **Communication Middleware ([[DDS]]):**
-    * **ROS 1:** Uses a custom TCP/UDP-based communication system (TCPROS/UDPROS) requiring a central [[ROS (Robot Operating System)|ROS Master]] for node discovery.
+    * **ROS 1:** Uses a custom TCP/UDP-based communication system (TCPROS/UDPROS) requiring a central [[Robot_Operating_System_(ROS)|ROS Master]] for node discovery.
     * **ROS 2:** Built on top of the industry-standard **[[DDS|Data Distribution Service]]** (or an abstraction layer called RMW - ROS Middleware Interface - allowing different DDS implementations like Fast DDS, Cyclone DDS, etc.). This provides:
         * **Decentralized Discovery:** Eliminates the single point of failure of the ROS Master. [[Nodes]] discover each other automatically using DDS mechanisms.
         * **Improved Performance:** DDS implementations are often optimized for low-latency, high-throughput communication.
@@ -67,7 +69,7 @@ ROS 2 was developed to overcome specific shortcomings of ROS 1 and introduce new
     * **ROS 1:** Primarily used **Catkin**, an extension of CMake.
     * **ROS 2:** Uses **Colcon** as the standard build tool. Colcon is a meta-build tool that orchestrates underlying build systems like CMake (for C++) and Python's setuptools. It works with the **Ament** build system framework, which provides CMake macros and Python packages to simplify package development.
 
-* **[[Launch Files]]:**
+* **[[Launch_Files|Launch Files]]:**
     * **ROS 1:** Used XML-based `.launch` files.
     * **ROS 2:** Uses **Python-based `.launch.py` files**. This provides significantly more flexibility, allowing programmatic logic, conditionals, loops, and easier integration with external tools within the launch description. XML and YAML formats are also supported for simpler cases.
 
@@ -112,4 +114,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #control-systems WHERE contains(file.outlinks, [[Robot_Operating_System_(ROS)]])
+LIST FROM "" WHERE contains(file.outlinks, [[Robot_Operating_System_(ROS)]])
+```

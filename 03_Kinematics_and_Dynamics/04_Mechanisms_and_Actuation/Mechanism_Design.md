@@ -2,18 +2,22 @@
 title: Mechanism Design
 description: Mechanism Design involves creating systems of rigid bodies connected by joints to achieve desired motion and functionality, essential for developing robotic systems capable of performing specific tasks.
 tags:
-  - robotics
   - mechanism-design
   - kinematics
   - mechanical-engineering
-  - engineering
   - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - mechanisms-actuation
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /mechanism_design/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Robot_Design]]"
+  - "[[Grübler's_Formula]]"
 related:
   - "[[Kinematics]]"
   - "[[Degrees_of_Freedom]]"
@@ -111,5 +115,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #mechanical-engineering WHERE contains(file.outlinks, [[Mechanism_Design]])
+LIST FROM "" WHERE contains(file.outlinks, [[Mechanism_Design]])
 ```

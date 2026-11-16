@@ -2,20 +2,21 @@
 title: Workspace Analysis
 description: Workspace Analysis in robotics is the study of the reachable and dexterous regions of a robot manipulator, including workspace volume calculation, manipulability analysis, and singularity identification for workcell design.
 tags:
-  - robotics
   - kinematics
   - workspace
   - manipulability
-  - singularity
+  - singularities
   - workcell-design
   - robot-design
-  - engineering
   - manipulator-arm
-layout: default
-category: robotics
+type: concept
+level: beginner
+subfield:
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-09
-permalink: /workspace_analysis/
+last_reviewed: 2026-04-25
 related:
   - "[[Configuration_Space]]"
   - "[[Task_Space_and_Workspace]]"
@@ -211,5 +212,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Workspace_Analysis]])
+LIST FROM "" WHERE contains(file.outlinks, [[Workspace_Analysis]])
 ```

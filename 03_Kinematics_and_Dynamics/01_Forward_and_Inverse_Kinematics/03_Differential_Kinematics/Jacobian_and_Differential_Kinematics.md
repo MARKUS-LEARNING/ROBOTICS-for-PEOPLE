@@ -2,21 +2,21 @@
 title: Jacobian and Differential Kinematics
 description: The Jacobian and differential kinematics are essential tools in robotics for relating joint velocities to end-effector velocities, crucial for motion planning, control, and singularity analysis.
 tags:
-  - robotics
   - kinematics
   - dynamics
   - jacobian
   - differential-kinematics
   - control
-  - engineering
   - mechanism
   - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /jacobian_and_differential_kinematics/
+last_reviewed: 2026-04-25
 related:
   - "[[Kinematics]]"
   - "[[Dynamics]]"
@@ -86,5 +86,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Jacobian_and_Differential_Kinematics]])
+LIST FROM "" WHERE contains(file.outlinks, [[Jacobian_and_Differential_Kinematics]])
 ```

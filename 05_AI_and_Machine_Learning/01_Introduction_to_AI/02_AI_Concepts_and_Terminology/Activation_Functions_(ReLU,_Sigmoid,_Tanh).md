@@ -2,19 +2,18 @@
 title: Activation Functions (ReLU, Sigmoid, Tanh)
 description: Activation Functions are mathematical functions used in neural networks to introduce non-linearity, enabling models to learn complex patterns and make decisions, with ReLU, Sigmoid, and Tanh being among the most commonly used.
 tags:
-  - robotics
   - activation-functions
   - neural-networks
   - machine-learning
-  - engineering
-  - glossary-term
-  - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: intermediate
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /activation_functions/
+prerequisites:
+  - "[[Neural_Networks]]"
 related:
   - "[[Neural_Networks_Basics]]"
   - "[[Neural_Networks_in_Control]]"
@@ -99,4 +98,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #deep-learning OR #AI WHERE contains(file.outlinks, [[Activation_Functions_(ReLU,_Sigmoid,_Tanh)]])
+LIST FROM #deep-learning OR #artificial-intelligence WHERE contains(file.outlinks, [[Activation_Functions_(ReLU,_Sigmoid,_Tanh)]])
+```

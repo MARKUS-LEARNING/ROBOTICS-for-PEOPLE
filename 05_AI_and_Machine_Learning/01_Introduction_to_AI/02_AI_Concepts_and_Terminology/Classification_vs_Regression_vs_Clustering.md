@@ -2,21 +2,21 @@
 title: Classification vs Regression vs Clustering
 description: This entry compares and contrasts Classification, Regression, and Clustering, highlighting their roles, methodologies, and applications in the field of robotics and machine learning.
 tags:
-  - robotics
   - classification
   - regression
   - clustering
   - machine-learning
   - data-analysis
-  - engineering
-  - glossary-term
-  - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: intermediate
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /classification_vs_regression_vs_clustering/
+prerequisites:
+  - "[[Machine_Learning]]"
 related:
   - "[[Machine_Learning]]"
   - "[[Supervised_Learning]]"
@@ -114,4 +114,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #machine-learning WHERE contains(file.outlinks, [[Classification_vs_Regression_vs_Clustering]])
+LIST FROM "" WHERE contains(file.outlinks, [[Classification_vs_Regression_vs_Clustering]])
+```

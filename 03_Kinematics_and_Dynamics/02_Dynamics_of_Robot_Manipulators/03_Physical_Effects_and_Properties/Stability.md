@@ -3,18 +3,20 @@ title: Stability
 description: Stability is a fundamental concept in control theory and robotics, referring to a system's ability to return to an equilibrium state after disturbances, ensuring reliable and predictable behavior.
 tags:
   - control
-  - robotics
   - dynamics
   - stability
-  - engineering
   - mechanism
   - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+  - control
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /stability/
+last_reviewed: 2026-04-25
 related:
   - "[[Control_Theory]]"
   - "[[Feedback_Control]]"
@@ -94,5 +96,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #control OR #robotics WHERE contains(file.outlinks, [[Stability]])
+LIST FROM "" WHERE contains(file.outlinks, [[Stability]])
 ```

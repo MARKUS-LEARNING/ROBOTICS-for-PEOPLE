@@ -2,19 +2,17 @@
 title: Serial Communication Tutorials (Robotics)
 description: Serial Communication Tutorials in Robotics provide guidance and examples for implementing serial communication protocols, enabling data exchange between robotic systems and their components, facilitating tasks such as sensor data acquisition and actuator control.
 tags:
-  - robotics
-  - serial-communication
   - communication-protocols
-  - hardware-interfacing
-  - engineering
-  - glossary-term
-  - manipulator-arm
+  - hardware-interface
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: tutorial
+level: beginner
+subfield:
+  - software
+  - electronics-embedded
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /serial_communication_tutorials/
 related:
   - "[[Communication_Protocols]]"
   - "[[Hardware_Interface_Setup]]"

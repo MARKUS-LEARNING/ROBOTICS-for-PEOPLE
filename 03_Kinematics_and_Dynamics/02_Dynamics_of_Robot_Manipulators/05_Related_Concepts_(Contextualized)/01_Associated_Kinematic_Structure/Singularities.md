@@ -2,18 +2,22 @@
 title: Singularities
 description: Configurations where the Jacobian loses rank and the manipulator loses one or more directions of instantaneous motion. The places where IK breaks, joint velocities explode, and force control becomes ill-posed.
 tags:
-  - robotics
   - kinematics
   - singularities
   - jacobian
-  - manipulator
+  - manipulator-arm
   - control
-type: Robotic Concept
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: keystone
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /singularities/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Jacobian_Matrix]]"
+  - "[[Inverse_Kinematics]]"
 related:
   - "[[Kinematics]]"
   - "[[Forward_Kinematics]]"

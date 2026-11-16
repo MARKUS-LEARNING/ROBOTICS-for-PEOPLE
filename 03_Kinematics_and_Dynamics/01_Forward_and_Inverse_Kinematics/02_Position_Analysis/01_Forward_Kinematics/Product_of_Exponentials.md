@@ -7,12 +7,19 @@ tags:
   - forward-kinematics
   - screw-theory
   - lie-groups
-  - SE3
-layout: default
-category: robotics
+  - se3
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+  - mathematics
+status: keystone
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /product_of_exponentials/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Forward_Kinematics]]"
+  - "[[Lie_Groups]]"
 related:
   - "[[Kinematics]]"
   - "[[Forward_Kinematics]]"

@@ -4,16 +4,19 @@ description: Overview of industrial robot arms (manipulators), including their h
 tags:
   - robot-types
   - industrial-robot
-  - manipulator
+  - manipulator-arm
   - automation
   - manufacturing
-  - cobot
+  - collaborative-robots
   - robotics-history
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: robot-type
+level: beginner
+subfield:
+  - manipulation
+  - industrial-automation
+status: draft
+author: Jordan_Smith
 date: 2025-04-28
-permalink: /industrial_arms/
 related:
   - "[[Robots]]"
   - "[[Manipulator_Arm_Types]]"
@@ -113,7 +116,7 @@ Industrial arms automate a wide range of tasks in manufacturing and logistics:
     ![Collaborative Robot Arm](https://spectrum.ieee.org/media-library/yumi.jpg?id=25579667&width=2400&height=1529)
     *(Example: Collaborative robot (cobot) working near a human)*
 
-Industrial arms are essential tools in modern manufacturing, driven by demands for productivity, quality, consistency, and flexibility. The integration of advanced [[Sensor|sensors]], [[AI_and_Robot_Control|AI]], and collaborative capabilities continues to expand their application range.
+Industrial arms are essential tools in modern manufacturing, driven by demands for productivity, quality, consistency, and flexibility. The integration of advanced [[Sensors|sensors]], [[AI_and_Robot_Control|AI]], and collaborative capabilities continues to expand their application range.
 
 ---
 
@@ -124,4 +127,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #automation WHERE contains(file.outlinks, [[Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Robots]])
+```

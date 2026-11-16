@@ -2,19 +2,23 @@
 title: Probabilistic Robotics
 description: Probabilistic Robotics is a framework that uses probabilistic models and algorithms to handle uncertainty in robotic systems, enabling robots to make decisions and operate effectively in dynamic and unpredictable environments.
 tags:
-  - robotics
   - probability
-  - estimation
+  - state-estimation
   - uncertainty
-  - Bayesian
+  - bayesian-inference
   - localization
   - mapping
   - decision-making
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: concept
+level: intermediate
+subfield:
+  - estimation-mapping
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /probabilistic_robotics/
+prerequisites:
+  - "[[Probability_and_Statistics_for_Robotics]]"
+  - "[[Bayesian_Inference]]"
 related:
   - "[[Bayesian_Estimation]]"
   - "[[Kalman_Filter]]"
@@ -103,4 +107,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #automation WHERE contains(file.outlinks, [[Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Robots]])
+```

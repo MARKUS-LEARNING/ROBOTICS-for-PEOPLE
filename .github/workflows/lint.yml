@@ -1,7 +1,7 @@
 name: Vault lint
 
 # Checks every pull request against tools/schema.yml, tools/tags.yml and tools/subfields.yml.
-# Report-only while the schema v2 migration lands chapter by chapter; switch LINT_MODE to --enforce afterwards.
+# Enforcing since the schema v2 migration: any lint error fails the check.
 on:
   pull_request:
   push:
@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 env:
-  LINT_MODE: ""   # "" = report only, "--enforce" = fail the check on errors
+  LINT_MODE: "--enforce"   # "" = report only, "--enforce" = fail the check on errors
 
 jobs:
   lint:
@@ -28,3 +28,5 @@ jobs:
         run: python tools/vault.py stats
       - name: Lint
         run: python tools/vault.py lint --github $LINT_MODE
+      - name: Generated pages are up to date (Subfield Atlas, Frontier, Learning Paths)
+        run: python tools/vault.py pages --check

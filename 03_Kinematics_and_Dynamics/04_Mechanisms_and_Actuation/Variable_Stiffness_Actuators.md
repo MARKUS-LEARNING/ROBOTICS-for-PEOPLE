@@ -2,18 +2,21 @@
 title: Variable Stiffness Actuators
 description: Variable Stiffness Actuators (VSAs) are devices that can alter their stiffness dynamically, allowing for adaptive control over the mechanical properties of robotic systems.
 tags:
-  - robotics
   - actuators
   - mechanics
   - control
-  - engineering
-type: Actuator
-application: Adaptive control of mechanical properties in robotic systems
-layout: default
-category: robotics
+type: component
+level: intermediate
+subfield:
+  - mechanisms-actuation
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /variable-stiffness-actuators/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Robot_Design]]"
+  - "[[Actuator]]"
+  - "[[Mechatronics]]"
 related:
   - "[[Robot_Design]]"
   - "[[Mechatronics]]"
@@ -83,5 +86,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ### List of Related Concepts
 ```dataview
-LIST FROM #robotics OR #mechanical-engineering WHERE contains(file.outlinks, [[Variable_Stiffness_Actuators]])
+LIST FROM "" WHERE contains(file.outlinks, [[Variable_Stiffness_Actuators]])
 ```

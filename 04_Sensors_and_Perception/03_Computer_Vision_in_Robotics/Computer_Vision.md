@@ -4,15 +4,20 @@ description: The field that builds machines capable of interpreting images and v
 tags:
   - computer-vision
   - perception
-  - robotics
   - image-processing
   - deep-learning
   - feature-detection
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - perception
+status: keystone
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /computer_vision/
+last_reviewed: 2026-04-27
+prerequisites:
+  - "[[Camera_Systems]]"
+  - "[[Linear_Algebra_for_Robotics]]"
 related:
   - "[[Perception]]"
   - "[[Camera_Systems]]"

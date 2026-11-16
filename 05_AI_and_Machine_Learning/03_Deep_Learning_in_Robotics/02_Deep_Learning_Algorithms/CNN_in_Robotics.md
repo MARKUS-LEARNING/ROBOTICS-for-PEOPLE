@@ -2,20 +2,21 @@
 title: CNN in Robotics
 description: Convolutional Neural Networks (CNNs) in Robotics are a type of deep neural network designed for processing grid-like data, such as images, widely used for tasks such as object recognition, scene understanding, and visual navigation.
 tags:
-  - robotics
   - convolutional-neural-networks
   - deep-learning
   - machine-learning
   - computer-vision
-  - engineering
-  - glossary-term
-  - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: intermediate
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /cnn_in_robotics/
+prerequisites:
+  - "[[Convolutional_Neural_Networks]]"
+  - "[[Computer_Vision]]"
 related:
   - "[[Deep_Learning]]"
   - "[[Computer_Vision]]"
@@ -102,4 +103,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #deep-learning WHERE contains(file.outlinks, [[CNN_in_Robotics]])``
+LIST FROM "" WHERE contains(file.outlinks, [[CNN_in_Robotics]])``
+```

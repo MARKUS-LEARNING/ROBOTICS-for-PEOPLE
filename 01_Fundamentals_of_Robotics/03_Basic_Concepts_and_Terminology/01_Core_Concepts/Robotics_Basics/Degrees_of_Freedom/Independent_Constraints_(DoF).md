@@ -2,19 +2,22 @@
 title: Independent Constraints (DoF)
 description: Independent Constraints (DoF) refer to the limitations imposed on the motion of a mechanical system that reduce its degrees of freedom, essential for analyzing and designing robotic systems with specific motion capabilities.
 tags:
-  - robotics
   - kinematics
   - degrees-of-freedom
   - constraints
   - mechanism-design
-  - engineering
   - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
+type: concept
+level: beginner
+subfield:
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /independent_constraints_dof/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Degrees_of_Freedom]]"
 related:
   - "[[Kinematics]]"
   - "[[Degrees_of_Freedom]]"
@@ -227,5 +230,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Independent_Constraints_(DoF)]])
+LIST FROM "" WHERE contains(file.outlinks, [[Independent_Constraints_(DoF)]])
 ```

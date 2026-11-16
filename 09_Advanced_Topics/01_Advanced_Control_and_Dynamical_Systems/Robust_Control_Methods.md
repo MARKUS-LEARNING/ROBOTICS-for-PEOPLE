@@ -3,20 +3,21 @@ title: Robust Control Methods
 description: Robust Control Methods are designed to ensure stability and performance of control systems in the presence of uncertainties, disturbances, and model inaccuracies.
 tags:
   - control
-  - robotics
   - robust-control
   - control-theory
   - dynamics
-  - engineering
-  - glossary-term
   - mechanism
   - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: method
+level: advanced
+subfield:
+  - control
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /robust_control_methods/
+prerequisites:
+  - "[[Control_Theory]]"
+  - "[[Adaptive_Control]]"
 related:
   - "[[Control_Theory]]"
   - "[[Optimal_Control]]"
@@ -100,4 +101,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #control OR #robotics WHERE contains(file.outlinks, [[Robust_Control_Methods]])
+LIST FROM "" WHERE contains(file.outlinks, [[Robust_Control_Methods]])
+```

@@ -2,20 +2,15 @@
 title: Labs Projects and Tutorials (Robotics)
 description: A comprehensive guide for organizing notes and resources related to robotics labs, projects, and tutorials.
 tags:
-  - robotics
-  - labs
-  - projects
-  - tutorials
-  - engineering
-  - index
-  - notes
-  - learning
-  - meta
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+  - vault-meta
+  - education
+type: overview
+level: beginner
+subfield:
+  - software
+status: draft
+author: Jordan_Smith
 date: 2025-05-12
-permalink: /labs_projects_and_tutorials_robotics/
 related:
   - "[[Robotics]]"
   - "[[Control_Systems]]"
@@ -159,5 +154,6 @@ Here are some potential project ideas and labs that can help you apply the conce
 
 ```dataview
 LIST
-FROM "Projects"
-WHERE contains(tags, "robotics")
+FROM "12_Labs_and_Tutorials"
+WHERE type = "lab" OR type = "tutorial"
+```

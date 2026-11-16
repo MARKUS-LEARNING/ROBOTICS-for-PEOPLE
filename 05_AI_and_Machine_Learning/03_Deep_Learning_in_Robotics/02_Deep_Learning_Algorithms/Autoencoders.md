@@ -2,19 +2,18 @@
 title: Autoencoders
 description: Autoencoders are a type of neural network used for unsupervised learning, designed to encode input data into a lower-dimensional representation and then decode it back to the original form, widely used in robotics for tasks such as feature extraction and anomaly detection.
 tags:
-  - robotics
   - autoencoders
   - neural-networks
   - machine-learning
-  - engineering
-  - glossary-term
-  - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: intermediate
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /autoencoders/
+prerequisites:
+  - "[[Deep_Learning]]"
 related:
   - "[[Neural_Networks]]"
   - "[[Machine_Learning]]"
@@ -113,4 +112,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #machine-learning WHERE contains(file.outlinks, [[Autoencoders]])
+LIST FROM "" WHERE contains(file.outlinks, [[Autoencoders]])
+```

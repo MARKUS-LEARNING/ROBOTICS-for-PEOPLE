@@ -2,17 +2,16 @@
 title: Manipulation (Robotics)
 description: Manipulation in Robotics involves the use of robotic systems to interact with and manipulate objects in the environment, enabling tasks such as grasping, moving, and assembling.
 tags:
-  - robotics
   - manipulation
-  - robotic-systems
-  - engineering
   - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
+type: concept
+level: beginner
+subfield:
+  - manipulation
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /manipulation_robotics/
+last_reviewed: 2026-04-25
 related:
   - "[[Robotic_Manipulators]]"
   - "[[Grasping]]"
@@ -217,5 +216,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #manipulation WHERE contains(file.outlinks, [[Manipulation]])
+LIST FROM "" WHERE contains(file.outlinks, [[Manipulation]])
 ```

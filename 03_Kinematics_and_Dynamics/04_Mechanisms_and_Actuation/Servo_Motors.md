@@ -2,17 +2,23 @@
 title: Servo Motors
 description: Servo Motors are self-contained electrical devices that rotate parts of a machine with precision. They incorporate a motor coupled to a sensor for position feedback, widely used in robotics for accurate control.
 tags:
-  - component
-  - actuation
+  - components
+  - actuators
   - electrical
-  - robotics
   - mechatronics
   - control
-layout: default
-category: robotics
+type: component
+level: intermediate
+subfield:
+  - mechanisms-actuation
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /servo-motors/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Robot_Design]]"
+  - "[[Actuator]]"
+  - "[[Mechatronics]]"
 related:
   - "[[Electric_Motors]]"
   - "[[DC_Motors]]"
@@ -91,5 +97,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ### List of Related Concepts
 ```dataview
-LIST FROM #robotics OR #mechanical-engineering WHERE contains(file.outlinks, [[Servo_Motors]])
+LIST FROM "" WHERE contains(file.outlinks, [[Servo_Motors]])
 ```

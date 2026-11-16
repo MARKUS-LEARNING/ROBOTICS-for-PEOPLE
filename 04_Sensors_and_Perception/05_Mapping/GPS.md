@@ -2,18 +2,19 @@
 title: GPS
 description: GPS (Global Positioning System) is a satellite-based navigation system that provides location and time information in all weather conditions, anywhere on or near the Earth, enabling precise navigation and tracking in robotics.
 tags:
-  - robotics
   - gps
   - navigation
   - localization
-  - engineering
-  - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - estimation-mapping
+  - mobile-robots
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /gps/
+last_reviewed: 2026-04-27
 related:
   - "[[Navigation]]"
   - "[[Localization]]"
@@ -87,4 +88,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #navigation WHERE contains(file.outlinks, [[GPS]])
+LIST FROM "" WHERE contains(file.outlinks, [[GPS]])
+```

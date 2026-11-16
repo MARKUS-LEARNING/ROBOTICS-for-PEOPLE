@@ -3,22 +3,21 @@ title: Formal Methods in Control (Verification, Synthesis)
 description: Formal Methods in Control involve rigorous mathematical techniques for verifying and synthesizing control systems, ensuring they meet specified performance and safety criteria.
 tags:
   - control
-  - robotics
   - formal-methods
   - verification
   - synthesis
   - control-theory
   - dynamics
-  - engineering
-  - glossary-term
   - mechanism
-  - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: method
+level: advanced
+subfield:
+  - control
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /formal_methods_in_control/
+prerequisites:
+  - "[[Control_Theory]]"
 related:
   - "[[Control_Theory]]"
   - "[[Dynamics]]"
@@ -99,4 +98,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #control OR #robotics WHERE contains(file.outlinks, [[Formal_Methods_in_Control]])
+LIST FROM "" WHERE contains(file.outlinks, [[Formal_Methods_in_Control]])
+```

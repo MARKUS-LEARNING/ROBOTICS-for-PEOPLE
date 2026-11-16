@@ -1,19 +1,17 @@
 ---
 title: Reconfigurable Robots
-description: "Reconfigurable Robots are robotic systems designed to adapt their structure, functionality, or behavior to meet changing task requirements or environmental conditions."
+description: Reconfigurable Robots are robotic systems designed to adapt their structure, functionality, or behavior to meet changing task requirements or environmental conditions.
 tags:
-  - robotics
   - adaptability
   - modularity
-  - engineering
   - design
-type: Robotic Concept
-application: Adaptable robotic systems for diverse tasks
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: robot-type
+level: beginner
+subfield:
+  - modular-reconfigurable
+status: draft
+author: Jordan_Smith
 date: 2025-04-29
-permalink: /reconfigurable-robots/
 related:
   - "[[Robot_Design]]"
   - "[[Modular_Robotics]]"
@@ -85,4 +83,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #automation WHERE contains(file.outlinks, [[Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Robots]])
+```

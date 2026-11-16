@@ -2,28 +2,30 @@
 title: Gazebo Simulator
 description: Describes the Gazebo 3D robotics simulator, its features, robot/environment modeling, and its integration with ROS.
 tags:
-  - Gazebo
+  - gazebo
   - simulation
   - robotics-software
-  - ROS
-  - physics-engine
-  - 3D
+  - ros
+  - 3d
   - testing
-  - development
-  - URDF
-  - SDF
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+  - urdf
+  - sdf
+type: tool
+level: intermediate
+subfield:
+  - software
+status: draft
+author: Jordan_Smith
 date: 2025-04-28
-permalink: /gazebo_simulator/
+prerequisites:
+  - "[[Robot_Operating_System_(ROS)]]"
 related:
   - "[[Robot_Operating_System_(ROS)]]"
   - "[[Simulation]]"
   - "[[URDF]]"
   - "[[SDF]]"
   - "[[Robotics Software]]"
-  - "[[Reinforcement Learning (RL)]]"
+  - "[[Reinforcement_Learning]]"
   - "[[Topics]]"
   - "[[Services]]"
   - "[[Plugins]]"
@@ -32,7 +34,7 @@ related:
 
 # Gazebo Simulator
 
-**Gazebo** is a powerful, open-source 3D robotics simulator that enables the simulation of complex robots, sensors, and objects within realistic indoor and outdoor environments. It is capable of simulating rigid body dynamics with high fidelity, generating realistic sensor feedback, and provides strong integration with the [[ROS (Robot Operating System)]] framework, making it a cornerstone tool for robotics development, testing, and research.
+**Gazebo** is a powerful, open-source 3D robotics simulator that enables the simulation of complex robots, sensors, and objects within realistic indoor and outdoor environments. It is capable of simulating rigid body dynamics with high fidelity, generating realistic sensor feedback, and provides strong integration with the [[Robot_Operating_System_(ROS)|ROS (Robot Operating System)]] framework, making it a cornerstone tool for robotics development, testing, and research.
 
 ---
 
@@ -69,7 +71,7 @@ Gazebo's tight integration with ROS is one of its key strengths, facilitated pri
     * **Robot State:** Simulated joint states are often published on the `/joint_states` topic, which can be used by `robot_state_publisher` to compute and broadcast [[TF_and_Topic_Architecture|TF (transform)]] frames for the simulated robot. Simulated ground truth odometry might be published on `/odom`.
     * **Simulation Control:** ROS [[Services]] are typically provided to pause, unpause, reset the simulation, and spawn or delete models.
     * **Simulation Time:** Gazebo can publish simulation time on the `/clock` topic. Setting the ROS parameter `/use_sim_time` to `true` causes ROS nodes to use Gazebo's clock instead of the system clock, ensuring synchronization between ROS and the simulation.
-* **Launching:** Simulations are typically launched using ROS [[Launch Files]], which start the Gazebo server (`gzserver`), the Gazebo client GUI (`gzclient`), load a world file, spawn robot models (using `spawn_model` node/service), and start necessary ROS bridge nodes (like `robot_state_publisher`).
+* **Launching:** Simulations are typically launched using ROS [[Launch_Files|Launch Files]], which start the Gazebo server (`gzserver`), the Gazebo client GUI (`gzclient`), load a world file, spawn robot models (using `spawn_model` node/service), and start necessary ROS bridge nodes (like `robot_state_publisher`).
 
 ---
 
@@ -78,7 +80,7 @@ Gazebo's tight integration with ROS is one of its key strengths, facilitated pri
 Gazebo is widely used in the robotics community for:
 
 * **Algorithm Development:** Testing and debugging control algorithms, navigation stacks ([[Navigation]]), [[SLAM]] systems, [[Perception]] algorithms, and manipulation strategies in a controlled and repeatable environment.
-* **[[Reinforcement Learning (RL)|RL Training]]:** Providing a fast, safe, and parallelizable environment to train robot control policies using RL, mitigating the high sample complexity and safety concerns of real-world training.
+* **[[Reinforcement_Learning|RL Training]]:** Providing a fast, safe, and parallelizable environment to train robot control policies using RL, mitigating the high sample complexity and safety concerns of real-world training.
 * **Visualization and Debugging:** Visualizing robot models, sensor data, and algorithm outputs within a 3D environment. Complements tools like [[RViz_Tutorial|RViz]].
 * **Education and Research:** A standard platform for teaching robotics concepts and conducting research experiments without requiring expensive hardware.
 * **System Integration Testing:** Verifying the interaction between different ROS nodes and software components before deploying on a physical robot.
@@ -94,4 +96,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Custom_Packages_and_Nodes]])
+LIST FROM "" WHERE contains(file.outlinks, [[Custom_Packages_and_Nodes]])
+```

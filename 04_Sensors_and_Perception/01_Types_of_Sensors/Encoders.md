@@ -2,29 +2,34 @@
 title: Encoders
 description: Encoders are sensors that provide feedback on the position, velocity, or direction of motion in robotic systems, essential for precise control and automation.
 tags:
-  - sensor
-  - feedback
+  - sensors
+  - feedback-control
   - position
   - velocity
-  - robotics
   - control
-layout: default
-category: robotics
+type: component
+level: intermediate
+subfield:
+  - perception
+  - control
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /encoders/
+last_reviewed: 2026-04-27
+prerequisites:
+  - "[[Sensors]]"
 related:
   - "[[Sensors]]"
-  - "[[Control Systems]]"
+  - "[[Control_Systems]]"
   - "[[Feedback_Control]]"
   - "[[Robot_Design]]"
   - "[[Mechatronics]]"
   - "[[Kinematics_and_Dynamics]]"
   - "[[Actuator]]"
-  - "[[Servo Motors]]"
-  - "[[Stepper Motors]]"
-  - "[[Manipulator Arm]]"
-  - "[[Legged Robots]]"
+  - "[[Servo_Motors]]"
+  - "[[Stepper_Motors]]"
+  - "[[Manipulator_Arm]]"
+  - "[[Legged_Robots]]"
   - "[[Wheeled_Mobile_Robots]]"
   - "[[Human-Robot_Interaction]]"
 ---
@@ -105,7 +110,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ### List of Related Concepts
 ```dataview
-LIST FROM #control OR #robotics WHERE contains(file.outlinks, [[Encoders]])
-
-
-
+LIST FROM "" WHERE contains(file.outlinks, [[Encoders]])
+```

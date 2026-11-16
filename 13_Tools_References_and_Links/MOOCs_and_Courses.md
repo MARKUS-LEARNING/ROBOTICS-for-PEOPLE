@@ -3,20 +3,18 @@ title: MOOCs and Courses
 description: A curated reference of Massive Open Online Courses, university open courseware, YouTube channels, textbooks, and learning paths for robotics at all levels — from beginner to graduate research.
 tags:
   - courses
-  - MOOC
-  - learning
-  - resources
-  - references
-  - tutorials
-  - online-learning
   - education
+  - references
+  - online-learning
   - textbook
-  - YouTube
-layout: default
-category: robotics
-author: Jordan_Smith_&_Claude
+  - youtube
+type: reference
+level: beginner
+subfield:
+  - creative-education
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /moocs_and_courses/
 related:
   - "[[Resources_Index]]"
   - "[[Robot_Operating_System_(ROS)]]"
@@ -26,7 +24,7 @@ related:
   - "[[SLAM_with_ROS]]"
   - "[[Nav2_Navigation]]"
   - "[[MoveIt2]]"
-  - "[[Reinforcement_Learning_(RL)]]"
+  - "[[Reinforcement_Learning]]"
 ---
 
 # MOOCs and Courses for Robotics
@@ -233,9 +231,9 @@ All papers from major robotics conferences are available free on arXiv or the co
 ## Dataview Plugin Features
 
 ```dataview
-LIST FROM #courses OR #MOOC WHERE contains(file.outlinks, [[MOOCs_and_Courses]])
+LIST FROM #courses OR #courses WHERE contains(file.outlinks, [[MOOCs_and_Courses]])
 ```
 
 ```dataview
-TABLE title, description FROM #resources WHERE contains(file.tags, "learning")
+TABLE title, description FROM #references WHERE contains(file.tags, "education")
 ```

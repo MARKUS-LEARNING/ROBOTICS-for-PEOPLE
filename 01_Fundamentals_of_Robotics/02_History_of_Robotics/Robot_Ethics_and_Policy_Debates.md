@@ -3,19 +3,23 @@ title: Robot Ethics and Policy Debates
 description: Explores the key ethical issues and policy considerations arising from the increasing capabilities and deployment of robots and AI systems.
 tags:
   - ethics
-  - roboethics
   - policy
-  - AI-ethics
   - safety
   - social-impact
   - future-of-robotics
-  - HRI
+  - human-robot-interaction
   - autonomous-weapons
-layout: default
-category: robotics
+type: concept
+level: beginner
+subfield:
+  - history-future
+  - ethics-society
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /robot_ethics_policy_debates/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[History_of_Robotics]]"
 related:
   - "[[History_of_Robotics]]"
   - "[[Future_Trends_2025-2035]]"
@@ -25,7 +29,7 @@ related:
 
 # Robot Ethics and Policy Debates
 
-**Robot Ethics**, often termed **Roboethics**, is a field concerned with the ethical questions surrounding the design, construction, use, and deployment of [[Robots|robots]] and [[Artificial Intelligence (AI)|artificial intelligence systems]]. As robots become more autonomous, capable, and integrated into various aspects of human life – from factories and homes to healthcare and defense – the ethical implications and the need for considered policy responses become increasingly urgent.
+**Robot Ethics**, often termed **Roboethics**, is a field concerned with the ethical questions surrounding the design, construction, use, and deployment of [[Robots|robots]] and [[Artificial_Intelligence|artificial intelligence systems]]. As robots become more autonomous, capable, and integrated into various aspects of human life – from factories and homes to healthcare and defense – the ethical implications and the need for considered policy responses become increasingly urgent.
 
 ---
 
@@ -103,5 +107,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Robot_Ethics_and_Policy_Debates]])
+LIST FROM "" WHERE contains(file.outlinks, [[Robot_Ethics_and_Policy_Debates]])
 ```

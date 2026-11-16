@@ -2,19 +2,19 @@
 title: Git Integration and Version Control
 description: Discusses the importance and application of Git and version control systems (VCS) in managing robotics software development, particularly within the ROS ecosystem.
 tags:
-  - Git
-  - version-control
+  - git
   - robotics-software
-  - development
   - collaboration
-  - ROS
-  - coding
+  - ros
+  - programming
   - software-engineering
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: tool
+level: intermediate
+subfield:
+  - software
+status: draft
+author: Jordan_Smith
 date: 2025-04-29
-permalink: /git_integration_version_control/
 related:
   - "[[Coding_and_Implementation]]"
   - "[[Robot_Operating_System_(ROS)]]"
@@ -34,7 +34,7 @@ related:
 
 * **Managing Complexity:** Robotics systems typically consist of numerous interconnected [[Custom_Packages_and_Nodes|software packages]] handling diverse tasks like perception, planning, control, and hardware interfacing, often written in multiple languages ([[C++]], [[Python_ROS_Nodes|Python]]). Git helps manage this complexity by tracking changes to every file in a structured way.
 * **Collaboration:** Robotics projects, whether in research labs or industry, frequently involve multiple developers working concurrently. Git's distributed nature, combined with platforms like GitHub, GitLab, or Bitbucket, enables efficient collaboration through branching, merging, and code review workflows (Pull/Merge Requests).
-* **[[ROS (Robot Operating System)|ROS]] Ecosystem Integration:** The ROS development model is built around packages, which map naturally onto Git repositories. ROS build systems (Catkin for ROS 1, [[Colcon]] for ROS 2) and workspace management tools (like `vcstool` in ROS 2 or `wstool` in ROS 1) are designed to work seamlessly with Git repositories, making it easy to manage dependencies and fetch source code for multiple packages.
+* **[[Robot_Operating_System_(ROS)|ROS]] Ecosystem Integration:** The ROS development model is built around packages, which map naturally onto Git repositories. ROS build systems (Catkin for ROS 1, [[Colcon]] for ROS 2) and workspace management tools (like `vcstool` in ROS 2 or `wstool` in ROS 1) are designed to work seamlessly with Git repositories, making it easy to manage dependencies and fetch source code for multiple packages.
 * **Experimentation and Reproducibility:** Robotics development involves extensive experimentation with algorithms, parameters, and hardware configurations. Git allows developers to:
     * Track every change with commit messages explaining the reasoning.
     * Create branches to test new ideas without affecting stable code.
@@ -78,4 +78,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #implementation  OR #coding WHERE contains(file.outlinks, [[Git_Integration_and_Version_Control]])
+LIST FROM "" WHERE contains(file.outlinks, [[Git_Integration_and_Version_Control]])
+```

@@ -2,35 +2,41 @@
 title: C++ Motion Planning
 description: Discusses the implementation of motion planning algorithms using C++, highlighting common libraries, ROS integration, and performance considerations.
 tags:
-  - C++
+  - cpp
   - motion-planning
   - path-planning
   - robotics-software
-  - ROS
-  - OMPL
-  - MoveIt
-  - FCL
-  - PCL
-  - implementation
-  - coding
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+  - ros
+  - ompl
+  - moveit
+  - fcl
+  - pcl
+  - programming
+type: tutorial
+level: intermediate
+subfield:
+  - software
+  - planning
+status: draft
+author: Jordan_Smith
 date: 2025-04-29
-permalink: /c++_motion_planning/
+prerequisites:
+  - "[[Configuration_Space]]"
+  - "[[RViz_Tutorial]]"
+  - "[[Trajectory_Planning]]"
 related:
   - "[[Motion_Planning]]"
   - "[[Path_Planning_Algorithms]]"
   - "[[Trajectory_Planning]]"
   - "[[C++]]"
   - "[[Python_ROS_Nodes]]"
-  - "[[ROS_(Robot_Operating_System)]]"
+  - "[[Robot_Operating_System_(ROS)]]"
   - "[[MoveIt]]"
   - "[[OMPL]]"
   - "[[FCL]]"
   - "[[PCL]]"
   - "[[Collision_Detection]]"
-  - "[[ROBOTICS-for-EVERYONE/03_Kinematics_and_Dynamics/03_Trajectory_Planning/Configuration_Space]]"
+  - "[[Configuration_Space]]"
   - "[[URDF]]"
   - "[[SLAM]]"
   - "[[Coding_and_Implementation]]"
@@ -38,13 +44,13 @@ related:
 
 # C++ Motion Planning
 
-**C++ Motion Planning** refers to the development and implementation of algorithms using the C++ programming language to compute collision-free paths and trajectories for robots, such as [[Industrial_Arms|manipulator arms]] or [[Mobile_Robots]]. While motion planning concepts are language-agnostic, C++ is frequently chosen for implementation in robotics due to its performance characteristics, control over system resources, and prevalence in core robotics frameworks like [[ROS (Robot Operating System)]].
+**C++ Motion Planning** refers to the development and implementation of algorithms using the C++ programming language to compute collision-free paths and trajectories for robots, such as [[Industrial_Arms|manipulator arms]] or [[Mobile_Robots]]. While motion planning concepts are language-agnostic, C++ is frequently chosen for implementation in robotics due to its performance characteristics, control over system resources, and prevalence in core robotics frameworks like [[Robot_Operating_System_(ROS)|ROS (Robot Operating System)]].
 
 ---
 
 ## Core Problem Revisited
 
-The fundamental goal remains the same as described in [[Path Planning Algorithms]]: find a geometrically valid sequence of robot configurations (a *path*) from a start state to a goal state within the robot's [[ROBOTICS-for-EVERYONE/03_Kinematics_and_Dynamics/03_Trajectory_Planning/Configuration_Space]], while avoiding collisions with obstacles defined in the [[Workspace]]. Often, this path is then time-parameterized to create a smooth, executable *trajectory* specifying velocity and acceleration profiles ([[Trajectory_Planning]]). Both path and trajectory planning stages often leverage C++ implementations.
+The fundamental goal remains the same as described in [[Path_Planning_Algorithms|Path Planning Algorithms]]: find a geometrically valid sequence of robot configurations (a *path*) from a start state to a goal state within the robot's [[Configuration_Space]], while avoiding collisions with obstacles defined in the [[Workspace]]. Often, this path is then time-parameterized to create a smooth, executable *trajectory* specifying velocity and acceleration profiles ([[Trajectory_Planning]]). Both path and trajectory planning stages often leverage C++ implementations.
 
 ---
 
@@ -67,7 +73,7 @@ Instead of implementing complex algorithms from scratch, developers typically le
 * **[[OMPL]] (Open Motion Planning Library):** A powerful, open-source C++ library focused purely on motion planning. It provides state-of-the-art implementations of many sampling-based algorithms (PRM, RRT, RRT*, KPIECE, etc.) and interfaces for defining state spaces, state validity checkers (collision checking), and goal conditions. It is widely used both standalone and as a core planning engine within frameworks like MoveIt.
 * **[[MoveIt]] (ROS/ROS 2):** A comprehensive open-source framework built on ROS/ROS 2, primarily in C++, specifically for [[Manipulation|manipulation]] tasks. MoveIt integrates:
     * **Planners:** Typically uses [[OMPL]] plugins for planning.
-    * **[[Collision Detection]]:** Uses [[FCL]] for efficient collision checking against environment models (often OctoMaps built from sensor data).
+    * **[[Collision_Detection|Collision Detection]]:** Uses [[FCL]] for efficient collision checking against environment models (often OctoMaps built from sensor data).
     * **[[Kinematics]]:** Interfaces with [[Forward_Kinematics|forward]] and [[Inverse_Kinematics|inverse kinematics]] solvers.
     * **[[Perception]]:** Integrates with sensor processing nodes (e.g., to update collision environments).
     * **[[Trajectory_Planning]]:** Includes modules for post-processing paths into smooth, executable trajectories (e.g., TOTG, TOPP-RA).
@@ -81,11 +87,11 @@ Instead of implementing complex algorithms from scratch, developers typically le
 ## Implementation Aspects in C++
 
 * **Representations:**
-    * **Robot State/[[ROBOTICS-for-EVERYONE/03_Kinematics_and_Dynamics/03_Trajectory_Planning/Configuration_Space]]:** Often represented using standard C++ data structures (`std::vector<double>`) or specialized classes/structs, sometimes defined by the planning library (e.g., `ompl::base::State`).
+    * **Robot State/[[Configuration_Space]]:** Often represented using standard C++ data structures (`std::vector<double>`) or specialized classes/structs, sometimes defined by the planning library (e.g., `ompl::base::State`).
     * **Environment:** Collision geometry often represented using FCL's internal structures or PCL point clouds. Occupancy grids might use multi-dimensional arrays or specialized libraries. Robot models parsed from [[URDF]]/SDF using libraries like `urdfdom` or ROS-specific parsers.
     * **Paths/Trajectories:** Represented as sequences (`std::vector`) of states or waypoints, potentially using library-specific classes (e.g., `moveit_msgs::RobotTrajectory`, `ompl::geometric::PathGeometric`).
 * **Algorithms:** C++ implementations leverage efficiency through pointers, references, optimized loops, and efficient data structures (e.g., k-d trees from FLANN or nanoflann for nearest-neighbor searches in sampling-based planners). Object-Oriented Programming (OOP) principles help structure complex planning algorithms and state representations.
-* **[[ROS (Robot Operating System)|ROS]] Integration:**
+* **[[Robot_Operating_System_(ROS)|ROS]] Integration:**
     * C++ nodes (`rclcpp`/`roscpp`) encapsulate planning functionality.
     * Planning requests are often handled via ROS [[Services]] (for simpler path requests) or [[Actions]] (for complex planning with feedback, like in MoveIt's `/move_group` action).
     * Nodes subscribe to [[Topics]] carrying sensor data (`sensor_msgs/PointCloud2`, `sensor_msgs/JointState`), goal specifications (`geometry_msgs/PoseStamped`), or map updates (`nav_msgs/OccupancyGrid`).
@@ -114,4 +120,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #implementation  OR #coding WHERE contains(file.outlinks, [[C++_Motion_Planning]])
+LIST FROM "" WHERE contains(file.outlinks, [[C++_Motion_Planning]])
+```

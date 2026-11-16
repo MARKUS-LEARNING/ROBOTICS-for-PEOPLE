@@ -7,13 +7,15 @@ tags:
   - problem-solving
   - artificial-intelligence
   - optimization
-  - robotics
   - path-planning
-layout: default
-category: algorithms
+type: concept
+level: beginner
+subfield:
+  - planning
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /heuristics/
+last_reviewed: 2026-04-25
 related:
   - "[[A*_Algorithm]]"
   - "[[Search_Algorithms]]"
@@ -219,5 +221,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 - **List all related algorithms and techniques**:
   ```dataview
-  LIST FROM #Algorithms OR #Optimization WHERE contains(file.outlinks, [[Heuristics]])
+  LIST FROM #algorithms OR #optimization WHERE contains(file.outlinks, [[Heuristics]])
   ```

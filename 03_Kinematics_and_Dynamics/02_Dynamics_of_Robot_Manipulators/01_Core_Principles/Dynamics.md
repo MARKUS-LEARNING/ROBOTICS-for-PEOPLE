@@ -2,18 +2,22 @@
 title: Dynamics
 description: The study of motion and the forces that cause it. Dynamics adds Newton's second law to a kinematic skeleton — turning a geometry problem into a physics problem with mass, inertia, gravity, and friction.
 tags:
-  - robotics
   - dynamics
   - mechanics
   - physics
-  - manipulator-dynamics
-  - lagrangian
+  - lagrangian-dynamics
   - newton-euler
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: keystone
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /dynamics/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Kinematics]]"
+  - "[[Calculus_for_Robotics]]"
 related:
   - "[[Kinematics]]"
   - "[[Newton-Euler_Equations]]"
@@ -193,5 +197,5 @@ Beyond serial arms:
 ## Dataview
 
 ```dataview
-LIST FROM #dynamics OR #manipulator-dynamics WHERE contains(file.outlinks, [[Dynamics]])
+LIST FROM #dynamics OR #dynamics WHERE contains(file.outlinks, [[Dynamics]])
 ```

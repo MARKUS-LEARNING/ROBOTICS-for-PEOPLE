@@ -3,20 +3,21 @@ title: Linear Quadratic Regulator (LQR)
 description: The Linear Quadratic Regulator (LQR) is a control strategy used to minimize a quadratic cost function for linear systems, providing optimal feedback control for stabilization and regulation.
 tags:
   - control
-  - robotics
   - optimization
   - lqr
   - control-theory
   - dynamics
-  - engineering
   - mechanism
   - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
+type: method
+level: intermediate
+subfield:
+  - control
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /linear_quadratic_regulator/
+last_reviewed: 2026-04-25
 related:
   - "[[Control_Theory]]"
   - "[[Optimal_Control]]"
@@ -108,5 +109,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #control OR #robotics WHERE contains(file.outlinks, [[Linear_Quadratic_Regulator_(LQR)]])
+LIST FROM "" WHERE contains(file.outlinks, [[Linear_Quadratic_Regulator_(LQR)]])
 ```

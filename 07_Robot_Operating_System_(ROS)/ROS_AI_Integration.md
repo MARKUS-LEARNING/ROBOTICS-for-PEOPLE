@@ -2,8 +2,8 @@
 title: ROS AI Integration
 description: Discusses the integration of Artificial Intelligence (AI) and Machine Learning (ML) techniques with the Robot Operating System (ROS).
 tags:
-  - ROS
-  - AI
+  - ros
+  - artificial-intelligence
   - machine-learning
   - deep-learning
   - reinforcement-learning
@@ -11,19 +11,25 @@ tags:
   - integration
   - robotics-software
   - middleware
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: tool
+level: intermediate
+subfield:
+  - software
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-04-28
-permalink: /ros_ai_integration/
+prerequisites:
+  - "[[AI_and_Robot_Control]]"
+  - "[[Computer_Vision_in_Robotics]]"
 related:
-  - "[[ROS (Robot Operating System)]]"
-  - "[[Artificial Intelligence (AI)]]"
-  - "[[Machine Learning]]"
-  - "[[Deep Learning]]"
-  - "[[Reinforcement Learning (RL)]]"
-  - "[[Computer Vision in Robotics]]"
-  - "[[Neural Networks in Control]]"
+  - "[[Robot_Operating_System_(ROS)]]"
+  - "[[Artificial_Intelligence]]"
+  - "[[Machine_Learning]]"
+  - "[[Deep_Learning]]"
+  - "[[Reinforcement_Learning]]"
+  - "[[Computer_Vision_in_Robotics]]"
+  - "[[Neural_Networks_in_Control]]"
   - "[[Topics]]"
   - "[[Services]]"
   - "[[Actions]]"
@@ -33,7 +39,7 @@ related:
 
 # ROS AI Integration
 
-**ROS AI Integration** refers to the methodologies and practices used to connect [[Artificial Intelligence (AI)|AI]], [[Machine Learning|ML]], [[Deep Learning|deep learning]], and related algorithms (such as [[Computer Vision in Robotics|computer vision]] and [[Reinforcement Learning for Robots|reinforcement learning]]) with the [[ROS (Robot Operating System)]] framework. The primary goal is to leverage the advanced perception, learning, decision-making, and control capabilities offered by AI/ML within the modular, distributed, and tool-rich environment provided by ROS.
+**ROS AI Integration** refers to the methodologies and practices used to connect [[Artificial_Intelligence|AI]], [[Machine_Learning|ML]], [[Deep_Learning|deep learning]], and related algorithms (such as [[Computer_Vision_in_Robotics|computer vision]] and [[Reinforcement_Learning_for_Robots|reinforcement learning]]) with the [[Robot_Operating_System_(ROS)|ROS (Robot Operating System)]] framework. The primary goal is to leverage the advanced perception, learning, decision-making, and control capabilities offered by AI/ML within the modular, distributed, and tool-rich environment provided by ROS.
 
 ---
 
@@ -69,7 +75,7 @@ AI algorithms are typically integrated into the ROS computation graph as one or 
 
 1.  **Separate AI Node(s):** The most common pattern. The AI/ML model inference or learning algorithm runs within one or more dedicated ROS nodes. These nodes subscribe to necessary input topics (sensors, state), perform the AI computation, and publish results or offer services/actions. This promotes modularity and separation of concerns.
 2.  **ROS Wrappers for AI Libraries:** Developers create ROS nodes that act as wrappers around standard AI/ML libraries (e.g., TensorFlow, PyTorch, OpenCV, ONNX Runtime). These wrappers expose the library's functionality (e.g., running inference on a pre-trained model) via ROS topics, services, or actions. Packages like `cv_bridge` facilitate converting between ROS image messages and OpenCV formats.
-3.  **Simulation Integration:** Simulators like [[Gazebo_Simulator]] generate realistic sensor data published on ROS topics. AI nodes (especially [[Reinforcement Learning for Robots|RL]] agents) subscribe to this simulated data, process it, and publish control commands (e.g., `/cmd_vel`, `/joint_group_vel_controller/command`) back to the simulator to control the virtual robot. This is essential for training RL policies safely and efficiently.
+3.  **Simulation Integration:** Simulators like [[Gazebo_Simulator]] generate realistic sensor data published on ROS topics. AI nodes (especially [[Reinforcement_Learning_for_Robots|RL]] agents) subscribe to this simulated data, process it, and publish control commands (e.g., `/cmd_vel`, `/joint_group_vel_controller/command`) back to the simulator to control the virtual robot. This is essential for training RL policies safely and efficiently.
 4.  **Embedded AI Logic:** Simpler ML models or CV algorithms might be directly embedded within other ROS nodes (e.g., a perception node doing basic filtering or classification). This is less common for complex deep learning models, which benefit from dedicated nodes and potentially specialized hardware acceleration.
 
 ---
@@ -79,7 +85,7 @@ AI algorithms are typically integrated into the ROS computation graph as one or 
 * **[[Computer_Vision_in_Robotics|Computer Vision]]:** ROS nodes using OpenCV (via `cv_bridge`) or deep learning models (e.g., YOLO, segmentation networks) subscribe to `/image_raw` topics and publish `/object_detections`, `/semantic_segmentation` masks, or feature tracks on other topics.
 * **[[SLAM]]:** Packages like `ORB_SLAM3`, `rtabmap`, or LiDAR-based methods like `LeGO-LOAM` run as ROS nodes, subscribing to camera/IMU/LiDAR topics and publishing map data (`/map`) and pose estimates (`/tf` or `/odom`).
 * **[[Navigation]]:** The ROS Navigation Stack (Nav2 for ROS 2) orchestrates various nodes. Path planners (classical A*, D* or potentially learned planners) receive goals via actions and publish path commands on topics. Local planners/controllers subscribe to sensor data and path commands and publish velocity commands (`/cmd_vel`).
-* **[[Reinforcement Learning (RL)|Reinforcement Learning]]:** RL frameworks (like Stable Baselines3, RLlib) are often integrated with ROS/Gazebo. An RL agent node subscribes to state/observation topics from the simulator, selects an action based on its learned [[Policy]], publishes the action command, receives a reward (potentially via another topic or service), and updates its policy.
+* **[[Reinforcement_Learning|Reinforcement Learning]]:** RL frameworks (like Stable Baselines3, RLlib) are often integrated with ROS/Gazebo. An RL agent node subscribes to state/observation topics from the simulator, selects an action based on its learned [[Policy]], publishes the action command, receives a reward (potentially via another topic or service), and updates its policy.
 
 ---
 
@@ -102,4 +108,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #control-systems WHERE contains(file.outlinks, [[Robot_Operating_System_(ROS)]])
+LIST FROM "" WHERE contains(file.outlinks, [[Robot_Operating_System_(ROS)]])
+```

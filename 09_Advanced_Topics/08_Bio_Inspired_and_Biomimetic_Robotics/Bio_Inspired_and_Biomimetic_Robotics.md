@@ -2,20 +2,17 @@
 title: Bio-Inspired and Biomimetic Robotics
 description: Bio-Inspired and Biomimetic Robotics focus on the development of robots that mimic the structures, functions, and behaviors of biological systems, enabling them to perform tasks in diverse and challenging environments, from exploration and inspection to manipulation and locomotion.
 tags:
-  - robotics
   - bio-inspired-robotics
-  - biomimetic-robotics
-  - bio-inspired-design
-  - biomimetics
-  - engineering
-  - glossary-term
   - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: advanced
+subfield:
+  - bio-inspired
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /bio_inspired_and_biomimetic_robotics/
+prerequisites:
+  - "[[Bio-inspired_Robotics]]"
 related:
   - "[[Bio-inspired_Robotics]]"
   - "[[Biomimetics]]"
@@ -87,4 +84,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #bio-inspired-design WHERE contains(file.outlinks, [[Bio_Inspired_and_Biomimetic_Robotics]])
+LIST FROM "" WHERE contains(file.outlinks, [[Bio_Inspired_and_Biomimetic_Robotics]])
+```

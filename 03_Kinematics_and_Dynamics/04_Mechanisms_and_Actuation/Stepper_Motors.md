@@ -2,17 +2,23 @@
 title: Stepper Motors
 description: Stepper Motors are a type of DC motor that rotates in fixed increments, or steps, making them ideal for precise positioning in robotic applications.
 tags:
-  - component
-  - actuation
+  - components
+  - actuators
   - electrical
-  - robotics
   - mechatronics
   - control
-layout: default
-category: robotics
+type: component
+level: intermediate
+subfield:
+  - mechanisms-actuation
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /stepper-motors/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Robot_Design]]"
+  - "[[Actuator]]"
+  - "[[Mechatronics]]"
 related:
   - "[[Electric_Motors]]"
   - "[[DC_Motors]]"
@@ -97,5 +103,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ### List of Related Concepts
 ```dataview
-LIST FROM #robotics OR #mechanical-engineering WHERE contains(file.outlinks, [[Stepper_Motors]])
+LIST FROM "" WHERE contains(file.outlinks, [[Stepper_Motors]])
 ```

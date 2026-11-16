@@ -2,19 +2,18 @@
 title: Unsupervised Learning
 description: Unsupervised Learning is a type of machine learning where a model is trained on an unlabeled dataset, enabling it to discover patterns and structures in the data, widely used in robotics for tasks such as clustering and dimensionality reduction.
 tags:
-  - robotics
   - unsupervised-learning
   - machine-learning
   - artificial-intelligence
-  - engineering
-  - glossary-term
-  - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: method
+level: intermediate
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /unsupervised_learning/
+prerequisites:
+  - "[[Machine_Learning]]"
 related:
   - "[[Machine_Learning]]"
   - "[[Clustering]]"
@@ -99,4 +98,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #machine-learning WHERE contains(file.outlinks, [[Unsupervised_Learning]])
+LIST FROM "" WHERE contains(file.outlinks, [[Unsupervised_Learning]])
+```

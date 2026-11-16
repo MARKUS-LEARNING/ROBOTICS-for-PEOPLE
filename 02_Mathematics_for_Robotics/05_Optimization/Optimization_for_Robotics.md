@@ -6,17 +6,19 @@ tags:
   - optimization
   - trajectory-optimization
   - control
-  - robotics
   - numerical-methods
-layout: default
-category: mathematics
+type: method
+level: intermediate
+subfield:
+  - mathematics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /optimization_for_robotics/
+last_reviewed: 2026-04-25
 related:
   - "[[Calculus_for_Robotics]]"
   - "[[Linear_Algebra_for_Robotics]]"
-  - "[[Model_Predictive_Control]]"
+  - "[[Model_Predictive_Control_(MPC)]]"
   - "[[Trajectory_Optimization]]"
   - "[[Gradient_Descent]]"
 ---
@@ -170,7 +172,7 @@ $$
 
 subject to $\mathbf{x}_{k+1} = f(\mathbf{x}_k, \mathbf{u}_k)$, input/state constraints. For linear dynamics and quadratic cost this is a QP — solvable at kHz rates (OSQP, qpOASES). For nonlinear dynamics, sequential QP with warm-starting keeps real-time rates feasible.
 
-See [[Model_Predictive_Control]].
+See [[Model_Predictive_Control_(MPC)|Model_Predictive_Control]].
 
 ---
 

@@ -8,13 +8,15 @@ tags:
   - locomotion
   - nonholonomic
   - mechanism
-  - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
+type: component
+level: intermediate
+subfield:
+  - mechanisms-actuation
+  - mobile-robots
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /differential_drive/
+last_reviewed: 2026-04-25
 related:
   - "[[Wheeled_Mobile_Robots]]"
   - "[[Mobile_Robots]]"

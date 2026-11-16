@@ -2,21 +2,23 @@
 title: Active Perception and Sensing
 description: Active Perception and Sensing involves dynamically controlling the sensing process to gather more informative or relevant data, enhancing the robot's understanding of its environment.
 tags:
-  - robotics
   - perception
   - active-perception
-  - sensing
-  - intelligent-sensing
-  - engineering
-  - glossary-term
+  - sensors
   - mechanism
-  - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: advanced
+subfield:
+  - estimation-mapping
+  - perception
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /active_perception_and_sensing/
+prerequisites:
+  - "[[Sensors]]"
+  - "[[SLAM]]"
+  - "[[Computer_Vision]]"
 related:
   - "[[Sensors]]"
   - "[[Computer_Vision]]"
@@ -111,4 +113,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #perception WHERE contains(file.outlinks, [[Active_Perception_and_Sensing]])
+LIST FROM "" WHERE contains(file.outlinks, [[Active_Perception_and_Sensing]])
+```

@@ -2,19 +2,17 @@
 title: Specialized Robot Morphologies
 description: Specialized Robot Morphologies focus on the design and development of robots with unique and adaptive physical forms, enabling them to perform tasks in diverse and challenging environments, from exploration and inspection to manipulation and locomotion.
 tags:
-  - robotics
   - specialized-robot-morphologies
   - robot-design
   - biomechanics
-  - engineering
-  - glossary-term
   - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: overview
+level: advanced
+subfield:
+  - modular-reconfigurable
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /specialized_robot_morphologies/
 related:
   - "[[Robot_Design]]"
   - "[[Biomechanics]]"
@@ -86,4 +84,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #robot-design WHERE contains(file.outlinks, [[Specialized_Robot_Morphologies]])
+LIST FROM "" WHERE contains(file.outlinks, [[Specialized_Robot_Morphologies]])
+```

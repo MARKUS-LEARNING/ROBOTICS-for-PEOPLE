@@ -3,23 +3,28 @@ title: Hardware Interface Setup
 description: Discusses common methods and considerations for connecting physical sensors and actuators to a robot's control computer and integrating them with software, particularly ROS.
 tags:
   - hardware
-  - interface
-  - ROS
-  - driver
-  - sensor
-  - actuator
-  - serial
-  - USB
-  - CAN
-  - EtherCAT
-  - coding
-  - implementation
+  - hardware-interface
+  - ros
+  - sensors
+  - actuators
+  - communication-protocols
+  - usb
+  - can-bus
+  - ethercat
+  - programming
   - software-stack
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: tutorial
+level: intermediate
+subfield:
+  - software
+  - electronics-embedded
+status: draft
+author: Jordan_Smith
 date: 2025-04-29
-permalink: /hardware_interface_setup/
+prerequisites:
+  - "[[ROS_2_Overview]]"
+  - "[[RViz_Tutorial]]"
+  - "[[Actions]]"
 related:
   - "[[ROS_2_Overview]]"
   - "[[Custom_Packages_and_Nodes]]"
@@ -37,7 +42,7 @@ related:
 
 # Hardware Interface Setup in Robotics
 
-**Hardware Interface Setup** is the crucial process of physically connecting robotic [[Sensor|sensors]] and [[Actuator|actuators]] to the robot's main computer (or microcontrollers) and configuring the software layer to enable communication and control. This involves managing both the physical connection (cables, ports) and the software protocols required to send commands and receive data, effectively bridging the gap between the robot's software "brain" and its physical interaction with the world. Within the [[ROS (Robot Operating System)|ROS]] ecosystem, this typically involves setting up hardware drivers implemented as [[Nodes|ROS nodes]].
+**Hardware Interface Setup** is the crucial process of physically connecting robotic [[Sensors|sensors]] and [[Actuator|actuators]] to the robot's main computer (or microcontrollers) and configuring the software layer to enable communication and control. This involves managing both the physical connection (cables, ports) and the software protocols required to send commands and receive data, effectively bridging the gap between the robot's software "brain" and its physical interaction with the world. Within the [[Robot_Operating_System_(ROS)|ROS]] ecosystem, this typically involves setting up hardware drivers implemented as [[Nodes|ROS nodes]].
 
 ---
 
@@ -47,7 +52,7 @@ Robots utilize various physical and logical interfaces to communicate with hardw
 
 * **[[Serial_Communication_Tutorials|Serial (UART/RS-232/RS-485)]]:**
     * **Description:** A common, relatively simple point-to-point communication method. UART (Universal Asynchronous Receiver/Transmitter) is the basic protocol, often implemented physically via RS-232 (older standard, larger voltage swing) or RS-485 (differential signaling for longer distances and noise immunity).
-    * **Use Cases:** Connecting microcontrollers (like Arduino via `rosserial`), simpler [[IMU_Sensors]], some GPS units, motor controllers, basic [[Range Sensor|range sensors]].
+    * **Use Cases:** Connecting microcontrollers (like Arduino via `rosserial`), simpler [[IMU_Sensors]], some GPS units, motor controllers, basic [[Range_Sensor|range sensors]].
     * **Setup:** Requires configuring the serial port name (e.g., `/dev/ttyS0`, `/dev/ttyUSB0`, `/dev/ttyACM0` in Linux), baud rate, data bits, parity, and stop bits to match the device settings. Requires appropriate user permissions (e.g., membership in the `dialout` group in Linux). Libraries like `serial` (Python) or Boost.Asio (C++) are used for programming.
 
 * **USB (Universal Serial Bus):**
@@ -98,7 +103,7 @@ In ROS, hardware interaction is typically encapsulated within dedicated [[Custom
     * **Permissions:** Ensure the user running ROS has permission to access the device port (e.g., add user to the `dialout` group for serial/USB devices in Linux: `sudo usermod -a -G dialout $USER`).
     * **[[Udev Rules]]:** Create custom `udev` rules (in `/etc/udev/rules.d/`) to assign persistent, meaningful symbolic links (e.g., `/dev/ttyLidar`, `/dev/ttyIMU`) to devices based on vendor ID, product ID, or serial number. This prevents device names from changing unpredictably (e.g., from `/dev/ttyUSB0` to `/dev/ttyUSB1`) when devices are unplugged or boot order changes. Udev rules can also set permissions automatically.
 5.  **Install/Build ROS Driver:** Find and install the relevant ROS package for the hardware (if available) or build your [[Custom_Packages_and_Nodes|custom driver node]].
-6.  **Configure ROS Node:** Set parameters for the driver node, typically via [[Launch Files]]. Common parameters include the device port name (using the persistent symlink created by udev), baud rate (for serial), communication timeouts, sensor `frame_id` (for TF), publishing rates, etc.
+6.  **Configure ROS Node:** Set parameters for the driver node, typically via [[Launch_Files|Launch Files]]. Common parameters include the device port name (using the persistent symlink created by udev), baud rate (for serial), communication timeouts, sensor `frame_id` (for TF), publishing rates, etc.
 7.  **Test & Verify:** Launch the driver node. Use ROS command-line tools (`rostopic list/echo/hz`, `rosservice list/call`) to check if the node is publishing data or offering services correctly. Use [[RViz_Tutorial|RViz]] to visualize sensor data (LaserScans, PointClouds, Images, TF frames) to confirm it makes sense spatially and temporally. Send test commands to actuators and verify physical response.
 
 Setting up hardware interfaces correctly is a critical first step in building any functional robotic system, enabling the software to perceive and act upon the physical world.
@@ -112,4 +117,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #implementation  OR #coding WHERE contains(file.outlinks, [[Hardware_Interface_Setup]])
+LIST FROM "" WHERE contains(file.outlinks, [[Hardware_Interface_Setup]])
+```

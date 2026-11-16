@@ -7,13 +7,15 @@ tags:
   - bipedal
   - locomotion
   - manipulation
-  - AI
-  - HRI
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+  - artificial-intelligence
+  - human-robot-interaction
+type: robot-type
+level: beginner
+subfield:
+  - legged-humanoid
+status: draft
+author: Jordan_Smith
 date: 2025-04-28
-permalink: /humanoid_robots/
 related:
   - "[[Robots]]"
   - "[[Legged_Robots]]"
@@ -40,8 +42,8 @@ Humanoid robots represent a complex integration of various robotic subsystems:
 * **[[Bipedal Locomotion]]:** The ability to walk, run, navigate stairs, and maintain balance on two legs is a defining, and challenging, characteristic. This requires sophisticated dynamic control strategies, often relying on concepts like the Zero-Moment Point (ZMP) or whole-body momentum control.
 * **[[Manipulation]]:** Equipped with arms and often complex, multi-fingered hands designed for dexterity, enabling them to grasp and manipulate objects intended for human use.
 * **[[Perception]]:** Rely heavily on multi-modal sensing. [[Camera_Systems]] (often stereo or RGB-D, usually placed in the head) provide vision. [[IMU_Sensors]] are critical for balance and orientation estimation. [[LIDAR]], force/torque sensors (in limbs/wrists/feet), and tactile sensors are also commonly used. [[Sensor_Fusion]] is essential for robust state estimation.
-* **[[AI_and_Robot_Control|Control]]:** Require complex control systems to manage the high DoF, coordinate whole-body motion, maintain dynamic balance, execute manipulation tasks, and interact with the environment. Hierarchical control, model predictive control (MPC), [[Adaptive Control]], and increasingly [[Reinforcement Learning for Robots|learning-based methods]] ([[Neural Networks in Control]]) are employed.
-* **[[Human-Robot Interaction (HRI)|Human-Robot Interaction (HRI)]]:** Often designed with interaction in mind, potentially incorporating facial expressions, gestures, speech recognition, and natural language processing to communicate and collaborate with humans intuitively.
+* **[[AI_and_Robot_Control|Control]]:** Require complex control systems to manage the high DoF, coordinate whole-body motion, maintain dynamic balance, execute manipulation tasks, and interact with the environment. Hierarchical control, model predictive control (MPC), [[Adaptive_Control|Adaptive Control]], and increasingly [[Reinforcement_Learning_for_Robots|learning-based methods]] ([[Neural_Networks_in_Control|Neural Networks in Control]]) are employed.
+* **[[Human-Robot_Interaction|Human-Robot Interaction (HRI)]]:** Often designed with interaction in mind, potentially incorporating facial expressions, gestures, speech recognition, and natural language processing to communicate and collaborate with humans intuitively.
 
 ---
 
@@ -73,7 +75,7 @@ Humanoid robots represent a complex integration of various robotic subsystems:
 
 ## Applications
 
-* **Research Platforms:** Testing grounds for fundamental research in [[Bipedal Locomotion]], advanced [[Manipulation]], [[AI_and_Robot_Control]], [[Perception]], and [[Human-Robot Interaction (HRI)]].
+* **Research Platforms:** Testing grounds for fundamental research in [[Bipedal Locomotion]], advanced [[Manipulation]], [[AI_and_Robot_Control]], [[Perception]], and [[Human-Robot_Interaction|Human-Robot Interaction (HRI)]].
 * **Entertainment & Education:** Engaging public interest, performing in shows, educational tools.
 * **Potential Future Roles:**
     * *Manufacturing/Logistics:* Performing tasks alongside humans in factories and warehouses (currently being piloted).
@@ -107,4 +109,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #automation WHERE contains(file.outlinks, [[Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Robots]])
+```

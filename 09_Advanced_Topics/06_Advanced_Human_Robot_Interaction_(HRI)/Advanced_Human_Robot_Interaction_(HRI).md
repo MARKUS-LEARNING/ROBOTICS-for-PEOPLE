@@ -2,19 +2,18 @@
 title: Advanced Human-Robot Interaction (HRI)
 description: Advanced Human-Robot Interaction (HRI) focuses on the development of intelligent and adaptive interfaces that facilitate effective and natural interactions between humans and robots, enhancing collaboration, communication, and cooperation.
 tags:
-  - robotics
   - human-robot-interaction
-  - collaborative-systems
+  - collaborative-robots
   - artificial-intelligence
-  - engineering
-  - glossary-term
-  - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: advanced
+subfield:
+  - human-robot-interaction
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /advanced_human_robot_interaction/
+prerequisites:
+  - "[[Human-Robot_Interaction]]"
 related:
   - "[[Human-Robot_Interaction]]"
   - "[[Collaborative_Systems]]"
@@ -99,4 +98,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #human-robot-interaction WHERE contains(file.outlinks, [[Advanced_Human_Robot_Interaction_(HRI)]])
+LIST FROM "" WHERE contains(file.outlinks, [[Advanced_Human_Robot_Interaction_(HRI)]])
+```

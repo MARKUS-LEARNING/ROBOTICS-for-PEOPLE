@@ -2,20 +2,20 @@
 title: Knowledge Representation and Reasoning
 description: Knowledge Representation and Reasoning are fundamental aspects of artificial intelligence that involve the storage, organization, and utilization of information to enable robots to interpret and interact with their environment.
 tags:
-  - robotics
   - knowledge-representation
   - reasoning
   - artificial-intelligence
   - cognitive-systems
-  - engineering
-  - glossary-term
-  - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: intermediate
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /knowledge_representation_and_reasoning/
+prerequisites:
+  - "[[Artificial_Intelligence]]"
 related:
   - "[[Artificial_Intelligence]]"
   - "[[Cognitive_Systems]]"
@@ -86,4 +86,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #artificial-intelligence WHERE contains(file.outlinks, [[Knowledge_Representation_and_Reasoning]])
+LIST FROM "" WHERE contains(file.outlinks, [[Knowledge_Representation_and_Reasoning]])
+```

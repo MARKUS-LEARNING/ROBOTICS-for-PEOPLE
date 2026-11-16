@@ -1,18 +1,16 @@
 ---
 title: Robots
-description: "Defines 'Robot' and outlines its core characteristics, etymology, and basic types within the field of robotics."
+description: Defines 'Robot' and outlines its core characteristics, etymology, and basic types within the field of robotics.
 tags:
-  - robot
-  - definition
-  - robotics
-  - core-concept
   - automation
-  - machine
-layout: default
-category: robotics
+type: concept
+level: beginner
+subfield:
+  - foundations
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /robot/
+last_reviewed: 2026-04-25
 related:
   - "[[Robotics]]"
   - "[[Actuator]]"
@@ -169,5 +167,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #automation WHERE contains(file.outlinks, [[Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Robots]])
 ```

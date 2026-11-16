@@ -5,14 +5,17 @@ tags:
   - mathematics
   - probability
   - bayesian-inference
-  - estimation
-  - robotics
+  - state-estimation
   - sensor-fusion
-layout: default
-category: mathematics
+type: concept
+level: intermediate
+subfield:
+  - mathematics
+  - estimation-mapping
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /bayesian_inference/
+last_reviewed: 2026-04-25
 related:
   - "[[Probability_and_Statistics_for_Robotics]]"
   - "[[Kalman_Filter]]"

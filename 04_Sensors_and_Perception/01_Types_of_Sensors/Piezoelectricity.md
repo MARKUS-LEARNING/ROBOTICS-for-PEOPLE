@@ -5,15 +5,20 @@ tags:
   - materials
   - sensors
   - actuators
-  - robotics
   - physics
-type: Physical Phenomenon
-application: Sensors and actuators in robotic systems
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - perception
+  - mechanisms-actuation
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /piezoelectricity/
+last_reviewed: 2026-04-27
+prerequisites:
+  - "[[Robot_Design]]"
+  - "[[Actuator]]"
+  - "[[Mechatronics]]"
 related:
   - "[[Sensors]]"
   - "[[Actuator]]"
@@ -78,4 +83,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ### List of Related Concepts
 ```dataview
-LIST FROM #robot-design OR #robotics   WHERE contains(file.outlinks, [[Piezoelectricity]])
+LIST FROM ""   WHERE contains(file.outlinks, [[Piezoelectricity]])
+```

@@ -2,20 +2,20 @@
 title: RNN and LSTM
 description: Recurrent Neural Networks (RNNs) and Long Short-Term Memory networks (LSTMs) are types of neural networks designed for processing sequential data, widely used in robotics for tasks such as time series prediction and motion planning.
 tags:
-  - robotics
   - recurrent-neural-networks
   - long-short-term-memory
   - machine-learning
   - neural-networks
-  - engineering
-  - glossary-term
-  - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: intermediate
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /rnn_and_lstm/
+prerequisites:
+  - "[[Deep_Learning]]"
 related:
   - "[[Neural_Networks]]"
   - "[[Machine_Learning]]"
@@ -103,4 +103,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #machine-learning WHERE contains(file.outlinks, [[RNN_and_LSTM]])
+LIST FROM "" WHERE contains(file.outlinks, [[RNN_and_LSTM]])
+```

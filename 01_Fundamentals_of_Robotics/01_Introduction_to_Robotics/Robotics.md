@@ -2,20 +2,21 @@
 title: Robotics
 description: Robotics is an interdisciplinary field that integrates computer science and engineering to design, construct, operate, and use robots for various applications, enhancing automation, efficiency, and human capabilities.
 tags:
-  - technology
   - automation
-  - engineering
-  - AI
-  - control-systems
+  - artificial-intelligence
+  - control
   - mechatronics
   - sensors
   - actuators
   - autonomous-systems
-layout: default
-category: robotics
+type: overview
+level: beginner
+subfield:
+  - foundations
+status: reviewed
 author: Jordan_Smith
 date: 2026-02-14
-permalink: /robotics/
+last_reviewed: 2026-04-25
 related:
   - "[[Robots]]"
   - "[[History_of_Robotics]]"
@@ -154,5 +155,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #technology OR #automation WHERE contains(file.outlinks, [[Robotics]])
+LIST FROM "" WHERE contains(file.outlinks, [[Robotics]])
 ```

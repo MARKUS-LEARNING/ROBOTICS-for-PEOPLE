@@ -1,13 +1,39 @@
 ---
 title: Neural Networks in Control
-description: "Explores the application of Artificial Neural Networks (ANNs) for modeling, identification, and control of robotic systems (Neurocontrol)."
-tags: [neural-network, control-theory, AI, machine-learning, deep-learning, reinforcement-learning, adaptive-control, system-identification, neurocontrol] 
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
-date: 2025-04-28 # Updated date for revision
-permalink: /neural_networks_in_control/
-related: ["[[Artificial Intelligence (AI)]]", "[[Machine Learning]]", "[[Deep Learning]]", "[[Reinforcement Learning (RL)]]", "[[Imitation Learning]]", "[[Control Theory]]", "[[Adaptive Control]]", "[[Computed Torque Control]]", "[[System Identification]]", "[[PID_Control]]", "[[AI_and_Robot_Control]]"] 
+description: Explores the application of Artificial Neural Networks (ANNs) for modeling, identification, and control of robotic systems (Neurocontrol).
+tags:
+  - neural-networks
+  - control-theory
+  - artificial-intelligence
+  - machine-learning
+  - deep-learning
+  - reinforcement-learning
+  - adaptive-control
+  - system-identification
+  - neurocontrol
+type: method
+level: intermediate
+subfield:
+  - robot-learning
+  - control
+status: draft
+author: Jordan_Smith
+date: 2025-04-28
+prerequisites:
+  - "[[Neural_Networks]]"
+  - "[[Feedback_Control]]"
+related:
+  - "[[Artificial_Intelligence]]"
+  - "[[Machine_Learning]]"
+  - "[[Deep_Learning]]"
+  - "[[Reinforcement_Learning]]"
+  - "[[Imitation Learning]]"
+  - "[[Control_Theory]]"
+  - "[[Adaptive_Control]]"
+  - "[[Computed_Torque_Control]]"
+  - "[[System Identification]]"
+  - "[[PID_Control]]"
+  - "[[AI_and_Robot_Control]]"
 ---
 
 # Neural Networks in Control (Neurocontrol)
@@ -23,15 +49,15 @@ Neural networks are employed in various ways within robot control systems:
 1.  **[[System Identification]]:** NNs can be trained to learn the complex, nonlinear dynamics of a robot from input-output data (e.g., joint positions, velocities, accelerations, and applied torques).
     * **Forward Dynamics Model:** Learning the mapping from current state $(\mathbf{q}, \dot{\mathbf{q}})$ and control input ($\tau$) to resulting acceleration ($\ddot{\mathbf{q}}$).
     * **Inverse Dynamics Model:** Learning the mapping from desired motion ($\mathbf{q}, \dot{\mathbf{q}}, \ddot{\mathbf{q}}$) to the required control input ($\tau$). Includes learning terms like $M(\mathbf{q}), C(\mathbf{q}, \dot{\mathbf{q}}), G(\mathbf{q})$.
-    These learned models can then be incorporated into model-based control schemes like [[Computed Torque Control]] or used for simulation.
+    These learned models can then be incorporated into model-based control schemes like [[Computed_Torque_Control|Computed Torque Control]] or used for simulation.
 
-2.  **[[Adaptive Control]]:** NNs can be used online to adapt the parameters of a controller or to generate compensatory control signals. This allows the robot to maintain performance despite uncertainties in its own dynamics (e.g., unknown payload) or changes in the environment. The NN learns to adjust the control law based on observed performance errors.
+2.  **[[Adaptive_Control|Adaptive Control]]:** NNs can be used online to adapt the parameters of a controller or to generate compensatory control signals. This allows the robot to maintain performance despite uncertainties in its own dynamics (e.g., unknown payload) or changes in the environment. The NN learns to adjust the control law based on observed performance errors.
 
 3.  **Direct Control Policy Learning:** An NN is trained to directly output control actions (e.g., joint torques, desired velocities) based on the robot's current state and goal. This bypasses the need for an explicit dynamic model.
-    * **[[Reinforcement Learning (RL)|Reinforcement Learning (RL)]]:** [[Deep Learning|Deep]] NNs (Deep RL) serve as function approximators for the control policy (mapping state to action) or value functions (predicting future rewards). The robot learns optimal behavior through trial-and-error interaction with its environment (or simulation), guided by a reward signal. Deep RL has enabled breakthroughs in complex manipulation and locomotion tasks. Foundation models (like Vision-Language-Action models) are further generalizing these capabilities.
+    * **[[Reinforcement_Learning|Reinforcement Learning (RL)]]:** [[Deep_Learning|Deep]] NNs (Deep RL) serve as function approximators for the control policy (mapping state to action) or value functions (predicting future rewards). The robot learns optimal behavior through trial-and-error interaction with its environment (or simulation), guided by a reward signal. Deep RL has enabled breakthroughs in complex manipulation and locomotion tasks. Foundation models (like Vision-Language-Action models) are further generalizing these capabilities.
     * **[[Imitation Learning]] (IL) / Behavior Cloning:** An NN learns to mimic control strategies demonstrated by an expert (e.g., a human teleoperator). It learns a mapping from observed states to demonstrated actions.
 
-4.  **Sensor Processing for Control:** NNs, particularly [[Deep Learning|deep learning]] architectures like CNNs and Vision Transformers (ViTs), are highly effective at processing high-dimensional sensor data, such as images from [[Camera_Systems]]. They can extract relevant state information (e.g., object poses) for use by a separate controller, or learn **end-to-end** control policies that map raw sensor inputs directly to motor commands.
+4.  **Sensor Processing for Control:** NNs, particularly [[Deep_Learning|deep learning]] architectures like CNNs and Vision Transformers (ViTs), are highly effective at processing high-dimensional sensor data, such as images from [[Camera_Systems]]. They can extract relevant state information (e.g., object poses) for use by a separate controller, or learn **end-to-end** control policies that map raw sensor inputs directly to motor commands.
 
 5.  **[[PID_Control|PID Tuning]]:** NNs can be trained to automatically tune the gains ($K_p, K_i, K_d$) of classical PID controllers for optimal performance.
 
@@ -73,4 +99,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ### List of Related Concepts
 ```dataview
-LIST FROM #robotics OR #machine-learning WHERE contains(file.outlinks, [[Neural_Networks]])
+LIST FROM "" WHERE contains(file.outlinks, [[Neural_Networks]])
+```

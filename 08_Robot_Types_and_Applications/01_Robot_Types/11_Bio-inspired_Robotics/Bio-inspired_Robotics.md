@@ -3,18 +3,19 @@ title: Bio-inspired Robotics
 description: Bio-inspired Robotics involves the design and development of robots that mimic biological systems found in nature, such as animals and insects, to achieve advanced capabilities in movement, sensing, and adaptation.
 tags:
   - robot-types
-  - biomimetics
-  - nature-inspired
+  - bio-inspired-robotics
   - innovation
   - adaptability
   - locomotion
-  - sensing
+  - sensors
   - control
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: robot-type
+level: beginner
+subfield:
+  - bio-inspired
+status: draft
+author: Jordan_Smith
 date: 2025-04-29
-permalink: /bio-inspired-robotics/
 related:
   - "[[Locomotion]]"
   - "[[Sensors]]"
@@ -99,4 +100,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #automation WHERE contains(file.outlinks, [[Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Robots]])
+```

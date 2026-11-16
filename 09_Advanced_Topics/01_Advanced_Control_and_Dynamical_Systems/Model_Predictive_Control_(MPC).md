@@ -3,21 +3,22 @@ title: Model Predictive Control (MPC)
 description: Model Predictive Control (MPC) is an advanced control strategy that uses a model of the system to predict future behavior and optimize control actions over a finite horizon.
 tags:
   - control
-  - robotics
   - optimization
   - mpc
   - control-theory
   - dynamics
-  - engineering
-  - glossary-term
   - mechanism
   - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: method
+level: advanced
+subfield:
+  - control
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /model_predictive_control/
+prerequisites:
+  - "[[Control_Theory]]"
+  - "[[State_Space_Representation]]"
 related:
   - "[[Control_Theory]]"
   - "[[Optimal_Control]]"
@@ -112,4 +113,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #control OR #robotics WHERE contains(file.outlinks, [[Model_Predictive_Control_(MPC)]])
+LIST FROM "" WHERE contains(file.outlinks, [[Model_Predictive_Control_(MPC)]])
+```

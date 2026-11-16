@@ -11,11 +11,13 @@ tags:
   - stability
   - gait
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: robot-type
+level: beginner
+subfield:
+  - legged-humanoid
+status: draft
+author: Jordan_Smith
 date: 2025-04-29
-permalink: /legged_robots/
 related:
   - "[[Robots]]"
   - "[[Mobile_Robots]]"
@@ -68,7 +70,7 @@ Compared to [[Wheeled_Mobile_Robots]] or [[Tracked Robots]], legged robots offer
 
 Despite their advantages, legged robots present significant challenges:
 
-* **Control Complexity:** Managing the high [[Degrees_of_Freedom]] of multiple articulated limbs requires sophisticated [[Control Systems]] for coordination, balance, and [[Gait]] generation. Dynamic stability is particularly difficult.
+* **Control Complexity:** Managing the high [[Degrees_of_Freedom]] of multiple articulated limbs requires sophisticated [[Control_Systems|Control Systems]] for coordination, balance, and [[Gait]] generation. Dynamic stability is particularly difficult.
 * **[[Stability]]:** Maintaining balance is a primary challenge.
     * **Static Stability:** Possible for robots with 3+ legs forming a sufficiently wide support base relative to the center of gravity. Requires slow, deliberate gaits for robots with fewer than 6 legs.
     * **Dynamic Stability:** Required for bipeds, quadrupeds (in faster gaits), and monopods. Needs active control based on sensor feedback ([[IMU_Sensors]], joint encoders, foot contact sensors) to prevent falling. Concepts like the [[Zero Moment Point (ZMP)]] are crucial for analyzing and controlling dynamic balance in walking robots.
@@ -97,4 +99,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #automation WHERE contains(file.outlinks, [[Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Robots]])
+```

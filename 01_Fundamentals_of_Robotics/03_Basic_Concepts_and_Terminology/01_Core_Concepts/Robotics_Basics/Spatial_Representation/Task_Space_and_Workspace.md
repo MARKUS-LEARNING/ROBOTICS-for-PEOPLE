@@ -2,20 +2,20 @@
 title: Task Space and Workspace
 description: Task Space and Workspace are fundamental concepts in robotics, representing the operational environment and the capabilities of a robotic system to perform tasks within that environment.
 tags:
-  - robotics
   - kinematics
   - motion-planning
   - task-space
   - workspace
   - robot-design
-  - engineering
   - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
+type: concept
+level: beginner
+subfield:
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /task_space_and_workspace/
+last_reviewed: 2026-04-25
 related:
   - "[[Kinematics]]"
   - "[[Motion_Planning]]"
@@ -180,5 +180,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Task_Space_and_Workspace]])
+LIST FROM "" WHERE contains(file.outlinks, [[Task_Space_and_Workspace]])
 ```

@@ -2,19 +2,21 @@
 title: Links and Joints Definitions
 description: Links and Joints Definitions are fundamental concepts in robotics, describing the structural components and connections that enable motion in mechanical systems.
 tags:
-  - robotics
   - kinematics
-  - links
+  - references
   - joints
   - mechanism-design
-  - engineering
   - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
+type: component
+level: beginner
+subfield:
+  - foundations
+  - mechanisms-actuation
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /links_and_joints_definitions/
+last_reviewed: 2026-04-25
 related:
   - "[[Kinematics]]"
   - "[[Mechanism_Design]]"
@@ -183,5 +185,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Links_and_Joints_Definitions]])
+LIST FROM "" WHERE contains(file.outlinks, [[Links_and_Joints_Definitions]])
 ```

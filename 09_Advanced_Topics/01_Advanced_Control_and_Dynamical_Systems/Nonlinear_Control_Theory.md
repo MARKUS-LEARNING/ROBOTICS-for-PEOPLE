@@ -3,20 +3,22 @@ title: Nonlinear Control Theory
 description: Nonlinear Control Theory addresses the challenges of controlling systems with nonlinear dynamics, providing methods and strategies to stabilize and regulate such systems.
 tags:
   - control
-  - robotics
   - nonlinear-systems
   - control-theory
   - dynamics
-  - engineering
-  - glossary-term
   - mechanism
   - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: method
+level: advanced
+subfield:
+  - control
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /nonlinear_control_theory/
+prerequisites:
+  - "[[Control_Theory]]"
+  - "[[Adaptive_Control]]"
+  - "[[Robust_Control]]"
 related:
   - "[[Control_Theory]]"
   - "[[Dynamics]]"
@@ -106,4 +108,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #control OR #robotics WHERE contains(file.outlinks, [[Nonlinear_Control_Theory]])
+LIST FROM "" WHERE contains(file.outlinks, [[Nonlinear_Control_Theory]])
+```

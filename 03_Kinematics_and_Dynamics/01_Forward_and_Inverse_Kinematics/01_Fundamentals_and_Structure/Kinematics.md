@@ -2,19 +2,22 @@
 title: Kinematics
 description: The geometry of motion. Kinematics describes where things are and how they move, ignoring the forces that cause the motion. The first language a roboticist learns to speak.
 tags:
-  - robotics
   - kinematics
   - mechanics
   - motion
   - geometry
   - manipulator-arm
-type: Robotic Concept
-application: Geometry and motion of robotic systems
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: keystone
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /kinematics/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Kinematics_and_Dynamics]]"
+  - "[[Degrees_of_Freedom]]"
 related:
   - "[[Kinematics_and_Dynamics]]"
   - "[[Forward_Kinematics]]"
@@ -257,5 +260,5 @@ Three sticky concepts:
 ## Dataview
 
 ```dataview
-LIST FROM #kinematics OR #robotics WHERE contains(file.outlinks, [[Kinematics]])
+LIST FROM "" WHERE contains(file.outlinks, [[Kinematics]])
 ```

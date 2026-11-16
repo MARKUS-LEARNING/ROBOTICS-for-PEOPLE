@@ -8,11 +8,17 @@ tags:
   - mobile-robot
   - stability
   - robot-types
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /locomotion/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Kinematics_and_Dynamics]]"
+  - "[[Degrees_of_Freedom]]"
 related:
   - "[[Mobile_Robots]]"
   - "[[Wheeled_Mobile_Robots]]"

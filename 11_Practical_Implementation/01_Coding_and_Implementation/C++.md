@@ -2,19 +2,17 @@
 title: C++ (Robotics)
 description: C++ is a powerful programming language widely used in robotics for developing efficient and high-performance robotic systems. This entry explores C++'s features and applications in robotics, providing coding examples and best practices.
 tags:
-  - robotics
-  - c++
-  - programming-language
-  - software-development
-  - engineering
-  - glossary-term
-  - manipulator-arm
+  - cpp
+  - programming
+  - software-engineering
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: tool
+level: intermediate
+subfield:
+  - software
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /cplusplus_robotics/
 related:
   - "[[Programming]]"
   - "[[Software_Development]]"
@@ -112,4 +110,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #implementation  OR #coding WHERE contains(file.outlinks, [[C++]])
+LIST FROM "" WHERE contains(file.outlinks, [[C++]])
+```

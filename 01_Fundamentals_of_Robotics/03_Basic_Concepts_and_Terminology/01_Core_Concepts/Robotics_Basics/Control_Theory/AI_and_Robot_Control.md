@@ -2,19 +2,21 @@
 title: AI and Robot Control
 description: AI and Robot Control involve the integration of artificial intelligence techniques to enhance the autonomy, decision-making, and adaptability of robotic systems, enabling advanced functionalities such as autonomous navigation, task execution, and interaction with dynamic environments.
 tags:
-  - robotics
-  - AI
-  - robot-control
+  - artificial-intelligence
+  - control
   - machine-learning
   - autonomous-systems
-  - engineering
   - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
+type: concept
+level: beginner
+subfield:
+  - robot-learning
+  - control
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /ai_and_robot_control/
+last_reviewed: 2026-04-25
 related:
   - "[[Artificial_Intelligence]]"
   - "[[Machine_Learning]]"
@@ -261,5 +263,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #AI WHERE contains(file.outlinks, [[AI_and_Robot_Control]])
+LIST FROM "" WHERE contains(file.outlinks, [[AI_and_Robot_Control]])
 ```

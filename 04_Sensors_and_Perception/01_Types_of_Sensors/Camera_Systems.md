@@ -4,17 +4,21 @@ description: Imaging sensors that record incident light onto a 2D pixel array, p
 tags:
   - sensors
   - camera
-  - vision
+  - computer-vision
   - perception
   - calibration
   - stereo
   - rgb-d
-type: Sensor
-layout: default
-category: robotics
+type: component
+level: intermediate
+subfield:
+  - perception
+status: keystone
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /camera_systems/
+last_reviewed: 2026-04-27
+prerequisites:
+  - "[[Sensors]]"
 related:
   - "[[Sensors]]"
   - "[[Perception]]"

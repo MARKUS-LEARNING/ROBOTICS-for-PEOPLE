@@ -2,19 +2,18 @@
 title: Python for Robotics
 description: Python for Robotics involves using the Python programming language to develop control algorithms, process data, and interface with hardware, making it a versatile tool for robotic applications.
 tags:
-  - robotics
   - python
   - programming
-  - software-development
-  - engineering
-  - glossary-term
+  - software-engineering
   - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: tool
+level: intermediate
+subfield:
+  - software
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /python_for_robotics/
 related:
   - "[[Programming]]"
   - "[[Control_Algorithms]]"
@@ -86,4 +85,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #programming WHERE contains(file.outlinks, [[Python_for_Robotics]])
+LIST FROM "" WHERE contains(file.outlinks, [[Python_for_Robotics]])
+```

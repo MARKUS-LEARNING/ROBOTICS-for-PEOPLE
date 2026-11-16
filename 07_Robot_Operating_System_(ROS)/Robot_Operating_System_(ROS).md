@@ -1,20 +1,21 @@
 ---
 title: Robot Operating System (ROS)
 description: The Robot Operating System (ROS) is a flexible framework for writing robot software, providing the tools, libraries, and conventions that simplify the task of creating complex and robust robot behavior across a wide variety of robotic platforms.
+aliases:
+  - ROS
+  - ROS (Robot Operating System)
 tags:
-  - robotics
-  - robot-operating-system
-  - software
-  - control-systems
-  - engineering
-  - glossary-term
-  - manipulator-arm
+  - ros
+  - software-engineering
+  - control
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: overview
+level: intermediate
+subfield:
+  - software
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /robot_operating_system/
 related:
   - "[[Control_Systems]]"
   - "[[Robot_Control]]"
@@ -97,4 +98,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #control-systems WHERE contains(file.outlinks, [[Robot_Operating_System_(ROS)]])
+LIST FROM "" WHERE contains(file.outlinks, [[Robot_Operating_System_(ROS)]])
+```

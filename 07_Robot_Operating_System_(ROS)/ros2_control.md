@@ -3,19 +3,24 @@ title: ros2_control
 description: Explains ros2_control, the hardware abstraction and real-time control framework for ROS 2, covering the controller manager, hardware interfaces, controllers, and the resource manager that enables portable, modular robot control.
 tags:
   - ros2_control
-  - ROS2
+  - ros2
   - control
   - hardware-interface
   - real-time
   - robotics-software
   - middleware
-  - actuator
-  - joint-control
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+  - actuators
+type: tool
+level: intermediate
+subfield:
+  - software
+  - electronics-embedded
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /ros2_control/
+prerequisites:
+  - "[[ROS_2_Overview]]"
+  - "[[Robot_Operating_System_(ROS)]]"
 related:
   - "[[Robot_Operating_System_(ROS)]]"
   - "[[ROS_2_Overview]]"
@@ -23,7 +28,7 @@ related:
   - "[[MoveIt2]]"
   - "[[Control_Systems]]"
   - "[[PID_Controller]]"
-  - "[[Actuators]]"
+  - "[[Actuator]]"
   - "[[Joints]]"
   - "[[Trajectory_Planning]]"
   - "[[Gazebo_Simulator]]"
@@ -321,5 +326,5 @@ LIST FROM #ros2_control OR #control WHERE contains(file.outlinks, [[ros2_control
 ```
 
 ```dataview
-TABLE title, description FROM #ROS WHERE contains(file.tags, "ros2_control")
+TABLE title, description FROM #ros WHERE contains(file.tags, "ros2_control")
 ```

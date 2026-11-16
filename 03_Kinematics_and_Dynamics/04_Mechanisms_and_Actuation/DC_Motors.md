@@ -2,24 +2,29 @@
 title: DC Motors
 description: DC Motors are electrical machines that convert direct current electrical energy into mechanical motion, widely used in robotics for actuation and control.
 tags:
-  - component
-  - actuation
+  - components
+  - actuators
   - electrical
-  - robotics
   - mechatronics
   - control
-  - actuator
   - motion
   - kinematics
   - dynamics
   - mechanism
   - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
+type: component
+level: intermediate
+subfield:
+  - mechanisms-actuation
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /dc-motors/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Robot_Design]]"
+  - "[[Actuator]]"
+  - "[[Mechatronics]]"
 related:
   - "[[Electric_Motors]]"
   - "[[Actuator]]"
@@ -147,5 +152,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #component OR #actuation WHERE contains(file.outlinks, [[DC_Motors]])
+LIST FROM #components OR #actuators WHERE contains(file.outlinks, [[DC_Motors]])
 ```

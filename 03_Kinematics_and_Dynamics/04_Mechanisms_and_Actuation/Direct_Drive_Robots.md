@@ -2,18 +2,22 @@
 title: Direct Drive Robots
 description: Direct Drive Robots utilize motors directly connected to the driven components without intermediate gearing, offering high precision and responsiveness.
 tags:
-  - robotics
-  - actuation
+  - actuators
   - mechanics
   - control
   - design
-type: Robot Type
-application: High precision and responsive robotic systems
-layout: default
-category: robotics
+type: robot-type
+level: intermediate
+subfield:
+  - mechanisms-actuation
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /direct-drive-robots/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Robot_Design]]"
+  - "[[Actuator]]"
+  - "[[Mechatronics]]"
 related:
   - "[[Actuator]]"
   - "[[Servo_Motors]]"

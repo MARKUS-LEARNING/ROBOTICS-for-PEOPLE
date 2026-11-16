@@ -5,13 +5,19 @@ tags:
   - kinematics
   - dh-parameters
   - forward-kinematics
-  - manipulator
+  - manipulator-arm
   - convention
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: keystone
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /dh_parameters/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Forward_Kinematics]]"
+  - "[[Homogeneous_Transformation]]"
 related:
   - "[[Kinematics]]"
   - "[[Forward_Kinematics]]"

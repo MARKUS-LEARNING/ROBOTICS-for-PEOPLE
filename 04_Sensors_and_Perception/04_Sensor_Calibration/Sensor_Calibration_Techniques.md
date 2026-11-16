@@ -1,13 +1,39 @@
 ---
 title: Sensor Calibration Techniques
-description: "Explains the process and common techniques used for calibrating various robotic sensors, including intrinsic, extrinsic, and kinematic calibration."
-tags: [sensor, calibration, perception, estimation, accuracy, camera-calibration, imu-calibration, lidar-calibration, extrinsic-calibration, intrinsic-calibration, kinematic-calibration] 
-layout: default
-category: robotics
+description: Explains the process and common techniques used for calibrating various robotic sensors, including intrinsic, extrinsic, and kinematic calibration.
+tags:
+  - sensors
+  - calibration
+  - perception
+  - state-estimation
+  - accuracy
+  - camera-calibration
+  - imu-calibration
+  - lidar-calibration
+  - extrinsic-calibration
+  - intrinsic-calibration
+  - kinematic-calibration
+type: method
+level: intermediate
+subfield:
+  - perception
+status: reviewed
 author: Jordan_Smith
-date: 2025-04-28 # Updated date for revision
-permalink: /sensor_calibration_techniques/
-related: ["[[Sensor]]", "[[Perception]]", "[[Sensor_Fusion]]", "[[Camera_Systems]]", "[[LIDAR]]", "[[IMU_Sensors]]", "[[Kinematics]]", "[[Extrinsic Calibration]]", "[[Intrinsic Calibration]]", "[[Hand-Eye Calibration]]"] 
+date: 2025-04-28
+last_reviewed: 2026-04-27
+prerequisites:
+  - "[[Perception]]"
+related:
+  - "[[Sensors]]"
+  - "[[Perception]]"
+  - "[[Sensor_Fusion]]"
+  - "[[Camera_Systems]]"
+  - "[[LIDAR]]"
+  - "[[IMU_Sensors]]"
+  - "[[Kinematics]]"
+  - "[[Extrinsic Calibration]]"
+  - "[[Intrinsic Calibration]]"
+  - "[[Hand-Eye Calibration]]"
 ---
 
 # Sensor Calibration Techniques
@@ -96,4 +122,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ### List of Related Concepts
 ```dataview
-LIST FROM #robotics OR #navigation WHERE contains(file.outlinks, [[Sensor_Calibration_Techniques]])
+LIST FROM "" WHERE contains(file.outlinks, [[Sensor_Calibration_Techniques]])
+```

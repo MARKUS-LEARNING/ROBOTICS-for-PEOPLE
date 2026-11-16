@@ -2,15 +2,13 @@
 title: Vault Taxonomy Guide
 description: The organizational structure (folders, tags, linking) of the ROBOTICS-for-PEOPLE vault.
 tags:
-  - guide
-  - taxonomy
-  - organization
   - vault-meta
-layout: default
-category: robotics
+type: guide
+level: beginner
+status: reviewed
 author: Jordan_Smith
 date: 2026-04-23
-permalink: /vault_taxonomy_guide/
+last_reviewed: 2026-04-23
 related:
   - "[[How_to_Use_This_Vault]]"
   - "[[Robotics_Vault_Dashboard]]"
@@ -173,7 +171,11 @@ key_takeaways:
 python3 tools/vault.py stats            # notes, links, unresolved links, tags
 python3 tools/vault.py lint --verbose   # every note checked against tools/schema.yml and tools/tags.yml
 python3 tools/vault.py obsidian-check   # compare with Obsidian's own index (needs the Obsidian CLI)
+python3 tools/vault.py pages --write    # rebuild Subfield_Atlas, Frontier and Learning_Paths from the notes
+python3 tools/vault.py fix-links        # find links that misspell an existing note; --write repoints them
 ```
+
+The [[Subfield_Atlas]], [[Learning_Paths]] and [[Frontier]] are generated from every note's frontmatter. After adding or editing notes, run `pages --write` and commit the result; CI fails if they are out of date.
 
 `obsidian-check` uses the official [Obsidian CLI](https://help.obsidian.md/cli). It needs Obsidian 1.12+ running with this folder open as a vault, and Settings → General → Command line interface turned on. It checks that the tooling and Obsidian agree on every unresolved link and tag.
 

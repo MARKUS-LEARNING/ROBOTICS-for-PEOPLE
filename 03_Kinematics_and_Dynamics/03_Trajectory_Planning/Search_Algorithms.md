@@ -1,17 +1,23 @@
 ---
 title: Search Algorithms
-description: "Search Algorithms are fundamental techniques used to find specific information, solutions, or paths within a defined search space."
+description: Search Algorithms are fundamental techniques used to find specific information, solutions, or paths within a defined search space.
 tags:
   - algorithms
   - problem-solving
   - artificial-intelligence
   - optimization
   - computer-science
-layout: default
-category: algorithms
+type: method
+level: intermediate
+subfield:
+  - planning
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /search_algorithms/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Graph_Theory]]"
+  - "[[Heuristics]]"
 related:
   - "[[A*_Algorithm]]"
   - "[[Heuristics]]"
@@ -103,4 +109,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 - **List all related algorithms and techniques**:
   ```dataview
-  LIST FROM #Algorithms OR #Optimization WHERE contains(file.outlinks, [[Search_Algorithms]])
+  LIST FROM #algorithms OR #optimization WHERE contains(file.outlinks, [[Search_Algorithms]])
+```

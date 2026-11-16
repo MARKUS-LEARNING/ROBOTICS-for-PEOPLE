@@ -1,19 +1,20 @@
 ---
 title: Angular Momentum
-description: "Angular Momentum is a fundamental concept in rotational dynamics, representing the rotational analog of linear momentum and playing a crucial role in the analysis of rotating systems."
+description: Angular Momentum is a fundamental concept in rotational dynamics, representing the rotational analog of linear momentum and playing a crucial role in the analysis of rotating systems.
 tags:
-  - robotics
   - dynamics
   - physics
-  - rotational-motion
+  - rotation
   - inertia
-  - control-systems
-  - engineering
-layout: default
-category: robotics
+  - control
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /angular_momentum/
+last_reviewed: 2026-04-25
 related:
   - "[[Dynamics]]"
   - "[[Rigid_Body_Dynamics]]"
@@ -119,5 +120,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #dynamics OR #rotational-motion WHERE contains(file.outlinks, [[Angular_Momentum]])
+LIST FROM #dynamics OR #rotation WHERE contains(file.outlinks, [[Angular_Momentum]])
 ```

@@ -2,17 +2,18 @@
 title: Constraint_Analysis
 description: Constraint Analysis is a critical process in engineering and mathematical modeling that involves identifying and evaluating the limitations or constraints within a system to optimize performance and feasibility.
 tags:
-  - engineering
-  - analysis
   - constraints
   - optimization
   - systems-engineering
   - mathematical-modeling
-layout: default
-category: engineering
+type: concept
+level: beginner
+subfield:
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-09
-permalink: /constraint_analysis/
+last_reviewed: 2026-04-25
 related:
   - "[[Configuration_Space]]"
   - "[[Degrees_of_Freedom]]"
@@ -232,5 +233,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #engineering OR #analysis WHERE contains(file.outlinks, [[Constraint_Analysis]])
+LIST FROM "" WHERE contains(file.outlinks, [[Constraint_Analysis]])
 ```

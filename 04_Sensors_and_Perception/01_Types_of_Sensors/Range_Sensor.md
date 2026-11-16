@@ -2,18 +2,22 @@
 title: Range Sensor
 description: Range Sensors are devices used to measure the distance between the sensor and an object or surface, crucial for robotic navigation, obstacle detection, and mapping.
 tags:
-  - robotics
   - sensors
   - distance-measurement
   - navigation
   - obstacle-detection
   - mapping
   - automation
-layout: default
-category: robotics
+type: component
+level: intermediate
+subfield:
+  - perception
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /range_sensor/
+last_reviewed: 2026-04-27
+prerequisites:
+  - "[[Sensors]]"
 related:
   - "[[Sensors]]"
   - "[[LIDAR]]"
@@ -76,4 +80,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ### List of Related Concepts
 ```dataview
-LIST FROM #camera OR #sensor   WHERE contains(file.outlinks, [[Range_Sensor]])
+LIST FROM #camera OR #sensors   WHERE contains(file.outlinks, [[Range_Sensor]])
+```

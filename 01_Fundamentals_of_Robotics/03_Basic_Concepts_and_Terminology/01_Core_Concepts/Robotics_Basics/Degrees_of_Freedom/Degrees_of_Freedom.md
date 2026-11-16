@@ -3,7 +3,6 @@ title: Degrees of Freedom (DoF)
 description: Defines Degrees of Freedom (DoF) as the number of independent parameters required to specify the configuration of a mechanism or body.
 tags:
   - kinematics
-  - robotics
   - configuration-space
   - mobility
   - robot-design
@@ -11,11 +10,14 @@ tags:
   - mobile-robot
   - legged-robot
   - parallel-robot
-layout: default
-category: robotics
+type: overview
+level: beginner
+subfield:
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-27
-permalink: /degrees_of_freedom/
+last_reviewed: 2026-04-25
 related:
   - "[[Joints_(DoF)]]"
   - "[[Links_(DoF)]]"

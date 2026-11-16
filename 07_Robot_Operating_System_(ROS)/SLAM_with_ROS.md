@@ -2,21 +2,29 @@
 title: SLAM with ROS
 description: Covers the implementation of Simultaneous Localization and Mapping (SLAM) in ROS 2, including SLAM Toolbox, RTABMap, and LiDAR-based approaches, with sensor requirements, TF configuration, and integration with the Nav2 navigation stack.
 tags:
-  - SLAM
-  - ROS2
+  - slam
+  - ros2
   - localization
   - mapping
   - mobile-robot
-  - LIDAR
+  - lidar
   - robotics-software
   - navigation
   - sensor-fusion
   - occupancy-grid
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: tool
+level: intermediate
+subfield:
+  - software
+  - estimation-mapping
+  - mobile-robots
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /slam_with_ros/
+prerequisites:
+  - "[[LIDAR]]"
+  - "[[Sensor_Fusion]]"
+  - "[[Localization]]"
 related:
   - "[[Robot_Operating_System_(ROS)]]"
   - "[[ROS_2_Overview]]"
@@ -287,9 +295,9 @@ ros2 launch slam_toolbox online_async_launch.py use_sim_time:=true
 ## Dataview Plugin Features
 
 ```dataview
-LIST FROM #SLAM OR #mapping WHERE contains(file.outlinks, [[SLAM_with_ROS]])
+LIST FROM #slam OR #mapping WHERE contains(file.outlinks, [[SLAM_with_ROS]])
 ```
 
 ```dataview
-TABLE title, description FROM #ROS WHERE contains(file.tags, "SLAM")
+TABLE title, description FROM #ros WHERE contains(file.tags, "slam")
 ```

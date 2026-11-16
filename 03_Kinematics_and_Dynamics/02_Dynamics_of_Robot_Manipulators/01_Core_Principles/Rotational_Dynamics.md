@@ -2,18 +2,19 @@
 title: Rotational Dynamics
 description: Rotational Dynamics is the study of the motion of objects as they rotate around an axis, focusing on the relationship between torque, angular momentum, and angular acceleration.
 tags:
-  - robotics
   - dynamics
   - physics
-  - rotational-motion
+  - rotation
   - inertia
-  - control-systems
-  - engineering
-layout: default
-category: robotics
+  - control
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /rotational_dynamics/
+last_reviewed: 2026-04-25
 related:
   - "[[Dynamics]]"
   - "[[Rigid_Body_Dynamics]]"
@@ -114,5 +115,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #dynamics OR #rotational-motion WHERE contains(file.outlinks, [[Rotational_Dynamics]])
+LIST FROM #dynamics OR #rotation WHERE contains(file.outlinks, [[Rotational_Dynamics]])
 ```

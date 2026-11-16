@@ -1,18 +1,42 @@
 ---
 title: Reinforcement Learning for Robots
-description: "Explains Reinforcement Learning (RL) principles and their application to robotic control, including key concepts, algorithms, applications, and challenges."
-tags: [reinforcement-learning, machine-learning, AI, control-theory, robot-learning, policy-learning, deep-learning, MDP] 
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat 
-date: 2025-04-28 # Updated date for revision
-permalink: /reinforcement_learning_for_robots/
-related: ["[[Artificial_Intelligence]]", "[[Machine_Learning]]", "[[Deep_Learning]]", "[[Neural_Networks_in_Control]]", "[[Control_Theory]]", "[[Policy]]", "[[Value_Function]]", "[[Markov_Decision_Process_(MDP)]]", "[[Manipulation]]", "[[Locomotion]]", "[[Navigation]]", "[[Imitation_Learning]]", "[[AI_and_Robot_Control]]"] 
+description: Explains Reinforcement Learning (RL) principles and their application to robotic control, including key concepts, algorithms, applications, and challenges.
+tags:
+  - reinforcement-learning
+  - machine-learning
+  - artificial-intelligence
+  - control-theory
+  - robot-learning
+  - deep-learning
+  - mdp
+type: method
+level: intermediate
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
+date: 2025-04-28
+prerequisites:
+  - "[[Reinforcement_Learning]]"
+related:
+  - "[[Artificial_Intelligence]]"
+  - "[[Machine_Learning]]"
+  - "[[Deep_Learning]]"
+  - "[[Neural_Networks_in_Control]]"
+  - "[[Control_Theory]]"
+  - "[[Policy]]"
+  - "[[Value_Function]]"
+  - "[[Markov_Decision_Process_(MDP)]]"
+  - "[[Manipulation]]"
+  - "[[Locomotion]]"
+  - "[[Navigation]]"
+  - "[[Imitation_Learning]]"
+  - "[[AI_and_Robot_Control]]"
 ---
 
 # Reinforcement Learning (RL) for Robots
 
-**Reinforcement Learning (RL)** is a paradigm within [[Machine Learning]] where an agent (e.g., a robot) learns to achieve a goal in an environment by taking sequential actions and receiving feedback in the form of rewards or penalties. Unlike supervised learning, RL does not require labeled input-output pairs. Instead, the agent learns optimal behavior (a control [[Policy]]) through trial-and-error interaction, aiming to maximize its cumulative reward over time. RL is particularly relevant for robotics as it allows robots to acquire complex skills in situations where analytical models are difficult to derive or where adaptation to unknown environments is required.
+**Reinforcement Learning (RL)** is a paradigm within [[Machine_Learning|Machine Learning]] where an agent (e.g., a robot) learns to achieve a goal in an environment by taking sequential actions and receiving feedback in the form of rewards or penalties. Unlike supervised learning, RL does not require labeled input-output pairs. Instead, the agent learns optimal behavior (a control [[Policy]]) through trial-and-error interaction, aiming to maximize its cumulative reward over time. RL is particularly relevant for robotics as it allows robots to acquire complex skills in situations where analytical models are difficult to derive or where adaptation to unknown environments is required.
 
 ---
 
@@ -46,9 +70,9 @@ A fundamental challenge in RL is the **exploration vs. exploitation** trade-off:
 
 ---
 
-## [[Deep Learning|Deep]] Reinforcement Learning (DRL)
+## [[Deep_Learning|Deep]] Reinforcement Learning (DRL)
 
-DRL combines RL with [[Deep Learning]], using [[Neural Networks in Control|deep neural networks]] as powerful function approximators for the policy and/or value functions. This allows RL to handle high-dimensional state spaces (e.g., raw camera images) and action spaces (e.g., continuous joint torques) and learn highly complex, nonlinear policies. DRL is the driving force behind many recent successes of RL in robotics.
+DRL combines RL with [[Deep_Learning|Deep Learning]], using [[Neural_Networks_in_Control|deep neural networks]] as powerful function approximators for the policy and/or value functions. This allows RL to handle high-dimensional state spaces (e.g., raw camera images) and action spaces (e.g., continuous joint torques) and learn highly complex, nonlinear policies. DRL is the driving force behind many recent successes of RL in robotics.
 
 ---
 
@@ -70,7 +94,7 @@ RL and DRL are increasingly applied to challenging robotics problems:
 * **[[Manipulation]]:** Learning dexterous grasping in clutter, complex assembly tasks, tool use, handling deformable objects. Seminal work by Levine et al. demonstrated DRL for complex manipulation skills learned end-to-end. Zeng et al. used DRL for learning pushing/grasping synergies.
 * **[[Locomotion]]:** Learning dynamic walking gaits for bipedal and quadrupedal robots, agile flight control for drones.
 * **[[Navigation]]:** Learning obstacle avoidance policies, adaptive path following, autonomous exploration strategies for mobile robots.
-* **[[Human-Robot Interaction (HRI)|HRI]]:** Learning adaptive interaction behaviors based on human feedback or social cues.
+* **[[Human-Robot_Interaction|HRI]]:** Learning adaptive interaction behaviors based on human feedback or social cues.
 
 ---
 
@@ -96,4 +120,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #machine-learning WHERE contains(file.outlinks, [[Reinforcement_Learning_for_Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Reinforcement_Learning_for_Robots]])
+```

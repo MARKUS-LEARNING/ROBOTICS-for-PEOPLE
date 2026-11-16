@@ -2,18 +2,19 @@
 title: Manipulator Dynamics
 description: Manipulator Dynamics involves the study of the forces and motions of robotic manipulators, focusing on how they respond to external influences and control inputs.
 tags:
-  - robotics
   - dynamics
   - mechanics
   - control
-  - engineering
-type: Engineering Discipline
-application: Analysis of forces and motions in robotic manipulators
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /manipulator-dynamics/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Kinematics_and_Dynamics]]"
 related:
   - "[[Robot_Design]]"
   - "[[Kinematics_and_Dynamics]]"
@@ -88,5 +89,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ### List of Related Concepts
 ```dataview
-LIST FROM #control OR #robotics WHERE contains(file.outlinks, [[Manipulator_Dynamics]])
+LIST FROM "" WHERE contains(file.outlinks, [[Manipulator_Dynamics]])
 ```

@@ -1,19 +1,21 @@
 ---
 title: Joint Kinematics
-description: "Joint Kinematics focuses on the study of the motion of individual joints within a robotic system, describing how they contribute to the overall movement and positioning of the robot."
+description: Joint Kinematics focuses on the study of the motion of individual joints within a robotic system, describing how they contribute to the overall movement and positioning of the robot.
 tags:
-  - robotics
   - kinematics
   - mechanics
   - control
-  - engineering
-type: Robotic Concept
-application: Analysis of joint motion in robotic systems
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /joint-kinematics/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Kinematics_and_Dynamics]]"
+  - "[[Degrees_of_Freedom]]"
 related:
   - "[[Robot_Design]]"
   - "[[Kinematics_and_Dynamics]]"
@@ -108,5 +110,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ### List of Related Concepts
 ```dataview
-LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Joint_Kinematics]])
+LIST FROM "" WHERE contains(file.outlinks, [[Joint_Kinematics]])
 ```

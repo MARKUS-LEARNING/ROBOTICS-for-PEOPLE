@@ -1,21 +1,23 @@
 ---
 title: Biomaterials
-description: "Biomaterials are materials engineered to interact with biological systems for therapeutic or diagnostic purposes, often used in medical devices and tissue engineering."
+description: Biomaterials are materials engineered to interact with biological systems for therapeutic or diagnostic purposes, often used in medical devices and tissue engineering.
 tags:
   - materials
-  - biomedical
-  - engineering
+  - medical-robots
   - biocompatibility
   - implants
   - tissue-engineering
   - regenerative-medicine
-  - robotics
-  - healthcare
-layout: default
-category: biomedical
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: advanced
+subfield:
+  - mechanisms-actuation
+  - medical-robotics
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /biomaterials/
+prerequisites:
+  - "[[Robot_Design]]"
 related:
   - "[[Material_Science]]"
   - "[[Robot_Design]]"
@@ -131,4 +133,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #biomedical OR #engineering WHERE contains(file.outlinks, [[Biomaterials]])
+LIST FROM "" WHERE contains(file.outlinks, [[Biomaterials]])
+```

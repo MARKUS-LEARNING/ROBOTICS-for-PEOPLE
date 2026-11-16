@@ -2,22 +2,23 @@
 title: Control Systems Overview
 description: Provides an overview of Control Systems and Control Theory, explaining core concepts like feedback, stability, and common strategies used in robotics.
 tags:
-  - glossary-term
   - control-theory
-  - control-systems
-  - feedback
+  - control
+  - feedback-control
   - stability
-  - robot-control
-  - PID
-  - core-concept
+  - pid
   - dynamics
   - state-space
   - transfer-function
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: overview
+level: intermediate
+subfield:
+  - control
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /control_systems_overview/
+prerequisites:
+  - "[[Open_Loop_vs_Closed_Loop]]"
 related:
   - "[[Control_Theory]]"
   - "[[Feedback_Control]]"
@@ -31,7 +32,7 @@ related:
   - "[[Kinematics]]"
   - "[[Dynamics]]"
   - "[[Actuator]]"
-  - "[[Sensor]]"
+  - "[[Sensors]]"
   - "[[Glossary]]"
 ---
 
@@ -47,7 +48,7 @@ related:
 * **Controller**: An algorithm or device that calculates the necessary control inputs (e.g., motor torques/voltages) to drive the system towards a desired state or trajectory.
 * **Plant**: The physical system being controlled (e.g., the robot arm, mobile robot base).
 * **Control Input (u)**: Variables manipulated by the controller (e.g., [[Actuator]] commands).
-* **System Output (y) / State (x)**: Variables measured or estimated from the system ([[Sensor]] readings like joint angles, end-effector pose, contact forces).
+* **System Output (y) / State (x)**: Variables measured or estimated from the system ([[Sensors|Sensor]] readings like joint angles, end-effector pose, contact forces).
 * **Setpoint / Reference / Desired Trajectory ($y_d$, $x_d$)**: The target value or time-varying path the system output should follow.
 * **Error (e)**: The difference between the desired setpoint/trajectory and the actual measured output (e = $y_d - y$).
 * **[[Feedback_Control]] (Closed-Loop)**: The controller uses measurements of the *actual* system output (feedback) to calculate the error and continuously adjust the control input to reduce this error. This makes the system robust to disturbances and modeling inaccuracies.
@@ -179,4 +180,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #control-systems WHERE contains(file.outlinks, [[Robot_Control]])
+LIST FROM "" WHERE contains(file.outlinks, [[Robot_Control]])
+```

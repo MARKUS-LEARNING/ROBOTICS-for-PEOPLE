@@ -2,21 +2,23 @@
 title: Probabilistic Roadmaps
 description: Describes Probabilistic Roadmaps (PRM), a sampling-based motion planning algorithm that constructs a roadmap of the configuration space using random samples.
 tags:
-  - robotics
   - motion-planning
   - path-planning
   - algorithms
   - sampling
-  - probabilistic
-layout: default
-category: robotics
+  - probabilistic-robotics
+type: concept
+level: intermediate
+subfield:
+  - planning
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-03
-permalink: /probabilistic_roadmaps/
+last_reviewed: 2026-04-25
 related:
   - "[[Motion_Planning]]"
   - "[[Path_Planning_Algorithms]]"
-  - "[[ROBOTICS-for-EVERYONE/03_Kinematics_and_Dynamics/03_Trajectory_Planning/Configuration_Space]]"
+  - "[[Configuration_Space]]"
   - "[[Collision_Detection]]"
   - "[[Sampling-Based_Planning]]"
 ---
@@ -112,4 +114,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #motion-planning WHERE contains(file.outlinks, [[Probabilistic_Roadmaps]])
+LIST FROM "" WHERE contains(file.outlinks, [[Probabilistic_Roadmaps]])
+```

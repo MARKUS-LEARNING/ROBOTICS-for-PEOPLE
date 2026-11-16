@@ -2,18 +2,18 @@
 title: Compliance (Robotics)
 description: Compliance in robotics refers to the ability of a robotic system to yield or deform under applied forces, allowing for safe and adaptive interaction with the environment.
 tags:
-  - robotics
   - mechanics
   - control
-  - engineering
   - safety
-type: Concept
-application: Safe and adaptive interaction in robotic systems
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: concept
+level: intermediate
+subfield:
+  - control
+status: draft
+author: Jordan_Smith
 date: 2025-04-29
-permalink: /compliance-robotics/
+prerequisites:
+  - "[[Stiffness]]"
 related:
   - "[[Robot_Design]]"
   - "[[Mechatronics]]"
@@ -83,4 +83,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ### List of Related Concepts
 ```dataview
-LIST FROM #robotics OR #control-systems WHERE contains(file.outlinks, [[Compliance]])
+LIST FROM "" WHERE contains(file.outlinks, [[Compliance]])
+```

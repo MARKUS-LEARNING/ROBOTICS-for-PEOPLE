@@ -3,17 +3,19 @@ title: Power Density
 description: Defines Power Density and Specific Power (Power-to-Weight Ratio), explaining their significance in robotics, particularly for actuators and power sources.
 tags:
   - power-density
-  - specific-power
-  - power-to-weight
-  - actuator
+  - actuators
   - power-systems
   - performance-metric
   - robot-design
-layout: default
-category: robotics
+type: concept
+level: beginner
+subfield:
+  - electronics-embedded
+  - mechanisms-actuation
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /power_density/
+last_reviewed: 2026-04-25
 related:
   - "[[Power_Systems]]"
   - "[[Actuator]]"
@@ -33,11 +35,11 @@ A closely related and often more critical metric in robotics, especially for mob
 
 High power density and specific power are crucial performance metrics in robotics design for several reasons:
 
-* **[[Actuator|Actuators]]**: Actuators (like [[Electric_Motor|electric motors]], [[Hydraulic Actuators|hydraulic cylinders]]) with high specific power can produce large forces or torques quickly from a smaller, lighter package. This is essential for:
+* **[[Actuator|Actuators]]**: Actuators (like [[Electric_Motors|electric motors]], [[Hydraulic Actuators|hydraulic cylinders]]) with high specific power can produce large forces or torques quickly from a smaller, lighter package. This is essential for:
   * **Agility & Speed**: Enabling rapid movements in [[Manipulator_Arm|manipulator arms]] or dynamic [[Locomotion]] in [[Legged_Robots]] and [[Drones]].
   * **Payload Capacity**: Lighter actuators contribute less to the robot's overall weight, potentially allowing for a higher payload capacity.
   * **Miniaturization**: Critical for developing capable [[Nanorobots]].
-  * **Comparison**: [[Hydraulic_Systems|Hydraulic actuators]] generally offer very high specific power at the actuator, but the overall system specific power is reduced by the need for a bulky Hydraulic Power Unit (HPU). High-performance [[Electric_Motor|electric drives]] have significantly improved their specific power.
+  * **Comparison**: [[Hydraulic_Systems|Hydraulic actuators]] generally offer very high specific power at the actuator, but the overall system specific power is reduced by the need for a bulky Hydraulic Power Unit (HPU). High-performance [[Electric_Motors|electric drives]] have significantly improved their specific power.
 
 * **[[Power_Systems]]**: For energy sources like batteries or fuel cells:
   * **Specific Power ($W/kg$)**: Indicates how quickly the source can deliver energy. High specific power is needed for peak demands like fast acceleration or lifting heavy loads.
@@ -118,5 +120,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #power-density OR #specific-power WHERE contains(file.outlinks, [[Power_Density]])
+LIST FROM #power-density OR #power-density WHERE contains(file.outlinks, [[Power_Density]])
 ```

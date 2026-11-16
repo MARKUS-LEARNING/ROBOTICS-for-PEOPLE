@@ -2,20 +2,24 @@
 title: TF and Topic Architecture
 description: Explains the core ROS communication architecture based on asynchronous Topics and the TF (Transform) library for managing coordinate frames.
 tags:
-  - ROS
-  - TF
-  - topic
+  - ros
+  - tf
+  - topics
   - architecture
   - middleware
   - robotics-software
-  - coordinate-frame
-  - communication
+  - spatial-math
+  - communication-protocols
   - software-stack
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: tool
+level: intermediate
+subfield:
+  - software
+status: draft
+author: Jordan_Smith
 date: 2025-04-28
-permalink: /tf_and_topic_architecture/
+prerequisites:
+  - "[[Robot_Operating_System_(ROS)]]"
 related:
   - "[[Robot_Operating_System_(ROS)]]"
   - "[[Topics]]"
@@ -35,7 +39,7 @@ related:
 
 # TF and Topic Architecture in ROS
 
-The architecture of the [[ROS (Robot Operating System)]] is designed around distributed computation and communication. Two fundamental pillars of this architecture are the asynchronous message-passing system based on **[[Topics]]** and the **[[TF_and_Topic_Architecture|TF (Transform) library]]** for managing spatial relationships between different parts of the robot and its environment over time. Understanding how these two systems function and interact is crucial for developing and debugging ROS applications.
+The architecture of the [[Robot_Operating_System_(ROS)|ROS (Robot Operating System)]] is designed around distributed computation and communication. Two fundamental pillars of this architecture are the asynchronous message-passing system based on **[[Topics]]** and the **[[TF_and_Topic_Architecture|TF (Transform) library]]** for managing spatial relationships between different parts of the robot and its environment over time. Understanding how these two systems function and interact is crucial for developing and debugging ROS applications.
 
 ---
 
@@ -103,4 +107,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #control-systems WHERE contains(file.outlinks, [[Robot_Operating_System_(ROS)]])
+LIST FROM "" WHERE contains(file.outlinks, [[Robot_Operating_System_(ROS)]])
+```

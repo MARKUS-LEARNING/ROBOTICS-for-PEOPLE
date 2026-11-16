@@ -3,25 +3,27 @@ title: Ball Screw
 description: A Ball Screw is a mechanical linear actuator that translates rotational motion into linear motion with high efficiency and precision.
 tags:
   - mechanics
-  - robotics
-  - engineering
   - actuators
   - design
-  - component
+  - components
   - motion
   - kinematics
   - dynamics
   - mechanism
-  - manipulator-arm
-  - mobile-robot
   - mechatronics
-type: Mechanical Component
-application: Efficient and precise linear motion in mechanical systems
-layout: default
-category: robotics
+type: component
+level: intermediate
+subfield:
+  - mechanisms-actuation
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /ball-screw/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Robot_Design]]"
+  - "[[Actuator]]"
+  - "[[Mechatronics]]"
 related:
   - "[[Robot_Design]]"
   - "[[Mechatronics]]"
@@ -113,5 +115,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #mechanics OR #engineering WHERE contains(file.outlinks, [[Ball_Screw]])
+LIST FROM "" WHERE contains(file.outlinks, [[Ball_Screw]])
 ```

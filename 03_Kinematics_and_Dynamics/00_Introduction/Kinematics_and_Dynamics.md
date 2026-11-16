@@ -2,18 +2,19 @@
 title: Kinematics and Dynamics
 description: Chapter overview. Kinematics is the geometry of motion (where, how fast). Dynamics is the physics of motion (why, how forced). Together they are the language every robot mechanism is described in.
 tags:
-  - robotics
   - kinematics
   - dynamics
   - mechanics
-  - chapter-overview
-type: Chapter Overview
-application: Mechanics of robotic systems
-layout: default
-category: robotics
+type: overview
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: keystone
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /kinematics-and-dynamics/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Degrees_of_Freedom]]"
 related:
   - "[[Kinematics]]"
   - "[[Dynamics]]"
@@ -129,7 +130,7 @@ Together these two equations describe every serial-arm robot from a desktop SCAR
 
 ## How this chapter feeds the rest of the vault
 
-- **Robot Control** ([[Control_Theory]], [[PID_Control]], [[Model_Predictive_Control]]) — every controller is a feedback law on the dynamic model.
+- **Robot Control** ([[Control_Theory]], [[PID_Control]], [[Model_Predictive_Control_(MPC)|Model_Predictive_Control]]) — every controller is a feedback law on the dynamic model.
 - **AI / Machine Learning** ([[Reinforcement_Learning]], imitation learning) — policies output actions in joint or task space, decoded by kinematics.
 - **Sensors & Perception** — pose estimates from [[SLAM]] live in $SE(3)$, the same Lie group as kinematic transforms.
 - **ROS** — the `tf2` library and `URDF` description format codify exactly the kinematic-tree formalism described here.
@@ -149,5 +150,5 @@ Together these two equations describe every serial-arm robot from a desktop SCAR
 ## Dataview
 
 ```dataview
-LIST FROM #kinematics OR #dynamics OR #robotics WHERE contains(file.outlinks, [[Kinematics_and_Dynamics]])
+LIST FROM "" WHERE contains(file.outlinks, [[Kinematics_and_Dynamics]])
 ```

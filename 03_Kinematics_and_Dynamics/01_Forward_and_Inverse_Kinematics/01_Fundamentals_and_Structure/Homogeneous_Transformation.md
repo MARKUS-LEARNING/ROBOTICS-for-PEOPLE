@@ -2,18 +2,22 @@
 title: Homogeneous Transformation
 description: Homogeneous Transformation is a mathematical framework used to describe the position and orientation of objects in a unified manner, enabling the representation of translations and rotations in a single matrix.
 tags:
-  - robotics
   - mathematics
-  - homogeneous-transformation
+  - spatial-math
   - kinematics
-  - engineering
   - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+  - mathematics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /homogeneous_transformation/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Pose_Representation]]"
 related:
   - "[[Kinematics]]"
   - "[[Transformation_Matrices]]"
@@ -94,5 +98,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #mathematics WHERE contains(file.outlinks, [[Homogeneous_Transformation]])
+LIST FROM "" WHERE contains(file.outlinks, [[Homogeneous_Transformation]])
 ```

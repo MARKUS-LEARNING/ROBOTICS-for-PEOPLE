@@ -2,19 +2,20 @@
 title: Neural Networks
 description: Neural Networks are computational models inspired by the structure and function of the human brain, consisting of interconnected nodes (neurons) that process and transmit information, widely used in robotics for tasks such as pattern recognition and decision-making.
 tags:
-  - robotics
   - neural-networks
   - machine-learning
   - artificial-intelligence
-  - engineering
-  - glossary-term
-  - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: intermediate
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /neural_networks/
+prerequisites:
+  - "[[Machine_Learning]]"
+  - "[[Linear_Algebra_for_Robotics]]"
 related:
   - "[[Machine_Learning]]"
   - "[[Artificial_Intelligence]]"
@@ -101,4 +102,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #machine-learning WHERE contains(file.outlinks, [[Neural_Networks]])
+LIST FROM "" WHERE contains(file.outlinks, [[Neural_Networks]])
+```

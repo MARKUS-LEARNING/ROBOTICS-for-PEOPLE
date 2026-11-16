@@ -2,25 +2,29 @@
 title: Motion Planning
 description: Describes Motion Planning, the process of determining a sequence of valid configurations that moves a robot from an initial state to a goal state while avoiding obstacles and satisfying constraints.
 tags:
-  - robotics
   - motion-planning
   - path-planning
   - control-theory
   - algorithms
   - obstacle-avoidance
   - configuration-space
-layout: default
-category: robotics
+type: method
+level: intermediate
+subfield:
+  - planning
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-03
-permalink: /motion_planning/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Trajectory_Planning]]"
 related:
   - "[[Path_Planning_Algorithms]]"
   - "[[Kinematics]]"
   - "[[Dynamics]]"
   - "[[Trajectory_Planning]]"
   - "[[Obstacle_Avoidance]]"
-  - "[[ROBOTICS-for-EVERYONE/03_Kinematics_and_Dynamics/03_Trajectory_Planning/Configuration_Space]]"
+  - "[[Configuration_Space]]"
   - "[[Collision_Detection]]"
   - "[[Sampling-Based_Planning]]"
   - "[[Graph-Based_Planning]]"
@@ -89,5 +93,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #motion-planning OR #robotics WHERE contains(file.outlinks, [[Motion_Planning]])
+LIST FROM "" WHERE contains(file.outlinks, [[Motion_Planning]])
 ```

@@ -3,18 +3,22 @@ title: Composite Materials
 description: Composite Materials are engineered materials made from two or more constituent materials with significantly different physical or chemical properties, which remain separate and distinct on a macroscopic level within the finished structure.
 tags:
   - materials
-  - engineering
   - composites
-  - structure
+  - structures
   - design
-  - robotics
   - lightweight
-  - strength
-layout: default
-category: materials
-author: Jordan_Smith_and_le_Chat
+  - solid-mechanics
+type: concept
+level: advanced
+subfield:
+  - mechanisms-actuation
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /composite_materials/
+prerequisites:
+  - "[[Robot_Design]]"
+  - "[[Mechatronics]]"
+  - "[[Structural_Analysis]]"
 related:
   - "[[Material_Science]]"
   - "[[Robot_Design]]"
@@ -115,4 +119,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #materials OR #engineering WHERE contains(file.outlinks, [[Composite_Materials]])
+LIST FROM "" WHERE contains(file.outlinks, [[Composite_Materials]])
+```

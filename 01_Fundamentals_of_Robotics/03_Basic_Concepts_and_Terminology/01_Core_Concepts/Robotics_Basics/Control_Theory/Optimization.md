@@ -9,12 +9,14 @@ tags:
   - efficiency
   - modeling
   - computational-mathematics
-  - robotics
-layout: default
-category: mathematics
+type: method
+level: beginner
+subfield:
+  - mathematics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-09
-permalink: /optimization/
+last_reviewed: 2026-04-25
 related:
   - "[[Control_Theory]]"
   - "[[Feedback_Control]]"

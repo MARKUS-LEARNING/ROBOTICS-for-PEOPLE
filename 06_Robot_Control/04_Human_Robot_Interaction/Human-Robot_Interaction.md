@@ -1,20 +1,18 @@
 ---
 title: Human-Robot Interaction
-description: "Human-Robot Interaction (HRI) focuses on the study and design of interfaces and interactions between humans and robots, aiming to create intuitive, effective, and safe collaborations."
+description: Human-Robot Interaction (HRI) focuses on the study and design of interfaces and interactions between humans and robots, aiming to create intuitive, effective, and safe collaborations.
 tags:
-  - robotics
-  - interaction
-  - human factors
-  - engineering
+  - human-robot-interaction
+  - human-factors
   - design
   - psychology
-type: Interdisciplinary Field
-application: Designing effective interactions between humans and robots
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: intermediate
+subfield:
+  - human-robot-interaction
+status: draft
+author: Jordan_Smith
 date: 2025-04-29
-permalink: /human-robot-interaction/
 related:
   - "[[Robot_Design]]"
   - "[[Control_Systems]]"
@@ -86,4 +84,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ### List of Related Concepts
 ```dataview
-LIST FROM #robotics OR #control-systems WHERE contains(file.outlinks, [[Human-Robot_Interaction]])
+LIST FROM "" WHERE contains(file.outlinks, [[Human-Robot_Interaction]])
+```

@@ -2,20 +2,25 @@
 title: Stewart Platform
 description: The Stewart Platform is a type of parallel manipulator consisting of six prismatic joints connecting a base platform to a moving platform, providing six degrees of freedom.
 tags:
-  - robotics
-  - manipulator
+  - manipulator-arm
   - parallel-robot
   - kinematics
   - dynamics
   - mechanism
-  - actuator
+  - actuators
   - motion
-  - mobile-robot
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+  - mechanisms-actuation
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /stewart_platform/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Robot_Design]]"
+  - "[[Actuator]]"
 related:
   - "[[Parallel_Robots]]"
   - "[[Kinematics]]"
@@ -97,5 +102,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #manipulator WHERE contains(file.outlinks, [[Stewart_Platform]])
+LIST FROM "" WHERE contains(file.outlinks, [[Stewart_Platform]])
 ```

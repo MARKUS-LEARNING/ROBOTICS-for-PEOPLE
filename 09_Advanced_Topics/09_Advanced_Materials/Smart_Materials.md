@@ -1,26 +1,29 @@
 ---
 title: Smart Materials
-description: "Smart Materials are advanced materials designed to respond to external stimuli, such as stress, temperature, moisture, pH, electric, or magnetic fields, by changing their properties in a controlled manner."
+description: Smart Materials are advanced materials designed to respond to external stimuli, such as stress, temperature, moisture, pH, electric, or magnetic fields, by changing their properties in a controlled manner.
 tags:
   - materials
-  - engineering
   - smart-materials
   - responsive
-  - adaptive
+  - adaptive-control
   - sensors
   - actuators
-  - robotics
   - innovation
-layout: default
-category: materials
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: advanced
+subfield:
+  - mechanisms-actuation
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /smart_materials/
+prerequisites:
+  - "[[Robot_Design]]"
+  - "[[Actuator]]"
 related:
   - "[[Material_Science]]"
   - "[[Robot_Design]]"
   - "[[Actuator]]"
-  - "[[Sensor]]"
+  - "[[Sensors]]"
   - "[[Nanotechnology]]"
   - "[[Biomaterials]]"
   - "[[Composite_Materials]]"
@@ -134,4 +137,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #materials OR #engineering WHERE contains(file.outlinks, [[Smart_Materials]])
+LIST FROM "" WHERE contains(file.outlinks, [[Smart_Materials]])
+```

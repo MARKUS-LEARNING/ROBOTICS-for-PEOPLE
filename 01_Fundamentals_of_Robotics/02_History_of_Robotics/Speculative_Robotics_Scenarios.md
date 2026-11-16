@@ -3,18 +3,24 @@ title: Speculative Robotics Scenarios
 description: Exploring potential long-term futures and thought experiments related to advanced robotics, artificial intelligence, and their societal impact.
 tags:
   - speculative-robotics
-  - future-studies
+  - future-of-robotics
   - science-fiction
-  - AI-safety
-  - AGI
+  - ai-safety
+  - agi
   - transhumanism
-  - robot-ethics
-  - robotics-future
-layout: default
-category: robotics
+  - ethics
+type: concept
+level: beginner
+subfield:
+  - frontiers
+  - history-future
+  - ethics-society
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /speculative_robotics_scenarios/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[History_of_Robotics]]"
 related:
   - "[[Future_Trends_2025-2035]]"
   - "[[Robot_Ethics_and_Policy_Debates]]"
@@ -24,7 +30,7 @@ related:
 
 # Speculative Robotics Scenarios
 
-Speculative robotics involves exploring potential long-term trajectories (decades to centuries) for the development and societal integration of robots and [[Artificial Intelligence (AI)|AI]]. These scenarios are not firm predictions but rather thought experiments based on extrapolating current [[Future_Trends_2025-2035|trends]], considering theoretical possibilities, and often drawing inspiration from science fiction. Their value lies in stimulating discussion about desirable futures, potential risks, guiding research priorities, and informing [[Robot_Ethics_and_Policy_Debates|ethical and policy considerations]].
+Speculative robotics involves exploring potential long-term trajectories (decades to centuries) for the development and societal integration of robots and [[Artificial_Intelligence|AI]]. These scenarios are not firm predictions but rather thought experiments based on extrapolating current [[Future_Trends_2025-2035|trends]], considering theoretical possibilities, and often drawing inspiration from science fiction. Their value lies in stimulating discussion about desirable futures, potential risks, guiding research priorities, and informing [[Robot_Ethics_and_Policy_Debates|ethical and policy considerations]].
 
 ---
 
@@ -83,5 +89,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Speculative_Robotics_Scenarios]])
+LIST FROM "" WHERE contains(file.outlinks, [[Speculative_Robotics_Scenarios]])
 ```

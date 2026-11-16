@@ -2,19 +2,22 @@
 title: Rotational Degrees of Freedom
 description: Rotational Degrees of Freedom refer to the number of independent rotational motions a mechanical system can undergo, crucial for understanding and designing robotic systems with specific motion capabilities.
 tags:
-  - robotics
   - kinematics
   - degrees-of-freedom
-  - rotational-motion
+  - rotation
   - mechanism-design
-  - engineering
   - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
+type: concept
+level: beginner
+subfield:
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /rotational_degrees_of_freedom/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Degrees_of_Freedom]]"
 related:
   - "[[Kinematics]]"
   - "[[Degrees_of_Freedom]]"
@@ -256,5 +259,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Rotational_Degrees_of_Freedom]])
+LIST FROM "" WHERE contains(file.outlinks, [[Rotational_Degrees_of_Freedom]])
 ```

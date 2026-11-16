@@ -2,20 +2,18 @@
 title: Decision Trees and Rule-Based Systems
 description: Decision Trees and Rule-Based Systems are techniques used in robotics for making decisions and controlling behaviors based on structured rules and learned patterns, enabling tasks such as classification and control.
 tags:
-  - robotics
   - decision-trees
   - rule-based-systems
   - machine-learning
-  - control-systems
-  - engineering
-  - glossary-term
-  - manipulator-arm
+  - control
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: intermediate
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /decision_trees_and_rule_based_systems/
 related:
   - "[[Machine_Learning]]"
   - "[[Control_Systems]]"
@@ -95,4 +93,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #machine-learning WHERE contains(file.outlinks, [[Decision_Trees_and_Rule-Based_Systems]])
+LIST FROM "" WHERE contains(file.outlinks, [[Decision_Trees_and_Rule-Based_Systems]])
+```

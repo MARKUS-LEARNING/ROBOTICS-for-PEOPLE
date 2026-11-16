@@ -3,24 +3,28 @@ title: Backlash
 description: Backlash refers to the play or clearance between mating parts in a mechanical system, often resulting in a delay or inaccuracy in motion transmission.
 tags:
   - mechanics
-  - engineering
-  - robotics
   - precision
   - control
   - design
-  - component
+  - components
   - motion
   - kinematics
   - dynamics
   - mechanism
   - manipulator-arm
-  - mobile-robot
   - mechatronics
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - mechanisms-actuation
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /backlash/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Robot_Design]]"
+  - "[[Actuator]]"
+  - "[[Mechatronics]]"
 related:
   - "[[Actuator]]"
   - "[[Links]]"
@@ -142,5 +146,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #mechanics OR #engineering WHERE contains(file.outlinks, [[Backlash]])
+LIST FROM "" WHERE contains(file.outlinks, [[Backlash]])
 ```

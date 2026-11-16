@@ -2,18 +2,24 @@
 title: Mapping
 description: The process of building a representation of the environment from sensor data so a robot can plan, navigate, and reason about it. The taxonomy of map types — occupancy grids, point clouds, feature maps, topological graphs, semantic and HD maps — and the algorithms that build each.
 tags:
-  - robotics
   - mapping
   - perception
   - slam
   - occupancy-grid
   - point-cloud
   - mobile-robot
-layout: default
-category: robotics
+type: overview
+level: intermediate
+subfield:
+  - estimation-mapping
+  - perception
+status: keystone
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /mapping/
+last_reviewed: 2026-04-27
+prerequisites:
+  - "[[Sensors]]"
+  - "[[Localization]]"
 related:
   - "[[Localization]]"
   - "[[SLAM]]"
@@ -199,5 +205,5 @@ These representations are differentiable end-to-end with the rest of the percept
 ## Dataview
 
 ```dataview
-LIST FROM #mapping OR #robotics WHERE contains(file.outlinks, [[Mapping]])
+LIST FROM "" WHERE contains(file.outlinks, [[Mapping]])
 ```

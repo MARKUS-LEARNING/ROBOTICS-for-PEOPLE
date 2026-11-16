@@ -2,19 +2,21 @@
 title: Analytical IK Solutions
 description: Analytical IK Solutions refer to the mathematical methods used to solve the inverse kinematics problem, determining the joint configurations required to achieve a desired end-effector pose.
 tags:
-  - robotics
   - kinematics
   - inverse-kinematics
   - control
-  - engineering
   - mechanism
   - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
+type: method
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /analytical_ik_solutions/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Workspace_Analysis]]"
 related:
   - "[[Kinematics]]"
   - "[[Dynamics]]"
@@ -84,5 +86,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Analytical_IK_Solutions]])
+LIST FROM "" WHERE contains(file.outlinks, [[Analytical_IK_Solutions]])
 ```

@@ -2,19 +2,16 @@
 title: Course Notes Collection
 description: A central index and guide for organizing notes taken from robotics courses, tutorials, textbooks, and workshops.
 tags:
-  - index
-  - notes
+  - vault-meta
   - courses
-  - learning
-  - meta
-  - tutorial
-  - labs
-  - projects
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+  - education
+type: reference
+level: beginner
+subfield:
+  - creative-education
+status: draft
+author: Jordan_Smith
 date: 2025-04-29
-permalink: /course_notes_collection/
 related:
   - "[[MOOCs_and_Courses]]"
   - "[[Resources_Index]]"

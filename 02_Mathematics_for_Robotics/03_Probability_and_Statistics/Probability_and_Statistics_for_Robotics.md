@@ -6,14 +6,15 @@ tags:
   - probability
   - statistics
   - bayesian-inference
-  - estimation
-  - robotics
-  - foundations
-layout: default
-category: mathematics
+  - state-estimation
+type: concept
+level: intermediate
+subfield:
+  - mathematics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /probability_and_statistics_for_robotics/
+last_reviewed: 2026-04-25
 related:
   - "[[Bayesian_Inference]]"
   - "[[Kalman_Filter]]"

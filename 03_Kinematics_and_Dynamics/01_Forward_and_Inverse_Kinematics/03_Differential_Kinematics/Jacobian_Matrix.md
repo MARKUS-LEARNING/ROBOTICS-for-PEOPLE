@@ -4,16 +4,22 @@ description: The matrix of partial derivatives that maps joint velocities to end
 tags:
   - kinematics
   - jacobian
-  - manipulator
+  - manipulator-arm
   - velocity
-  - force
+  - forces
   - singularities
   - control
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: keystone
 author: Jordan_Smith
 date: 2025-04-28
-permalink: /jacobian_matrix/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Forward_Kinematics]]"
+  - "[[Linear_Algebra_for_Robotics]]"
 related:
   - "[[Kinematics]]"
   - "[[Forward_Kinematics]]"

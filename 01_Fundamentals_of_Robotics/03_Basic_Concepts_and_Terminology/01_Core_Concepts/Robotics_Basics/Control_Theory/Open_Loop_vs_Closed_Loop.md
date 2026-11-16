@@ -2,20 +2,20 @@
 title: Open Loop vs Closed Loop
 description: Open Loop vs Closed Loop are fundamental control concepts in robotics, representing two distinct approaches to controlling systems, with and without feedback.
 tags:
-  - robotics
   - control-theory
   - open-loop
-  - closed-loop
-  - feedback
+  - feedback-control
   - system-design
-  - engineering
   - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
+type: concept
+level: beginner
+subfield:
+  - control
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /open_loop_vs_closed_loop/
+last_reviewed: 2026-04-25
 related:
   - "[[Control_Theory]]"
   - "[[Feedback_Control]]"
@@ -291,5 +291,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #control-theory WHERE contains(file.outlinks, [[Open_Loop_vs_Closed_Loop]])
+LIST FROM "" WHERE contains(file.outlinks, [[Open_Loop_vs_Closed_Loop]])
 ```

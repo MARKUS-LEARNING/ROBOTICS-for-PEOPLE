@@ -6,13 +6,20 @@ tags:
   - manipulability
   - jacobian
   - dexterity
-  - manipulator
+  - manipulator-arm
   - singularities
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+  - manipulation
+status: keystone
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /manipulability/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Jacobian_Matrix]]"
+  - "[[Singularities]]"
 related:
   - "[[Kinematics]]"
   - "[[Jacobian_Matrix]]"

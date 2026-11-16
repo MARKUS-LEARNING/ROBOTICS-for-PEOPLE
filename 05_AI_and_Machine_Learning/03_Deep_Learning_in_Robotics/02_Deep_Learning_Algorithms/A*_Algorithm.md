@@ -1,19 +1,24 @@
 ---
 title: A* Algorithm
-description: "The A* Algorithm is a popular pathfinding and graph traversal algorithm used to find the shortest path between nodes in a graph, commonly used in robotics for path planning."
+description: The A* Algorithm is a popular pathfinding and graph traversal algorithm used to find the shortest path between nodes in a graph, commonly used in robotics for path planning.
 tags:
-  - robotics
   - path-planning
   - algorithms
   - graph-traversal
   - navigation
-  - control-systems
+  - control
   - automation
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: method
+level: intermediate
+subfield:
+  - planning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /a_star_algorithm/
+prerequisites:
+  - "[[Graph_Theory]]"
+  - "[[Heuristics]]"
+  - "[[Dijkstra's_Algorithm]]"
 related:
   - "[[Path_Planning]]"
   - "[[Dijkstra's_Algorithm]]"
@@ -115,4 +120,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #deep-learning WHERE contains(file.outlinks, [[Deep_Learning_in_Robotics]])
+LIST FROM "" WHERE contains(file.outlinks, [[Deep_Learning_in_Robotics]])
+```

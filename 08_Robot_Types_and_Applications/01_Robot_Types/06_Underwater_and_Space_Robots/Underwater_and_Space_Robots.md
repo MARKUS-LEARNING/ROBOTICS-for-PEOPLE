@@ -3,20 +3,21 @@ title: Underwater and Space Robots
 description: Overview of robotic systems designed for operation in extreme underwater and space environments, covering types (ROVs, AUVs, Rovers, Orbital Arms), technologies, applications, and challenges.
 tags:
   - robot-types
-  - underwater-robot
-  - space-robot
-  - AUV
-  - ROV
+  - underwater-robotics
+  - space-robotics
   - rover
-  - orbital-robot
   - extreme-environments
   - exploration
   - field-robotics
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: robot-type
+level: beginner
+subfield:
+  - marine-robotics
+  - space-robotics
+  - field-robotics
+status: draft
+author: Jordan_Smith
 date: 2025-04-28
-permalink: /underwater_and_space_robots/
 related:
   - "[[Robots]]"
   - "[[Mobile_Robots]]"
@@ -91,4 +92,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #automation WHERE contains(file.outlinks, [[Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Robots]])
+```

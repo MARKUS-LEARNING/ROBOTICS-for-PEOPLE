@@ -2,20 +2,28 @@
 title: MoveIt 2
 description: Covers MoveIt 2, the leading motion planning framework for ROS 2, including its planning pipeline, SRDF configuration, collision checking, kinematics solvers, and integration with ros2_control for robot arm manipulation.
 tags:
-  - MoveIt2
+  - moveit
   - motion-planning
-  - ROS2
+  - ros2
   - manipulation
   - kinematics
   - collision-detection
   - path-planning
   - robotics-software
   - manipulator-arm
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: tool
+level: intermediate
+subfield:
+  - software
+  - planning
+  - manipulation
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /moveit2/
+prerequisites:
+  - "[[ROS_2_Overview]]"
+  - "[[Robot_Operating_System_(ROS)]]"
+  - "[[Path_Planning]]"
 related:
   - "[[Robot_Operating_System_(ROS)]]"
   - "[[ROS_2_Overview]]"
@@ -322,5 +330,5 @@ LIST FROM #motion-planning OR #manipulation WHERE contains(file.outlinks, [[Move
 ```
 
 ```dataview
-TABLE title, description FROM #ROS WHERE contains(file.tags, "MoveIt2")
+TABLE title, description FROM #ros WHERE contains(file.tags, "moveit")
 ```

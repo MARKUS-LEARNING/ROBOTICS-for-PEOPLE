@@ -4,17 +4,19 @@ description: Graph Theory is a branch of mathematics studying graph structures, 
 tags:
   - mathematics
   - algorithms
-  - networks
+  - communication-protocols
   - computer-science
   - discrete-mathematics
   - optimization
-  - robotics
   - path-planning
-layout: default
-category: mathematics
+type: concept
+level: beginner
+subfield:
+  - mathematics
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /graph_theory/
+last_reviewed: 2026-04-25
 related:
   - "[[Shortest_Path]]"
   - "[[Dijkstra's_Algorithm]]"
@@ -250,5 +252,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 - **List all related algorithms and concepts**:
   ```dataview
-  LIST FROM #Algorithms OR #Mathematics WHERE contains(file.outlinks, [[Graph_Theory]])
+  LIST FROM #algorithms OR #mathematics WHERE contains(file.outlinks, [[Graph_Theory]])
   ```

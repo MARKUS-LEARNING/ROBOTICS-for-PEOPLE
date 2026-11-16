@@ -116,7 +116,7 @@ synonyms:
   autonomous: autonomous-systems
   autonomy: autonomous-systems
   # AI and learning
-  learning: machine-learning
+  learning: education          # in this vault "learning" tags learning resources (ch12, ch13)
   advanced-ai-learning: robot-learning
   policy-learning: robot-learning
   probabilistic: probabilistic-robotics
@@ -188,7 +188,6 @@ synonyms:
   bibliography: references
   literature: references
   reading-list: references
-  links: references
   courses: courses
   # vault meta
   meta: vault-meta
@@ -306,6 +305,7 @@ vocabulary:
   - configuration
   - configuration-space
   - constraints
+  - contributing
   - control
   - control-theory
   - convention
@@ -410,6 +410,7 @@ vocabulary:
   - knowledge-representation
   - lagrangian-dynamics
   - launch
+  - learning-paths
   - legged-robot
   - lidar
   - lidar-calibration

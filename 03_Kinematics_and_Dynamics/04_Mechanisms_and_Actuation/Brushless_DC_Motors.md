@@ -2,24 +2,28 @@
 title: Brushless DC Motors
 description: Brushless DC Motors (BLDC) are electric motors that use electronic commutation instead of brushes, offering higher efficiency, reliability, and longevity compared to brushed motors.
 tags:
-  - component
-  - actuation
+  - components
+  - actuators
   - electrical
-  - robotics
   - mechatronics
   - control
-  - actuator
   - motion
   - kinematics
   - dynamics
   - mechanism
-  - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
+type: component
+level: intermediate
+subfield:
+  - mechanisms-actuation
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /brushless-dc-motors/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Robot_Design]]"
+  - "[[Actuator]]"
+  - "[[Mechatronics]]"
 related:
   - "[[Electric_Motors]]"
   - "[[DC_Motors]]"
@@ -138,5 +142,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #component OR #actuation WHERE contains(file.outlinks, [[Brushless_DC_Motors]])
+LIST FROM #components OR #actuators WHERE contains(file.outlinks, [[Brushless_DC_Motors]])
 ```

@@ -2,20 +2,17 @@
 title: Medical Robots
 description: Medical Robots are specialized robotic systems designed to assist in healthcare settings, performing tasks such as surgery, rehabilitation, and patient care, enhancing the precision, efficiency, and outcomes of medical procedures.
 tags:
-  - robotics
   - medical-robots
-  - healthcare
   - surgery
   - rehabilitation
-  - engineering
-  - glossary-term
   - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: robot-type
+level: beginner
+subfield:
+  - medical-robotics
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /medical_robots/
 related:
   - "[[Healthcare]]"
   - "[[Surgery]]"
@@ -91,4 +88,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #healthcare WHERE contains(file.outlinks, [[Medical_Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Medical_Robots]])
+```

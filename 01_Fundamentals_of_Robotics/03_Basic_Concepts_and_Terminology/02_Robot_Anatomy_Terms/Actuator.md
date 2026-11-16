@@ -2,22 +2,26 @@
 title: Actuator
 description: "Defines Actuator: A fundamental component that converts stored energy or a control signal into physical motion or force, enabling robots (both manipulators and mobile robots) to move and interact with their environment."
 tags:
-  - component
+  - components
   - motion
   - control
   - hardware
   - electrical
-  - hydraulic
-  - pneumatic
+  - hydraulics
+  - pneumatics
   - mechanism
   - mobile-robot
   - manipulator-arm
   - mechatronics
-layout: default
-category: robotics
+type: component
+level: beginner
+subfield:
+  - foundations
+  - mechanisms-actuation
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /actuator/
+last_reviewed: 2026-04-25
 related:
   - "[[Electric_Motors]]"
   - "[[Mechatronics]]"
@@ -110,9 +114,9 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 - **List all related components and concepts**:
   ```dataview
-  LIST FROM #component OR #mechatronics WHERE contains(file.outlinks, [[Actuator]])
+  LIST FROM #components OR #mechatronics WHERE contains(file.outlinks, [[Actuator]])
   ```
 
 ```dataview
-TABLE file.link AS "Note" FROM #RobotDesign
+TABLE file.link AS "Note" FROM #robotdesign
 ```

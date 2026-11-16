@@ -2,18 +2,21 @@
 title: Lagrangian Dynamics
 description: Lagrangian Dynamics is a framework used to model and analyze the motion of mechanical systems, providing a comprehensive approach to understanding forces and torques in robotic mechanisms.
 tags:
-  - robotics
   - dynamics
   - lagrangian-dynamics
   - control-theory
-  - engineering
   - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /lagrangian_dynamics/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Optimization]]"
 related:
   - "[[Dynamics]]"
   - "[[Control_Theory]]"
@@ -113,5 +116,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #dynamics WHERE contains(file.outlinks, [[Lagrangian_Dynamics]])
+LIST FROM "" WHERE contains(file.outlinks, [[Lagrangian_Dynamics]])
 ```

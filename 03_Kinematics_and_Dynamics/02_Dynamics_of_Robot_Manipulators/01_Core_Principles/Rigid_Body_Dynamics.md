@@ -2,18 +2,19 @@
 title: Rigid Body Dynamics
 description: Rigid Body Dynamics is the study of the motion of rigid bodies under the influence of forces and torques, focusing on the relationship between motion and external influences.
 tags:
-  - robotics
   - dynamics
   - rigid-body
   - motion
   - physics
-  - engineering
-  - control-systems
-layout: default
-category: robotics
+  - control
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /rigid_body_dynamics/
+last_reviewed: 2026-04-25
 related:
   - "[[Dynamics]]"
   - "[[Newton-Euler_Equations]]"
@@ -21,7 +22,7 @@ related:
   - "[[Inertia]]"
   - "[[Momentum]]"
   - "[[Forces]]"
-  - "[[Torques]]"
+  - "[[Torque]]"
   - "[[Manipulator_Dynamics]]"
 ---
 
@@ -113,5 +114,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #dynamics OR #rotational-motion WHERE contains(file.outlinks, [[Rigid_Body_Dynamics]])
+LIST FROM #dynamics OR #rotation WHERE contains(file.outlinks, [[Rigid_Body_Dynamics]])
 ```

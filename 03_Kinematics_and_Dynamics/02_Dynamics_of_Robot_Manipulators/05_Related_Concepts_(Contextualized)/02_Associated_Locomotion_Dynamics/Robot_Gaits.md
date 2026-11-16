@@ -2,21 +2,23 @@
 title: Robot Gaits
 description: Robot Gaits refer to the patterns of leg or wheel movement that enable robots to achieve locomotion, particularly in legged robots.
 tags:
-  - robotics
   - locomotion
   - mechanics
   - control
-  - engineering
   - kinematics
   - dynamics
   - mechanism
-  - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /robot-gaits/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Kinematics_and_Dynamics]]"
 related:
   - "[[Robot_Design]]"
   - "[[Mechatronics]]"
@@ -113,5 +115,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #locomotion WHERE contains(file.outlinks, [[Robot_Gaits]])
+LIST FROM "" WHERE contains(file.outlinks, [[Robot_Gaits]])
 ```

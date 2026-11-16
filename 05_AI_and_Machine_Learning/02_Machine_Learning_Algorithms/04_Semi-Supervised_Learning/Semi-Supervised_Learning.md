@@ -2,19 +2,20 @@
 title: Semi-Supervised Learning
 description: Semi-Supervised Learning is a machine learning approach that combines labeled and unlabeled data to train models, leveraging the strengths of both supervised and unsupervised learning to improve performance and generalization.
 tags:
-  - robotics
   - semi-supervised-learning
   - machine-learning
   - artificial-intelligence
-  - engineering
-  - glossary-term
-  - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: method
+level: intermediate
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /semi-supervised_learning/
+prerequisites:
+  - "[[Supervised_Learning]]"
+  - "[[Unsupervised_Learning]]"
 related:
   - "[[Machine_Learning]]"
   - "[[Supervised_Learning]]"
@@ -91,4 +92,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #machine-learning WHERE contains(file.outlinks, [[Semi-Supervised_Learning]])
+LIST FROM "" WHERE contains(file.outlinks, [[Semi-Supervised_Learning]])
+```

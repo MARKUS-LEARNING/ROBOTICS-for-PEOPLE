@@ -2,15 +2,13 @@
 title: How to Use This Vault
 description: A guide to navigating, contributing to, and enhancing the ROBOTICS-for-PEOPLE Obsidian vault.
 tags:
-  - guide
   - vault-meta
-  - usage
-  - help
-layout: default
-category: robotics
+type: guide
+level: beginner
+status: reviewed
 author: Jordan_Smith
 date: 2026-04-23
-permalink: /how_to_use_this_vault/
+last_reviewed: 2026-04-23
 related:
   - "[[Vault_Taxonomy_Guide]]"
   - "[[Robotics_Vault_Dashboard]]"

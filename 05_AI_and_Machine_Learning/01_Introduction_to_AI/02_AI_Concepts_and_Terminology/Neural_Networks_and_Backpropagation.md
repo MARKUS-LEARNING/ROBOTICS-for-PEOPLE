@@ -2,20 +2,21 @@
 title: Neural Networks and Backpropagation
 description: Neural Networks and Backpropagation are fundamental concepts in machine learning, involving the use of interconnected nodes to model complex patterns and the algorithm for training these networks by minimizing the error.
 tags:
-  - robotics
   - neural-networks
   - backpropagation
   - machine-learning
   - artificial-intelligence
-  - engineering
-  - glossary-term
-  - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: method
+level: intermediate
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /neural_networks_and_backpropagation/
+prerequisites:
+  - "[[Neural_Networks]]"
+  - "[[Calculus_for_Robotics]]"
 related:
   - "[[Machine_Learning]]"
   - "[[Artificial_Intelligence]]"
@@ -102,4 +103,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #machine-learning WHERE contains(file.outlinks, [[Neural_Networks_and_Backpropagation]])
+LIST FROM "" WHERE contains(file.outlinks, [[Neural_Networks_and_Backpropagation]])
+```

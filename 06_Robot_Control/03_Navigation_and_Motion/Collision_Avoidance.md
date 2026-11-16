@@ -1,19 +1,21 @@
 ---
 title: Collision Avoidance
-description: "Collision Avoidance in robotics involves strategies and algorithms designed to prevent robots from colliding with obstacles or other entities in their environment."
+description: Collision Avoidance in robotics involves strategies and algorithms designed to prevent robots from colliding with obstacles or other entities in their environment.
 tags:
-  - robotics
   - safety
   - control
   - navigation
-  - engineering
-type: Robotic Concept
-application: Preventing collisions in robotic systems
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: intermediate
+subfield:
+  - mobile-robots
+  - planning
+status: draft
+author: Jordan_Smith
 date: 2025-04-29
-permalink: /collision-avoidance/
+prerequisites:
+  - "[[Path_Planning]]"
+  - "[[Trajectory_Planning]]"
 related:
   - "[[Robot_Design]]"
   - "[[Control_Systems]]"
@@ -72,7 +74,7 @@ related:
 
 ## Impact on Robotics
 
-- **Safety and Reliability**: Collision avoidance is essential for ensuring the safety and reliability of robotic operations, particularly in environments where robots interact with humans or other objects. It is a critical component of [[Human-Robot_Interaction|Human-Robot Interaction]] and [[Autonomous Navigation]].
+- **Safety and Reliability**: Collision avoidance is essential for ensuring the safety and reliability of robotic operations, particularly in environments where robots interact with humans or other objects. It is a critical component of [[Human-Robot_Interaction|Human-Robot Interaction]] and [[Autonomous_Navigation|Autonomous Navigation]].
 
 - **Efficient Navigation**: Effective collision avoidance enables robots to navigate efficiently through cluttered and dynamic environments, improving their performance and productivity. This is crucial in applications like [[Mobile_Robots|Mobile Robots]] and [[Service_Robots|Service Robots]].
 
@@ -88,4 +90,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ### List of Related Concepts
 ```dataview
-LIST FROM #robotics OR #control-systems WHERE contains(file.outlinks, [[Collision_Avoidance]])
+LIST FROM "" WHERE contains(file.outlinks, [[Collision_Avoidance]])
+```

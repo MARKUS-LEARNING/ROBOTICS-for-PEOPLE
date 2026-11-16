@@ -2,18 +2,19 @@
 title: Torque
 description: Torque is a measure of how much a force acting on an object causes it to rotate on a pivot. It is a fundamental concept in rotational dynamics and is crucial for understanding the behavior of rotating systems in robotics.
 tags:
-  - robotics
   - dynamics
   - physics
-  - rotational-motion
+  - rotation
   - forces
-  - control-systems
-  - engineering
-layout: default
-category: robotics
+  - control
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /torque/
+last_reviewed: 2026-04-25
 related:
   - "[[Dynamics]]"
   - "[[Rigid_Body_Dynamics]]"
@@ -100,5 +101,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #control OR #robotics WHERE contains(file.outlinks, [[Torque]])
+LIST FROM "" WHERE contains(file.outlinks, [[Torque]])
 ```

@@ -3,17 +3,19 @@ title: Gears
 description: Gears are mechanical components used to transmit motion and power between rotating shafts, altering speed, torque, and direction.
 tags:
   - mechanics
-  - robotics
-  - engineering
   - actuators
   - design
-type: Mechanical Component
-application: Transmission of motion and power in mechanical systems
-layout: default
-category: robotics
+type: component
+level: intermediate
+subfield:
+  - mechanisms-actuation
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /gears/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Robot_Design]]"
+  - "[[Mechatronics]]"
 related:
   - "[[Robot_Design]]"
   - "[[Mechatronics]]"

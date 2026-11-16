@@ -2,19 +2,20 @@
 title: Euclidean Space
 description: Euclidean Space is a mathematical space characterized by the familiar properties of Euclidean geometry, providing the framework for understanding spatial relationships and motion in robotics.
 tags:
-  - robotics
   - mathematics
   - geometry
   - kinematics
   - euclidean-space
-  - engineering
   - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
+type: concept
+level: beginner
+subfield:
+  - mathematics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /euclidean_space/
+last_reviewed: 2026-04-25
 related:
   - "[[Kinematics]]"
   - "[[Vector_Mathematics]]"
@@ -176,5 +177,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #mathematics WHERE contains(file.outlinks, [[Euclidean_Space]])
+LIST FROM "" WHERE contains(file.outlinks, [[Euclidean_Space]])
 ```

@@ -3,18 +3,23 @@ title: Pneumatic Systems
 description: Describes pneumatic systems used for actuation in robotics, including components, operating principles, advantages, disadvantages, and common applications.
 tags:
   - pneumatics
-  - actuation
+  - actuators
   - power-systems
   - robot-design
   - industrial-robot
   - soft-robotics
-  - actuator
   - mechanism
-layout: default
-category: robotics
+type: component
+level: intermediate
+subfield:
+  - mechanisms-actuation
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-29
-permalink: /pneumatic_systems/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Actuator]]"
+  - "[[Mechanisms_and_Actuation]]"
 related:
   - "[[Actuator]]"
   - "[[Pneumatic_Actuators]]"
@@ -30,7 +35,7 @@ related:
 
 # Pneumatic Systems in Robotics
 
-**Pneumatic Systems** utilize compressed gas, typically filtered air, as a medium to transmit and control energy to perform mechanical work, primarily through [[Pneumatic Actuators|pneumatic actuators]]. Historically significant in early industrial automation and still widely used for specific applications, pneumatic systems offer distinct advantages and disadvantages compared to [[Hydraulic_Systems|hydraulic]] or [[Electric_Motor|electric]] actuation methods.
+**Pneumatic Systems** utilize compressed gas, typically filtered air, as a medium to transmit and control energy to perform mechanical work, primarily through [[Pneumatic Actuators|pneumatic actuators]]. Historically significant in early industrial automation and still widely used for specific applications, pneumatic systems offer distinct advantages and disadvantages compared to [[Hydraulic_Systems|hydraulic]] or [[Electric_Motors|electric]] actuation methods.
 
 ---
 
@@ -102,5 +107,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #mechanical-engineering WHERE contains(file.outlinks, [[Pneumatic_Systems]])
+LIST FROM "" WHERE contains(file.outlinks, [[Pneumatic_Systems]])
 ```

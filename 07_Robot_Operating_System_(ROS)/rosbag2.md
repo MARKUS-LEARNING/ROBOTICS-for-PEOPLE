@@ -3,7 +3,7 @@ title: rosbag2
 description: Explains rosbag2, the ROS 2 tool for recording and playing back ROS topic data, covering recording, playback, filtering, conversion, and use cases in debugging, testing, and dataset collection.
 tags:
   - rosbag2
-  - ROS2
+  - ros2
   - data-recording
   - debugging
   - testing
@@ -11,11 +11,16 @@ tags:
   - middleware
   - dataset
   - simulation
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: tool
+level: intermediate
+subfield:
+  - software
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /rosbag2/
+prerequisites:
+  - "[[ROS_2_Overview]]"
+  - "[[Robot_Operating_System_(ROS)]]"
 related:
   - "[[Robot_Operating_System_(ROS)]]"
   - "[[ROS_2_Overview]]"
@@ -313,5 +318,5 @@ LIST FROM #rosbag2 OR #debugging WHERE contains(file.outlinks, [[rosbag2]])
 ```
 
 ```dataview
-TABLE title, description FROM #ROS WHERE contains(file.tags, "data-recording")
+TABLE title, description FROM #ros WHERE contains(file.tags, "data-recording")
 ```

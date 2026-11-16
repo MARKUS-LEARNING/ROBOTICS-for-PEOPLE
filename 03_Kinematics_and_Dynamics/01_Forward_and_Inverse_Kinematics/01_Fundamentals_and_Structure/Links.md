@@ -2,8 +2,8 @@
 title: Links
 description: "Defines Link: A rigid or semi-rigid component that connects joints in a robotic system, enabling structured movement and force transmission. Links are essential for defining the kinematic and dynamic properties of robots, both in manipulators and mobile robots."
 tags:
-  - component
-  - structure
+  - components
+  - structures
   - kinematics
   - dynamics
   - design
@@ -11,13 +11,17 @@ tags:
   - manipulator-arm
   - mobile-robot
   - mechatronics
-type: Mechanical Concept
-application: Structural and dynamic definition in robotic systems
-layout: default
-category: robotics
+type: concept
+level: intermediate
+subfield:
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-permalink: /link/
+last_reviewed: 2026-04-25
+prerequisites:
+  - "[[Degrees_of_Freedom]]"
+  - "[[Statics]]"
 related:
   - "[[Actuator]]"
   - "[[Joints]]"
@@ -156,5 +160,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #component OR #kinematics WHERE contains(file.outlinks, [[Links]])
+LIST FROM #components OR #kinematics WHERE contains(file.outlinks, [[Links]])
 ````

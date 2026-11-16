@@ -6,14 +6,16 @@ tags:
   - embedded-systems
   - programming
   - hardware
-  - IoT
+  - iot
   - automation
   - digital-signal-processing
-layout: default
-category: electronics
-author: Jordan_Smith_and_le_Chat
+type: component
+level: intermediate
+subfield:
+  - electronics-embedded
+status: draft
+author: Jordan_Smith
 date: 2025-05-09
-permalink: /microcontroller/
 related:
   - "[[Embedded_Systems]]"
   - "[[Programming]]"
@@ -139,3 +141,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #electronics OR #embedded-systems WHERE contains(file.outlinks, [[Microcontroller]])
+```

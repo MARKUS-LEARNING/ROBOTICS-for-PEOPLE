@@ -2,19 +2,19 @@
 title: Artificial Intelligence vs Machine Learning vs Deep Learning
 description: This entry compares and contrasts Artificial Intelligence (AI), Machine Learning (ML), and Deep Learning (DL), highlighting their roles, relationships, and applications in the field of robotics.
 tags:
-  - robotics
   - artificial-intelligence
   - machine-learning
   - deep-learning
-  - engineering
-  - glossary-term
-  - manipulator-arm
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: concept
+level: beginner
+subfield:
+  - robot-learning
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /ai_vs_ml_vs_dl/
+prerequisites:
+  - "[[Artificial_Intelligence]]"
 related:
   - "[[Artificial_Intelligence]]"
   - "[[Machine_Learning]]"
@@ -114,4 +114,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #artificial-intelligence WHERE contains(file.outlinks, [[Artificial_Intelligence_vs_Machine_Learning_vs_Deep_Learning]])
+LIST FROM "" WHERE contains(file.outlinks, [[Artificial_Intelligence_vs_Machine_Learning_vs_Deep_Learning]])
+```

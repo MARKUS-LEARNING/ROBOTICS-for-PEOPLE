@@ -4,23 +4,24 @@ description: Overview of robotic exoskeletons, wearable devices designed to augm
 tags:
   - robot-types
   - exoskeleton
-  - wearable-robotics
-  - HRI
+  - human-robot-interaction
   - assistive-robotics
   - rehabilitation
   - augmentation
   - biomechanics
-layout: default
-category: robotics
-author: Jordan_Smith_&_le_Chat
+type: robot-type
+level: beginner
+subfield:
+  - assistive-rehabilitation
+status: draft
+author: Jordan_Smith
 date: 2025-04-29
-permalink: /exoskeletons/
 related:
   - "[[Robots]]"
   - "[[Wearable_Robotics]]"
   - "[[Human-Robot_Interaction]]"
   - "[[Actuator]]"
-  - "[[Sensor]]"
+  - "[[Sensors]]"
   - "[[Control_Systems]]"
   - "[[Biomechanics]]"
   - "[[Rehabilitation_Robotics]]"
@@ -29,7 +30,7 @@ related:
 
 # Exoskeletons
 
-**Exoskeletons** (in the context of robotics) are wearable mechanical or electromechanical structures designed to be worn by a person, typically mirroring the user's limb structure. Powered exoskeletons utilize [[Actuator|actuators]] to apply forces and torques aligned with the user's joints, aiming to augment strength/endurance, assist movement, or restore lost function. They represent a significant area within [[Wearable Robotics]] and [[Human-Robot Interaction (HRI)]].
+**Exoskeletons** (in the context of robotics) are wearable mechanical or electromechanical structures designed to be worn by a person, typically mirroring the user's limb structure. Powered exoskeletons utilize [[Actuator|actuators]] to apply forces and torques aligned with the user's joints, aiming to augment strength/endurance, assist movement, or restore lost function. They represent a significant area within [[Wearable Robotics]] and [[Human-Robot_Interaction|Human-Robot Interaction (HRI)]].
 
 *(Note: This differs from passive exoskeletons, which provide support via springs or elastic elements without active power.)*
 
@@ -61,17 +62,17 @@ Developing effective exoskeletons involves integrating several technologies:
 
 * **Mechanical Design:** Structures must be lightweight yet strong, with [[Joint_Kinematics|joints]] closely aligned with human anatomical joints to allow natural movement. Comfortable and secure human attachment interfaces are crucial.
 * **[[Actuator|Actuation]]:** Providing sufficient power in a compact, lightweight form is a major challenge. Common approaches include:
-    * [[Electric_Motor|Electric Motors]] with [[Transmission|transmissions]] ([[Gearbox|gears]], ball screws). Series Elastic Actuators (SEAs) are often used to introduce compliance and allow for better force control.
+    * [[Electric_Motors|Electric Motors]] with [[Transmission|transmissions]] ([[Gearbox|gears]], ball screws). Series Elastic Actuators (SEAs) are often used to introduce compliance and allow for better force control.
     * [[Hydraulic_Systems|Hydraulics]]: Offer high [[Power_Density]] for strength augmentation but require a bulky power unit.
     * [[Pneumatic Actuators]]: Can be lightweight (e.g., McKibben artificial muscles) but require a compressed air source and can be harder to control precisely.
-* **[[Sensor|Sensing]]:** Critical for monitoring both the human user and the exoskeleton state:
+* **[[Sensors|Sensing]]:** Critical for monitoring both the human user and the exoskeleton state:
     * **[[IMU_Sensors]]:** Measure limb segment orientation and angular velocity.
     * **Joint Angle Sensors:** Encoders or potentiometers measure robot joint positions.
     * **Force/Torque Sensors:** Measure interaction forces between the user and the exoskeleton, or between the exoskeleton and the environment (e.g., ground reaction forces).
     * **Physiological Sensors:**
         * *EMG (Electromyography):* Detects electrical signals from muscle activation to infer user intent.
         * *EEG (Electroencephalography):* Detects brain signals, sometimes explored for direct neural control (BCI).
-* **[[Control Systems|Control Strategies]]:** The core challenge is coordinating the exoskeleton's actions with the user's intent and movements seamlessly and safely. Common strategies include:
+* **[[Control_Systems|Control Strategies]]:** The core challenge is coordinating the exoskeleton's actions with the user's intent and movements seamlessly and safely. Common strategies include:
     * **Trajectory Control:** Guiding the user's limbs along predefined paths (common in rehabilitation).
     * **Assist-as-Needed:** Monitoring user effort and providing assistance only when necessary or proportional to weakness.
     * **Intent Detection:** Using EMG, EEG, force sensors, or kinematic cues (early motion detection) to predict the user's desired movement and initiate exoskeleton assistance proactively.
@@ -102,4 +103,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #automation WHERE contains(file.outlinks, [[Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Robots]])
+```

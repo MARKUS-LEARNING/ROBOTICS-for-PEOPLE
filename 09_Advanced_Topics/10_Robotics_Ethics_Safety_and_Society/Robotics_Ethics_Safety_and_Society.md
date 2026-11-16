@@ -2,20 +2,18 @@
 title: Robotics Ethics, Safety, and Society
 description: This entry explores the ethical considerations, safety protocols, and societal implications of robotics, addressing the challenges and responsibilities in the development and deployment of robotic systems.
 tags:
-  - robotics
   - ethics
   - safety
-  - society
+  - social-impact
   - artificial-intelligence
-  - engineering
-  - glossary-term
-  - manipulator-arm
-  - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: overview
+level: advanced
+subfield:
+  - ethics-society
+  - systems-engineering
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /robotics_ethics_safety_and_society/
 related:
   - "[[Artificial_Intelligence]]"
   - "[[Ethics]]"
@@ -107,4 +105,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #ethics WHERE contains(file.outlinks, [[Robotics_Ethics_Safety_and_Society]])
+LIST FROM "" WHERE contains(file.outlinks, [[Robotics_Ethics_Safety_and_Society]])
+```

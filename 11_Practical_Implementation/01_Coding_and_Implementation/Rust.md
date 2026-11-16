@@ -2,19 +2,17 @@
 title: Rust (Programming Language, extensive and focus on robotics coding examples)
 description: Rust is a modern programming language known for its performance and safety, making it well-suited for developing robust and efficient robotic systems. This entry explores Rust's features and applications in robotics, providing coding examples and best practices.
 tags:
-  - robotics
   - rust
-  - programming-language
-  - software-development
-  - engineering
-  - glossary-term
-  - manipulator-arm
+  - programming
+  - software-engineering
   - mobile-robot
-layout: default
-category: robotics
-author: Jordan_Smith_and_le_Chat
+type: tool
+level: intermediate
+subfield:
+  - software
+status: draft
+author: Jordan_Smith
 date: 2025-05-02
-permalink: /rust_programming_language/
 related:
   - "[[Programming]]"
   - "[[Software_Development]]"
@@ -114,5 +112,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ### List of Related Concepts
 ```dataview
-LIST FROM #robotics OR #programming WHERE contains(file.outlinks, [[Rust]])
+LIST FROM "" WHERE contains(file.outlinks, [[Rust]])
 ```
