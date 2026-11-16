@@ -1,86 +1,100 @@
 ---
 title: Drones
-description: Drones, or unmanned aerial vehicles (UAVs), are robotic systems designed to operate autonomously or semi-autonomously in the air, performing tasks such as surveillance, delivery, and environmental monitoring.
+description: "Drones (uncrewed aerial vehicles) are flying robots: multirotors, fixed-wing and hybrid VTOL aircraft. Covers how a quadrotor flies and is controlled, a computed hover-power and endurance estimate, autonomy stacks (state estimation, mapping, planning), learned flight control (champion-level racing with RL, 2023), the main applications, and the regulatory picture in late 2026, including the still-pending US Part 108 rule for beyond-visual-line-of-sight flight."
+aliases:
+  - Drone
+  - UAV
+  - UAS
+  - Quadrotor
+  - Multirotor
 tags:
   - aerial-robotics
+  - control
+  - reinforcement-learning
+  - regulation
 type: robot-type
 level: beginner
 subfield:
   - aerial-robotics
-status: draft
+status: keystone
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
+  - "[[Mobile_Robots]]"
+  - "[[Control_Systems]]"
 related:
-  - "[[Robot_Control]]"
-  - "[[Autonomous_Systems]]"
-  - "[[Machine_Learning]]"
+  - "[[PID_Control]]"
+  - "[[Reinforcement_Learning_for_Robots]]"
+  - "[[SLAM]]"
+  - "[[Swarm_Robots]]"
+  - "[[Agricultural_Robots]]"
+key_takeaways:
+  - "A quadrotor controls its motion only through four rotor thrusts: tilting the thrust vector moves it sideways, and speeding up opposite pairs yaws it; cascaded PID loops (attitude inside position) are the classic controller."
+  - "Hover power grows with weight to the power 1.5, so flight time is short: a 1.5 kg quadrotor with a 74 Wh battery hovers for roughly 25 minutes."
+  - "Learning now matches or beats human pilots in narrow tasks (Swift, champion-level racing, 2023); regulation, not technology, mostly limits routine autonomous flight beyond line of sight."
+sources:
+  - "Mahony, R., Kumar, V. and Corke, P. (2012). Multirotor Aerial Vehicles: Modeling, Estimation, and Control of Quadrotor. https://ieeexplore.ieee.org/document/6289431"
+  - "Kaufmann, E. et al. (2023). Champion-level drone racing using deep reinforcement learning. https://www.nature.com/articles/s41586-023-06419-4"
+  - "Federal Aviation Administration (2025). Normalizing Unmanned Aircraft Systems Beyond Visual Line of Sight Operations (proposed rule, Part 108). https://www.federalregister.gov/documents/2025/08/07/2025-14992/normalizing-unmanned-aircraft-systems-beyond-visual-line-of-sight-operations"
+  - "Unmanned Safety Institute (2026). Get 108 Ready (status guide, updated 4 November 2026). https://www.flyusi.org/guides/get-108-ready"
+  - "EASA (2026). Civil drones. https://www.easa.europa.eu/en/domains/civil-drones"
 ---
 
 # Drones
 
-**Drones**, or unmanned aerial vehicles (UAVs), are robotic systems designed to operate autonomously or semi-autonomously in the air. They are equipped with advanced sensors, actuators, and control systems, enabling them to perform tasks such as surveillance, delivery, and environmental monitoring. Drones are widely used in various applications, including agriculture, search and rescue, and infrastructure inspection, providing capabilities that enhance efficiency, safety, and data collection.
+A **drone** is a flying robot: an uncrewed aircraft that flies under remote control or autonomously. Small multirotors have become the most widespread robots outside factories, used for photography, inspection, mapping, agriculture, delivery and, increasingly, warfare.
 
----
+> **Etymology.** *Drone* is Old English *drān*, a male bee. Its aviation sense comes from the 1930s, when the UK's *Queen Bee* radio-controlled target aircraft inspired US "drones". Regulators say *UAS* (uncrewed aircraft system) or *UAV* (uncrewed aerial vehicle).
 
-## Key Concepts
+## Types
 
-### Autonomous Flight
+| Type | How it flies | Strengths | Limits |
+|---|---|---|---|
+| **Multirotor** (quad-, hexa-, octocopter) | Lift and control from fixed-pitch rotors | Hovers, takes off vertically, simple mechanics | Short endurance (20–45 min typical) |
+| **Fixed-wing** | Wings for lift, propeller for thrust | Long range and endurance | Needs runway or launcher; cannot hover |
+| **Hybrid VTOL** | Rotors to take off, wings to cruise | Range plus vertical take-off | Mechanically complex; used for delivery and mapping |
 
-Autonomous flight involves the drone's ability to navigate and perform tasks without human intervention, using advanced control systems and algorithms to interpret sensory inputs and make decisions.
+## How a quadrotor flies
 
-### Sensory Systems
+A quadrotor has four rotors; diagonal pairs spin in opposite directions so their drag torques cancel. All control comes from varying the four thrusts:
+- **Climb**: all four faster.
+- **Roll and pitch**: speed up one side and slow the other. Tilting the total thrust vector is how the drone moves horizontally.
+- **Yaw**: speed up the clockwise pair and slow the counter-clockwise pair; the unbalanced drag torque turns the body.
 
-Sensory systems in drones include cameras, lidars, and other sensors that provide data about the environment, enabling tasks such as obstacle detection, mapping, and object recognition.
+The classic controller is a **cascade**: an outer position loop computes the desired acceleration, which sets the desired tilt; an inner attitude loop, often [[PID_Control|PID]] at 500 Hz–8 kHz on the flight controller, tracks that tilt using the IMU. Open-source flight stacks (PX4, ArduPilot, Betaflight) implement these loops.
 
-### Control Systems
+## Worked example: how long can it hover?
 
-Control systems in drones involve the algorithms and mechanisms that govern their behavior, ensuring that they perform tasks accurately and safely. This includes techniques such as feedback control, motion planning, and adaptive control, which enable the drones to operate effectively in dynamic and uncertain environments.
+Momentum theory gives the ideal power to hover with total thrust $T$ (equal to the weight), air density $\rho$ and total rotor disc area $A$:
 
-### Communication Systems
+$$P_{ideal} = \frac{T^{3/2}}{\sqrt{2\rho A}}$$
 
-Communication systems in drones enable the exchange of data and commands between the drone and the ground station, facilitating tasks such as remote control, telemetry, and data transmission.
+For a 1.5 kg quadrotor ($T = 14.7$ N) with four 10-inch propellers (radius 0.127 m, so $A = 4\pi(0.127)^2 = 0.203$ m²) at sea level ($\rho = 1.225$ kg/m³):
 
----
+$$P_{ideal} = \frac{14.7^{1.5}}{\sqrt{2 \times 1.225 \times 0.203}} \approx 80\ \text{W}.$$
 
-## Mathematical Formulation
+Real rotors reach a "figure of merit" of about 0.6, so the actual power is about 80/0.6 ≈ **134 W**. A 4-cell (14.8 V) 5,000 mAh battery stores 74 Wh; using 80% of it gives 59.2 Wh, or about **27 minutes** of hover. Add a 0.5 kg payload and the power rises with weight to the 1.5 power, cutting endurance by roughly a third. Battery energy density is the main limit on multirotors.
 
-### Feedback Control
+## Autonomy
 
-Feedback control involves using the drone's sensory inputs to continuously adjust its actions, ensuring that it achieves its goals and adapts to changes in the environment. This includes techniques such as PID control, which adjusts the drone's behavior based on the error between the desired and actual states. The control signal $u(t)$ is given by:
+- **State estimation**: IMU + GNSS outdoors; visual-inertial odometry (camera + IMU) where GNSS fails, indoors or under bridges.
+- **Mapping and avoidance**: stereo or depth cameras and lidar build local maps for obstacle avoidance (see [[SLAM]]).
+- **Planning**: minimum-snap trajectories through waypoints; sampling-based or MPC planners in clutter.
+- **Learned control**: in 2023 *Swift*, a quadrotor whose policy was trained with deep reinforcement learning in simulation and fine-tuned with real data, beat human world-champion pilots in head-to-head races (Nature). Learned policies now handle agile flight, perception-aware navigation and wind disturbance.
+- **Swarms**: coordinated groups for light shows, mapping and search (see [[Swarm_Robots]]).
 
-$$
-u(t) = K_p e(t) + K_i \int_0^t e(\tau) d\tau + K_d \frac{de(t)}{dt}
-$$
+## Applications (2026)
 
-where:
-- $u(t)$ is the control signal.
-- $e(t)$ is the error at time $t$.
-- $K_p$, $K_i$, and $K_d$ are the proportional, integral, and derivative gains, respectively.
+Aerial photography and film; infrastructure inspection (power lines, bridges, wind turbines); surveying and mapping; precision agriculture (spraying, crop monitoring; see [[Agricultural_Robots]]); medical and parcel delivery; search and rescue; public safety. Military use, from reconnaissance to strike drones, expanded enormously in the 2020s and drives much of the technology and many of the ethical concerns (see [[Ethical_and_Social_Implications]]).
 
-### Motion Planning
+## Rules (as of November 2026)
 
-Motion planning involves determining the sequence of movements that a drone should execute to achieve a goal, such as navigating to a destination or avoiding obstacles. This includes techniques such as path planning and trajectory optimization, which enable the drone to perform tasks effectively in its environment.
+- **United States.** Most commercial flights fall under Part 107, which requires a visual line of sight unless the operator has a waiver. The FAA proposed **Part 108**, a framework for routine beyond-visual-line-of-sight (BVLOS) operations, in August 2025. As of early November 2026 the final rule was still under White House review and not in effect.
+- **European Union.** EASA's risk-based categories (open, specific, certified) apply, with the "specific" category and standard scenarios covering most BVLOS operations.
 
-### Example: Environmental Monitoring
-
-Consider a drone designed for environmental monitoring. The drone's control system uses feedback from its sensors to adjust its flight path, ensuring that it covers the designated area and collects data effectively. The motion planning algorithm determines the optimal path for the drone, enabling it to navigate through the environment, avoid obstacles, and reach its destination efficiently.
-
----
-
-## Applications in Robotics
-
-- **Surveillance**: Drones are used to monitor and inspect areas, providing data and insights that enhance security and safety.
-- **Delivery**: Enables drones to transport goods and packages, facilitating tasks such as logistics and supply chain management.
-- **Environmental Monitoring**: Drones are used to collect data about the environment, enabling tasks such as wildlife tracking, pollution monitoring, and disaster assessment.
-- **Agriculture**: Drones are used to monitor and manage crops, providing data and insights that enhance productivity and sustainability.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Drones]])
