@@ -7,7 +7,7 @@ For each citation ("Author or org (Year). Title. URL"):
 
 Usage:  python3 tools/check_sources.py [note names or paths ...]     (default: every note with sources)
 Exit status 1 if any URL fails or any arXiv title does not match. Sites that refuse automated requests
-(HTTP 401/403/429) are reported as "blocked" and do not fail the check; read those by hand.
+(HTTP 401/403/429, or a timeout after retries) are reported as "blocked" and do not fail the check; read those by hand.
 """
 from __future__ import annotations
 
@@ -115,8 +115,9 @@ def main(argv):
         if not m:
             failed += 1; print(f'FORMAT   {n.name}: {c[:90]}'); continue
         code, final = status[m.group('url')]
-        if code in (401, 403, 429):
-            blocked += 1; print(f'BLOCKED  {n.name}: HTTP {code} {m.group("url")}')
+        if code in (401, 403, 429) or (code == 0 and 'timed out' in final):
+            # Bot walls and servers that silently drop datacenter traffic: the link may be fine.
+            blocked += 1; print(f'BLOCKED  {n.name}: {"timed out" if code == 0 else f"HTTP {code}"} {m.group("url")}')
         elif not 200 <= code < 400:
             failed += 1; print(f'DEAD     {n.name}: HTTP {code} {m.group("url")} {final if code == 0 else ""}')
         a = ARXIV.search(m.group('url'))
