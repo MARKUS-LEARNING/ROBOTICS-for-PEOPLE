@@ -32,7 +32,7 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 | [[#Foundations of Robotics]] | 12 | 12 | 0 | 0 | 0 |
 | [[#Mathematics for Robotics]] | 17 | 4 | 13 | 0 | 0 |
 | [[#Kinematics and Dynamics]] | 68 | 15 | 52 | 1 | 0 |
-| [[#Mechanisms, Actuation and Materials]] | 42 | 11 | 23 | 8 | 0 |
+| [[#Mechanisms, Actuation and Materials]] | 42 | 10 | 24 | 8 | 0 |
 | [[#Sensing and Perception]] | 23 | 0 | 19 | 4 | 0 |
 | [[#State Estimation, Localization and Mapping]] | 15 | 0 | 12 | 3 | 0 |
 | [[#Motion Planning and Decision Making]] | 21 | 2 | 18 | 1 | 0 |
@@ -68,7 +68,7 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 
 **Start here:** [[Degrees_of_Freedom|Degrees of Freedom (DoF)]] → [[Statics]] → [[Workspace_Analysis|Workspace Analysis]] → [[Grübler's_Formula|Grübler's Formula]]
 
-**All 68 notes, in reading order:** [[Degrees_of_Freedom|Degrees of Freedom (DoF)]] · [[Statics]] · [[Workspace_Analysis|Workspace Analysis]] · [[Grübler's_Formula|Grübler's Formula]] · [[Pose_Representation|Pose Representation]] · [[Joints_(DoF)|Joints]] · [[Links_(DoF)|Links]] · [[Task_Space_and_Workspace|Task Space and Workspace]] · [[Constraint_Analysis]] · [[Independent_Constraints_(DoF)|Independent Constraints (DoF)]] · [[Rotational_Degrees_of_Freedom|Rotational Degrees of Freedom]] · [[SRS_Arm|SRS Arm]] · [[Translational_Degrees_of_Freedom|Translational Degrees of Freedom]] · [[Manipulator_Arm|Manipulator Arm]] · [[Parallel_Robots|Parallel Robots]] · [[Kinematics_and_Dynamics|Kinematics and Dynamics]] · [[Mechanisms_and_Actuation|Mechanisms and Actuation]] · [[Kinematics]] · [[Dynamics]] · [[Locomotion]] · [[Configuration_Space|Configuration Space]] · [[Kinematic_Chains|Kinematic Chains]] · [[Manipulator_Dynamics|Manipulator Dynamics]] · [[Links]] · [[Workspace]] · [[Friction]] · [[Homogeneous_Transformation|Homogeneous Transformation]] · [[Forward_Kinematics|Forward Kinematics (FK)]] · [[Jacobian_Matrix|Jacobian Matrix]] · [[Inverse_Kinematics|Inverse Kinematics (IK)]] · [[Singularities]] · [[Stiffness]] · [[Rigid_Body_Dynamics|Rigid Body Dynamics]] · [[Joint_Kinematics|Joint Kinematics]] · [[Nonholonomic_Constraint|Nonholonomic Constraint]] · [[DH_Parameters|DH Parameters (Denavit-Hartenberg)]] · [[Inertia]] · [[Joints]] · [[Manipulability]] · [[Newton-Euler_Equations|Newton-Euler Equations]] · [[Parallel_Mechanisms_and_Robots|Parallel Mechanisms and Robots]] · [[Stability]] · [[Torque]] · [[Cartesian_Space|Cartesian Space]] · [[DC_Motors|DC Motors]] · [[Motion_Control|Motion Control]] · [[Product_of_Exponentials|Product of Exponentials (PoE)]] · [[Rotational_Dynamics|Rotational Dynamics]] · [[Angular_Momentum|Angular Momentum]] · [[Linear_Quadratic_Regulator_(LQR)|Linear Quadratic Regulator (LQR)]] · [[Manipulator_Arm_Types|Manipulator Arm Types]] · [[Robot_Gaits|Robot Gaits]] · [[Stewart_Platform|Stewart Platform]] · [[Analytical_IK_Solutions|Analytical IK Solutions]] · [[Instantaneous_Center_of_Rotation_(ICR)|Instantaneous Center of Rotation (ICR)]] · [[Torque_and_Force_Calculations|Joints]] · [[Nonholonomic_Systems|Nonholonomic Systems]] · [[Numerical_IK_Solutions|Numerical IK Solutions]] · [[Ball_Screw|Ball Screw]] · [[Brushless_DC_Motors|Brushless DC Motors]] · [[Lagrangian_Dynamics|Lagrangian Dynamics]] · [[Mechanics]] · [[Singularities_Dynamic_Effects|Singularities and Dynamic Effects]] · [[Forward_vs_Inverse_Problems|Forward vs Inverse Problems]] · [[Jacobian_and_Differential_Kinematics|Jacobian and Differential Kinematics]] · [[Wheeled_Mobile_Robots|Wheeled Mobile Robots]] · [[Omnidirectional_Robots|Omnidirectional Robots]] · [[Physics_Engines|Physics Engines]]
+**All 68 notes, in reading order:** [[Degrees_of_Freedom|Degrees of Freedom (DoF)]] · [[Statics]] · [[Workspace_Analysis|Workspace Analysis]] · [[Grübler's_Formula|Grübler's Formula]] · [[Pose_Representation|Pose Representation]] · [[Joints_(DoF)|Joints]] · [[Links_(DoF)|Links]] · [[Task_Space_and_Workspace|Task Space and Workspace]] · [[Constraint_Analysis]] · [[Independent_Constraints_(DoF)|Independent Constraints (DoF)]] · [[Rotational_Degrees_of_Freedom|Rotational Degrees of Freedom]] · [[SRS_Arm|SRS Arm]] · [[Translational_Degrees_of_Freedom|Translational Degrees of Freedom]] · [[Manipulator_Arm|Manipulator Arm]] · [[Parallel_Robots|Parallel Robots]] · [[Kinematics_and_Dynamics|Kinematics and Dynamics]] · [[Mechanisms_and_Actuation|Mechanisms and Actuation]] · [[Kinematics]] · [[Dynamics]] · [[Locomotion]] · [[Configuration_Space|Configuration Space]] · [[Kinematic_Chains|Kinematic Chains]] · [[Manipulator_Dynamics|Manipulator Dynamics]] · [[Links]] · [[Workspace]] · [[Homogeneous_Transformation|Homogeneous Transformation]] · [[Forward_Kinematics|Forward Kinematics (FK)]] · [[Jacobian_Matrix|Jacobian Matrix]] · [[Inverse_Kinematics|Inverse Kinematics (IK)]] · [[Singularities]] · [[Friction]] · [[Rigid_Body_Dynamics|Rigid Body Dynamics]] · [[Stiffness]] · [[Nonholonomic_Constraint|Nonholonomic Constraint]] · [[DH_Parameters|DH Parameters (Denavit-Hartenberg)]] · [[Inertia]] · [[Joints]] · [[Manipulability]] · [[Joint_Kinematics|Joint Kinematics]] · [[Newton-Euler_Equations|Newton-Euler Equations]] · [[Parallel_Mechanisms_and_Robots|Parallel Mechanisms and Robots]] · [[Stability]] · [[Torque]] · [[Cartesian_Space|Cartesian Space]] · [[DC_Motors|DC Motors]] · [[Motion_Control|Motion Control]] · [[Product_of_Exponentials|Product of Exponentials (PoE)]] · [[Rotational_Dynamics|Rotational Dynamics]] · [[Angular_Momentum|Angular Momentum]] · [[Linear_Quadratic_Regulator_(LQR)|Linear Quadratic Regulator (LQR)]] · [[Manipulator_Arm_Types|Manipulator Arm Types]] · [[Robot_Gaits|Robot Gaits]] · [[Stewart_Platform|Stewart Platform]] · [[Analytical_IK_Solutions|Analytical IK Solutions]] · [[Instantaneous_Center_of_Rotation_(ICR)|Instantaneous Center of Rotation (ICR)]] · [[Torque_and_Force_Calculations|Joints]] · [[Nonholonomic_Systems|Nonholonomic Systems]] · [[Numerical_IK_Solutions|Numerical IK Solutions]] · [[Ball_Screw|Ball Screw]] · [[Brushless_DC_Motors|Brushless DC Motors]] · [[Lagrangian_Dynamics|Lagrangian Dynamics]] · [[Mechanics]] · [[Singularities_Dynamic_Effects|Singularities and Dynamic Effects]] · [[Forward_vs_Inverse_Problems|Forward vs Inverse Problems]] · [[Jacobian_and_Differential_Kinematics|Jacobian and Differential Kinematics]] · [[Wheeled_Mobile_Robots|Wheeled Mobile Robots]] · [[Omnidirectional_Robots|Omnidirectional Robots]] · [[Physics_Engines|Physics Engines]]
 
 ### Mechanisms, Actuation and Materials
 
@@ -78,7 +78,7 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 
 **Start here:** [[Robot_Design|Robot Design]] → [[Actuator]] → [[Mechatronics]] → [[Power_Density|Power Density]]
 
-**All 42 notes, in reading order:** [[Robot_Design|Robot Design]] · [[Actuator]] · [[Mechatronics]] · [[Power_Density|Power Density]] · [[Structural_Analysis|Structural Analysis]] · [[Grübler's_Formula|Grübler's Formula]] · [[Links_and_Joints_Definitions|Links and Joints Definitions]] · [[Actuator_Definition|Actuator Definition]] · [[Soft_Robotics|Soft Robotics]] · [[Parallel_Robots|Parallel Robots]] · [[Hardware_Shopping_List|Hardware Shopping List]] · [[Mechanisms_and_Actuation|Mechanisms and Actuation]] · [[Kinematic_Chains|Kinematic Chains]] · [[Electric_Motors|Electric Motors]] · [[Transmission_Mechanisms|Transmission Mechanisms]] · [[Gears]] · [[Backlash]] · [[Servo_Motors|Servo Motors]] · [[Mechanism_Design|Mechanism Design]] · [[Stepper_Motors|Stepper Motors]] · [[Hydraulic_Systems|Hydraulic Systems]] · [[DC_Motors|DC Motors]] · [[Pneumatic_Systems|Pneumatic Systems]] · [[Remote_Actuation|Remote Actuation]] · [[Stewart_Platform|Stewart Platform]] · [[Variable_Stiffness_Actuators|Variable Stiffness Actuators]] · [[Differential_Drive|Differential Drive]] · [[Ball_Screw|Ball Screw]] · [[Brushless_DC_Motors|Brushless DC Motors]] · [[Mechanics]] · [[Direct_Drive_Robots|Direct Drive Robots]] · [[Harmonic_Drive|Harmonic Drive]] · [[Piezoelectricity]] · [[Robot_Hands|Robot Hands]] · [[Material_Science|Material Science]] · [[Nanotechnology]] · [[Composite_Materials|Composite Materials]] · [[Biomaterials]] · [[Electroactive_Polymers|Electroactive Polymers]] · [[Shape_Memory_Alloys|Shape Memory Alloys]] · [[Smart_Materials|Smart Materials]] · [[MEMS|Microelectromechanical Systems (MEMS)]]
+**All 42 notes, in reading order:** [[Robot_Design|Robot Design]] · [[Actuator]] · [[Mechatronics]] · [[Power_Density|Power Density]] · [[Structural_Analysis|Structural Analysis]] · [[Grübler's_Formula|Grübler's Formula]] · [[Links_and_Joints_Definitions|Links and Joints Definitions]] · [[Actuator_Definition|Actuator Definition]] · [[Parallel_Robots|Parallel Robots]] · [[Hardware_Shopping_List|Hardware Shopping List]] · [[Mechanisms_and_Actuation|Mechanisms and Actuation]] · [[Kinematic_Chains|Kinematic Chains]] · [[Electric_Motors|Electric Motors]] · [[Transmission_Mechanisms|Transmission Mechanisms]] · [[Gears]] · [[Backlash]] · [[Servo_Motors|Servo Motors]] · [[Mechanism_Design|Mechanism Design]] · [[Stepper_Motors|Stepper Motors]] · [[DC_Motors|DC Motors]] · [[Hydraulic_Systems|Hydraulic Systems]] · [[Remote_Actuation|Remote Actuation]] · [[Stewart_Platform|Stewart Platform]] · [[Variable_Stiffness_Actuators|Variable Stiffness Actuators]] · [[Differential_Drive|Differential Drive]] · [[Ball_Screw|Ball Screw]] · [[Brushless_DC_Motors|Brushless DC Motors]] · [[Mechanics]] · [[Pneumatic_Systems|Pneumatic Systems]] · [[Direct_Drive_Robots|Direct Drive Robots]] · [[Harmonic_Drive|Harmonic Drive]] · [[Piezoelectricity]] · [[Robot_Hands|Robot Hands]] · [[Soft_Robotics|Soft Robotics]] · [[Material_Science|Material Science]] · [[Nanotechnology]] · [[Composite_Materials|Composite Materials]] · [[Biomaterials]] · [[Smart_Materials|Smart Materials]] · [[Electroactive_Polymers|Electroactive Polymers]] · [[MEMS|Microelectromechanical Systems (MEMS)]] · [[Shape_Memory_Alloys|Shape Memory Alloys]]
 
 ### Sensing and Perception
 
@@ -116,7 +116,7 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 
 **Start here:** [[AI_and_Robot_Control|AI and Robot Control]] → [[Open_Loop_vs_Closed_Loop|Open Loop vs Closed Loop]] → [[Policy|Policy (Robot Control Policy)]] → [[Robot_Control|Robot Control]]
 
-**All 38 notes, in reading order:** [[AI_and_Robot_Control|AI and Robot Control]] · [[Open_Loop_vs_Closed_Loop|Open Loop vs Closed Loop]] · [[Policy|Policy (Robot Control Policy)]] · [[Robot_Control|Robot Control]] · [[Control_Theory_Overview|Control Systems Overview]] · [[Stability]] · [[Motion_Control|Motion Control]] · [[Linear_Quadratic_Regulator_(LQR)|Linear Quadratic Regulator (LQR)]] · [[Encoders]] · [[Resolvers]] · [[Reinforcement_Learning|Reinforcement Learning]] · [[Reinforcement_Learning_for_Robots|Reinforcement Learning for Robots]] · [[Control_Theory|Control Theory]] · [[Feedback_Control|Feedback Control]] · [[Control_Systems|Control Systems]] · [[PID_Control|PID Control]] · [[Adaptive_Control|Adaptive Control]] · [[Compliance|Compliance (Robotics)]] · [[State_Space_Representation|State Space Representation]] · [[Computed_Torque_Control|Computed Torque Control]] · [[Transfer_Function|Transfer Function]] · [[Robust_Control|Robust Control]] · [[Control_Theory_and_Principles|Control Theory]] · [[ros2_control]] · [[Sim2Real_Experiments|Sim2Real Experiments]] · [[Manipulator_Control_Experiments|Manipulator Control Experiments]] · [[Neural_Networks_in_Control|Neural Networks in Control]] · [[Optimal_Control|Optimal Control]] · [[Model_Predictive_Control_(MPC)|Model Predictive Control (MPC)]] · [[Hamilton-Jacobi-Bellman_Equation|Hamilton-Jacobi-Bellman Equation]] · [[Pontryagin's_Minimum_Principle|Pontryagin's Minimum Principle]] · [[Nonlinear_Control_Theory|Nonlinear Control Theory]] · [[Robust_Control_Methods|Robust Control Methods]] · [[Feedback_Linearization|Feedback Linearization]] · [[Adaptive_Control_Theory|Adaptive Control Theory]] · [[Control_of_Underactuated_Systems|Control of Underactuated Systems]] · [[Formal_Methods_in_Control|Formal Methods in Control (Verification, Synthesis)]] · [[Hybrid_Systems_and_Control|Hybrid Systems and Control]]
+**All 38 notes, in reading order:** [[AI_and_Robot_Control|AI and Robot Control]] · [[Open_Loop_vs_Closed_Loop|Open Loop vs Closed Loop]] · [[Policy|Policy (Robot Control Policy)]] · [[Robot_Control|Robot Control]] · [[Control_Theory_Overview|Control Systems Overview]] · [[Stability]] · [[Motion_Control|Motion Control]] · [[Linear_Quadratic_Regulator_(LQR)|Linear Quadratic Regulator (LQR)]] · [[Encoders]] · [[Resolvers]] · [[Reinforcement_Learning|Reinforcement Learning]] · [[Reinforcement_Learning_for_Robots|Reinforcement Learning for Robots]] · [[Control_Theory|Control Theory]] · [[Feedback_Control|Feedback Control]] · [[Control_Systems|Control Systems]] · [[PID_Control|PID Control]] · [[Adaptive_Control|Adaptive Control]] · [[State_Space_Representation|State Space Representation]] · [[Compliance|Compliance (Robotics)]] · [[Computed_Torque_Control|Computed Torque Control]] · [[Transfer_Function|Transfer Function]] · [[Robust_Control|Robust Control]] · [[Control_Theory_and_Principles|Control Theory]] · [[ros2_control]] · [[Sim2Real_Experiments|Sim2Real Experiments]] · [[Manipulator_Control_Experiments|Manipulator Control Experiments]] · [[Neural_Networks_in_Control|Neural Networks in Control]] · [[Optimal_Control|Optimal Control]] · [[Model_Predictive_Control_(MPC)|Model Predictive Control (MPC)]] · [[Hamilton-Jacobi-Bellman_Equation|Hamilton-Jacobi-Bellman Equation]] · [[Pontryagin's_Minimum_Principle|Pontryagin's Minimum Principle]] · [[Nonlinear_Control_Theory|Nonlinear Control Theory]] · [[Robust_Control_Methods|Robust Control Methods]] · [[Feedback_Linearization|Feedback Linearization]] · [[Adaptive_Control_Theory|Adaptive Control Theory]] · [[Control_of_Underactuated_Systems|Control of Underactuated Systems]] · [[Formal_Methods_in_Control|Formal Methods in Control (Verification, Synthesis)]] · [[Hybrid_Systems_and_Control|Hybrid Systems and Control]]
 
 ### AI and Robot Learning
 
@@ -162,7 +162,7 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 | [[#Mobile Robots and Navigation]] | 15 | 3 | 12 | 0 | 0 |
 | [[#Legged Locomotion and Humanoids]] | 4 | 2 | 1 | 1 | 0 |
 | [[#Aerial Robotics]] | 1 | 1 | 0 | 0 | 0 |
-| [[#Soft and Continuum Robotics]] | 2 | 2 | 0 | 0 | 0 |
+| [[#Soft and Continuum Robotics]] | 2 | 1 | 1 | 0 | 0 |
 | [[#Bio-inspired Robotics]] | 2 | 1 | 0 | 1 | 0 |
 | [[#Modular, Reconfigurable and Parallel Robots]] | 4 | 3 | 0 | 1 | 0 |
 | [[#Micro- and Nanorobotics]] | 3 | 0 | 0 | 3 | 0 |
@@ -211,9 +211,9 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 
 *Robots made of compliant materials, continuum and cable-driven bodies.* (`subfield: soft-robotics`)
 
-**Start here:** [[Soft_Robotics|Soft Robotics]] → [[Cable-Driven_Robots|Cable-Driven Robots]]
+**Start here:** [[Cable-Driven_Robots|Cable-Driven Robots]] → [[Soft_Robotics|Soft Robotics]]
 
-**All 2 notes, in reading order:** [[Soft_Robotics|Soft Robotics]] · [[Cable-Driven_Robots|Cable-Driven Robots]]
+**All 2 notes, in reading order:** [[Cable-Driven_Robots|Cable-Driven Robots]] · [[Soft_Robotics|Soft Robotics]]
 
 ### Bio-inspired Robotics
 
@@ -249,7 +249,7 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 | [[#Marine and Underwater Robotics]] | 1 | 1 | 0 | 0 | 0 |
 | [[#Space Robotics]] | 1 | 1 | 0 | 0 | 0 |
 | [[#Medical and Surgical Robotics]] | 3 | 1 | 0 | 2 | 0 |
-| [[#Assistive Robotics, Prosthetics and Exoskeletons]] | 1 | 1 | 0 | 0 | 0 |
+| [[#Assistive Robotics, Prosthetics and Exoskeletons]] | 1 | 0 | 1 | 0 | 0 |
 | [[#Construction and Architecture Robotics]] | 0 | 0 | 0 | 0 | 0 |
 | [[#Robots in Art, Entertainment and Education]] | 2 | 2 | 0 | 0 | 0 |
 
@@ -297,9 +297,9 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 
 *Surgical systems, hospital logistics, diagnostics and robots that work inside the body.* (`subfield: medical-robotics`)
 
-**Start here:** [[Medical_Robotics|Medical Robots]] → [[Nanorobots]] → [[Biomaterials]]
+**Start here:** [[Medical_Robotics|Medical Robotics]] → [[Nanorobots]] → [[Biomaterials]]
 
-**All 3 notes, in reading order:** [[Medical_Robotics|Medical Robots]] · [[Nanorobots]] · [[Biomaterials]]
+**All 3 notes, in reading order:** [[Medical_Robotics|Medical Robotics]] · [[Nanorobots]] · [[Biomaterials]]
 
 ### Assistive Robotics, Prosthetics and Exoskeletons
 
@@ -327,7 +327,7 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 
 | Subfield | Notes | Beginner | Intermediate | Advanced | Research |
 |---|---:|---:|---:|---:|---:|
-| [[#Human-Robot Interaction]] | 5 | 2 | 2 | 1 | 0 |
+| [[#Human-Robot Interaction]] | 6 | 2 | 3 | 1 | 0 |
 | [[#Multi-Robot Systems and Swarms]] | 2 | 1 | 0 | 1 | 0 |
 | [[#Ethics, Safety and Society]] | 4 | 3 | 0 | 1 | 0 |
 | [[#History and Futures of Robotics]] | 5 | 5 | 0 | 0 | 0 |
@@ -339,7 +339,7 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 
 **Start here:** [[Natural_Language_Processing_Basics|Natural Language Processing Basics]] → [[Collaborative_Robots|Collaborative Robots (Cobots)]] → [[Teleoperation_and_Data_Collection|Teleoperation and Data Collection]] → [[Human-Robot_Interaction|Human-Robot Interaction]]
 
-**All 5 notes, in reading order:** [[Natural_Language_Processing_Basics|Natural Language Processing Basics]] · [[Collaborative_Robots|Collaborative Robots (Cobots)]] · [[Teleoperation_and_Data_Collection|Teleoperation and Data Collection]] · [[Human-Robot_Interaction|Human-Robot Interaction]] · [[Advanced_Human_Robot_Interaction_(HRI)|Advanced Human-Robot Interaction (HRI)]]
+**All 6 notes, in reading order:** [[Natural_Language_Processing_Basics|Natural Language Processing Basics]] · [[Collaborative_Robots|Collaborative Robots (Cobots)]] · [[Teleoperation_and_Data_Collection|Teleoperation and Data Collection]] · [[Human-Robot_Interaction|Human-Robot Interaction]] · [[Exoskeletons]] · [[Advanced_Human_Robot_Interaction_(HRI)|Advanced Human-Robot Interaction (HRI)]]
 
 ### Multi-Robot Systems and Swarms
 
