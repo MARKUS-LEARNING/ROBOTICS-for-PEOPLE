@@ -36,6 +36,7 @@ sources:
   - "John Deere (2025). John Deere customers use See & Spray technology across five million acres in 2025. https://www.deere.com/en/news/all-news/see-spray-technology-across-5-million-acres/"
   - "Carbon Robotics (2026). LaserWeeder. https://carbonrobotics.com/laserweeder"
   - "Siciliano, B. and Khatib, O., eds. (2016). Springer Handbook of Robotics, 2nd edition, chapter on robotics in agriculture and forestry. https://link.springer.com/referencework/10.1007/978-3-319-32552-1"
+  - "Lely (2026). Astronaut A5 milking robot. https://www.lely.com/us/solutions/milking/astronaut-a5/"
 ---
 
 # Agricultural Robots

@@ -1,6 +1,6 @@
 ---
 title: Hamilton-Jacobi-Bellman Equation
-description: "The Hamilton–Jacobi–Bellman (HJB) equation is the partial differential equation the optimal cost-to-go satisfies in continuous-time optimal control. Covers where it comes from (Bellman's principle of optimality), a solved scalar example, how it reduces to the Riccati equation for LQR, why it is hard (curse of dimensionality), and its discrete-time cousin, the Bellman equation that reinforcement learning approximates."
+description: "The Hamilton–Jacobi–Bellman (HJB) equation is the partial differential equation the optimal cost-to-go satisfies in continuous-time optimal control. Covers where it comes from (Bellman's principle of optimality), a solved scalar example, how it reduces to the Riccati equation for LQR, the curse of dimensionality, and the discrete-time Bellman equation that reinforcement learning approximates."
 aliases:
   - HJB Equation
   - HJB
@@ -30,7 +30,7 @@ key_takeaways:
   - "For ẋ = u with cost ∫(x² + u²) dt, V(x) = x² and the optimal control is u = −x, which can be checked by substitution."
   - "Solving HJB on a grid is exponential in the state dimension; reinforcement learning sidesteps this by approximating V or the policy with neural networks trained on samples."
 sources:
-  - "Bertsekas, D. P. (2017). Dynamic Programming and Optimal Control, 4th edition. https://www.athenasc.com/dpbook.html"
+  - "Bertsekas, D. P. (2017). Dynamic Programming and Optimal Control, 4th edition. http://www.athenasc.com/dpbook.html"
   - "Liberzon, D. (2011). Calculus of Variations and Optimal Control Theory: A Concise Introduction, chapter 5. http://liberzon.csl.illinois.edu/teaching/cvoc.pdf"
   - "Tedrake, R. (2026). Underactuated Robotics, chapter: Dynamic Programming. https://underactuated.csail.mit.edu/dp.html"
   - "Sutton, R. S. and Barto, A. G. (2018). Reinforcement Learning: An Introduction, 2nd edition. http://incompleteideas.net/book/the-book-2nd.html"
