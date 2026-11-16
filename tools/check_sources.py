@@ -32,7 +32,19 @@ def same_title(cited: str, real: str) -> bool:
     return bool(a) and (a in b or b in a or difflib.SequenceMatcher(None, a, b).ratio() >= 0.85)
 
 
-def fetch(url: str) -> tuple[int, str]:
+def fetch(url: str, tries: int = 3) -> tuple[int, str]:
+    """Status and final URL. Network errors and 5xx are retried with backoff, so one slow
+    server does not fail CI; a link only counts as dead if every attempt fails."""
+    for attempt in range(tries):
+        status, where = _fetch_once(url)
+        if status and status < 500:
+            return status, where
+        if attempt < tries - 1:
+            time.sleep(2 * (attempt + 1))
+    return status, where
+
+
+def _fetch_once(url: str) -> tuple[int, str]:
     req = urllib.request.Request(url, headers={'User-Agent': UA, 'Accept': 'text/html,application/pdf,*/*'})
     try:
         with urllib.request.urlopen(req, timeout=30) as r:
