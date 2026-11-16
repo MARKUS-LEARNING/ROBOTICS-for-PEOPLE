@@ -1,99 +1,100 @@
 ---
 title: Natural Language Processing Basics
-description: Natural Language Processing (NLP) Basics involve the techniques and methodologies used to enable robots to interpret, understand, and generate human language, facilitating tasks such as communication and data analysis.
+description: "Natural language processing (NLP) lets machines read, interpret and produce human language. Covers tokens, embeddings and language models, the shift from rule-based and statistical NLP to large language models, and how robots use language in 2026: instructions grounded in what the robot can actually do (with a computed SayCan-style example), dialogue and feedback, and language inside vision-language-action models."
+aliases:
+  - NLP
+  - Natural Language Processing
+  - Large Language Models
+  - LLM
 tags:
   - natural-language-processing
   - artificial-intelligence
-  - machine-learning
-  - mobile-robot
+  - human-robot-interaction
+  - foundation-models
 type: concept
-level: intermediate
+level: beginner
 subfield:
   - robot-learning
-status: draft
+  - human-robot-interaction
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Artificial_Intelligence]]"
-related:
-  - "[[Artificial_Intelligence]]"
   - "[[Machine_Learning]]"
-  - "[[Robot_Control]]"
-  - "[[Data_Analysis]]"
+related:
+  - "[[Transformers_and_Attention]]"
+  - "[[Vision-Language-Action_Models]]"
+  - "[[Knowledge_Representation_and_Reasoning]]"
+  - "[[Agents_and_Environments]]"
+key_takeaways:
+  - "Modern NLP turns text into tokens, maps tokens to vectors (embeddings), and uses transformer language models trained to predict the next token on enormous text collections."
+  - "Language models know a lot about the world but nothing about this robot's body or surroundings; grounding means combining what the model says is useful with what the robot can actually do."
+  - "In 2026 language reaches robots three ways: high-level planners that call skills, conversational interfaces for people, and the language backbone inside vision-language-action models."
+sources:
+  - "Jurafsky, D. and Martin, J. H. (2026). Speech and Language Processing, 3rd edition draft. https://web.stanford.edu/~jurafsky/slp3/"
+  - "Vaswani, A. et al. (2017). Attention Is All You Need. https://arxiv.org/abs/1706.03762"
+  - "Brown, T. et al. (2020). Language Models are Few-Shot Learners. https://arxiv.org/abs/2005.14165"
+  - "Ahn, M. et al. (2022). Do As I Can, Not As I Say: Grounding Language in Robotic Affordances. https://arxiv.org/abs/2204.01691"
+  - "Huang, W. et al. (2022). Inner Monologue: Embodied Reasoning through Planning with Language Models. https://arxiv.org/abs/2207.05608"
+  - "Brohan, A. et al. (2023). RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control. https://arxiv.org/abs/2307.15818"
 ---
 
 # Natural Language Processing Basics
 
-**Natural Language Processing (NLP)** Basics involve the techniques and methodologies used to enable robots to interpret, understand, and generate human language. NLP is a fundamental aspect of artificial intelligence, facilitating tasks such as communication, instruction interpretation, and data analysis. It encompasses a range of techniques, including text processing, sentiment analysis, and language translation, enabling robots to interact with humans and interpret textual data effectively.
+**Natural language processing (NLP)** is the part of AI concerned with human language: understanding it, answering in it, translating it, and acting on it. For robots, language is the most natural interface. People would rather say "please clear the table" than program a trajectory.
 
----
+> **Etymology.** *Natural* language, as opposed to *formal* languages such as programming languages and logic. *Language* is from Latin *lingua*, "tongue". The field began with machine-translation experiments in the 1950s.
 
-## Key Concepts
+## From rules to large language models
 
-### Text Processing
+| Era | Approach | Strength | Weakness |
+|---|---|---|---|
+| 1950s–80s | Hand-written grammars and rules | Precise on narrow inputs | Brittle; endless exceptions |
+| 1990s–2010s | Statistical models (n-grams, hidden Markov models), then word embeddings (word2vec, 2013) | Learned from data | Shallow understanding |
+| 2017– | **Transformer language models** (see [[Transformers_and_Attention]]) | Fluent, broad knowledge, few-shot learning | Can be confidently wrong; no built-in grounding in the physical world |
 
-Text processing involves the manipulation and analysis of textual data to extract meaningful information. This includes techniques such as tokenization, stemming, and lemmatization, which prepare the text for further analysis and interpretation.
+## The core ideas
 
-### Sentiment Analysis
+1. **Tokens.** Text is split into sub-word pieces ("un", "screw", "ing"). A typical English word is about 1.3 tokens.
+2. **Embeddings.** Each token becomes a vector; similar meanings end up near each other.
+3. **Language model.** A network trained to predict the next token given the previous ones. Trained on trillions of tokens, this simple objective produces models that summarise, translate, answer questions, write code and plan.
+4. **Instruction tuning and feedback.** Further training on instructions and human preferences turns a next-token predictor into an assistant that follows requests.
 
-Sentiment analysis involves determining the emotional tone behind a body of text, enabling robots to interpret the attitudes, opinions, and emotions expressed within the language. This is crucial for tasks such as customer feedback analysis and social media monitoring.
+## Grounding: language meets the robot's body
 
-### Language Translation
+A language model asked "I spilled my drink, can you help?" might suggest "use a vacuum". That is useless if the robot has no vacuum. **Grounding** connects what the model says to what the robot can perceive and do.
 
-Language translation involves converting text from one language to another, enabling robots to communicate and interpret information across different languages. This is essential for tasks such as multilingual communication and data analysis.
+### Worked example: SayCan-style skill selection
 
-### Named Entity Recognition
+SayCan (2022) scores each skill by two numbers: how useful the language model thinks it is for the instruction, and how likely the robot is to succeed at it from the current state (a learned **affordance** value). It picks the skill with the highest product.
 
-Named Entity Recognition (NER) involves identifying and classifying named entities in text, such as people, organizations, and locations. This enables robots to extract and interpret specific information from textual data, facilitating tasks such as information retrieval and data analysis.
+Instruction: "I spilled my drink, can you help?"
 
----
+| Skill | Language-model usefulness | Affordance (can do it now) | Product |
+|---|---|---|---|
+| find a sponge | 0.40 | 0.90 | **0.360** |
+| go to the kitchen | 0.50 | 0.20 | 0.100 |
+| pick up the apple | 0.10 | 0.95 | 0.095 |
 
-## Mathematical Formulation
+The robot chooses "find a sponge". The language model alone preferred the kitchen; the affordance alone preferred the apple; together they choose something both sensible and feasible. The process repeats after each step, with the completed steps added to the prompt.
 
-### Tokenization
+## Language on robots in 2026
 
-Tokenization is the process of breaking down text into individual units, such as words or sentences. The tokenization of a sentence $S$ can be represented as:
+| Role | How | See |
+|---|---|---|
+| **Task planning** | A language or vision-language model breaks an instruction into skill calls or code; feedback (success detection, scene descriptions) loops back, as in Inner Monologue (2022) | [[Knowledge_Representation_and_Reasoning]] |
+| **Conversation** | Speech recognition + language model + speech synthesis; asking clarifying questions | [[Agents_and_Environments]] |
+| **Inside the policy** | Vision-language-action models take the instruction as tokens alongside images, and output actions directly; RT-2 (2023) showed web knowledge transferring to new objects and concepts | [[Vision-Language-Action_Models]] |
 
-$$
-S = [w_1, w_2, \ldots, w_n]
-$$
+**Caution.** Language models can hallucinate facts and produce unsafe plans with complete confidence. Robot systems therefore constrain them:
+- to a fixed set of skills;
+- with checks on preconditions;
+- by asking for confirmation before irreversible actions;
+- with independent safety layers.
 
-where:
-- $w_i$ is the $i$-th word in the sentence.
-
-### Sentiment Analysis
-
-Sentiment analysis can be represented as a classification task, where the sentiment $s$ of a text $T$ is predicted:
-
-$$
-s = f(T)
-$$
-
-where:
-- $s$ is the sentiment label (e.g., positive, negative, neutral).
-- $f$ is the sentiment analysis model.
-- $T$ is the input text.
-
-### Example: Instruction Interpretation
-
-Consider a robotic system using NLP for instruction interpretation. The robot processes textual instructions, such as "Move forward" or "Turn left," using text processing techniques to extract the relevant actions. The robot's NLP model interprets the instructions and determines the appropriate actions, enabling it to navigate and interact with its environment effectively.
-
----
-
-## Applications in Robotics
-
-- **Communication**: NLP is used to enable robots to communicate with humans, interpreting and generating language to facilitate interaction and collaboration.
-- **Instruction Interpretation**: Enables robots to interpret and execute textual instructions, performing tasks such as navigation and manipulation.
-- **Data Analysis**: NLP is used to analyze and interpret textual data, extracting meaningful information and insights to inform decision-making and task performance.
-- **Sentiment Analysis**: Facilitates the interpretation of emotional tones in textual data, enabling robots to adapt their responses and interactions based on the sentiment expressed.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Natural_Language_Processing_Basics]])
