@@ -82,7 +82,7 @@ Robots employ various locomotion strategies, often inspired by biological system
     * **Mechanism:** Uses propellers, thrusters, fins, or body undulation.
     * **Characteristics:** Operates in aquatic environments. Faces challenges of waterproofing, pressure, buoyancy control, limited communication, and underwater [[Navigation]].
     * **Use Cases:** Oceanographic exploration, underwater inspection/maintenance (pipelines, structures), defense.
-    * **See:** [[Underwater_and_Space_Robots]], [[AUV]], [[ROV]].
+    * **See:** [[Underwater_and_Space_Robots]], [[Underwater_and_Space_Robots|AUV]], [[Underwater_and_Space_Robots|ROV]].
 
 6.  **Other Modes:**
     * **Climbing:** Robots using specialized grippers, suction, magnets, or spines to ascend vertical surfaces.

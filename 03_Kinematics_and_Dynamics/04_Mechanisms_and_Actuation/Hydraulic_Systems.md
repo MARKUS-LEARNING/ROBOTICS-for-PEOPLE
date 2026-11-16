@@ -99,7 +99,7 @@ Hydraulics were dominant in early robotics and remain relevant where high force 
 * **Heavy [[Industrial_Arms|Industrial Robots]]:** The first successful industrial robot, the [[Unimate]], was hydraulically powered. Hydraulics are still used in some very large robots requiring high payload capacity (e.g., foundry, forging, heavy material handling).
 * **[[Legged_Robots|Legged Robots]]:** Early dynamically capable legged robots (like the Raibert Hopper, early Boston Dynamics prototypes such as BigDog and Atlas) utilized hydraulics to achieve the high peak power needed for dynamic gaits.
 * **Construction & Mining Equipment:** Robotic or teleoperated excavators, loaders, and other heavy machinery rely on hydraulics.
-* **Aerospace & Subsea:** Used for flight control surfaces, landing gear, and deep-sea [[ROV|ROVs]] and manipulators where power density and environmental tolerance are key.
+* **Aerospace & Subsea:** Used for flight control surfaces, landing gear, and deep-sea [[Underwater_and_Space_Robots|ROVs]] and manipulators where power density and environmental tolerance are key.
 
 **Trend:** In many modern robotics applications, particularly for medium-sized industrial arms and mobile robots, advances in [[Electric_Motors|electric motors]] (especially brushless DC/AC servos), high-ratio [[Gearbox|gearboxes]] (harmonic drives, cycloidal drives), and electric [[Actuator|linear actuators]] have led to electric drives replacing hydraulic systems. Electric systems generally offer simpler control, lower maintenance, higher cleanliness, and often better overall system efficiency, though potentially lower peak power density at the actuator itself. Hydraulics remain the preferred choice mainly in applications demanding exceptionally high force or power.
 

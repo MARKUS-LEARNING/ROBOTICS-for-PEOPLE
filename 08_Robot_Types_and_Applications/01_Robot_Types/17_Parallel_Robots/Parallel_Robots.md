@@ -1,128 +1,90 @@
 ---
 title: Parallel Robots
-description: Parallel robots are robotic systems that utilize parallel kinematic chains to connect a base platform to a moving platform, providing high stiffness, precision, and load-bearing capabilities.
+description: "Parallel robots connect a moving platform to a base through several kinematic chains working together: Delta robots for ultra-fast picking, Gough–Stewart hexapods for motion simulators and precision positioning. Covers why parallel structures are stiff and fast, the inverted difficulty of their kinematics (inverse easy, forward hard), a computed leg-length example, singularities, and uses in 2026."
+aliases:
+  - Parallel Robot
+  - Parallel Manipulator
+  - Delta Robot
+  - Stewart Platform
+  - Hexapod
 tags:
-  - manipulator-arm
-  - parallel-robot
+  - parallel-robots
   - kinematics
-  - dynamics
-  - mechanism
-  - actuators
-  - motion
+  - industrial-robot
 type: robot-type
-level: beginner
+level: intermediate
 subfield:
-  - modular-reconfigurable
   - kinematics-dynamics
-  - mechanisms-actuation
-status: draft
+  - industrial-automation
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Robot_Design]]"
-  - "[[Actuator]]"
-related:
-  - "[[Stewart_Platform]]"
-  - "[[Kinematics]]"
-  - "[[Dynamics]]"
-  - "[[Actuator]]"
-  - "[[Mechanisms_and_Actuation]]"
-  - "[[Control_Systems]]"
-  - "[[Robot_Design]]"
   - "[[Manipulator_Arm]]"
+  - "[[Inverse_Kinematics]]"
+related:
+  - "[[Cable-Driven_Robots]]"
+  - "[[Industrial_Arms]]"
+  - "[[Forward_Kinematics]]"
+key_takeaways:
+  - "Several chains share the load, so parallel robots are stiff, accurate and fast for their mass, at the cost of a smaller workspace than serial arms."
+  - "Their kinematics invert serial arms' difficulty: inverse kinematics is easy (each leg length follows directly from the platform pose), forward kinematics is hard (a Stewart platform can have up to 40 solutions)."
+  - "Delta robots dominate high-speed light picking; hexapods drive flight and driving simulators and precision positioning in optics and astronomy."
+sources:
+  - "Merlet, J.-P. (2006). Parallel Robots, 2nd edition. https://link.springer.com/book/10.1007/1-4020-4133-0"
+  - "Clavel, R. (1990). Device for the movement and positioning of an element in space (Delta robot patent US 4,976,582). https://patents.google.com/patent/US4976582A/en"
+  - "Lynch, K. M. and Park, F. C. (2017). Modern Robotics, chapter 7: Kinematics of Closed Chains. https://hades.mech.northwestern.edu/index.php/Modern_Robotics"
+  - "Siciliano, B. and Khatib, O., eds. (2016). Springer Handbook of Robotics, 2nd edition, chapter on parallel mechanisms. https://link.springer.com/referencework/10.1007/978-3-319-32552-1"
 ---
 
 # Parallel Robots
 
-**Parallel robots** are robotic systems that utilize parallel kinematic chains to connect a base platform to a moving platform, providing high stiffness, precision, and load-bearing capabilities. Unlike serial robots, where each joint supports all subsequent joints, parallel robots distribute loads across multiple kinematic chains, resulting in enhanced structural rigidity and accuracy. These robots are widely used in applications requiring precise positioning and high dynamic performance.
+A **parallel robot** holds its end effector (a platform) with several chains of links at once, each anchored to the base. A serial arm is a single chain, like a human arm; a parallel robot is more like a table held up by adjustable legs. Sharing the load across chains makes it stiff, precise and fast.
 
----
+> **Etymology.** *Parallel* from Greek *parallēlos*, "beside one another": the chains work side by side. Eric Gough built a hexapod tyre-testing machine in the 1950s; D. Stewart described a six-legged flight-simulator platform in 1965 (hence "Gough–Stewart platform"). Reymond Clavel invented the **Delta robot** at EPFL in the 1980s.
 
-## Types of Parallel Robots
+## Common types
 
-1. **Stewart Platform**: A common type of parallel robot featuring six prismatic joints connecting a base platform to a moving platform, providing six degrees of freedom. It is used in applications such as flight simulators and robotic manufacturing.
-   <br>
+| Type | Structure | Strengths | Uses |
+|---|---|---|---|
+| **Delta** | Three arms with parallelograms; motors fixed in the base | Very light moving parts; several picks per second | Food, pharmaceutical and electronics packaging |
+| **Gough–Stewart (hexapod)** | Six extensible legs between base and platform | Six-DoF motion, high stiffness and accuracy | Flight and driving simulators, telescope mirror and optics positioning, machining |
+| **Planar parallel** | Chains moving in a plane | Simple, precise | Positioning stages |
+| **Cable-driven parallel** | Cables instead of rigid legs | Huge workspaces | See [[Cable-Driven_Robots]] |
 
-2. **Delta Robot**: Utilizes three parallelogram-based kinematic chains to connect the base to the moving platform. Known for its high-speed and high-precision capabilities, it is often used in pick-and-place operations and assembly tasks.
-   <br>
+## Serial versus parallel
 
-3. **Hexapod**: Features six legs connecting the base to the moving platform, often used in large-scale applications like telescopes and antenna positioning systems.
-   <br>
+| | Serial arm | Parallel robot |
+|---|---|---|
+| Workspace | Large | Smaller |
+| Stiffness and accuracy | Errors add up along the chain | Errors are averaged across legs; high stiffness |
+| Speed | Each motor carries the ones after it | Motors fixed at the base; light moving parts |
+| Inverse kinematics | Hard (multiple solutions, iterative) | **Easy** |
+| Forward kinematics | **Easy** | Hard |
 
-4. **Tripod**: A simpler version of parallel robots with three kinematic chains, often used in educational and research settings for studying parallel robot kinematics.
-   <br>
+## Worked example: inverse kinematics of a hexapod leg
 
----
+For a Gough–Stewart platform, each leg connects a base point $\mathbf b_i$ to a platform point $\mathbf p_i$ (fixed in the platform frame). Given the platform's position $\mathbf t$ and rotation $R$, each leg length is simply
 
-## Kinematic Model
+$$\ell_i = \lVert \mathbf t + R\,\mathbf p_i - \mathbf b_i \rVert.$$
 
-The kinematics of parallel robots involve solving for the positions and orientations of the moving platform based on the lengths of the actuators in the kinematic chains.
+Example: base point $\mathbf b = (1, 0, 0)$ m, platform point $\mathbf p = (0.5, 0, 0)$ m, platform level ($R = I$) and centred 1 m above the base ($\mathbf t = (0, 0, 1)$):
 
-### Forward Kinematics
+$$\ell = \lVert (0.5, 0, 1) - (1, 0, 0) \rVert = \lVert(-0.5, 0, 1)\rVert = \sqrt{0.25 + 1} = 1.118\ \text{m}.$$
 
-Forward kinematics involves calculating the position and orientation of the moving platform given the actuator lengths. This is typically more complex than for serial robots and often requires numerical methods due to the nonlinear relationships involved.
+Do this for six legs and you have the inverse kinematics, in closed form and in microseconds. Going the other way, finding the pose from six measured leg lengths, means solving coupled nonlinear equations. The general Stewart platform has up to 40 solutions, so controllers use numerical methods started from the last known pose.
 
-For a general parallel robot, the forward kinematics can be expressed as:
+## Singularities
 
-$$
-\mathbf{T} = f(\mathbf{l})
-$$
+At some poses a parallel robot gains an uncontrollable motion: the platform can move slightly even with all actuators locked, or it loses stiffness in some direction. Designers keep the working range away from these configurations.
 
-where $\mathbf{T}$ is the transformation matrix representing the position and orientation of the moving platform, and $\mathbf{l}$ is the vector of actuator lengths.
+## Uses in 2026
 
-### Inverse Kinematics
+Delta robots remain the standard for high-speed picking of light items, now guided by deep-learning vision. Hexapods position optics, telescope secondary mirrors and test equipment with micrometre precision, and move motion simulators for driving and flight training. Parallel designs also appear in humanoid ankles and wrists, where two motors drive a joint through parallel linkages to keep mass close to the body.
 
-Inverse kinematics involves determining the required actuator lengths to achieve a desired position and orientation of the moving platform. This can often be solved analytically for simpler parallel robots or using numerical methods for more complex configurations.
-
-The inverse kinematics equation can be written as:
-
-$$
-\mathbf{l} = g(\mathbf{T})
-$$
-
-where $\mathbf{l}$ is the vector of actuator lengths, and $\mathbf{T}$ is the desired transformation matrix.
-
----
-
-## Dynamics
-
-The dynamic behavior of parallel robots is influenced by the masses of the platforms, the inertia of the moving platform, and the forces exerted by the actuators. The dynamics are described using equations of motion that account for these factors.
-
-### Equations of Motion
-
-The equations of motion for parallel robots can be derived using Newton-Euler formulations or Lagrange's equations. These equations are used to analyze the platform's response to external forces and to design control systems for precise motion control.
-
-The dynamic equation using Lagrange's formulation is:
-
-$$
-\frac{d}{dt} \left( \frac{\partial L}{\partial \dot{q}} \right) - \frac{\partial L}{\partial q} = Q
-$$
-
-where $L = T - V$ is the Lagrangian, $T$ is the kinetic energy, $V$ is the potential energy, $q$ represents the generalized coordinates (often the actuator lengths), and $Q$ represents the generalized forces.
-
----
-
-## Applications
-
-- **Manufacturing**: Parallel robots are used in manufacturing for precise positioning and orientation of tools and components, especially in high-speed operations.
-  <br>
-
-- **Medical Devices**: Employed in medical devices for precise control of surgical instruments and patient positioning.
-  <br>
-
-- **Research and Development**: Utilized in research for studying parallel robot kinematics and dynamics, as well as developing new control algorithms.
-  <br>
-
-- **Simulation**: Used in flight simulators and other training devices to provide realistic motion cues.
-  <br>
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Parallel_Robots]])

@@ -491,6 +491,7 @@ vocabulary:
   - papers
   - parallel-computing
   - parallel-robot
+  - parallel-robots
   - path-planning
   - pcl
   - perception
