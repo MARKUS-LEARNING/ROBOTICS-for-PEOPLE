@@ -1,141 +1,117 @@
 ---
 title: Manipulator Control Experiments
-description: A collection and guide for documenting practical experiments related to the control of robotic manipulators.
+description: "Hands-on control experiments for robot arms that run on a laptop in MuJoCo, plus how to document them. Includes a complete, tested two-link-arm lab comparing PD control with and without gravity compensation (5.2° sag versus zero), follow-on experiments (gain sweeps, computed torque, impedance, payload changes, learned policies), and a write-up structure for reproducible results."
+aliases:
+  - Arm Control Lab
+  - Manipulator Experiments
 tags:
-  - experiment
-  - manipulator-arm
-  - control-theory
-  - ros
-  - moveit
-  - gazebo
+  - control
+  - manipulation
+  - mujoco
+  - simulation
 type: lab
 level: intermediate
 subfield:
-  - manipulation
   - control
-status: draft
+  - manipulation
+status: reviewed
 author: Jordan_Smith
-date: 2025-04-29
+date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
   - "[[PID_Control]]"
-  - "[[Manipulation]]"
+  - "[[Robot_Control]]"
+  - "[[MuJoCo]]"
 related:
-  - "[[Labs_Projects_and_Tutorials]]"
-  - "[[Manipulation]]"
-  - "[[Control_Theory]]"
-  - "[[PID_Control]]"
   - "[[Computed_Torque_Control]]"
-  - "[[Force Control]]"
-  - "[[Visual Servoing]]"
-  - "[[Joint Space]]"
-  - "[[Cartesian_Space]]"
-  - "[[Kinematics]]"
-  - "[[Dynamics]]"
-  - "[[Robot_Operating_System_(ROS)]]"
-  - "[[MoveIt2]]"
-  - "[[Gazebo_Simulator]]"
+  - "[[Compliance]]"
+  - "[[Robotics_Lab_Template]]"
+  - "[[Sim2Real_Experiments]]"
+key_takeaways:
+  - "A two-link arm in MuJoCo is enough to see the core ideas of manipulator control with nothing but pip install mujoco."
+  - "In the tested lab, PD control alone left the shoulder 5.2° below target under gravity; adding MuJoCo's own gravity and Coriolis terms (qfrc_bias) removed the error."
+  - "Change one thing at a time, record everything (code version, gains, model), and report numbers, not impressions."
+sources:
+  - "Google DeepMind (2026). MuJoCo 4.0.0 release notes. https://github.com/google-deepmind/mujoco/releases/tag/4.0.0"
+  - "Google DeepMind (2026). MuJoCo documentation: Computation. https://mujoco.readthedocs.io/en/stable/computation/index.html"
+  - "Lynch, K. M. and Park, F. C. (2017). Modern Robotics, chapter 11: Robot Control. https://hades.mech.northwestern.edu/index.php/Modern_Robotics"
 ---
 
 # Manipulator Control Experiments
 
-This note serves as a central collection point and organizational template for documenting practical experiments conducted on controlling [[Manipulator_Arm_Types|robotic manipulator arms]]. Implementing and testing control algorithms, whether in simulation or on physical hardware, is crucial for gaining a deep understanding of [[Control_Theory|control theory]], robot [[Dynamics]], [[Kinematics]], and the challenges of real-world implementation.
+Control theory becomes real when you watch an arm sag under gravity, oscillate with too much gain, or snap to its target once the model is right. These experiments run in [[MuJoCo]] on an ordinary laptop, so anyone can do them before touching hardware.
 
-See also: [[Labs_Projects_and_Tutorials]] for other projects.
+> **Etymology.** *Experiment* is from Latin *experiri*, "to try out".
 
----
+## Lab 1: gravity compensation (tested)
 
-## Experiment Documentation Structure
+**Question.** How much does a PD controller sag under gravity, and does adding the model's gravity torque fix it?
 
-It's highly recommended to document each experiment thoroughly for reproducibility and learning. Consider creating separate notes for each significant experiment and linking them here, or use headings within this document. A suggested structure for documenting each experiment is:
+**Setup.** Install with `pip install mujoco numpy`. A two-link arm moves in a vertical plane (upper link 0.3 m, 1.0 kg; lower link 0.25 m, 0.6 kg). Torque limits are ±30 N·m, and the gains are $K_p = 40$ N·m/rad and $K_d = 4$ N·m·s/rad.
 
-### Experiment: [Descriptive Title - e.g., PID Joint Position Control Tuning for UR5 Joint 2]
+```python
+import mujoco, numpy as np
 
-* **Date:** YYYY-MM-DD
-* **Objective:** Clearly state the goal(s) of the experiment. (e.g., To implement and tune PID gains for joint 2 of a simulated UR5 arm to achieve a critically damped response to a step input, minimizing overshoot and settling time. To compare performance with different gain values.)
-* **Theoretical Background:** Briefly mention the control concepts being tested. Link to relevant vault notes (e.g., `[[PID_Control]]`, `[[Joint Space]] Control`).
-* **Setup:**
-    * **Robot Model:** Specify the manipulator used (e.g., Simulated Franka Emika Panda in [[Gazebo_Simulator]], physical [[Arduino]]-based SCARA arm). Link to its [[URDF]] or description `[[My_Robot_Description]]`.
-    * **Software:** List the key software components ([[Robot_Operating_System_(ROS)|ROS]] version, [[MoveIt2|MoveIt]], [[OMPL]], specific [[Python_ROS_Nodes|Python]]/[[C++_Motion_Planning|C++]] code packages, [[MATLAB]]/Simulink). Link to relevant code repositories using [[Git_Integration_and_Version_Control]].
-    * **Control Algorithm:** Detail the specific algorithm implemented (e.g., Independent Joint PID, [[Computed_Torque_Control|Computed Torque Control]], Resolved Motion Rate Control).
-    * **Environment:** Describe the experimental environment (e.g., [[Gazebo_Simulator]] world file, physical setup description).
-* **Procedure:**
-    * Provide step-by-step instructions on how to replicate the experiment.
-    * Include configuration details, parameters used (e.g., specific PID gains: Kp, Ki, Kd), and commands executed.
-    * Reference specific code files or functions.
-* **Results:**
-    * Present the quantitative and qualitative outcomes.
-    * Include data plots (e.g., joint position vs. time, tracking error, end-effector path using `rqt_plot` or MATLAB).
-    * Include [[RViz_Tutorial|RViz]] or [[Gazebo_Simulator|Gazebo]] screenshots/videos if applicable.
-    * Note any specific observations during the experiment.
-* **Analysis & Discussion:**
-    * Interpret the results in light of the objective and theoretical background.
-    * Did the controller perform as expected? Why or why not?
-    * Discuss the effect of parameter tuning (e.g., PID gains).
-    * Analyze sources of error or unexpected behavior.
-    * Suggest potential improvements or next steps.
+XML = """
+<mujoco>
+  <option timestep="0.001" gravity="0 0 -9.81"/>
+  <worldbody>
+    <body name="upper">
+      <joint name="shoulder" type="hinge" axis="0 1 0" damping="0.05"/>
+      <geom type="capsule" fromto="0 0 0 0.3 0 0" size="0.03" mass="1.0"/>
+      <body name="lower" pos="0.3 0 0">
+        <joint name="elbow" type="hinge" axis="0 1 0" damping="0.05"/>
+        <geom type="capsule" fromto="0 0 0 0.25 0 0" size="0.025" mass="0.6"/>
+      </body>
+    </body>
+  </worldbody>
+  <actuator>
+    <motor joint="shoulder" ctrlrange="-30 30"/>
+    <motor joint="elbow" ctrlrange="-30 30"/>
+  </actuator>
+</mujoco>
+"""
 
----
+def run(gravity_comp, kp=40.0, kd=4.0, seconds=3.0):
+    m = mujoco.MjModel.from_xml_string(XML); d = mujoco.MjData(m)
+    target = np.array([-0.5, 0.8])                 # rad
+    for _ in range(int(seconds / m.opt.timestep)):
+        tau = kp * (target - d.qpos) - kd * d.qvel
+        if gravity_comp:
+            tau += d.qfrc_bias                     # gravity + Coriolis from the model
+        d.ctrl[:] = np.clip(tau, -30, 30)
+        mujoco.mj_step(m, d)
+    return np.degrees(target - d.qpos)
 
-## Potential Experiment Areas
+for gc in (False, True):
+    print(gc, run(gc))
+```
 
-Based on common manipulator control concepts, here are some areas you might conduct experiments in:
+**Results** (MuJoCo 4.0.1, after 3 s):
 
-### [[Joint Space]] Control
+| Controller | Shoulder error | Elbow error |
+|---|---|---|
+| PD only | −5.22° | −0.97° |
+| PD + gravity compensation | 0.00° | 0.00° |
 
-* **Independent Joint Control:**
-    * Implement [[PID_Control]] for single or multiple joints.
-    * Experiment with PID tuning methods (e.g., Ziegler-Nichols, manual tuning) and analyze step response (overshoot, rise time, settling time, steady-state error).
-    * Test disturbance rejection.
-    * Implement gravity compensation and evaluate its effect.
-* **[[Trajectory_Planning|Joint Space Trajectory Tracking]]:**
-    * Generate polynomial or spline-based joint trajectories.
-    * Command the robot to follow the trajectory using a PID or other controller.
-    * Measure and analyze tracking accuracy.
+**Interpretation.** Without compensation, each joint settles where its stiffness balances the gravity torque, $K_p e = \tau_g$, so the arm sags. The shoulder carries both links and sags most. Adding `qfrc_bias`, MuJoCo's computed gravity and Coriolis forces, cancels the load exactly, because the model is perfect in simulation. On hardware the model would be imperfect; see Lab 3.
 
-### [[Cartesian_Space|Cartesian Space]] Control
+## Follow-on experiments
 
-* **Position Control:**
-    * Use [[Inverse_Kinematics]] to command the end-effector to specific Cartesian poses.
-    * Evaluate accuracy and repeatability.
-* **Velocity Control (Resolved Motion Rate Control):**
-    * Implement control using the [[Jacobian_Matrix|Jacobian]] inverse or pseudoinverse.
-    * Command end-effector linear and angular velocities.
-    * Observe behavior near [[Singularities]].
-* **[[Trajectory_Planning|Cartesian Trajectory Tracking]]:**
-    * Plan simple Cartesian paths (lines, circles).
-    * Use [[MoveIt2|MoveIt]] or implement your own controller to track the path.
-    * Analyze end-effector tracking error.
+1. **Gain sweep.** Vary $K_p$ from 10 to 200 and $K_d$ from 0.5 to 20. Plot steady-state sag and overshoot. Expect sag roughly proportional to $1/K_p$, and oscillation when $K_d$ is too low.
+2. **Computed torque.** Track a sinusoid using the full model (`mj_inverse` or the mass matrix from `mj_fullM`). Compare tracking error with PD alone (see [[Computed_Torque_Control]]).
+3. **Wrong model.** Scale the controller's masses by 0.8 while keeping the simulated arm's true masses. Measure how much error returns, and try integral action or adaptation (see [[Adaptive_Control]]).
+4. **Payload.** Add a 0.5 kg box at the tip without telling the controller.
+5. **Impedance.** Command a target inside a wall and measure the contact force for different stiffnesses (see [[Compliance]]).
+6. **Learned policy.** Train a small RL or imitation policy to reach targets and compare robustness to payload changes.
 
-### [[Dynamics]]-Based Control
+## Writing it up
 
-* **[[Computed_Torque_Control|Computed Torque Control]]:**
-    * Implement the computed torque control law using the robot's [[Inverse_Dynamics]] model.
-    * Compare tracking performance against simpler PID control.
-    * Investigate sensitivity to errors in dynamic parameters.
+Use the [[Robotics_Lab_Template]]: state the question, the exact setup (software versions, model, gains, random seeds), the procedure, results in tables or plots with numbers, interpretation, and what you would test next. Commit the code and parameters (see [[Git_Integration_and_Version_Control]]).
 
-### [[Force Control]]
+## Dataview
 
-* Implement impedance or admittance control (requires force sensing or estimation).
-* Test hybrid position/force control for tasks involving contact (e.g., pushing against a surface).
-
-### [[Visual Servoing]]
-
-* Use [[Camera_Systems|camera feedback]] to control the manipulator's pose relative to a target object (Image-Based or Position-Based Visual Servoing).
-
-### Learning-Based Control
-
-* Use [[Reinforcement_Learning|RL]] or [[Imitation_Learning|Imitation Learning]] to train control policies for manipulation tasks, often starting in simulation ([[Gazebo_Simulator]]).
-
----
-
-## Tools
-
-Common tools used for these experiments include:
-* Programming Languages: [[C++]], [[Python_for_Robotics]]
-* Middleware: [[Robot_Operating_System_(ROS)|ROS (Robot Operating System)]] / [[ROS_2_Overview|ROS 2]]
-* Libraries/Frameworks: [[MoveIt2|MoveIt]], [[OMPL]], [[FCL]], [[PCL]], `ros_control`
-* Simulation: [[Gazebo_Simulator]], [[MATLAB]]/Simulink
-* Visualization/Debugging: [[RViz_Tutorial|RViz]], `rqt_plot`, `rqt_graph`
-
-Documenting your experiments systematically will significantly aid your learning process and provide valuable references for future projects.
-
+```dataview
+LIST FROM "" WHERE contains(file.outlinks, [[Manipulator_Control_Experiments]])
+```

@@ -1,124 +1,102 @@
 ---
 title: Robotics Lab Template
-description: A best practices template for researching labs online, creating your own labs, conducting labs, taking professional notes, and sharing results.
+description: "A template and guide for planning, running and writing up robotics labs so results are trustworthy and reproducible: question and hypothesis, setup with versions and seeds, safety, procedure, measurement with enough trials (with a computed confidence-interval example for success rates), results, and discussion, adapted for simulation, hardware and robot-learning experiments in 2026."
+aliases:
+  - Lab Template
+  - Lab Report Template
 tags:
-  - vault-meta
-  - best_practices
+  - education
   - research
-type: lab
+type: tutorial
 level: beginner
 subfield:
-  - software
-status: draft
+  - research-practice
+  - creative-education
+status: reviewed
 author: Jordan_Smith
-date: 2025-05-12
+date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
   - "[[Labs_Projects_and_Tutorials]]"
 related:
-  - "[[Labs_Projects_and_Tutorials]]"
-  - "[[Research_Methods]]"
-  - "[[Note_Taking]]"
-  - "[[Data_Sharing]]"
+  - "[[Manipulator_Control_Experiments]]"
+  - "[[Git_Integration_and_Version_Control]]"
+  - "[[Robot_Learning_Datasets_and_Benchmarks]]"
+key_takeaways:
+  - "A good lab starts with a question and a prediction, changes one thing at a time, and records everything needed to repeat it."
+  - "Success rates need enough trials: 8 successes in 10 trials has a 95% interval of roughly 49–94%, so small differences between policies are usually noise."
+  - "For robot learning, report the code commit, data version, seeds, simulator or hardware details, and evaluation protocol, not just a video."
+sources:
+  - "Hugging Face (2026). LeRobot documentation. https://huggingface.co/docs/lerobot/so101"
+  - "Chacon, S. and Straub, B. (2026). Pro Git, 2nd edition. https://git-scm.com/book/en/v2"
+  - "Iterative (2026). DVC: data version control. https://dvc.org/"
 ---
 
 # Robotics Lab Template
 
-## Overview
+Use this template for any experiment, in simulation or on hardware. Its purpose is that your result is believable to someone else, and to you in six months.
 
-This template provides a structured approach to researching labs online, creating your own labs, conducting labs, taking professional notes, and sharing results in the field of robotics.
+> **Etymology.** *Template* from French *templet*, a pattern used as a guide.
 
-## Researching Labs Online
+## The template
 
-### Best Practices
+```markdown
+---
+title: "Lab: <short descriptive title>"
+type: lab
+level: intermediate
+subfield: [control]
+status: draft
+tags: [control, mujoco]
+---
 
-1. **Identify Reliable Sources**: Use reputable websites, academic journals, and trusted organizations to gather information.
-2. **Use Keywords Effectively**: Utilize specific keywords related to your topic to narrow down search results.
-3. **Evaluate Content**: Assess the credibility, relevance, and timeliness of the information.
-4. **Organize Information**: Use tools like bookmarks, note-taking apps, and reference managers to keep track of useful resources.
+# Lab: <title>
 
-### Example
+## Question and prediction
+What do you want to know? What do you expect, and why?
 
-- **Source**: IEEE Xplore, ScienceDirect, arXiv
-- **Keywords**: "Robotics labs," "Autonomous navigation," "Robotic arm control"
-- **Evaluation Criteria**: Publication date, author credentials, peer reviews
+## Setup
+- Robot / model (URDF or MJCF file and version)
+- Software: OS, ROS 2 distribution, simulator version, library versions
+- Code commit and branch; dataset version; random seeds
+- Hardware: controllers, sensors, calibration date
 
-## Creating Your Own Labs
+## Safety
+Hazards and how they are controlled (e-stop location, speed and force limits, guarding).
 
-### Best Practices
+## Procedure
+Numbered steps another person could follow. Change one variable at a time.
 
-1. **Define Objectives**: Clearly outline the goals and objectives of the lab.
-2. **Design Experiments**: Develop experiments that align with the objectives and are feasible with available resources.
-3. **Prepare Materials**: Gather all necessary materials and equipment.
-4. **Safety Considerations**: Ensure all safety protocols are in place and followed.
+## Measurements
+What is measured, how, how often, and how many trials.
 
-### Example
+## Results
+Tables and plots with numbers and uncertainty. Link raw data.
 
-- **Objective**: Design a lab to test the accuracy of a robotic arm in picking and placing objects.
-- **Experiment Design**: Create a setup with various objects and measure the arm's precision.
-- **Materials**: Robotic arm, objects of different shapes and sizes, measuring tools.
-- **Safety**: Ensure the workspace is clear of obstacles and follow safety guidelines for operating the robotic arm.
+## Discussion
+Was the prediction right? What else could explain the result? Limitations.
 
-## Conducting Labs
+## Next steps
+The next question this raises.
+```
 
-### Best Practices
+## How many trials?
 
-1. **Follow Procedures**: Adhere to the experimental procedures and protocols.
-2. **Record Data**: Accurately record all observations and measurements.
-3. **Monitor Progress**: Regularly check the progress and make adjustments as needed.
-4. **Troubleshoot Issues**: Identify and resolve any issues that arise during the lab.
+Robot experiments are noisy, so report uncertainty. For a success rate, a simple 95% interval (the Wilson score interval) for 8 successes out of 10 trials is roughly **49% to 94%**. With 80 successes out of 100 it narrows to about 71–87%.
 
-### Example
+So "policy A succeeded 8/10 times and policy B 7/10" does **not** show that A is better. Plan enough trials for the difference you care about, and randomise conditions (object positions, lighting) the same way for both.
 
-- **Procedure**: Follow the step-by-step instructions for operating the robotic arm.
-- **Data Recording**: Use a data sheet or digital tool to record measurements.
-- **Progress Monitoring**: Regularly check the arm's performance and make necessary adjustments.
-- **Troubleshooting**: Address any malfunctions or errors promptly to ensure accurate results.
+## Extra items for robot-learning labs
 
-## Taking Professional Notes
+- Training data: source, size, version, and how it was split.
+- Training configuration: hyperparameters, compute, training time, seeds.
+- Evaluation protocol: number of episodes, initial conditions, what counts as success, held-out objects and scenes.
+- Failure analysis: categorise failures (perception, grasp, collision, timeout).
+- Artefacts: model checkpoint and evaluation videos linked from the write-up.
 
-### Best Practices
-
-1. **Use a Structured Format**: Organize notes with clear headings and sections.
-2. **Be Detailed**: Include all relevant information, observations, and data.
-3. **Use Visuals**: Incorporate diagrams, charts, and graphs to enhance understanding.
-4. **Review and Revise**: Regularly review and update notes for accuracy and completeness.
-
-### Example
-
-- **Format**: Use headings for different sections (e.g., Objective, Materials, Procedure, Results).
-- **Details**: Record all observations, measurements, and any deviations from expected results.
-- **Visuals**: Include diagrams of the experimental setup and graphs of the data collected.
-- **Review**: Periodically review notes to ensure they are accurate and complete.
-
-## Sharing Results
-
-### Best Practices
-
-1. **Prepare a Report**: Summarize the lab objectives, procedures, results, and conclusions in a clear and concise report.
-2. **Use Visual Aids**: Include charts, graphs, and images to illustrate key findings.
-3. **Present Findings**: Share results through presentations, posters, or publications.
-4. **Engage with Audience**: Be prepared to answer questions and discuss the implications of the results.
-
-### Example
-
-- **Report**: Write a detailed report with sections for introduction, methods, results, and discussion.
-- **Visual Aids**: Create graphs to show the accuracy of the robotic arm and images of the experimental setup.
-- **Presentation**: Prepare a slide deck to present the findings to peers or at a conference.
-- **Engagement**: Practice answering potential questions and discussing the significance of the results.
-
-## Related Notes
-
-- [[Labs_Projects_and_Tutorials]]
-- [[Research_Methods]]
-- [[Note_Taking]]
-- [[Data_Sharing]]
-
-## Dataview Queries
-
-### List of Related Labs
+## Dataview
 
 ```dataview
-LIST
-FROM "12_Labs_and_Tutorials"
-WHERE type = "lab"
+LIST FROM "" WHERE contains(file.outlinks, [[Robotics_Lab_Template]])
 ```

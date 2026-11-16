@@ -1,102 +1,93 @@
 ---
 title: Turtlesim Projects
-description: An overview of the Turtlesim simulator in ROS and a collection point for projects and experiments using it to learn ROS concepts.
+description: "Turtlesim is ROS 2's tiny 2D simulator for learning topics, services, actions, parameters and launch files. Covers its interfaces as of ROS 2 Lyrical (including the move of its message types to turtlesim_msgs from Kilted), the commands to explore them, a computed circle-drawing example, and a ladder of projects from teleoperation to a turtle-chasing controller with TF."
+aliases:
+  - Turtlesim
+  - ROS 2 Turtlesim
 tags:
-  - turtlesim
-  - ros
-  - simulation
+  - ros2
   - education
 type: tutorial
 level: beginner
 subfield:
   - software
-status: draft
+  - creative-education
+status: reviewed
 author: Jordan_Smith
-date: 2025-04-29
+date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Labs_Projects_and_Tutorials]]"
+  - "[[Robot_Operating_System_(ROS)]]"
 related:
-  - "[[ROS_2_Overview]]"
-  - "[[Custom_Packages_and_Nodes]]"
   - "[[ROS_2_Communication]]"
-  - "[[ROS_2_Communication]]"
-  - "[[ROS_2_Communication]]"
-  - "[[Python_ROS_Nodes]]"
-  - "[[C++_Motion_Planning]]"
-  - "[[Control_Theory]]"
-  - "[[Robot_Simulation]]"
+  - "[[Actions]]"
+  - "[[Launch_Files]]"
+  - "[[TF_and_Topic_Architecture]]"
   - "[[Labs_Projects_and_Tutorials]]"
+key_takeaways:
+  - "Turtlesim exercises every core ROS 2 concept (nodes, topics, services, actions, parameters, launch) without any hardware or heavy simulator."
+  - "From Kilted (2025) its interface types live in the turtlesim_msgs package (e.g. turtlesim_msgs/msg/Pose); Jazzy and older still use turtlesim/msg/Pose, so older tutorials need that one change."
+  - "Commanding 2.0 linear and 1.0 rad/s angular velocity draws a circle of radius 2.0 in about 6.28 s, a quick check that you understand the kinematics."
+sources:
+  - "Open Robotics (2026). ros_tutorials: turtlesim source (rolling branch). https://github.com/ros/ros_tutorials"
+  - "Open Robotics (2026). ROS 2 documentation source: Introducing turtlesim. https://github.com/ros2/ros2_documentation/blob/rolling/source/Get-Started/Introducing-Turtlesim/Introducing-Turtlesim.rst"
+  - "Open Robotics (2026). ROS 2 documentation source: Understanding topics. https://github.com/ros2/ros2_documentation/blob/rolling/source/ROS-Framework/interfaces/topics/Understanding-ROS2-Topics/Understanding-ROS2-Topics.rst"
 ---
 
 # Turtlesim Projects
 
-**Turtlesim** is a lightweight, 2D simulator that comes standard with many [[Robot_Operating_System_(ROS)|ROS]] distributions. It features a simple graphical window where one or more "turtle" robots move within a 2D plane, optionally drawing trails behind them. While visually basic, Turtlesim is an invaluable tool for beginners learning core ROS concepts without the complexity of real hardware or advanced simulators like [[Gazebo_Simulator]].
+**Turtlesim** is a minimal 2D simulator shipped with ROS: turtles in a window that move when you send velocity commands and draw as they go. It is how most people learn ROS 2, because every core concept can be tried in minutes.
 
-Its primary purpose is educational: providing a hands-on way to understand and experiment with fundamental ROS mechanisms.
+> **Etymology.** Named after the turtle robots of the Logo programming language (Seymour Papert, 1960s), which drew lines as they moved.
 
----
+## Its interfaces (ROS 2 Lyrical)
 
-## Core Turtlesim Components and Interfaces
+| Kind | Name | Type |
+|---|---|---|
+| Topic (in) | `/turtle1/cmd_vel` | `geometry_msgs/msg/Twist` |
+| Topic (out) | `/turtle1/pose` | `turtlesim_msgs/msg/Pose` |
+| Topic (out) | `/turtle1/color_sensor` | `turtlesim_msgs/msg/Color` |
+| Services | `/spawn`, `/kill`, `/clear`, `/reset` | `turtlesim_msgs/srv/...` (`std_srvs/srv/Empty` for clear and reset) |
+| Services (per turtle) | `/turtle1/set_pen`, `/turtle1/teleport_absolute`, `/turtle1/teleport_relative` | `turtlesim_msgs/srv/...` |
+| Action | `/turtle1/rotate_absolute` | `turtlesim_msgs/action/RotateAbsolute` |
+| Parameters | `background_r`, `background_g`, `background_b` | integers 0–255 |
 
-Typically, working with Turtlesim involves interacting with these key elements:
+**Version note.** In Kilted and Lyrical the types are in **`turtlesim_msgs`**; in Jazzy and earlier they are in `turtlesim` (for example `turtlesim/msg/Pose`). Adjust imports when following older tutorials.
 
-* **Nodes:**
-    * `turtlesim_node`: The main simulator node that displays the window, manages turtle states, and provides services. Launched via `rosrun turtlesim turtlesim_node`.
-    * `turtle_teleop_key`: A node that listens to keyboard arrow key presses and publishes velocity commands to control a turtle. Launched via `rosrun turtlesim turtle_teleop_key`.
-* **Topics:**
-    * `/turtleX/cmd_vel` (`geometry_msgs/Twist`): **Input** topic where nodes publish linear velocity (along the turtle's x-axis) and angular velocity (around the turtle's z-axis) commands to control turtle X (e.g., `/turtle1/cmd_vel`).
-    * `/turtleX/pose` (`turtlesim/Pose`): **Output** topic where `turtlesim_node` publishes the current 2D pose (x, y, theta), linear velocity, and angular velocity of turtle X.
-    * `/turtleX/color_sensor` (`turtlesim/Color`): **Output** topic publishing the RGB color of the background directly beneath turtle X.
-* **Services:**
-    * `/clear`: Clears the drawing trails in the simulator window.
-    * `/reset`: Resets the simulation to its default state (usually one turtle at the center).
-    * `/spawn`: Creates a new turtle at a specified (x, y, theta) pose, optionally with a name.
-    * `/kill`: Removes a turtle specified by name.
-    * `/turtleX/set_pen`: Allows changing the color (RGB), width, and on/off state of the drawing pen for turtle X.
-    * `/turtleX/teleport_absolute`: Instantly moves turtle X to an absolute (x, y, theta) pose.
-    * `/turtleX/teleport_relative`: Instantly moves turtle X by a relative linear distance and angular turn.
-* **Parameters:**
-    * `/background_r`, `/background_g`, `/background_b`: Control the background color of the simulation window (integer values 0-255). Can be set using `rosparam set`.
+## Explore it
 
----
+```bash
+ros2 run turtlesim turtlesim_node
+ros2 run turtlesim turtle_teleop_key          # in a second terminal
+ros2 topic echo /turtle1/pose
+ros2 service call /spawn turtlesim_msgs/srv/Spawn "{x: 2.0, y: 2.0, theta: 0.0, name: 'turtle2'}"
+ros2 action send_goal /turtle1/rotate_absolute turtlesim_msgs/action/RotateAbsolute "{theta: 1.57}" --feedback
+ros2 param set /turtlesim background_r 150
+rqt_graph
+```
 
-## Example Project Ideas
+## Worked example: drawing a circle
 
-This note can serve as a collection point for documenting your own Turtlesim-based projects. Create separate notes for each project and link them here, or document them directly using headings. Consider using the structure outlined in [[Manipulator_Control_Experiments]] for documenting each project.
+Publishing a constant `Twist` with linear $v = 2.0$ (units per second) and angular $\omega = 1.0$ rad/s makes the turtle drive a circle of radius $r = v/\omega = 2.0$. It completes one lap in $2\pi/\omega = 6.28$ s. Predict, then check with:
 
-Here are some classic Turtlesim projects to practice core ROS skills:
+```bash
+ros2 topic pub --rate 10 /turtle1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 2.0}, angular: {z: 1.0}}"
+```
 
-1.  **Drawing Shapes (Square, Circle, Triangle):**
-    * **Goal:** Write a node ([[Python_ROS_Nodes|Python]] or [[C++_Motion_Planning|C++]]) that publishes timed velocity commands to `/turtle1/cmd_vel` to make the turtle trace out a specific geometric shape.
-    * **Concepts Learned:** Creating a ROS node, creating a Publisher, using ROS message types (`geometry_msgs/Twist`), controlling timing (`rospy.Rate` / `rclpy.Rate`), basic open-loop control.
+The window is about 11 units wide with turtle1 starting near its centre, so a radius-2 circle fits comfortably.
 
-2.  **Go-to-Goal Controller:**
-    * **Goal:** Write a node that makes the turtle drive towards a target (x, y) coordinate. The node should subscribe to `/turtle1/pose` to get the current position and orientation, calculate the distance and angle error to the goal, and publish appropriate linear and angular velocities to `/turtle1/cmd_vel` using a simple proportional [[Control_Theory|controller]]. Stop when close enough to the goal.
-    * **Concepts Learned:** Creating a Subscriber, defining callback functions, basic feedback control logic, using TF math (for angles) or `atan2`.
+## Project ladder
 
-3.  **Pen Control and Services:**
-    * **Goal:** Enhance the shape-drawing or go-to-goal projects by using ROS [[ROS_2_Communication|Services]]. For example, create a service that allows lifting/lowering the pen (`/turtle1/set_pen`) or teleporting the turtle (`/turtle1/teleport_absolute`) before starting a drawing.
-    * **Concepts Learned:** Creating Service Clients, calling services, understanding request/response structures.
+1. **Draw shapes**: a square (drive, stop, turn 90° with the action, repeat) and a spiral (increase $v$ over time).
+2. **Write a node**: a Python node that publishes `cmd_vel` and subscribes to `pose` (see [[Python_ROS_Nodes]]).
+3. **Go to goal**: a proportional controller on distance and heading error that drives to a clicked or given point.
+4. **Services**: spawn several turtles, set pen colours, clear the screen.
+5. **Launch and namespaces**: start two simulators in different namespaces with a [[Launch_Files|launch file]]; remap one teleop to control both.
+6. **TF follower**: publish each turtle's pose as a TF frame and make turtle2 chase turtle1 using a transform lookup (see [[TF_and_Topic_Architecture]]).
+7. **Record and replay**: record a session with [[rosbag2]] and replay it to reproduce the drawing.
 
-4.  **Multi-Turtle Follower:**
-    * **Goal:** Use the `/spawn` service to create a second turtle. Write a node that makes the second turtle follow the first turtle by subscribing to `/turtle1/pose` and publishing velocity commands to `/turtle2/cmd_vel`.
-    * **Concepts Learned:** Using services (`/spawn`), handling multiple namespaces (`/turtle1`, `/turtle2`), implementing a follower behavior based on relative pose.
-
-5.  **Wall Follower (More Advanced):**
-    * **Goal:** (Requires modification or a different simulator setup, as basic Turtlesim has no walls). If using a Turtlesim variant with walls or simulated range sensors, implement a simple wall-following behavior.
-    * **Concepts Learned:** Sensor processing, reactive control logic.
-
----
-
-Documenting your Turtlesim projects, including objectives, code snippets, results (screenshots of paths drawn), and challenges faced, is a great way to solidify your understanding of fundamental ROS principles before moving on to more complex robots and simulators.
-
---- 
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Turtlesim_Projects]])

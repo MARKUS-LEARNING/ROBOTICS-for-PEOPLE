@@ -1,126 +1,91 @@
 ---
 title: Course Notes Collection
-description: A central index and guide for organizing notes taken from robotics courses, tutorials, textbooks, and workshops.
+description: "A curated, checked list of free and open robotics courses as of 2026 (MIT Robotic Manipulation and Underactuated Robotics, Modern Robotics, ETH's ROS course, the Hugging Face robotics course, QUT Robot Academy, Stanford CS231n and more), how each maps to this textbook, and a template for taking course notes in this vault so they link into the knowledge graph."
+aliases:
+  - Course Notes
+  - Robotics Courses
 tags:
-  - vault-meta
-  - courses
   - education
+  - courses
 type: reference
 level: beginner
 subfield:
   - creative-education
-status: draft
+status: reviewed
 author: Jordan_Smith
-date: 2025-04-29
+date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
+  - "[[Labs_Projects_and_Tutorials]]"
 related:
   - "[[MOOCs_and_Courses]]"
-  - "[[Resources_Index]]"
-  - "[[Labs_Projects_and_Tutorials]]"
-  - "[[Dataview]]"
+  - "[[Robotics_Lab_Template]]"
+  - "[[Research_Papers_Index]]"
+key_takeaways:
+  - "Excellent robotics courses are free online in 2026, from classical mechanics and control to robot learning."
+  - "Pair each course with this textbook's notes: take notes in the vault and link concepts so they show up in the graph and on learning paths."
+  - "Courses age; check that software versions in exercises (ROS distribution, simulator) match what you install."
+sources:
+  - "Tedrake, R. (2026). Robotic Manipulation (MIT 6.4210). https://manipulation.csail.mit.edu/"
+  - "Tedrake, R. (2026). Underactuated Robotics. https://underactuated.csail.mit.edu/"
+  - "Lynch, K. M. and Park, F. C. (2026). Modern Robotics specialization (Coursera). https://www.coursera.org/specializations/modernrobotics"
+  - "Hugging Face (2026). Robotics course. https://huggingface.co/learn/robotics-course"
+  - "ETH Zurich Robotic Systems Lab (2026). Programming for Robotics: ROS. https://rsl.ethz.ch/education-students/lectures/ros.html"
 ---
 
 # Course Notes Collection
 
-This note serves as a central hub and organizational guide for your personal notes derived from various robotics learning resources, including:
+This page collects open courses worth taking alongside this textbook, and a way to keep notes on them inside the vault so they connect to everything else.
 
-* Online courses (from [[MOOCs_and_Courses]])
-* Textbooks (listed in [[Resources_Index]])
-* Tutorials (like ROS Tutorials or software documentation)
-* Workshops or conference materials
+> **Etymology.** *Course* from Latin *cursus*, "a running": a course of study is a path run through a subject.
 
-The goal is to structure your learning notes effectively within this vault, making them discoverable and connectable to other concepts.
+## Courses (checked November 2026)
 
----
+| Course | Provider | Covers | Pairs with |
+|---|---|---|---|
+| **Modern Robotics** (specialization) | Northwestern, Coursera; free textbook | Screw theory, kinematics, dynamics, planning, control | [[Forward_Kinematics]], [[Robot_Control]] |
+| **Robotic Manipulation** (6.4210) | MIT, online notes and code | Perception, grasping, planning, learning for manipulation | [[Manipulation]], [[MoveIt2]] |
+| **Underactuated Robotics** | MIT, online notes and code | Nonlinear dynamics, optimal control, walking, RL | [[Control_of_Underactuated_Systems]], [[Optimal_Control]] |
+| **Programming for Robotics: ROS** | ETH Zurich | Practical ROS skills | [[ROS_2_Overview]] |
+| **Robotics course** | Hugging Face | Robot learning with LeRobot: datasets, imitation, policies | [[Imitation_Learning]], [[Vision-Language-Action_Models]] |
+| **Robot Academy** | QUT (Peter Corke) | Short video lessons on robotics and vision fundamentals | [[Homogeneous_Transformation]], [[Computer_Vision_in_Robotics]] |
+| **Self-Driving Cars** (specialization) | University of Toronto, Coursera | State estimation, perception, planning for vehicles | [[Autonomous_Navigation]] |
+| **CS231n** | Stanford | Deep learning for computer vision | [[Convolutional_Neural_Networks]], [[Transformers_and_Attention]] |
+| **Introduction to Robotics** (2.12, 2005) | MIT OpenCourseWare | Classic mechanics-focused introduction | [[Robots]] |
 
-## Organization Strategies
+See also [[MOOCs_and_Courses]] for paid and platform courses.
 
-Choose a strategy that best suits your learning style:
+## Taking course notes in this vault
 
-1.  **By Source:**
-    * Create a dedicated note or subfolder within `09_Labs_Projects_and_Tutorials` for each major course, textbook, or tutorial series (e.g., `[[Coursera Robotics Specialization Notes]]`, `[[Craig Textbook Notes]]`).
-    * This `Course_Notes_Collection.md` note acts as the master index, linking to each of these primary source notes.
-    * Use tags and links *within* those notes to connect specific concepts back to the main vault structure (e.g., link a discussion on inverse kinematics in your course notes to the main [[Inverse_Kinematics]] note).
-
-2.  **By Topic (Integrated Approach):**
-    * Create notes primarily based on topics, placing them in the relevant subject folders (e.g., `02_Kinematics_and_Dynamics`, `04_AI_and_Robot_Control`).
-    * Within each note, use frontmatter metadata or inline tags to indicate the source(s) where you learned about that concept (e.g., `source: [[Coursera Robotics Specialization Notes]]`, `tags: #course-notes #control-theory`).
-    * This approach emphasizes building the knowledge graph directly but might make it harder to review notes from a single course sequentially.
-
-3.  **Hybrid Approach:**
-    * Create main pages for major courses/books (Strategy 1).
-    * For specific concepts learned, create separate notes in the relevant topic folders (Strategy 2).
-    * Heavily link between the course notes and the topic notes using Obsidian's `[[ ]]` links and `#tags`. This often provides the best balance between structured learning and conceptual connection.
-
----
-
-## Suggested Structure for Course/Source Notes
-
-When creating a dedicated note for a specific course or book (e.g., `[[My Robotics Course Notes]]`), consider using a structure like this:
+Create one note per course, and link generously:
 
 ```markdown
 ---
-title: My Robotics Course Notes 
-description: Notes from [Course Name] by [Instructor/Provider].
-tags: [course-notes, kinematics, perception] # Add relevant topic tags
-course: "[Course Name]" # Frontmatter field for Dataview
-provider: "[e.g., Coursera, edX, University Name]"
-url: "[Link to course]"
-status: "[e.g., In Progress, Completed]"
-date: YYYY-MM-DD 
-related: ["[[Course_Notes_Collection]]"]
+title: "Notes: Robotic Manipulation (MIT 6.4210)"
+type: reference
+level: intermediate
+subfield: [manipulation]
+status: draft
+tags: [courses, manipulation]
+prerequisites: ["[[Forward_Kinematics]]"]
 ---
 
-# Notes: [Course Name]
+# Notes: Robotic Manipulation
 
-**Link:** [Provider URL]([Link to course])
-**Status:** [e.g., Completed]
+## Lecture 3: Basic pick and place
+- Spatial algebra → [[Homogeneous_Transformation]]
+- Differential IK → [[Inverse_Kinematics]]
+- Exercise result: ...
 
-## Overview / Syllabus
-
-* Brief summary of course topics.
-* Link to official syllabus if available.
-
-## Modules / Lectures
-
-* [[My Robotics Course - Module 1 Notes]]
-* [[My Robotics Course - Module 2 Notes]]
-    * [[My Robotics Course - Lecture 2.1 Notes]]
-* ... *(Link to sub-notes for each module or lecture)*
-
-## Key Concepts Covered
-
-* [[Concept 1]] learned in this course
-* [[Concept 2]] - See Module 3 notes
-* ... *(Link to main vault notes for key concepts)*
-
-## Related Labs/Projects
-
-* [[My Project Based on Course X]]
-* [[Lab 1 Solution Notes]]
-* ... *(Link to related project/lab notes in this folder)*
-
-## General Takeaways / Reflections
-
-* Your summary thoughts.
+## Questions to follow up
+- ...
 ```
 
-## Linking and Tagging Strategy
+Run `python3 tools/vault.py lint` to check the frontmatter, then look at the note in the graph explorer to see what it connects to.
 
-- **Link Concepts:** When taking notes on a specific concept (e.g., PID control within a course lecture), create a link to your main vault note on that concept: `[[PID_Control]]`. This builds connections automatically.
-- **Use Tags:** Tag individual course note pages or sections with relevant topic tags (e.g., `#control-theory`, `#ROS`, `#python`, `#perception`) in addition to a general `#course-notes` tag.
-- **Link Back:** Ensure individual course notes link back to this collection page `[[Course_Notes_Collection]]`.
+## Dataview
 
----
-
-## Dynamic Overview with Dataview
-
-You can use the [[Dataview]] plugin to automatically generate lists of your course notes here. Add a code block like the following to dynamically list all notes you've marked as course notes (either via tag or frontmatter):
-
-Code snippet
-
-TABLE course AS "Course/Source", provider AS "Provider", status AS "Status", file.cday AS "Date Created"
-FROM "09_Labs_Projects_and_Tutorials" OR "" 
-WHERE contains(file.tags, "#course-notes") OR course
-SORT course ASC, file.name ASC
-
-
+```dataview
+LIST FROM "" WHERE contains(file.outlinks, [[Course_Notes_Collection]])
+```
