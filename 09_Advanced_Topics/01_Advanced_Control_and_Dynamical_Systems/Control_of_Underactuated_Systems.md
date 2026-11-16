@@ -1,104 +1,83 @@
 ---
 title: Control of Underactuated Systems
-description: The control of underactuated systems involves managing systems with fewer control inputs than degrees of freedom, requiring specialized strategies to achieve desired performance and stability.
+description: "Underactuated robots have fewer actuators than degrees of freedom: legged robots in flight, drones, balancing robots, the acrobot and cart-pole. Covers why they are hard (you cannot command every direction), energy-based swing-up with a computed target energy, partial feedback linearisation, LQR stabilisation, trajectory optimisation, and why reinforcement learning has been so successful on them."
+aliases:
+  - Underactuated Systems
+  - Underactuated Robotics
+  - Underactuation
 tags:
   - control
-  - underactuated-systems
-  - control-theory
-  - dynamics
-  - mechanism
-  - mobile-robot
-type: method
-level: advanced
+  - locomotion
+  - reinforcement-learning
+type: concept
+level: research
 subfield:
   - control
-status: draft
+  - legged-humanoid
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Control_Theory]]"
-related:
-  - "[[Control_Theory]]"
-  - "[[Dynamics]]"
   - "[[Nonlinear_Control_Theory]]"
-  - "[[Robot_Design]]"
+  - "[[Optimal_Control]]"
+related:
+  - "[[Feedback_Linearization]]"
+  - "[[Hybrid_Systems_and_Control]]"
+  - "[[Legged_Robots]]"
+  - "[[Drones]]"
+  - "[[Reinforcement_Learning_for_Robots]]"
+key_takeaways:
+  - "A system is underactuated when it cannot command an arbitrary acceleration in every degree of freedom: the cart-pole has 2 degrees of freedom and 1 motor; a walking robot cannot push on the ground it is not touching."
+  - "Control must use the dynamics rather than cancel them: pump energy to the swing-up target (mgl = 0.98 J for a 0.2 kg, 0.5 m pole), then catch the upright state with LQR."
+  - "Agile legged, aerial and dexterous robots are underactuated; trajectory optimisation, MPC and especially RL in simulation are the methods of choice in 2026."
+sources:
+  - "Tedrake, R. (2026). Underactuated Robotics, chapter: The Acrobot, Cart-Pole, and Quadrotors. https://underactuated.csail.mit.edu/acrobot.html"
+  - "Tedrake, R. (2026). Underactuated Robotics, chapter: Simple Models of Walking and Running. https://underactuated.csail.mit.edu/simple_legs.html"
+  - "Hwangbo, J. et al. (2019). Learning agile and dynamic motor skills for legged robots. https://arxiv.org/abs/1901.08652"
+  - "Kaufmann, E. et al. (2023). Champion-level drone racing using deep reinforcement learning. https://www.nature.com/articles/s41586-023-06419-4"
 ---
 
 # Control of Underactuated Systems
 
-The **control of underactuated systems** involves managing systems with fewer control inputs than degrees of freedom. These systems are challenging to control because they lack direct actuation for all their degrees of freedom, requiring specialized strategies to achieve desired performance and stability. Underactuated systems are common in robotics, particularly in applications where weight, complexity, or cost constraints limit the number of actuators.
+A robot is **underactuated** when its actuators cannot directly command acceleration in every degree of freedom. A fully actuated arm can push each joint any way it likes; a cart-pole can only push the cart, and must move the pole indirectly through the coupling. Most interesting robots are underactuated:
+- legged robots: the body is not attached to the ground, and a foot in the air cannot push;
+- drones: four thrusts for six degrees of freedom;
+- balancing robots and dexterous hands manipulating free objects.
 
----
+> **Etymology.** *Under* + *actuated*: fewer actuators than needed for full control. Russ Tedrake's MIT course and online book *Underactuated Robotics* made the term central to modern robot control.
 
-## Key Concepts
+## Why it is hard
 
-### Underactuation
+For dynamics $M(\mathbf q)\ddot{\mathbf q} + C\dot{\mathbf q} + \mathbf g = B\mathbf u$, the system is underactuated when $B$ has fewer independent columns than there are degrees of freedom. There are directions in which the controller cannot directly push, so it cannot simply cancel the dynamics ([[Feedback_Linearization]] fails). It must instead **exploit** them: inject energy, use momentum, plan ahead.
 
-Underactuation refers to the condition where a system has fewer control inputs than degrees of freedom. This results in the system being unable to directly control all its states, necessitating indirect control methods to manage its dynamics effectively.
+## Classic examples
 
-### Energy-Based Control
+| System | DoF | Actuators | Challenge |
+|---|---|---|---|
+| Cart-pole | 2 | 1 (cart) | Swing the pole up and balance it |
+| Acrobot | 2 | 1 (elbow only) | Swing up with no shoulder motor |
+| Quadrotor | 6 | 4 thrusts | Must tilt to move sideways |
+| Biped in single support | Many | No torque at the foot contact point (or limited) | Balance via stepping and momentum |
 
-Energy-based control methods are often used for underactuated systems, leveraging the system's natural dynamics and energy properties to achieve control objectives. These methods focus on managing the system's energy to stabilize and regulate its behavior.
+## Energy-based swing-up, computed
 
-### Passivity-Based Control
+For a pole of mass $m$ with its centre of mass at distance $l$ from the pivot, define its energy as $E = \tfrac12 ml^2\dot\theta^2 + mgl\cos\theta$ (θ measured from upright, potential measured from the pivot's height). At rest upright, $E^* = mgl$; for $m = 0.2$ kg and $l = 0.5$ m, that is $0.2 \times 9.81 \times 0.5 = 0.98$ J. Hanging at rest, $E = -mgl$, so the controller must add $2mgl = 1.96$ J. Swing-up controllers move the cart so as to pump energy in when $E < E^*$ and remove it when $E > E^*$, for example accelerating the cart in the direction of $(E - E^*)\,\dot\theta\cos\theta$. Once the pole nears upright with nearly the right energy, a linear controller (LQR) designed around the upright equilibrium catches and balances it. Switching between the two controllers is a small hybrid system (see [[Hybrid_Systems_and_Control]]).
 
-Passivity-based control is another approach used for underactuated systems, which involves designing control laws that ensure the system remains passive. This property helps in stabilizing the system and ensuring robust performance, even in the presence of uncertainties and disturbances.
+## Methods
 
----
+- **Partial feedback linearisation**: linearise the actuated (or a chosen) coordinate, accepting nonlinear behaviour in the rest.
+- **Energy shaping and passivity-based control**.
+- **LQR around equilibria and trajectories** (time-varying LQR along a planned motion).
+- **Trajectory optimisation and MPC** over contact sequences (see [[Model_Predictive_Control_(MPC)]]).
+- **Reinforcement learning**: the policy discovers how to exploit dynamics without hand-derived structure.
 
-## Mathematical Formulation
+## Why learning took over agile underactuated control
 
-### System Dynamics
+The most striking robot results of 2019–2026 are underactuated: quadrupeds running and recovering on rough terrain, humanoids walking and doing flips, drones racing at champion level, hands spinning objects. Each was learned with reinforcement learning in simulation (see [[Reinforcement_Learning_for_Robots]]). Learning handles the combination of nonlinearity, contact switching and underactuation that is hard to treat analytically. Classical underactuated control still provides the models, the simulators, the reward structure and the analysis of why the learned behaviours work.
 
-The dynamics of an underactuated system can be represented as:
-
-$$
-M(\mathbf{q})\ddot{\mathbf{q}} + C(\mathbf{q}, \dot{\mathbf{q}})\dot{\mathbf{q}} + G(\mathbf{q}) = B(\mathbf{q}) \mathbf{u}
-$$
-
-where:
-- $\mathbf{q}$ is the vector of generalized coordinates.
-- $M(\mathbf{q})$ is the inertia matrix.
-- $C(\mathbf{q}, \dot{\mathbf{q}})$ is the Coriolis and centrifugal forces matrix.
-- $G(\mathbf{q})$ is the gravitational forces vector.
-- $B(\mathbf{q})$ is the input matrix.
-- $\mathbf{u}$ is the vector of control inputs.
-
-### Energy-Based Control Law
-
-Energy-based control laws often involve designing a control input that modifies the system's energy to achieve desired behavior. For example, the control law might be designed to inject or dissipate energy to stabilize the system:
-
-$$
-\mathbf{u} = -K_d \dot{\mathbf{q}} - K_p (\mathbf{q} - \mathbf{q}_d)
-$$
-
-where $K_d$ and $K_p$ are gain matrices, and $\mathbf{q}_d$ is the desired configuration.
-
-### Passivity-Based Control Law
-
-Passivity-based control laws ensure that the system remains passive, which can be achieved by designing the control input to satisfy passivity conditions:
-
-$$
-\mathbf{u} = -K_d \dot{\mathbf{q}} - K_p (\mathbf{q} - \mathbf{q}_d) + \mathbf{u}_{passive}
-$$
-
-where $\mathbf{u}_{passive}$ is an additional control term that ensures the system remains passive.
-
----
-
-## Applications in Robotics
-
-- **Acrobot and Pendubot**: Underactuated systems like the acrobot and pendubot are used to study and demonstrate control strategies for underactuated systems. These systems typically have two links but only one actuator, requiring clever control strategies to achieve desired motions.
-- **Mobile Robots**: Underactuated mobile robots, such as those with non-holonomic constraints, require specialized control strategies to navigate and perform tasks effectively.
-- **Aerospace**: Control of underactuated systems is crucial in aerospace applications, where weight and complexity constraints often limit the number of actuators.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Control_of_Underactuated_Systems]])
