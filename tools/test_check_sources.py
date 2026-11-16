@@ -14,10 +14,12 @@ class Classify(unittest.TestCase):
             self.assertEqual(C.classify(code)[0], 'blocked')
         self.assertEqual(C.classify(0, 'URLError: <urlopen error timed out>')[0], 'blocked')
         self.assertEqual(C.classify(0, 'URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed>')[0], 'blocked')
+        self.assertEqual(C.classify(500)[0], 'blocked')      # the site is unwell; the page may be fine
+        self.assertEqual(C.classify(503)[0], 'blocked')
 
     def test_dead(self):
         self.assertEqual(C.classify(404)[0], 'dead')
-        self.assertEqual(C.classify(500)[0], 'dead')
+        self.assertEqual(C.classify(410)[0], 'dead')
         self.assertEqual(C.classify(0, 'URLError: <urlopen error [Errno 111] Connection refused>')[0], 'dead')
         self.assertEqual(C.classify(0, 'URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>')[0], 'dead')
 

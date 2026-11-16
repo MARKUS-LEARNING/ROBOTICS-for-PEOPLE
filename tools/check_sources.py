@@ -7,7 +7,7 @@ For each citation ("Author or org (Year). Title. URL"):
 
 Usage:  python3 tools/check_sources.py [note names or paths ...]     (default: every note with sources)
 Exit status 1 if any URL fails or any arXiv title does not match. Sites that refuse automated requests
-(HTTP 401/403/429, a timeout after retries, or a certificate this machine cannot verify) are reported as "blocked" and do not fail the check; read those by hand.
+(HTTP 401/403/429, a timeout or 5xx after retries, or a certificate this machine cannot verify) are reported as "blocked" and do not fail the check; read those by hand.
 """
 from __future__ import annotations
 
@@ -83,8 +83,9 @@ def classify(code: int, detail: str = '') -> tuple[str, str]:
     """('ok' | 'blocked' | 'dead', reason) for one fetch result.
 
     'Blocked' means the check could not tell and never fails the run: bot walls (401/403/429), servers that drop
-    datacenter traffic (timeouts), and certificates this machine's trust store cannot verify although browsers can.
-    Anything else that is not a 2xx/3xx answer (404, refused connection, unknown host) is dead."""
+    datacenter traffic (timeouts), certificates this machine's trust store cannot verify although browsers can, and
+    server errors (5xx) that persist through the retries, which say the site is unwell, not that the page is gone.
+    Anything else that is not a 2xx/3xx answer (404, 410, refused connection, unknown host) is dead."""
     if 200 <= code < 400:
         return 'ok', ''
     if code in (401, 403, 429):
@@ -93,6 +94,8 @@ def classify(code: int, detail: str = '') -> tuple[str, str]:
         return 'blocked', 'timed out'
     if code == 0 and 'CERTIFICATE_VERIFY_FAILED' in detail:
         return 'blocked', 'certificate not verified by this machine'
+    if code >= 500:
+        return 'blocked', f'server error {code} after retries'
     return 'dead', f'HTTP {code}' + (f' {detail}' if code == 0 and detail else '')
 
 

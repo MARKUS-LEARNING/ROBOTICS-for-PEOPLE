@@ -30,7 +30,7 @@ key_takeaways:
 sources:
   - "Yuan, M. et al. (2024). Progress and prospects of recycling technology for carbon fiber reinforced polymer. https://www.frontiersin.org/journals/materials/articles/10.3389/fmats.2024.1484544/full"
   - "Siciliano, B. and Khatib, O., eds. (2016). Springer Handbook of Robotics, 2nd edition. https://link.springer.com/referencework/10.1007/978-3-319-32552-1"
-  - "Ateeq, M. et al. (2023). A state of art review on recycling and remanufacturing of the carbon fiber from carbon fiber polymer composite. https://ira.lib.polyu.edu.hk/handle/10397/108544"
+  - "Ateeq, M. (2023). A state of art review on recycling and remanufacturing of the carbon fiber from carbon fiber polymer composite. https://doi.org/10.1016/j.jcomc.2023.100412"
 ---
 
 # Composite Materials
