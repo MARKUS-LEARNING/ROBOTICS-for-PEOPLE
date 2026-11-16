@@ -1,80 +1,89 @@
 ---
 title: Git Integration and Version Control
-description: Discusses the importance and application of Git and version control systems (VCS) in managing robotics software development, particularly within the ROS ecosystem.
+description: "Version control for robot projects: Git basics and a branching workflow, what belongs in the repository and what does not (with a computed example of why datasets and bags need Git LFS or DVC), managing ROS 2 workspaces with vcstool, continuous integration in simulation, and reproducibility for robot learning in 2026."
+aliases:
+  - Git
+  - Version Control
+  - GitHub
 tags:
   - git
   - robotics-software
-  - collaboration
-  - ros
-  - programming
   - software-engineering
-type: tool
-level: intermediate
+type: tutorial
+level: beginner
 subfield:
   - software
-status: draft
+status: reviewed
 author: Jordan_Smith
-date: 2025-04-29
-related:
-  - "[[Coding_and_Implementation]]"
-  - "[[Robot_Operating_System_(ROS)]]"
+date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
   - "[[Custom_Packages_and_Nodes]]"
-  - "[[Python_ROS_Nodes]]"
-  - "[[C++_Motion_Planning]]"
+related:
+  - "[[rosbag2]]"
+  - "[[Robot_Learning_Datasets_and_Benchmarks]]"
+  - "[[Gazebo_Simulator]]"
+key_takeaways:
+  - "Git records every change to code and configuration so a team can collaborate, review and roll back; a robot's URDF, launch files and parameters belong in it as much as its code."
+  - "Large binary data does not: 50 recorded bags of 2 GB each would add 100 GB to every clone; use Git LFS or DVC for datasets, models and meshes."
+  - "Continuous integration that builds, lints and runs simulation tests on every change catches regressions before they reach a physical robot."
+sources:
+  - "Chacon, S. and Straub, B. (2026). Pro Git, 2nd edition. https://git-scm.com/book/en/v2"
+  - "Git LFS contributors (2026). Git Large File Storage. https://git-lfs.com/"
+  - "Iterative (2026). DVC: data version control. https://dvc.org/"
 ---
 
-# Git Integration and Version Control in Robotics
+# Git Integration and Version Control
 
-**Version Control Systems (VCS)** are essential tools in modern software development, and **Git** has become the de facto standard distributed VCS. In the context of robotics, where projects often involve complex codebases, hardware interactions, collaborative teams, and significant experimentation, effective version control using Git is not just a best practice – it's practically a necessity.
+**Version control** records every change to a project so that people can work together, see who changed what and why, and return to any earlier state. **Git** is the standard. For robots, "the project" means more than code: robot descriptions, calibration, parameters, launch files, simulation worlds and, separately, data and trained models.
 
----
+> **Etymology.** Linus Torvalds wrote Git in 2005 for Linux kernel development; he joked that he names projects after himself (*git* is British slang for an unpleasant person). GitHub launched in 2008.
 
-## Why Git is Crucial for Robotics Development
+## Everyday workflow
 
-* **Managing Complexity:** Robotics systems typically consist of numerous interconnected [[Custom_Packages_and_Nodes|software packages]] handling diverse tasks like perception, planning, control, and hardware interfacing, often written in multiple languages ([[C++]], [[Python_ROS_Nodes|Python]]). Git helps manage this complexity by tracking changes to every file in a structured way.
-* **Collaboration:** Robotics projects, whether in research labs or industry, frequently involve multiple developers working concurrently. Git's distributed nature, combined with platforms like GitHub, GitLab, or Bitbucket, enables efficient collaboration through branching, merging, and code review workflows (Pull/Merge Requests).
-* **[[Robot_Operating_System_(ROS)|ROS]] Ecosystem Integration:** The ROS development model is built around packages, which map naturally onto Git repositories. ROS build systems (Catkin for ROS 1, [[Custom_Packages_and_Nodes|Colcon]] for ROS 2) and workspace management tools (like `vcstool` in ROS 2 or `wstool` in ROS 1) are designed to work seamlessly with Git repositories, making it easy to manage dependencies and fetch source code for multiple packages.
-* **Experimentation and Reproducibility:** Robotics development involves extensive experimentation with algorithms, parameters, and hardware configurations. Git allows developers to:
-    * Track every change with commit messages explaining the reasoning.
-    * Create branches to test new ideas without affecting stable code.
-    * Easily revert to previous working states if an experiment fails.
-    * Tag specific versions (e.g., for releases, paper publications, successful hardware tests) to ensure reproducibility.
-* **Hardware-Software Synchronization:** Different software versions might be required for specific hardware revisions or sensor calibration results. Git tags and branches help manage these dependencies effectively.
-* **Backup and History:** Provides a robust backup mechanism (especially when using remote repositories) and a complete history of code evolution, crucial for debugging and understanding past decisions.
+```bash
+git switch -c fix/gripper-timeout            # work on a branch
+# ...edit, build, test...
+git add -p                                   # stage changes in reviewable pieces
+git commit -m "Gripper: retry once on CAN timeout"
+git push -u origin fix/gripper-timeout       # open a pull request for review
+```
 
----
+Small, focused commits with clear messages, reviewed through pull requests, are the habit that matters most.
 
-## Key Git Concepts & Workflow in Robotics
+## What goes where
 
-Developers working on ROS projects typically use standard Git workflows:
+| Content | Where |
+|---|---|
+| Source code, URDF/Xacro, launch files, parameters, small configs | Git |
+| Calibration files | Git (versioned, with robot serial numbers) |
+| Meshes and textures | Git LFS if large |
+| Datasets, rosbags, trained model weights | Git LFS, DVC, or an artefact store, referenced by version from Git |
+| Secrets (API keys, passwords) | Never in Git; use a secrets manager or environment |
 
-* **Repository (Repo):** Each ROS package generally resides in its own Git repository. A ROS workspace might contain multiple repositories managed together.
-* **Commit:** Saving a snapshot of changes with a descriptive message. Frequent, logical commits are encouraged.
-* **Branching:** Isolating development work. Common strategies include:
-    * `main` (or `master`): Contains stable, released code.
-    * `develop`: Integration branch for features before release.
-    * Feature Branches (`feature/my_new_algorithm`): For developing new functionalities.
-    * Bugfix Branches (`fix/issue_123`): For addressing specific bugs.
-* **Merging:** Integrating changes from one branch into another (e.g., merging a completed feature branch into `develop`).
-* **Remotes (GitHub, GitLab, etc.):** Centralized hosting for sharing code, collaboration, and backup (`git clone`, `git push`, `git pull`, `git fetch`).
-* **Pull Requests (PRs) / Merge Requests (MRs):** Formal mechanism on hosting platforms to propose merging a branch, allowing for code review, discussion, and automated checks before integration.
-* **`.gitignore`:** A crucial file in every ROS package repository listing files and directories that Git should ignore (e.g., build artifacts like `build/`, `devel/`, `install/`, `log/`, compiled Python files `*.pyc`, local IDE configurations). This keeps the repository clean and focused on source code.
-* **Tags:** Marking specific commits as significant points in history (e.g., `v1.0`, `ICRA_2025_submission`).
-* **Managing Multiple Repositories:** ROS workspaces often depend on multiple packages from different Git repositories. Tools like `vcstool` (ROS 2) or `wstool` (ROS 1) use a `.repos` file (or similar) to manage cloning and updating these multiple repositories within a single workspace. Git submodules are another, sometimes more complex, alternative.
+## Worked example: why data stays out of plain Git
 
-A typical basic workflow involves initializing a repository (`git init`), staging changes (`git add`), committing changes (`git commit -m "message"`), potentially creating and switching branches (`git checkout -b new_branch`), pushing changes to a remote (`git push origin new_branch`), creating pull requests for review, and merging completed work back into main development branches. Regularly pulling updates (`git pull`) is essential when collaborating.
+A robot-learning project records 50 demonstration bags of 2 GB each: 100 GB. Committed directly, every clone of the repository downloads all 100 GB, forever, including after the files are deleted (they remain in history). Git LFS stores large files on a separate server and keeps only small pointers in Git. DVC also tracks versions of datasets and models, links them to the code and parameters that produced them, and stores them in cloud or local storage. Either way, a commit identifies exactly which data trained which policy.
 
----
+## ROS 2 workspaces
 
-Mastering Git is a fundamental skill for any robotics software developer, enabling efficient, collaborative, and reproducible development practices within the complex landscape of robotics systems and the ROS ecosystem. Refer to official Git documentation and tutorials for detailed command usage.
+A workspace usually combines your packages with forks of others. **vcstool** (`vcs import < robot.repos`) checks out all repositories at pinned versions, and `rosdep` installs system dependencies. Pinning versions makes a robot's software reproducible.
 
----
+## Continuous integration
 
-## Dataview Plugin Features
+On every pull request, CI should:
+- build (`colcon build`);
+- run linters and unit tests (`colcon test`);
+- for robots, run **simulation tests**: launch the robot in [[Gazebo_Simulator|Gazebo]] or MuJoCo headless and check that it reaches a goal or a policy succeeds on a set of scenarios.
 
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
+Catching a broken controller in CI is far cheaper than catching it on hardware.
 
-### List of Related Concepts
+## Reproducibility for robot learning (2026)
+
+Track together the code commit, the dataset version, the training configuration and random seeds, the simulator version, and the evaluation results. Tools such as DVC, experiment trackers and Hugging Face Hub model and dataset versions make "which data and code produced this policy?" answerable, which is essential when a deployed policy misbehaves.
+
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Git_Integration_and_Version_Control]])

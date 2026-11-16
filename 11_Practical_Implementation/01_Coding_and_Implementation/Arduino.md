@@ -1,98 +1,85 @@
 ---
 title: Arduino
-description: Arduino is an open-source electronics platform used for building digital devices and interactive objects that can sense and control physical devices, widely used in robotics for prototyping and developing embedded control systems.
+description: "Arduino is the open hardware and software platform most people first use to make things move: microcontroller boards, a simple C++ framework and a huge library ecosystem. Covers the boards that matter in 2026 (UNO R4, Nano RP2040 Connect, Portenta), a computed serial-bandwidth example, typical robot jobs (motor control, sensors, safety I/O), connecting to ROS 2 via micro-ROS, and when to move to a more capable microcontroller."
+aliases:
+  - Arduino Uno
+  - Arduino IDE
 tags:
-  - arduino
+  - electronics
   - embedded-systems
-  - hardware
 type: tool
-level: intermediate
+level: beginner
 subfield:
   - electronics-embedded
-  - software
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-related:
-  - "[[Embedded_Systems]]"
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
   - "[[Microcontroller]]"
-  - "[[Robot_Design]]"
-  - "[[Control_Systems]]"
+related:
+  - "[[Serial_Communication_Tutorials]]"
+  - "[[Hardware_Interface_Setup]]"
+  - "[[Python_ROS_Nodes]]"
+key_takeaways:
+  - "Arduino boards run one program in a loop with direct access to pins, timers and buses: ideal for reading sensors and driving motors close to the hardware."
+  - "The UNO R4 (2023) moved the classic UNO to a 32-bit 48 MHz Arm core with 32 kB SRAM; heavier robot firmware uses Teensy, ESP32, RP2040 or Portenta boards."
+  - "At 115,200 baud a serial link carries about 11.5 kB/s, roughly 360 messages per second of 32 bytes, enough for sensor data and commands at a few hundred hertz; micro-ROS lets supported boards join ROS 2 directly."
+sources:
+  - "Arduino (2026). UNO R4 Minima documentation. https://docs.arduino.cc/hardware/uno-r4-minima/"
+  - "micro-ROS (2026). micro-ROS: ROS 2 for microcontrollers. https://micro.ros.org/"
+  - "micro-ROS contributors (2026). micro_ros_arduino: supported boards and precompiled library. https://github.com/micro-ROS/micro_ros_arduino"
 ---
 
 # Arduino
 
-**Arduino** is an open-source electronics platform used for building digital devices and interactive objects that can sense and control physical devices. It is widely used in robotics for prototyping and developing embedded control systems. Arduino boards are equipped with sets of digital and analog input/output (I/O) pins that can be interfaced to various expansion boards and other circuits. The platform is based on easy-to-use hardware and software, making it accessible for beginners and useful for a wide range of applications.
+**Arduino** is an open-source electronics platform: inexpensive microcontroller boards, a simple C++-based programming framework, and thousands of libraries for sensors, motors and displays. For many people it is the first robot brain they program, and it stays useful in professional robots for low-level jobs.
 
----
+> **Etymology.** Named after the Bar di Re Arduino in Ivrea, Italy, where the founders met; the bar was named after Arduin of Ivrea, an 11th-century king of Italy. The project started in 2005 at the Interaction Design Institute Ivrea.
 
-## Key Concepts
+## How an Arduino program looks
 
-### Microcontrollers
+```cpp
+#include <Servo.h>
+Servo s;
+void setup() { s.attach(9); Serial.begin(115200); }
+void loop() {
+  int raw = analogRead(A0);                 // read a potentiometer, 14-bit on the UNO R4
+  int angle = map(raw, 0, 16383, 0, 180);
+  s.write(angle);                           // move a hobby servo
+  Serial.println(angle);
+  delay(10);                                // about 100 Hz
+}
+```
 
-Arduino boards are based on microcontrollers, which are compact integrated circuits designed to govern specific operations in embedded systems. They are the core components that execute the programmed instructions to control robotic systems.
+`setup()` runs once; `loop()` runs forever. There is no operating system: the program owns the hardware, which makes timing simple and predictable for small tasks.
 
-### Embedded Systems
+## Boards in 2026
 
-Embedded systems are specialized computing systems designed to perform dedicated functions within larger systems. Arduino is a key tool in developing embedded systems for robotics, enabling the integration of sensors, actuators, and communication modules.
+| Board | Processor | Notes |
+|---|---|---|
+| **UNO R4 Minima / WiFi** (2023) | Renesas RA4M1, 48 MHz Arm Cortex-M4, 32 kB SRAM, 256 kB flash | The classic UNO form factor, now 32-bit; 14-bit analog inputs, DAC, CAN |
+| **Nano RP2040 Connect** | Raspberry Pi RP2040 dual-core | Wi-Fi/Bluetooth, IMU; micro-ROS supported |
+| **Portenta H7** | Dual-core STM32H7 | Industrial-grade; micro-ROS supported |
+| Compatible boards (Teensy 4.x, ESP32) | Fast Arm or Xtensa cores | Popular for robot firmware; Arduino framework available |
 
-### Sensor Integration
+## Worked example: how much fits through the serial port?
 
-Arduino supports the integration of various sensors, such as temperature, motion, and proximity sensors, allowing robots to interact with their environment by collecting and processing data.
+A UART at 115,200 baud sends 10 bits per byte (start, 8 data bits, stop), so about 11,520 bytes per second. Messages of 32 bytes (a few sensor readings plus a header) fit about $11{,}520/32 = 360$ times per second. That is fine for 100 Hz sensor streaming and commands, too little for camera images, and tight for kilohertz control of many motors. Faster serial rates, USB, CAN or Ethernet are the next steps (see [[Serial_Communication_Tutorials]], [[Hardware_Interface_Setup]]).
 
-### Control Systems
+## Arduino in a ROS 2 robot
 
-Arduino is used to implement control algorithms that regulate the behavior of robotic systems. It provides the computational power and interfacing capabilities required to execute control strategies.
+Common patterns:
+1. **Serial bridge**: the Arduino reads sensors and drives motors; a node on the main computer talks to it over USB serial (see [[Python_ROS_Nodes]]).
+2. **micro-ROS**: on supported boards (Portenta H7, Nano RP2040 Connect, Teensy, ESP32, OpenCR and others), the board runs a micro-ROS client and appears as ROS 2 nodes through a micro-ROS agent on the main computer.
+3. **ros2_control hardware interface**: a C++ plugin on the main computer speaks the board's protocol (see [[Hardware_Interface_Setup]]).
 
----
+## When to move on
 
-## Mathematical Formulation
+Use a more capable microcontroller (see [[Microcontroller]]) when you need hard real-time control of many motors, field-oriented control of brushless motors, CAN FD or EtherCAT, or safety certification.
 
-### Analog to Digital Conversion
-
-Arduino boards can read analog signals and convert them to digital values using Analog-to-Digital Converters (ADC). The conversion process can be represented as:
-
-$$
-V_{digital} = \frac{V_{analog} \times 1023}{V_{ref}}
-$$
-
-where:
-- $V_{digital}$ is the digital value.
-- $V_{analog}$ is the analog voltage.
-- $V_{ref}$ is the reference voltage (usually 5V or 3.3V).
-
-### Pulse Width Modulation (PWM)
-
-PWM is a technique used to control the power supplied to electronic devices, such as motors. The duty cycle $D$ of a PWM signal is given by:
-
-$$
-D = \frac{t_{on}}{T}
-$$
-
-where:
-- $t_{on}$ is the time the signal is high.
-- $T$ is the total period of the signal.
-
-### Example: Motor Control
-
-Consider a robotic system using an Arduino to control a DC motor. The motor's speed can be regulated using PWM, where the duty cycle determines the average voltage applied to the motor. By adjusting the duty cycle, the Arduino can control the motor's speed and direction, enabling precise motion control.
-
----
-
-## Applications in Robotics
-
-- **Prototyping**: Arduino is widely used for rapid prototyping of robotic systems, allowing developers to test and iterate designs quickly.
-- **Educational Robotics**: Arduino is a popular platform in educational settings for teaching the basics of robotics, electronics, and programming.
-- **Autonomous Systems**: Arduino enables the development of autonomous robots that can navigate and interact with their environment using sensor data and control algorithms.
-- **IoT Devices**: Arduino is used in the development of Internet of Things (IoT) devices, integrating sensors and actuators to create smart and connected systems.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Arduino]])

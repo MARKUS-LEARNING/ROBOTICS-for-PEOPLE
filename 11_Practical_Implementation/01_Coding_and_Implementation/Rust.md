@@ -1,116 +1,87 @@
 ---
-title: Rust (Programming Language, extensive and focus on robotics coding examples)
-description: Rust is a modern programming language known for its performance and safety, making it well-suited for developing robust and efficient robotic systems. This entry explores Rust's features and applications in robotics, providing coding examples and best practices.
+title: Rust (Robotics)
+description: "Rust is a systems language that prevents whole classes of memory and concurrency bugs at compile time while matching C++ for speed. Covers ownership and borrowing with a small example, why that matters for robots, Rust in ROS 2 (rclrs, and rosidl_rust among the default interface generators since Kilted), embedded Rust on microcontrollers, and an honest view of the trade-offs in 2026."
+aliases:
+  - Rust
+  - Rust Programming Language
 tags:
   - rust
-  - programming
-  - software-engineering
-  - mobile-robot
+  - robotics-software
+  - real-time
 type: tool
 level: intermediate
 subfield:
   - software
-status: draft
+  - electronics-embedded
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
+  - "[[C++]]"
 related:
-  - "[[Programming]]"
-  - "[[Software_Development]]"
-  - "[[Robot_Control]]"
-  - "[[Autonomous_Robots]]"
-  - "[[Machine_Learning]]"
+  - "[[Python_for_Robotics]]"
+  - "[[Microcontroller]]"
+  - "[[Custom_Packages_and_Nodes]]"
+key_takeaways:
+  - "Rust's ownership and borrowing rules let the compiler reject use-after-free, data races and many null-pointer errors, without a garbage collector."
+  - "ROS 2 Kilted (2025) added rosidl_rust to the default interface generators, and the ros2-rust project's rclrs provides a Rust client library."
+  - "Rust suits drivers, embedded firmware and safety-critical components; its robotics ecosystem is younger than C++'s or Python's, so mixed-language systems are normal."
+sources:
+  - "Klabnik, S. and Nichols, C. (2026). The Rust Programming Language. https://doc.rust-lang.org/book/"
+  - "ros2-rust contributors (2026). ros2_rust: Rust bindings for ROS 2. https://github.com/ros2-rust/ros2_rust"
+  - "Open Robotics (2025). ROS 2 Kilted Kaiju release notes (rosidl_rust added). https://github.com/ros2/ros2_documentation/blob/rolling/source/Releases/Release-Kilted-Kaiju.rst"
 ---
 
-# Rust (Programming Language)
+# Rust (Robotics)
 
-**Rust** is a modern programming language known for its performance and safety, making it well-suited for developing robust and efficient robotic systems. This entry explores Rust's features and applications in robotics, providing coding examples and best practices. Rust's emphasis on safety and concurrency makes it an excellent choice for developing reliable and scalable robotic applications.
+**Rust** is a systems programming language with performance comparable to C and C++, and with a compiler that rules out many of the bugs that crash robot software: dangling pointers, double frees, buffer overruns and data races between threads.
 
----
+> **Etymology.** Graydon Hoare began Rust as a personal project in 2006, reportedly naming it after rust fungi, which are remarkably robust. Mozilla sponsored it from 2009; version 1.0 shipped in 2015.
 
-## Key Concepts
-
-### Memory Safety
-
-Memory safety in Rust involves the language's ownership model, which ensures that all memory accesses are safe and prevents common issues such as null pointer dereferences, buffer overflows, and data races. This makes Rust particularly suitable for developing robust and secure robotic systems.
-
-### Concurrency
-
-Concurrency in Rust involves the language's support for concurrent programming, enabling the development of efficient and scalable robotic applications. Rust's concurrency model ensures that data races are prevented and that the system operates reliably in multi-threaded environments.
-
-### Performance
-
-Performance in Rust involves the language's ability to provide low-level control and high-level abstractions, enabling the development of efficient and optimized robotic systems. Rust's performance characteristics make it suitable for real-time and resource-constrained robotic applications.
-
-### Robotics Applications
-
-Robotics applications in Rust involve the development of control systems, sensor integration, and autonomous behaviors, enabling the creation of intelligent and adaptive robotic systems. Rust's features and libraries make it well-suited for developing robotic applications that require reliability, efficiency, and safety.
-
----
-
-## Mathematical Formulation
-
-### Control Algorithm
-
-A control algorithm in Rust can be represented as a function that takes sensory inputs and produces control signals, enabling the robot to perform tasks effectively. The control signal $u(t)$ is given by:
-
-$$
-u(t) = K_p e(t) + K_i \int_0^t e(\tau) d\tau + K_d \frac{de(t)}{dt}
-$$
-
-where:
-- $u(t)$ is the control signal.
-- $e(t)$ is the error at time $t$.
-- $K_p$, $K_i$, and $K_d$ are the proportional, integral, and derivative gains, respectively.
-
-### Example: Sensor Integration
-
-Consider a robotic system using Rust for sensor integration. The robot's sensors provide data about its environment, such as the presence of obstacles and the layout of the space. The control algorithm processes this data to determine the robot's actions, such as moving forward or turning, enabling it to navigate through the environment and reach its destination effectively. The Rust code for sensor integration can be represented as:
+## Ownership in one example
 
 ```rust
-struct SensorData {
-    distance: f32,
-    angle: f32,
-}
-
-fn process_sensor_data(data: SensorData) -> ControlSignal {
-    let control_signal = ControlSignal {
-        speed: data.distance * 0.1,
-        direction: data.angle,
-    };
-    control_signal
-}
-
-struct ControlSignal {
-    speed: f32,
-    direction: f32,
-}
-
 fn main() {
-    let sensor_data = SensorData {
-        distance: 10.0,
-        angle: 45.0,
-    };
-    let control_signal = process_sensor_data(sensor_data);
-    println!("Control Signal: speed = {}, direction = {}", control_signal.speed, control_signal.direction);
+    let scan = vec![1.2_f32, 0.8, 2.5];       // `scan` owns the vector
+    let closest = min_range(&scan);           // lend it (borrow) for reading
+    println!("closest {closest}");
+    let moved = scan;                         // ownership moves to `moved`
+    // println!("{:?}", scan);                // compile error: `scan` was moved
+    drop(moved);                              // freed exactly once
 }
+fn min_range(r: &[f32]) -> f32 { r.iter().cloned().fold(f32::INFINITY, f32::min) }
 ```
 
----
+Every value has one owner. Others may *borrow* it, either many readers or one writer at a time, never both. These rules are checked at compile time, so a thread cannot modify a buffer that another is reading. In C++ the same mistake compiles and fails at run time, often only occasionally.
 
-## Applications in Robotics
+## Why it matters for robots
 
-- **Control Systems**: Rust is used to design and implement control algorithms that regulate the behavior of robotic systems, enabling precise and adaptive control.
-- **Sensor Integration**: Enables the integration and processing of sensor data, facilitating tasks such as perception and navigation.
-- **Autonomous Systems**: Rust is used to develop autonomous systems, enabling robots to perform tasks and adapt to their environment without human intervention.
-- **Real-Time Systems**: Enables the development of real-time systems, ensuring that the robot performs tasks effectively and efficiently in dynamic and uncertain environments.
+- **Crashes are expensive**: a segfault in a driver can stop a moving robot.
+- **Concurrency is everywhere**: sensor callbacks, control loops and planners run in parallel threads.
+- **Long-lived systems**: code that is safe by construction is easier to maintain and certify.
+- **Embedded targets**: Rust compiles to bare-metal microcontrollers (no operating system), with async frameworks such as Embassy.
 
----
+## Rust in ROS 2
 
-## Dataview Plugin Features
+- **rclrs** (from the ros2-rust project) is a Rust client library for writing ROS 2 nodes.
+- Since **Kilted (2025)**, `rosidl_rust` is among the default interface generators, so message, service and action types are generated for Rust alongside C++ and Python.
+- Other Rust robotics projects include Zenoh (whose core, used by `rmw_zenoh`, is written in Rust), Rerun (visualisation), and robotics-oriented maths and control crates.
 
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
+## Trade-offs (2026)
 
-### List of Related Concepts
+| Pros | Cons |
+|---|---|
+| Memory and thread safety at compile time | Steeper learning curve (the borrow checker) |
+| C++-level performance, no garbage collector | Smaller robotics ecosystem; fewer drivers and planners |
+| Excellent tooling (cargo, testing, documentation) | ROS 2 support less mature than C++/Python |
+| Good fit for embedded and safety-critical code | Interop with large C++ code bases needs bindings |
+
+Most teams adopt Rust incrementally: new drivers, firmware, or a safety monitor, alongside existing [[C++]] and [[Python_for_Robotics|Python]].
+
+## Dataview
+
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Rust]])
 ```

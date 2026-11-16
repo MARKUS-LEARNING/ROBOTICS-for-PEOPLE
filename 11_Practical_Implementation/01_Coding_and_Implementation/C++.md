@@ -1,113 +1,77 @@
 ---
 title: C++ (Robotics)
-description: C++ is a powerful programming language widely used in robotics for developing efficient and high-performance robotic systems. This entry explores C++'s features and applications in robotics, providing coding examples and best practices.
+description: "C++ is the language of robot middleware, drivers, real-time control and high-performance planning. Covers why robotics still uses it, the modern C++ that matters (C++17/20, RAII, smart pointers), the ROS 2 Lyrical move to C++20, real-time rules with a computed 1 kHz budget, key libraries (Eigen, Pinocchio, FCL, OMPL, PCL), and C++ next to Python and Rust in 2026."
+aliases:
+  - C++
+  - Cpp
+  - Modern C++
 tags:
   - cpp
-  - programming
-  - software-engineering
-  - mobile-robot
+  - robotics-software
+  - real-time
 type: tool
 level: intermediate
 subfield:
   - software
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
+  - "[[Robots]]"
 related:
-  - "[[Programming]]"
-  - "[[Software_Development]]"
-  - "[[Robot_Control]]"
-  - "[[Autonomous_Robots]]"
-  - "[[Machine_Learning]]"
+  - "[[Python_for_Robotics]]"
+  - "[[Rust]]"
+  - "[[C++_Motion_Planning]]"
+  - "[[ros2_control]]"
+key_takeaways:
+  - "C++ gives predictable, fast code with direct hardware access, which is why ROS 2's core, ros2_control, MoveIt, Nav2 and most drivers are written in it."
+  - "At 1 kHz a control loop has 1 ms per cycle; real-time C++ avoids memory allocation, locks and blocking I/O inside that loop."
+  - "ROS 2 Lyrical (2026) targets C++20; Python leads for learning and tools, Rust is growing for safety-critical new code."
+sources:
+  - "cppreference.com (2026). C++20. https://en.cppreference.com/w/cpp/20"
+  - "Open Robotics (2026). ROS 2 Lyrical Luth supported platforms (C++20). https://github.com/ros2/ros2_documentation/blob/rolling/source/Releases/lyrical/supported-platforms.rst"
+  - "ros-controls (2026). ros2_control. https://github.com/ros-controls/ros2_control"
 ---
 
 # C++ (Robotics)
 
-**C++** is a powerful programming language widely used in robotics for developing efficient and high-performance robotic systems. This entry explores C++'s features and applications in robotics, providing coding examples and best practices. C++'s performance and flexibility make it an excellent choice for developing robust and scalable robotic applications.
+**C++** is the workhorse language for the parts of a robot where speed and timing matter: middleware, device drivers, real-time control loops, motion planners, perception pipelines on embedded computers, and simulators. ROS 2's core libraries, ros2_control, MoveIt, Nav2, Gazebo, MuJoCo and most hardware drivers are written in it.
 
----
+> **Etymology.** Bjarne Stroustrup created "C with Classes" at Bell Labs in 1979, renamed C++ (C's increment operator: "one more than C") in 1983.
 
-## Key Concepts
+## Why robotics uses it
 
-### Performance
+- **Performance**: compiled, zero-cost abstractions, direct memory control.
+- **Predictable timing**: no garbage collector, so code can be written to meet hard deadlines.
+- **Hardware access**: drivers, buses, shared memory, GPU interop.
+- **Ecosystem**: Eigen (linear algebra), Pinocchio (rigid-body dynamics), FCL (collision), OMPL (planning), PCL and Open3D (point clouds), OpenCV.
 
-Performance in C++ involves the language's ability to provide low-level control and high-level abstractions, enabling the development of efficient and optimized robotic systems. C++'s performance characteristics make it suitable for real-time and resource-constrained robotic applications.
+## Modern C++ that matters
 
-### Object-Oriented Programming
+- **RAII and smart pointers** (`std::unique_ptr`, `std::shared_ptr`): resources freed automatically, no manual `delete`.
+- **C++17/20 features**: `std::optional`, `std::variant`, structured bindings, `constexpr`, concepts, ranges, `std::span`. ROS 2 Lyrical moved its baseline to **C++20**.
+- **Modern CMake**: `target_link_libraries` with imported targets (in ROS 2 since Kilted, instead of `ament_target_dependencies`).
 
-Object-oriented programming in C++ involves the use of classes and objects to model and implement robotic systems, enabling tasks such as system design and integration. C++'s object-oriented features facilitate the development and organization of complex robotic applications.
+## Worked example: the real-time budget
 
-### Memory Management
+A [[ros2_control]] loop at 1 kHz has 1 ms per cycle for reading sensors, computing all controllers and writing commands. A single `new` or `malloc` inside that loop can occasionally take hundreds of microseconds if the allocator must ask the operating system for memory, which is enough to miss the deadline. Real-time C++ rules:
+- allocate everything before the loop starts (preallocated buffers, fixed-size containers);
+- no blocking I/O, logging to disk or unbounded loops in the loop;
+- use lock-free queues to pass data to non-real-time threads;
+- run on a real-time kernel (PREEMPT_RT, mainline since Linux 6.12) with appropriate thread priorities.
 
-Memory management in C++ involves the allocation and deallocation of memory, enabling tasks such as data processing and system control. C++'s memory management features facilitate the development and optimization of efficient and reliable robotic systems.
+## C++, Python and Rust in 2026
 
-### Robotics Applications
+| Use | Typical language |
+|---|---|
+| Real-time control, drivers, middleware | C++ (Rust increasingly) |
+| Planning and perception libraries | C++ with Python bindings |
+| Learning, data, prototyping, tools | Python |
+| New safety-critical or embedded code | Rust gaining ground (see [[Rust]]) |
 
-Robotics applications in C++ involve the development of control systems, sensor integration, and autonomous behaviors, enabling the creation of intelligent and adaptive robotic systems. C++'s features and libraries make it well-suited for developing robotic applications that require reliability, efficiency, and safety.
-
----
-
-## Mathematical Formulation
-
-### Control Algorithm
-
-A control algorithm in C++ can be represented as a function that takes sensory inputs and produces control signals, enabling the robot to perform tasks effectively. The control signal \( u(t) \) is given by:
-
-$$
-u(t) = K_p e(t) + K_i \int_0^t e(\tau) d\tau + K_d \frac{de(t)}{dt}
-$$
-
-where:
-- $u(t)$ is the control signal.
-- $e(t)$ is the error at time $t$.
-- $K_p$, $K_i$, and $K_d$ are the proportional, integral, and derivative gains, respectively.
-
-### Example: Sensor Integration
-
-Consider a robotic system using C++ for sensor integration. The robot's sensors provide data about its environment, such as the presence of obstacles and the layout of the space. The control algorithm processes this data to determine the robot's actions, such as moving forward or turning, enabling it to navigate through the environment and reach its destination effectively. The C++ code for sensor integration can be represented as:
-
-```cpp
-#include <iostream>
-#include <vector>
-
-// Define sensor data structure
-struct SensorData {
-    float distance;
-    float angle;
-};
-
-// Process sensor data
-SensorData processSensorData(const SensorData& data) {
-    SensorData controlSignal;
-    controlSignal.distance = data.distance * 0.1;
-    controlSignal.angle = data.angle;
-    return controlSignal;
-}
-
-int main() {
-    SensorData sensorData = {10.0, 45.0};
-    SensorData controlSignal = processSensorData(sensorData);
-    std::cout << "Control Signal: distance = " << controlSignal.distance << ", angle = " << controlSignal.angle << std::endl;
-    return 0;
-}
-```
-
----
-
-## Applications in Robotics
-
-- **Control Systems**: C++ is used to design and implement control algorithms that regulate the behavior of robotic systems, enabling precise and adaptive control.
-- **Sensor Integration**: Enables the integration and processing of sensor data, facilitating tasks such as perception and navigation.
-- **Autonomous Systems**: C++ is used to develop autonomous systems, enabling robots to perform tasks and adapt to their environment without human intervention.
-- **Real-Time Systems**: Enables the development of real-time systems, ensuring that the robot performs tasks effectively and efficiently in dynamic and uncertain environments.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[C++]])

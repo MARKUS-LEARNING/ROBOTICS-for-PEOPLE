@@ -1,84 +1,76 @@
 ---
-title: MATLAB (Robotics)
-description: MATLAB is a high-level programming language and interactive environment used extensively in robotics for algorithm development, data analysis, and simulation, providing tools and functions that facilitate the design and implementation of robotic systems.
+title: MATLAB
+description: "MATLAB and Simulink in robotics: numerical computing, control design, modelling and simulation, the Robotics System Toolbox and ROS Toolbox, code generation for embedded targets, and where MATLAB fits next to Python and ROS 2 in 2026. Includes a worked homogeneous-transform example and pointers to the Python equivalents."
+aliases:
+  - Simulink
+  - MATLAB Robotics System Toolbox
 tags:
   - matlab
-  - programming
   - simulation
+  - control
 type: tool
-level: intermediate
+level: beginner
 subfield:
   - software
-status: draft
+  - control
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
+  - "[[Linear_Algebra_for_Robotics]]"
 related:
-  - "[[Programming]]"
-  - "[[Robot_Simulation]]"
-  - "[[Robot_Control]]"
-  - "[[Autonomous_Robots]]"
-  - "[[Machine_Learning]]"
+  - "[[Python_for_Robotics]]"
+  - "[[Control_Systems]]"
+  - "[[Homogeneous_Transformation]]"
+key_takeaways:
+  - "MATLAB is a matrix-oriented numerical environment; Simulink adds block-diagram modelling and simulation, strongest for control design and model-based design with code generation."
+  - "Robotics System Toolbox and ROS Toolbox provide kinematics, planning and ROS 2 connectivity; Peter Corke's Robotics Toolbox exists for both MATLAB and Python."
+  - "Industry uses MATLAB/Simulink heavily for control and automotive work; robot learning and ROS 2 development have largely moved to Python and C++."
+sources:
+  - "MathWorks (2026). Robotics System Toolbox. https://www.mathworks.com/products/robotics.html"
+  - "MathWorks (2026). ROS Toolbox. https://www.mathworks.com/products/ros.html"
+  - "Corke, P. (2023). Robotics, Vision and Control: Fundamental Algorithms in Python, 3rd edition. https://link.springer.com/book/10.1007/978-3-031-06469-2"
+  - "Åström, K. J. and Murray, R. M. (2021). Feedback Systems, 2nd edition (MATLAB and Python examples). https://fbswiki.org/wiki/index.php/Feedback_Systems:_An_Introduction_for_Scientists_and_Engineers"
 ---
 
-# MATLAB (Robotics)
+# MATLAB
 
-**MATLAB** is a high-level programming language and interactive environment used extensively in robotics for algorithm development, data analysis, and simulation. It provides tools and functions that facilitate the design and implementation of robotic systems, enabling tasks such as control algorithm development, sensor data processing, and system modeling. MATLAB's extensive libraries and toolboxes make it well-suited for developing and testing robotic applications.
+**MATLAB** is a commercial numerical computing environment built around matrices; **Simulink** is its companion for modelling and simulating dynamic systems as block diagrams. Both have long been standard tools in control engineering, and remain widely used in industry and teaching.
 
----
+> **Etymology.** *MATLAB* = **MAT**rix **LAB**oratory. Cleve Moler wrote the first version in the late 1970s so students could use linear-algebra libraries without Fortran; MathWorks was founded in 1984.
 
-## Key Concepts
+## What it is good at
 
-### Algorithm Development
+- **Linear algebra and numerics** with concise syntax.
+- **Control design**: transfer functions, state space, Bode plots, LQR, MPC (Control System Toolbox, Model Predictive Control Toolbox).
+- **Simulink**: physical modelling (Simscape), controller design, and **code generation** to C/C++ for embedded targets, used extensively in automotive and aerospace.
+- **Robotics System Toolbox**: rigid-body trees, inverse kinematics, motion planning, trajectory generation.
+- **ROS Toolbox**: connects MATLAB and Simulink to ROS 2 networks and generates ROS 2 nodes.
 
-Algorithm development in MATLAB involves the creation and implementation of algorithms for robotic systems, such as control algorithms, path planning algorithms, and machine learning algorithms. MATLAB's environment and libraries enable the efficient development and testing of these algorithms.
-
-### Data Analysis
-
-Data analysis in MATLAB involves the processing and interpretation of data from robotic systems, such as sensor data, control signals, and system states. MATLAB's tools and functions enable the analysis and visualization of this data, facilitating tasks such as system monitoring and performance evaluation.
-
-### Simulation
-
-Simulation in MATLAB involves the modeling and simulation of robotic systems, enabling the testing and evaluation of their behavior and performance. MATLAB's simulation tools and environments facilitate the development and validation of robotic applications.
-
-### System Modeling
-
-System modeling in MATLAB involves the creation and analysis of models of robotic systems, such as kinematic models, dynamic models, and control models. MATLAB's tools and functions enable the development and evaluation of these models, facilitating tasks such as system design and optimization.
-
----
-
-## Mathematical Formulation
-
-### Control Algorithm
-
-A control algorithm in MATLAB can be represented as a function that takes sensory inputs and produces control signals, enabling the robot to perform tasks effectively. The control signal $u(t)$ is given by:
-
-$$
-u(t) = K_p e(t) + K_i \int_0^t e(\tau) d\tau + K_d \frac{de(t)}{dt}
-$$
-
-where:
-- $u(t)$ is the control signal.
-- $e(t)$ is the error at time $t$.
-- $K_p$, $K_i$, and $K_d$ are the proportional, integral, and derivative gains, respectively.
-
-### Example: Sensor Data Processing
-
-Consider a robotic system using MATLAB for sensor data processing. The robot's sensors provide data about its environment, such as the presence of obstacles and the layout of the space. The control algorithm processes this data to determine the robot's actions, such as moving forward or turning, enabling it to navigate through the environment and reach its destination effectively. The MATLAB code for sensor data processing can be represented as:
+## Worked example: a homogeneous transform
 
 ```matlab
-% Define sensor data structure
-sensorData = struct('distance', 10.0, 'angle', 45.0);
+T = trvec2tform([0.5 0 0.2]) * eul2tform([pi/2 0 0], "ZYX");   % translate, then yaw 90°
+p_tool = [0.1; 0; 0; 1];                                         % point in tool frame
+p_base = T * p_tool                                              % → [0.5; 0.1; 0.2; 1]
+```
 
-% Process sensor data
-function controlSignal = processSensorData(data)
-    controlSignal.speed = data.distance * 0.1;
-    controlSignal.direction = data.angle;
-end
+The tool point 0.1 m along the tool's x axis appears 0.1 m along the base's y axis, because the tool frame is yawed by 90°, offset by the translation (0.5, 0, 0.2). The same calculation in Python with NumPy or the spatialmath library is equally short (see [[Python_for_Robotics]], [[Homogeneous_Transformation]]).
 
-% Main function
-function main()
-    data = struct('distance', 10.0, 'angle', 45.0);
-    controlSignal = processSensorData(data);
-    fprintf('Control Signal: speed = %f, direction = %f\n', controlSignal.speed, controlSignal.direction);
-end
+## MATLAB versus Python in 2026
+
+| | MATLAB / Simulink | Python |
+|---|---|---|
+| Cost | Commercial licences (campus licences common) | Free and open source |
+| Strengths | Control design, Simulink model-based design, certified code generation, polished toolboxes | Machine learning, ROS 2 tooling, simulation for learning, huge open ecosystem |
+| Typical users | Automotive, aerospace, control and industrial teams; teaching | Robot-learning research, startups, ROS developers |
+
+Many teams use both: design and verify controllers in Simulink, generate embedded code, and run learning and high-level robot software in Python and ROS 2.
+
+## Dataview
+
+```dataview
+LIST FROM "" WHERE contains(file.outlinks, [[MATLAB]])
 ```

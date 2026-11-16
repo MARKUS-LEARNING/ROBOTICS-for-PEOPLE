@@ -1,120 +1,85 @@
 ---
-title: CUDA (Robotics)
-description: CUDA (Compute Unified Device Architecture) is a parallel computing platform and programming model developed by NVIDIA for general computing on graphical processing units (GPUs), enabling tasks such as real-time processing, simulation, and machine learning in robotics.
+title: CUDA
+description: "CUDA is NVIDIA's platform for programming GPUs, the hardware that trains and runs robot learning models and powers massively parallel simulation. Covers the programming model (kernels, threads, memory), why robotics needs it (simulation, perception, learning, GPU planning), Amdahl's law with a computed limit on speed-up, embedded GPUs (Jetson Thor), and the higher-level tools most people use instead of raw CUDA in 2026."
+aliases:
+  - GPU Programming
+  - CUDA Programming
 tags:
   - cuda
-  - parallel-computing
-  - high-performance-processing
+  - robotics-software
 type: tool
-level: intermediate
+level: advanced
 subfield:
   - software
-status: draft
+  - electronics-embedded
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
+  - "[[C++]]"
 related:
-  - "[[Robot_Control]]"
-  - "[[Autonomous_Robots]]"
-  - "[[Machine_Learning]]"
+  - "[[GPU-Parallel_Simulation]]"
+  - "[[Isaac_Lab]]"
+  - "[[Deep_Learning]]"
+  - "[[CNN_in_Robotics]]"
+key_takeaways:
+  - "CUDA runs thousands of lightweight threads in parallel on a GPU; it pays off when the same operation applies to many data items: pixels, points, simulated robots, network weights."
+  - "Speed-up is limited by the serial part: if 95% of a workload parallelises perfectly, the whole runs at most 20× faster, however many GPU cores you add (Amdahl's law)."
+  - "Most robotics developers use CUDA through libraries (PyTorch, Warp, TensorRT, cuRobo, Isaac Lab) rather than writing kernels; Isaac Lab 3.0 targets CUDA 13.0, and Jetson Thor brings the same stack onto robots."
+sources:
+  - "NVIDIA (2026). CUDA Toolkit documentation. https://docs.nvidia.com/cuda/"
+  - "NVIDIA (2026). Jetson Thor. https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-thor/"
+  - "NVIDIA (2026). Isaac Lab 3.0 release notes. https://github.com/isaac-sim/IsaacLab/releases/tag/v3.0.0"
+  - "Makoviychuk, V. et al. (2021). Isaac Gym: High Performance GPU-Based Physics Simulation For Robot Learning. https://arxiv.org/abs/2108.10470"
 ---
 
-# CUDA (Robotics)
+# CUDA
 
-**CUDA (Compute Unified Device Architecture)** is a parallel computing platform and programming model developed by NVIDIA for general computing on graphical processing units (GPUs). It enables tasks such as real-time processing, simulation, and machine learning in robotics, providing the tools and functions needed to leverage the power of GPUs for high-performance computing.
+**CUDA** is NVIDIA's platform for general-purpose computing on graphics processing units (GPUs). A GPU has thousands of simple cores; CUDA lets programs launch thousands of threads that each process one pixel, one point, one neuron or one simulated robot at the same time. Modern robot learning and simulation depend on it.
 
----
+> **Etymology.** Originally *Compute Unified Device Architecture*, released by NVIDIA in 2007. The acronym is now used as a name.
 
-## Key Concepts
+## The programming model
 
-### Parallel Computing
-
-Parallel computing in CUDA involves the use of multiple processors to perform computations simultaneously, enabling tasks such as real-time processing and simulation. CUDA's architecture and libraries facilitate the development and execution of parallel algorithms, enhancing the performance and efficiency of robotic systems.
-
-### High-Performance Processing
-
-High-performance processing in CUDA involves the use of GPUs to perform computations at high speeds, enabling tasks such as machine learning and data analysis. CUDA's tools and functions enable the development and optimization of high-performance algorithms, improving the capabilities and performance of robotic systems.
-
-### Real-Time Processing
-
-Real-time processing in CUDA involves the execution of computations and algorithms in real-time, enabling tasks such as control and decision-making. CUDA's architecture and libraries facilitate the development and deployment of real-time systems, enhancing the responsiveness and adaptability of robotic systems.
-
-### Machine Learning
-
-Machine learning in CUDA involves the use of GPUs to train and execute machine learning algorithms, enabling tasks such as perception and decision-making. CUDA's tools and functions enable the development and optimization of machine learning models, improving the intelligence and adaptability of robotic systems.
-
----
-
-## Mathematical Formulation
-
-### Parallel Algorithm
-
-A parallel algorithm in CUDA can be represented as a function that performs computations on multiple processors simultaneously, enabling the execution of tasks in parallel. The parallel computation $C$ can be represented as:
-
-$$
-C = \{c_0, c_1, \ldots, c_n\}
-$$
-
-where:
-- $C$ is the parallel computation.
-- $c_0, c_1, \ldots, c_n$ are the computations performed on each processor.
-
-### Example: Real-Time Processing
-
-Consider a robotic system using CUDA for real-time processing. The system's sensors provide data about its environment, such as the presence of obstacles and the layout of the space. The parallel algorithm processes this data in real-time to determine the robot's actions, such as moving forward or turning, enabling it to navigate through the environment and reach its destination effectively. The CUDA code for real-time processing can be represented as:
+- A **kernel** is a function that runs on the GPU, launched over a grid of **blocks**, each containing many **threads**.
+- Threads in a block share fast **shared memory**; all threads can access slower **global memory**.
+- Data moves between CPU and GPU memory, which costs time, so good GPU code keeps data on the GPU.
 
 ```cpp
-#include <cuda_runtime.h>
-#include <stdio.h>
-
-// CUDA kernel for real-time processing
-__global__ void processSensorData(float* sensorData, float* controlSignal, int size) {
-    int idx = threadIdx.x + blockIdx.x * blockDim.x;
-    if (idx < size) {
-        controlSignal[idx] = sensorData[idx] * 0.1;
-    }
+__global__ void scale(float* x, float a, int n) {
+    int i = blockIdx.x * blockDim.x + threadIdx.x;
+    if (i < n) x[i] *= a;          // each thread handles one element
 }
-
-int main() {
-    const int size = 10;
-    float sensorData[size] = {10.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0, 90.0, 100.0};
-    float controlSignal[size];
-
-    float *d_sensorData, *d_controlSignal;
-    cudaMalloc((void**)&d_sensorData, size * sizeof(float));
-    cudaMalloc((void**)&d_controlSignal, size * sizeof(float));
-
-    cudaMemcpy(d_sensorData, sensorData, size * sizeof(float), cudaMemcpyHostToDevice);
-
-    processSensorData<<<1, size>>>(d_sensorData, d_controlSignal, size);
-
-    cudaMemcpy(controlSignal, d_controlSignal, size * sizeof(float), cudaMemcpyDeviceToHost);
-
-    for (int i = 0; i < size; i++) {
-        printf("Control Signal: %f\n", controlSignal[i]);
-    }
-
-    cudaFree(d_sensorData);
-    cudaFree(d_controlSignal);
-
-    return 0;
-}
+// launch: scale<<<(n + 255) / 256, 256>>>(d_x, 2.0f, n);
 ```
 
----
-## Applications in Robotics
+## Why robotics needs GPUs
 
-- **Real-Time Processing**: CUDA is used to perform computations and algorithms in real-time, enabling tasks such as control and decision-making.
-- **Simulation**: Enables the modeling and simulation of robotic systems, facilitating the testing and evaluation of their behavior and performance.
-- **Machine Learning**: CUDA is used to train and execute machine learning algorithms, enabling tasks such as perception and decision-making.
-- **High-Performance Processing**: Enables the execution of computations at high speeds, improving the capabilities and performance of robotic systems.
+| Workload | GPU use |
+|---|---|
+| Learning | Training and running neural networks (PyTorch, JAX) |
+| Simulation | Thousands of robots in parallel for RL ([[GPU-Parallel_Simulation]], [[Isaac_Lab]], MuJoCo Warp) |
+| Perception | Image processing, detection and depth networks, point-cloud filtering |
+| Planning | Batched trajectory optimisation and collision checking (cuRobo) |
+| Rendering | Synthetic data generation, photoreal simulation |
 
----
+## Worked example: the limit on speed-up
 
-## Dataview Plugin Features
+**Amdahl's law**: if a fraction $p$ of a program can be parallelised and the rest is serial, the maximum speed-up with unlimited parallel processors is $1/(1 - p)$.
 
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
+With $p = 0.95$: at most $1/0.05 = 20\times$, even with millions of GPU threads. With 1,000 parallel workers the speed-up is $1/(0.05 + 0.95/1000) \approx 19.6\times$. To gain more, shrink the serial part: move everything onto the GPU, including the simulation step, reward computation and policy, as Isaac Gym did in 2021 by keeping all data on the GPU.
 
-### List of Related Concepts
+## On the robot
+
+**Jetson** modules put NVIDIA GPUs into robots; **Jetson Thor** (2025) is the module used in many 2025–26 humanoids (for example, 1X lists it for NEO). Deployment typically compiles networks with **TensorRT**, using lower precision (FP16, INT8, FP4) for speed.
+
+## Higher-level tools (2026)
+
+Few robotics developers write raw CUDA kernels. They use PyTorch and JAX; **NVIDIA Warp** (Python that compiles to GPU kernels, used by Newton and MuJoCo Warp); CuPy; TensorRT; and domain libraries (cuRobo, Isaac ROS). Isaac Lab 3.0 targets CUDA 13.0 with PyTorch 2.11.
+
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[CUDA]])
