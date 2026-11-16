@@ -1,41 +1,49 @@
 ---
 title: Industrial Arms
-description: Overview of industrial robot arms (manipulators), including their history, common types, characteristics, applications in automation, programming, safety, and the rise of collaborative robots (cobots).
+description: "Industrial robot arms are the workhorses of manufacturing: about five million were operating worldwide at the end of 2025. Covers their history from the Unimate, types and applications, the 2026 market (IFR World Robotics 2026), how they are programmed, safety under the revised ISO 10218:2025 standards, collaborative robots, and how AI is changing industrial automation."
+aliases:
+  - Industrial Robots
+  - Industrial Robot Arm
 tags:
-  - robot-types
   - industrial-robot
   - manipulator-arm
   - automation
-  - manufacturing
-  - collaborative-robots
-  - robotics-history
+  - safety
 type: robot-type
 level: beginner
 subfield:
-  - manipulation
   - industrial-automation
-status: draft
+  - manipulation
+status: reviewed
 author: Jordan_Smith
-date: 2025-04-28
+date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
+  - "[[Manipulator_Arm]]"
 related:
-  - "[[Robots]]"
-  - "[[Manipulator_Arm_Types]]"
-  - "[[Kinematics]]"
-  - "[[Dynamics]]"
-  - "[[Control_Theory]]"
-  - "[[Workspace]]"
-  - "[[Degrees_of_Freedom]]"
-  - "[[Trajectory_Planning]]"
-  - "[[Safety]]"
   - "[[Collaborative_Robots]]"
-  - "[[Robot_Types_and_Applications]]"
+  - "[[Ethical_and_Social_Implications]]"
+  - "[[MoveIt2]]"
+  - "[[CNN_in_Robotics]]"
+  - "[[Parallel_Robots]]"
+key_takeaways:
+  - "The global stock of industrial robots reached a record 5 million in 2025, with about 603,000 new installations; China installed 59% of them (IFR, World Robotics 2026)."
+  - "Most industrial arms still run taught or offline-programmed motions in fenced cells; vision, force sensing and collaborative operation have widened what they do."
+  - "Safety is governed by ISO 10218-1/-2 (revised 2025) and, in the EU from January 2027, the Machinery Regulation; AI-driven behaviour sits on top of certified safety functions, not in place of them."
+sources:
+  - "International Federation of Robotics (2026). Five Million Robots now Operate in Factories Globally (World Robotics 2026). https://ifr.org/ifr-press-releases/news/five-million-robots-now-operate-in-factories-globally"
+  - "International Federation of Robotics (2026). World Robotics 2026: Industrial Robots, executive summary. https://ifr.org/img/worldrobotics/Executive_Summary_WR_2026_-_Industrial_Robots.pdf"
+  - "International Federation of Robotics (2026). History of industrial robots. https://ifr.org/robot-history"
+  - "ISO (2025). ISO 10218-1:2025 Robotics — Safety requirements — Part 1: Industrial robots. https://www.iso.org/standard/73933.html"
+  - "European Union (2023). Regulation (EU) 2023/1230 on machinery products. https://eur-lex.europa.eu/eli/reg/2023/1230/oj"
 ---
 
-# Industrial Arms (Industrial Robots)
+# Industrial Arms
 
-**Industrial Arms**, often referred to simply as **Industrial Robots**, are automated mechanical manipulators used extensively in manufacturing and other industrial settings. According to the ISO 8373 standard, an industrial robot is an "automatically controlled, reprogrammable, multipurpose manipulator programmable in three or more axes, which may be either fixed in place or mobile for use in industrial automation applications." They are a cornerstone technology of modern automation, designed to perform tasks with high speed, precision, and endurance, often in environments unsuitable or dangerous for human workers.
+**Industrial arms** are [[Manipulator_Arm|robot arms]] built for factories: strong, fast, precise and able to run the same motion millions of times. They weld car bodies, paint, palletise, tend machine tools, assemble electronics and pack food.
 
----
+> **Etymology.** *Industry* is from Latin *industria*, "diligence". The first industrial robot, the **Unimate**, was patented by George Devol in 1954 (as "programmed article transfer") and commercialised with Joseph Engelberger.
 
 ## History
 
@@ -47,85 +55,57 @@ The era of industrial robotics began with the **Unimate**, developed by George D
 * **1978:** The **SCARA** (Selective Compliance Assembly Robot Arm) configuration is developed in Japan, revolutionizing electronics assembly.
 * **1979:** Unimation introduces the **PUMA** (Programmable Universal Machine for Assembly), which became a standard in research labs.
 * **1980s onward:** Development of parallel robots like the **Delta** robot for high-speed tasks. Increasing use of computer control, offline programming, and sensors.
-* **2010s onward:** Rise of [[Collaborative_Robots|Collaborative Robots (Cobots)]].
+* **2010s onward:** Rise of [[Collaborative_Robots|Collaborative Robots (Cobots)]], beginning with Universal Robots' UR5 (2008).
+* **2020s:** Vision-guided picking with deep learning; China becomes the majority market; AI policies trained from demonstrations enter pilot production lines.
 
----
+## Common types and applications
 
-## Common Types
+| Type | Strength | Typical applications |
+|---|---|---|
+| Articulated (6-axis) | Flexible reach and orientation | Welding, painting, machine tending, assembly |
+| SCARA | Fast, rigid in the vertical axis | Electronics assembly, small-part pick-and-place |
+| Delta (parallel) | Extremely fast for light loads | Food and pharmaceutical packaging |
+| Cartesian / gantry | Large, simple, accurate | Palletising, large-part handling |
+| Collaborative (cobots) | Safe force and speed limits; easy to teach | Machine tending, packaging, inspection with people nearby |
 
-Industrial arms are often classified by their [[Manipulator_Arm_Types|kinematic configuration]], primarily determined by the first three joints:
+## The market in 2026
 
-* **Articulated Robots:** The most common type, resembling a human arm (often 6R configuration like PUMA, ABB IRB series, KUKA robots). They offer high dexterity and a large workspace relative to their footprint. Typically 6 DoF.
-    ![Articulated Robot Welding](https://blog.perfectwelding.fronius.com/wp-content/uploads/2021/05/PW_WPIC_WA_HTW_Tauro-1536x864.jpg)
-    *(Example: Articulated industrial arms welding car bodies)*
-* **SCARA Robots:** Typically 4 DoF (RRP or RRP structure with parallel vertical axes). Designed for high speed and stiffness in planar tasks, common in electronics assembly.
-    ![SCARA Robot Assembly](https://upload.wikimedia.org/wikipedia/commons/0/09/SCARA_robot_2R.png)
-    *(Example: SCARA robot performing assembly)*
-* **Cartesian Robots (Gantry Robots):** Use three orthogonal prismatic (linear) axes (PPP). Offer simple kinematics, high stiffness, and potentially very large workspaces, but require significant overhead structure.
-* **Delta Robots:** Parallel kinematic structure, characterized by very high speed and acceleration, primarily used for pick-and-place operations in packaging and assembly.
-    ![Delta Robot Pick and Place](https://igus.widen.net/content/9pen18wjaw/jpeg/delta_lca_uk.jpg?crop=no&color=ffffff00&w=740&quality=80)
-    *(Example: Delta robot in a packaging application)*
-* **Cylindrical and Spherical Robots:** Early configurations, less common today.
+From the IFR's *World Robotics 2026* (published 24 September 2026):
 
----
+| Figure | Value |
+|---|---|
+| Operational stock worldwide, end of 2025 | about **5 million** (+9%) |
+| New installations in 2025 | **603,307** (+11%) |
+| China's share of 2025 installations | 59% (about 354,000 units) |
+| Forecast installations | 655,000 in 2026; 806,000 in 2029 |
 
-## Key Characteristics
+Automotive and electronics remain the largest users, but logistics, food, metal and machinery are growing fastest.
 
-Industrial robots are specified by several key performance metrics:
+## How they are programmed
 
-* **Payload:** The maximum mass the robot can manipulate at its end-effector (including the weight of the end-effector itself).
-* **Reach:** The maximum extent of the robot's workspace, usually measured horizontally from the base.
-* **[[Degrees_of_Freedom]] (DoF):** The number of independent axes of motion (typically 4 to 7 for industrial arms). 6 DoF are needed for arbitrary spatial positioning and orientation.
-* **Repeatability:** The ability of the robot to return precisely to the same taught point multiple times. This is often more critical than absolute accuracy in industrial tasks and can be very high (e.g., fractions of a millimeter).
-* **Accuracy:** The ability of the robot to reach a specific commanded pose in its workspace based on its kinematic model. Often lower than repeatability unless calibrated.
-* **Speed:** Maximum achievable velocity of the end-effector (TCP - Tool Center Point) and individual joints. Cycle time for specific tasks (including acceleration/deceleration) is often a more practical measure.
-* **Work Envelope / [[Workspace]]:** The 3D volume that the robot's end-effector can access.
+1. **Teach pendant**: jog the arm to points and build a program, in vendor languages such as RAPID (ABB), KRL (KUKA) or URScript.
+2. **Offline programming**: build and verify the program in a simulated digital twin; download it to the robot.
+3. **Vision guidance**: cameras and deep-learning detectors locate parts so the robot adapts to where they are (see [[CNN_in_Robotics]]).
+4. **Force control**: for polishing, insertion and assembly where contact matters.
+5. **Learned skills** (emerging): policies trained from demonstrations handle variable parts and deformable materials; in 2026 these are in pilots and specific cells rather than general use.
 
----
+## Safety
 
-## Typical Applications
+Traditional industrial robots are fast and powerful enough to kill, so they work behind **guarding**: fences, light curtains and interlocked doors. Collaborative operation without fences relies on certified **safety functions**: speed and separation monitoring, and power and force limiting.
 
-Industrial arms automate a wide range of tasks in manufacturing and logistics:
+- **ISO 10218-1 and -2** were revised in February 2025, integrating requirements formerly in the collaborative-robot technical specification.
+- In the EU, the **Machinery Regulation (2023/1230)** applies from 20 January 2027, including to machines with self-learning behaviour.
+- AI components must sit **above** certified safety functions. A learned policy can choose where to move, but it cannot disable a protective stop.
 
-* **Welding:** Spot welding (automotive bodies), arc welding.
-* **Painting & Coating:** Applying paint, sealants, or other coatings.
-* **Material Handling:** Loading/unloading machines, transferring parts between stations.
-* **Assembly:** Joining components, particularly in electronics and automotive industries.
-* **Pick and Place:** Transferring items from one location to another, often at high speed (e.g., packaging).
-* **Palletizing:** Stacking boxes or products onto pallets.
-* **Machine Tending:** Loading/unloading CNC machines, injection molding machines, etc.
-* **Processing:** Grinding, deburring, polishing, cutting, dispensing.
-* **Inspection:** Using vision or other sensors for quality control.
+## Where AI is changing industrial automation
 
----
+- **Perception**: bin picking of mixed parts, defect inspection.
+- **Faster deployment**: programming by demonstration, natural-language task setup, automatic path generation from CAD.
+- **Flexible cells**: robots that handle part variation without reprogramming.
+- **Humanoids and mobile manipulators**: piloted for tasks in existing lines that fixed arms cannot reach (see [[Humanoid_Robots]]).
 
-## Programming and Control
-
-* **Teach Pendants:** Handheld devices used for manually jogging the robot to desired positions and recording points for simple path programming (teaching).
-* **Offline Programming (OLP):** Using simulation software (often integrated with CAD data) to create and test robot programs without using the physical robot. This minimizes production downtime.
-* **Robot Languages:** Textual programming languages specific to robot manufacturers (e.g., KUKA KRL, ABB RAPID, Fanuc TP) allowing for more complex logic, sensor integration, and communication.
-* **Controllers:** Typically proprietary, real-time controllers manage [[Motion_Control]], execute [[Trajectory_Planning]], interpret programs, and interface with sensors and external systems. Modern controllers often use PC-based hardware.
-
----
-
-## Safety and Collaboration
-
-* **Traditional Safety:** Due to their speed and power, traditional industrial robots pose significant hazards. They typically operate within fenced work cells equipped with safety interlocks (light curtains, pressure mats, door switches) to prevent human entry during operation (governed by standards like ISO 10218).
-* **[[Collaborative_Robots|Collaborative Robots (Cobots)]]:** A rapidly growing category of industrial arms designed specifically for safe operation alongside or in direct collaboration with human workers, often without traditional safety fencing. Cobots typically feature lower speeds, power/force limiting capabilities, rounded designs, and integrated sensors (like force/torque sensors) to detect contact and react safely. They are enabling automation in tasks previously difficult to automate due to the need for human dexterity or judgment, especially in small and medium-sized enterprises (SMEs).
-
-    ![Collaborative Robot Arm](https://spectrum.ieee.org/media-library/yumi.jpg?id=25579667&width=2400&height=1529)
-    *(Example: Collaborative robot (cobot) working near a human)*
-
-Industrial arms are essential tools in modern manufacturing, driven by demands for productivity, quality, consistency, and flexibility. The integration of advanced [[Sensors|sensors]], [[AI_and_Robot_Control|AI]], and collaborative capabilities continues to expand their application range.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
-LIST FROM "" WHERE contains(file.outlinks, [[Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Industrial_Arms]])
 ```

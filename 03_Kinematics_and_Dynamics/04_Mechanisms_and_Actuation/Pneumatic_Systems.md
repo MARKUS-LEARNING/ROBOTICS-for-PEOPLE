@@ -93,7 +93,7 @@ Pneumatic systems function by controlling the flow and pressure of compressed ai
 Pneumatics remain widely used where their advantages are most beneficial:
 
 * **[[Industrial_Arms|Industrial Automation]]:** Very common for simple, high-speed tasks like pick-and-place operations, part ejection, clamping, and automated assembly fixtures. Dominant in early "bang-bang" control robots.
-* **[[Robot_Hands|Robotic Grippers]]:** Simple, lightweight, fast-acting pneumatic grippers are extremely common as [[End-Effector|end-effectors]] on industrial robots.
+* **[[Robot_Hands|Robotic Grippers]]:** Simple, lightweight, fast-acting pneumatic grippers are extremely common as [[Robot_Hands|end-effectors]] on industrial robots.
 * **[[Soft_Robotics]]:** Pneumatic actuation is a primary method for powering soft robots and compliant mechanisms, including artificial muscles like McKibben actuators, due to the inherent compliance and ease of distributing pressure through channels.
 * **Specific Applications:** Food handling, medical device automation, laboratory automation where cleanliness and cost-effectiveness are priorities.
 

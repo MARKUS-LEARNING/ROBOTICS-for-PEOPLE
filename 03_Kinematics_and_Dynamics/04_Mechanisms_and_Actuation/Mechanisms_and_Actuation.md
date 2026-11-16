@@ -45,7 +45,7 @@ related:
 
 In [[Robotics]], **mechanisms** refer to the physical structures—such as [[Links|links]], [[Joint_Kinematics|joints]], gears, belts, and linkages—that constitute the "skeleton" of a robot and guide or transmit motion. **[[Actuator|Actuation]]**, on the other hand, refers to the components ([[Actuator|actuators]]) and process of converting stored energy (electrical, hydraulic, pneumatic) into the forces and torques that *produce* this motion.
 
-Mechanisms and actuation are fundamentally intertwined in robot design. [[Actuator|Actuators]] provide the power, while mechanisms shape, constrain, and transmit that power to achieve the desired movement of the robot's [[End-Effector]] or overall [[Locomotion]]. Understanding their relationship is crucial for designing effective and efficient robotic systems.
+Mechanisms and actuation are fundamentally intertwined in robot design. [[Actuator|Actuators]] provide the power, while mechanisms shape, constrain, and transmit that power to achieve the desired movement of the robot's [[Robot_Hands|End-Effector]] or overall [[Locomotion]]. Understanding their relationship is crucial for designing effective and efficient robotic systems.
 
 ---
 

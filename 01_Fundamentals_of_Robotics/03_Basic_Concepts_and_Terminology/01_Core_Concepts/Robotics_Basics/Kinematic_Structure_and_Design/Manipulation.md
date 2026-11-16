@@ -15,7 +15,7 @@ last_reviewed: 2026-04-25
 related:
   - "[[Robotic_Manipulators]]"
   - "[[Grasping]]"
-  - "[[End_Effectors]]"
+  - "[[Robot_Hands]]"
   - "[[Kinematics]]"
   - "[[Control_Systems]]"
   - "[[Robot_Design]]"

@@ -1,129 +1,108 @@
 ---
 title: Robot Hands
-description: Describes robotic hands (grippers, end-effectors), their purpose in manipulation, design considerations, types, sensing, and challenges.
+description: "Robot hands and grippers are where a robot touches the world. Covers the spectrum from two-finger and suction grippers to multi-fingered dexterous hands, a computed grip-force example with friction, tactile sensing (vision-based fingertips such as GelSight and DIGIT), how dexterity is learned in 2026 (RL in simulation, teleoperation, human video), and why dexterous manipulation remains one of robotics' hardest open problems."
+aliases:
+  - Robot Hand
+  - Grippers
+  - Gripper
+  - Dexterous Hands
+  - End-Effector
 tags:
-  - robot-types
-  - manipulation
-  - grasping
   - end-effector
-  - gripper
-  - dexterity
-  - human-robot-interaction
-  - hardware
-  - sensors
-  - actuators
-type: robot-type
-level: beginner
+  - grasping
+  - manipulation
+  - tactile-sensing
+  - robot-learning
+type: component
+level: intermediate
 subfield:
   - manipulation
-status: draft
+  - mechanisms-actuation
+status: keystone
 author: Jordan_Smith
-date: 2025-04-29
+date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Manipulation]]"
+  - "[[Manipulator_Arm]]"
 related:
-  - "[[Manipulation]]"
-  - "[[End-Effector]]"
-  - "[[Actuator]]"
-  - "[[Sensors]]"
-  - "[[Tactile_Sensing]]"
-  - "[[Force_Control]]"
-  - "[[Degrees_of_Freedom]]"
-  - "[[Kinematics]]"
-  - "[[Soft_Robotics]]"
   - "[[Humanoid_Robots]]"
-  - "[[Industrial_Arms]]"
-  - "[[Grasping]]"
-  - "[[Robot_Types_and_Applications]]"
+  - "[[Manipulation]]"
+  - "[[Teleoperation_and_Data_Collection]]"
+  - "[[Reinforcement_Learning_for_Robots]]"
+  - "[[Sim-to-Real_Transfer]]"
+key_takeaways:
+  - "Most industrial work is done by simple parallel-jaw and suction grippers; dexterous multi-fingered hands matter for tools, in-hand reorientation and the human-shaped world."
+  - "Grip depends on friction: holding an object needs a normal force of at least its weight divided by twice the friction coefficient (for a two-finger grip), so slippery objects need much more force or a better grasp."
+  - "Dexterity is learned with RL in simulation (OpenAI's Dactyl, 2018, to humanoid hands in 2025) and from teleoperation and human video; touch sensing is improving fast, but robust general dexterity is still unsolved."
+sources:
+  - "OpenAI et al. (2018). Learning Dexterous In-Hand Manipulation. https://arxiv.org/abs/1808.00177"
+  - "Lambeta, M. et al. (2020). DIGIT: A Novel Design for a Low-Cost Compact High-Resolution Tactile Sensor with Application to In-Hand Manipulation. https://arxiv.org/abs/2005.14679"
+  - "Lambeta, M. et al. (2024). Digitizing Touch with an Artificial Multimodal Fingertip. https://arxiv.org/abs/2411.02479"
+  - "Shaw, K., Agarwal, A. and Pathak, D. (2023). LEAP Hand: Low-Cost, Efficient, and Anthropomorphic Hand for Robot Learning. https://arxiv.org/abs/2309.06440"
+  - "Lin, T. et al. (2025). Sim-to-Real Reinforcement Learning for Vision-Based Dexterous Manipulation on Humanoids. https://arxiv.org/abs/2502.20396"
+  - "Boston Dynamics (2026). Robot Hands for Modern AI and Real Work. https://bostondynamics.com/blog/robot-hands-for-modern-ai-and-real-work/"
 ---
 
-# Robot Hands (Grippers / End-Effectors)
+# Robot Hands
 
-**Robot Hands**, often referred to more broadly as **[[End-Effector|End-Effectors]]** or **Grippers**, are the devices attached to the distal end of a [[Manipulator_Arm|robotic arm]]. Their primary function is to enable physical interaction with objects and the environment, most commonly for [[Grasping|grasping]], holding, and [[Manipulation|manipulating]] objects. The complexity and capability of robot hands vary enormously, from simple two-jaw grippers to highly dexterous, anthropomorphic designs.
+The **hand** (or **end effector**) is the part of a robot that touches the world. It decides what the robot can pick up, how securely, and what it can do with an object once it holds it. Choosing or designing it is often more important than choosing the arm.
 
----
+> **Etymology.** *Gripper* is from Old English *gripan*, "to seize". *Dexterous* is from Latin *dexter*, "right-handed, skilful". *End effector* is engineering jargon for whatever acts at the end of the arm.
 
-## Purpose
+## The spectrum
 
-The hand or gripper allows a [[Robots|robot]] to:
-* Securely grasp and hold objects of various shapes, sizes, weights, and materials.
-* Perform fine manipulation tasks (e.g., reorienting an object within the hand, assembling parts).
-* Use tools designed for human hands.
-* Explore environments through touch ([[Tactile Sensing]]).
-* Apply controlled forces to objects or surfaces ([[Force Control]]).
+| Type | How it holds | Strengths | Limits |
+|---|---|---|---|
+| **Parallel-jaw gripper** | Two fingers close on the object | Simple, robust, cheap; the industrial default | Limited to graspable shapes; no in-hand manipulation |
+| **Suction** | Vacuum cups | Fast for boxes and flat items; dominant in parcel handling | Needs sealable surfaces; porous or tiny items fail |
+| **Adaptive / underactuated** | Fingers that wrap around shapes with few motors | Grasps varied shapes with simple control | Little precise control of finger pose |
+| **Soft grippers** | Compliant fingers (pneumatic, fin-ray) | Gentle on food and fragile items | Lower force and precision; see [[Soft_Robotics]] |
+| **Dexterous hands** | 3–5 fingers, 12–24 actuated joints | Tool use, reorientation in the hand, human-like tasks | Costly, fragile, hard to control |
 
----
+Examples of dexterous hands include the Shadow Hand (research standard for two decades), the Allegro Hand, the low-cost LEAP Hand (2023) designed for robot learning, and the hands on 2025–26 humanoids. 1X's NEO, for instance, lists 22 degrees of freedom per hand.
 
-## Key Design Considerations
+## Worked example: how hard must it squeeze?
 
-Designing a robot hand involves numerous trade-offs:
+A two-finger grip holds an object by friction. Each finger presses with normal force $N$; friction can supply up to $\mu N$ at each contact. To hold mass $m$ against gravity:
 
-* **Task Requirements:** The specific application dictates the necessary capabilities (e.g., lifting heavy boxes vs. assembling delicate electronics vs. handling soft fruit).
-* **[[Degrees_of_Freedom]] (DoF):** The number of independent joints determines the hand's dexterity. Simple grippers might have 1 DoF, while advanced hands can exceed 20 DoF.
-* **Anthropomorphism:** The degree to which the design mimics the human hand (number of fingers, thumb opposability, proportions). This can be important for using human tools or for [[Human-Robot_Interaction|HRI]] acceptance, but is not strictly necessary for dexterity.
-* **[[Actuator|Actuation]]:** How the joints are powered.
-    * *Type:* [[Electric_Motors|Electric motors]] (DC, servo, stepper), [[Hydraulic Actuators|hydraulics]], [[Pneumatic Actuators|pneumatics]], [[Shape_Memory_Alloys|SMAs]], [[Soft_Robotics|soft actuators]] (e.g., fluidic).
-    * *Placement:* Intrinsic (within the hand/fingers) or Extrinsic (in the forearm/base, using tendons/cables). Extrinsic actuation reduces finger inertia but adds transmission complexity (friction, elasticity).
-    * *Underactuation:* Using fewer actuators than DoF, relying on mechanical coupling (tendons, linkages) to allow fingers to passively conform to object shapes. This simplifies control but limits independent finger movement.
-* **[[Sensors|Sensing]]:** Crucial for feedback and intelligent manipulation.
-    * **[[Tactile Sensing]]:** Distributed sensors (often arrays of "taxels") on finger surfaces to detect contact location, pressure distribution, shape, texture, slip. Various transduction methods exist (resistive, capacitive, piezoelectric, optical).
-    * **Force/Torque Sensing:** Measures overall grasp force or interaction forces, often integrated into joints, tendons, or the wrist.
-    * **Proprioception:** [[Joint_Kinematics|Joint]] angle/position sensors (encoders, Hall effect sensors).
-    * **[[Camera_Systems|Visual Sensing]]:** Cameras may be integrated into the palm or wrist ("eye-in-hand") to aid grasping.
-* **[[Grasping|Grasping]] Taxonomy:**
-    * **Power Grasps:** Using large contact areas (fingers and palm) for stable, high-force holding.
-    * **Precision Grasps:** Using fingertips for delicate handling and fine manipulation.
-* **Size, Weight, Power Consumption:** Critical constraints, especially for hands mounted on mobile or lightweight arms.
-* **Cost, Durability, Reliability:** Practical considerations for real-world deployment.
+$$2\mu N \ge m g \quad\Rightarrow\quad N \ge \frac{m g}{2\mu}$$
 
----
+| Object (1 kg) | Friction coefficient μ | Minimum force per finger | With safety factor 2 |
+|---|---|---|---|
+| Rubber-coated tool | 0.5 | 9.8 N | 19.6 N |
+| Wet glass | 0.3 | 16.4 N | 32.7 N |
 
-## Types of Robot Hands / Grippers
+Any acceleration of the arm adds to the required force. Squeezing too hard crushes fragile items, so good grasps balance the two. This is why **tactile sensing** (feeling incipient slip) and wider, softer fingertips (more friction, area and tolerance) matter so much.
 
-* **Simple Grippers:**
-    * *Parallel Jaw Grippers:* Two fingers moving linearly, parallel to each other. Ubiquitous in [[Industrial_Arms|industrial automation]] due to simplicity and reliability.
-    * *Angular Grippers:* Fingers pivot to open/close.
-    * *Vacuum Grippers / Suction Cups:* Use negative pressure. Effective for flat, non-porous surfaces.
-    * *Magnetic Grippers:* For handling ferrous materials.
-* **Multi-Fingered Dexterous Hands:**
-    * Aim to replicate human hand dexterity with multiple (often 3-5) articulated fingers, each having multiple joints.
-    * Capable of complex in-hand manipulation (repositioning/reorienting objects without regrasping).
-    * Often anthropomorphic.
-    * *Examples:* Utah/MIT Hand, Shadow Dexterous Hand, DLR Hand II, Robonaut Hand.
-    * *Challenges:* High complexity, cost, difficult control.
-* **Adaptive / Underactuated Grippers:**
-    * Fingers have fewer actuators than joints, allowing them to passively conform to object shapes.
-    * Often use linkages or tendons for mechanical coupling.
-    * Simpler control than fully actuated dexterous hands.
-    * *Examples:* BarrettHand, Robotiq grippers, designs based on Fin Ray® effect.
-* **[[Soft_Robotics|Soft Grippers]]:**
-    * Made from compliant materials (elastomers, fabrics).
-    * Actuated by fluid pressure (pneumatics/hydraulics), tendons, or embedded smart materials (SMAs, EAPs).
-    * Inherently safe for interacting with delicate objects or humans.
-    * Conform well to irregular shapes.
-    * May have challenges with precise force control or sensing integration.
+## Touch
 
----
+Vision-based tactile sensors put a camera behind a soft gel skin. Contact deforms the gel, and the camera sees the contact shape, forces and slip at high resolution:
+- **GelSight**, from MIT;
+- **DIGIT** (Meta, 2020), a low-cost version;
+- **Digit 360** (2024), adding multimodal sensing.
 
-## Challenges and Future Directions
+Self-supervised touch models (Sparsh, 2024) learn representations from such sensors the way vision models learn from images. Tactile data is becoming an input to learned manipulation policies.
 
-Despite decades of research, creating robot hands with human-level dexterity remains a grand challenge. Key difficulties include:
-* Replicating the combination of strength, speed, and fine motor control of the human hand.
-* Developing robust and high-resolution [[Tactile Sensing]] comparable to human skin.
-* Effectively integrating complex sensing and actuation for real-time control.
-* Learning robust [[Grasping|grasping]] and [[Manipulation]] strategies that generalize across objects and tasks, especially using [[Machine_Learning|learning-based approaches]] ([[Reinforcement_Learning|Reinforcement Learning (RL)]], [[Imitation_Learning|Imitation Learning]]).
-* Achieving cost-effective, durable, and reliable designs for widespread deployment.
+## Learning dexterity
 
-Future research continues to explore novel materials ([[Soft_Robotics]]), bio-inspired designs, advanced [[Sensors|sensing]] modalities, and [[AI_and_Robot_Control|AI-driven control]] to push the boundaries of robotic manipulation.
+| Approach | Milestone |
+|---|---|
+| **RL in simulation with domain randomisation** | OpenAI's Dactyl (2018) rotated a cube in a Shadow Hand after training in simulation; 2025 work applied sim-to-real RL to vision-based dexterous tasks on humanoid hands |
+| **Teleoperation** | Data gloves, VR hand tracking and exoskeletons map human finger motion to robot hands for demonstrations (see [[Teleoperation_and_Data_Collection]]) |
+| **Human video** | Hand-pose estimation from video retargeted to robot hands, a large and cheap data source |
+| **Grasp datasets** | Simulation-generated grasp sets for dexterous hands (DexGraspNet, 2022) |
+| **Foundation models** | VLAs controlling multi-fingered hands, though leading labs still describe dexterous manipulation as challenging |
 
----
+## Open problems (2026)
 
-## Dataview Plugin Features
+- **Durability and cost.** Many small actuators and tendons wear out; hands are often the least reliable part of a humanoid.
+- **Sensing coverage.** Fingertips are sensorised; palms and finger sides often are not.
+- **Generalisation.** Policies that reorient one object rarely transfer to arbitrary objects and tools.
+- **Contact-rich precision.** Inserting, threading and deformable objects (cables, cloth) remain hard.
 
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
-LIST FROM "" WHERE contains(file.outlinks, [[Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Robot_Hands]])
 ```

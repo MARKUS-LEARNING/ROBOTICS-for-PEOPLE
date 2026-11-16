@@ -28,7 +28,7 @@ related:
   - "[[Kinematic_Chains]]"
   - "[[Degrees_of_Freedom]]"
   - "[[Robot_Design]]"
-  - "[[End_Effectors]]"
+  - "[[Robot_Hands]]"
   - "[[Manipulator_Dynamics]]"
   - "[[Statics]]"
   - "[[Material_Science]]"
@@ -146,7 +146,7 @@ where $\sum F$ is the sum of forces and $\sum \tau$ is the sum of torques.
 
 Links are integral to various robotic systems:
 
-* **Manipulator Arms**: Form the structural framework that connects joints and [[End_Effectors]], enabling precise and controlled movements.
+* **Manipulator Arms**: Form the structural framework that connects joints and [[Robot_Hands|End_Effectors]], enabling precise and controlled movements.
 * **Mobile Robots**: Provide the chassis and structural components that support locomotion and interaction with the environment.
 * **Humanoid Robots**: Require links that mimic human limbs, balancing strength, flexibility, and weight.
 * **Exoskeletons**: Need links that are lightweight, strong, and adaptable to human movements.
