@@ -22,12 +22,14 @@ as_of: 2026-11
 prerequisites:
   - "[[Reinforcement_Learning]]"
   - "[[Neural_Networks]]"
+  - "[[Robot_Simulation]]"
 related:
   - "[[Policy]]"
   - "[[Imitation_Learning]]"
   - "[[Locomotion]]"
   - "[[Legged_Robots]]"
   - "[[World_Models]]"
+  - "[[Sim-to-Real_Transfer]]"
   - "[[Sim2Real_Experiments]]"
 key_takeaways:
   - "Robot RL is mostly trained in simulation: thousands of parallel robots on a GPU, then transferred to hardware."
@@ -73,7 +75,7 @@ sources:
 | **Actuator modelling** | Learn the real motor's response from logged data and put it in the simulator | Hwangbo et al. 2019 (ANYmal) |
 | **Teacher-student distillation** | A teacher trained with privileged information (exact terrain, friction) is imitated by a student that only sees real sensors | Lee et al. 2020 |
 | **Rapid adaptation** | The policy infers the current dynamics from recent history and adjusts within a fraction of a second | Kumar et al. 2021 (RMA) |
-| **System identification** | Measure the real robot's parameters and calibrate the simulator before training | Classical; see [[Sim2Real_Experiments]] |
+| **System identification** | Measure the real robot's parameters and calibrate the simulator before training | Classical; see [[Sim-to-Real_Transfer]] |
 
 **4. Deploy and iterate.** Watch where the real robot fails, attribute the failure to a gap (physics, sensing, actuation, latency), fix the simulator, retrain.
 
