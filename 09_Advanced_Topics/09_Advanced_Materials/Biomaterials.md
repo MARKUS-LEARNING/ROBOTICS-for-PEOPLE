@@ -1,134 +1,84 @@
 ---
 title: Biomaterials
-description: Biomaterials are materials engineered to interact with biological systems for therapeutic or diagnostic purposes, often used in medical devices and tissue engineering.
+description: "Biomaterials are materials designed to work with living tissue: in implants, prosthetics, medical robots and soft robots that touch people, and in biohybrid robots that use living cells. Covers biocompatibility and its testing, the main classes (metals, polymers, ceramics, hydrogels), stiffness matching between devices and tissue with a computed comparison, and biohybrid robotics in 2026."
+aliases:
+  - Biomaterial
+  - Biocompatible Materials
+  - Biohybrid Robots
 tags:
   - materials
   - medical-robots
-  - biocompatibility
-  - implants
-  - tissue-engineering
-  - regenerative-medicine
+  - bio-inspired-robotics
 type: concept
-level: advanced
+level: intermediate
 subfield:
-  - mechanisms-actuation
   - medical-robotics
-status: draft
+  - bio-inspired
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Robot_Design]]"
-related:
   - "[[Material_Science]]"
-  - "[[Robot_Design]]"
-  - "[[Smart_Materials]]"
-  - "[[Composite_Materials]]"
-  - "[[Nanotechnology]]"
+related:
+  - "[[Medical_Robotics]]"
+  - "[[Exoskeletons]]"
+  - "[[Soft_Robotics]]"
+  - "[[Nanorobots]]"
+key_takeaways:
+  - "A biomaterial must do its job without harming the body, and the body must not degrade it unexpectedly; biocompatibility is tested under the ISO 10993 series."
+  - "Stiffness mismatch matters: brain tissue is around a kilopascal and skin around hundreds of kilopascals, while titanium is about 110 GPa, so soft interfaces (silicones, hydrogels) are used where devices touch tissue."
+  - "Biohybrid robots go further, using living muscle cells or microorganisms as actuators; a decade of research has produced crawling, swimming and gripping bio-bots."
+sources:
+  - "Webster-Wood, V. A. et al. (2023). Biohybrid robots: recent progress, challenges, and perspectives. https://iopscience.iop.org/article/10.1088/1748-3190/ac9c3b"
+  - "Soft Science (2025). A review: exploring the designs of bio-bots. https://www.oaepublish.com/articles/ss.2024.50"
+  - "ISO (2018). ISO 10993-1: Biological evaluation of medical devices — Part 1. https://www.iso.org/standard/68936.html"
+  - "Rus, D. and Tolley, M. T. (2015). Design, fabrication and control of soft robots. https://www.nature.com/articles/nature14543"
 ---
 
 # Biomaterials
 
-**Biomaterials** are materials engineered to interact with biological systems for therapeutic or diagnostic purposes, often used in medical devices and tissue engineering. These materials are designed to be biocompatible, meaning they can coexist with living tissues without causing harm. Biomaterials play a crucial role in advancing medical technology by enabling the development of implants, prosthetics, and regenerative therapies.
+A **biomaterial** is a material engineered to interact with biological systems: a titanium hip implant, a silicone catheter, a hydrogel wound dressing, the soft liner of a prosthetic socket, or the tissue scaffold in which muscle cells grow. In robotics, biomaterials matter wherever robots touch, enter or are built from living tissue.
 
----
+> **Etymology.** Greek *bios*, "life", + *materia*. The field formalised in the 1960s–70s as implants became common; the definition of biocompatibility as "the ability to perform with an appropriate host response in a specific application" (David Williams, 1987) is still used.
 
-## Key Concepts
+## Biocompatibility
 
-1. **Biocompatibility**: The ability of a material to perform with an appropriate host response in a specific application. Biocompatible materials do not produce a toxic or immunological response when introduced into the body.
-   <br>
+Requirements depend on how and for how long a device contacts the body: skin contact for minutes, or blood contact for years. The **ISO 10993** series defines biological evaluation: cytotoxicity, sensitisation, irritation, and, for longer contact, systemic toxicity, genotoxicity and implantation tests.
 
-2. **Bioactivity**: The capacity of a biomaterial to chemically bond with living tissue, often promoting tissue integration and regeneration.
-   <br>
+## Classes
 
-3. **Biodegradability**: The property of a biomaterial to break down naturally in the body over time, often used in temporary implants or drug delivery systems.
-   <br>
+| Class | Examples | Uses |
+|---|---|---|
+| Metals | Titanium alloys, stainless steel, NiTi | Implants, surgical instruments, stents (see [[Shape_Memory_Alloys]]) |
+| Polymers | Silicone, polyurethane, PEEK, PLA/PLGA (biodegradable) | Catheters, soft robot skins, sutures, scaffolds |
+| Ceramics | Alumina, zirconia, hydroxyapatite | Joints, bone substitutes |
+| Hydrogels | Polymer networks that hold water | Soft tissue interfaces, drug delivery, microrobots |
+| Living materials | Cells, tissues, microorganisms | Biohybrid robots |
 
-4. **Mechanical Properties**: The strength, stiffness, and flexibility of a biomaterial, which must match the requirements of the biological environment in which it is used.
-   <br>
+## Worked example: stiffness matching
 
-5. **Surface Properties**: The characteristics of a biomaterial's surface, such as texture, charge, and hydrophobicity, which influence its interaction with biological tissues and fluids.
-   <br>
+| Material or tissue | Young's modulus (order of magnitude) |
+|---|---|
+| Brain tissue | ~1 kPa |
+| Skin | ~0.1–1 MPa |
+| Soft silicone (soft robot skin) | ~0.1 MPa |
+| Bone (cortical) | ~10–20 GPa |
+| Titanium alloy | ~110 GPa |
 
----
+A rigid electrode in the brain is about ^8$ times stiffer than the tissue around it, which causes inflammation and scarring as the brain moves. A silicone fingertip on a robot touching skin is in the same stiffness range as the skin. Matching stiffness at the interface is a key design principle for implants, wearables and robots that handle people (see [[Exoskeletons]], [[Soft_Robotics]]).
 
-## Types of Biomaterials
+## Biohybrid robots
 
-Biomaterials can be categorized based on their origin and properties:
+Biohybrid robots use living components as actuators or sensors:
+- crawling and swimming bio-bots driven by cardiomyocytes or skeletal muscle grown on soft scaffolds;
+- microorganism-powered microrobots;
+- muscle-actuated grippers.
 
-* **Natural Biomaterials**: Derived from biological sources, such as collagen, chitosan, and hyaluronic acid. These materials are often biocompatible and biodegradable.
-  <br>
+A decade of research (reviewed in 2023 and 2025) has shown these work, but they face hard problems: keeping cells alive and fed, control, speed and scaling. They are research systems, valuable for medicine and for understanding biological actuation.
 
-* **Synthetic Biomaterials**: Engineered materials like polylactic acid (PLA), polycaprolactone (PCL), and polyethylene glycol (PEG). These materials can be tailored to specific mechanical and biological properties.
-  <br>
-
-* **Metallic Biomaterials**: Metals like titanium and stainless steel, commonly used in orthopedic implants due to their strength and biocompatibility.
-  <br>
-
-* **Ceramic Biomaterials**: Materials like hydroxyapatite and bioactive glass, used in bone repair and dental implants for their bioactivity and strength.
-  <br>
-
-* **Polymeric Biomaterials**: Polymers such as polyurethane and silicone, used in a wide range of applications from catheters to soft tissue replacements.
-  <br>
-
----
-
-## Mathematical Representations
-
-### Biodegradation Rate
-
-The degradation rate of a biomaterial can be modeled using an exponential decay function:
-
-$$
-M(t) = M_0 \cdot e^{-kt}
-$$
-
-where $M(t)$ is the mass of the biomaterial at time $t$, $M_0$ is the initial mass, and $k$ is the degradation rate constant.
-
-### Stress-Strain Relationship
-
-The mechanical behavior of a biomaterial under load can be described by the stress-strain relationship:
-
-$$
-\sigma = E \cdot \epsilon
-$$
-
-where $\sigma$ is the stress, $E$ is the Young's modulus of the material, and $\epsilon$ is the strain.
-
-### Diffusion in Biomaterials
-
-The diffusion of a substance through a biomaterial can be described by Fick's first law:
-
-$$
-J = -D \cdot \frac{\partial \phi}{\partial x}
-$$
-
-where $J$ is the diffusion flux, $D$ is the diffusion coefficient, and $\frac{\partial \phi}{\partial x}$ is the concentration gradient.
-
----
-
-## Applications in Robotics and Healthcare
-
-Biomaterials are essential in robotics and healthcare for developing advanced medical devices and therapies:
-
-* **Implants and Prosthetics**: Used in the creation of artificial joints, dental implants, and prosthetic limbs that integrate with the body.
-  <br>
-
-* **Tissue Engineering**: Employed in the development of scaffolds for growing new tissues and organs, such as skin, bone, and cartilage.
-  <br>
-
-* **Drug Delivery Systems**: Utilized in controlled-release systems that deliver medications directly to targeted areas of the body.
-  <br>
-
-* **Regenerative Medicine**: Applied in therapies that aim to regenerate damaged tissues and organs, such as stem cell therapies and organ printing.
-  <br>
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Biomaterials]])

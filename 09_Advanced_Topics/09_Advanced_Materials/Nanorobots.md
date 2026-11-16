@@ -1,123 +1,83 @@
 ---
 title: Nanorobots
-description: Nanorobots are robotic devices with dimensions on the nanoscale, capable of performing tasks at the molecular or atomic level.
+description: "Nanorobots and microrobots are tiny machines, usually driven by external magnetic fields, light or ultrasound, or by chemistry or living cells, intended for medicine and micromanipulation. Covers the honest size range (mostly micrometres, not nanometres), propulsion at low Reynolds number, magnetic actuation, imaging and control, the 2025 large-animal results, and remaining barriers to clinical use."
+aliases:
+  - Microrobots
+  - Nanorobot
+  - Medical Microrobots
 tags:
   - nanotechnology
   - medical-robots
-  - materials
 type: robot-type
 level: advanced
 subfield:
   - micro-nano
   - medical-robotics
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
   - "[[Nanotechnology]]"
 related:
-  - "[[Robot_Design]]"
-  - "[[Nanotechnology]]"
-  - "[[Mechatronics]]"
-  - "[[Control_Systems]]"
   - "[[Medical_Robotics]]"
-  - "[[Material_Science]]"
+  - "[[MEMS]]"
+  - "[[Smart_Materials]]"
+  - "[[Swarm_Robots]]"
+key_takeaways:
+  - "Most working 'nanorobots' are microrobots (micrometres to millimetres) with no onboard power or computer; they are steered from outside by magnetic fields, light, ultrasound or by carried cells."
+  - "Low-Reynolds-number physics makes them swim with corkscrews, rolling or undulation rather than strokes, and control is closed through medical imaging."
+  - "By 2025 magnetic microrobot platforms were demonstrated in large animals under clinical conditions; biocompatibility, tracking deep in the body, retrieval and regulation remain the barriers."
+sources:
+  - "Zhou, J. et al. (2023). System integration of magnetic medical microrobots: from design to control. https://pmc.ncbi.nlm.nih.gov/articles/PMC10758462/"
+  - "Landers, F. C. et al. (2025). Clinically ready magnetic microrobots for targeted therapies. https://www.science.org/doi/10.1126/science.adx1708"
+  - "Webster-Wood, V. A. et al. (2023). Biohybrid robots: recent progress, challenges, and perspectives. https://iopscience.iop.org/article/10.1088/1748-3190/ac9c3b"
+  - "Feynman, R. P. (1959). There's Plenty of Room at the Bottom. https://web.pa.msu.edu/people/yang/RFeynman_plentySpace.pdf"
 ---
 
 # Nanorobots
 
-**Nanorobots** are robotic devices with dimensions on the nanoscale, typically ranging from 1 to 100 nanometers, capable of performing tasks at the molecular or atomic level. These tiny machines are designed to operate in environments where conventional robots cannot, opening up new possibilities in fields such as medicine, materials science, and environmental remediation. Nanorobots leverage advancements in nanotechnology to achieve precise control and functionality at extremely small scales.
+**Nanorobots**, and more accurately **microrobots**, are machines small enough to travel through blood vessels, tissue or microfluidic channels. The vision, from Feynman's 1959 talk and 1966's *Fantastic Voyage*, is of tiny devices that deliver drugs exactly where they are needed, clear blockages or perform surgery from inside the body.
 
----
+> **Etymology.** *Nano-* (Greek *nanos*, "dwarf") + *robot*. In practice most systems are micrometres to a millimetre across; "nanorobot" is often used loosely for any untethered microscale device.
 
-## Key Concepts in Nanorobots
+## What they are really like
 
-1. **Nanoscale Operation**: Nanorobots operate at the nanoscale, allowing them to interact with individual molecules and atoms. This capability is crucial for applications requiring precision and control at the smallest scales.
-   <br>
+| Property | Typical microrobot |
+|---|---|
+| Size | ~1 µm to 1 mm |
+| Power and computation | None onboard: energy and control come from outside |
+| Actuation | Magnetic fields (most common), light, ultrasound, chemical fuels, or living cells (bacteria, sperm, algae) as motors |
+| Sensing | External imaging: fluoroscopy, ultrasound, MRI, magnetic particle imaging, photoacoustics |
+| Materials | Magnetic particles in biocompatible or biodegradable polymers and hydrogels |
 
-2. **Medical Applications**: Nanorobots have significant potential in medicine, particularly for targeted drug delivery, microsurgery, and diagnostics. They can navigate through the body to deliver treatments directly to affected areas.
-   <br>
+## How they move
 
-3. **Material Synthesis and Manipulation**: In materials science, nanorobots can be used to assemble and manipulate materials at the atomic level, enabling the creation of new materials with unique properties.
-   <br>
+At low Reynolds number (see [[Nanotechnology]]) inertia is negligible, so microrobots use:
+- **helical (corkscrew) swimmers** rotated by a rotating magnetic field;
+- **surface rollers**, which roll along vessel walls;
+- **magnetic gradient pulling** (stronger field one way);
+- **flexible undulating tails**, like sperm;
+- **swarms** steered together (see [[Swarm_Robots]]).
 
-4. **Environmental Remediation**: Nanorobots can be employed to clean up environmental pollutants at the molecular level, offering a novel approach to environmental protection and restoration.
-   <br>
+Magnetic actuation systems, made of electromagnet arrays or moving permanent magnets, generate the fields, and the control loop is closed through imaging: locate the robot, compute the field, apply it, repeat.
 
-5. **Control and Actuation**: Controlling nanorobots requires innovative approaches, such as using magnetic fields, light, or chemical reactions to direct their movements and actions.
-   <br>
+## Where things stand (2026)
 
----
+- **Large-animal demonstrations (2025).** A modular magnetic microrobot platform delivered drug-loaded microrobots through realistic vascular models and in sheep and pigs under clinical conditions (*Science*, 2025).
+- **Targeted delivery** of drugs, cells and clot-dissolving agents is the leading application; urology, ophthalmology and the gastrointestinal tract are early targets.
+- **Biohybrid systems** use bacteria or cells as motors and sensors.
 
-## Key Equations
+## Barriers
 
-### Diffusion of Nanorobots
+- Tracking small robots deep in the body in real time.
+- Biocompatibility, toxicity and retrieval or degradation after use.
+- Delivering enough dose with tiny payloads.
+- Scaling manufacture with consistent quality.
+- Regulatory pathways for a new class of device.
 
-The diffusion of nanorobots through a medium can be described by:
-
-$$
-\frac{\partial C}{\partial t} = D \nabla^2 C
-$$
-
-where:
-- $C$ is the concentration of nanorobots.
-- $D$ is the diffusion coefficient.
-- $t$ is time.
-
-This equation describes how nanorobots diffuse through a medium over time.
-
-### Magnetic Control
-
-The force $F$ acting on a nanorobot under magnetic control is given by:
-
-$$
-F = \nabla (\vec{m} \cdot \vec{B})
-$$
-
-where:
-- $F$ is the force acting on the nanorobot.
-- $\vec{m}$ is the magnetic moment of the nanorobot.
-- $\vec{B}$ is the external magnetic field.
-
-### Drug Delivery Efficiency
-
-The efficiency $\eta$ of drug delivery by nanorobots is calculated as:
-
-$$
-\eta = \frac{Q_d}{Q_t}
-$$
-
-where:
-- $\eta$ is the efficiency of drug delivery.
-- $Q_d$ is the quantity of drug delivered to the target site.
-- $Q_t$ is the total quantity of drug administered.
-
----
-
-## Impact on Robotics
-
-- **Precision and Control**: Nanorobots offer unparalleled precision and control at the nanoscale, enabling tasks that are impossible with larger robots.
-  <br>
-
-- **Medical Innovations**: The potential for nanorobots to revolutionize medicine through targeted drug delivery and minimally invasive procedures is significant.
-  <br>
-
-- **Material Science Advances**: Nanorobots can facilitate the creation of new materials with unique properties by manipulating atoms and molecules.
-  <br>
-
-- **Environmental Benefits**: The use of nanorobots in environmental remediation provides a novel and effective approach to cleaning up pollutants at the molecular level.
-  <br>
-
-- **Design and Integration**: The selection and integration of nanorobots are important aspects of [[Robot_Design|Robot Design]] and [[Nanotechnology]], influencing the development of advanced robotic systems capable of operating at the nanoscale.
-  <br>
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Nanorobots]])

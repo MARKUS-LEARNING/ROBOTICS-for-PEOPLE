@@ -83,20 +83,20 @@ Hardware, software and tooling: actuators, electronics, ROS 2, simulation and th
 4. [[Actuator]] · *beginner*
 5. [[Mechatronics]] · *beginner*
 6. [[Mechanisms_and_Actuation|Mechanisms and Actuation]] · *intermediate*
-7. [[Robot_Simulation|Robot Simulation]] · *intermediate*
-8. [[Kinematic_Chains|Kinematic Chains]] · *intermediate*
-9. [[Electric_Motors|Electric Motors]] · *intermediate*
-10. [[Transmission_Mechanisms|Transmission Mechanisms]] · *intermediate*
-11. [[ROS_2_Overview|ROS 2 Overview]] · *intermediate*
-12. [[URDF]] · *intermediate*
-13. [[ros2_control]] · *intermediate*
-14. [[MoveIt2|MoveIt 2]] · *intermediate*
-15. [[Gazebo_Simulator|Gazebo Simulator]] · *intermediate*
-16. [[TF_and_Topic_Architecture|TF and Topic Architecture]] · *intermediate*
-17. [[RViz_Tutorial|RViz Tutorial]] · *beginner*
-18. [[Nav2_Navigation|Nav2 Navigation Stack]] · *intermediate*
-19. [[Robot_Hands|Robot Hands]] · *intermediate*
-20. [[Soft_Robotics|Soft Robotics]] · *intermediate*
+7. [[Material_Science|Material Science]] · *intermediate*
+8. [[Smart_Materials|Smart Materials]] · *intermediate*
+9. [[Robot_Simulation|Robot Simulation]] · *intermediate*
+10. [[Kinematic_Chains|Kinematic Chains]] · *intermediate*
+11. [[Electric_Motors|Electric Motors]] · *intermediate*
+12. [[Transmission_Mechanisms|Transmission Mechanisms]] · *intermediate*
+13. [[ROS_2_Overview|ROS 2 Overview]] · *intermediate*
+14. [[RViz_Tutorial|RViz Tutorial]] · *beginner*
+15. [[Nav2_Navigation|Nav2 Navigation Stack]] · *intermediate*
+16. [[URDF]] · *intermediate*
+17. [[ros2_control]] · *intermediate*
+18. [[MoveIt2|MoveIt 2]] · *intermediate*
+19. [[Soft_Robotics|Soft Robotics]] · *intermediate*
+20. [[Robot_Hands|Robot Hands]] · *intermediate*
 
 ### Learning-based robotics
 
@@ -140,36 +140,29 @@ Advanced methods, open problems and the directions still being invented.
 13. [[Robust_Control|Robust Control]] · *advanced*
 14. [[Reconfigurable_Robots|Reconfigurable Robots]] · *advanced*
 15. [[Model_Predictive_Control_(MPC)|Model Predictive Control (MPC)]] · *advanced*
-16. [[Material_Science|Material Science]] · *advanced*
-17. [[Optimal_Control|Optimal Control]] · *advanced*
-18. [[Nanotechnology]] · *advanced*
-19. [[Composite_Materials|Composite Materials]] · *advanced*
-20. [[Nanorobots]] · *advanced*
-21. [[Biomaterials]] · *advanced*
-22. [[Smart_Materials|Smart Materials]] · *advanced*
-23. [[Active_Perception_and_Sensing|Active Perception and Sensing]] · *advanced*
-24. [[Advanced_Sensor_Fusion|Advanced Sensor Fusion]] · *advanced*
-25. [[Electroactive_Polymers|Electroactive Polymers]] · *advanced*
-26. [[Event_Based_Sensing_and_Processing|Event-Based Sensing and Processing]] · *advanced*
-27. [[MEMS|Microelectromechanical Systems (MEMS)]] · *advanced*
-28. [[Semantic_Scene_Understanding|Semantic Scene Understanding]] · *advanced*
-29. [[Shape_Memory_Alloys|Shape Memory Alloys]] · *advanced*
-30. [[Advanced_Human_Robot_Interaction_(HRI)|Advanced Human-Robot Interaction (HRI)]] · *advanced*
-31. [[Bio_Inspired_and_Biomimetic_Robotics|Bio-Inspired and Biomimetic Robotics]] · *advanced*
-32. [[Multi_Robot_Systems|Multi-Robot Systems]] · *advanced*
-33. [[Sim-to-Real_Transfer|Sim-to-Real Transfer]] · *advanced*
-34. [[Physics_Engines|Physics Engines]] · *advanced*
-35. [[GPU-Parallel_Simulation|GPU-Parallel Simulation]] · *advanced*
-36. [[Research_and_Development|Research and Development (Robotics, extensive and future-focused, bleeding edge)]] · *research*
-37. [[Nonlinear_Control_Theory|Nonlinear Control Theory]] · *research*
-38. [[Hamilton-Jacobi-Bellman_Equation|Hamilton-Jacobi-Bellman Equation]] · *research*
-39. [[Pontryagin's_Minimum_Principle|Pontryagin's Minimum Principle]] · *research*
-40. [[Robust_Control_Methods|Robust Control Methods]] · *research*
-41. [[Adaptive_Control_Theory|Adaptive Control Theory]] · *research*
-42. [[Control_of_Underactuated_Systems|Control of Underactuated Systems]] · *research*
-43. [[Feedback_Linearization|Feedback Linearization]] · *research*
-44. [[Hybrid_Systems_and_Control|Hybrid Systems and Control]] · *research*
-45. [[Formal_Methods_in_Control|Formal Methods in Control]] · *research*
+16. [[Optimal_Control|Optimal Control]] · *advanced*
+17. [[Nanorobots]] · *advanced*
+18. [[Electroactive_Polymers|Electroactive Polymers]] · *advanced*
+19. [[Advanced_Sensor_Fusion|Advanced Sensor Fusion]] · *advanced*
+20. [[Active_Perception_and_Sensing|Active Perception and Sensing]] · *advanced*
+21. [[Event_Based_Sensing_and_Processing|Event-Based Sensing and Processing]] · *advanced*
+22. [[Semantic_Scene_Understanding|Semantic Scene Understanding]] · *advanced*
+23. [[Advanced_Human_Robot_Interaction_(HRI)|Advanced Human-Robot Interaction (HRI)]] · *advanced*
+24. [[Bio_Inspired_and_Biomimetic_Robotics|Bio-Inspired and Biomimetic Robotics]] · *advanced*
+25. [[Multi_Robot_Systems|Multi-Robot Systems]] · *advanced*
+26. [[Sim-to-Real_Transfer|Sim-to-Real Transfer]] · *advanced*
+27. [[Physics_Engines|Physics Engines]] · *advanced*
+28. [[GPU-Parallel_Simulation|GPU-Parallel Simulation]] · *advanced*
+29. [[Research_and_Development|Research and Development (Robotics, extensive and future-focused, bleeding edge)]] · *research*
+30. [[Nonlinear_Control_Theory|Nonlinear Control Theory]] · *research*
+31. [[Hamilton-Jacobi-Bellman_Equation|Hamilton-Jacobi-Bellman Equation]] · *research*
+32. [[Pontryagin's_Minimum_Principle|Pontryagin's Minimum Principle]] · *research*
+33. [[Robust_Control_Methods|Robust Control Methods]] · *research*
+34. [[Adaptive_Control_Theory|Adaptive Control Theory]] · *research*
+35. [[Control_of_Underactuated_Systems|Control of Underactuated Systems]] · *research*
+36. [[Feedback_Linearization|Feedback Linearization]] · *research*
+37. [[Hybrid_Systems_and_Control|Hybrid Systems and Control]] · *research*
+38. [[Formal_Methods_in_Control|Formal Methods in Control]] · *research*
 
 ## Paths through each subfield
 
@@ -241,13 +234,13 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 21. [[Kinematic_Chains|Kinematic Chains]] · *intermediate*
 22. [[Manipulator_Dynamics|Manipulator Dynamics]] · *intermediate*
 23. [[Workspace]] · *intermediate*
-24. [[Links]] · *intermediate*
-25. [[Homogeneous_Transformation|Homogeneous Transformation]] · *intermediate*
-26. [[Forward_Kinematics|Forward Kinematics (FK)]] · *intermediate*
-27. [[Jacobian_Matrix|Jacobian Matrix]] · *intermediate*
-28. [[Inverse_Kinematics|Inverse Kinematics (IK)]] · *intermediate*
-29. [[Singularities]] · *intermediate*
-30. [[Friction]] · *intermediate*
+24. [[Homogeneous_Transformation|Homogeneous Transformation]] · *intermediate*
+25. [[Forward_Kinematics|Forward Kinematics (FK)]] · *intermediate*
+26. [[Jacobian_Matrix|Jacobian Matrix]] · *intermediate*
+27. [[Inverse_Kinematics|Inverse Kinematics (IK)]] · *intermediate*
+28. [[Singularities]] · *intermediate*
+29. [[Friction]] · *intermediate*
+30. [[Links]] · *intermediate*
 31. [[Rigid_Body_Dynamics|Rigid Body Dynamics]] · *intermediate*
 32. [[Nonholonomic_Constraint|Nonholonomic Constraint]] · *intermediate*
 33. [[Stiffness]] · *intermediate*
@@ -295,45 +288,42 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 2. [[Actuator]] · *beginner*
 3. [[Mechatronics]] · *beginner*
 4. [[Power_Density|Power Density]] · *beginner*
-5. [[Structural_Analysis|Structural Analysis]] · *beginner*
-6. [[Grübler's_Formula|Grübler's Formula]] · *beginner*
+5. [[Grübler's_Formula|Grübler's Formula]] · *beginner*
+6. [[Structural_Analysis|Structural Analysis]] · *beginner*
 7. [[Links_and_Joints_Definitions|Links and Joints Definitions]] · *beginner*
 8. [[Actuator_Definition|Actuator Definition]] · *beginner*
 9. [[Hardware_Shopping_List|Hardware Shopping List]] · *beginner*
 10. [[Mechanisms_and_Actuation|Mechanisms and Actuation]] · *intermediate*
-11. [[Kinematic_Chains|Kinematic Chains]] · *intermediate*
-12. [[Electric_Motors|Electric Motors]] · *intermediate*
-13. [[Transmission_Mechanisms|Transmission Mechanisms]] · *intermediate*
-14. [[Gears]] · *intermediate*
-15. [[Backlash]] · *intermediate*
-16. [[Mechanism_Design|Mechanism Design]] · *intermediate*
-17. [[Servo_Motors|Servo Motors]] · *intermediate*
-18. [[Stepper_Motors|Stepper Motors]] · *intermediate*
-19. [[DC_Motors|DC Motors]] · *intermediate*
-20. [[Hydraulic_Systems|Hydraulic Systems]] · *intermediate*
-21. [[Differential_Drive|Differential Drive]] · *intermediate*
-22. [[Remote_Actuation|Remote Actuation]] · *intermediate*
-23. [[Stewart_Platform|Stewart Platform]] · *intermediate*
-24. [[Variable_Stiffness_Actuators|Variable Stiffness Actuators]] · *intermediate*
-25. [[Ball_Screw|Ball Screw]] · *intermediate*
-26. [[Brushless_DC_Motors|Brushless DC Motors]] · *intermediate*
-27. [[Mechanics]] · *intermediate*
-28. [[Pneumatic_Systems|Pneumatic Systems]] · *intermediate*
-29. [[Direct_Drive_Robots|Direct Drive Robots]] · *intermediate*
-30. [[Harmonic_Drive|Harmonic Drive]] · *intermediate*
-31. [[Piezoelectricity]] · *intermediate*
-32. [[Robot_Hands|Robot Hands]] · *intermediate*
-33. [[Soft_Robotics|Soft Robotics]] · *intermediate*
-34. [[Modular_Robotics|Modular Robotics]] · *intermediate*
-35. [[Cable-Driven_Robots|Cable-Driven Robots]] · *intermediate*
-36. [[Material_Science|Material Science]] · *advanced*
-37. [[Nanotechnology]] · *advanced*
-38. [[Composite_Materials|Composite Materials]] · *advanced*
-39. [[Biomaterials]] · *advanced*
-40. [[Smart_Materials|Smart Materials]] · *advanced*
-41. [[Electroactive_Polymers|Electroactive Polymers]] · *advanced*
-42. [[MEMS|Microelectromechanical Systems (MEMS)]] · *advanced*
-43. [[Shape_Memory_Alloys|Shape Memory Alloys]] · *advanced*
+11. [[Material_Science|Material Science]] · *intermediate*
+12. [[Smart_Materials|Smart Materials]] · *intermediate*
+13. [[Kinematic_Chains|Kinematic Chains]] · *intermediate*
+14. [[Electric_Motors|Electric Motors]] · *intermediate*
+15. [[Transmission_Mechanisms|Transmission Mechanisms]] · *intermediate*
+16. [[Gears]] · *intermediate*
+17. [[Backlash]] · *intermediate*
+18. [[Mechanism_Design|Mechanism Design]] · *intermediate*
+19. [[Servo_Motors|Servo Motors]] · *intermediate*
+20. [[Stepper_Motors|Stepper Motors]] · *intermediate*
+21. [[DC_Motors|DC Motors]] · *intermediate*
+22. [[Hydraulic_Systems|Hydraulic Systems]] · *intermediate*
+23. [[Differential_Drive|Differential Drive]] · *intermediate*
+24. [[Remote_Actuation|Remote Actuation]] · *intermediate*
+25. [[Stewart_Platform|Stewart Platform]] · *intermediate*
+26. [[Variable_Stiffness_Actuators|Variable Stiffness Actuators]] · *intermediate*
+27. [[Ball_Screw|Ball Screw]] · *intermediate*
+28. [[Brushless_DC_Motors|Brushless DC Motors]] · *intermediate*
+29. [[Mechanics]] · *intermediate*
+30. [[Pneumatic_Systems|Pneumatic Systems]] · *intermediate*
+31. [[Direct_Drive_Robots|Direct Drive Robots]] · *intermediate*
+32. [[Harmonic_Drive|Harmonic Drive]] · *intermediate*
+33. [[Piezoelectricity]] · *intermediate*
+34. [[Soft_Robotics|Soft Robotics]] · *intermediate*
+35. [[Robot_Hands|Robot Hands]] · *intermediate*
+36. [[Modular_Robotics|Modular Robotics]] · *intermediate*
+37. [[Cable-Driven_Robots|Cable-Driven Robots]] · *intermediate*
+38. [[Shape_Memory_Alloys|Shape Memory Alloys]] · *intermediate*
+39. [[Composite_Materials|Composite Materials]] · *intermediate*
+40. [[Electroactive_Polymers|Electroactive Polymers]] · *advanced*
 
 ### Sensing and Perception
 
@@ -356,11 +346,10 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 17. [[Resolvers]] · *intermediate*
 18. [[Convolutional_Neural_Networks|Convolutional Neural Networks]] · *intermediate*
 19. [[CNN_in_Robotics|CNN in Robotics]] · *intermediate*
-20. [[Active_Perception_and_Sensing|Active Perception and Sensing]] · *advanced*
-21. [[Advanced_Sensor_Fusion|Advanced Sensor Fusion]] · *advanced*
+20. [[Advanced_Sensor_Fusion|Advanced Sensor Fusion]] · *advanced*
+21. [[Active_Perception_and_Sensing|Active Perception and Sensing]] · *advanced*
 22. [[Event_Based_Sensing_and_Processing|Event-Based Sensing and Processing]] · *advanced*
-23. [[MEMS|Microelectromechanical Systems (MEMS)]] · *advanced*
-24. [[Semantic_Scene_Understanding|Semantic Scene Understanding]] · *advanced*
+23. [[Semantic_Scene_Understanding|Semantic Scene Understanding]] · *advanced*
 
 ### State Estimation, Localization and Mapping
 
@@ -551,9 +540,10 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 4. [[Serial_Communication_Tutorials|Serial Communication Tutorials (Robotics)]] · *beginner*
 5. [[Hardware_Shopping_List|Hardware Shopping List]] · *beginner*
 6. [[ros2_control]] · *intermediate*
-7. [[Arduino]] · *intermediate*
-8. [[Microcontroller]] · *intermediate*
-9. [[Hardware_Interface_Setup|Hardware Interface Setup]] · *intermediate*
+7. [[MEMS|Microelectromechanical Systems (MEMS)]] · *intermediate*
+8. [[Arduino]] · *intermediate*
+9. [[Microcontroller]] · *intermediate*
+10. [[Hardware_Interface_Setup|Hardware Interface Setup]] · *intermediate*
 
 ### Manipulation and Grasping
 
@@ -603,7 +593,8 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 
 1. [[Bio-inspired_Robotics|Bio-inspired Robotics]] · *beginner*
 2. [[Swarm_Robots|Swarm Robots]] · *intermediate*
-3. [[Bio_Inspired_and_Biomimetic_Robotics|Bio-Inspired and Biomimetic Robotics]] · *advanced*
+3. [[Biomaterials]] · *intermediate*
+4. [[Bio_Inspired_and_Biomimetic_Robotics|Bio-Inspired and Biomimetic Robotics]] · *advanced*
 
 ### Modular, Reconfigurable and Parallel Robots
 
@@ -613,9 +604,9 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 
 ### Micro- and Nanorobotics
 
-1. [[Nanotechnology]] · *advanced*
-2. [[Nanorobots]] · *advanced*
-3. [[MEMS|Microelectromechanical Systems (MEMS)]] · *advanced*
+1. [[Nanotechnology]] · *intermediate*
+2. [[MEMS|Microelectromechanical Systems (MEMS)]] · *intermediate*
+3. [[Nanorobots]] · *advanced*
 
 ### Industrial Automation and Logistics
 
@@ -627,8 +618,8 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 ### Medical and Surgical Robotics
 
 1. [[Medical_Robotics|Medical Robotics]] · *beginner*
-2. [[Nanorobots]] · *advanced*
-3. [[Biomaterials]] · *advanced*
+2. [[Biomaterials]] · *intermediate*
+3. [[Nanorobots]] · *advanced*
 
 ### Human-Robot Interaction
 

@@ -1,114 +1,69 @@
 ---
 title: Shape Memory Alloys
-description: Shape Memory Alloys (SMAs) are materials that can return to a predefined shape upon heating, exhibiting unique properties like superelasticity and shape memory effect.
+description: "Shape-memory alloys (mostly nickel–titanium, Nitinol) return to a remembered shape when heated, through a solid-state phase change, producing large forces from small wires. Covers how the effect works, superelasticity, computed force and stroke for a typical wire actuator, why they are slow and inefficient, control, and robotic and medical uses in 2026."
+aliases:
+  - SMA
+  - Nitinol
+  - Shape Memory Alloy
 tags:
   - materials
   - actuators
-  - sensors
-type: component
-level: advanced
+type: concept
+level: intermediate
 subfield:
   - mechanisms-actuation
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Robot_Design]]"
-  - "[[Actuator]]"
-  - "[[Mechatronics]]"
+  - "[[Smart_Materials]]"
 related:
-  - "[[Material_Science]]"
-  - "[[Robot_Design]]"
-  - "[[Mechatronics]]"
-  - "[[Actuator]]"
-  - "[[Sensors]]"
-  - "[[Control_Systems]]"
-  - "[[Manipulator_Arm]]"
-  - "[[Legged_Robots]]"
-  - "[[Wheeled_Mobile_Robots]]"
+  - "[[Robot_Hands]]"
+  - "[[Soft_Robotics]]"
+  - "[[Medical_Robotics]]"
+key_takeaways:
+  - "Heating a deformed NiTi wire above its transformation temperature turns it back to austenite and it recovers its shape, contracting by up to about 4% with high force."
+  - "A 0.25 mm wire at 200 MPa pulls about 9.8 N; a 100 mm length contracts about 4 mm, so mechanisms often amplify stroke."
+  - "Cooling limits speed (often under 1 Hz) and efficiency is a few per cent; SMAs suit compact, silent, low-duty actuators and medical devices, not high-power joints."
+sources:
+  - "Zhang, L. et al. (2021). A comparative review of artificial muscles for microsystem applications. https://www.nature.com/articles/s41378-021-00323-5"
+  - "Smart Materials and Structures (2023). A review of shape memory alloy artificial muscles in bionic applications. https://iopscience.iop.org/article/10.1088/1361-665X/acf1e8"
+  - "Rus, D. and Tolley, M. T. (2015). Design, fabrication and control of soft robots. https://www.nature.com/articles/nature14543"
 ---
 
 # Shape Memory Alloys
 
-**Shape Memory Alloys (SMAs)** are materials that can return to a predefined shape upon heating, exhibiting unique properties like superelasticity and the shape memory effect. These alloys are particularly useful in robotics for creating actuators and sensors that can adapt to changes in temperature or mechanical stress. SMAs are typically made from nickel-titanium (NiTi) alloys, commonly known as Nitinol, but other compositions are also used.
+A **shape-memory alloy (SMA)** is a metal that "remembers" a shape. Bend a nickel–titanium wire when it is cool, heat it a few tens of degrees, and it snaps back, pulling with considerable force. Passing an electric current through the wire heats it, so a thin SMA wire becomes a silent, compact, muscle-like actuator.
 
----
+> **Etymology.** *Nitinol* = **Ni**ckel **Ti**tanium **N**aval **O**rdnance **L**aboratory, where William Buehler and Frederick Wang discovered its shape memory in 1962–63.
 
-## Key Properties of Shape Memory Alloys
+## How it works
 
-1. **Shape Memory Effect**: The ability of the material to return to its original shape upon heating after being deformed. This effect is due to a phase transformation between martensite and austenite phases.
-   <br>
+NiTi has two crystal phases:
+- **martensite** (low temperature): soft and easily deformed, by twinning rather than permanent slip;
+- **austenite** (high temperature): stiff, with the "remembered" shape.
 
-2. **Superelasticity**: The ability to undergo large deformations and return to the original shape without heating, due to the reversible phase transformation under stress.
-   <br>
+Heating through the transformation range turns deformed martensite into austenite, recovering up to about 4–8% strain; practical cyclic actuators use about 3–4%. Cooling reverses the phase, and a bias spring or opposing wire stretches the soft martensite again. **Superelasticity** is the same transformation driven by stress at body temperature: NiTi can be bent dramatically and spring back, which is why it is used for medical stents and guidewires.
 
-3. **High Strength and Durability**: SMAs can withstand significant mechanical stress and are resistant to fatigue, making them suitable for robust robotic applications.
-   <br>
+## Worked example: a wire actuator
 
----
+- **Force.** A 0.25 mm diameter wire actuated at a recovery stress of 200 MPa pulls  = \sigma A = 200\times10^6 \times \pi(0.125\times10^{-3})^2 \approx 9.8$ N, about 1 kgf from a wire thinner than a guitar string.
+- **Stroke.** At 4% strain, a 100 mm wire contracts 4 mm. Designs use long folded wires, levers or bow springs to get more motion.
 
-## Key Equations
+## Limits
 
-### Phase Transformation Temperature
+- **Speed**: heating is fast but cooling is slow (passive cooling of thin wires takes on the order of a second), so cycles are often below 1 Hz; thinner wires, forced air or liquid cooling help.
+- **Efficiency**: a few per cent of electrical energy becomes mechanical work.
+- **Control**: hysteresis and temperature dependence make precise position control difficult; resistance feedback helps.
+- **Fatigue**: large strains shorten life; small strains allow millions of cycles.
 
-The transformation temperature $T_{\text{trans}}$ of an SMA can be described by:
+## Uses (2026)
 
-$$
-T_{\text{trans}} = A_s + \frac{\sigma}{C_A}
-$$
+Compact grippers and fingers, camera and lens actuators, valves and latches, insect-scale and soft robots, deployable mechanisms, and extensive medical devices (stents, guidewires, orthodontic wires) using superelasticity.
 
-where:
-- $T_{\text{trans}}$ is the transformation temperature.
-- $A_s$ is the austenite start temperature.
-- $\sigma$ is the applied stress.
-- $C_A$ is the Clausius-Clapeyron constant.
-
-### Strain Recovery
-
-The recoverable strain $\epsilon_{\text{rec}}$ in an SMA is given by:
-
-$$
-\epsilon_{\text{rec}} = \epsilon_{\text{total}} - \epsilon_{\text{plastic}}
-$$
-
-where:
-- $\epsilon_{\text{rec}}$ is the recoverable strain.
-- $\epsilon_{\text{total}}$ is the total strain.
-- $\epsilon_{\text{plastic}}$ is the plastic strain.
-
-### Superelastic Stress-Strain Relationship
-
-The stress-strain relationship within the superelastic range is described by:
-
-$$
-\sigma = E \cdot \epsilon
-$$
-
-where:
-- $\sigma$ is the stress.
-- $E$ is the modulus of elasticity.
-- $\epsilon$ is the strain within the superelastic range.
-
----
-
-## Impact on Robotics
-
-- **Actuators**: SMAs are used to create actuators that can change shape or apply force in response to temperature changes. These actuators are lightweight, quiet, and can produce significant force, making them ideal for applications like robotic grippers and artificial muscles.
-  <br>
-
-- **Sensors**: The unique properties of SMAs make them suitable for creating sensors that can detect changes in temperature or mechanical stress. These sensors can be integrated into robotic systems for feedback control and monitoring.
-  <br>
-
-- **Design and Integration**: The selection and integration of SMAs are important aspects of [[Robot_Design|Robot Design]] and [[Mechatronics]], influencing the performance and capabilities of robotic systems. SMAs enable the creation of adaptive and responsive components that enhance robotic functionality.
-  <br>
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Shape_Memory_Alloys]])

@@ -1,151 +1,79 @@
 ---
 title: Material Science
-description: Material Science is the study of the properties and behaviors of materials, focusing on their structure, composition, and applications in engineering and technology.
+description: "Materials science for robot builders: the properties that matter (stiffness, strength, density, fatigue, damping, thermal and electrical behaviour), choosing materials by performance indices with a computed specific-stiffness comparison of aluminium, steel, titanium and carbon fibre, manufacturing routes, and the materials trends shaping robots in 2026 (composites, engineering polymers, soft and active materials)."
+aliases:
+  - Materials Science
+  - Materials for Robotics
 tags:
   - materials
-  - structures
-  - composition
-  - design
-  - innovation
-type: concept
-level: advanced
+  - mechanical-design
+type: overview
+level: intermediate
 subfield:
   - mechanisms-actuation
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Robot_Design]]"
-  - "[[Actuator]]"
-  - "[[Mechatronics]]"
+  - "[[Robots]]"
 related:
-  - "[[Robot_Design]]"
-  - "[[Links]]"
-  - "[[Actuator]]"
-  - "[[Structural_Analysis]]"
-  - "[[Mechatronics]]"
-  - "[[Nanotechnology]]"
   - "[[Composite_Materials]]"
   - "[[Smart_Materials]]"
+  - "[[Soft_Robotics]]"
   - "[[Biomaterials]]"
+key_takeaways:
+  - "Robots care about stiffness and strength per unit mass, because every kilogram in an arm or leg must be accelerated by the motors behind it."
+  - "Aluminium, steel and titanium all have about the same specific stiffness (~25 MJ/kg); quasi-isotropic carbon fibre reaches ~44 MJ/kg, which is why it appears in fast arms, drones and legs."
+  - "Active materials (shape-memory alloys, electroactive polymers, piezoelectrics) blur the line between structure and actuator."
+sources:
+  - "Zhang, L. et al. (2021). A comparative review of artificial muscles for microsystem applications. https://www.nature.com/articles/s41378-021-00323-5"
+  - "Siciliano, B. and Khatib, O., eds. (2016). Springer Handbook of Robotics, 2nd edition (mechanisms and actuation). https://link.springer.com/referencework/10.1007/978-3-319-32552-1"
+  - "Rus, D. and Tolley, M. T. (2015). Design, fabrication and control of soft robots. https://www.nature.com/articles/nature14543"
 ---
 
 # Material Science
 
-**Material Science** is the study of the properties and behaviors of materials, focusing on their structure, composition, and applications in engineering and technology. It encompasses the analysis and development of materials to optimize their performance in various applications, including robotics, aerospace, and biomedical engineering. Material science plays a crucial role in advancing technology by enabling the creation of materials with tailored properties for specific uses.
+**Materials science** studies how a material's structure determines its properties, and how processing changes both. For robot builders it answers practical questions: what to make an arm link, a gear, a gripper finger or a battery enclosure from, so that it is stiff, strong, light, durable and affordable.
 
----
+> **Etymology.** Latin *materia*, "the stuff of which something is made" (from *mater*, "mother"). Materials science emerged as a discipline in the 1950s–60s, joining metallurgy, ceramics and polymer science.
 
-## Key Concepts
+## Properties that matter for robots
 
-1. **Structure-Property Relationship**: The relationship between a material's atomic or molecular structure and its macroscopic properties, such as strength, conductivity, and flexibility.
-   <br>
+| Property | Why it matters |
+|---|---|
+| **Stiffness** (Young's modulus $) | Deflection and vibration of links decide precision |
+| **Strength** (yield, ultimate) | Survive peak loads and impacts |
+| **Density** $\rho$ | Moving mass costs motor torque and energy |
+| **Fatigue** | Robots repeat motions millions of times |
+| **Damping** | Absorbs vibration and impacts |
+| **Thermal** | Motors and electronics need heat paths |
+| **Electrical** | Insulation, conductivity, EMI shielding |
+| **Manufacturability and cost** | Machining, casting, moulding, printing |
 
-2. **Composition**: The chemical makeup of a material, including the types and proportions of elements and compounds it contains.
-   <br>
+## Worked example: specific stiffness
 
-3. **Microstructure**: The arrangement and interaction of a material's constituent parts at a microscopic level, influencing its mechanical and physical properties.
-   <br>
+For a link that must not bend, mass for a given stiffness scales with $\rho/E$, so the figure of merit is **specific stiffness** /\rho$:
 
-4. **Processing**: The methods and techniques used to manufacture and treat materials to achieve desired properties and performance.
-   <br>
+| Material | $ (GPa) | $\rho$ (kg/m³) | /\rho$ (MJ/kg) |
+|---|---|---|---|
+| Aluminium alloy | 70 | 2,700 | 25.9 |
+| Steel | 200 | 7,850 | 25.5 |
+| Titanium alloy | 110 | 4,500 | 24.4 |
+| Carbon-fibre composite (quasi-isotropic) | ~70 | ~1,600 | ~43.8 |
 
-5. **Characterization**: The measurement and analysis of a material's properties and behaviors using various scientific techniques and instruments.
-   <br>
+The three metals are nearly identical; their differences lie in strength, cost and machinability. A quasi-isotropic carbon-fibre tube of the same stiffness weighs about 1600/2700 = 59% of the aluminium one, and more can be saved by aligning fibres with the load (see [[Composite_Materials]]). Choosing by such *performance indices*, and plotting materials on property charts, is Michael Ashby's method of materials selection.
 
----
+## Materials trends in 2026 robots
 
-## Types of Materials
+- **Lightweight structures**: carbon fibre and magnesium in drones, legs and fast arms; topology-optimised aluminium.
+- **Engineering polymers and 3D printing**: glass- and carbon-filled nylons for housings and grippers; printed parts in production humanoids and research robots.
+- **Soft materials**: silicones and urethanes for skins, fingertips and soft actuators (see [[Soft_Robotics]]).
+- **Active materials**: [[Shape_Memory_Alloys]], [[Electroactive_Polymers]] and piezoelectrics that act as actuators or sensors (see [[Smart_Materials]]).
+- **Magnet and battery materials**: rare-earth magnets in motors and battery chemistry set robots' torque density and runtime, and their supply chains.
 
-Materials can be categorized based on their composition and properties:
-
-* **Metals**: Known for their high strength, conductivity, and ductility. Commonly used in structural applications, electronics, and machinery. Examples include steel, aluminum, and copper.
-  <br>
-
-* **Ceramics**: Hard, brittle materials with high melting points, often used in applications requiring resistance to heat and wear. Examples include glass, alumina, and silicon carbide.
-  <br>
-
-* **Polymers**: Lightweight, flexible materials composed of long chains of molecules. Used in a wide range of applications, from plastics to advanced composites. Examples include polyethylene, polycarbonate, and Kevlar.
-  <br>
-
-* **Composites**: Materials made from two or more constituent materials with significantly different physical or chemical properties. Composites combine the best properties of their constituents, such as strength and light weight. Examples include fiberglass and carbon fiber reinforced polymers.
-  <br>
-
-* **Semiconductors**: Materials with electrical conductivity between that of a conductor and an insulator. Used in electronics and optoelectronics. Examples include silicon and gallium arsenide.
-  <br>
-
-* **Biomaterials**: Materials designed to interact with biological systems for medical applications. Examples include titanium for implants and hydrogels for tissue engineering.
-  <br>
-
----
-
-## Mathematical Representations
-
-### Stress-Strain Relationship
-
-The mechanical behavior of materials under load can be described by the stress-strain relationship:
-
-$$
-\sigma = E \cdot \epsilon
-$$
-
-where $\sigma$ is the stress, $E$ is the Young's modulus (a measure of stiffness), and $\epsilon$ is the strain (deformation relative to original dimensions).
-
-### Thermal Expansion
-
-The change in dimensions of a material due to temperature changes can be described by the coefficient of thermal expansion $\alpha$:
-
-$$
-\Delta L = \alpha \cdot L_0 \cdot \Delta T
-$$
-
-where $\Delta L$ is the change in length, $L_0$ is the original length, and $\Delta T$ is the change in temperature.
-
-### Electrical Conductivity
-
-The ability of a material to conduct electricity is described by its electrical conductivity $\sigma$:
-
-$$
-J = \sigma \cdot E
-$$
-
-where $J$ is the current density and $E$ is the electric field strength.
-
-### Diffusion
-
-The movement of atoms or molecules within a material can be described by Fick's first law of diffusion:
-
-$$
-J = -D \cdot \frac{\partial \phi}{\partial x}
-$$
-
-where $J$ is the diffusion flux, $D$ is the diffusion coefficient, and $\frac{\partial \phi}{\partial x}$ is the concentration gradient.
-
----
-
-## Applications in Robotics
-
-Material science is crucial in robotics for designing and optimizing components:
-
-* **Structural Components**: Using lightweight and strong materials like composites for robot frames and [[Links|links]] to improve strength-to-weight ratios and energy efficiency.
-  <br>
-
-* **Actuators**: Developing materials with high power density and durability for [[Actuator|actuators]], ensuring efficient and reliable motion.
-  <br>
-
-* **Sensors**: Utilizing advanced materials for sensors to enhance sensitivity, accuracy, and durability in various environments.
-  <br>
-
-* **Biomimetic Materials**: Creating materials that mimic biological structures for applications in soft robotics and biomedical devices.
-  <br>
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Material_Science]])

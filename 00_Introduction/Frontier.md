@@ -96,7 +96,7 @@ Robotics is wider than any table of contents. These parts of it are barely cover
 
 - **Systems Engineering, Safety and Testing** (2 notes): Integrating everything into a robot that works, is safe, and can be tested, verified and maintained.
 - **Aerial Robotics** (1 note): Drones, multirotors and fixed-wing UAVs, aerial manipulation.
-- **Soft and Continuum Robotics** (1 note): Robots made of compliant materials, continuum and cable-driven bodies.
+- **Soft and Continuum Robotics** (2 notes): Robots made of compliant materials, continuum and cable-driven bodies.
 - **Field Robotics** (1 note): Robots outdoors and in extreme environments: mining, construction, disaster response, inspection.
 - **Agricultural Robotics** (1 note): Planting, weeding, harvesting and monitoring crops and livestock.
 - **Marine and Underwater Robotics** (1 note): AUVs, ROVs and surface vessels.
@@ -121,7 +121,7 @@ Have an idea for a part of robotics that is not on the list at all? Propose it: 
 | 06 Robot Control | 16 | 0 | 13 | 3 |
 | 07 Robot Operating System (ROS) | 16 | 0 | 16 | 0 |
 | 08 Robot Types and Applications | 23 | 0 | 16 | 7 |
-| 09 Advanced Topics | 31 | 15 | 14 | 2 |
+| 09 Advanced Topics | 31 | 6 | 23 | 2 |
 | 10 Research and Development | 1 | 1 | 0 | 0 |
 | 11 Practical Implementation | 18 | 12 | 3 | 3 |
 | 12 Labs and Tutorials | 7 | 6 | 1 | 0 |
