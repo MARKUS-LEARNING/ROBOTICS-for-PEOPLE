@@ -1,88 +1,98 @@
 ---
 title: Bias, Variance, and Overfitting
-description: Bias, Variance, and Overfitting are key concepts in machine learning that describe the trade-offs and challenges in model training, crucial for developing models that generalize well to new data.
+description: "Why models fail to generalise: bias (too simple to capture the pattern), variance (so flexible it fits the noise), and the overfitting and underfitting they cause. Includes a reproducible polynomial-fitting experiment with train and test errors, the remedies (more data, regularisation, augmentation, early stopping), the modern 'double descent' picture, and the robotics version of overfitting: failing under distribution shift and the sim-to-real gap."
+aliases:
+  - Overfitting
+  - Underfitting
+  - Bias-Variance Tradeoff
+  - Generalization
 tags:
-  - bias-variance-tradeoff
-  - overfitting
   - machine-learning
-  - model-evaluation
+  - statistics
+  - robot-learning
 type: concept
 level: intermediate
 subfield:
   - robot-learning
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
   - "[[Machine_Learning]]"
+  - "[[Supervised_Learning]]"
 related:
-  - "[[Machine_Learning]]"
-  - "[[Robot_Control]]"
-  - "[[Data_Analysis]]"
+  - "[[Optimization_and_Loss_Functions]]"
+  - "[[Sim-to-Real_Transfer]]"
+  - "[[Feature_Engineering_and_Data_Preprocessing]]"
+  - "[[Robot_Learning_Datasets_and_Benchmarks]]"
+key_takeaways:
+  - "Test error has three parts: bias (systematic error from too simple a model), variance (sensitivity to the particular training sample) and irreducible noise."
+  - "A model that is much better on training data than on held-out data has overfit; fixes are more and more varied data, regularisation, augmentation and early stopping."
+  - "For robots the decisive test is a shift in conditions (new objects, lighting, floors, the real world after simulation); diverse data and domain randomisation are the robotics forms of regularisation."
+sources:
+  - "Geman, S., Bienenstock, E. and Doursat, R. (1992). Neural Networks and the Bias/Variance Dilemma. https://direct.mit.edu/neco/article/4/1/1/5624/Neural-Networks-and-the-Bias-Variance-Dilemma"
+  - "Hastie, T., Tibshirani, R. and Friedman, J. (2009). The Elements of Statistical Learning, chapter 7: Model Assessment and Selection. https://hastie.su.domains/ElemStatLearn/"
+  - "Belkin, M., Hsu, D., Ma, S. and Mandal, S. (2018). Reconciling modern machine learning practice and the bias-variance trade-off. https://arxiv.org/abs/1812.11118"
+  - "Srivastava, N. et al. (2014). Dropout: A Simple Way to Prevent Neural Networks from Overfitting. https://jmlr.org/papers/v15/srivastava14a.html"
+  - "Tobin, J. et al. (2017). Domain Randomization for Transferring Deep Neural Networks from Simulation to the Real World. https://arxiv.org/abs/1703.06907"
 ---
 
 # Bias, Variance, and Overfitting
 
-**Bias, Variance, and Overfitting** are key concepts in machine learning that describe the trade-offs and challenges in model training. Understanding these concepts is crucial for developing models that generalize well to new, unseen data, ensuring they perform effectively in real-world applications.
+A model is useful only if it works on data it has not seen. **Overfitting** is learning the training examples, noise included, instead of the pattern behind them. **Underfitting** is failing to learn the pattern at all. Bias and variance are the two forces behind these failures.
 
----
+> **Etymology.** *Bias* is from Old French *biais*, "slant, oblique": a systematic lean in one direction. *Variance* is from Latin *variare*, "to change": how much the result changes from one sample to another. Geman, Bienenstock and Doursat's 1992 paper framed neural-network learning as a "bias/variance dilemma".
 
-## Key Concepts
+## The decomposition
 
-### Bias
+For squared error, the expected error of a model on a new point splits into three parts:
 
-Bias refers to the error introduced by approximating a real-world problem with a simplified model. High bias can lead to underfitting, where the model is too simple to capture the underlying patterns in the data, resulting in poor performance on both training and test data.
+$$\mathbb E\big[(y - \hat f(x))^2\big] = \underbrace{\big(f(x) - \mathbb E[\hat f(x)]\big)^2}_{\text{bias}^2} + \underbrace{\mathbb E\big[(\hat f(x) - \mathbb E[\hat f(x)])^2\big]}_{\text{variance}} + \underbrace{\sigma^2}_{\text{noise}}$$
 
-### Variance
+- **High bias**: the model is too simple; it is wrong in the same way whatever data you give it.
+- **High variance**: the model is so flexible that a different training sample would give a very different fit.
+- **Noise**: the error you cannot remove (sensor noise, genuinely random outcomes).
 
-Variance refers to the model's sensitivity to small fluctuations in the training set. High variance can lead to overfitting, where the model captures noise in the training data, resulting in poor performance on test data.
+## A reproducible experiment
 
-### Overfitting
+Twelve noisy samples of $y = \sin(2\pi x) + \varepsilon$, $\varepsilon \sim \mathcal N(0, 0.2^2)$, fitted with polynomials of three degrees and tested on 200 fresh points (NumPy, random seed 0):
 
-Overfitting occurs when a model learns the training data too well, including its noise and outliers, leading to poor generalization to new data. It is characterized by low training error and high test error, indicating that the model has not learned the underlying patterns but has memorized the training data.
+| Polynomial degree | Training RMSE | Test RMSE | Diagnosis |
+|---|---|---|---|
+| 1 (a line) | 0.376 | 0.697 | **Underfit**: high bias |
+| 3 | 0.130 | 0.256 | Good fit, close to the noise level of 0.2 |
+| 9 | 0.064 | 0.956 | **Overfit**: high variance; best on training data, worst on test data |
+| 9, with 200 training points | 0.193 | 0.203 | More data tames the variance |
 
-### Bias-Variance Tradeoff
+The degree-9 polynomial passes almost exactly through the twelve noisy points, so its training error is tiny. Between the points it swings wildly, so its test error is the worst of all. The same flexible model trained on 200 points behaves well. **Training error alone tells you nothing about generalisation.**
 
-The bias-variance tradeoff is the balance between bias and variance in a model. Reducing bias can increase variance, and vice versa. The goal is to find the optimal balance that minimizes the total error, ensuring the model generalizes well to new data.
+## Remedies
 
----
+| Problem | Symptom | Remedies |
+|---|---|---|
+| **Underfitting** | Training and test errors both high | Bigger model, better features, train longer |
+| **Overfitting** | Training error ≪ test error | More data; **data augmentation**; **regularisation** (weight decay, dropout); **early stopping**; simpler model; ensembles |
 
-## Mathematical Formulation
+## The modern twist: double descent
 
-### Expected Prediction Error
+Very large neural networks often have enough parameters to fit their training data perfectly, yet they still generalise well. Belkin et al. (2018) showed that test error can fall, rise near the point where the model just fits the data, then fall *again* as the model grows further ("double descent"). The classical U-shaped trade-off still describes small models. For huge models, the training procedure (stochastic gradient descent, weight decay, data augmentation) acts as an implicit regulariser. This is part of why scaling worked.
 
-The expected prediction error can be decomposed into bias, variance, and irreducible error:
+## Overfitting in robotics
 
-$$
-E[(y - \hat{f}(x))^2] = \text{Bias}(\hat{f}(x))^2 + \text{Var}(\hat{f}(x)) + \sigma^2
-$$
+For a robot, "test data" means the real world tomorrow: different objects, lighting, floors, people. The robotics versions of overfitting are:
 
-where:
-- $E[(y - \hat{f}(x))^2]$ is the expected prediction error.
-- $\text{Bias}(\hat{f}(x))^2$ is the squared bias.
-- $\text{Var}(\hat{f}(x))$ is the variance.
-- $\sigma^2$ is the irreducible error.
+- **Memorising the scene.** A grasping policy trained in one kitchen learns that kitchen's countertop colour.
+- **Distribution shift during deployment.** A policy's own small errors lead it into states that never appeared in its demonstrations (see [[Imitation_Learning]]).
+- **The sim-to-real gap.** A policy that overfits the simulator's exact physics fails on hardware (see [[Sim-to-Real_Transfer]]).
 
-### Example: Model Training
+The fixes are the same in spirit:
+- **diverse data**: many scenes, objects and robots; pooled datasets;
+- **domain randomisation**: randomise textures, lighting, masses and friction so the policy cannot rely on any one value (Tobin et al., 2017);
+- **evaluation on held-out conditions**: new objects, new rooms, new robots.
 
-Consider a robotic system using a machine learning model for decision-making. The model is trained on a dataset, and its performance is evaluated on both training and test data. High bias may result in the model being too simple to capture the complexity of the robotic task, leading to underfitting. High variance may result in the model being too complex, capturing noise in the training data and leading to overfitting. The goal is to find the optimal balance, minimizing the expected prediction error and ensuring the model generalizes well to new, unseen data.
-
----
-
-## Applications in Robotics
-
-- **Model Evaluation**: Understanding bias, variance, and overfitting is crucial for evaluating the performance of machine learning models in robotics, ensuring they generalize well to new data.
-- **Training and Testing**: Guides the process of training and testing models, balancing the trade-off between bias and variance to achieve optimal performance.
-- **Control Systems**: Ensures that control algorithms regulate the behavior of robotic systems effectively, adapting to new conditions and performing tasks reliably.
-- **Data Analysis**: Facilitates the analysis and interpretation of data, enabling robots to make decisions and adapt to their environment based on learned patterns.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Bias,_Variance,_and_Overfitting]])
