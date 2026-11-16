@@ -1,117 +1,94 @@
 ---
 title: State Space Representation
-description: State Space Representation is a mathematical framework used to describe and analyze dynamic systems in terms of state variables, which capture the system's internal states and their evolution over time.
+description: "State-space models describe a system by a state vector and first-order equations, ẋ = Ax + Bu, y = Cx + Du. Covers choosing states, a worked mass-spring-damper example (eigenvalues, damping, controllability, computed), observability and observers, linearising robot dynamics, and why state space is the language of modern control, Kalman filtering, MPC and learned world models."
+aliases:
+  - State Space
+  - State-Space Model
+  - State Space Model
 tags:
   - control
-  - dynamics
-  - state-space
-  - linear-systems
+  - state-estimation
+  - mathematics
 type: concept
 level: intermediate
 subfield:
   - control
-status: draft
+  - mathematics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
+  - "[[Control_Theory]]"
   - "[[Linear_Algebra_for_Robotics]]"
-  - "[[Feedback_Control]]"
 related:
-  - "[[Control_Theory_and_Principles]]"
-  - "[[Dynamics]]"
   - "[[Transfer_Function]]"
-  - "[[Stability_Analysis]]"
+  - "[[Model_Predictive_Control_(MPC)]]"
+  - "[[Probabilistic_Robotics]]"
+  - "[[World_Models]]"
+key_takeaways:
+  - "A state is the smallest set of numbers that, with future inputs, determines the future: for a mass on a spring, position and velocity."
+  - "The eigenvalues of A are the system's poles: for m = 1, k = 4, b = 1.2 they are −0.6 ± 1.91j, i.e. natural frequency 2 rad/s and damping ratio 0.3."
+  - "Controllability says whether inputs can steer every state; observability whether outputs reveal every state; together they let observers (Kalman filters) and state feedback (LQR, MPC) work."
+sources:
+  - "Åström, K. J. and Murray, R. M. (2021). Feedback Systems, 2nd edition, chapters 6–8 (state space, reachability, observability). https://fbswiki.org/wiki/index.php/Feedback_Systems:_An_Introduction_for_Scientists_and_Engineers"
+  - "Lynch, K. M. and Park, F. C. (2017). Modern Robotics, chapter 8: Dynamics of Open Chains. https://hades.mech.northwestern.edu/index.php/Modern_Robotics"
+  - "Tedrake, R. (2026). Underactuated Robotics. https://underactuated.csail.mit.edu/"
 ---
 
 # State Space Representation
 
-**State Space Representation** is a mathematical framework used to describe and analyze dynamic systems in terms of state variables. These state variables capture the system's internal states and their evolution over time, providing a comprehensive way to model and control complex systems. State space representation is particularly useful in control theory and robotics for analyzing system dynamics, designing controllers, and ensuring stability.
+A **state-space model** describes a dynamic system with a **state vector** $\mathbf x$, a list of numbers that captures everything about the system's present that matters for its future, and first-order differential equations for how it evolves:
 
----
+$$\dot{\mathbf x} = A\mathbf x + B\mathbf u, \qquad \mathbf y = C\mathbf x + D\mathbf u$$
 
-## Key Concepts in State Space Representation
+Here $\mathbf u$ is the input (motor torques) and $\mathbf y$ the measured output (encoder readings). Nonlinear systems use $\dot{\mathbf x} = f(\mathbf x, \mathbf u)$.
 
-1. **State Variables**: A set of variables that describe the internal state of a system at any given time. The choice of state variables is crucial for accurately modeling the system.
+> **Etymology.** *State* is from Latin *status*, "condition". Rudolf Kálmán's work around 1960 made the state-space approach the basis of "modern" control, alongside his filter.
 
-2. **State Equations**: A set of first-order differential equations that describe how the state variables evolve over time in response to inputs.
+## Choosing the state
 
-3. **Output Equations**: Equations that relate the state variables and inputs to the system's outputs, providing a way to observe the system's behavior.
+For a mass $m$ on a spring $k$ with damper $b$, driven by force $u$, the state is position and velocity, $\mathbf x = (x, \dot x)$:
 
-4. **State Transition Matrix**: A matrix that describes how the state variables at one time step influence the state variables at the next time step.
+$$\dot{\mathbf x} = \underbrace{\begin{bmatrix}0 & 1\\ -k/m & -b/m\end{bmatrix}}_{A}\mathbf x + \underbrace{\begin{bmatrix}0\\ 1/m\end{bmatrix}}_{B} u, \qquad y = \begin{bmatrix}1 & 0\end{bmatrix}\mathbf x$$
 
-5. **Control Input Matrix**: A matrix that describes how external inputs affect the state variables.
+For a robot arm with $n$ joints, the state is the $2n$ joint angles and velocities. For a drone, it is position, velocity, orientation and angular velocity.
 
-6. **Observability**: The ability to determine the internal state of a system from its outputs. It is a crucial property for designing state estimators and observers.
+## Worked example
 
-7. **Controllability**: The ability to drive a system from any initial state to any final state using a suitable control input. It is essential for designing effective control systems.
+Take $m = 1$ kg, $k = 4$ N/m, $b = 1.2$ N·s/m:
 
----
+$$A = \begin{bmatrix}0 & 1\\ -4 & -1.2\end{bmatrix}$$
 
-## Mathematical Representations
+- **Eigenvalues** (the poles): $\lambda = -0.6 \pm 1.908j$. The negative real part means the system is stable; the imaginary part means it oscillates.
+- **Natural frequency and damping**: from $\lambda^2 + 1.2\lambda + 4 = 0$, $\omega_n = \sqrt4 = 2$ rad/s and $\zeta = 1.2/(2 \times 2) = 0.3$. A step response overshoots by about 37% (see [[Control_Theory]]).
+- **Controllability**: the matrix $[B\ \ AB] = \begin{bmatrix}0 & 1\\ 1 & -1.2\end{bmatrix}$ has rank 2, so the force can steer both position and velocity anywhere.
 
-### State Equations
+## Controllability, observability and observers
 
-The state space representation of a dynamic system is given by:
+- **Controllable**: the inputs can drive the state anywhere. Test: $[B\ AB\ \dots\ A^{n-1}B]$ has full rank.
+- **Observable**: the outputs reveal the whole state over time. Test: $[C;\ CA;\ \dots;\ CA^{n-1}]$ has full rank. Measuring only position still lets you infer velocity.
+- **Observer**: an algorithm that estimates the state from outputs. The **Kalman filter** is the optimal observer under Gaussian noise (see [[Probabilistic_Robotics]]).
+- **State feedback**: $\mathbf u = -K\mathbf x$ places the poles where you choose; **LQR** picks $K$ optimally.
 
-$$
-\dot{x}(t) = A x(t) + B u(t)
-$$
+## Linearising robots
 
-where:
-- $x(t)$ is the state vector.
-- $u(t)$ is the input vector.
-- $A$ is the state transition matrix.
-- $B$ is the control input matrix.
+Robots are nonlinear, but near an operating point $(\mathbf x_0, \mathbf u_0)$:
 
-<br>
+$$A = \frac{\partial f}{\partial \mathbf x}\Big|_0, \qquad B = \frac{\partial f}{\partial \mathbf u}\Big|_0$$
 
-### Output Equations
+LQR around an upright pose balances an inverted pendulum or a hovering drone; MPC relinearises at every step along a trajectory.
 
-The relationship between the state variables, inputs, and outputs is given by:
+## State space in 2026 robotics
 
-$$
-y(t) = C x(t) + D u(t)
-$$
+- **MPC and whole-body control** solve optimisation problems over state trajectories (see [[Model_Predictive_Control_(MPC)]]).
+- **State estimation** (Kalman filters, factor graphs) keeps track of $\mathbf x$ from noisy sensors.
+- **Reinforcement learning** calls the state the "observation" when it is incomplete, and the MDP framework is a state-space model with rewards (see [[Markov_Decision_Process]]).
+- **Learned world models** learn a latent state and its dynamics from video, a learned state-space model (see [[World_Models]]); state-space sequence models (S4, Mamba) bring the same idea into neural architectures.
 
-where:
-- $y(t)$ is the output vector.
-- $C$ is the output matrix.
-- $D$ is the feedforward matrix.
-
-<br>
-
-### Discrete-Time Systems
-
-For discrete-time systems, the state space representation is given by:
-
-$$
-x[k+1] = A x[k] + B u[k]
-$$
-$$
-y[k] = C x[k] + D u[k]
-$$
-
-where $k$ represents the discrete time step.
-
----
-
-## Applications of State Space Representation
-
-State space representation is applied in various robotic contexts:
-
-- **Control System Design**: Designing controllers for robotic systems, such as robotic arms and autonomous vehicles, to achieve desired behavior and stability.
-- **System Analysis**: Analyzing the dynamics and stability of robotic systems using state space models.
-- **State Estimation**: Estimating the internal state of a system from its outputs, which is crucial for control and monitoring.
-- **Simulation**: Simulating the behavior of robotic systems under different conditions to optimize performance and safety.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
-LIST FROM "" WHERE contains(file.outlinks, [[Robot_Control]])
+LIST FROM "" WHERE contains(file.outlinks, [[State_Space_Representation]])
 ```
