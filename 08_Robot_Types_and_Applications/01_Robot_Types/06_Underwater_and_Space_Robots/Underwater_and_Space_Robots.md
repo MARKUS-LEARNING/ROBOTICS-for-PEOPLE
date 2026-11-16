@@ -36,7 +36,6 @@ key_takeaways:
 sources:
   - "NASA (2026). Ingenuity Mars Helicopter. https://science.nasa.gov/mission/mars-2020-perseverance/ingenuity-mars-helicopter/"
   - "NASA (2026). Astrobee. https://www.nasa.gov/astrobee/"
-  - "Woods Hole Oceanographic Institution (2026). Underwater vehicles. https://www.whoi.edu/what-we-do/explore/underwater-vehicles/"
   - "Siciliano, B. and Khatib, O., eds. (2016). Springer Handbook of Robotics, 2nd edition (chapters on underwater and space robotics). https://link.springer.com/referencework/10.1007/978-3-319-32552-1"
 ---
 
