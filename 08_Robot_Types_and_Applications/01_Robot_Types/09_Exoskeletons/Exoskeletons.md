@@ -1,105 +1,87 @@
 ---
 title: Exoskeletons
-description: Overview of robotic exoskeletons, wearable devices designed to augment, assist, or restore human physical capabilities.
+description: "Exoskeletons are wearable robots that add strength, support or assistance to a person's own movement: medical devices for walking after spinal cord injury or stroke, industrial suits that reduce strain, and soft exosuits that cut the energy cost of walking. Covers types, how assistance is controlled, a computed assistance-power example, the learning-based advances of 2022–2024 (real-world personalisation, deep-network joint-moment estimation), and open problems."
+aliases:
+  - Exoskeleton
+  - Exosuit
+  - Wearable Robots
 tags:
-  - robot-types
   - exoskeleton
   - human-robot-interaction
-  - assistive-robotics
-  - rehabilitation
-  - augmentation
-  - biomechanics
+  - medical-robots
+  - control
 type: robot-type
-level: beginner
+level: intermediate
 subfield:
   - assistive-rehabilitation
-status: draft
+  - human-robot-interaction
+status: reviewed
 author: Jordan_Smith
-date: 2025-04-29
-related:
+date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
   - "[[Robots]]"
-  - "[[Human-Robot_Interaction]]"
-  - "[[Actuator]]"
-  - "[[Sensors]]"
   - "[[Control_Systems]]"
-  - "[[Biomechanics]]"
-  - "[[Robot_Types_and_Applications]]"
+related:
+  - "[[Medical_Robotics]]"
+  - "[[Soft_Robotics]]"
+  - "[[Bio-inspired_Robotics]]"
+  - "[[Neural_Networks]]"
+key_takeaways:
+  - "An exoskeleton works in parallel with the body: it must add the right torque at the right moment of each movement, or it gets in the way."
+  - "Assistance is modest in torque but well timed: about 0.2 N·m per kg at the hip is typical; personalised ankle assistance cut the energy of walking a given distance by 17% in real-world tests (Nature, 2022)."
+  - "Learning is changing control: a deep network estimating the wearer's own joint moments let one controller assist across 28 activities (Nature, 2024), instead of one tuned mode per task."
+sources:
+  - "Slade, P. et al. (2022). Personalizing exoskeleton assistance while walking in the real world. https://www.nature.com/articles/s41586-022-05191-1"
+  - "Molinaro, D. D. et al. (2024). Task-agnostic exoskeleton control via biological joint moment estimation. https://www.nature.com/articles/s41586-024-08157-7"
+  - "Kim, J. et al. (2019). Reducing the metabolic rate of walking and running with a versatile, portable exosuit. https://www.science.org/doi/10.1126/science.aav7536"
 ---
 
 # Exoskeletons
 
-**Exoskeletons** (in the context of robotics) are wearable mechanical or electromechanical structures designed to be worn by a person, typically mirroring the user's limb structure. Powered exoskeletons utilize [[Actuator|actuators]] to apply forces and torques aligned with the user's joints, aiming to augment strength/endurance, assist movement, or restore lost function. They represent a significant area within [[Wearable Robotics]] and [[Human-Robot_Interaction|Human-Robot Interaction (HRI)]].
+An **exoskeleton** is a robot you wear. Motors or springs act alongside your joints to add strength, reduce effort, support posture, or help you walk again after injury. Unlike other robots, it shares control with a human body that is already moving, so timing and comfort matter as much as power.
 
-*(Note: This differs from passive exoskeletons, which provide support via springs or elastic elements without active power.)*
+> **Etymology.** Greek *exo*, "outside", + *skeleton*: a skeleton on the outside, like an insect's or crab's shell. Early powered attempts include General Electric's Hardiman (1965), which was too heavy to be practical. In 2014 the FDA cleared the first powered exoskeleton for people with spinal cord injury (ReWalk).
 
----
+## Types
 
-## Purpose
+| Type | Purpose | Examples of use |
+|---|---|---|
+| **Medical / rehabilitation** | Help people with paralysis, stroke or weakness stand, walk and train | Clinic-based gait training; personal devices for spinal cord injury |
+| **Industrial (passive)** | Springs and counterweights support arms or back; no motors | Overhead work, lifting in logistics and manufacturing |
+| **Industrial (powered)** | Motors assist lifting and carrying | Heavy-goods handling |
+| **Soft exosuits** | Textile suits with cables driven by small motors; light and comfortable | Reducing the energy cost of walking and running |
+| **Military and field** | Load carriage | Mostly research and trials |
 
-Powered robotic exoskeletons are designed for several primary purposes:
+## Control: assist the person, not fight them
 
-* **Augmentation:** Enhance the physical capabilities of able-bodied individuals, increasing strength or endurance for tasks like heavy lifting (industrial settings), load carrying (military), or reducing fatigue.
-* **Assistance:** Provide powered support for individuals with weakness or partial paralysis (e.g., due to aging, muscle disease) to perform daily activities or maintain mobility.
-* **[[Rehabilitation Robotics|Rehabilitation]]:** Used in therapeutic settings to help patients with neurological injuries (e.g., stroke, spinal cord injury) regain motor function through repetitive, guided movements and task-oriented practice.
+The controller must decide, many times per second, how much torque to add at each joint. Common strategies:
+- **Gait-phase-based**: detect heel strike and toe-off with IMUs or pressure sensors, then apply a torque profile at the right percentage of the stride.
+- **Impedance / admittance**: behave like a spring and damper around the wearer's motion.
+- **Human-in-the-loop optimisation**: adjust the assistance profile to minimise the wearer's measured effort.
+- **Learned models**: estimate the wearer's intended joint moments from sensors with a neural network, and supply a fraction of them.
 
----
+## Worked example: how much help is enough?
 
-## Classification / Types
+Hip assistance is often specified per kilogram of body mass. At 0.2 N·m/kg, an 80 kg person receives $0.2 \times 80 = 16$ N·m at the hip. At a hip angular velocity of about 3 rad/s during brisk walking, the peak mechanical power delivered is $16 \times 3 = 48$ W, roughly the output of a small drone motor. The effect is far larger than the numbers suggest because the help arrives exactly when the muscles would otherwise work hardest. Mistimed, the same torque *increases* effort.
 
-Exoskeletons can be classified based on the body parts they interact with:
+## Recent advances (2022–2026)
 
-* **Lower-limb Exoskeletons:** Cover the legs and potentially the hip/pelvis. Designed for walking assistance, gait rehabilitation, load carrying, or strength augmentation for lifting.
-* **Upper-limb Exoskeletons:** Cover the arm(s) and potentially the shoulder/torso. Used for arm rehabilitation, assisting with tasks requiring arm strength or endurance (e.g., tool holding in manufacturing), or providing haptic feedback.
-* **Full-body Exoskeletons:** Integrate actuation across both upper and lower limbs and the torso. Aim for significant strength/endurance augmentation (e.g., conceptual military suits) or comprehensive mobility assistance.
+- **Real-world personalisation (2022).** A portable ankle exoskeleton tuned its assistance during an hour of everyday walking using wearable sensors and a data-driven model. Compared with normal shoes, it increased self-selected walking speed by 9 ± 4% and reduced the energy used to travel a given distance by 17 ± 5%. On a treadmill at 1.5 m/s, metabolic energy fell by 23 ± 8%.
+- **Task-agnostic control (2024).** A deep network estimated hip and knee biological joint moments in real time (average R² 0.83) across 28 activities, from walking and running to lifting and lunging. The exoskeleton then assisted in proportion, outperforming a task-classifier approach.
+- **Soft exosuits** have shown reductions in the metabolic cost of both walking and running from one portable device.
 
----
+## Open problems
 
-## Key Technologies
+- **Comfort and fit**: misalignment between device and body joints causes pressure and chafing.
+- **Weight and battery**: every added kilogram costs energy to carry.
+- **Safety and certification**: falls, especially for medical users.
+- **Evidence and cost**: long-term clinical benefit and insurance coverage.
+- **Intent detection**: knowing what the wearer is about to do (EMG, IMUs, vision, learned models).
 
-Developing effective exoskeletons involves integrating several technologies:
-
-* **Mechanical Design:** Structures must be lightweight yet strong, with [[Joint_Kinematics|joints]] closely aligned with human anatomical joints to allow natural movement. Comfortable and secure human attachment interfaces are crucial.
-* **[[Actuator|Actuation]]:** Providing sufficient power in a compact, lightweight form is a major challenge. Common approaches include:
-    * [[Electric_Motors|Electric Motors]] with [[Transmission|transmissions]] ([[Gearbox|gears]], ball screws). Series Elastic Actuators (SEAs) are often used to introduce compliance and allow for better force control.
-    * [[Hydraulic_Systems|Hydraulics]]: Offer high [[Power_Density]] for strength augmentation but require a bulky power unit.
-    * [[Pneumatic Actuators]]: Can be lightweight (e.g., McKibben artificial muscles) but require a compressed air source and can be harder to control precisely.
-* **[[Sensors|Sensing]]:** Critical for monitoring both the human user and the exoskeleton state:
-    * **[[IMU_Sensors]]:** Measure limb segment orientation and angular velocity.
-    * **Joint Angle Sensors:** Encoders or potentiometers measure robot joint positions.
-    * **Force/Torque Sensors:** Measure interaction forces between the user and the exoskeleton, or between the exoskeleton and the environment (e.g., ground reaction forces).
-    * **Physiological Sensors:**
-        * *EMG (Electromyography):* Detects electrical signals from muscle activation to infer user intent.
-        * *EEG (Electroencephalography):* Detects brain signals, sometimes explored for direct neural control (BCI).
-* **[[Control_Systems|Control Strategies]]:** The core challenge is coordinating the exoskeleton's actions with the user's intent and movements seamlessly and safely. Common strategies include:
-    * **Trajectory Control:** Guiding the user's limbs along predefined paths (common in rehabilitation).
-    * **Assist-as-Needed:** Monitoring user effort and providing assistance only when necessary or proportional to weakness.
-    * **Intent Detection:** Using EMG, EEG, force sensors, or kinematic cues (early motion detection) to predict the user's desired movement and initiate exoskeleton assistance proactively.
-    * **Impedance/Admittance Control:** Regulating the dynamic relationship (stiffness, damping, inertia) between the exoskeleton and the user, aiming for compliant and natural interaction. See [[Force Control]].
-
----
-
-## Challenges
-
-Despite significant progress, widespread adoption of exoskeletons faces several hurdles:
-
-* **Human-Robot Interface:** Designing intuitive cognitive interfaces (intent detection) and comfortable, non-restrictive physical attachments is difficult. Joint misalignment between human and robot can cause discomfort or injury.
-* **Weight and Bulk:** Current systems are often heavy and cumbersome, limiting user acceptance and practicality.
-* **Power Source:** Providing sufficient onboard power for extended, untethered operation remains a major challenge, especially for high-power augmentation tasks.
-* **Control Robustness:** Controllers must reliably interpret user intent and adapt to the variability and unpredictability of human movement and interaction with complex environments.
-* **[[Safety]]:** Ensuring the system cannot overpower the user or cause injury, especially during sensor failures or unexpected situations. Requires robust fault detection and safe failure modes.
-* **Cost:** High development and component costs currently limit accessibility for many potential users.
-* **User Adaptation & Learning:** Users often require training and time to adapt to working effectively with an exoskeleton.
-
-Exoskeletons hold immense potential for improving quality of life through rehabilitation and assistance, and for enhancing human capabilities in demanding physical tasks, making them a key area of ongoing robotics research and development.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
-LIST FROM "" WHERE contains(file.outlinks, [[Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Exoskeletons]])
 ```
