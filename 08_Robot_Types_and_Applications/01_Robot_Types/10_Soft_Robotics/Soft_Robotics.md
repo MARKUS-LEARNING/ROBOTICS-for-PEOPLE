@@ -1,131 +1,103 @@
 ---
 title: Soft Robotics
-description: Overview of Soft Robotics, a field focusing on robots constructed from compliant materials, covering characteristics, materials, actuation, sensing, control, and applications.
+description: "Soft robots are made of compliant materials (silicones, fabrics, gels) that bend and stretch instead of rigid links and joints. Covers why softness helps (safety, adaptability, simple grasping), materials and actuation (pneumatic, cable, smart materials), a computed actuator-force and stiffness comparison, sensing, modelling and control (Cosserat rods, learned models, deformable simulation), applications, and limits."
+aliases:
+  - Soft Robots
+  - Soft Robot
 tags:
-  - robot-types
   - soft-robotics
-  - bio-inspired-robotics
-  - compliance
   - actuators
   - materials
-  - human-robot-interaction
-type: robot-type
-level: beginner
+  - bio-inspired-robotics
+type: concept
+level: intermediate
 subfield:
   - soft-robotics
   - mechanisms-actuation
-status: draft
+status: reviewed
 author: Jordan_Smith
-date: 2025-04-29
+date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Actuator]]"
-related:
   - "[[Robots]]"
+related:
+  - "[[Robot_Hands]]"
   - "[[Bio-inspired_Robotics]]"
-  - "[[Actuator]]"
-  - "[[Pneumatic_Systems]]"
-  - "[[Electroactive_Polymers]]"
-  - "[[Shape_Memory_Alloys]]"
-  - "[[Sensors]]"
-  - "[[Tactile_Sensing]]"
-  - "[[Manipulation]]"
-  - "[[Grasping]]"
-  - "[[Continuum_Mechanics]]"
-  - "[[Pneumatic_Systems]]"
-  - "[[Human-Robot_Interaction]]"
-  - "[[Robot_Types_and_Applications]]"
+  - "[[Exoskeletons]]"
+  - "[[MuJoCo]]"
+  - "[[Physics_Engines]]"
+key_takeaways:
+  - "Soft robots trade precision and force for safety and adaptability: a body about a million times less stiff than steel conforms to objects and to people instead of fighting them."
+  - "Most are driven by air pressure or cables; a 50 kPa chamber pushing on 2 cm² produces about 10 N, enough for gentle grasping."
+  - "Their infinite degrees of freedom make modelling and control hard; Cosserat-rod models, learned models and deformable-body simulation (MuJoCo 4, 2026) are closing the gap."
+sources:
+  - "Rus, D. and Tolley, M. T. (2015). Design, fabrication and control of soft robots. https://www.nature.com/articles/nature14543"
+  - "Wehner, M. et al. (2016). An integrated design and fabrication strategy for entirely soft, autonomous robots. https://www.nature.com/articles/nature19100"
+  - "Laschi, C., Mazzolai, B. and Cianchetti, M. (2016). Soft robotics: Technologies and systems pushing the boundaries of robot abilities. https://www.science.org/doi/10.1126/scirobotics.aah3690"
+  - "Della Santina, C., Duriez, C. and Rus, D. (2021). Model Based Control of Soft Robots: A Survey of the State of the Art and Open Challenges. https://arxiv.org/abs/2110.01358"
+  - "Google DeepMind (2026). MuJoCo 4.0.0 release notes (deformables). https://github.com/google-deepmind/mujoco/releases/tag/4.0.0"
 ---
 
 # Soft Robotics
 
-**Soft Robotics** is a subfield of robotics dedicated to the design, fabrication, modeling, and control of [[Robots|robots]] primarily composed of highly compliant, deformable materials, such as elastomers (like silicones), gels, fluids, and textiles. This approach contrasts sharply with traditional rigid-bodied robots and draws significant inspiration from biological systems like octopus tentacles, elephant trunks, worms, and muscle tissue ([[Bio-inspired_Robotics]]).
+**Soft robotics** builds robots from materials that bend, stretch and squeeze, such as silicone rubber, fabric, gels and foams, instead of from rigid links connected by joints. A soft gripper wraps around a strawberry without bruising it; a soft robot arm can bump into a person harmlessly; a soft crawler squeezes through gaps narrower than its body.
 
----
+> **Etymology.** *Soft* from Old English *sōfte*, "gentle, agreeable". The field took its current form around 2010–2015, inspired by octopuses, elephant trunks and worms. The 2016 **Octobot** (Harvard) was the first robot made entirely of soft materials, powered by a chemical reaction and controlled by a soft microfluidic circuit.
 
-## Key Characteristics
+## Why soft?
 
-* **Compliance & Softness:** The defining feature. Soft bodies can deform significantly and continuously, allowing them to conform to complex shapes, absorb impacts, and potentially operate more safely around humans.
-* **Continuum Mechanics:** Motion often involves continuous bending, twisting, or stretching of the body rather than rotation about discrete [[Joint_Kinematics|joints]]. Modeling their behavior often requires principles from [[Continuum Mechanics]] rather than traditional rigid-body [[Kinematics]] and [[Dynamics]]. (Note: Hybrid rigid/soft systems also exist).
-* **[[Bio-inspired_Robotics|Bio-inspiration]]:** Designs frequently mimic the form and function of soft biological organisms to achieve similar capabilities (e.g., grasping, locomotion, camouflage).
-* **Intrinsic [[Safety]]:** The inherent physical compliance reduces the risk of injury during [[Human-Robot_Interaction|Human-Robot Interaction (HRI)]] or when interacting with delicate objects.
-* **Adaptability:** Soft bodies can passively adapt their shape to grasp complex objects or navigate through cluttered or confined environments.
+| Advantage | Because |
+|---|---|
+| **Safety near people** | Low stiffness limits impact forces |
+| **Grasping without precise models** | The body conforms to object shape, so approximate positioning is enough |
+| **Robustness** | Survives impacts and crushing |
+| **Squeezing and reaching** | Continuous bending reaches around obstacles |
 
----
+## Stiffness, computed
 
-## Materials
+Material stiffness is measured by Young's modulus $E$:
+- soft silicones used in soft robots: around $10^5$ Pa (100 kPa);
+- structural steel: about $2 \times 10^{11}$ Pa.
 
-Soft robotics relies on materials with low Young's modulus, including:
-* Elastomers (Silicones, Rubbers, Polyurethanes)
-* Hydrogels
-* Shape Memory Materials ([[Shape_Memory_Alloys|SMAs]], Shape Memory Polymers)
-* [[Electroactive_Polymers|Electroactive Polymers (EAPs)]]
-* Textiles and Fabrics
-* Granular Materials (used in jamming grippers)
-* Fabrication often involves multi-material processes like soft lithography, molding, or advanced 3D printing techniques.
+Steel is roughly **two million times** stiffer. Human soft tissue is in the $10^3$–$10^6$ Pa range, which is why soft robots feel and behave more like living bodies than like machines.
 
----
+## Actuation
 
-## [[Actuator|Actuation]] Methods
+| Method | How | Example numbers and notes |
+|---|---|---|
+| **Pneumatic / hydraulic** | Pressurise chambers in an elastomer so it bends or extends | A chamber at 50 kPa acting on 2 cm² (2 × 10⁻⁴ m²) pushes with $F = pA = 50{,}000 \times 0.0002 = 10$ N; the most common method |
+| **Cable / tendon** | Motors pull cables routed through the soft body | Precise and fast; motors stay outside the soft part |
+| **Shape-memory alloys** | Wires contract when heated | Compact; slow, inefficient |
+| **Dielectric elastomers** | Voltage squeezes a thin rubber film | Fast, muscle-like; need kilovolts |
+| **HASEL and electrohydraulic** | Voltage displaces liquid in a flexible pouch | Muscle-like speed and strength |
+| **Fin-ray and passive designs** | Geometry that bends around objects under contact | Simple, cheap, widely used industrial grippers |
 
-Driving motion in soft bodies often requires non-traditional actuation methods:
+## Sensing
 
-* **Fluidic Actuation ([[Pneumatic_Systems|Pneumatic]] / Hydraulic):** Very common. Pressurizing internal channels or embedded bladders causes the structure to inflate, bend, extend, or contract. Examples include PneuNets (Pneumatic Networks) and fiber-reinforced bending actuators. [[Pneumatic Actuators|Pneumatic artificial muscles]] like McKibben actuators are also frequently used.
-* **[[Shape_Memory_Alloys|Shape Memory Alloys (SMAs)]]:** Embedding SMA wires that contract upon electrical heating, causing the surrounding soft structure to deform. Offers high force but can be slow and energy-intensive.
-* **[[Electroactive_Polymers|Electroactive Polymers (EAPs)]]:** "Smart" materials that change shape significantly when an electric field is applied (e.g., dielectric elastomers contracting when voltage is applied, ionic polymer-metal composites bending). Offer potential for muscle-like actuation but often require high voltages or face durability challenges.
-* **Tendon/Cable Driven:** Routing cables through the soft body allows for remote actuation using standard motors, similar to some [[Robot_Hands|dexterous hands]]. Introduces friction and potentially complex routing.
-* **Other:** Magnetic fields, chemical reactions, thermal expansion.
+Soft bodies need soft sensors: stretchable conductive elastomers, liquid-metal traces, optical waveguides, and cameras watching deformation from inside (the principle behind vision-based tactile sensors; see [[Robot_Hands]]).
 
----
+## Modelling and control
 
-## [[Sensors|Sensing]] Challenges and Methods
+A soft body has, in principle, infinitely many degrees of freedom. Approaches, from simple to rich:
+- **Piecewise constant curvature**: model each segment as an arc, which is easy and approximate;
+- **Cosserat rod models**: accurate bending, twisting and stretching of slender bodies;
+- **Finite elements** (e.g. SOFA): accurate and slow;
+- **Learned models**: neural networks fitted to data, combined with physical priors;
+- **Simulation for learning**: deformable-body support in physics engines lets policies for soft and deformable manipulation be trained in simulation (MuJoCo 4, released November 2026, added implicit deformables and plasticity; see [[MuJoCo]]).
 
-Integrating sensors into continuously deforming bodies is a major challenge. Traditional rigid sensors are often unsuitable. Approaches include:
-
-* **Embedded Soft/Stretchable Sensors:** Incorporating conductive fluids, elastomers, or optical fibers directly into the robot's body to measure strain, curvature, contact pressure, or chemical properties. [[Tactile Sensing]] capabilities are a key research area.
-* **External Sensing:** Using [[Camera_Systems|vision systems]] to observe the robot's shape and interaction with the environment.
-* **Actuation-Based Sensing:** Inferring state information from the actuation system itself (e.g., pressure or flow rate feedback in fluidic systems).
-* **[[Machine_Learning|Machine Learning]] Models:** Training models (often [[Neural_Networks_in_Control|neural networks]]) to estimate the robot's configuration (proprioception) based on actuator inputs and potentially limited sensor readings.
-
----
-
-## Modeling and Control
-
-* **Modeling:** Traditional rigid-body assumptions often fail. Modeling requires techniques from [[Continuum Mechanics]], Finite Element Analysis (FEA) for simulation, or data-driven approaches to capture the complex, nonlinear deformation behavior.
-* **[[Control_Systems|Control]]:** Controlling soft robots is complex due to their potentially infinite [[Degrees_of_Freedom]], inherent nonlinearities, material hysteresis, modeling difficulties, and challenges in sensing their state accurately. Model-based control (using simplified or FEA models) and [[Machine_Learning|learning-based approaches]] ([[Reinforcement_Learning|Reinforcement Learning (RL)]]) are active research areas.
-
----
+Della Santina, Duriez and Rus (2021) survey model-based control. Learned control, often with reinforcement learning in simulation, is the most active area.
 
 ## Applications
 
-The unique properties of soft robots open up new application possibilities:
+Gentle grippers for food, produce and e-commerce; wearable assistive suits (see [[Exoskeletons]]); minimally invasive medical devices and steerable catheters; search-and-rescue crawlers; underwater robots that handle fragile marine life; and soft skins that make rigid robots safer to touch.
 
-* **[[Manipulation]] & [[Grasping]]:** Soft grippers excel at handling delicate, fragile, or irregularly shaped objects (e.g., food items, textiles, biological samples) without causing damage due to their conformal and compliant nature.
-* **[[Medical_Robotics|Medical Robotics]]:** Developing flexible endoscopic tools, minimally invasive surgical instruments that can navigate complex pathways within the body, soft wearable devices for [[Rehabilitation Robotics|rehabilitation]] or assistance.
-* **Exploration & Locomotion:** Creating robots that can squeeze through confined spaces, traverse complex terrains by adapting their body shape (inspired by worms, snakes, octopuses), or swim efficiently.
-* **[[Human-Robot_Interaction|Human-Robot Interaction (HRI)]]:** Building inherently safer robots for close physical collaboration or assistance in homes and workplaces.
-* **[[Bio-inspired_Robotics]]:** Creating robots that closely mimic the movement and capabilities of biological organisms.
+## Limits
 
----
+Low force and precision, slow pneumatic response, fatigue and punctures, bulky pumps and valves, and difficult modelling. Most practical systems are **hybrids**: rigid arms with soft hands, skins or joints.
 
-## Challenges
-
-* **Precise Modeling and Control:** Accurately predicting and controlling complex deformations remains difficult.
-* **Robust Sensing:** Integrating reliable, distributed sensing into deformable bodies is challenging.
-* **Fabrication:** Multi-material fabrication and integration of components can be complex and difficult to scale.
-* **Durability:** Soft materials can be susceptible to punctures, tears, or fatigue.
-* **Performance Limits:** Soft robots generally have lower speed, force output, and bandwidth compared to their rigid counterparts.
-* **Energy Efficiency:** Some actuation methods (e.g., SMAs, certain EAPs) can be energy-intensive.
-
-Soft robotics is a rapidly evolving field offering exciting potential for creating robots with unprecedented adaptability, safety, and bio-compatibility, pushing the boundaries of what robots can do and where they can operate.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
-LIST FROM "" WHERE contains(file.outlinks, [[Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Soft_Robotics]])
 ```
