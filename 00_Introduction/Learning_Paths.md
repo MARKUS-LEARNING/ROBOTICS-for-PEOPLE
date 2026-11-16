@@ -39,8 +39,8 @@ No background needed. What robots are, how they came to be, and the ideas everyt
 8. [[Artificial_Intelligence|Artificial Intelligence]] · *beginner*
 9. [[Statics]] · *beginner*
 10. [[Manipulation|Manipulation (Robotics)]] · *beginner*
-11. [[Manipulator_Arm|Manipulator Arm]] · *beginner*
-12. [[Wheeled_Mobile_Robots|Wheeled Mobile Robots]] · *beginner*
+11. [[Workspace_Analysis|Workspace Analysis]] · *beginner*
+12. [[Manipulator_Arm|Manipulator Arm]] · *beginner*
 13. [[Mobile_Robots|Mobile Robots]] · *beginner*
 14. [[Legged_Robots|Legged Robots]] · *beginner*
 
@@ -88,11 +88,11 @@ Hardware, software and tooling: actuators, electronics, ROS 2, simulation and th
 9. [[Kinematic_Chains|Kinematic Chains]] · *intermediate*
 10. [[Electric_Motors|Electric Motors]] · *intermediate*
 11. [[Transmission_Mechanisms|Transmission Mechanisms]] · *intermediate*
-12. [[Gears]] · *intermediate*
-13. [[ROS_2_Overview|ROS 2 Overview]] · *intermediate*
-14. [[URDF]] · *intermediate*
-15. [[MoveIt2|MoveIt 2]] · *intermediate*
-16. [[Gazebo_Simulator|Gazebo Simulator]] · *intermediate*
+12. [[ROS_2_Overview|ROS 2 Overview]] · *intermediate*
+13. [[URDF]] · *intermediate*
+14. [[MoveIt2|MoveIt 2]] · *intermediate*
+15. [[Gazebo_Simulator|Gazebo Simulator]] · *intermediate*
+16. [[ros2_control]] · *intermediate*
 17. [[TF_and_Topic_Architecture|TF and Topic Architecture]] · *intermediate*
 18. [[RViz_Tutorial|RViz Tutorial]] · *beginner*
 19. [[Nav2_Navigation|Nav2 Navigation Stack]] · *intermediate*
@@ -247,13 +247,13 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 37. [[Inertia]] · *intermediate*
 38. [[Joints]] · *intermediate*
 39. [[Manipulability]] · *intermediate*
-40. [[Motion_Control|Motion Control]] · *intermediate*
-41. [[Newton-Euler_Equations|Newton-Euler Equations]] · *intermediate*
-42. [[Parallel_Mechanisms_and_Robots|Parallel Mechanisms and Robots]] · *intermediate*
-43. [[Stability]] · *intermediate*
-44. [[Torque]] · *intermediate*
-45. [[Cartesian_Space|Cartesian Space]] · *intermediate*
-46. [[DC_Motors|DC Motors]] · *intermediate*
+40. [[Newton-Euler_Equations|Newton-Euler Equations]] · *intermediate*
+41. [[Parallel_Mechanisms_and_Robots|Parallel Mechanisms and Robots]] · *intermediate*
+42. [[Stability]] · *intermediate*
+43. [[Torque]] · *intermediate*
+44. [[Cartesian_Space|Cartesian Space]] · *intermediate*
+45. [[DC_Motors|DC Motors]] · *intermediate*
+46. [[Motion_Control|Motion Control]] · *intermediate*
 47. [[Product_of_Exponentials|Product of Exponentials (PoE)]] · *intermediate*
 48. [[Rotational_Dynamics|Rotational Dynamics]] · *intermediate*
 49. [[Angular_Momentum|Angular Momentum]] · *intermediate*
@@ -273,7 +273,9 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 63. [[Singularities_Dynamic_Effects|Singularities and Dynamic Effects]] · *intermediate*
 64. [[Forward_vs_Inverse_Problems|Forward vs Inverse Problems]] · *intermediate*
 65. [[Jacobian_and_Differential_Kinematics|Jacobian and Differential Kinematics]] · *intermediate*
-66. [[Physics_Engines|Physics Engines]] · *advanced*
+66. [[Wheeled_Mobile_Robots|Wheeled Mobile Robots]] · *intermediate*
+67. [[Omnidirectional_Robots|Omnidirectional Robots]] · *intermediate*
+68. [[Physics_Engines|Physics Engines]] · *advanced*
 
 ### Mechanisms, Actuation and Materials
 
@@ -299,11 +301,11 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 20. [[Stepper_Motors|Stepper Motors]] · *intermediate*
 21. [[Hydraulic_Systems|Hydraulic Systems]] · *intermediate*
 22. [[DC_Motors|DC Motors]] · *intermediate*
-23. [[Differential_Drive|Differential Drive]] · *intermediate*
-24. [[Pneumatic_Systems|Pneumatic Systems]] · *intermediate*
-25. [[Remote_Actuation|Remote Actuation]] · *intermediate*
-26. [[Stewart_Platform|Stewart Platform]] · *intermediate*
-27. [[Variable_Stiffness_Actuators|Variable Stiffness Actuators]] · *intermediate*
+23. [[Pneumatic_Systems|Pneumatic Systems]] · *intermediate*
+24. [[Remote_Actuation|Remote Actuation]] · *intermediate*
+25. [[Stewart_Platform|Stewart Platform]] · *intermediate*
+26. [[Variable_Stiffness_Actuators|Variable Stiffness Actuators]] · *intermediate*
+27. [[Differential_Drive|Differential Drive]] · *intermediate*
 28. [[Ball_Screw|Ball Screw]] · *intermediate*
 29. [[Brushless_DC_Motors|Brushless DC Motors]] · *intermediate*
 30. [[Mechanics]] · *intermediate*
@@ -330,14 +332,14 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 6. [[Camera_Systems|Camera Systems]] · *intermediate*
 7. [[LIDAR|LIDAR (Light Detection and Ranging)]] · *intermediate*
 8. [[IMU_Sensors|IMU Sensors (Inertial Measurement Unit)]] · *intermediate*
-9. [[Obstacle_Avoidance|Obstacle Avoidance]] · *intermediate*
-10. [[Computer_Vision|Computer Vision]] · *intermediate*
+9. [[Computer_Vision|Computer Vision]] · *intermediate*
+10. [[Obstacle_Avoidance|Obstacle Avoidance]] · *intermediate*
 11. [[RGB-D_Sensor|RGB-D Sensor]] · *intermediate*
 12. [[Sensor_Calibration_Techniques|Sensor Calibration Techniques]] · *intermediate*
 13. [[Encoders]] · *intermediate*
 14. [[Range_Sensor|Range Sensor]] · *intermediate*
-15. [[Ultrasonic_Sensors|Ultrasonic Sensors]] · *intermediate*
-16. [[Resolvers]] · *intermediate*
+15. [[Resolvers]] · *intermediate*
+16. [[Ultrasonic_Sensors|Ultrasonic Sensors]] · *intermediate*
 17. [[Piezoelectricity]] · *intermediate*
 18. [[Convolutional_Neural_Networks|Convolutional Neural Networks]] · *intermediate*
 19. [[CNN_in_Robotics|CNN in Robotics]] · *intermediate*
@@ -382,8 +384,8 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 14. [[Decision_Trees_and_Rule-Based_Systems|Decision Trees and Rule-Based Systems]] · *intermediate*
 15. [[Knowledge_Representation_and_Reasoning|Knowledge Representation and Reasoning]] · *intermediate*
 16. [[Collision_Avoidance|Collision Avoidance]] · *intermediate*
-17. [[MoveIt2|MoveIt 2]] · *intermediate*
-18. [[Nav2_Navigation|Nav2 Navigation Stack]] · *intermediate*
+17. [[Nav2_Navigation|Nav2 Navigation Stack]] · *intermediate*
+18. [[MoveIt2|MoveIt 2]] · *intermediate*
 19. [[C++_Motion_Planning|C++ Motion Planning]] · *intermediate*
 20. [[OMPL]] · *intermediate*
 21. [[Advanced_Planning_and_Reasoning|Advanced Planning and Reasoning for Robotics]] · *advanced*
@@ -395,8 +397,8 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 3. [[Policy|Policy (Robot Control Policy)]] · *beginner*
 4. [[Robot_Control|Robot Control]] · *intermediate*
 5. [[Control_Theory_Overview|Control Systems Overview]] · *intermediate*
-6. [[Motion_Control|Motion Control]] · *intermediate*
-7. [[Stability]] · *intermediate*
+6. [[Stability]] · *intermediate*
+7. [[Motion_Control|Motion Control]] · *intermediate*
 8. [[Linear_Quadratic_Regulator_(LQR)|Linear Quadratic Regulator (LQR)]] · *intermediate*
 9. [[Encoders]] · *intermediate*
 10. [[Resolvers]] · *intermediate*
@@ -406,8 +408,8 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 14. [[Feedback_Control|Feedback Control]] · *intermediate*
 15. [[Control_Systems|Control Systems]] · *intermediate*
 16. [[PID_Control|PID Control]] · *intermediate*
-17. [[Compliance|Compliance (Robotics)]] · *intermediate*
-18. [[Adaptive_Control|Adaptive Control]] · *intermediate*
+17. [[Adaptive_Control|Adaptive Control]] · *intermediate*
+18. [[Compliance|Compliance (Robotics)]] · *intermediate*
 19. [[State_Space_Representation|State Space Representation]] · *intermediate*
 20. [[Computed_Torque_Control|Computed Torque Control]] · *intermediate*
 21. [[Transfer_Function|Transfer Function]] · *intermediate*
@@ -495,11 +497,11 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 10. [[URDF]] · *intermediate*
 11. [[MoveIt2|MoveIt 2]] · *intermediate*
 12. [[Gazebo_Simulator|Gazebo Simulator]] · *intermediate*
-13. [[TF_and_Topic_Architecture|TF and Topic Architecture]] · *intermediate*
-14. [[RViz_Tutorial|RViz Tutorial]] · *beginner*
-15. [[Nav2_Navigation|Nav2 Navigation Stack]] · *intermediate*
-16. [[Custom_Packages_and_Nodes|Custom Packages and Nodes]] · *intermediate*
-17. [[ros2_control]] · *intermediate*
+13. [[ros2_control]] · *intermediate*
+14. [[TF_and_Topic_Architecture|TF and Topic Architecture]] · *intermediate*
+15. [[RViz_Tutorial|RViz Tutorial]] · *beginner*
+16. [[Nav2_Navigation|Nav2 Navigation Stack]] · *intermediate*
+17. [[Custom_Packages_and_Nodes|Custom Packages and Nodes]] · *intermediate*
 18. [[Actions]] · *intermediate*
 19. [[Launch_Files|Launch Files]] · *intermediate*
 20. [[rosbag2]] · *intermediate*
@@ -553,21 +555,21 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 
 ### Mobile Robots and Navigation
 
-1. [[Wheeled_Mobile_Robots|Wheeled Mobile Robots]] · *beginner*
-2. [[Mobile_Robots|Mobile Robots]] · *beginner*
-3. [[Legged_Robots|Legged Robots]] · *beginner*
-4. [[Autonomous_Robots|Autonomous Robots]] · *beginner*
-5. [[Omnidirectional_Robots|Omnidirectional Robots]] · *beginner*
-6. [[Nonholonomic_Constraint|Nonholonomic Constraint]] · *intermediate*
-7. [[Differential_Drive|Differential Drive]] · *intermediate*
-8. [[Instantaneous_Center_of_Rotation_(ICR)|Instantaneous Center of Rotation (ICR)]] · *intermediate*
-9. [[SLAM|SLAM (Simultaneous Localization and Mapping)]] · *intermediate*
-10. [[LIDAR|LIDAR (Light Detection and Ranging)]] · *intermediate*
-11. [[GPS]] · *intermediate*
-12. [[Autonomous_Navigation|Autonomous Navigation]] · *intermediate*
-13. [[Collision_Avoidance|Collision Avoidance]] · *intermediate*
-14. [[Nav2_Navigation|Nav2 Navigation Stack]] · *intermediate*
-15. [[SLAM_with_ROS|SLAM with ROS]] · *intermediate*
+1. [[Mobile_Robots|Mobile Robots]] · *beginner*
+2. [[Legged_Robots|Legged Robots]] · *beginner*
+3. [[Autonomous_Robots|Autonomous Robots]] · *beginner*
+4. [[Nonholonomic_Constraint|Nonholonomic Constraint]] · *intermediate*
+5. [[Differential_Drive|Differential Drive]] · *intermediate*
+6. [[Instantaneous_Center_of_Rotation_(ICR)|Instantaneous Center of Rotation (ICR)]] · *intermediate*
+7. [[SLAM|SLAM (Simultaneous Localization and Mapping)]] · *intermediate*
+8. [[LIDAR|LIDAR (Light Detection and Ranging)]] · *intermediate*
+9. [[GPS]] · *intermediate*
+10. [[Autonomous_Navigation|Autonomous Navigation]] · *intermediate*
+11. [[Collision_Avoidance|Collision Avoidance]] · *intermediate*
+12. [[Nav2_Navigation|Nav2 Navigation Stack]] · *intermediate*
+13. [[SLAM_with_ROS|SLAM with ROS]] · *intermediate*
+14. [[Wheeled_Mobile_Robots|Wheeled Mobile Robots]] · *intermediate*
+15. [[Omnidirectional_Robots|Omnidirectional Robots]] · *intermediate*
 
 ### Legged Locomotion and Humanoids
 

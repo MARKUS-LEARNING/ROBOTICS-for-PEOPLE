@@ -1,97 +1,90 @@
 ---
 title: Wheeled Mobile Robots
-description: Wheeled Mobile Robots are robotic systems that use wheels for locomotion, providing efficient and stable movement across various terrains.
+description: "Wheeled robots are the most common mobile robots: differential drive, Ackermann (car-like), skid-steer, omnidirectional and balancing designs. Covers each drive's kinematics and constraints, a computed differential-drive example (speed, turn rate and turning radius from wheel speeds), why some robots cannot move sideways (nonholonomic constraints), odometry error, and the ROS 2 controllers that implement them."
+aliases:
+  - Wheeled Robots
+  - Differential Drive
+  - Ackermann Steering
+  - Skid Steer
 tags:
-  - mobility
-  - mechanics
-  - control
+  - mobile-robot
+  - kinematics
+  - state-estimation
+  - locomotion
 type: robot-type
-level: beginner
+level: intermediate
 subfield:
   - mobile-robots
-status: draft
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
-date: 2025-04-29
+date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
+  - "[[Mobile_Robots]]"
+  - "[[Kinematics]]"
 related:
-  - "[[Robot_Design]]"
-  - "[[Mechatronics]]"
-  - "[[Control_Systems]]"
-  - "[[Actuator]]"
-  - "[[Manipulator_Arm]]"
-  - "[[Legged_Robots]]"
-  - "[[Sensors]]"
-  - "[[Compliance]]"
+  - "[[Omnidirectional_Robots]]"
+  - "[[Nav2_Navigation]]"
+  - "[[ros2_control]]"
+  - "[[Localization]]"
+key_takeaways:
+  - "A differential-drive robot's forward speed is the average of its wheel speeds and its turn rate is their difference divided by the track width."
+  - "Differential-drive and car-like robots are nonholonomic: they cannot move sideways directly, so planners must produce paths they can actually drive (for cars, with a minimum turning radius)."
+  - "Wheel odometry drifts with slip and calibration error, so it is fused with an IMU, lidar or vision; ROS 2 ships standard controllers (diff_drive, ackermann, mecanum) through ros2_control."
+sources:
+  - "Siegwart, R., Nourbakhsh, I. R. and Scaramuzza, D. (2011). Introduction to Autonomous Mobile Robots, 2nd edition. https://mitpress.mit.edu/9780262015356/introduction-to-autonomous-mobile-robots/"
+  - "Lynch, K. M. and Park, F. C. (2017). Modern Robotics, chapter 13: Wheeled Mobile Robots. https://hades.mech.northwestern.edu/index.php/Modern_Robotics"
+  - "Campion, G., Bastin, G. and d'Andréa-Novel, B. (1996). Structural properties and classification of kinematic and dynamic models of wheeled mobile robots. https://ieeexplore.ieee.org/document/481750"
+  - "ros-controls (2026). ros2_controllers: diff_drive_controller. https://github.com/ros-controls/ros2_controllers/tree/master/diff_drive_controller"
+  - "ros-controls (2026). ros2_controllers: ackermann_steering_controller. https://github.com/ros-controls/ros2_controllers/tree/master/ackermann_steering_controller"
 ---
 
 # Wheeled Mobile Robots
 
-**Wheeled Mobile Robots** are robotic systems that use wheels for locomotion, providing efficient and stable movement across various terrains. These robots are widely used in applications requiring mobility, such as exploration, transportation, and service tasks. Wheeled robots are favored for their simplicity, energy efficiency, and ability to navigate structured environments effectively.
+Wheels are the most efficient way to move on a hard, flat surface, so most mobile robots have them: robot vacuums, warehouse robots, delivery robots, research platforms and self-driving cars. The arrangement of the wheels, the **drive type**, decides how the robot can move and how it is controlled.
 
----
+> **Etymology.** *Wheel* is from Old English *hweol*, from a root meaning "to turn". *Ackermann* steering is named after Rudolph Ackermann, who patented Georg Lankensperger's steering linkage in London in 1818.
 
-## Types of Wheeled Mobile Robots
+## Drive types
 
-1. **Differential Drive Robots**: Use two independently driven wheels to achieve motion and steering. These robots are simple and maneuverable, making them suitable for indoor environments.
+| Drive | Layout | Moves sideways? | Typical robots |
+|---|---|---|---|
+| **Differential** | Two driven wheels on one axle + casters | No | Vacuums, TurtleBot, many AMRs |
+| **Skid-steer** | Driven wheels or tracks on each side, turning by skidding | No | Outdoor and rough-terrain robots (Husky-style) |
+| **Ackermann** | Steered front wheels, driven rear (or all) | No; minimum turning radius | Cars, robotaxis, outdoor delivery |
+| **Omnidirectional** | Mecanum, omni or steered (swerve) wheels | **Yes** | Factory AGVs, mobile manipulators; see [[Omnidirectional_Robots]] |
+| **Self-balancing** | Two wheels, actively balanced | No | Segway-style platforms, some wheeled humanoids |
 
-2. **Ackermann Steering Robots**: Use a steering mechanism similar to that of a car, with fixed rear wheels and steerable front wheels. This design is suitable for high-speed and outdoor navigation.
+## Differential drive, computed
 
-3. **Omnidirectional Robots**: Use special wheels, such as Mecanum or omni-wheels, that allow movement in any direction. These robots are highly maneuverable and can move sideways or rotate in place.
+With wheel radius $r$, track width (distance between wheels) $L$, and wheel angular speeds $\omega_l, \omega_r$:
 
-4. **Tricycle and Bicycle Robots**: Use three or two wheels, respectively, with various steering mechanisms to balance stability and maneuverability.
+$$v = \frac{r(\omega_r + \omega_l)}{2}, \qquad \omega = \frac{r(\omega_r - \omega_l)}{L}, \qquad R = \frac{v}{\omega}$$
 
----
+**Example.** $r = 0.05$ m, $L = 0.30$ m, left wheel at 10 rad/s, right wheel at 12 rad/s:
 
-## Key Equations
+- forward speed $v = 0.05 \times (12 + 10)/2 = 0.55$ m/s;
+- turn rate $\omega = 0.05 \times (12 - 10)/0.30 = 0.333$ rad/s (to the left, since the right wheel is faster);
+- turning radius $R = 0.55 / 0.333 = 1.65$ m.
 
-- **Kinematics of a Differential Drive Robot**:
-  $$
-  \begin{cases}
-  v_l = r \cdot \omega_l \\
-  v_r = r \cdot \omega_r \\
-  v = \frac{v_l + v_r}{2} \\
-  \omega = \frac{v_r - v_l}{b}
-  \end{cases}
-  $$
-  where $v_l$ and $v_r$ are the velocities of the left and right wheels, $r$ is the wheel radius, $\omega_l$ and $\omega_r$ are the angular velocities of the left and right wheels, $v$ is the linear velocity of the robot, $\omega$ is the angular velocity of the robot, and $b$ is the distance between the wheels.
-  <br></br>
+Equal speeds give a straight line ($R = \infty$); equal and opposite speeds spin the robot in place ($R = 0$). The controller inverts these equations: given a desired $(v, \omega)$ from the planner, it computes the wheel speeds.
 
-- **Ackermann Steering Geometry**:
-  $$
-  \delta = \tan^{-1}\left(\frac{L}{R}\right)
-  $$
-  where $\delta$ is the steering angle, $L$ is the wheelbase (distance between front and rear axles), and $R$ is the turning radius.
-  <br></br>
+## Nonholonomic constraints
 
-- **Omnidirectional Wheel Velocity**:
-  $$
-  \begin{cases}
-  v_{x} = \frac{v_1 + v_2 + v_3 + v_4}{4} \\
-  v_{y} = \frac{v_1 - v_2 + v_3 - v_4}{4} \\
-  \omega = \frac{v_1 - v_2 - v_3 + v_4}{4d}
-  \end{cases}
-  $$
-  where $v_x$ and $v_y$ are the linear velocities in the x and y directions, $\omega$ is the angular velocity, $v_1$, $v_2$, $v_3$, and $v_4$ are the velocities of the four omnidirectional wheels, and $d$ is the distance from the wheel to the center of the robot.
+A differential-drive robot has three pose coordinates $(x, y, \theta)$ but only two controls. Its wheels cannot slide sideways: the constraint $\dot x \sin\theta - \dot y \cos\theta = 0$ holds at all times. It can still *reach* any pose (parallel parking proves it), but not by any path. A car is further limited by its minimum turning radius; for wheelbase $L_w$ and steering angle $\delta$, $R = L_w/\tan\delta$, so a 0.5 m wheelbase at 14° of steering turns on a 2 m radius. Planners for such robots must respect these constraints: Hybrid-A*, state lattices, Reeds–Shepp curves (see [[Nav2_Navigation]]).
 
----
+## Odometry and its errors
 
-## Impact on Robotics
+Counting wheel rotations gives **odometry**, a running pose estimate. Small errors in wheel radius or track width, and any wheel slip, accumulate without bound. A 1% error in track width alone makes the heading estimate drift by 1% of every turn. Robots therefore fuse wheel odometry with an IMU (often in an extended Kalman filter, such as `robot_localization`) and correct it against a map with lidar or vision (see [[Localization]]).
 
-- **Efficient Navigation**: Wheeled mobile robots are energy-efficient and capable of navigating structured environments with ease, making them suitable for indoor and urban applications.
+## In ROS 2
 
-- **Simplicity and Reliability**: The mechanical simplicity of wheeled designs makes these robots reliable and easy to maintain, reducing complexity in control and design.
+[[ros2_control]] provides standard controllers: `diff_drive_controller`, `ackermann_steering_controller`, `tricycle_controller` and `mecanum_drive_controller`. They take a velocity command (`geometry_msgs/TwistStamped`), drive the wheels, and publish odometry and the `odom → base_link` transform.
 
-- **Maneuverability**: Different wheel configurations allow for a range of maneuverability options, from simple differential drives to highly agile omnidirectional systems.
-
-- **Design and Integration**: The selection and integration of wheeled mobile robot designs are important aspects of [[Robot_Design]] and [[Mechatronics]], influencing the mobility and performance of robotic systems. Wheeled robots enable efficient and stable locomotion across various terrains.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
-LIST FROM "" WHERE contains(file.outlinks, [[Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Wheeled_Mobile_Robots]])
 ```

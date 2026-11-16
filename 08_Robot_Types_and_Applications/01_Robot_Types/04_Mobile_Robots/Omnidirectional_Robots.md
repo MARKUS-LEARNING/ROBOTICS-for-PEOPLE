@@ -1,88 +1,87 @@
 ---
 title: Omnidirectional Robots
-description: Omnidirectional Robots are mobile robotic systems capable of moving in any direction, providing high maneuverability and flexibility in navigation.
+description: "Omnidirectional robots can move in any direction and rotate at the same time, using mecanum wheels, omni wheels, swerve (independently steered) modules or ball drives. Covers how each works, mecanum-wheel kinematics with a computed sideways-motion example, trade-offs in efficiency and floor sensitivity, and where holonomic bases are used in 2026 (factory AGVs, mobile manipulators, wheeled humanoids)."
+aliases:
+  - Omnidirectional Robot
+  - Holonomic Robots
+  - Mecanum Wheels
+  - Swerve Drive
 tags:
-  - mobility
-  - mechanics
-  - control
+  - mobile-robot
+  - kinematics
+  - locomotion
 type: robot-type
-level: beginner
+level: intermediate
 subfield:
   - mobile-robots
-status: draft
+  - kinematics-dynamics
+status: reviewed
 author: Jordan_Smith
-date: 2025-04-29
-related:
-  - "[[Robot_Design]]"
-  - "[[Mechatronics]]"
-  - "[[Control_Systems]]"
-  - "[[Actuator]]"
+date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
   - "[[Wheeled_Mobile_Robots]]"
-  - "[[Manipulator_Arm]]"
-  - "[[Legged_Robots]]"
-  - "[[Sensors]]"
+related:
+  - "[[Mobile_Robots]]"
+  - "[[ros2_control]]"
+  - "[[Nav2_Navigation]]"
+key_takeaways:
+  - "Holonomic (omnidirectional) bases can move in x, y and rotate independently, so they can strafe into tight spots and hold an arm steady while repositioning."
+  - "Mecanum wheels use angled rollers so wheel-speed combinations produce sideways motion; for pure strafing the diagonal wheel pairs spin in opposite senses."
+  - "The price is efficiency, payload sensitivity and floor sensitivity (rollers dislike debris and gaps); swerve drives avoid most of this at higher mechanical cost."
+sources:
+  - "Lynch, K. M. and Park, F. C. (2017). Modern Robotics, chapter 13: Wheeled Mobile Robots. https://hades.mech.northwestern.edu/index.php/Modern_Robotics"
+  - "Siegwart, R., Nourbakhsh, I. R. and Scaramuzza, D. (2011). Introduction to Autonomous Mobile Robots, 2nd edition. https://mitpress.mit.edu/9780262015356/introduction-to-autonomous-mobile-robots/"
+  - "ros-controls (2026). ros2_controllers: mecanum_drive_controller. https://github.com/ros-controls/ros2_controllers/tree/master/mecanum_drive_controller"
 ---
 
 # Omnidirectional Robots
 
-**Omnidirectional Robots** are mobile robotic systems capable of moving in any direction, providing high maneuverability and flexibility in navigation. These robots use specialized wheel designs, such as Mecanum or omni-wheels, which allow them to move sideways, rotate in place, and navigate complex environments with ease. Omnidirectional robots are particularly useful in applications requiring precise positioning and agile movement, such as warehouse automation, service robotics, and research platforms.
+An **omnidirectional** (holonomic) robot can move in any direction on the floor, forwards, sideways or diagonally, and rotate, all at once and without first turning. That makes it ideal for tight spaces and for **mobile manipulation**, where the base must make small precise moves while an arm works.
 
----
+> **Etymology.** Latin *omnis*, "all", + *directio*. The **mecanum** wheel was invented by Bengt Ilon at the Swedish company Mecanum AB in 1973. *Holonomic* is from Greek *holos*, "whole", + *nomos*, "law": a system whose constraints restrict only position, not velocity.
 
-## Key Components of Omnidirectional Robots
+## Ways to achieve it
 
-1. **Mecanum Wheels**: Wheels with rollers attached at an angle to the wheel rim, allowing for movement in any direction. Mecanum wheels enable smooth omnidirectional motion and are commonly used in robotic platforms.
+| Mechanism | How | Pros | Cons |
+|---|---|---|---|
+| **Mecanum wheels** | Rollers at 45° around each wheel; four wheels in an X pattern | Compact, simple drive | Rollers wear; sensitive to floor debris and gaps; vibration |
+| **Omni wheels** | Rollers at 90°; three wheels at 120° or four at 90° | Simple, smooth on flat floors | Low traction and payload |
+| **Swerve (steered) drive** | Each wheel module steers and drives independently | Full traction and efficiency | Complex: two motors per wheel |
+| **Ball drive** | Robot balances on a driven sphere | Graceful, very agile | Must balance actively; research platforms |
 
-2. **Omni-Wheels**: Similar to Mecanum wheels but with rollers perpendicular to the wheel rim. Omni-wheels provide excellent maneuverability but may have slightly less traction compared to Mecanum wheels.
+## Mecanum kinematics, computed
 
-3. **Control Systems**: Advanced control algorithms are used to coordinate the movement of multiple wheels, ensuring precise and stable omnidirectional motion. These systems often involve kinematic modeling and real-time feedback.
+For four mecanum wheels of radius $r$, with $l_x$ and $l_y$ the half-length and half-width of the wheel layout, and body velocity $(v_x, v_y, \omega_z)$, the wheel speeds are (one common sign convention, X-pattern rollers):
 
----
+$$
+\begin{aligned}
+\omega_{FL} &= \tfrac{1}{r}\,[\,v_x - v_y - (l_x + l_y)\omega_z\,] &\qquad \omega_{FR} &= \tfrac{1}{r}\,[\,v_x + v_y + (l_x + l_y)\omega_z\,]\\
+\omega_{RL} &= \tfrac{1}{r}\,[\,v_x + v_y - (l_x + l_y)\omega_z\,] &\qquad \omega_{RR} &= \tfrac{1}{r}\,[\,v_x - v_y + (l_x + l_y)\omega_z\,]
+\end{aligned}
+$$
 
-## Key Equations
+**Example: strafe left at 0.5 m/s** ($v_x = 0$, $v_y = 0.5$, $\omega_z = 0$) with $r = 0.05$ m. Each wheel turns at $0.5 / 0.05 = 10$ rad/s:
+- front-left and rear-right at −10 rad/s;
+- front-right and rear-left at +10 rad/s.
 
-- **Kinematics of Omnidirectional Robots**:
-  $$
-  \begin{cases}
-  v_x = \frac{v_1 + v_2 + v_3 + v_4}{4} \\
-  v_y = \frac{v_1 - v_2 + v_3 - v_4}{4} \\
-  \omega = \frac{v_1 - v_2 - v_3 + v_4}{4d}
-  \end{cases}
-  $$
-  where $v_x$ and $v_y$ are the linear velocities in the x and y directions, $\omega$ is the angular velocity, $v_1$, $v_2$, $v_3$, and $v_4$ are the velocities of the four omnidirectional wheels, and $d$ is the distance from the wheel to the center of the robot.
-  <br></br>
+The diagonal pairs counter-rotate, and the roller forces cancel forward and add sideways. Signs depend on roller orientation and axis conventions, so check them against your robot's controller (ROS 2's `mecanum_drive_controller` documents its convention).
 
-- **Inverse Kinematics**:
-  $$
-  \begin{cases}
-  v_1 = v_x - v_y + d\omega \\
-  v_2 = v_x + v_y - d\omega \\
-  v_3 = v_x + v_y + d\omega \\
-  v_4 = v_x - v_y - d\omega
-  \end{cases}
-  $$
-  These equations are used to determine the individual wheel velocities required to achieve a desired motion of the robot.
+## Trade-offs
 
----
+- **Efficiency.** Mecanum and omni wheels waste energy in roller slip, especially when strafing, and push less hard sideways than forwards.
+- **Floors.** Rollers need clean, flat floors; cable covers and gaps cause jolts that disturb odometry.
+- **Odometry.** Roller slip makes wheel odometry less reliable than on differential drives, so fuse it with an IMU and lidar.
 
-## Impact on Robotics
+## Where they are used (2026)
 
-- **High Maneuverability**: Omnidirectional robots can move in any direction, making them highly maneuverable and suitable for navigating complex and confined spaces.
+- Factory and warehouse transport of large loads in tight aisles (often swerve drives).
+- **Mobile manipulators and wheeled humanoids**, where the base repositions precisely under a working arm or torso.
+- Research and education robots, and robotics competitions, where omni and mecanum bases are standard.
 
-- **Precise Positioning**: The ability to move sideways and rotate in place allows for precise positioning, which is crucial for tasks requiring exact placement or alignment.
-
-- **Flexibility in Navigation**: Omnidirectional robots can adapt to various environments and tasks, making them versatile tools in robotics research and industrial applications.
-
-- **Design and Integration**: The selection and integration of omnidirectional robot designs are important aspects of [[Robot_Design]] and [[Mechatronics]], influencing the mobility and performance of robotic systems. Omnidirectional robots enable flexible and precise navigation across various terrains.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
-LIST FROM "" WHERE contains(file.outlinks, [[Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Omnidirectional_Robots]])
 ```
