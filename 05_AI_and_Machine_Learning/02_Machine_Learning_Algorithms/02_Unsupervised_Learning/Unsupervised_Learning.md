@@ -1,99 +1,89 @@
 ---
 title: Unsupervised Learning
-description: Unsupervised Learning is a type of machine learning where a model is trained on an unlabeled dataset, enabling it to discover patterns and structures in the data, widely used in robotics for tasks such as clustering and dimensionality reduction.
+description: "Unsupervised learning finds structure in data without labels: clusters, low-dimensional representations, densities and anomalies. Covers k-means with a computed example on motor-vibration data, PCA and autoencoders, density estimation, the rise of self-supervised learning (the unsupervised idea that powers foundation models), and robotics uses in 2026."
+aliases:
+  - Unsupervised Machine Learning
+  - Self-Supervised Learning
 tags:
-  - unsupervised-learning
   - machine-learning
-  - artificial-intelligence
-type: method
-level: intermediate
+  - clustering
+  - robot-learning
+type: concept
+level: beginner
 subfield:
   - robot-learning
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
   - "[[Machine_Learning]]"
 related:
-  - "[[Machine_Learning]]"
-  - "[[Robot_Control]]"
-  - "[[Data_Analysis]]"
+  - "[[Supervised_Learning]]"
+  - "[[Semi-Supervised_Learning]]"
+  - "[[Autoencoders]]"
+  - "[[Classification_vs_Regression_vs_Clustering]]"
+  - "[[World_Models]]"
+key_takeaways:
+  - "Without labels, a model can still learn groups (clustering), compact descriptions (dimensionality reduction), what is normal (density), and therefore what is abnormal."
+  - "Self-supervised learning, which predicts hidden parts of the data from the rest, turned the unsupervised idea into the main way large models are pretrained."
+  - "Robots use it to compress sensor data, discover skills or modes in demonstrations, detect faults and novel situations, and pretrain visual and world models."
+sources:
+  - "Lloyd, S. (1982). Least squares quantization in PCM. https://ieeexplore.ieee.org/document/1056489"
+  - "Hastie, T., Tibshirani, R. and Friedman, J. (2009). The Elements of Statistical Learning, chapter 14: Unsupervised Learning. https://hastie.su.domains/ElemStatLearn/"
+  - "Chen, T. et al. (2020). A Simple Framework for Contrastive Learning of Visual Representations. https://arxiv.org/abs/2002.05709"
+  - "He, K. et al. (2021). Masked Autoencoders Are Scalable Vision Learners. https://arxiv.org/abs/2111.06377"
+  - "Oquab, M. et al. (2023). DINOv2: Learning Robust Visual Features without Supervision. https://arxiv.org/abs/2304.07193"
 ---
 
 # Unsupervised Learning
 
-**Unsupervised Learning** is a type of machine learning where a model is trained on an unlabeled dataset, enabling it to discover patterns and structures in the data. It is widely used in robotics for tasks such as clustering and dimensionality reduction, where the model learns to identify inherent groupings or reduce the complexity of the data without prior knowledge of the output. Unsupervised learning is essential for exploring and understanding the underlying structure of data, facilitating tasks such as anomaly detection, feature extraction, and exploratory data analysis.
+**Unsupervised learning** looks for structure in data that has no labels. Nobody says what the right answer is; the algorithm finds groups, patterns and compact descriptions on its own. Since most of the data a robot collects is unlabelled, this matters a great deal.
 
----
+> **Etymology.** *Un-* + *supervised*: learning with no teacher supplying answers (see [[Supervised_Learning]]). *Self-supervised*, popularised in the late 2010s, names the variant where the data supplies its own targets.
 
-## Key Concepts
+## What it can find
 
-### Clustering
+| Goal | Methods | Robot example |
+|---|---|---|
+| **Clusters** | k-means, Gaussian mixtures, DBSCAN | Group demonstrations into strategies; segment point clouds into objects |
+| **Lower-dimensional structure** | PCA, [[Autoencoders]], t-SNE and UMAP (for visualisation) | Compress images for a policy; find the few "synergies" that explain most hand motion |
+| **Density (what is normal)** | Gaussian mixtures, normalising flows, autoencoder reconstruction error | Detect faults and novel situations |
+| **Representations** | Self-supervised learning (contrastive, masked prediction) | Pretrained visual encoders for perception and control |
 
-Clustering involves grouping data points into clusters based on their similarity. It is used in robotics for tasks such as object segmentation, where the model identifies distinct groups within the data, enabling the robot to recognize and interact with different objects in its environment.
+## Worked example: k-means on motor vibration
 
-### Dimensionality Reduction
+A robot logs the RMS vibration (in g) of one joint motor in six sessions: 1.0, 1.2, 0.9, 3.1, 2.9, 3.3. Find $k = 2$ groups, starting from centres $c_1 = 1.0$ and $c_2 = 1.2$.
 
-Dimensionality reduction involves reducing the number of input variables in a dataset while retaining its essential structure. It is used in robotics for tasks such as feature extraction, where the model simplifies the data to improve computational efficiency and interpretability.
+| Iteration | Assign each point to the nearest centre | New centres (means) |
+|---|---|---|
+| 1 | {1.0, 0.9} · {1.2, 3.1, 2.9, 3.3} | 0.95, 2.625 |
+| 2 | {1.0, 1.2, 0.9} · {3.1, 2.9, 3.3} | 1.033, 3.100 |
+| 3 | unchanged → converged | 1.033, 3.100 |
 
-### Feature Learning
+Two regimes appear: normal (≈ 1.0 g) and something different (≈ 3.1 g), perhaps a worn bearing or a different payload. The algorithm cannot say which; a person, or a later supervised model, interprets the clusters. This is typical: unsupervised learning proposes structure, and meaning comes from elsewhere.
 
-Feature learning involves automatically discovering the representations needed for feature detection or classification from raw data. It is used in robotics for tasks such as pattern recognition, where the model learns to identify relevant features in the data.
+k-means alternates two steps, assigning points to the nearest centre and moving each centre to its points' mean, until nothing changes. It needs $k$ chosen in advance, assumes roughly round clusters, and depends on the starting centres (run it several times, or use k-means++).
 
-### Anomaly Detection
+## Self-supervised learning: the unsupervised idea at scale
 
-Anomaly detection involves identifying data points that deviate significantly from the majority of the data. It is used in robotics for tasks such as fault detection, where the model recognizes unusual patterns that may indicate errors or malfunctions.
+Self-supervised methods create a training signal from the data itself:
+- **Masked prediction**: hide 75% of image patches and reconstruct them (MAE), or hide words and predict them (as in language models).
+- **Contrastive learning**: pull together two augmented views of the same image, push apart different images (SimCLR, 2020).
+- **Self-distillation**: a student network matches a teacher on different crops (DINOv2, 2023).
+- **Predicting the future**: predict the next video frames or the next sensor readings, which is the principle behind [[World_Models|world models]].
 
----
+Pretrained this way on huge unlabelled collections, models learn general features that need only a little labelled data afterwards. This is how almost every 2026 foundation model, including those inside robot policies, begins.
 
-## Mathematical Formulation
+## Uses in robotics
 
-### K-Means Clustering
+- **Anomaly and novelty detection**: flag unusual motor currents, unexpected objects, or inputs unlike the training data (a cue to slow down or ask for help).
+- **Demonstration analysis**: cluster or segment long demonstrations into skills and sub-tasks.
+- **Perception**: segment point clouds into objects without class labels.
+- **Pretraining**: visual encoders, video world models and latent action models trained on unlabelled human and robot video.
 
-K-means clustering is an unsupervised learning technique used to partition a dataset into $k$ clusters. The objective is to minimize the within-cluster variance, given by:
-
-$$
-J = \sum_{i=1}^{k} \sum_{x \in C_i} \| x - \mu_i \|^2
-$$
-
-where:
-- $J$ is the objective function.
-- $C_i$ is the $i$-th cluster.
-- $\mu_i$ is the centroid of the $i$-th cluster.
-
-### Principal Component Analysis (PCA)
-
-Principal Component Analysis (PCA) is a dimensionality reduction technique used to transform the data into a lower-dimensional space while retaining most of its variance. The transformation is defined by the eigenvectors of the covariance matrix of the data, given by:
-
-$$
-X' = X \cdot W
-$$
-
-where:
-- $X$ is the original data matrix.
-- $W$ is the matrix of eigenvectors.
-- $X'$ is the transformed data matrix.
-
-### Example: Object Segmentation
-
-Consider a robotic system using unsupervised learning for object segmentation. The model uses clustering to group similar data points, identifying distinct objects within the environment. This enables the robot to recognize and interact with different objects, facilitating tasks such as grasping and manipulation.
-
----
-
-## Applications in Robotics
-
-- **Object Segmentation**: Unsupervised learning is used to segment objects within the environment, enabling tasks such as grasping and manipulation.
-- **Anomaly Detection**: Enables robots to detect anomalies in the data, identifying potential errors or malfunctions in the system.
-- **Feature Extraction**: Allows robots to extract relevant features from the data, improving the efficiency and interpretability of tasks such as pattern recognition.
-- **Exploratory Data Analysis**: Facilitates the exploration and understanding of the underlying structure of data, enabling robots to adapt and perform tasks effectively.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Unsupervised_Learning]])
