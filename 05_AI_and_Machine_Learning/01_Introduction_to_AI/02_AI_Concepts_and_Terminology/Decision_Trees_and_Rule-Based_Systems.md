@@ -1,96 +1,103 @@
 ---
 title: Decision Trees and Rule-Based Systems
-description: Decision Trees and Rule-Based Systems are techniques used in robotics for making decisions and controlling behaviors based on structured rules and learned patterns, enabling tasks such as classification and control.
+description: "Decision trees learn if-then rules from data; rule-based systems are written by experts; behaviour trees organise a robot's actions. Covers how a tree chooses splits with a computed information-gain example on terrain data, random forests and gradient boosting (still the best tools for many tabular problems), expert systems, and behaviour trees as the standard way to structure robot tasks in 2026 (Nav2, BehaviorTree.CPP)."
+aliases:
+  - Decision Tree
+  - Random Forest
+  - Gradient Boosting
+  - Rule-Based Systems
+  - Behavior Trees
 tags:
-  - decision-trees
-  - rule-based-systems
   - machine-learning
-  - control
-  - mobile-robot
+  - classification
+  - behavior-tree
+  - decision-making
 type: concept
 level: intermediate
 subfield:
   - robot-learning
-status: draft
+  - planning
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
+  - "[[Supervised_Learning]]"
 related:
-  - "[[Machine_Learning]]"
-  - "[[Control_Systems]]"
-  - "[[Robot_Control]]"
-  - "[[Classification]]"
-  - "[[Data_Analysis]]"
+  - "[[Classification_vs_Regression_vs_Clustering]]"
+  - "[[Knowledge_Representation_and_Reasoning]]"
+  - "[[Nav2_Navigation]]"
+  - "[[Agents_and_Environments]]"
+key_takeaways:
+  - "A decision tree asks a sequence of yes/no questions about features; learning picks, at each node, the question that best separates the classes (largest information gain)."
+  - "Ensembles of trees (random forests, gradient boosting such as XGBoost) remain state of the art on tabular data, and are fast and interpretable enough for onboard diagnostics."
+  - "Behaviour trees, related in name and spirit, are hand-designed trees of conditions and actions; they are how Nav2 and many robot task frameworks structure decisions, and increasingly what language-model planners generate."
+sources:
+  - "Quinlan, J. R. (1986). Induction of decision trees. https://link.springer.com/article/10.1007/BF00116251"
+  - "Breiman, L. (2001). Random Forests. https://link.springer.com/article/10.1023/A:1010933404324"
+  - "Chen, T. and Guestrin, C. (2016). XGBoost: A Scalable Tree Boosting System. https://arxiv.org/abs/1603.02754"
+  - "Grinsztajn, L., Oyallon, E. and Varoquaux, G. (2022). Why do tree-based models still outperform deep learning on tabular data? https://arxiv.org/abs/2207.08815"
+  - "Colledanchise, M. and Ögren, P. (2017). Behavior Trees in Robotics and AI: An Introduction. https://arxiv.org/abs/1709.00084"
+  - "BehaviorTree.CPP contributors (2026). BehaviorTree.CPP. https://github.com/BehaviorTree/BehaviorTree.CPP"
 ---
 
 # Decision Trees and Rule-Based Systems
 
-**Decision Trees** and **Rule-Based Systems** are techniques used in robotics for making decisions and controlling behaviors based on structured rules and learned patterns. Decision trees are a type of supervised learning model that uses a tree-like model of decisions and their possible consequences, while rule-based systems use a set of predefined rules to determine actions and outcomes. These techniques are widely used in robotics for tasks such as classification, control, and decision-making.
+Some of the most practical tools in AI are trees of if-then questions. They come in three forms that robotics uses: **decision trees** learned from data, **rule-based systems** written by experts, and **behaviour trees** that organise what a robot does next.
 
----
+> **Etymology.** The *tree* picture is a root question branching into answers, ending in leaves. Ross Quinlan's ID3 (1986) and Breiman et al.'s CART (1984) made learned trees practical. *Behaviour trees* came from video-game AI in the mid-2000s and entered robotics around 2012.
 
-## Key Concepts
+## Learned decision trees
 
-### Decision Trees
+A tree asks a question at each node ("slope > 15°?") and follows the branch, until a leaf gives the prediction. Learning grows the tree top-down, choosing at each node the question that best separates the outcomes.
 
-Decision trees are a supervised learning technique where the model learns to make decisions based on a series of hierarchical, tree-like structures. Each internal node represents a decision based on a feature, each branch represents the outcome of the decision, and each leaf node represents a class label or decision outcome.
+### Worked example: which question first?
 
-### Rule-Based Systems
+A legged robot logged 10 terrain patches: 6 traversable, 4 not. Two candidate questions:
 
-Rule-based systems use a set of predefined rules to make decisions and control behaviors. These rules are typically in the form of "if-then" statements, where the "if" part specifies the conditions under which the rule applies, and the "then" part specifies the action or outcome.
+The **entropy** of the labels before splitting is $H = -0.6\log_2 0.6 - 0.4\log_2 0.4 = 0.971$ bits.
 
-### Classification
+| Split | Branch contents | Branch entropy | Weighted entropy | **Information gain** |
+|---|---|---|---|---|
+| Slope > 15°? | yes: 1 traversable, 4 not · no: 5 traversable, 0 not | 0.722 · 0 | 0.5(0.722) + 0.5(0) = 0.361 | 0.971 − 0.361 = **0.610** |
+| Surface wet? | yes: 2, 2 · no: 4, 2 | 1.000 · 0.918 | 0.4(1.0) + 0.6(0.918) = 0.951 | 0.971 − 0.951 = **0.020** |
 
-Classification involves predicting the category or class of input data based on its features. Decision trees and rule-based systems are used in robotics for tasks such as object recognition, where the model learns to classify objects into predefined categories.
+Slope separates the outcomes far better, so the tree asks about slope first. It then repeats inside each branch, and stops when leaves are pure or too small (to avoid overfitting).
 
-### Control Systems
+## Ensembles: forests and boosting
 
-Control systems involve regulating the behavior of robotic systems based on structured rules and learned patterns. Decision trees and rule-based systems are used to design control algorithms that enable precise and adaptive control.
+A single tree overfits easily (see [[Bias,_Variance,_and_Overfitting]]). Ensembles fix that:
+- **Random forests** average many trees, each trained on a random sample of data and features.
+- **Gradient boosting** (XGBoost, LightGBM, CatBoost) adds trees one at a time, each correcting the errors of the ensemble so far.
 
----
+On **tabular data**, rows of measured features such as motor temperatures, currents, error counts and battery data, boosted trees still match or beat deep networks in most benchmarks (Grinsztajn et al., 2022), train in seconds, and show which features matter. That makes them a good fit for predictive maintenance, battery health and fault classification on robots.
 
-## Mathematical Formulation
+## Rule-based and expert systems
 
-### Decision Tree Splitting Criterion
+Rules written by people ("IF gripper current > 2 A AND object not detected THEN report jam") were the core of 1970s–80s **expert systems**. They are transparent and easy to certify, but brittle and costly to extend by hand. Robots still use them for safety interlocks and diagnostics, where predictability matters more than flexibility; see [[Knowledge_Representation_and_Reasoning]].
 
-The splitting criterion in a decision tree determines how the tree is constructed by selecting the best feature to split the data at each node. Common splitting criteria include Gini impurity and information gain. The Gini impurity for a node $t$ is given by:
+## Behaviour trees: structuring robot tasks
 
-$$
-G(t) = 1 - \sum_{i=1}^{c} p(i|t)^2
-$$
+A **behaviour tree (BT)** is not learned from data. It is a hand-designed tree that decides which action to run, re-evaluated many times per second:
 
-where:
-- $G(t)$ is the Gini impurity for node $t$.
-- $p(i|t)$ is the proportion of class $i$ at node $t$.
-- $c$ is the number of classes.
+| Node | Behaviour |
+|---|---|
+| **Sequence** (→) | Run children in order; fail as soon as one fails |
+| **Fallback / Selector** (?) | Try children in order; succeed as soon as one succeeds |
+| **Condition** | Check something ("battery > 20%?") |
+| **Action** | Do something ("navigate to dock"), returning running, success or failure |
 
-### Rule-Based System Example
+```
+? Fallback
+├── → Sequence: [battery low?] → [navigate to dock] → [dock]
+└── → Sequence: [have goal?] → [compute path] → [follow path]
+        (on failure: ? Fallback → [clear costmap] → [spin] → [back up])
+```
 
-A rule-based system can be represented as a set of rules:
+BTs are modular, readable and reactive, which is why [[Nav2_Navigation|Nav2]] is built around them (BehaviorTree.CPP) and why many manipulation frameworks use them. In 2025–26, language-model planners often *generate* behaviour trees or skill sequences, which can then be inspected and checked before the robot runs them.
 
-$$
-\text{If } \text{condition}_1 \text{ and } \text{condition}_2 \text{ and } \ldots \text{ and } \text{condition}_n \text{, then action.}
-$$
-
-### Example: Robotic Control
-
-Consider a robotic system using a decision tree for control. The decision tree model learns to make decisions based on sensor data, such as the presence of obstacles or the position of objects. The model uses the tree-like structure to determine the best action to take, enabling the robot to navigate and interact with its environment effectively.
-
----
-
-## Applications in Robotics
-
-- **Object Recognition**: Decision trees and rule-based systems are used to recognize and classify objects in the environment, enabling tasks such as grasping and manipulation.
-- **Navigation**: Enables robots to navigate through their environment, making decisions based on structured rules and learned patterns.
-- **Control Systems**: Decision trees and rule-based systems are used to design control algorithms that regulate the behavior of robotic systems, enabling precise and adaptive control.
-- **Decision Making**: Facilitates the process of making decisions under uncertainty, adapting to changing conditions and performing tasks effectively.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Decision_Trees_and_Rule-Based_Systems]])

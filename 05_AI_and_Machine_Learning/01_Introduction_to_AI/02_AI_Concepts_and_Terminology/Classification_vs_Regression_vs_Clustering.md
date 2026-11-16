@@ -1,117 +1,87 @@
 ---
 title: Classification vs Regression vs Clustering
-description: This entry compares and contrasts Classification, Regression, and Clustering, highlighting their roles, methodologies, and applications in the field of robotics and machine learning.
+description: "Three basic kinds of prediction: classification picks a category, regression predicts a number, clustering finds groups without labels. Compares them on the same robot-grasping data, explains the loss and metrics each uses, and shows with a computed example how robot actions can be treated either way: discretised into tokens (classification, as in RT-2 and OpenVLA) or predicted continuously (regression and generative models)."
+aliases:
+  - Classification
+  - Regression
+  - Clustering
 tags:
+  - machine-learning
   - classification
   - regression
   - clustering
-  - machine-learning
-  - data-analysis
-  - mobile-robot
 type: concept
-level: intermediate
+level: beginner
 subfield:
   - robot-learning
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
   - "[[Machine_Learning]]"
 related:
-  - "[[Machine_Learning]]"
   - "[[Supervised_Learning]]"
   - "[[Unsupervised_Learning]]"
-  - "[[Robot_Control]]"
-  - "[[Data_Analysis]]"
+  - "[[Optimization_and_Loss_Functions]]"
+  - "[[Vision-Language-Action_Models]]"
+key_takeaways:
+  - "Classification answers 'which one?', regression answers 'how much?', clustering answers 'what groups exist?' (with no labels)."
+  - "Each comes with its own loss and metrics: cross-entropy and precision/recall; squared error and RMSE; within-cluster spread and silhouette."
+  - "Robot actions can be framed as classification over discretised bins (token-based VLAs) or as regression or generation of continuous values (diffusion and flow policies); the choice trades resolution against multimodality and compatibility with language models."
+sources:
+  - "Hastie, T., Tibshirani, R. and Friedman, J. (2009). The Elements of Statistical Learning. https://hastie.su.domains/ElemStatLearn/"
+  - "Bishop, C. M. (2006). Pattern Recognition and Machine Learning. https://www.microsoft.com/en-us/research/publication/pattern-recognition-machine-learning/"
+  - "Brohan, A. et al. (2023). RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control. https://arxiv.org/abs/2307.15818"
+  - "Kim, M. J. et al. (2024). OpenVLA: An Open-Source Vision-Language-Action Model. https://arxiv.org/abs/2406.09246"
+  - "Chi, C. et al. (2023). Diffusion Policy: Visuomotor Policy Learning via Action Diffusion. https://arxiv.org/abs/2303.04137"
 ---
 
 # Classification vs Regression vs Clustering
 
-This entry compares and contrasts **Classification**, **Regression**, and **Clustering**, highlighting their roles, methodologies, and applications in the field of robotics and machine learning. Understanding these techniques is essential for developing models that can interpret and interact with their environment effectively.
+Most machine-learning problems are one of three questions. Recognising which one you are asking decides the model's output layer, its loss, how you measure success and what data you need.
 
----
+> **Etymology.** *Classification* is from Latin *classis*, "a division of the people": sorting into divisions. *Regression* is from *regredi*, "to go back": Francis Galton (1886) observed that the children of very tall parents "regress" toward average height, and the fitting method kept the name. *Cluster* is from Old English *clyster*, "a bunch".
 
-## Key Concepts
+## Side by side
 
-### Classification
+| | Classification | Regression | Clustering |
+|---|---|---|---|
+| Question | Which category? | How much? | What groups exist? |
+| Labels needed | Yes, categories | Yes, numbers | **No** |
+| Output | Class probabilities | Real number(s) | Group assignments |
+| Typical loss | Cross-entropy | Squared or absolute error | Within-cluster distance (k-means) |
+| Metrics | Accuracy, precision, recall, F1 | RMSE, MAE, R² | Silhouette score, inspection |
+| Learning type | [[Supervised_Learning\|Supervised]] | Supervised | [[Unsupervised_Learning\|Unsupervised]] |
 
-**Classification** is a supervised learning technique where the model predicts the category or class of input data based on its features. It is used in robotics for tasks such as object recognition, where the model learns to classify objects into predefined categories.
+## One dataset, three questions
 
-### Regression
+A robot records 10,000 grasp attempts: a depth-image crop, the grasp pose, and the outcome.
 
-**Regression** is a supervised learning technique where the model predicts a continuous output value based on input data. It is used in robotics for tasks such as trajectory planning, where the model learns to predict the path or motion of a robotic system.
+- **Classification**: will this grasp succeed? (success / failure)
+- **Regression**: how much lifting force will the grasp hold before slipping? (newtons)
+- **Clustering**: what kinds of grasp does the robot use? Without labels, k-means on the grasp poses might reveal top-down pinches, side grasps and edge grasps, which a person then names.
 
-### Clustering
+## Robot actions: classification or regression?
 
-**Clustering** is an unsupervised learning technique where the model groups data points into clusters based on their similarity. It is used in robotics for tasks such as object segmentation, where the model identifies distinct groups within the data, enabling the robot to recognize and interact with different objects in its environment.
+Robot actions are continuous (joint angles, end-effector velocities), but they can be predicted either way.
 
----
+**As classification (tokens).** RT-2 (2023) and OpenVLA (2024) divide each action dimension into **256 bins** and predict one bin per dimension, exactly as a language model predicts the next word. This lets them reuse a pretrained vision-language model unchanged.
 
-## Comparative Overview
+*Resolution check.* For a joint with a full turn of range, one bin is $2\pi/256 = 0.0245$ rad ≈ 1.4°. For an end-effector displacement range of 0.5 m, one bin is about 2 mm. That is fine for picking up a cup and too coarse for inserting a peg with sub-millimetre clearance, unless the range is narrowed or more bins are used (1,024 bins over 0.5 m give about 0.5 mm).
 
-### Methodologies
+**As regression or generation.** A regression head predicts continuous values directly, which gives precise values but, with squared error, averages different valid behaviours into an invalid one. [[Diffusion_Policy|Diffusion and flow-matching]] heads generate continuous action chunks *and* represent several valid behaviours. They became the most common choice in 2025–26 generalist policies such as π0 and GR00T.
 
-- **Classification**: Uses labeled data to train the model, predicting discrete class labels for new data.
-- **Regression**: Uses labeled data to train the model, predicting continuous output values for new data.
-- **Clustering**: Uses unlabeled data to train the model, identifying inherent groupings or patterns within the data.
+**Classification also captures multiple modes.** A softmax over bins can put probability on two separate bins, which is one reason token-based policies handle multimodal demonstrations better than plain regression.
 
-### Applications in Robotics
+## Choosing in practice
 
-- **Classification**: Used for recognizing and classifying objects in the environment, enabling tasks such as grasping and manipulation.
-- **Regression**: Applied for predicting paths and motions, facilitating tasks such as navigation and control.
-- **Clustering**: Utilized for segmenting and grouping objects, enabling tasks such as object recognition and interaction.
+- Is the target a category? Classification. Is it a quantity? Regression.
+- No labels but a lot of data? Start with clustering or other unsupervised methods to understand it.
+- Is the quantity continuous but multimodal (several right answers)? Use a classifier over bins, a mixture model, or a generative model, not plain regression.
 
----
-
-## Mathematical Formulation
-
-### Linear Regression
-
-Linear regression is a supervised learning technique used to model the relationship between a dependent variable and one or more independent variables. The linear regression model can be represented as:
-
-$$
-y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \ldots + \beta_n x_n + \epsilon
-$$
-
-where:
-- $y$ is the dependent variable.
-- $x_1, x_2, \ldots, x_n$ are the independent variables.
-- $\beta_0, \beta_1, \ldots, \beta_n$ are the regression coefficients.
-- $\epsilon$ is the error term.
-
-### K-Means Clustering
-
-K-means clustering is an unsupervised learning technique used to partition a dataset into $k$ clusters. The objective is to minimize the within-cluster variance, given by:
-
-$$
-J = \sum_{i=1}^{k} \sum_{x \in C_i} \| x - \mu_i \|^2
-$$
-
-where:
-- $J$ is the objective function.
-- $C_i$ is the $i$-th cluster.
-- $\mu_i$ is the centroid of the $i$-th cluster.
-
-### Example: Object Recognition
-
-Consider a robotic system using classification, regression, and clustering for object recognition. The classification model predicts the category of objects in the environment, the regression model predicts the position and orientation of the objects, and the clustering model groups similar objects, enabling the robot to recognize, interact with, and manipulate objects effectively.
-
----
-
-## Applications in Robotics
-
-- **Object Recognition**: Classification, regression, and clustering are used to recognize and classify objects in the environment, enabling tasks such as grasping and manipulation.
-- **Navigation**: Applied for predicting paths and avoiding obstacles, facilitating tasks such as autonomous navigation and control.
-- **Decision Making**: Utilized for making decisions under uncertainty, adapting to changing conditions and performing tasks effectively.
-- **Control Systems**: Classification, regression, and clustering are used to design control algorithms that regulate the behavior of robotic systems, enabling precise and adaptive control.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Classification_vs_Regression_vs_Clustering]])
