@@ -17,7 +17,7 @@ related:
   - "[[Modular_Robotics]]"
   - "[[Adaptive_Control]]"
   - "[[Human-Robot_Interaction]]"
-  - "[[Autonomous_Systems]]"
+  - "[[Autonomous_Robots]]"
 ---
 
 # Reconfigurable Robots
@@ -68,7 +68,7 @@ related:
 
 - **Efficient Resource Utilization**: By allowing robots to be reconfigured for different tasks, reconfigurable robots promote efficient use of resources, reducing the need for multiple specialized robots and lowering operational costs.
 
-- **Enhanced Autonomy**: The ability to self-reconfigure and adapt to changing conditions enhances the autonomy of robotic systems, enabling them to operate effectively in dynamic and unpredictable environments. This is crucial in applications like [[Autonomous Systems]] and [[Search and Rescue Robotics]].
+- **Enhanced Autonomy**: The ability to self-reconfigure and adapt to changing conditions enhances the autonomy of robotic systems, enabling them to operate effectively in dynamic and unpredictable environments. This is crucial in applications like [[Autonomous_Robots|Autonomous Systems]] and [[Search and Rescue Robotics]].
 
 - **Collaboration and Coordination**: Reconfigurable robots can operate within [[Multi-Agent Systems]], where their adaptability and flexibility contribute to the overall system's ability to collaborate and coordinate actions to achieve common goals.
 

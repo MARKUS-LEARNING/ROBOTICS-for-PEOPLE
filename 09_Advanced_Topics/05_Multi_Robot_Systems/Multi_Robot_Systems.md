@@ -14,7 +14,7 @@ author: Jordan_Smith
 date: 2025-05-02
 related:
   - "[[Robot_Control]]"
-  - "[[Autonomous_Systems]]"
+  - "[[Autonomous_Robots]]"
   - "[[Machine_Learning]]"
 ---
 

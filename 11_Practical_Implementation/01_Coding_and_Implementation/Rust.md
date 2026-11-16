@@ -17,7 +17,7 @@ related:
   - "[[Programming]]"
   - "[[Software_Development]]"
   - "[[Robot_Control]]"
-  - "[[Autonomous_Systems]]"
+  - "[[Autonomous_Robots]]"
   - "[[Machine_Learning]]"
 ---
 

@@ -19,7 +19,7 @@ related:
   - "[[Navigation]]"
   - "[[Localization]]"
   - "[[Robot_Design]]"
-  - "[[Autonomous_Systems]]"
+  - "[[Autonomous_Robots]]"
 ---
 
 # GPS

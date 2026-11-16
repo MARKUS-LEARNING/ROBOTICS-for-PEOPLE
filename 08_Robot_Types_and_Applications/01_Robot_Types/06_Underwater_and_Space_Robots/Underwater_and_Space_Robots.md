@@ -27,7 +27,7 @@ related:
   - "[[Navigation]]"
   - "[[Localization]]"
   - "[[Manipulation]]"
-  - "[[Autonomy]]"
+  - "[[Autonomous_Robots]]"
   - "[[Robot_Types_and_Applications]]"
 ---
 
@@ -72,7 +72,7 @@ These robots operate beyond Earth's atmosphere, either in orbit or on the surfac
 Both underwater and space robotics operate at the frontier of technology and face overlapping challenges:
 
 * **Extreme Environments:** High pressure/vacuum, vast temperature ranges, radiation, corrosive fluids, abrasive dust.
-* **Remote Operation & [[Autonomy]]:** Limited or delayed communication necessitates varying degrees of autonomy for decision-making, navigation, and fault recovery.
+* **Remote Operation & [[Autonomous_Robots|Autonomy]]:** Limited or delayed communication necessitates varying degrees of autonomy for decision-making, navigation, and fault recovery.
 * **Communication Constraints:** Bandwidth limitations (especially acoustic underwater) and significant signal latency (due to vast distances in space) impact real-time control and data return.
 * **Reliability:** Systems must operate reliably for long durations (months or years) with little or no possibility for manual repair. Fault detection, isolation, and recovery (FDIR) capabilities are critical.
 * **Power:** Generating and managing sufficient power from limited sources (batteries, solar, RTGs, tethers) for extended missions is a constant challenge.

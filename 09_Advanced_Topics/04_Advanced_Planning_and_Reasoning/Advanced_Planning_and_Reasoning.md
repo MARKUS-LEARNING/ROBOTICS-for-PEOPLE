@@ -20,7 +20,7 @@ related:
   - "[[Artificial_Intelligence]]"
   - "[[Control_Systems]]"
   - "[[Robot_Control]]"
-  - "[[Autonomous_Systems]]"
+  - "[[Autonomous_Robots]]"
   - "[[Machine_Learning]]"
 ---
 

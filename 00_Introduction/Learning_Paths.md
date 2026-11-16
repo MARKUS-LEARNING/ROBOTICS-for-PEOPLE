@@ -39,10 +39,10 @@ No background needed. What robots are, how they came to be, and the ideas everyt
 8. [[Artificial_Intelligence|Artificial Intelligence]] · *beginner*
 9. [[Statics]] · *beginner*
 10. [[Manipulation|Manipulation (Robotics)]] · *beginner*
-11. [[Workspace_Analysis|Workspace Analysis]] · *beginner*
-12. [[Manipulator_Arm|Manipulator Arm]] · *beginner*
-13. [[Mobile_Robots|Mobile Robots]] · *beginner*
-14. [[Legged_Robots|Legged Robots]] · *beginner*
+11. [[Manipulator_Arm|Manipulator Arm]] · *beginner*
+12. [[Mobile_Robots|Mobile Robots]] · *beginner*
+13. [[Legged_Robots|Legged Robots]] · *beginner*
+14. [[Autonomous_Robots|Autonomous Robots]] · *beginner*
 
 ### Student: the core stack
 
@@ -332,8 +332,8 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 6. [[Camera_Systems|Camera Systems]] · *intermediate*
 7. [[LIDAR|LIDAR (Light Detection and Ranging)]] · *intermediate*
 8. [[IMU_Sensors|IMU Sensors (Inertial Measurement Unit)]] · *intermediate*
-9. [[Computer_Vision|Computer Vision]] · *intermediate*
-10. [[Obstacle_Avoidance|Obstacle Avoidance]] · *intermediate*
+9. [[Obstacle_Avoidance|Obstacle Avoidance]] · *intermediate*
+10. [[Computer_Vision|Computer Vision]] · *intermediate*
 11. [[RGB-D_Sensor|RGB-D Sensor]] · *intermediate*
 12. [[Sensor_Calibration_Techniques|Sensor Calibration Techniques]] · *intermediate*
 13. [[Encoders]] · *intermediate*
@@ -440,8 +440,8 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 5. [[Policy|Policy (Robot Control Policy)]] · *beginner*
 6. [[Embodied_AI|Embodied AI]] · *beginner*
 7. [[Supervised_Learning|Supervised Learning]] · *beginner*
-8. [[Unsupervised_Learning|Unsupervised Learning]] · *beginner*
-9. [[Agents_and_Environments|Agents and Environments]] · *beginner*
+8. [[Agents_and_Environments|Agents and Environments]] · *beginner*
+9. [[Unsupervised_Learning|Unsupervised Learning]] · *beginner*
 10. [[Classification_vs_Regression_vs_Clustering|Classification vs Regression vs Clustering]] · *beginner*
 11. [[Artificial_Intelligence_vs_Machine_Learning_vs_Deep_Learning|Artificial Intelligence vs Machine Learning vs Deep Learning]] · *beginner*
 12. [[Natural_Language_Processing_Basics|Natural Language Processing Basics]] · *beginner*

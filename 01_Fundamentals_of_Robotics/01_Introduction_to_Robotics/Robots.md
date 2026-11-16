@@ -56,7 +56,7 @@ Modern robots typically exhibit several core characteristics, often conceptualiz
 4. **Programmability**: Robots can typically be programmed to perform different tasks or sequences of actions, distinguishing them from fixed-purpose machines.
    <br>
 
-5. **[[Autonomy]]**: Robots operate with varying degrees of [[Autonomy]], from remotely controlled teleoperation to fully autonomous decision-making based on sensor input and internal goals.
+5. **[[Autonomous_Robots|Autonomy]]**: Robots operate with varying degrees of [[Autonomous_Robots|Autonomy]], from remotely controlled teleoperation to fully autonomous decision-making based on sensor input and internal goals.
    <br>
 
 ---
