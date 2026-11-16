@@ -1,100 +1,124 @@
 ---
 title: Gazebo Simulator
-description: Describes the Gazebo 3D robotics simulator, its features, robot/environment modeling, and its integration with ROS.
+description: "Gazebo is the open-source robot simulator most used with ROS 2. Covers the modern Gazebo (formerly Ignition) and the end of Gazebo Classic, which Gazebo release goes with which ROS 2 distribution (Jetty with Lyrical, Harmonic with Jazzy), the ros_gz bridge, SDF and URDF models, and how to launch a simulated robot."
+aliases:
+  - Gazebo
+  - Gazebo Sim
+  - Ignition Gazebo
 tags:
   - gazebo
   - simulation
+  - ros2
   - robotics-software
-  - ros
-  - 3d
-  - testing
   - urdf
   - sdf
 type: tool
 level: intermediate
 subfield:
   - software
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-28
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
   - "[[Robot_Operating_System_(ROS)]]"
+  - "[[Robot_Simulation]]"
 related:
-  - "[[Robot_Operating_System_(ROS)]]"
-  - "[[Simulation]]"
   - "[[URDF]]"
-  - "[[SDF]]"
-  - "[[Robotics Software]]"
-  - "[[Reinforcement_Learning]]"
-  - "[[Topics]]"
-  - "[[Services]]"
-  - "[[Plugins]]"
+  - "[[ros2_control]]"
   - "[[RViz_Tutorial]]"
+  - "[[Launch_Files]]"
+  - "[[Physics_Engines]]"
+  - "[[Simulators_and_IDEs]]"
+key_takeaways:
+  - "'Gazebo' now means the modern simulator (formerly Ignition); Gazebo Classic reached end of life on 29 January 2025."
+  - "Match Gazebo to your ROS 2 distribution: Jetty with Lyrical (recommended for new projects), Harmonic with Jazzy, Fortress with Humble."
+  - "ROS 2 talks to Gazebo through ros_gz: a bridge for topics, a launcher, and spawning tools; gz_ros2_control connects controllers."
+sources:
+  - "Open Robotics (2026). Gazebo releases. https://gazebosim.org/docs/latest/releases/"
+  - "Open Robotics (2026). Installing Gazebo with ROS. https://gazebosim.org/docs/latest/ros_installation/"
+  - "Open Robotics (2025). Gazebo Classic. https://classic.gazebosim.org/"
+  - "ROS 2 Release Team (2026). ROS 2 Lyrical Luth Released! https://discourse.openrobotics.org/t/ros-2-lyrical-luth-released/55021"
+  - "Open Robotics (2026). ros_gz: integration between ROS and Gazebo. https://github.com/gazebosim/ros_gz"
 ---
 
 # Gazebo Simulator
 
-**Gazebo** is a powerful, open-source 3D robotics simulator that enables the simulation of complex robots, sensors, and objects within realistic indoor and outdoor environments. It is capable of simulating rigid body dynamics with high fidelity, generating realistic sensor feedback, and provides strong integration with the [[Robot_Operating_System_(ROS)|ROS (Robot Operating System)]] framework, making it a cornerstone tool for robotics development, testing, and research.
+**Gazebo** is an open-source 3D robot simulator built to work with ROS. It simulates robots and their surroundings (rigid-body physics, contact, sensors such as cameras, LIDAR and IMUs) so that the same ROS 2 software can run against a simulated robot before it runs on a real one. For ROS development it is the default choice; for large-scale robot learning, GPU simulators such as [[Isaac_Lab]] and [[MuJoCo]] Playground are more common (see [[Robot_Simulation]]).
 
----
+> **Etymology.** A *gazebo* is a garden pavilion with open sides and a view all round. The word appeared in 18th-century English, probably as a mock-Latin joke: *gaze* + *-ebo*, "I shall gaze". Andrew Howard and Nate Koenig started the simulator at the University of Southern California in 2002 as a 3D, outdoor companion to the 2D *Stage* simulator; the name suits a place from which you watch your robots.
 
-## Key Features
+## Two Gazebos, and which one is current
 
-* **Physics Simulation:** Accurately simulates the physical interactions between objects, including collisions, friction, and gravity. It supports multiple high-performance physics engines (such as ODE - Open Dynamics Engine, Bullet, Simbody, DART) allowing users to choose based on their needs.
-* **Sensor Simulation:** Provides models for a wide variety of common robotic sensors, including:
-    * [[LIDAR]] (2D and 3D)
-    * [[Camera_Systems]] (monocular, stereo, RGB-D/depth cameras)
-    * [[IMU_Sensors]] (Inertial Measurement Units)
-    * Contact Sensors (Bumpers, Force/Torque)
-    * GPS
-    * Sonar
-    These simulated sensors generate data mimicking their real-world counterparts, often including configurable noise models.
-* **Robot Models:** Robots are typically defined using XML-based description formats:
-    * **[[SDF]] (Simulation Description Format):** Gazebo's native format, allows detailed specification of visuals, collision geometry, inertial properties, joints, sensors, plugins, and world properties.
-    * **[[URDF]] (Unified Robot Description Format):** A common ROS format primarily defining kinematic and visual properties. Often used with extensions (like `.xacro` macros) and Gazebo-specific tags (`<gazebo>`) to add simulation details like collision properties, materials, sensor plugins, and actuator interfaces.
-* **Environment Modeling:** Allows the creation of complex 3D worlds, including terrains, buildings, lighting conditions, and libraries of common objects (tables, chairs, etc.). Worlds are typically defined using SDF.
-* **Interfaces:**
-    * **GUI:** Provides a graphical interface for visualizing the simulation, inspecting models and sensor data, and interacting with the simulated world.
-    * **APIs:** Offers programming interfaces (primarily C++ API and ROS interfaces) for controlling robots, retrieving sensor data, and interacting with the simulation programmatically.
-* **Extensibility ([[Plugins]]):** Supports custom C++ plugins to extend its capabilities, allowing users to model custom sensors, actuators, physics effects, control interfaces, or world behaviors.
+| | Gazebo Classic | Gazebo (modern) |
+|---|---|---|
+| Versions | 1 to 11 | Codenamed releases: Fortress, Harmonic, Ionic, Jetty, … |
+| Former name | "Gazebo" | "Ignition Gazebo" until 2022 |
+| Status | **End of life on 29 January 2025** | Actively developed |
+| ROS integration | `gazebo_ros_pkgs` | `ros_gz` |
+| Command | `gazebo`, `gzserver`, `gzclient` | `gz sim` |
 
----
+Tutorials that mention `gazebo_ros`, `gzserver` or `spawn_entity.py` refer to Gazebo Classic. New projects should use the modern Gazebo.
 
-## ROS Integration
+## Matching Gazebo to ROS 2
 
-Gazebo's tight integration with ROS is one of its key strengths, facilitated primarily by the `gazebo_ros` package collection.
+From Gazebo's official compatibility table (November 2026):
 
-* **Mechanism:** ROS integration works through Gazebo **plugins** that act as bridges between the Gazebo simulation environment and the ROS communication network.
-* **Functionality:**
-    * **Sensors:** Simulated sensors (cameras, LiDAR, IMU, etc.) use plugins to publish their data onto ROS [[Topics]] using standard ROS message types (e.g., `sensor_msgs/Image`, `sensor_msgs/LaserScan`, `sensor_msgs/Imu`).
-    * **Actuators:** Plugins (like the `diffdrive_plugin` for differential drive robots or `gazebo_ros_control` for manipulators) subscribe to ROS command [[Topics]] (e.g., `geometry_msgs/Twist` for `/cmd_vel`, `trajectory_msgs/JointTrajectory` for arm control) and translate these commands into forces or velocities applied to simulated joints or links.
-    * **Robot State:** Simulated joint states are often published on the `/joint_states` topic, which can be used by `robot_state_publisher` to compute and broadcast [[TF_and_Topic_Architecture|TF (transform)]] frames for the simulated robot. Simulated ground truth odometry might be published on `/odom`.
-    * **Simulation Control:** ROS [[Services]] are typically provided to pause, unpause, reset the simulation, and spawn or delete models.
-    * **Simulation Time:** Gazebo can publish simulation time on the `/clock` topic. Setting the ROS parameter `/use_sim_time` to `true` causes ROS nodes to use Gazebo's clock instead of the system clock, ensuring synchronization between ROS and the simulation.
-* **Launching:** Simulations are typically launched using ROS [[Launch_Files|Launch Files]], which start the Gazebo server (`gzserver`), the Gazebo client GUI (`gzclient`), load a world file, spawn robot models (using `spawn_model` node/service), and start necessary ROS bridge nodes (like `robot_state_publisher`).
+| ROS 2 distribution | Recommended Gazebo | Gazebo support ends |
+|---|---|---|
+| **Lyrical Luth** (LTS, May 2026) | **Jetty** (LTS) | May 2031 |
+| Kilted Kaiju | Ionic | December 2026 |
+| Jazzy Jalisco (LTS) | Harmonic (LTS) | May 2029 |
+| Humble Hawksbill (LTS) | Fortress (LTS) | May 2027 |
 
----
+Gazebo's documentation recommends **Ubuntu 26.04 (Resolute), ROS 2 Lyrical and Gazebo Jetty** for new users, and Ubuntu 24.04, Jazzy and Harmonic for those who cannot upgrade yet. Gazebo's next codenamed release is planned for March 2027, two months before the next ROS 2 release.
 
-## Use Cases
+## How a robot gets into Gazebo
 
-Gazebo is widely used in the robotics community for:
+Gazebo's native format is **SDF** (Simulation Description Format), which describes whole worlds: lighting, terrain, models, sensors and plugins. ROS robots are usually described in **[[URDF]]**; Gazebo converts URDF to SDF on load. Simulation-only details (sensor plugins, friction, the `ros2_control` hardware interface) go in URDF `<gazebo>` tags or in xacro macros.
 
-* **Algorithm Development:** Testing and debugging control algorithms, navigation stacks ([[Navigation]]), [[SLAM]] systems, [[Perception]] algorithms, and manipulation strategies in a controlled and repeatable environment.
-* **[[Reinforcement_Learning|RL Training]]:** Providing a fast, safe, and parallelizable environment to train robot control policies using RL, mitigating the high sample complexity and safety concerns of real-world training.
-* **Visualization and Debugging:** Visualizing robot models, sensor data, and algorithm outputs within a 3D environment. Complements tools like [[RViz_Tutorial|RViz]].
-* **Education and Research:** A standard platform for teaching robotics concepts and conducting research experiments without requiring expensive hardware.
-* **System Integration Testing:** Verifying the interaction between different ROS nodes and software components before deploying on a physical robot.
+## Connecting ROS 2: ros_gz
 
-*(Note: Gazebo Sim, formerly Ignition Gazebo, is the next-generation version of the simulator, offering enhanced modularity and performance, and is often the default choice for newer ROS 2 distributions.)*
+Install the integration for your distribution (it pulls in the matching Gazebo):
 
----
+```bash
+sudo apt install ros-${ROS_DISTRO}-ros-gz
+```
 
-## Dataview Plugin Features
+The pieces of `ros_gz`:
 
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
+| Package | What it does |
+|---|---|
+| `ros_gz_sim` | Launch Gazebo from ROS (`gz_sim.launch.py`) and spawn models (`create`) |
+| `ros_gz_bridge` | Bridge Gazebo topics to ROS 2 topics, e.g. camera images, laser scans, `/cmd_vel`, `/clock` |
+| `ros_gz_image` | Efficient image transport for cameras |
+| `gz_ros2_control` (separate repo) | Run [[ros2_control]] controllers against simulated joints |
 
-### List of Related Concepts
+A typical launch, sketched:
+
+```bash
+# start Gazebo with a world
+ros2 launch ros_gz_sim gz_sim.launch.py gz_args:="-r empty.sdf"
+# publish the robot description, then spawn it from the topic
+ros2 run ros_gz_sim create -topic robot_description -name my_robot -z 0.1
+# bridge the topics you need (Gazebo type in brackets after @)
+ros2 run ros_gz_bridge parameter_bridge /cmd_vel@geometry_msgs/msg/Twist]gz.msgs.Twist \
+    /scan@sensor_msgs/msg/LaserScan[gz.msgs.LaserScan /clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock
+```
+
+Run ROS nodes with `use_sim_time:=true` so they follow Gazebo's clock instead of the wall clock. In real projects, put the bridge mappings in a YAML file and everything in one [[Launch_Files|launch file]].
+
+## Physics and performance
+
+Modern Gazebo uses pluggable physics engines: DART by default, with Bullet and a lightweight engine (TPE) for simple kinematic cases (see [[Physics_Engines]]). It runs one world on the CPU at or faster than real time for typical mobile robots and arms. It is not designed to run thousands of parallel worlds for reinforcement learning; that is the job of [[GPU-Parallel_Simulation]].
+
+## Worked example: why use_sim_time matters
+
+A navigation stack's controller runs at 20 Hz and times out if it hears nothing from odometry for 0.5 s. If the simulation runs at half real time (real-time factor 0.5) but ROS nodes use wall-clock time, 0.5 s of wall time is only 0.25 s of simulated time. The controller will see odometry arriving at half the expected rate and may time out on a perfectly healthy simulation. With `use_sim_time:=true`, every node measures time on Gazebo's clock and the timeouts mean the same thing in simulation as on the robot.
+
+## Dataview
 
 ```dataview
-LIST FROM "" WHERE contains(file.outlinks, [[Custom_Packages_and_Nodes]])
+LIST FROM "" WHERE contains(file.outlinks, [[Gazebo_Simulator]])
 ```

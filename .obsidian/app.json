@@ -1,1 +1,7 @@
-{}
+{
+  "userIgnoreFilters": [
+    "site/node_modules/",
+    "public/",
+    "tools/"
+  ]
+}

@@ -1,112 +1,108 @@
 ---
 title: ROS AI Integration
-description: Discusses the integration of Artificial Intelligence (AI) and Machine Learning (ML) techniques with the Robot Operating System (ROS).
+description: "How learned models run inside a ROS 2 system: perception nodes, policy nodes that drive ros2_control controllers, remote GPU inference, language and VLA task layers over ROS 2 actions, recording data for training, and the latency and safety rules that keep it working."
 tags:
-  - ros
-  - artificial-intelligence
-  - machine-learning
+  - ros2
+  - robot-learning
   - deep-learning
-  - reinforcement-learning
-  - computer-vision
   - integration
-  - robotics-software
-  - middleware
+  - real-time
+  - computer-vision
 type: tool
 level: intermediate
 subfield:
   - software
   - robot-learning
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-28
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[AI_and_Robot_Control]]"
-  - "[[Computer_Vision_in_Robotics]]"
+  - "[[ROS_2_Overview]]"
+  - "[[Policy]]"
 related:
-  - "[[Robot_Operating_System_(ROS)]]"
-  - "[[Artificial_Intelligence]]"
-  - "[[Machine_Learning]]"
-  - "[[Deep_Learning]]"
-  - "[[Reinforcement_Learning]]"
-  - "[[Computer_Vision_in_Robotics]]"
-  - "[[Neural_Networks_in_Control]]"
-  - "[[Topics]]"
-  - "[[Services]]"
+  - "[[ros2_control]]"
+  - "[[rosbag2]]"
+  - "[[Vision-Language-Action_Models]]"
+  - "[[Imitation_Learning]]"
   - "[[Actions]]"
-  - "[[Nodes]]"
-  - "[[AI_and_Robot_Control]]"
+  - "[[Computer_Vision_in_Robotics]]"
+key_takeaways:
+  - "Put learned models in their own nodes; let ros2_control controllers own the motors, limits and timing."
+  - "Budget latency end to end (sensor, transport, inference, command) and design around it with action chunks or slower motion."
+  - "ROS 2 bags are the raw material for robot learning: record synchronised topics, then convert them to a training dataset format."
+sources:
+  - "ROS 2 Release Team (2026). ROS 2 Lyrical Luth Released! https://discourse.openrobotics.org/t/ros-2-lyrical-luth-released/55021"
+  - "ros2_control maintainers (2026). ros2_control documentation. https://control.ros.org/"
+  - "Hugging Face (2026). LeRobot v0.7.0 release notes. https://github.com/huggingface/lerobot/releases/tag/v0.7.0"
+  - "NVIDIA (2026). Isaac ROS documentation. https://nvidia-isaac-ros.github.io/"
 ---
 
 # ROS AI Integration
 
-**ROS AI Integration** refers to the methodologies and practices used to connect [[Artificial_Intelligence|AI]], [[Machine_Learning|ML]], [[Deep_Learning|deep learning]], and related algorithms (such as [[Computer_Vision_in_Robotics|computer vision]] and [[Reinforcement_Learning_for_Robots|reinforcement learning]]) with the [[Robot_Operating_System_(ROS)|ROS (Robot Operating System)]] framework. The primary goal is to leverage the advanced perception, learning, decision-making, and control capabilities offered by AI/ML within the modular, distributed, and tool-rich environment provided by ROS.
+Modern robots run learned models (object detectors, segmenters, manipulation policies, vision-language-action models) alongside classical ROS 2 software. **ROS AI integration** is the engineering of that combination: where the model runs, how data reaches it, how its outputs reach the motors, and what stops it from doing harm when it is wrong.
 
----
+> **Etymology.** *ROS* is the Robot Operating System, started in 2007 at Stanford and Willow Garage. *Integration* is from Latin *integrare*, "to make whole", from *integer*, "untouched, entire": turning separate parts into one working system.
 
-## Motivation for Integration
+## The architecture that works
 
-Combining AI/ML with ROS offers significant advantages for building complex robotic systems:
+```
+cameras, joints ──► [perception node] ──► objects, poses ──┐
+                                                            ├──► [policy node] ──► targets ──► [ros2_control controller] ──► motors
+language / task ──► [task node: LLM / VLA planner] ─────────┘          ▲                        (owns limits, timing, safety)
+                                                              robot state (joint_states)
+```
 
-* **Leveraging AI Capabilities:** Allows robots to perform tasks requiring advanced perception (e.g., object recognition from camera data), adaptation (e.g., learning control policies via RL), and complex reasoning or prediction.
-* **Utilizing ROS Ecosystem:** Benefits from ROS's strengths:
-    * **Standardized Communication:** Use of [[Topics]], [[Services]], and [[Actions]] for inter-process communication.
-    * **Hardware Abstraction:** ROS drivers abstract away low-level hardware details for sensors and actuators.
-    * **Modularity:** Enables building systems from reusable software components ([[Nodes]]).
-    * **Tools:** Access to powerful visualization ([[RViz_Tutorial|RViz]]), simulation ([[Gazebo_Simulator]]), debugging, and data logging (`rosbag`) tools.
-    * **Community:** Access to a vast collection of existing ROS packages for various functionalities (navigation, manipulation, perception).
+| Node type | Input | Output | Typical rate |
+|---|---|---|---|
+| **Perception** | `sensor_msgs/Image`, point clouds | Detections, poses (e.g. `vision_msgs`) | 10–30 Hz |
+| **Policy** | Images, `joint_states`, task | Joint or end-effector targets, action chunks | 10–50 Hz |
+| **Task layer** | Instructions, perception | Goals for the policy or classical planners, via ROS 2 [[Actions]] | 0.1–2 Hz |
+| **Controller** ([[ros2_control]]) | Targets | Motor commands | 100–1000 Hz |
 
----
+The key rule: **the learned model proposes; the controller disposes.** Controllers enforce joint limits, velocity and torque limits, and a watchdog that stops the robot if commands stop arriving.
 
-## Integration Mechanisms (ROS Interfaces)
+## Where inference runs
 
-AI algorithms are typically integrated into the ROS computation graph as one or more [[Nodes|ROS nodes]] that communicate with the rest of the system using standard ROS interfaces:
+- **On the robot** (an embedded GPU or NPU): lowest latency; models must be small or optimised (ONNX Runtime, TensorRT). NVIDIA's Isaac ROS packages provide GPU-accelerated perception nodes and zero-copy transport on Jetson hardware.
+- **On a nearby workstation or server**: big models such as [[Vision-Language-Action_Models|VLAs]] run on a GPU server; the robot streams observations and receives action chunks. LeRobot v0.7.0 (November 2026) ships a remote policy server and client for exactly this pattern.
+- **Split**: a small on-robot model for reflexes, a large remote model for decisions.
 
-* **[[Topics]] (Publish/Subscribe):** Ideal for continuous data streams.
-    * *Input to AI nodes:* Subscribing to sensor data (e.g., `/camera/image_raw`, `/scan`, `/joint_states`, `/imu/data`).
-    * *Output from AI nodes:* Publishing results (e.g., `/object_detections`, `/semantic_map`, `/planned_trajectory`, `/cmd_vel`).
-* **[[Services]] (Request/Reply):** Suitable for synchronous, blocking operations where a specific computation or query is needed.
-    * *Example:* A planning node sending a request to an AI-based grasp planning service (`/calculate_grasp_pose`) and waiting for the resulting grasp pose.
-* **[[Actions]] (Goal-Oriented Tasks):** Used for asynchronous, long-running tasks that provide feedback during execution.
-    * *Example:* A high-level task manager sending a navigation goal to an action server implementing an RL-based navigation policy (`/navigate_to_pose`). The action server provides feedback (e.g., current distance to goal) and a final result (success/failure).
+## Worked example: a latency budget
 
----
+A wrist camera runs at 30 Hz, so a frame is up to 33 ms old when captured. Add 5 ms of ROS transport, 60 ms of model inference and 5 ms to reach the controller: about 100 ms from the world changing to the arm reacting. If the gripper approaches an object at 0.5 m/s, it travels $0.5 \times 0.1 = 5$ cm "blind" in that time. Three ways to live with it:
 
-## Common Integration Patterns
+1. **Slow down** near contact (at 0.1 m/s the blind distance is 1 cm).
+2. **Predict ahead**: [[Imitation_Learning|action chunking]] lets the policy plan the next second, and the controller executes smoothly while the next chunk is computed.
+3. **Close fast loops classically**: let a force or impedance controller handle the moment of contact.
 
-1.  **Separate AI Node(s):** The most common pattern. The AI/ML model inference or learning algorithm runs within one or more dedicated ROS nodes. These nodes subscribe to necessary input topics (sensors, state), perform the AI computation, and publish results or offer services/actions. This promotes modularity and separation of concerns.
-2.  **ROS Wrappers for AI Libraries:** Developers create ROS nodes that act as wrappers around standard AI/ML libraries (e.g., TensorFlow, PyTorch, OpenCV, ONNX Runtime). These wrappers expose the library's functionality (e.g., running inference on a pre-trained model) via ROS topics, services, or actions. Packages like `cv_bridge` facilitate converting between ROS image messages and OpenCV formats.
-3.  **Simulation Integration:** Simulators like [[Gazebo_Simulator]] generate realistic sensor data published on ROS topics. AI nodes (especially [[Reinforcement_Learning_for_Robots|RL]] agents) subscribe to this simulated data, process it, and publish control commands (e.g., `/cmd_vel`, `/joint_group_vel_controller/command`) back to the simulator to control the virtual robot. This is essential for training RL policies safely and efficiently.
-4.  **Embedded AI Logic:** Simpler ML models or CV algorithms might be directly embedded within other ROS nodes (e.g., a perception node doing basic filtering or classification). This is less common for complex deep learning models, which benefit from dedicated nodes and potentially specialized hardware acceleration.
+## Recording data for learning
 
----
+[[rosbag2]] records any set of topics with timestamps. For [[Imitation_Learning]] and [[Teleoperation_and_Data_Collection|teleoperation]] data:
 
-## Examples
+- Record camera images, `joint_states`, commanded actions and the operator's input on the same clock.
+- Use a fixed, documented set of topics and rates for every episode.
+- Convert bags to a training format (for example the LeRobot dataset format, Parquet tables plus compressed video), aligning all streams to the control rate.
 
-* **[[Computer_Vision_in_Robotics|Computer Vision]]:** ROS nodes using OpenCV (via `cv_bridge`) or deep learning models (e.g., YOLO, segmentation networks) subscribe to `/image_raw` topics and publish `/object_detections`, `/semantic_segmentation` masks, or feature tracks on other topics.
-* **[[SLAM]]:** Packages like `ORB_SLAM3`, `rtabmap`, or LiDAR-based methods like `LeGO-LOAM` run as ROS nodes, subscribing to camera/IMU/LiDAR topics and publishing map data (`/map`) and pose estimates (`/tf` or `/odom`).
-* **[[Navigation]]:** The ROS Navigation Stack (Nav2 for ROS 2) orchestrates various nodes. Path planners (classical A*, D* or potentially learned planners) receive goals via actions and publish path commands on topics. Local planners/controllers subscribe to sensor data and path commands and publish velocity commands (`/cmd_vel`).
-* **[[Reinforcement_Learning|Reinforcement Learning]]:** RL frameworks (like Stable Baselines3, RLlib) are often integrated with ROS/Gazebo. An RL agent node subscribes to state/observation topics from the simulator, selects an action based on its learned [[Policy]], publishes the action command, receives a reward (potentially via another topic or service), and updates its policy.
+## Practical rules
 
----
+| Rule | Why |
+|---|---|
+| Use `BEST_EFFORT` QoS for high-rate camera topics, `RELIABLE` for commands and state | Old images are worthless; lost commands are dangerous |
+| Run heavy Python inference in its own process, not the controller's | Python's global interpreter lock and garbage collection cause jitter |
+| Timestamp everything at capture, not at receipt | Latency compensation needs the true sensing time |
+| Publish model confidence and failure signals | Lets a supervisor slow down or stop |
+| Gate every learned output through limits in the controller | A network can output anything, including nonsense |
 
-## Challenges
+## State of the art (as of November 2026)
 
-* **Performance:** Running complex deep learning models in real-time for perception or control can be computationally demanding and require GPU acceleration, adding complexity to the ROS node.
-* **Data Bandwidth:** Transmitting high-frequency, high-resolution sensor data (especially images or point clouds) over ROS topics between nodes can consume significant bandwidth and introduce latency. Efficient serialization and transport protocols are important.
-* **Dependencies:** Managing dependencies for large AI libraries (TensorFlow, PyTorch, CUDA) within a ROS workspace can be complex. Containerization (e.g., Docker) is often used to manage environments.
-* **Sim-to-Real Transfer:** For learned policies (especially RL), transferring performance from simulation (where ROS/Gazebo integration is common for training) to the real robot remains a significant challenge.
-* **System Complexity:** Integrating multiple AI components with traditional robotics modules within ROS requires careful architectural design and robust error handling.
+- **ROS 2 Lyrical Luth** (May 2026, supported until May 2031) is the current long-term-support distribution, paired with [[Gazebo_Simulator|Gazebo Jetty]].
+- **Remote VLA inference** with streamed action chunks is a common deployment pattern for large generalist policies.
+- **GPU-accelerated ROS packages** (NVIDIA Isaac ROS) handle perception and transport on embedded GPUs.
 
-Despite these challenges, ROS provides a powerful and flexible framework for integrating cutting-edge AI capabilities into functional robotic systems, accelerating research and deployment.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
-LIST FROM "" WHERE contains(file.outlinks, [[Robot_Operating_System_(ROS)]])
+LIST FROM "" WHERE contains(file.outlinks, [[ROS_AI_Integration]])
 ```

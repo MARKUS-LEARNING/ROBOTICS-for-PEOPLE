@@ -34,11 +34,13 @@ jobs:
         run: |
           git clone --depth 1 --branch "$QUARTZ_VERSION" https://github.com/jackyzha0/quartz.git .quartz
           cd .quartz && npm ci --no-audit --no-fund
+      - name: Install Explore page libraries (site/package.json, pinned)
+        run: cd site && npm ci --no-audit --no-fund
       - name: Prepare content (copy vault, compile Dataview, add metadata strips and home page)
         run: python tools/sitebuild.py prep --quartz .quartz
       - name: Build site
         run: cd .quartz && npx quartz build -d content -o public
-      - name: Export agent files (llms.txt, llms-full.txt, graph.json, raw/)
+      - name: Export agent files and the Explore page (llms.txt, llms-full.txt, graph.json, raw/, explore/)
         run: python tools/sitebuild.py export --out .quartz/public
       - name: Check every internal link resolves
         run: python tools/sitebuild.py check --public .quartz/public

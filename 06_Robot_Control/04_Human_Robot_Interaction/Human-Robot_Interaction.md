@@ -17,7 +17,7 @@ related:
   - "[[Robot_Design]]"
   - "[[Control_Systems]]"
   - "[[Sensors]]"
-  - "[[Teleoperation]]"
+  - "[[Teleoperation_and_Data_Collection]]"
   - "[[Compliance]]"
   - "[[Medical_Robotics]]"
 ---

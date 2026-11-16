@@ -1,0 +1,10 @@
+{
+  "name": "robotics-for-people-site",
+  "private": true,
+  "description": "Front-end libraries for the Explore page (copied into the built site by tools/sitebuild.py export).",
+  "license": "MIT",
+  "dependencies": {
+    "3d-force-graph": "1.80.1",
+    "force-graph": "1.52.0"
+  }
+}

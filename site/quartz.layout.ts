@@ -10,6 +10,7 @@ export const sharedPageComponents: SharedLayout = {
   afterBody: [],
   footer: Component.Footer({
     links: {
+      "Explore the graph": SITE + "/explore/",
       "Source on GitHub": "https://github.com/MARKUS-LEARNING/ROBOTICS-for-PEOPLE",
       "Help write it": SITE + "/00_Introduction/Frontier",
       "For agents: llms.txt": SITE + "/llms.txt",

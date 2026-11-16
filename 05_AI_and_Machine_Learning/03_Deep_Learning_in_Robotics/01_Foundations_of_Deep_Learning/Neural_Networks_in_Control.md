@@ -1,103 +1,93 @@
 ---
 title: Neural Networks in Control
-description: Explores the application of Artificial Neural Networks (ANNs) for modeling, identification, and control of robotic systems (Neurocontrol).
+description: "Using neural networks inside feedback control: as learned dynamics or actuator models, as approximate controllers, inside model-predictive control, and as end-to-end learned policies, with the stability and safety questions each raises."
 tags:
   - neural-networks
   - control-theory
-  - artificial-intelligence
-  - machine-learning
-  - deep-learning
+  - neurocontrol
+  - system-identification
   - reinforcement-learning
   - adaptive-control
-  - system-identification
-  - neurocontrol
 type: method
-level: intermediate
+level: advanced
 subfield:
   - robot-learning
   - control
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-28
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
   - "[[Neural_Networks]]"
   - "[[Feedback_Control]]"
 related:
-  - "[[Artificial_Intelligence]]"
-  - "[[Machine_Learning]]"
-  - "[[Deep_Learning]]"
-  - "[[Reinforcement_Learning]]"
-  - "[[Imitation Learning]]"
-  - "[[Control_Theory]]"
+  - "[[Model_Predictive_Control_(MPC)]]"
+  - "[[Reinforcement_Learning_for_Robots]]"
   - "[[Adaptive_Control]]"
   - "[[Computed_Torque_Control]]"
-  - "[[System Identification]]"
-  - "[[PID_Control]]"
-  - "[[AI_and_Robot_Control]]"
+  - "[[World_Models]]"
+key_takeaways:
+  - "Networks enter control loops in four roles: model of the plant, model of the actuator, controller, or the cost/value inside an optimiser."
+  - "The most reliable pattern keeps a classical controller for stability and uses the network for what physics models miss."
+  - "Guarantees are the hard part: learned components are tested statistically, bounded by safety filters, and certified only in narrow cases."
+sources:
+  - "Hwangbo, J. et al. (2019). Learning Agile and Dynamic Motor Skills for Legged Robots. https://arxiv.org/abs/1901.08652"
+  - "Nagabandi, A. et al. (2017). Neural Network Dynamics for Model-Based Deep Reinforcement Learning with Model-Free Fine-Tuning. https://arxiv.org/abs/1708.02596"
+  - "Salzmann, T. et al. (2022). Real-time Neural-MPC: Deep Learning Model Predictive Control for Quadrotors and Agile Robotic Platforms. https://arxiv.org/abs/2203.07747"
+  - "Chang, Y.-C., Roohi, N. and Gao, S. (2019). Neural Lyapunov Control. https://arxiv.org/abs/2005.00611"
 ---
 
-# Neural Networks in Control (Neurocontrol)
+# Neural Networks in Control
 
-**Neural Networks in Control**, or **Neurocontrol**, refers to the application of Artificial Neural Networks (ANNs) to problems in the control of dynamic systems, particularly robots. ANNs, inspired by biological nervous systems, are powerful computational models capable of learning complex, nonlinear relationships and functions directly from data. In robotics, they serve as versatile tools for modeling unknown system dynamics, adapting controllers to changing conditions, and learning sophisticated control policies.
+A feedback controller compares what the robot is doing with what it should be doing and corrects the difference. Classical control does this with equations derived from physics. **Neural networks in control** replace or augment some of those equations with functions learned from data, for the parts of the robot that physics models get wrong or that are too complex to write down.
 
----
+> **Etymology.** *Neural* is from Greek *neuron*, "sinew, nerve". *Control* comes from medieval Latin *contrarotulare*, "to check against a duplicate roll": a clerk kept a counter-roll of accounts to check the original. A controller still does exactly that: it checks the actual state against the desired one. *Neurocontrol* was a named research area by the late 1980s.
 
-## Key Approaches and Applications in Robotics
+## Four roles a network can play
 
-Neural networks are employed in various ways within robot control systems:
+| Role | What is learned | Example | Why |
+|---|---|---|---|
+| **Plant model** | Robot or object dynamics $\dot x = f_\theta(x, u)$ | Learned dynamics for model-based RL (Nagabandi et al. 2017) | Physics models miss friction, aerodynamics, cables |
+| **Actuator model** | Motor response: command → actual torque | ANYmal's "actuator net" (Hwangbo et al. 2019) | Series-elastic and geared actuators are hard to model; key to sim-to-real |
+| **Controller** | The control law itself, $u = \pi_\theta(x)$ | Locomotion policies trained by RL | Handles complex contact-rich behaviour |
+| **Inside an optimiser** | Dynamics, cost or value used by MPC | Real-time Neural-MPC for quadrotors (Salzmann et al. 2022) | Keeps MPC's constraints and replanning, adds learned accuracy |
 
-1.  **[[System Identification]]:** NNs can be trained to learn the complex, nonlinear dynamics of a robot from input-output data (e.g., joint positions, velocities, accelerations, and applied torques).
-    * **Forward Dynamics Model:** Learning the mapping from current state $(\mathbf{q}, \dot{\mathbf{q}})$ and control input ($\tau$) to resulting acceleration ($\ddot{\mathbf{q}}$).
-    * **Inverse Dynamics Model:** Learning the mapping from desired motion ($\mathbf{q}, \dot{\mathbf{q}}, \ddot{\mathbf{q}}$) to the required control input ($\tau$). Includes learning terms like $M(\mathbf{q}), C(\mathbf{q}, \dot{\mathbf{q}}), G(\mathbf{q})$.
-    These learned models can then be incorporated into model-based control schemes like [[Computed_Torque_Control|Computed Torque Control]] or used for simulation.
+## The residual pattern
 
-2.  **[[Adaptive_Control|Adaptive Control]]:** NNs can be used online to adapt the parameters of a controller or to generate compensatory control signals. This allows the robot to maintain performance despite uncertainties in its own dynamics (e.g., unknown payload) or changes in the environment. The NN learns to adjust the control law based on observed performance errors.
+The most dependable recipe keeps the classical model and learns only its error:
 
-3.  **Direct Control Policy Learning:** An NN is trained to directly output control actions (e.g., joint torques, desired velocities) based on the robot's current state and goal. This bypasses the need for an explicit dynamic model.
-    * **[[Reinforcement_Learning|Reinforcement Learning (RL)]]:** [[Deep_Learning|Deep]] NNs (Deep RL) serve as function approximators for the control policy (mapping state to action) or value functions (predicting future rewards). The robot learns optimal behavior through trial-and-error interaction with its environment (or simulation), guided by a reward signal. Deep RL has enabled breakthroughs in complex manipulation and locomotion tasks. Foundation models (like Vision-Language-Action models) are further generalizing these capabilities.
-    * **[[Imitation Learning]] (IL) / Behavior Cloning:** An NN learns to mimic control strategies demonstrated by an expert (e.g., a human teleoperator). It learns a mapping from observed states to demonstrated actions.
+$$\dot x = f_{\text{physics}}(x, u) + f_\theta(x, u)$$
 
-4.  **Sensor Processing for Control:** NNs, particularly [[Deep_Learning|deep learning]] architectures like CNNs and Vision Transformers (ViTs), are highly effective at processing high-dimensional sensor data, such as images from [[Camera_Systems]]. They can extract relevant state information (e.g., object poses) for use by a separate controller, or learn **end-to-end** control policies that map raw sensor inputs directly to motor commands.
+or keeps a classical controller and adds a learned correction, $u = u_{\text{PD}} + u_\theta$. The physics part provides structure and good behaviour far from the training data; the network soaks up what the physics misses. If the network misbehaves, its contribution can be clipped.
 
-5.  **[[PID_Control|PID Tuning]]:** NNs can be trained to automatically tune the gains ($K_p, K_i, K_d$) of classical PID controllers for optimal performance.
+## Worked example: learning a drag term
 
----
+A quadrotor's thrust model ignores aerodynamic drag, so at 10 m/s its position controller lags. Log flights; at each time step compute the residual acceleration $r = a_{\text{measured}} - a_{\text{model}}$. Train a small network $f_\theta(v)$ to predict $r$ from velocity, then feed $a_{\text{model}} + f_\theta(v)$ into the controller. Because $f_\theta$ only has to learn a smooth function of velocity, a few minutes of flight data are enough; this is the idea behind learned-dynamics MPC for agile flight.
 
-## Common Neural Network Architectures
+## Stability and safety
 
-* **Multi-Layer Perceptrons (MLPs):** Basic feedforward networks, often used for function approximation in system identification or as part of RL policies.
-* **Recurrent Neural Networks (RNNs):** Networks with internal memory (e.g., LSTMs, GRUs), suitable for modeling time-series data and system dynamics, or for policies requiring memory.
-* **Convolutional Neural Networks (CNNs):** Specialized for processing grid-like data, primarily images. Used extensively for perception tasks that feed into control systems.
-* **Transformers:** Architectures based on attention mechanisms, excelling at sequence modeling and increasingly applied to vision (ViTs) and multimodal tasks (VLMs, VLAs) in robotics.
+Classical controllers come with proofs: Lyapunov functions, gain margins. Neural components usually do not. Approaches in use:
 
----
+- **Safety filters.** A learned command is passed through a filter (for example a control-barrier-function quadratic program) that minimally changes it to keep the system in a safe set.
+- **Learned certificates.** Train a network to be a Lyapunov function alongside the controller and check it with a verifier (Chang, Roohi and Gao 2019, *Neural Lyapunov Control*); practical for small systems.
+- **Statistical validation.** Test across large randomised simulation suites and long real-world trials; this is what most deployed learned controllers rely on.
+- **Bounded authority.** Limit what the learned part can command, and keep a classical fallback.
 
-## Advantages
+## State of the art (as of November 2026)
 
-* **Learning Complex Nonlinearities:** Capable of approximating highly nonlinear functions and dynamics directly from data.
-* **Data-Driven:** Reduces the need for precise analytical models, which can be difficult or impossible to derive.
-* **Adaptation:** Potential for online learning and adaptation to changing dynamics or environments.
-* **High-Dimensional Inputs:** Can handle raw, high-dimensional sensor data (e.g., vision, tactile arrays).
+- Learned policies trained in simulation are the standard controllers for legged robots and increasingly for humanoid whole-body motion; see [[Reinforcement_Learning_for_Robots]].
+- Large learned policies such as [[Vision-Language-Action_Models]] issue targets at 10–50 Hz to classical low-level controllers, which handle stiffness and safety at 500–1000 Hz.
+- Learned dynamics inside MPC remain the preferred approach where constraints must be respected explicitly, as in agile flight.
 
----
+## Reading list
 
-## Disadvantages and Challenges
+- Hwangbo et al. 2019: actuator networks and sim-to-real for ANYmal.
+- Salzmann et al. 2022, *Real-time Neural-MPC*.
+- Chang, Roohi and Gao 2019, *Neural Lyapunov Control*.
 
-* **Data Requirements:** Often require large amounts of training data, which can be expensive or time-consuming to collect, especially for real-world robot interactions (RL).
-* **Training Complexity:** Training deep neural networks can be computationally intensive, require significant expertise in hyperparameter tuning, and may suffer from convergence issues.
-* **Stability and Safety:** Providing formal guarantees for the stability and safety of systems controlled by NNs is extremely challenging, unlike classical control methods. This is a major hurdle for deployment in safety-critical applications.
-* **Interpretability:** NNs often function as "black boxes," making it difficult to understand *why* they make certain decisions or to predict their behavior in novel situations.
-* **Generalization & Robustness:** Performance can degrade significantly if the real-world operating conditions differ from the training data distribution. Bridging the "sim-to-real" gap is a major challenge for policies learned in simulation.
+## Dataview
 
-Despite the challenges, neural networks, particularly deep learning approaches, are increasingly central to advancing robot control, enabling robots to tackle more complex tasks in less structured environments by learning directly from experience and sensor data.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
 ```dataview
-LIST FROM "" WHERE contains(file.outlinks, [[Neural_Networks]])
+LIST FROM "" WHERE contains(file.outlinks, [[Neural_Networks_in_Control]])
 ```
