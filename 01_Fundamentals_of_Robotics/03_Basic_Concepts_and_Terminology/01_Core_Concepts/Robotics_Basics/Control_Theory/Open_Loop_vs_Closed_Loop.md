@@ -20,7 +20,6 @@ related:
   - "[[Control_Theory]]"
   - "[[Feedback_Control]]"
   - "[[PID_Control]]"
-  - "[[System_Dynamics]]"
   - "[[Stability_Analysis]]"
   - "[[Robot_Design]]"
 ---

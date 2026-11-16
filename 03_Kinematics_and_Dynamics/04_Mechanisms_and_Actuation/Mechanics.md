@@ -28,7 +28,6 @@ related:
   - "[[Robot_Design]]"
   - "[[Control_Systems]]"
   - "[[Mechatronics]]"
-  - "[[Fluid_Mechanics]]"
   - "[[Continuum_Mechanics]]"
 ---
 

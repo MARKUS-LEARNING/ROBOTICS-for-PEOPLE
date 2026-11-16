@@ -152,10 +152,16 @@ key_takeaways:
 | `related` | no | 2–5 wikilinks | Graph edges without cluttering prose |
 | `key_takeaways` | no | 3–5 short lines | The summary agents read first |
 | `aliases` | no | alternative names | Obsidian link suggestions |
+| `as_of` | no (expected in fast-moving subfields) | `YYYY-MM` | When the note's state-of-the-art content was last checked against current sources. Drives the site's "Current as of" badge, [[Whats_New\|What's New]] and the Frontier's "Behind the cutting edge" list |
+| `sources` | at least 3 with `as_of` | `"Author or org (Year). Title. URL"` | Citations for people and agents; every URL is checked |
 
 **Levels.** `beginner` needs no background beyond curiosity and school maths. `intermediate` assumes the notes it lists as prerequisites and is undergraduate level. `advanced` is graduate or practitioner level. `research` covers open problems and recent work.
 
 **Statuses.** `stub` is a placeholder, listed on the Frontier page. `draft` is substantial but not yet reviewed. `reviewed` has passed a chapter review pass. `keystone` is a deep, highly linked entry written to the full template.
+
+**Fast-moving subfields.** In `robot-learning`, `software`, `manipulation`, `legged-humanoid` and `frontiers` (marked `fast_moving` in `tools/subfields.yml`), a note is listed on the Frontier as *behind the cutting edge* until it has an `as_of` date. It is listed again when that date falls more than 12 months behind the newest one in the textbook. Bringing a note up to date means checking it against primary sources (papers, official documentation, release notes), citing them in `sources`, and setting `as_of` to the current month.
+
+**Broken links.** Link to notes that exist. A link to a topic nobody has written yet is allowed in the body when it marks a real gap: it appears on the Frontier and shows as plain text on the website. A `related:` entry pointing at a missing note that nothing else mentions is a stray, and `vault.py trim-related --write` removes it.
 
 **Removed in v2.** `layout`, `permalink` and `category` were Jekyll-era fields that nothing reads. `type`, `level` and `subfield` replace them.
 
@@ -173,9 +179,26 @@ python3 tools/vault.py lint --verbose   # every note checked against tools/schem
 python3 tools/vault.py obsidian-check   # compare with Obsidian's own index (needs the Obsidian CLI)
 python3 tools/vault.py pages --write    # rebuild Subfield_Atlas, Frontier and Learning_Paths from the notes
 python3 tools/vault.py fix-links        # find links that misspell an existing note; --write repoints them
+python3 tools/vault.py trim-related     # find related: links to missing notes nothing else mentions; --write removes them
 ```
 
-The [[Subfield_Atlas]], [[Learning_Paths]] and [[Frontier]] are generated from every note's frontmatter. After adding or editing notes, run `pages --write` and commit the result; CI fails if they are out of date.
+The [[Subfield_Atlas]], [[Learning_Paths]], [[Frontier]] and [[Whats_New|What's New]] pages are generated from every note's frontmatter. After adding or editing notes, run `pages --write` and commit the result; CI fails if they are out of date.
+
+### The website and the agent files
+
+Every push to `main` publishes the vault as a website on GitHub Pages and generates files for AI agents: `llms.txt`, `llms-full.txt`, one text file per chapter, `graph.json` (the knowledge graph, described by `tools/graph.schema.json`), and the raw Markdown of every note. To build it locally (Node 22 and Python 3.10+):
+
+```bash
+git clone --depth 1 --branch v4.5.2 https://github.com/jackyzha0/quartz.git .quartz && (cd .quartz && npm ci)
+(cd site && npm ci)                                       # the Explore page's graph libraries (Obsidian is set to ignore site/node_modules)
+python3 tools/sitebuild.py prep --quartz .quartz        # copy the vault, compile Dataview, add metadata strips
+(cd .quartz && npx quartz build -d content -o public --serve)
+python3 tools/sitebuild.py export --out .quartz/public  # llms.txt, graph.json, raw/, explore/
+```
+
+Every citation in a note's `sources:` is checked by `python3 tools/check_sources.py`: each URL must answer, and arXiv titles must match arXiv's own record. CI runs it on every pull request.
+
+On the site, each note opens with a strip showing its level, status, subfields and what to read first. Dataview queries are compiled to static lists and tables, and links to notes not written yet show as plain text.
 
 `obsidian-check` uses the official [Obsidian CLI](https://help.obsidian.md/cli). It needs Obsidian 1.12+ running with this folder open as a vault, and Settings → General → Command line interface turned on. It checks that the tooling and Obsidian agree on every unresolved link and tag.
 

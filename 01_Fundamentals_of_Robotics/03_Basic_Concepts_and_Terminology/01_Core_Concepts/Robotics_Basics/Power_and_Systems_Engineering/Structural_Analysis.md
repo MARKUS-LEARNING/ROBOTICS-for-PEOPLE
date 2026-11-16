@@ -20,10 +20,6 @@ related:
   - "[[Links]]"
   - "[[Material_Science]]"
   - "[[Mechatronics]]"
-  - "[[Finite_Element_Analysis]]"
-  - "[[Stress_Analysis]]"
-  - "[[Strain_Analysis]]"
-  - "[[Deformation_Analysis]]"
 ---
 
 # Structural Analysis

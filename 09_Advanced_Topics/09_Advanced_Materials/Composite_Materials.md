@@ -25,9 +25,6 @@ related:
   - "[[Links]]"
   - "[[Structural_Analysis]]"
   - "[[Mechatronics]]"
-  - "[[Aerospace_Engineering]]"
-  - "[[Automotive_Engineering]]"
-  - "[[Biomedical_Engineering]]"
 ---
 
 # Composite Materials

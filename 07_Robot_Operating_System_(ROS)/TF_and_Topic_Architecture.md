@@ -28,7 +28,6 @@ related:
   - "[[Actions]]"
   - "[[Nodes]]"
   - "[[TF_and_Topic_Architecture|TF]]"
-  - "[[Coordinate Frame]]"
   - "[[URDF]]"
   - "[[RViz_Tutorial]]"
   - "[[Sensor_Fusion]]"

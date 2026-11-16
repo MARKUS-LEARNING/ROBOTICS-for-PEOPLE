@@ -14,7 +14,6 @@ status: draft
 author: Jordan_Smith
 date: 2025-05-02
 related:
-  - "[[Communication_Protocols]]"
   - "[[Hardware_Interface_Setup]]"
   - "[[Robot_Control]]"
   - "[[Autonomous_Robots]]"

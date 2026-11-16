@@ -18,13 +18,11 @@ author: Jordan_Smith
 date: 2025-04-29
 related:
   - "[[Robots]]"
-  - "[[Wearable_Robotics]]"
   - "[[Human-Robot_Interaction]]"
   - "[[Actuator]]"
   - "[[Sensors]]"
   - "[[Control_Systems]]"
   - "[[Biomechanics]]"
-  - "[[Rehabilitation_Robotics]]"
   - "[[Robot_Types_and_Applications]]"
 ---
 

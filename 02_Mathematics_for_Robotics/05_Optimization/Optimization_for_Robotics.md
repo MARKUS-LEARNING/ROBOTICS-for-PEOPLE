@@ -19,8 +19,6 @@ related:
   - "[[Calculus_for_Robotics]]"
   - "[[Linear_Algebra_for_Robotics]]"
   - "[[Model_Predictive_Control_(MPC)]]"
-  - "[[Trajectory_Optimization]]"
-  - "[[Gradient_Descent]]"
 ---
 
 # Optimization for Robotics

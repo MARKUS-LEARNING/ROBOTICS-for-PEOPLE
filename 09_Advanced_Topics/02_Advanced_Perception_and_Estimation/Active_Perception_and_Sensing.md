@@ -23,7 +23,6 @@ related:
   - "[[Sensors]]"
   - "[[Computer_Vision]]"
   - "[[SLAM]]"
-  - "[[Information_Theory]]"
   - "[[Bayesian_Inference]]"
   - "[[Control_Theory]]"
   - "[[Machine_Learning]]"

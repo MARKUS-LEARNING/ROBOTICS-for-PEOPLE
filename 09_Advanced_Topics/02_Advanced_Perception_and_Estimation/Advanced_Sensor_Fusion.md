@@ -18,13 +18,8 @@ prerequisites:
   - "[[Sensor_Fusion]]"
   - "[[Kalman_Filter]]"
 related:
-  - "[[Sensor_Systems]]"
-  - "[[Data_Fusion]]"
-  - "[[Factor_Graphs]]"
   - "[[Kalman_Filter]]"
   - "[[Bayesian_Inference]]"
-  - "[[Machine_Learning_in_Robotics]]"
-  - "[[Multi-modal_Perception]]"
 ---
 
 # Advanced Sensor Fusion

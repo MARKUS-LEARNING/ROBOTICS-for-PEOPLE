@@ -14,7 +14,7 @@ author: Jordan_Smith
 date: 2025-05-02
 related:
   - "[[Programming]]"
-  - "[[Simulation]]"
+  - "[[Robot_Simulation]]"
   - "[[Robot_Control]]"
   - "[[Autonomous_Systems]]"
   - "[[Machine_Learning]]"

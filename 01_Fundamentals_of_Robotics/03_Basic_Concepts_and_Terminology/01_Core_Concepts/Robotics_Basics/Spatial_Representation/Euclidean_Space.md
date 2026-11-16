@@ -18,10 +18,7 @@ date: 2025-05-02
 last_reviewed: 2026-04-25
 related:
   - "[[Kinematics]]"
-  - "[[Vector_Mathematics]]"
   - "[[Coordinate_Systems]]"
-  - "[[Distance_Metrics]]"
-  - "[[Transformations]]"
   - "[[Robot_Design]]"
 ---
 

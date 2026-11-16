@@ -19,18 +19,8 @@ date: 2025-05-09
 related:
   - "[[Embedded_Systems]]"
   - "[[Programming]]"
-  - "[[Hardware]]"
-  - "[[IoT]]"
   - "[[Automation]]"
-  - "[[Digital_Signal_Processing]]"
-  - "[[Microprocessor]]"
   - "[[Arduino]]"
-  - "[[Raspberry_Pi]]"
-  - "[[Sensor_Interfaces]]"
-  - "[[Actuator_Control]]"
-  - "[[Real-Time_Operating_Systems]]"
-  - "[[Analog-to-Digital_Conversion]]"
-  - "[[PWM]]"
 ---
 
 # Microcontroller

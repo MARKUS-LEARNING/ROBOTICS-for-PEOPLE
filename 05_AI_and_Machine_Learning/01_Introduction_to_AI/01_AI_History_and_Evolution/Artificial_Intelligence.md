@@ -25,7 +25,6 @@ related:
   - "[[Reinforcement_Learning]]"
   - "[[Autonomous_Robots]]"
   - "[[Decision_Making]]"
-  - "[[Pattern_Recognition]]"
   - "[[Data_Analysis]]"
 ---
 

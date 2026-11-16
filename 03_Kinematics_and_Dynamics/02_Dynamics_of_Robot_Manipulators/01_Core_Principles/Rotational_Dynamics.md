@@ -22,7 +22,6 @@ related:
   - "[[Torque]]"
   - "[[Inertia]]"
   - "[[Newton-Euler_Equations]]"
-  - "[[Gyroscopic_Effects]]"
 ---
 
 # Rotational Dynamics

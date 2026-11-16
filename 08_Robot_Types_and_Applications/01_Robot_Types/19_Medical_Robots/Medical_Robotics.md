@@ -15,10 +15,7 @@ author: Jordan_Smith
 date: 2025-05-02
 related:
   - "[[Healthcare]]"
-  - "[[Surgery]]"
-  - "[[Rehabilitation]]"
   - "[[Robot_Control]]"
-  - "[[Patient_Care]]"
 ---
 
 # Medical Robots

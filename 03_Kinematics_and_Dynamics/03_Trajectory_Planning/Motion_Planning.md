@@ -27,8 +27,6 @@ related:
   - "[[Configuration_Space]]"
   - "[[Collision_Detection]]"
   - "[[Sampling-Based_Planning]]"
-  - "[[Graph-Based_Planning]]"
-  - "[[Optimization-Based_Planning]]"
 ---
 
 # Motion Planning

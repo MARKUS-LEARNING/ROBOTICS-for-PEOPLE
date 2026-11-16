@@ -21,7 +21,6 @@ related:
   - "[[Search_Algorithms]]"
   - "[[Optimization_Techniques]]"
   - "[[Decision_Making]]"
-  - "[[Problem_Solving]]"
 ---
 
 # Heuristics

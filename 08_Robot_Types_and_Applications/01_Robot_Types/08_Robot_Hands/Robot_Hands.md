@@ -111,7 +111,7 @@ Despite decades of research, creating robot hands with human-level dexterity rem
 * Replicating the combination of strength, speed, and fine motor control of the human hand.
 * Developing robust and high-resolution [[Tactile Sensing]] comparable to human skin.
 * Effectively integrating complex sensing and actuation for real-time control.
-* Learning robust [[Grasping|grasping]] and [[Manipulation]] strategies that generalize across objects and tasks, especially using [[Machine_Learning|learning-based approaches]] ([[Reinforcement_Learning|Reinforcement Learning (RL)]], [[Imitation Learning]]).
+* Learning robust [[Grasping|grasping]] and [[Manipulation]] strategies that generalize across objects and tasks, especially using [[Machine_Learning|learning-based approaches]] ([[Reinforcement_Learning|Reinforcement Learning (RL)]], [[Imitation_Learning|Imitation Learning]]).
 * Achieving cost-effective, durable, and reliable designs for widespread deployment.
 
 Future research continues to explore novel materials ([[Soft_Robotics]]), bio-inspired designs, advanced [[Sensors|sensing]] modalities, and [[AI_and_Robot_Control|AI-driven control]] to push the boundaries of robotic manipulation.

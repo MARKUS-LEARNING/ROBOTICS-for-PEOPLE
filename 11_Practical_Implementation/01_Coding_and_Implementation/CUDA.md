@@ -13,8 +13,6 @@ status: draft
 author: Jordan_Smith
 date: 2025-05-02
 related:
-  - "[[Parallel_Computing]]"
-  - "[[High-Performance_Processing]]"
   - "[[Robot_Control]]"
   - "[[Autonomous_Robots]]"
   - "[[Machine_Learning]]"

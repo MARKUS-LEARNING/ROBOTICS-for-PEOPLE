@@ -22,8 +22,6 @@ related:
   - "[[Control_Theory]]"
   - "[[Dynamics]]"
   - "[[State_Space_Representation]]"
-  - "[[Switching_Control]]"
-  - "[[Event-Driven_Systems]]"
   - "[[Robot_Design]]"
   - "[[Bipedal_Locomotion]]"
 ---

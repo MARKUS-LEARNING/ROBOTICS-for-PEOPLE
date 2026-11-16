@@ -16,10 +16,8 @@ related:
   - "[[Robot_Design]]"
   - "[[Modular_Robotics]]"
   - "[[Adaptive_Control]]"
-  - "[[Task_Planning]]"
   - "[[Human-Robot_Interaction]]"
   - "[[Autonomous_Systems]]"
-  - "[[Multi-Agent_Systems]]"
 ---
 
 # Reconfigurable Robots

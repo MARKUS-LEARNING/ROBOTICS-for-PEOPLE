@@ -21,10 +21,6 @@ related:
   - "[[Dynamics]]"
   - "[[Transfer_Function]]"
   - "[[Stability_Analysis]]"
-  - "[[Linear_Systems]]"
-  - "[[State_Feedback]]"
-  - "[[Observability]]"
-  - "[[Controllability]]"
 ---
 
 # State Space Representation

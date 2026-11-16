@@ -17,7 +17,6 @@ prerequisites:
   - "[[Feedback_Control]]"
 related:
   - "[[Control_Theory]]"
-  - "[[Robot_Dynamics]]"
   - "[[Adaptive_Control]]"
   - "[[Robot_Design]]"
   - "[[Stability_Analysis]]"

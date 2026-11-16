@@ -23,11 +23,9 @@ related:
   - "[[Bayesian_Estimation]]"
   - "[[Kalman_Filter]]"
   - "[[Particle_Filter]]"
-  - "[[Markov_Models]]"
   - "[[SLAM]]"
   - "[[Localization]]"
   - "[[Mapping]]"
-  - "[[Decision_Theory]]"
   - "[[Sensor_Fusion]]"
 ---
 

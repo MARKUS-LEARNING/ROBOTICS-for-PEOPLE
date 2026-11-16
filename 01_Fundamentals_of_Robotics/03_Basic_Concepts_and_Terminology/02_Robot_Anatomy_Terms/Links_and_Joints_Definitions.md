@@ -24,7 +24,6 @@ related:
   - "[[Revolute_Joint]]"
   - "[[Prismatic_Joint]]"
   - "[[Robot_Design]]"
-  - "[[Denavit-Hartenberg_Parameters]]"
 ---
 
 # Links and Joints Definitions

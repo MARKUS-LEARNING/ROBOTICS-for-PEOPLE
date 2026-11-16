@@ -25,7 +25,6 @@ related:
   - "[[Localization]]"
   - "[[Control_Systems]]"
   - "[[State_Estimation]]"
-  - "[[Parameter_Estimation]]"
   - "[[Probabilistic_Robotics]]"
 ---
 

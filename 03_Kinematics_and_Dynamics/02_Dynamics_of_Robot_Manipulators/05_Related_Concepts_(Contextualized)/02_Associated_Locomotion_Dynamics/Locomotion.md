@@ -24,7 +24,6 @@ related:
   - "[[Wheeled_Mobile_Robots]]"
   - "[[Legged_Robots]]"
   - "[[Bipedal_Locomotion]]"
-  - "[[Tracked_Robots]]"
   - "[[Drones]]"
   - "[[Underwater_and_Space_Robots]]"
   - "[[Kinematics]]"

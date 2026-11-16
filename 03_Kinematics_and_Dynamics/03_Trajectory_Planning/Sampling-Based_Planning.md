@@ -21,7 +21,6 @@ related:
   - "[[Configuration_Space]]"
   - "[[Collision_Detection]]"
   - "[[Probabilistic_Roadmaps]]"
-  - "[[Rapidly-exploring_Random_Trees]]"
 ---
 
 # Sampling-Based Planning

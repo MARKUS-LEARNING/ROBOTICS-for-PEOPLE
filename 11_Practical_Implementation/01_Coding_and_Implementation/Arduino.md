@@ -16,7 +16,6 @@ date: 2025-05-02
 related:
   - "[[Embedded_Systems]]"
   - "[[Microcontroller]]"
-  - "[[Sensor_Integration]]"
   - "[[Robot_Design]]"
   - "[[Control_Systems]]"
 ---

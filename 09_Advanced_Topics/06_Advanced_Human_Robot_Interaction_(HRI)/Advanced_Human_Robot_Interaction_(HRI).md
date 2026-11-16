@@ -16,7 +16,6 @@ prerequisites:
   - "[[Human-Robot_Interaction]]"
 related:
   - "[[Human-Robot_Interaction]]"
-  - "[[Collaborative_Systems]]"
   - "[[Robot_Control]]"
   - "[[Artificial_Intelligence]]"
   - "[[Machine_Learning]]"

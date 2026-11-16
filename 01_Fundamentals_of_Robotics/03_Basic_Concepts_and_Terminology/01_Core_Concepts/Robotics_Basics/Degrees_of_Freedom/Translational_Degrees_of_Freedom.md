@@ -22,7 +22,6 @@ related:
   - "[[Kinematics]]"
   - "[[Degrees_of_Freedom]]"
   - "[[Mechanism_Design]]"
-  - "[[Cartesian_Coordinates]]"
   - "[[Robot_Design]]"
   - "[[Workspace_Analysis]]"
 ---

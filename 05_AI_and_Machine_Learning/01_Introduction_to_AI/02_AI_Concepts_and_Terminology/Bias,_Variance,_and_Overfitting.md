@@ -17,8 +17,6 @@ prerequisites:
   - "[[Machine_Learning]]"
 related:
   - "[[Machine_Learning]]"
-  - "[[Model_Evaluation]]"
-  - "[[Training_and_Testing]]"
   - "[[Robot_Control]]"
   - "[[Data_Analysis]]"
 ---

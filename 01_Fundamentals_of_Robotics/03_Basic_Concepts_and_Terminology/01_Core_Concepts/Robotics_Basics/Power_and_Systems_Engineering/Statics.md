@@ -16,12 +16,7 @@ date: 2025-05-02
 last_reviewed: 2026-04-25
 related:
   - "[[Mechanics]]"
-  - "[[Engineering_Design]]"
   - "[[Structural_Analysis]]"
-  - "[[Force_Analysis]]"
-  - "[[Moment_Analysis]]"
-  - "[[Equilibrium]]"
-  - "[[Free_Body_Diagram]]"
 ---
 
 # Statics

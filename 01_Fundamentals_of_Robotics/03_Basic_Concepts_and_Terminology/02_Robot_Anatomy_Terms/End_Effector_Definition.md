@@ -17,7 +17,6 @@ last_reviewed: 2026-04-25
 related:
   - "[[Robotic_Manipulators]]"
   - "[[Grasping]]"
-  - "[[Tool_Design]]"
   - "[[Kinematics]]"
   - "[[Workspace_Analysis]]"
   - "[[Robot_Design]]"

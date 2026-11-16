@@ -21,11 +21,7 @@ related:
   - "[[Control_Theory]]"
   - "[[Dynamics]]"
   - "[[Nonlinear_Control_Theory]]"
-  - "[[Energy-Based_Control]]"
-  - "[[Passivity-Based_Control]]"
   - "[[Robot_Design]]"
-  - "[[Acrobot]]"
-  - "[[Pendubot]]"
 ---
 
 # Control of Underactuated Systems

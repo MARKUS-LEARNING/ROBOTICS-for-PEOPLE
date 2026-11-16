@@ -1,106 +1,82 @@
 ---
 title: Deep Learning in Robotics
-description: Deep Learning in Robotics involves the use of deep neural networks to enable robots to learn complex patterns and make decisions based on large datasets, enhancing capabilities such as perception, control, and interaction.
+description: "Section overview: where deep neural networks sit in a robot today, in perception, state estimation, control, and end-to-end learned policies, and how the field moved from task-specific networks to robot foundation models."
 tags:
   - deep-learning
-  - artificial-intelligence
-  - machine-learning
-  - mobile-robot
+  - robot-learning
+  - neural-networks
+  - computer-vision
+  - foundation-models
 type: overview
 level: intermediate
 subfield:
   - robot-learning
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
   - "[[Deep_Learning]]"
 related:
-  - "[[Artificial_Intelligence]]"
-  - "[[Neural_Networks]]"
-  - "[[Machine_Learning]]"
-  - "[[Robot_Control]]"
+  - "[[Reinforcement_Learning_for_Robots]]"
+  - "[[Imitation_Learning]]"
+  - "[[Vision-Language-Action_Models]]"
   - "[[Computer_Vision]]"
+  - "[[Neural_Networks_in_Control]]"
+key_takeaways:
+  - "Deep learning entered robots through perception, then moved into control and finally into end-to-end policies."
+  - "Today's stack mixes learned and classical parts: learned perception and high-level policies on top of classical estimation, planning and low-level control."
+  - "The 2023-26 shift is from one network per task to pretrained generalist models adapted per robot."
+sources:
+  - "Levine, S. et al. (2015). End-to-End Training of Deep Visuomotor Policies. https://arxiv.org/abs/1504.00702"
+  - "Brohan, A. et al. (2022). RT-1: Robotics Transformer for Real-World Control at Scale. https://arxiv.org/abs/2212.06817"
+  - "Chi, C. et al. (2023). Diffusion Policy: Visuomotor Policy Learning via Action Diffusion. https://arxiv.org/abs/2303.04137"
+  - "Rudin, N. et al. (2021). Learning to Walk in Minutes Using Massively Parallel Deep Reinforcement Learning. https://arxiv.org/abs/2109.11978"
 ---
 
 # Deep Learning in Robotics
 
-**Deep Learning in Robotics** involves the use of deep neural networks to enable robots to learn complex patterns and make decisions based on large datasets. It enhances capabilities such as perception, control, and interaction, allowing robots to perform tasks with high accuracy and adaptability. Deep learning is a subset of machine learning that uses multi-layered neural networks to model and solve complex problems, making it a powerful tool in the field of robotics.
+**Deep learning** (training many-layered [[Neural_Networks|neural networks]] on data) entered robotics through the eyes and has been moving toward the hands ever since. This overview maps where deep networks sit in a robot in 2026 and points to the notes that go deeper.
 
----
+> **Etymology.** *Deep* refers to the number of layers between input and output. The phrase "deep learning" was introduced to machine learning by Rina Dechter (1986) and to neural networks by Igor Aizenberg and colleagues (2000); it became the field's name after Geoffrey Hinton's 2006 work on training deep belief networks.
 
-## Key Concepts
+## Where deep networks sit in a robot
 
-### Neural Networks
+| Part of the stack | What the network does | Classical alternative it competes with | Notes |
+|---|---|---|---|
+| **Perception** | Detect, segment and track objects; estimate depth and pose | Hand-designed features, geometric vision | [[Computer_Vision]], [[Convolutional_Neural_Networks]] |
+| **State estimation** | Learned odometry, learned sensor models | Kalman filters, factor graphs | Usually hybrid; see [[Sensor_Fusion]] |
+| **Dynamics models** | Learn how the robot or objects move | Rigid-body models | [[Neural_Networks_in_Control]], [[World_Models]] |
+| **Low-level control** | Locomotion policies trained in simulation | PD, MPC | [[Reinforcement_Learning_for_Robots]] |
+| **Manipulation policies** | Map camera images to arm and gripper motion | Grasp planners, scripted skills | [[Imitation_Learning]], [[Diffusion_Policy]] |
+| **Task-level reasoning** | Understand instructions, plan steps | Symbolic planners | [[Vision-Language-Action_Models]] |
 
-Neural networks are computational models inspired by the structure and function of the human brain. They consist of layers of interconnected nodes (neurons) that process and transmit information, enabling tasks such as pattern recognition, decision-making, and control.
+## Three eras
 
-### Convolutional Neural Networks (CNNs)
+1. **Perception (2012–).** After deep convolutional networks won the 2012 ImageNet challenge, robots adopted learned object detection and segmentation, while control stayed classical.
+2. **End-to-end skills (2015–).** Levine et al. (2015) trained a single network from camera pixels to motor torques for tasks like screwing a cap on a bottle. Simulation-trained locomotion followed (Rudin et al. 2021). Each skill still had its own network.
+3. **Generalist models (2022–).** RT-1 (2022) trained one transformer on 130,000 real episodes; [[Diffusion_Policy]] (2023) made imitation reliable; [[Vision-Language-Action_Models]] connected web-scale knowledge to action. In 2026 the frontier is generalist models pretrained across many robots and adapted per robot.
 
-Convolutional Neural Networks (CNNs) are a type of deep neural network specifically designed for processing grid-like data, such as images. They are widely used in robotics for tasks such as object recognition, scene understanding, and visual navigation.
+## The hybrid reality
 
-### Recurrent Neural Networks (RNNs)
+Almost no deployed robot is learned end to end. A typical 2026 system:
 
-Recurrent Neural Networks (RNNs) are designed to recognize patterns in sequences of data, such as time series or natural language. They are used in robotics for tasks such as motion planning, trajectory prediction, and language processing.
+```
+cameras ─► learned perception / VLA policy (10–50 Hz) ─► targets ─► classical controller (500–1000 Hz) ─► motors
+                 ▲                                                     ▲
+   classical localisation / maps                          safety limits, collision checks
+```
 
-### Reinforcement Learning
+Learned parts handle what is hard to write down (recognising a crumpled shirt, choosing a grasp); classical parts handle what must be guaranteed (joint limits, stability, emergency stops).
 
-Reinforcement learning is a type of machine learning where an agent learns to make decisions by performing actions in an environment to achieve a goal. Deep reinforcement learning combines deep neural networks with reinforcement learning, enabling robots to learn complex behaviors and control strategies.
+## Where to go next
 
----
+- How networks learn from reward: [[Reinforcement_Learning]] → [[Reinforcement_Learning_for_Robots]].
+- How they learn from demonstrations: [[Imitation_Learning]] → [[Diffusion_Policy]] → [[Vision-Language-Action_Models]].
+- How they learn to predict the world: [[Generative_Models]] → [[World_Models]].
 
-## Mathematical Formulation
-
-### Convolutional Layer
-
-A convolutional layer in a CNN applies a set of filters to the input data, extracting features such as edges, textures, and patterns. The operation can be represented as:
-
-$$
-y_{i,j} = \sigma \left( \sum_{m=0}^{M-1} \sum_{n=0}^{N-1} w_{m,n} \cdot x_{i+m,j+n} + b \right)
-$$
-
-where:
-- $y_{i,j}$ is the output feature map.
-- $w_{m,n}$ is the filter weight.
-- $x_{i+m,j+n}$ is the input data.
-- $b$ is the bias term.
-- $\sigma$ is the activation function.
-
-### Recurrent Layer
-
-A recurrent layer in an RNN processes sequential data, maintaining a hidden state that captures information from previous inputs. The operation can be represented as:
-
-$$
-h_t = \sigma \left( W_{xh} \cdot x_t + W_{hh} \cdot h_{t-1} + b \right)
-$$
-
-where:
-- $h_t$ is the hidden state at time $t$.
-- $x_t$ is the input at time $t$.
-- $W_{xh}$ and $W_{hh}$ are the weight matrices.
-- $b$ is the bias term.
-- $\sigma$ is the activation function.
-
-### Example: Autonomous Navigation
-
-Consider a mobile robot using deep learning for autonomous navigation. The robot uses a CNN to process visual data from its environment, extracting features such as obstacles, pathways, and landmarks. The extracted features are used to make decisions and plan paths, enabling the robot to navigate through the environment and reach its destination.
-
----
-
-## Applications in Robotics
-
-- **Object Recognition**: Deep learning is used to recognize and classify objects in the environment, enabling tasks such as grasping and manipulation.
-- **Navigation**: Enables robots to navigate through their environment, avoiding obstacles and reaching destinations.
-- **Decision Making**: Allows robots to make decisions under uncertainty, adapting to changing conditions and performing tasks effectively.
-- **Control Systems**: Deep learning is used to design control algorithms that regulate the behavior of robotic systems, enabling precise and adaptive control.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Deep_Learning_in_Robotics]])

@@ -26,7 +26,6 @@ related:
   - "[[Revolute_Joint]]"
   - "[[Industrial_Arms]]"
   - "[[Parallel_Mechanisms_and_Robots]]"
-  - "[[Kinematically_Redundant_Manipulators]]"
 ---
 
 # Manipulator Arm Types

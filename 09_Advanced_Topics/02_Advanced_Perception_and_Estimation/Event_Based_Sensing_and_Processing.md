@@ -20,11 +20,6 @@ prerequisites:
   - "[[Camera_Systems]]"
 related:
   - "[[Sensors]]"
-  - "[[Real-Time_Processing]]"
-  - "[[Event-Driven_Architectures]]"
-  - "[[Asynchronous_Sensing]]"
-  - "[[Neuromorphic_Engineering]]"
-  - "[[Dynamic_Vision_Sensors]]"
   - "[[Machine_Learning]]"
 ---
 

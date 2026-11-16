@@ -22,9 +22,7 @@ related:
   - "[[Optimal_Control]]"
   - "[[Robust_Control_Methods]]"
   - "[[Lyapunov_Stability]]"
-  - "[[Model_Reference_Adaptive_Control_(MRAC)]]"
   - "[[Dynamics]]"
-  - "[[Machine_Learning_in_Control]]"
 ---
 
 # Adaptive Control Theory

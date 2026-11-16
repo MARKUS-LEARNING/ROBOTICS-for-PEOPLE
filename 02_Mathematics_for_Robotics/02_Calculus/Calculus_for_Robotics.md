@@ -18,7 +18,6 @@ last_reviewed: 2026-04-25
 prerequisites:
   - "[[Optimization]]"
 related:
-  - "[[Differential_Equations]]"
   - "[[Optimization]]"
   - "[[Jacobian_Matrix]]"
   - "[[Manipulator_Dynamics]]"

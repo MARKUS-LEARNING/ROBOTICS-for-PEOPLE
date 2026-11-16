@@ -22,9 +22,6 @@ related:
   - "[[Kinematics]]"
   - "[[Degrees_of_Freedom]]"
   - "[[Grübler's_Formula]]"
-  - "[[Linkage_Mechanisms]]"
-  - "[[Gear_Systems]]"
-  - "[[Cam_Mechanisms]]"
   - "[[Robot_Design]]"
 ---
 

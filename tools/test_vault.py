@@ -58,6 +58,28 @@ class FixLinks(unittest.TestCase):
         self.assertIn('contains(file.outlinks, [[Machine Learning]])', out)
 
 
+class Freshness(unittest.TestCase):
+    def test_trim_related_removes_only_listed_targets(self):
+        fm = 'title: T\nrelated:\n  - "[[Keep]]"\n  - "[[Stray Topic]]"\n  - "[[Stray Topic|alias]]"\ntags:\n  - "[[Stray Topic]]"'
+        out, n = vault.trim_related_text(fm, {'stray topic'})
+        self.assertEqual(n, 2)
+        self.assertEqual(out, 'title: T\nrelated:\n  - "[[Keep]]"\ntags:\n  - "[[Stray Topic]]"')
+
+    def test_as_of_needs_three_sources_in_the_right_format(self):
+        v = vault.Vault(); schema = vault.load_yaml('schema.yml'); tm = vault.TagMap()
+        fm = ('title: T\ndescription: d\ntags:\n  - ros\ntype: concept\nlevel: beginner\nsubfield:\n  - software\n'
+              'status: draft\nauthor: Jordan_Smith\ndate: 2026-01-01\nas_of: 2026-13\nsources:\n  - "No year or url"\n'
+              '  - "DeepMind (2025). MuJoCo. https://mujoco.org"\n')
+        n = note('body', fm=fm); L = vault.Lint()
+        vault.check_note(n, v, schema, tm, set(vault.load_yaml('subfields.yml')['subfields']), L)
+        rules = {r for _, r, _, _ in L.items}
+        self.assertTrue({'field-month', 'source-format', 'sources-required'} <= rules, rules)
+
+    def test_generated_whats_new_page(self):
+        out = vault.page_whats_new(vault.Book(vault.Vault()))
+        self.assertIn('## Recently added', out)
+
+
 class Tags(unittest.TestCase):
     def test_inline_tags_need_whitespace(self):
         n = note('#start and mid #ok, "#quoted" x#no `#code` #123 #v2/sub')

@@ -19,7 +19,6 @@ author: Jordan_Smith
 date: 2025-04-28
 related:
   - "[[Robot_Operating_System_(ROS)]]"
-  - "[[Visualization]]"
   - "[[TF_and_Topic_Architecture]]"
   - "[[URDF]]"
   - "[[LIDAR]]"

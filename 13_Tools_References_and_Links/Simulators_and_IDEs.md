@@ -16,11 +16,13 @@ type: reference
 level: beginner
 subfield:
   - software
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 related:
-  - "[[Simulation]]"
+  - "[[Robot_Simulation]]"
   - "[[Gazebo_Simulator]]"
   - "[[RViz_Tutorial]]"
   - "[[Robot_Operating_System_(ROS)]]"
@@ -33,6 +35,13 @@ related:
   - "[[SLAM_with_ROS]]"
   - "[[Nav2_Navigation]]"
   - "[[MoveIt2]]"
+sources:
+  - "Open Robotics (2026). Installing Gazebo with ROS. https://gazebosim.org/docs/latest/ros_installation/"
+  - "Open Robotics (2025). Gazebo Classic. https://classic.gazebosim.org/"
+  - "Google DeepMind (2026). MuJoCo 4: Studio & Filament, Deformables, Speculative Contacts. https://github.com/google-deepmind/mujoco/discussions/3773"
+  - "NVIDIA (2026). Isaac Lab 3.0 release notes. https://github.com/isaac-sim/IsaacLab/releases/tag/v3.0.0"
+  - "Newton contributors (2026). Newton release v1.0.0. https://github.com/newton-physics/newton/releases/tag/v1.0.0"
+  - "Tao, S. et al. (2024). ManiSkill3: GPU Parallelized Robotics Simulation and Rendering for Generalizable Embodied AI. https://arxiv.org/abs/2410.00425"
 ---
 
 # Simulators and IDEs in Robotics
@@ -51,10 +60,10 @@ Physics simulators provide virtual environments with accurate dynamics, sensor m
 
 The **de facto standard** simulator for ROS robotics. Two generations currently coexist:
 
-* **Gazebo Classic** (versions 1–11): The widely-used original. Stable, large existing model/plugin library, but no longer actively developed.
-* **Gazebo Sim** (formerly Ignition Gazebo, versions 6+): The modern successor. Modular architecture, improved performance, actively maintained, and the default for ROS 2 (Humble+).
+* **Gazebo Classic** (versions 1–11): the original. **Reached end of life on 29 January 2025**; tutorials using `gazebo_ros`, `gzserver` or `spawn_entity.py` refer to it.
+* **Gazebo** (formerly Ignition Gazebo; codenamed releases): the current simulator. Pair it with your ROS 2 distribution: **Jetty with Lyrical** (recommended for new projects, supported to May 2031), Harmonic with Jazzy, Fortress with Humble. See [[Gazebo_Simulator]].
 
-**Strengths:** Deep [[ROS_2_Overview|ROS 2]] integration, large community, extensive sensor library ([[LIDAR]], [[Camera_Systems]], [[IMU_Sensors]], contact, GPS), multiple physics backends (ODE, Bullet, DART, Simbody).
+**Strengths:** Deep [[ROS_2_Overview|ROS 2]] integration through `ros_gz`, large community, extensive sensor library ([[LIDAR]], [[Camera_Systems]], [[IMU_Sensors]], contact, GPS), pluggable physics (DART by default, Bullet, TPE).
 
 **Best for:** ROS 2 development, mobile robot navigation, manipulation, sensor simulation.
 
@@ -64,10 +73,10 @@ Website: [gazebosim.org](https://gazebosim.org/)
 
 ### MuJoCo
 
-**MuJoCo** (Multi-Joint dynamics with Contact) has become the dominant simulator for **robot learning and RL research** since DeepMind made it free and open-source in 2021. It is renowned for its extremely accurate and stable contact dynamics and fast simulation speed.
+**MuJoCo** (Multi-Joint dynamics with Contact) is one of the two dominant simulators for **robot learning and control research**. DeepMind acquired it in 2021, made it free, and open-sourced it (Apache-2.0) in 2022. It is known for stable, fast contact dynamics. **MuJoCo 4** (November 2026) added MuJoCo Studio, soft bodies with plasticity, speculative contacts and a system-identification toolbox; **MJX** and **MuJoCo Warp** run it on GPUs, and **MuJoCo Playground 1.0** provides GPU-parallel training environments. See [[MuJoCo]].
 
 * **Strengths:** Best-in-class contact/friction physics, very fast (often 10–100× faster than Gazebo for contact-rich tasks), excellent Python API, stable numerical integration.
-* **Weaknesses:** Less sensor variety than Gazebo, historically weaker ROS integration (though `mujoco_ros` packages exist).
+* **Weaknesses:** Fewer ready-made sensors than Gazebo; ROS integration is through community packages rather than built in.
 * **Used by:** OpenAI, DeepMind, most academic RL manipulation research. Standard environments in `dm_control` and `Gymnasium`.
 
 **Best for:** Robot learning, dexterous manipulation, contact-rich tasks, RL policy training.
@@ -81,8 +90,8 @@ Website: [mujoco.org](https://mujoco.org/)
 Built on the **NVIDIA Omniverse** platform with PhysX 5 physics. Designed for high-fidelity, photorealistic simulation with GPU acceleration.
 
 * **Strengths:** Photorealistic rendering (ray tracing), domain randomization for [[Sim2Real_Experiments|Sim2Real]], synthetic dataset generation, GPU-accelerated physics, integrated **Isaac Lab** framework for RL training, full ROS 2 bridge.
-* **Weaknesses:** Requires a capable NVIDIA GPU (RTX recommended), heavier setup than Gazebo, commercial ecosystem.
-* **Isaac Lab:** A modular framework built on Isaac Sim for robot learning — supports training locomotion, manipulation, and dexterous hand policies.
+* **Weaknesses:** Requires a capable NVIDIA GPU (RTX recommended) and a heavier setup than Gazebo; Isaac Sim has its own NVIDIA licence (Isaac Lab's core is BSD-3-Clause).
+* **Isaac Lab:** NVIDIA's open-source robot-learning framework. **Isaac Lab 3.0** (October 2026) runs one task API on PhysX or on the open Newton engine, and no longer requires Isaac Sim. See [[Isaac_Lab]].
 
 **Best for:** High-fidelity Sim2Real, synthetic data generation for perception, GPU-accelerated RL at scale.
 
@@ -144,7 +153,9 @@ Website: [carla.org](https://carla.org/)
 |---|---|---|
 | **Drake** (TRI) | Manipulation, trajectory optimization | Rigorous multibody physics; strong optimization integration |
 | **Sapien** | Manipulation learning | Photorealistic; used in RLBench, ManiSkill benchmarks |
-| **Genesis** | Universal physics (2024) | New; GPU-accelerated, aims to unify simulation paradigms |
+| **Newton** | Open GPU physics engine (2025–) | Apache-2.0, Linux Foundation; started by Disney Research, Google DeepMind and NVIDIA; MuJoCo Warp, VBD and MPM solvers; v1.0 April 2026 |
+| **Genesis** | GPU multi-physics (2024–) | Apache-2.0; rigid, FEM, MPM, PBD and SPH solvers |
+| **ManiSkill3** | GPU-parallel manipulation | Apache-2.0; simulation and rendering on the GPU for embodied-AI benchmarks |
 | **AirSim** | Aerial/ground vehicles | Microsoft project; largely unmaintained since 2022 — prefer alternatives |
 | **MATLAB/Simulink** | Control system design, model-based | Robotics System Toolbox; strong for classical control analysis |
 
@@ -248,13 +259,14 @@ Website: [qt.io/product/development-tools](https://www.qt.io/product/development
 
 | Use Case | Recommended Simulator |
 |---|---|
-| ROS 2 mobile robot development | Gazebo Sim |
-| Robot arm / manipulation | Gazebo Sim + MoveIt 2, or MuJoCo |
-| RL policy training (contact-rich) | MuJoCo, Isaac Lab |
-| RL policy training (GPU-scale) | Isaac Lab (NVIDIA) |
+| ROS 2 mobile robot development | Gazebo (Jetty with Lyrical, Harmonic with Jazzy) |
+| Robot arm / manipulation | Gazebo + MoveIt 2, or MuJoCo |
+| RL policy training (contact-rich) | MuJoCo / MuJoCo Playground, Isaac Lab |
+| RL policy training (GPU-scale) | Isaac Lab 3.0, MuJoCo Playground, ManiSkill3, Genesis |
+| Deformables, cables, liquids | MuJoCo 4 (soft bodies), Isaac Lab 3.0 with Newton (VBD, MPM), Genesis |
 | Sim2Real with synthetic data | Isaac Sim |
 | Autonomous driving | CARLA |
-| Education / teaching | Webots, Gazebo Classic |
+| Education / teaching | Webots, Gazebo, MuJoCo in the browser |
 | Quick Python prototyping | PyBullet |
 | Trajectory optimization / manipulation | Drake |
 

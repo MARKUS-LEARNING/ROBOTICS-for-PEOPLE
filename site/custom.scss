@@ -1,0 +1,37 @@
+@use "./base.scss";
+
+// Robotics for People: copied over quartz/styles/custom.scss by tools/sitebuild.py prep.
+
+// The metadata strip that opens every note (level, status, subfields, read first, next up): quiet and neutral.
+.callout[data-callout="abstract"] {
+  --color: #3c3c3c;
+  --border: #e6e6e6;
+  --bg: #fafafa;
+  font-size: 0.95rem;
+}
+:root[saved-theme="dark"] .callout[data-callout="abstract"] {
+  --color: #d0d0d0;
+  --border: #2e2e2e;
+  --bg: #1a1a1a;
+}
+
+// Links into the Explore graph are part of the site, not external pages.
+a.external[href*="/explore/"] .external-icon {
+  display: none;
+}
+
+// The "Explore the graph" call to action on the home page.
+a.explore-cta {
+  display: inline-block;
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--dark);
+  border-radius: 6px;
+  color: var(--dark);
+  background: var(--light);
+  font-weight: 600;
+  text-decoration: none;
+  &:hover {
+    background: var(--dark);
+    color: var(--light);
+  }
+}

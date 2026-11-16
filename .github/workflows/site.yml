@@ -1,0 +1,64 @@
+name: Site
+
+# Builds the public textbook (Quartz) plus the agent files (llms.txt, graph.json, raw notes) on every pull request,
+# and publishes it to GitHub Pages from main. Repository setting needed once: Settings > Pages > Source: GitHub Actions.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  QUARTZ_VERSION: v4.5.2
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: pip install pyyaml==6.0.2 jsonschema==4.23.0
+      - name: Fetch Quartz ${{ env.QUARTZ_VERSION }}
+        run: |
+          git clone --depth 1 --branch "$QUARTZ_VERSION" https://github.com/jackyzha0/quartz.git .quartz
+          cd .quartz && npm ci --no-audit --no-fund
+      - name: Install Explore page libraries (site/package.json, pinned)
+        run: cd site && npm ci --no-audit --no-fund
+      - name: Prepare content (copy vault, compile Dataview, add metadata strips and home page)
+        run: python tools/sitebuild.py prep --quartz .quartz
+      - name: Build site
+        run: cd .quartz && npx quartz build -d content -o public
+      - name: Export agent files and the Explore page (llms.txt, llms-full.txt, graph.json, raw/, explore/)
+        run: python tools/sitebuild.py export --out .quartz/public
+      - name: Check every internal link resolves
+        run: python tools/sitebuild.py check --public .quartz/public
+      - uses: actions/upload-pages-artifact@v3
+        if: github.event_name != 'pull_request'
+        with:
+          path: .quartz/public
+
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

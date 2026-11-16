@@ -11,8 +11,6 @@ status: draft
 author: Jordan_Smith
 date: 2025-05-02
 related:
-  - "[[Aerial_Robotics]]"
-  - "[[Unmanned_Systems]]"
   - "[[Robot_Control]]"
   - "[[Autonomous_Systems]]"
   - "[[Machine_Learning]]"

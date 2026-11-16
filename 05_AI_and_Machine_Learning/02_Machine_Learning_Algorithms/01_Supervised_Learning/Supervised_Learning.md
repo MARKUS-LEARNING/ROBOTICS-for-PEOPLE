@@ -18,7 +18,6 @@ prerequisites:
 related:
   - "[[Machine_Learning]]"
   - "[[Classification]]"
-  - "[[Regression]]"
   - "[[Robot_Control]]"
   - "[[Data_Analysis]]"
 ---
