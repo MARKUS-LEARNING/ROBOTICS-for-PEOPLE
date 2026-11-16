@@ -23,7 +23,7 @@ related:
   - "[[Control_Theory]]"
   - "[[Dynamics]]"
   - "[[Feedback_Linearization]]"
-  - "[[Sliding_Mode_Control]]"
+  - "[[Robust_Control]]"
   - "[[Lyapunov_Stability]]"
   - "[[Adaptive_Control]]"
   - "[[Robust_Control]]"

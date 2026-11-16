@@ -21,7 +21,7 @@ related:
   - "[[Computer_Vision]]"
   - "[[Object_Recognition]]"
   - "[[Robot_Design]]"
-  - "[[Navigation]]"
+  - "[[Autonomous_Navigation]]"
 ---
 
 # RGB-D Sensor
