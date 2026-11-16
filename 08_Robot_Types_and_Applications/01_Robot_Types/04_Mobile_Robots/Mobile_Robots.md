@@ -1,6 +1,6 @@
 ---
 title: Mobile Robots
-description: "Mobile robots move through their environment rather than staying bolted in place: wheeled, tracked, legged, flying and swimming. Covers the locomotion options, the navigation stack (perception, localization, mapping, planning, control), a computed stopping-distance example that sizes a safety field, where mobile robots work in 2026 (warehouses, delivery, robotaxis, inspection, homes), and what remains hard."
+description: "Mobile robots move through their environment rather than staying bolted in place: wheeled, tracked, legged, flying and swimming. Covers the locomotion options, the navigation stack (perception, localization, mapping, planning, control), a computed stopping-distance example that sizes a safety field, where mobile robots work in 2026 (warehouses, delivery, robotaxis, homes), and what is still hard."
 aliases:
   - Mobile Robot
   - AMR
@@ -39,6 +39,7 @@ sources:
   - "Macenski, S., Moore, T., Lu, D. V., Merzlyakov, A. and Ferguson, M. (2023). From the desks of ROS maintainers: A survey of modern & capable mobile robotics algorithms in the robot operating system 2. https://arxiv.org/abs/2307.15236"
   - "TechCrunch (2025). Amazon deploys its one millionth robot, releases generative AI model. https://techcrunch.com/2025/07/01/amazon-deploys-its-one-millionth-robot-releases-generative-ai-model/"
   - "Electrek (2026). Waymo begins fully autonomous ops with 6th-gen Driver, targets 1M weekly rides. https://electrek.co/2026/02/12/waymo-begins-fully-autonomous-ops-with-6th-gen-driver-targets-1m-weekly-rides/"
+  - "International Federation of Robotics (2026). Global Sales of Professional Service Robots Surge 24%. https://ifr.org/ifr-press-releases/news/global-sales-of-professional-service-robots-surge-24-percent"
 ---
 
 # Mobile Robots
@@ -86,9 +87,9 @@ The protective field in front of the robot must be at least 1.43 m long (plus a 
 |---|---|
 | **Warehouses and factories** | Goods-to-person robots, autonomous forklifts, tuggers. Amazon reported its one-millionth robot in July 2025, with a generative model (DeepFleet) coordinating fleet traffic |
 | **Roads** | Robotaxis. Waymo gave about 400,000 paid rides per week in February 2026, after 15 million rides in 2025, with a stated goal of over one million per week by the end of 2026 |
-| **Sidewalks and buildings** | Delivery robots, hospital and hotel delivery, cleaning robots |
+| **Sidewalks and buildings** | Delivery robots, hospital and hotel delivery, cleaning robots. Professional service robots sold almost 250,000 units in 2025 (+24%); transport and logistics robots were 117,500 of them (IFR) |
 | **Inspection** | Legged and tracked robots in plants, tunnels and construction sites |
-| **Homes** | Robot vacuums and mops; home humanoids in early sales |
+| **Homes** | Robot vacuums and mops; home humanoids in early sales. Consumer service robots sold almost 34.2 million units in 2025, up 37% (IFR) |
 | **Fields, air and sea** | [[Agricultural_Robots]], [[Drones]], [[Underwater_and_Space_Robots]] |
 
 ## What is still hard

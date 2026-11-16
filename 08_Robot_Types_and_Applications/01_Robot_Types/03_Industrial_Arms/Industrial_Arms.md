@@ -22,13 +22,16 @@ as_of: 2026-11
 prerequisites:
   - "[[Manipulator_Arm]]"
 related:
+  - "[[Manufacturing]]"
+  - "[[Robot_Work_Cell_Design]]"
+  - "[[Robotic_Welding]]"
   - "[[Collaborative_Robots]]"
   - "[[Ethical_and_Social_Implications]]"
   - "[[MoveIt2]]"
   - "[[CNN_in_Robotics]]"
   - "[[Parallel_Robots]]"
 key_takeaways:
-  - "The global stock of industrial robots reached a record 5 million in 2025, with about 603,000 new installations; China installed 59% of them (IFR, World Robotics 2026)."
+  - "The global stock of industrial robots reached a record 5.08 million in 2025, with 603,307 new installations; China installed 59% of them (IFR, World Robotics 2026)."
   - "Most industrial arms still run taught or offline-programmed motions in fenced cells; vision, force sensing and collaborative operation have widened what they do."
   - "Safety is governed by ISO 10218-1/-2 (revised 2025) and, in the EU from January 2027, the Machinery Regulation; AI-driven behaviour sits on top of certified safety functions, not in place of them."
 sources:
@@ -74,12 +77,13 @@ From the IFR's *World Robotics 2026* (published 24 September 2026):
 
 | Figure | Value |
 |---|---|
-| Operational stock worldwide, end of 2025 | about **5 million** (+9%) |
-| New installations in 2025 | **603,307** (+11%) |
-| China's share of 2025 installations | 59% (about 354,000 units) |
+| Operational stock worldwide, end of 2025 | **5,079,078** (+9%) |
+| New installations in 2025 | **603,307** (+11%), a record |
+| China | 354,226 units (+20%), 59% of the world total |
+| Largest customer industries | Electrical and electronics 142,235; automotive 138,429; metal and machinery 108,571 (+22%) |
 | Forecast installations | 655,000 in 2026; 806,000 in 2029 |
 
-Automotive and electronics remain the largest users, but logistics, food, metal and machinery are growing fastest.
+Electronics regained the lead from automotive in 2024 and kept it in 2025; metal and machinery grew fastest of the three. [[Manufacturing]] has the full picture, including robot density by country.
 
 ## How they are programmed
 

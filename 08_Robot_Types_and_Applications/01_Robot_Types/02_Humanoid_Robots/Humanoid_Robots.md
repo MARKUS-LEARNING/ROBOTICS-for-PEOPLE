@@ -1,6 +1,6 @@
 ---
 title: Humanoid Robots
-description: "Humanoid robots have a human-like body (legs, torso, arms, hands, head) so they can work in spaces and with tools built for people. Covers why the form is attempted, the subsystems, balance with a computed capture-point example, how humanoids are trained in 2026 (RL in simulation, motion tracking, teleoperation, VLAs), the main robots and their published specs (Atlas, Figure 03, NEO, Unitree G1, Digit), and the honest state of deployment."
+description: "Humanoid robots have a human-like body so they can work in spaces and with tools built for people. Covers why the form is attempted, the subsystems, balance with a computed capture-point example, how humanoids are trained in 2026 (RL in simulation, motion tracking, teleoperation, VLAs), the main robots and their published specs (Atlas, Figure 03, NEO, G1, Digit), and the state of deployment."
 aliases:
   - Humanoid
   - Humanoids
@@ -29,6 +29,7 @@ related:
   - "[[Vision-Language-Action_Models]]"
   - "[[Teleoperation_and_Data_Collection]]"
   - "[[Sim-to-Real_Transfer]]"
+  - "[[Manufacturing]]"
 key_takeaways:
   - "The case for humanoids is the world they fit: stairs, doors, shelves and tools made for people, and human video and teleoperation as training data; the case against is cost, complexity and safety."
   - "Since 2023 humanoid locomotion is learned with reinforcement learning in GPU simulation, and whole-body skills increasingly come from tracking human motion and from vision-language-action models."
@@ -42,6 +43,8 @@ sources:
   - "He, T. et al. (2024). HOVER: Versatile Neural Whole-Body Controller for Humanoid Robots. https://arxiv.org/abs/2410.21229"
   - "NVIDIA (2025). GR00T N1: An Open Foundation Model for Generalist Humanoid Robots. https://arxiv.org/abs/2503.14734"
   - "Google DeepMind (2026). Gemini Robotics 2 brings whole body intelligence to robots. https://deepmind.google/blog/gemini-robotics-2-brings-whole-body-intelligence-to-robots/"
+  - "International Federation of Robotics (2026). Global Sales of Professional Service Robots Surge 24%. https://ifr.org/ifr-press-releases/news/global-sales-of-professional-service-robots-surge-24-percent"
+  - "Müller, C. (2026). World Robotics 2026 – Industrial Robots, executive summary. https://ifr.org/img/worldrobotics/Executive_Summary_WR_2026_-_Industrial_Robots.pdf"
 ---
 
 # Humanoid Robots
@@ -95,7 +98,7 @@ The **capture point**, where the robot must step to come to a stop, lies at $x_{
 | **G1** | Unitree | ~35 kg, 23–43 DoF, ~2 h battery | Sold from US$13.5K; widely used in research |
 | **Digit** | Agility Robotics | Bipedal tote-handling robot | In commercial logistics use (GXO, Schaeffler, Toyota customers listed); Digit 5 in development |
 
-Tesla (Optimus), Apptronik (Apollo), UBTech, Fourier, AgiBot and others are also building humanoids. Reports on their production volumes conflict, so treat counts you read online with care.
+Tesla (Optimus), Apptronik (Apollo), UBTech, Fourier, AgiBot and others are also building humanoids. Reports on their production volumes conflict, so treat counts you read online with care. The most neutral count comes from the International Federation of Robotics: about 7,000 full-size humanoids (taller than 140 cm) were sold worldwide in 2025 for commercial and professional use.
 
 **Reading the specs.** All of these figures come from the companies themselves. Runtime depends heavily on the task: NEO's 842 Wh over 4 h implies an average draw of about 210 W, which is plausible for light household work but not for continuous heavy lifting.
 
@@ -104,6 +107,8 @@ Tesla (Optimus), Apptronik (Apollo), UBTech, Fourier, AgiBot and others are also
 - **Working:** robust walking on varied terrain, recovery from pushes, dynamic motions learned from human motion, and repetitive pick-and-place tasks in structured factory and warehouse cells.
 - **Early:** multi-hour autonomous shifts without human help; general household tasks; dexterous manipulation of arbitrary objects; certified safety for close work with the public.
 - **Open questions:** cost per useful hour compared with simpler robots, reliability (mean time between failures), and how much of the "generalist" capability shown in demonstrations holds up in daily operation.
+
+The IFR's 2026 reports are blunt about industry: most humanoids remain prototypes or pilot-stage, many applications still rely on teleoperation, and for production tasks ordinary industrial robots are economically superior at the current stage of the technology (see [[Manufacturing]]).
 
 ## Dataview
 

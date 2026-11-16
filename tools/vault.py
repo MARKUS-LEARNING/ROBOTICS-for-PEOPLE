@@ -1128,6 +1128,8 @@ def page_paths(b: Book) -> str:
          pick(['mathematics', 'kinematics-dynamics', 'perception', 'estimation-mapping', 'planning', 'control'], ['beginner', 'intermediate'], limit=24)),
         ('Builder: make a robot work', 'Hardware, software and tooling: actuators, electronics, ROS 2, simulation and the labs.',
          pick(['mechanisms-actuation', 'electronics-embedded', 'software', 'systems-engineering'], ['beginner', 'intermediate'], limit=20)),
+        ('Manufacturing: robots on the factory floor', 'How robots are put to work in factories: arms, work cells, controllers, welding, vision and safety.',
+         pick(['industrial-automation'], ['beginner', 'intermediate', 'advanced'])),
         ('Learning-based robotics', 'From machine learning basics to deep and reinforcement learning on real robots.',
          pick(['robot-learning'], ['beginner', 'intermediate', 'advanced'], limit=18)),
         ('Researcher: the edge of the field', 'Advanced methods, open problems and the directions still being invented.',

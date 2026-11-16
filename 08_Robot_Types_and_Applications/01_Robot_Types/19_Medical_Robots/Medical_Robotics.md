@@ -1,6 +1,6 @@
 ---
 title: Medical Robotics
-description: "Robots in medicine: surgical systems that extend a surgeon's hands, rehabilitation and assistive devices, hospital logistics, and laboratory automation. Covers how teleoperated surgical robots work (motion scaling and tremor filtering, computed), the 2025 market (da Vinci installed base and procedure growth), levels of autonomy in surgery including the 2025 autonomous gallbladder-removal study, regulation, and open problems."
+description: "Robots in medicine: surgical systems that extend a surgeon's hands, rehabilitation and assistive devices, hospital logistics and laboratory automation. Covers how teleoperated surgical robots work (motion scaling and tremor filtering, computed), the 2025 market, levels of autonomy in surgery including the 2025 autonomous gallbladder-removal study, regulation, and open problems."
 aliases:
   - Medical Robots
   - Surgical Robots
@@ -38,6 +38,7 @@ sources:
   - "Yang, G.-Z. et al. (2017). Medical robotics—Regulatory, ethical, and legal considerations for increasing levels of autonomy. https://www.science.org/doi/10.1126/scirobotics.aam8638"
   - "US Food and Drug Administration (2026). Computer-Assisted Surgical Systems. https://www.fda.gov/medical-devices/surgery-devices/computer-assisted-surgical-systems"
   - "Siciliano, B. and Khatib, O., eds. (2016). Springer Handbook of Robotics, 2nd edition (chapters on medical robotics). https://link.springer.com/referencework/10.1007/978-3-319-32552-1"
+  - "International Federation of Robotics (2026). Global Sales of Professional Service Robots Surge 24%. https://ifr.org/ifr-press-releases/news/global-sales-of-professional-service-robots-surge-24-percent"
 ---
 
 # Medical Robotics
@@ -75,7 +76,7 @@ From Intuitive's preliminary full-year 2025 results:
 - da Vinci procedures up about **18%**;
 - 870 of the 1,721 systems placed in 2025 were the newest da Vinci 5.
 
-Competitors from Medtronic, CMR, J&J and several Chinese companies are expanding the market.
+Competitors from Medtronic, CMR, J&J and several Chinese companies are expanding the market. Across all makers, the International Federation of Robotics counts 8,400 surgical robots sold in 2025, up 57%, the main driver of growth in medical robotics.
 
 ## Autonomy in surgery
 

@@ -498,6 +498,7 @@ vocabulary:
   - performance-metric
   - physics
   - pid
+  - plc
   - pneumatics
   - point-cloud
   - policy
@@ -633,6 +634,7 @@ vocabulary:
   - visual-servoing
   - visualization
   - vscode
+  - welding
   - wheeled-robot
   - wishlist
   - workcell-design

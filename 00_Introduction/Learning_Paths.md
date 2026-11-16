@@ -42,7 +42,7 @@ No background needed. What robots are, how they came to be, and the ideas everyt
 11. [[Manipulator_Arm|Manipulator Arm]] · *beginner*
 12. [[Mobile_Robots|Mobile Robots]] · *beginner*
 13. [[Legged_Robots|Legged Robots]] · *beginner*
-14. [[Autonomous_Robots|Autonomous Robots]] · *beginner*
+14. [[Industrial_Arms|Industrial Arms]] · *beginner*
 
 ### Student: the core stack
 
@@ -94,9 +94,24 @@ Hardware, software and tooling: actuators, electronics, ROS 2, simulation and th
 15. [[MoveIt2|MoveIt 2]] · *intermediate*
 16. [[TF_and_Topic_Architecture|TF and Topic Architecture]] · *intermediate*
 17. [[Nav2_Navigation|Nav2 Navigation Stack]] · *intermediate*
-18. [[Soft_Robotics|Soft Robotics]] · *intermediate*
-19. [[Robot_Hands|Robot Hands]] · *intermediate*
+18. [[Robot_Hands|Robot Hands]] · *intermediate*
+19. [[Soft_Robotics|Soft Robotics]] · *intermediate*
 20. [[MuJoCo]] · *intermediate*
+
+### Manufacturing: robots on the factory floor
+
+How robots are put to work in factories: arms, work cells, controllers, welding, vision and safety.
+
+1. [[History_of_Robotics|History of Robotics]] · *beginner*
+2. [[Manufacturing]] · *beginner*
+3. [[Manipulator_Arm|Manipulator Arm]] · *beginner*
+4. [[Industrial_Arms|Industrial Arms]] · *beginner*
+5. [[Collaborative_Robots|Collaborative Robots (Cobots)]] · *beginner*
+6. [[Parallel_Robots|Parallel Robots]] · *intermediate*
+7. [[Robot_Work_Cell_Design|Robot Work Cell Design]] · *intermediate*
+8. [[Machine_Vision_in_Manufacturing|Machine Vision in Manufacturing]] · *intermediate*
+9. [[Programmable_Logic_Controllers|Programmable Logic Controllers]] · *intermediate*
+10. [[Robotic_Welding|Robotic Welding]] · *intermediate*
 
 ### Learning-based robotics
 
@@ -317,8 +332,8 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 32. [[Direct_Drive_Robots|Direct Drive Robots]] · *intermediate*
 33. [[Harmonic_Drive|Harmonic Drive]] · *intermediate*
 34. [[Piezoelectricity]] · *intermediate*
-35. [[Soft_Robotics|Soft Robotics]] · *intermediate*
-36. [[Robot_Hands|Robot Hands]] · *intermediate*
+35. [[Robot_Hands|Robot Hands]] · *intermediate*
+36. [[Soft_Robotics|Soft Robotics]] · *intermediate*
 37. [[Modular_Robotics|Modular Robotics]] · *intermediate*
 38. [[Cable-Driven_Robots|Cable-Driven Robots]] · *intermediate*
 39. [[Shape_Memory_Alloys|Shape Memory Alloys]] · *intermediate*
@@ -346,10 +361,11 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 17. [[Resolvers]] · *intermediate*
 18. [[Convolutional_Neural_Networks|Convolutional Neural Networks]] · *intermediate*
 19. [[CNN_in_Robotics|CNN in Robotics]] · *intermediate*
-20. [[Active_Perception_and_Sensing|Active Perception and Sensing]] · *advanced*
-21. [[Advanced_Sensor_Fusion|Advanced Sensor Fusion]] · *advanced*
-22. [[Event_Based_Sensing_and_Processing|Event-Based Sensing and Processing]] · *advanced*
-23. [[Semantic_Scene_Understanding|Semantic Scene Understanding]] · *advanced*
+20. [[Machine_Vision_in_Manufacturing|Machine Vision in Manufacturing]] · *intermediate*
+21. [[Active_Perception_and_Sensing|Active Perception and Sensing]] · *advanced*
+22. [[Advanced_Sensor_Fusion|Advanced Sensor Fusion]] · *advanced*
+23. [[Event_Based_Sensing_and_Processing|Event-Based Sensing and Processing]] · *advanced*
+24. [[Semantic_Scene_Understanding|Semantic Scene Understanding]] · *advanced*
 
 ### State Estimation, Localization and Mapping
 
@@ -446,8 +462,8 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 4. [[Neural_Networks|Neural Networks]] · *beginner*
 5. [[Policy|Policy (Robot Control Policy)]] · *beginner*
 6. [[Embodied_AI|Embodied AI]] · *beginner*
-7. [[Agents_and_Environments|Agents and Environments]] · *beginner*
-8. [[Supervised_Learning|Supervised Learning]] · *beginner*
+7. [[Supervised_Learning|Supervised Learning]] · *beginner*
+8. [[Agents_and_Environments|Agents and Environments]] · *beginner*
 9. [[Unsupervised_Learning|Unsupervised Learning]] · *beginner*
 10. [[Classification_vs_Regression_vs_Clustering|Classification vs Regression vs Clustering]] · *beginner*
 11. [[Natural_Language_Processing_Basics|Natural Language Processing Basics]] · *beginner*
@@ -467,8 +483,8 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 25. [[Generative_Models|Generative Models]] · *intermediate*
 26. [[Knowledge_Representation_and_Reasoning|Knowledge Representation and Reasoning]] · *intermediate*
 27. [[Convolutional_Neural_Networks|Convolutional Neural Networks]] · *intermediate*
-28. [[Bias,_Variance,_and_Overfitting|Bias, Variance, and Overfitting]] · *intermediate*
-29. [[CNN_in_Robotics|CNN in Robotics]] · *intermediate*
+28. [[CNN_in_Robotics|CNN in Robotics]] · *intermediate*
+29. [[Bias,_Variance,_and_Overfitting|Bias, Variance, and Overfitting]] · *intermediate*
 30. [[Neural_Networks_and_Backpropagation|Neural Networks and Backpropagation]] · *intermediate*
 31. [[Optimization_and_Loss_Functions|Optimization and Loss Functions]] · *intermediate*
 32. [[RNN_and_LSTM|RNN and LSTM]] · *intermediate*
@@ -537,13 +553,14 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 3. [[Power_Systems|Power Systems]] · *beginner*
 4. [[Hardware_Shopping_List|Hardware Shopping List]] · *beginner*
 5. [[ros2_control]] · *intermediate*
-6. [[MEMS|Microelectromechanical Systems (MEMS)]] · *intermediate*
-7. [[Microcontroller]] · *intermediate*
-8. [[Arduino]] · *beginner*
-9. [[Serial_Communication_Tutorials|Serial Communication Tutorials]] · *beginner*
-10. [[Hardware_Interface_Setup|Hardware Interface Setup]] · *intermediate*
-11. [[Rust|Rust (Robotics)]] · *intermediate*
-12. [[CUDA]] · *advanced*
+6. [[Programmable_Logic_Controllers|Programmable Logic Controllers]] · *intermediate*
+7. [[MEMS|Microelectromechanical Systems (MEMS)]] · *intermediate*
+8. [[Microcontroller]] · *intermediate*
+9. [[Arduino]] · *beginner*
+10. [[Serial_Communication_Tutorials|Serial Communication Tutorials]] · *beginner*
+11. [[Hardware_Interface_Setup|Hardware Interface Setup]] · *intermediate*
+12. [[Rust|Rust (Robotics)]] · *intermediate*
+13. [[CUDA]] · *advanced*
 
 ### Manipulation and Grasping
 
@@ -558,9 +575,10 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 9. [[Compliance|Compliance (Robotics)]] · *intermediate*
 10. [[MoveIt2|MoveIt 2]] · *intermediate*
 11. [[Robot_Hands|Robot Hands]] · *intermediate*
-12. [[Manipulator_Control_Experiments|Manipulator Control Experiments]] · *intermediate*
-13. [[Diffusion_Policy|Diffusion Policy]] · *advanced*
-14. [[Vision-Language-Action_Models|Vision-Language-Action Models (VLAs)]] · *advanced*
+12. [[Robotic_Welding|Robotic Welding]] · *intermediate*
+13. [[Manipulator_Control_Experiments|Manipulator Control Experiments]] · *intermediate*
+14. [[Diffusion_Policy|Diffusion Policy]] · *advanced*
+15. [[Vision-Language-Action_Models|Vision-Language-Action Models (VLAs)]] · *advanced*
 
 ### Mobile Robots and Navigation
 
@@ -605,9 +623,15 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 ### Industrial Automation and Logistics
 
 1. [[History_of_Robotics|History of Robotics]] · *beginner*
-2. [[Industrial_Arms|Industrial Arms]] · *beginner*
-3. [[Collaborative_Robots|Collaborative Robots (Cobots)]] · *beginner*
-4. [[Parallel_Robots|Parallel Robots]] · *intermediate*
+2. [[Manufacturing]] · *beginner*
+3. [[Manipulator_Arm|Manipulator Arm]] · *beginner*
+4. [[Industrial_Arms|Industrial Arms]] · *beginner*
+5. [[Collaborative_Robots|Collaborative Robots (Cobots)]] · *beginner*
+6. [[Parallel_Robots|Parallel Robots]] · *intermediate*
+7. [[Robot_Work_Cell_Design|Robot Work Cell Design]] · *intermediate*
+8. [[Machine_Vision_in_Manufacturing|Machine Vision in Manufacturing]] · *intermediate*
+9. [[Programmable_Logic_Controllers|Programmable Logic Controllers]] · *intermediate*
+10. [[Robotic_Welding|Robotic Welding]] · *intermediate*
 
 ### Medical and Surgical Robotics
 

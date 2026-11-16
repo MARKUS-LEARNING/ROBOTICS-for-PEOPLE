@@ -149,7 +149,7 @@ subfields:
     title: Industrial Automation and Logistics
     group: domain
     description: "Factories, warehouses and supply chains: industrial arms, cobots, AMRs, workcells."
-    folders: [08_Robot_Types_and_Applications/01_Robot_Types/18_Collaborative_Robots]
+    folders: [08_Robot_Types_and_Applications/01_Robot_Types/18_Collaborative_Robots, 08_Robot_Types_and_Applications/02_Manufacturing]
     tags: [industrial-robot, automation, manufacturing, collaborative-robots, workcell-design, amr]
   field-robotics:
     title: Field Robotics

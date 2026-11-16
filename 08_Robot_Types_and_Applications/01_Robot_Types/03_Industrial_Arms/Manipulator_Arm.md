@@ -1,6 +1,6 @@
 ---
 title: Manipulator Arm
-description: "A manipulator arm is a chain of links and joints that positions a tool or hand in space. Covers the anatomy (joints, links, wrist, end effector), degrees of freedom and why six or seven, the main kinematic types, the specifications that matter (payload, reach, repeatability, speed), a computed shoulder-torque example, and how arms are controlled and taught in 2026, from teach pendants to learned policies."
+description: "A manipulator arm is a chain of links and joints that positions a tool or hand in space. Covers the anatomy (joints, links, wrist, end effector), degrees of freedom and why six or seven, the main kinematic types, the specifications that matter (payload, reach, repeatability, speed), a computed shoulder-torque example, and how arms are programmed in 2026, from teach pendants to learned policies."
 aliases:
   - Robot Arm
   - Robotic Arm
@@ -16,6 +16,7 @@ level: beginner
 subfield:
   - manipulation
   - kinematics-dynamics
+  - industrial-automation
 status: keystone
 author: Jordan_Smith
 date: 2025-05-02
