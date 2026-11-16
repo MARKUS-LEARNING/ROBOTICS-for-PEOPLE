@@ -32,7 +32,7 @@ related:
   - "[[Kinematics]]"
   - "[[Dynamics]]"
   - "[[Robot_Operating_System_(ROS)]]"
-  - "[[MoveIt]]"
+  - "[[MoveIt2]]"
   - "[[Gazebo_Simulator]]"
 ---
 
@@ -55,7 +55,7 @@ It's highly recommended to document each experiment thoroughly for reproducibili
 * **Theoretical Background:** Briefly mention the control concepts being tested. Link to relevant vault notes (e.g., `[[PID_Control]]`, `[[Joint Space]] Control`).
 * **Setup:**
     * **Robot Model:** Specify the manipulator used (e.g., Simulated Franka Emika Panda in [[Gazebo_Simulator]], physical [[Arduino]]-based SCARA arm). Link to its [[URDF]] or description `[[My_Robot_Description]]`.
-    * **Software:** List the key software components ([[Robot_Operating_System_(ROS)|ROS]] version, [[MoveIt]], [[OMPL]], specific [[Python_ROS_Nodes|Python]]/[[C++_Motion_Planning|C++]] code packages, [[MATLAB]]/Simulink). Link to relevant code repositories using [[Git_Integration_and_Version_Control]].
+    * **Software:** List the key software components ([[Robot_Operating_System_(ROS)|ROS]] version, [[MoveIt2|MoveIt]], [[OMPL]], specific [[Python_ROS_Nodes|Python]]/[[C++_Motion_Planning|C++]] code packages, [[MATLAB]]/Simulink). Link to relevant code repositories using [[Git_Integration_and_Version_Control]].
     * **Control Algorithm:** Detail the specific algorithm implemented (e.g., Independent Joint PID, [[Computed_Torque_Control|Computed Torque Control]], Resolved Motion Rate Control).
     * **Environment:** Describe the experimental environment (e.g., [[Gazebo_Simulator]] world file, physical setup description).
 * **Procedure:**
@@ -103,7 +103,7 @@ Based on common manipulator control concepts, here are some areas you might cond
     * Observe behavior near [[Singularities]].
 * **[[Trajectory_Planning|Cartesian Trajectory Tracking]]:**
     * Plan simple Cartesian paths (lines, circles).
-    * Use [[MoveIt]] or implement your own controller to track the path.
+    * Use [[MoveIt2|MoveIt]] or implement your own controller to track the path.
     * Analyze end-effector tracking error.
 
 ### [[Dynamics]]-Based Control
@@ -133,7 +133,7 @@ Based on common manipulator control concepts, here are some areas you might cond
 Common tools used for these experiments include:
 * Programming Languages: [[C++]], [[Python_for_Robotics]]
 * Middleware: [[Robot_Operating_System_(ROS)|ROS (Robot Operating System)]] / [[ROS_2_Overview|ROS 2]]
-* Libraries/Frameworks: [[MoveIt]], [[OMPL]], [[FCL]], [[PCL]], `ros_control`
+* Libraries/Frameworks: [[MoveIt2|MoveIt]], [[OMPL]], [[FCL]], [[PCL]], `ros_control`
 * Simulation: [[Gazebo_Simulator]], [[MATLAB]]/Simulink
 * Visualization/Debugging: [[RViz_Tutorial|RViz]], `rqt_plot`, `rqt_graph`
 

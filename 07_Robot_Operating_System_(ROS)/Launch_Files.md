@@ -1,98 +1,109 @@
 ---
 title: Launch Files
-description: Explains the ROS launch system, which provides a mechanism for starting and configuring multiple nodes simultaneously with a single command, covering both ROS 1 XML launch files and ROS 2 Python-based launch files.
+description: "How ROS 2 starts a whole robot with one command: launch files in Python, XML or YAML that start nodes, pass parameters, remap topics, include other launch files and react to events. Covers the three formats side by side, parameters and remapping, the 2025–2026 additions (PathJoinSubstitution concatenation, per-message log levels, string-join and path-join substitutions), and how ROS 1 roslaunch maps across."
+aliases:
+  - ros2 launch
+  - Launch File
 tags:
   - ros
   - ros2
   - launch
   - robotics-software
   - configuration
-  - middleware
   - software-stack
-  - colcon
 type: tool
 level: intermediate
 subfield:
   - software
-status: draft
+status: reviewed
 author: Jordan_Smith
-date: 2025-05-02
+date: 2025-04-28
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
   - "[[ROS_2_Overview]]"
-  - "[[Robot_Operating_System_(ROS)]]"
 related:
-  - "[[Robot_Operating_System_(ROS)]]"
-  - "[[ROS_2_Overview]]"
   - "[[Custom_Packages_and_Nodes]]"
-  - "[[Nodes]]"
-  - "[[Topics]]"
-  - "[[Services]]"
-  - "[[Actions]]"
   - "[[Gazebo_Simulator]]"
-  - "[[RViz_Tutorial]]"
   - "[[URDF]]"
-  - "[[TF_and_Topic_Architecture]]"
+  - "[[Nav2_Navigation]]"
+key_takeaways:
+  - "A launch file describes a running system: which nodes start, with which parameters, names, namespaces and remappings, and what happens when one exits."
+  - "ROS 2 accepts Python, XML and YAML launch files; Python allows logic, XML and YAML are shorter and easier to review, and all three can include each other."
+  - "Kilted (2025) and Lyrical (2026) made XML and YAML launch files more capable (string-join and path-join substitutions, log actions with severity), narrowing the reasons to reach for Python."
+sources:
+  - "Open Robotics (2026). ros2/launch: tools for launching multiple processes. https://github.com/ros2/launch"
+  - "Open Robotics (2026). ros2/launch_ros: ROS-specific launch actions. https://github.com/ros2/launch_ros"
+  - "Open Robotics (2026). ROS 2 Lyrical Luth release notes. https://github.com/ros2/ros2_documentation/blob/rolling/source/Releases/Release-Lyrical-Luth.rst"
+  - "Open Robotics (2025). ROS 2 Kilted Kaiju release notes. https://github.com/ros2/ros2_documentation/blob/rolling/source/Releases/Release-Kilted-Kaiju.rst"
+  - "Open Robotics (2026). Using XML, YAML, and Python for ROS Launch Files. https://github.com/ros2/ros2_documentation/blob/rolling/source/Developer-Tools/Launch/Launch-file-different-formats.rst"
 ---
 
 # Launch Files
 
-**Launch files** are a core component of the [[Robot_Operating_System_(ROS)|ROS]] framework that allow developers to start, configure, and coordinate multiple [[Nodes|nodes]] and processes with a single command. Rather than manually launching each node in a separate terminal, a launch file describes the entire system — nodes, their parameters, remappings, and inter-process dependencies — in a single declarative or programmatic file. This is essential for managing the complexity of real-world robotic systems, which often involve dozens of concurrent processes.
+A **launch file** starts and configures a whole robot system with one command. A real robot runs tens of [[Custom_Packages_and_Nodes|nodes]]: drivers, state estimation, planners, controllers, visualisation. Each needs parameters, a name, perhaps a namespace and remapped topics. Typing that by hand is error-prone; a launch file makes it reproducible and reviewable.
 
----
+> **Etymology.** To *launch* is from Old French *lancier*, "to throw a lance": to set something going with force. In software it has meant "start a program" since the 1980s.
 
-## ROS 1 Launch Files (XML)
+## What a launch file can do
 
-In ROS 1, launch files use an XML format with a `.launch` extension. They are executed using the `roslaunch` command.
+- Start nodes (and any other process) with parameters, names, namespaces and remappings.
+- Declare **arguments** (`use_sim_time:=true`, `robot:=arm_left`) so one file serves many setups.
+- **Include** other launch files, so a robot's bring-up is assembled from sensor, control and navigation pieces.
+- Apply **conditions** (start Gazebo only in simulation) and **event handlers** (shut everything down if the driver dies, spawn controllers after the robot appears).
+- Load **composable nodes** into one process for zero-copy communication.
 
-### Basic Structure
+## The same launch in three formats
+
+Start a turtlesim node with a parameter and a remapping:
+
+```python
+# turtle.launch.py
+from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument
+from launch.substitutions import LaunchConfiguration
+from launch_ros.actions import Node
+
+def generate_launch_description():
+    return LaunchDescription([
+        DeclareLaunchArgument('bg_red', default_value='69'),
+        Node(package='turtlesim', executable='turtlesim_node', name='sim', namespace='t1',
+             parameters=[{'background_r': LaunchConfiguration('bg_red')}],
+             remappings=[('/t1/turtle1/cmd_vel', '/cmd_vel')]),
+    ])
+```
 
 ```xml
+<!-- turtle.launch.xml -->
 <launch>
-  <!-- Start a single node -->
-  <node pkg="my_robot" type="controller_node" name="controller" output="screen">
-    <param name="max_velocity" value="1.5"/>
-    <remap from="/cmd_vel" to="/robot/cmd_vel"/>
+  <arg name="bg_red" default="69"/>
+  <node pkg="turtlesim" exec="turtlesim_node" name="sim" namespace="t1">
+    <param name="background_r" value="$(var bg_red)"/>
+    <remap from="/t1/turtle1/cmd_vel" to="/cmd_vel"/>
   </node>
-
-  <!-- Include another launch file -->
-  <include file="$(find my_robot)/launch/sensors.launch"/>
-
-  <!-- Set a global parameter -->
-  <param name="robot_description" command="$(find xacro)/xacro '$(find my_robot)/urdf/robot.urdf.xacro'"/>
-
-  <!-- Conditional launch using arguments -->
-  <arg name="use_sim" default="false"/>
-  <node if="$(arg use_sim)" pkg="gazebo_ros" type="gzserver" name="gazebo" args="-e ode world.world"/>
 </launch>
 ```
 
-### Key XML Elements
+```yaml
+# turtle.launch.yaml
+launch:
+- arg: {name: bg_red, default: "69"}
+- node:
+    pkg: turtlesim
+    exec: turtlesim_node
+    name: sim
+    namespace: t1
+    param: [{name: background_r, value: "$(var bg_red)"}]
+    remap: [{from: /t1/turtle1/cmd_vel, to: /cmd_vel}]
+```
 
-* **`<node>`**: Launches a single ROS node. Key attributes:
-  * `pkg`: Package containing the node executable.
-  * `type`: Name of the executable.
-  * `name`: Name assigned to the node at runtime.
-  * `output`: Where to send node output (`screen` or `log`).
-  * `respawn`: Restart node automatically if it crashes (`true`/`false`).
-  * `ns`: Namespace prefix for the node.
-* **`<param>`**: Sets a parameter on the ROS Parameter Server (scalar or loaded from file).
-* **`<rosparam>`**: Loads a YAML parameter file or sets grouped parameters.
-* **`<remap>`**: Remaps a topic, service, or parameter name to a different name for a specific node.
-* **`<include>`**: Includes another `.launch` file, allowing modular composition.
-* **`<arg>`**: Declares a launch argument that can be passed from the command line:
-  ```
-  roslaunch my_robot bringup.launch use_sim:=true
-  ```
-* **`<group>`**: Groups nodes under a shared namespace or conditional flag.
-* **`<env>`**: Sets an environment variable for child processes.
+Run any of them the same way: `ros2 launch my_pkg turtle.launch.xml bg_red:=200`.
 
----
+## Python launch files
 
-## ROS 2 Launch Files (Python)
+Python launch files (`*.launch.py`) give full programmatic control through the `launch` and `launch_ros` libraries, and are the usual choice for complex systems.
 
-ROS 2 replaces XML launch files with **Python-based `.launch.py` files**, offering full programmatic control via the `launch` and `launch_ros` Python libraries. XML and YAML formats are also supported for simpler cases, but Python is the standard for complex systems.
-
-### Basic Structure
+### Basic structure
 
 ```python
 from launch import LaunchDescription
@@ -123,9 +134,10 @@ def generate_launch_description():
         remappings=[('/cmd_vel', '/robot/cmd_vel')]
     )
 
-    # Conditionally include another launch file
+    # Conditionally start modern Gazebo through ros_gz_sim
     sim_launch = IncludeLaunchDescription(
-        PathJoinSubstitution([FindPackageShare('gazebo_ros'), 'launch', 'gazebo.launch.py']),
+        PathJoinSubstitution([FindPackageShare('ros_gz_sim'), 'launch', 'gz_sim.launch.py']),
+        launch_arguments={'gz_args': '-r empty.sdf'}.items(),
         condition=IfCondition(LaunchConfiguration('use_sim'))
     )
 
@@ -136,7 +148,7 @@ def generate_launch_description():
     ])
 ```
 
-### Key Python Launch Constructs
+### Key constructs
 
 * **`LaunchDescription`**: The top-level container returned by `generate_launch_description()`. Contains all actions to execute.
 * **`Node`**: Launches a ROS 2 node. Supports `package`, `executable`, `name`, `namespace`, `parameters`, `remappings`, `output`, `condition`.
@@ -196,8 +208,8 @@ Node(
 ```
 
 ```xml
-<!-- ROS 1 XML -->
-<node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop">
+<!-- ROS 2 XML -->
+<node pkg="teleop_twist_keyboard" exec="teleop_twist_keyboard" name="teleop">
   <remap from="cmd_vel" to="robot_1/cmd_vel"/>
 </node>
 ```
@@ -207,15 +219,10 @@ Node(
 ## Running Launch Files
 
 ```bash
-# ROS 1
-roslaunch <package_name> <launch_file>.launch [arg:=value ...]
-
-# ROS 2
-ros2 launch <package_name> <launch_file>.launch.py [arg:=value ...]
-
-# Examples
-roslaunch my_robot bringup.launch use_sim:=true
-ros2 launch nav2_bringup navigation_launch.py use_sim_time:=true map:=/path/to/map.yaml
+ros2 launch <package_name> <launch_file> [arg:=value ...]
+ros2 launch my_robot bringup.launch.py use_sim:=true
+ros2 launch nav2_bringup bringup_launch.py use_sim_time:=true map:=/path/to/map.yaml
+ros2 launch my_robot bringup.launch.py --show-args     # list the arguments a file accepts
 ```
 
 ---
@@ -228,16 +235,34 @@ ros2 launch nav2_bringup navigation_launch.py use_sim_time:=true map:=/path/to/m
 * **Use `output='screen'`** during development for immediate feedback; switch to `output='log'` in production.
 * **Namespace multi-robot systems**: Use `namespace` and `PushRosNamespace` to isolate multiple robots running the same software.
 
+* **Prefer XML or YAML for plain wiring** and Python when you need logic; the three formats can include one another.
+
 Launch files are the primary mechanism for defining and deploying complete robotic systems in ROS, enabling reproducible, configurable, and modular system startup.
 
 ---
 
-## Dataview Plugin Features
+## New in 2025–2026
 
-```dataview
-LIST FROM #ros OR #robotics-software WHERE contains(file.outlinks, [[Launch_Files]])
+- **Kilted (2025):** `PathJoinSubstitution` can join strings and substitutions into one path component, for example `[LaunchConfiguration('model'), '.xacro']` → `my_model.xacro`.
+- **Lyrical (2026):** XML and YAML launch files gain `string-join` and `path-join` substitutions, and a `log` action with a `level` (plus `log_debug`, `log_info`, `log_warning`, `log_error`), so messages in launch logs carry a severity:
+
+```xml
+<launch>
+  <log_warning message="Starting in simulation: $(path-join opt ros lyrical)"/>
+</launch>
 ```
 
+## Coming from ROS 1
+
+ROS 1's `roslaunch` used XML `.launch` files with `<node pkg type name>`, `<param>`, `<rosparam>`, `<remap>`, `<include>`, `<group ns>` and `<arg>`. ROS 2's XML format is deliberately close:
+- `type` becomes `exec`;
+- `$(arg x)` becomes `$(var x)`;
+- parameters are always per node.
+
+`roslaunch pkg file.launch` becomes `ros2 launch pkg file.launch.xml`.
+
+## Dataview
+
 ```dataview
-TABLE title, description FROM #ros WHERE contains(file.tags, "launch")
+LIST FROM "" WHERE contains(file.outlinks, [[Launch_Files]])
 ```

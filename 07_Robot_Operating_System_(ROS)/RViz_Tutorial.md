@@ -1,6 +1,9 @@
 ---
 title: RViz Tutorial
-description: An introduction to RViz, the primary 3D visualization tool for ROS, covering its purpose, key features, and basic usage.
+description: "RViz is ROS 2's 3D visualiser: it shows the robot model, coordinate frames, sensor data, maps, plans and custom markers in one scene, so you can see what the robot believes. Covers setting the fixed frame, the displays you will use most, a debugging recipe, markers from your own nodes, and the 2026 alternatives (Foxglove, Rerun) for remote and recorded data."
+aliases:
+  - RViz
+  - RViz2
 tags:
   - rviz
   - ros
@@ -8,98 +11,112 @@ tags:
   - debugging
   - robotics-software
   - tf
-  - sensors
   - software-stack
 type: tutorial
-level: intermediate
+level: beginner
 subfield:
   - software
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-28
-related:
-  - "[[Robot_Operating_System_(ROS)]]"
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
+  - "[[ROS_2_Overview]]"
   - "[[TF_and_Topic_Architecture]]"
+related:
   - "[[URDF]]"
-  - "[[LIDAR]]"
-  - "[[Camera_Systems]]"
-  - "[[IMU_Sensors]]"
-  - "[[PointCloud2]]"
-  - "[[Mapping]]"
-  - "[[Localization]]"
-  - "[[Topics]]"
-  - "[[Nodes]]"
-  - "[[Gazebo_Simulator]]"
-  - "[[ROS_and_Software_Stacks]]"
+  - "[[Nav2_Navigation]]"
+  - "[[SLAM_with_ROS]]"
+  - "[[rosbag2]]"
+  - "[[MoveIt2]]"
+key_takeaways:
+  - "RViz draws what the robot believes, not what is true: every display is data from a topic placed in the scene through tf2."
+  - "Set the Fixed Frame first (map, odom or base_link). Most 'nothing shows up' problems are a wrong fixed frame, a missing transform or a QoS mismatch."
+  - "For remote robots, browsers and recorded MCAP data, Foxglove and Rerun complement RViz; RViz remains the tool integrated with MoveIt and Nav2 interaction."
+sources:
+  - "Open Robotics (2026). rviz: ROS 3D visualisation tool for ROS 2. https://github.com/ros2/rviz"
+  - "Open Robotics (2026). ROS 2 Lyrical Luth release notes (RViz does not yet draw URDF capsules). https://github.com/ros2/ros2_documentation/blob/rolling/source/Releases/Release-Lyrical-Luth.rst"
+  - "Foxglove (2026). Foxglove documentation. https://docs.foxglove.dev/docs"
+  - "Rerun (2026). Rerun: an SDK for logging and visualising multimodal data. https://github.com/rerun-io/rerun"
+  - "Open Robotics (2026). rviz for ROS 1 (original authors D. Hershberger, D. Gossow and J. Faust). https://github.com/ros-visualization/rviz"
 ---
 
-# RViz Tutorial: Introduction to ROS Visualization
+# RViz Tutorial
 
-**RViz** (ROS Visualization tool) is a powerful and highly configurable 3D visualization environment specifically designed for the [[Robot_Operating_System_(ROS)|ROS (Robot Operating System)]]. It allows developers and users to view the state of a robot, its sensors, and the surrounding environment by subscribing to various ROS [[Topics]] and graphically displaying the data in a 3D scene.
+**RViz** (ROS visualisation; the ROS 2 program is `rviz2`) is a 3D viewer for everything a ROS system knows: the robot model and its joint angles, coordinate frames, laser scans, point clouds, camera images, maps, planned paths and custom shapes your own nodes publish. It does not simulate anything. It shows what the robot *believes*, which makes it the fastest way to find out why the robot is wrong.
 
-**Important Distinction:** RViz is purely a *visualization* tool. It does **not** simulate physics or robot behavior; that is the role of simulators like [[Gazebo_Simulator]]. RViz simply displays data that is being *published* by other ROS [[Nodes]] (which could be running on a real robot or in a simulation).
+> **Etymology.** *RViz* is *ROS* + *viz*, short for *visualisation*, from Latin *visus*, "sight". It was created at Willow Garage around 2009, by Dave Hershberger, David Gossow and Josh Faust.
 
-## Purpose
+## Start it
 
-RViz is an indispensable tool for ROS development, primarily used for:
+```bash
+ros2 run rviz2 rviz2                         # empty scene
+ros2 run rviz2 rviz2 -d my_robot/config/view.rviz   # load a saved layout
+```
 
-* **Debugging:** Visually inspecting sensor data streams ([[LIDAR]] scans, [[Camera_Systems|camera images]], [[IMU_Sensors|IMU]] orientations, [[PointCloud2|point clouds]]) to quickly identify problems.
-* **Monitoring:** Observing the real-time state of algorithms like [[Localization]], [[Mapping]], and [[SLAM]].
-* **Understanding:** Grasping complex spatial relationships, such as the robot's kinematic structure ([[URDF]]), coordinate frame relationships ([[TF_and_Topic_Architecture|TF Tree]]), and planned paths.
-* **Interaction:** Providing simple graphical interaction, such as setting navigation goals or initial pose estimates.
-* **Custom Displays:** Allowing developers to visualize custom data structures using built-in or custom display types.
+Most robot packages start RViz from a [[Launch_Files|launch file]] with a saved `.rviz` configuration.
 
-## Key Concepts and Features
+## The one setting that matters first: Fixed Frame
 
-RViz achieves its flexibility through a system of configurable **Displays**.
+Everything in the scene is transformed into the **Fixed Frame** (Global Options):
+- `map`, for navigation and SLAM: the world stays still and the robot moves.
+- `odom`, for odometry checks: smooth, but drifts.
+- `base_link`, for sensor mounting checks: the robot stays still and the world moves.
 
-* **Displays:** These are plugins within RViz, each designed to subscribe to a specific ROS topic (or TF data) and render the received data in the 3D view. Common built-in displays include:
-    * `RobotModel`: Displays a robot's kinematic model defined in a [[URDF]] file, colored and positioned according to `/joint_states` data.
-    * `TF`: Visualizes coordinate frames and their relationships as defined by the ROS TF transform tree. Essential for debugging [[Kinematics]] and sensor poses.
-    * `LaserScan`: Shows 2D [[LIDAR]] data as points in a plane.
-    * `PointCloud2`: Renders 3D [[Point Cloud]] data from sensors like 3D LIDAR or depth cameras.
-    * `Image`: Displays images from [[Camera_Systems|cameras]] within the RViz interface.
-    * `Map`: Displays 2D occupancy grid maps (from `nav_msgs/OccupancyGrid`).
-    * `Path`: Visualizes planned or executed paths (from `nav_msgs/Path`).
-    * `Odometry`: Shows robot pose estimates and velocity vectors (from `nav_msgs/Odometry`).
-    * `Pose`/`PoseArray`: Displays single or multiple poses as arrows.
-    * `Marker`/`MarkerArray`: Highly versatile display for showing custom geometric shapes (arrows, spheres, cubes, lines, text, meshes) published by nodes for debugging or status visualization (e.g., planned waypoints, detected objects).
-* **Configuration:** The entire setup of displays, their parameters (topics subscribed to, colors, sizes, history length, etc.), global options, and the camera viewpoint can be saved to and loaded from `.rviz` configuration files. This makes it easy to recreate complex visualization setups.
-* **Global Options:** Settings that affect the entire view, most importantly the **Fixed Frame**.
-    * **Fixed Frame:** Defines the stationary coordinate frame relative to which all other data is transformed before being displayed. Common choices include `/map`, `/odom`, or the robot's `/base_link`. Choosing the correct fixed frame is crucial for coherent visualization.
-* **Time:** RViz typically uses ROS Time, allowing it to visualize data synchronized with the rest of the ROS system, including data played back from `rosbag` files.
-* **Interaction Tools:** Tools available in the toolbar allow users to interact with the 3D scene, such as:
-    * Setting a `2D Pose Estimate` for localization systems (like AMCL).
-    * Setting a `2D Nav Goal` for navigation stacks.
-    * Selecting points or objects in the scene.
-    * Measuring distances.
-* **[[Plugins]]:** RViz is extensible through plugins, allowing developers to create new display types for custom data or new tools for interacting with the visualization.
+If the chosen frame is not connected to a display's frame through tf2, that display shows an error and draws nothing. See [[TF_and_Topic_Architecture]].
 
-## Basic Usage (Tutorial Steps)
+## Displays you will use most
 
-1.  **Launch RViz:**
-    * ROS 1: `rosrun rviz rviz`
-    * ROS 2: `ros2 run rviz2 rviz2`
-    * Alternatively, launch RViz via a [[Launch_Files|launch file]], often with a pre-loaded configuration: `roslaunch my_package my_rviz.launch` or `ros2 launch my_package my_rviz.launch.py`.
-2.  **Set Fixed Frame:** In the "Global Options" section of the "Displays" panel (usually on the left), select an appropriate fixed frame from the dropdown list (e.g., `/map`, `/odom`, `/base_link`). The frame must exist in the TF tree being published. The background grid represents the XY plane of this fixed frame.
-3.  **Add Displays:** Click the "Add" button at the bottom of the Displays panel. Select the desired display type (e.g., `TF`, `RobotModel`, `LaserScan`) from the list and click "OK".
-4.  **Configure Displays:** Expand the newly added display in the list. Configure its specific parameters:
-    * **Topic:** Select the correct ROS topic the display should subscribe to from the dropdown list (topics must be currently published with the correct message type).
-    * **Style/Color/Size:** Adjust visual parameters as needed.
-    * **Other Parameters:** Configure display-specific options (e.g., history length for odometry trails, decay time for scans). Check the status (Ok, Warning, Error) for diagnostics.
-5.  **Navigate the 3D View:** Use mouse controls (typically left-click-drag to rotate, middle-click-drag or Shift+left-click-drag to pan, right-click-drag or scroll wheel to zoom) to change the viewpoint.
-6.  **Save/Load Configuration:** Use the `File` -> `Save Config As...` or `File` -> `Open Config` menu options to save or load `.rviz` files.
+| Display | Message type | Use |
+|---|---|---|
+| **RobotModel** | `robot_description` + TF | Is the [[URDF]] right; do joints move correctly |
+| **TF** | `/tf`, `/tf_static` | Frame tree, axes (red x, green y, blue z) |
+| **LaserScan** | `sensor_msgs/LaserScan` | 2D lidar |
+| **PointCloud2** | `sensor_msgs/PointCloud2` | 3D lidar, depth cameras |
+| **Image** / **Camera** | `sensor_msgs/Image` | Raw image, or image overlaid on the 3D scene |
+| **Map** | `nav_msgs/OccupancyGrid` | SLAM maps, costmaps |
+| **Path**, **Pose**, **Odometry** | `nav_msgs`, `geometry_msgs` | Plans and pose estimates |
+| **Marker** / **MarkerArray** | `visualization_msgs` | Anything your node wants to draw |
 
-RViz is an essential day-to-day tool for anyone working with ROS, providing invaluable insight into the spatial and temporal state of a robotic system.
+The toolbar's **2D Pose Estimate** and **Nav2 Goal** tools publish an initial pose and a navigation goal; the MoveIt **MotionPlanning** panel plans arm motions interactively (see [[MoveIt2]]).
 
----
+## Debugging recipe: "my lidar data is in the wrong place"
 
-## Dataview Plugin Features
+1. Set Fixed Frame to `base_link`; add **TF** and **RobotModel**. Is `laser_link` where the real lidar is mounted? If not, fix the URDF or static transform.
+2. Add **LaserScan**. Nothing drawn? Check `ros2 topic info -v /scan`: the driver usually publishes best-effort, and the display's reliability policy must match.
+3. Walls drawn behind the robot? The scan's `frame_id` or the mount's yaw is wrong (a 180° error is common).
+4. Switch Fixed Frame to `odom` and drive slowly. Walls should stay still; if they smear when turning, check wheel odometry and timestamps.
 
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
+## Draw your own data with markers
 
-### List of Related Concepts
+```python
+from visualization_msgs.msg import Marker
+m = Marker()
+m.header.frame_id = 'base_link'; m.header.stamp = self.get_clock().now().to_msg()
+m.ns, m.id, m.type, m.action = 'goal', 0, Marker.SPHERE, Marker.ADD
+m.pose.position.x = 1.5; m.pose.orientation.w = 1.0
+m.scale.x = m.scale.y = m.scale.z = 0.2
+m.color.r, m.color.a = 1.0, 1.0            # alpha 0 would make it invisible
+self.marker_pub.publish(m)
+```
+
+Markers are the quickest way to see what a planner, a detector or a learned policy is "thinking": draw candidate grasps, predicted trajectories or attention points in the same scene as the sensor data.
+
+## RViz and the alternatives in 2026
+
+| Tool | Strength | Typical use |
+|---|---|---|
+| **RViz** | Native, interactive, integrated with MoveIt and Nav2 tools | Development on the robot's network |
+| **Foxglove** | Browser or desktop; opens MCAP recordings; connects to live robots over a WebSocket bridge | Remote robots, team debugging, recorded data |
+| **Rerun** | Logs and replays multimodal data (images, 3D, time series) from any Python, C++ or Rust program | Machine-learning and perception pipelines, including non-ROS code |
+
+They are complementary: many teams use RViz on the bench, Foxglove for fleet and bag review, and Rerun inside training and evaluation scripts.
+
+**Known gap.** URDF 1.2's new capsule geometry (Lyrical, 2026) was not yet drawn by RViz's RobotModel display at release.
+
+## Dataview
 
 ```dataview
-LIST FROM "" WHERE contains(file.outlinks, [[Robot_Operating_System_(ROS)]])
+LIST FROM "" WHERE contains(file.outlinks, [[RViz_Tutorial]])
 ```

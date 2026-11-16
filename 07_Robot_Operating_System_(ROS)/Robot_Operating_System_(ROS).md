@@ -103,7 +103,7 @@ ROS 2 ships a new **distribution** every May. Even-year releases are long-term s
   - zero-copy publishing with `rosidl::Buffer`;
   - URDF 1.2 with quaternions, capsule shapes and acceleration and jerk limits (see [[URDF]]);
   - remote control of bag recording and playback (see [[rosbag2]]).
-- **Ecosystem consolidation.** Gazebo Classic reached end of life in January 2025, and modern Gazebo (formerly Ignition) is the default simulator. PickNik, the company behind MoveIt, announced in 2026 that it is now part of Qualcomm; MoveIt itself remains open source.
+- **Ecosystem consolidation.** Gazebo Classic reached end of life in January 2025, and modern Gazebo (formerly Ignition) is the default simulator. In September 2026 Qualcomm announced it would acquire PickNik, the company behind MoveIt; MoveIt itself remains open source.
 
 ## ROS and AI in 2026
 

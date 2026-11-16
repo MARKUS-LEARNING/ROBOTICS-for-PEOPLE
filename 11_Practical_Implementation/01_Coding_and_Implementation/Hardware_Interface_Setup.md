@@ -30,8 +30,8 @@ related:
   - "[[Custom_Packages_and_Nodes]]"
   - "[[Sensors]]"
   - "[[Actuator]]"
-  - "[[Topics]]"
-  - "[[Messages]]"
+  - "[[ROS_2_Communication]]"
+  - "[[ROS_2_Communication]]"
   - "[[Serial_Communication_Tutorials]]"
   - "[[Camera_Systems]]"
   - "[[LIDAR]]"
@@ -42,7 +42,7 @@ related:
 
 # Hardware Interface Setup in Robotics
 
-**Hardware Interface Setup** is the crucial process of physically connecting robotic [[Sensors|sensors]] and [[Actuator|actuators]] to the robot's main computer (or microcontrollers) and configuring the software layer to enable communication and control. This involves managing both the physical connection (cables, ports) and the software protocols required to send commands and receive data, effectively bridging the gap between the robot's software "brain" and its physical interaction with the world. Within the [[Robot_Operating_System_(ROS)|ROS]] ecosystem, this typically involves setting up hardware drivers implemented as [[Nodes|ROS nodes]].
+**Hardware Interface Setup** is the crucial process of physically connecting robotic [[Sensors|sensors]] and [[Actuator|actuators]] to the robot's main computer (or microcontrollers) and configuring the software layer to enable communication and control. This involves managing both the physical connection (cables, ports) and the software protocols required to send commands and receive data, effectively bridging the gap between the robot's software "brain" and its physical interaction with the world. Within the [[Robot_Operating_System_(ROS)|ROS]] ecosystem, this typically involves setting up hardware drivers implemented as [[Custom_Packages_and_Nodes|ROS nodes]].
 
 ---
 
@@ -87,9 +87,9 @@ Robots utilize various physical and logical interfaces to communicate with hardw
 In ROS, hardware interaction is typically encapsulated within dedicated [[Custom_Packages_and_Nodes|nodes]] acting as hardware drivers:
 
 * **Function:** These nodes manage the low-level communication details for a specific hardware device over its particular interface (Serial, USB, CAN, etc.).
-* **Publishing Sensor Data:** Sensor driver nodes read data from the hardware, parse it, potentially perform unit conversions or filtering, and then publish it onto standard ROS [[Topics]] using appropriate [[Messages]] (e.g., `sensor_msgs/LaserScan`, `sensor_msgs/Imu`, `sensor_msgs/Image`, `sensor_msgs/JointState`). They must correctly populate the message `header` field with the appropriate `frame_id` and `stamp`.
-* **Subscribing to Commands:** Actuator driver nodes subscribe to command [[Topics]] (e.g., `geometry_msgs/Twist`, `std_msgs/Float64`, `trajectory_msgs/JointTrajectory`) and translate the received ROS messages into the specific low-level commands required by the hardware (e.g., sending motor velocity setpoints over Serial or CAN).
-* **[[Services]] / [[Actions]]:** Drivers might also provide [[Services]] for configuring the hardware (e.g., setting sensor parameters) or [[Actions]] for controlling more complex hardware operations.
+* **Publishing Sensor Data:** Sensor driver nodes read data from the hardware, parse it, potentially perform unit conversions or filtering, and then publish it onto standard ROS [[ROS_2_Communication|Topics]] using appropriate [[ROS_2_Communication|Messages]] (e.g., `sensor_msgs/LaserScan`, `sensor_msgs/Imu`, `sensor_msgs/Image`, `sensor_msgs/JointState`). They must correctly populate the message `header` field with the appropriate `frame_id` and `stamp`.
+* **Subscribing to Commands:** Actuator driver nodes subscribe to command [[ROS_2_Communication|Topics]] (e.g., `geometry_msgs/Twist`, `std_msgs/Float64`, `trajectory_msgs/JointTrajectory`) and translate the received ROS messages into the specific low-level commands required by the hardware (e.g., sending motor velocity setpoints over Serial or CAN).
+* **[[ROS_2_Communication|Services]] / [[Actions]]:** Drivers might also provide [[ROS_2_Communication|Services]] for configuring the hardware (e.g., setting sensor parameters) or [[Actions]] for controlling more complex hardware operations.
 * **Development:** If a standard ROS driver package doesn't exist for a specific piece of hardware, developers need to create a custom node using the appropriate client library (`rclcpp`/`rclpy` or `roscpp`/`rospy`) and low-level communication libraries.
 
 ---

@@ -1,43 +1,51 @@
 ---
 title: Actions
-description: Explains the ROS Actions communication paradigm, which provides an asynchronous, goal-oriented interface for long-running tasks with continuous feedback and the ability to cancel in-flight goals.
+description: "ROS 2 actions are the interface for long-running goals: a client sends a goal, the server streams feedback, and either side can end it with a result or a cancellation. Covers the .action format, the goal state machine, a correct rclpy server and client (including the cancel callback and executor details that trip people up), when to use actions instead of topics or services, and command-line tools."
+aliases:
+  - ROS Actions
+  - Action Server
 tags:
   - ros
   - ros2
   - actions
-  - middleware
   - robotics-software
   - communication-protocols
   - asynchronous
   - software-stack
-type: tool
+type: concept
 level: intermediate
 subfield:
   - software
-status: draft
+status: reviewed
 author: Jordan_Smith
-date: 2025-05-02
+date: 2025-04-28
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
   - "[[ROS_2_Overview]]"
-  - "[[Robot_Operating_System_(ROS)]]"
-related:
-  - "[[Robot_Operating_System_(ROS)]]"
-  - "[[ROS_2_Overview]]"
-  - "[[Topics]]"
-  - "[[Services]]"
-  - "[[Nodes]]"
   - "[[Custom_Packages_and_Nodes]]"
+related:
   - "[[Nav2_Navigation]]"
   - "[[MoveIt2]]"
-  - "[[TF_and_Topic_Architecture]]"
+  - "[[ros2_control]]"
+  - "[[Launch_Files]]"
+key_takeaways:
+  - "Use an action when a request takes long enough that the caller wants progress updates or the option to cancel: navigating, executing a trajectory, docking, grasping."
+  - "An action is built from three services (send goal, cancel, get result) and two topics (feedback, status); goals move through accepted → executing → succeeded, aborted or canceled."
+  - "In rclpy, cancellation is rejected unless the server supplies a cancel callback, and a blocking execute callback needs a multi-threaded executor so cancel requests can be processed."
+sources:
+  - "Open Robotics (2019). ROS 2 design: Actions. https://design.ros2.org/articles/actions.html"
+  - "Open Robotics (2026). ROS 2 documentation source: Writing an action server and client (Python). https://github.com/ros2/ros2_documentation/blob/rolling/source/ROS-Framework/interfaces/actions/Working-with-actions/Writing-an-Action-Server-Client/Py.rst"
+  - "Open Robotics (2026). rclpy: ROS 2 client library for Python. https://github.com/ros2/rclpy"
+  - "ros-navigation (2026). nav2_msgs: NavigateToPose action definition. https://github.com/ros-navigation/navigation2/blob/main/nav2_msgs/action/NavigateToPose.action"
 ---
 
 # Actions
 
 **Actions** are a ROS communication paradigm designed for **long-running, goal-oriented tasks** that require feedback during execution and the ability to be cancelled before completion. Actions fill a critical gap between the two other primary communication mechanisms:
 
-* **[[Topics]]** (publish/subscribe): Continuous, asynchronous, fire-and-forget data streams. No confirmation of receipt or completion.
-* **[[Services]]** (request/reply): Synchronous, blocking calls. The caller waits for the full response before proceeding — unsuitable for operations that take seconds or minutes.
+* **[[ROS_2_Communication|Topics]]** (publish/subscribe): Continuous, asynchronous, fire-and-forget data streams. No confirmation of receipt or completion.
+* **[[ROS_2_Communication|Services]]** (request/reply): Synchronous, blocking calls. The caller waits for the full response before proceeding — unsuitable for operations that take seconds or minutes.
 
 Actions combine the strengths of both: a client sends a **goal** asynchronously, receives continuous **feedback** while the task executes, and eventually receives a **result** when it completes (or is cancelled/aborted).
 
@@ -106,8 +114,9 @@ ACCEPTED → EXECUTING → SUCCEEDED
 ```python
 import rclpy
 from rclpy.node import Node
-from rclpy.action import ActionServer
+from rclpy.action import ActionServer, CancelResponse
 from rclpy.action.server import ServerGoalHandle
+from rclpy.executors import MultiThreadedExecutor
 from my_robot_interfaces.action import NavigateToPose
 import time
 
@@ -118,7 +127,8 @@ class NavigationActionServer(Node):
             self,
             NavigateToPose,
             'navigate_to_pose',
-            self.execute_callback
+            execute_callback=self.execute_callback,
+            cancel_callback=lambda goal_handle: CancelResponse.ACCEPT,   # default rejects every cancel
         )
         self.get_logger().info('Navigation action server ready.')
 
@@ -151,7 +161,9 @@ class NavigationActionServer(Node):
 def main():
     rclpy.init()
     server = NavigationActionServer()
-    rclpy.spin(server)
+    # execute_callback blocks (time.sleep), so use several threads; otherwise
+    # cancel requests wait until the goal has already finished.
+    rclpy.spin(server, executor=MultiThreadedExecutor())
 
 if __name__ == '__main__':
     main()
@@ -311,12 +323,17 @@ And in `package.xml`:
 
 ---
 
-## Dataview Plugin Features
+## Actions in 2026 systems
+
+Actions are the natural interface between a high-level decision-maker and the skills a robot can perform:
+- Nav2 exposes `NavigateToPose` and `FollowWaypoints`;
+- MoveIt and `ros2_control` execute `FollowJointTrajectory`;
+- docking, gripper and inspection skills are usually actions too.
+
+When a language model or [[Vision-Language-Action_Models|VLA]]-based planner orchestrates a robot, its "tool calls" typically map onto these action goals. The feedback and cancellation built into actions are what let a supervisor (human or model) monitor progress and stop a skill safely. From Lyrical, `ros2 doctor --report` lists action servers and clients alongside topics and services.
+
+## Dataview
 
 ```dataview
-LIST FROM #ros OR #robotics-software WHERE contains(file.outlinks, [[Actions]])
-```
-
-```dataview
-TABLE title, description FROM #ros WHERE contains(file.tags, "actions")
+LIST FROM "" WHERE contains(file.outlinks, [[Actions]])
 ```

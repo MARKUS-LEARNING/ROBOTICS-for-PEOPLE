@@ -23,12 +23,12 @@ prerequisites:
 related:
   - "[[Python_for_Robotics]]"
   - "[[Robot_Operating_System_(ROS)]]"
-  - "[[Nodes]]"
-  - "[[Topics]]"
-  - "[[Services]]"
+  - "[[Custom_Packages_and_Nodes]]"
+  - "[[ROS_2_Communication]]"
+  - "[[ROS_2_Communication]]"
   - "[[Actions]]"
-  - "[[Messages]]"
-  - "[[Parameters]]"
+  - "[[ROS_2_Communication]]"
+  - "[[ROS_2_Communication]]"
   - "[[C++_Motion_Planning]]"
   - "[[Custom_Packages_and_Nodes]]"
   - "[[Coding_and_Implementation]]"
@@ -36,7 +36,7 @@ related:
 
 # Python ROS Nodes
 
-[[Python_for_Robotics]] is a popular and powerful language choice for developing [[Nodes|ROS nodes]], alongside [[C++_Motion_Planning|C++]]. ROS provides dedicated Python client libraries – `rospy` for ROS 1 and `rclpy` for ROS 2 – enabling developers to leverage Python's ease of use, extensive libraries (especially in [[AI_and_Robot_Control|AI]]/[[Machine_Learning|Machine Learning]]), and rapid development cycle for various robotics tasks.
+[[Python_for_Robotics]] is a popular and powerful language choice for developing [[Custom_Packages_and_Nodes|ROS nodes]], alongside [[C++_Motion_Planning|C++]]. ROS provides dedicated Python client libraries – `rospy` for ROS 1 and `rclpy` for ROS 2 – enabling developers to leverage Python's ease of use, extensive libraries (especially in [[AI_and_Robot_Control|AI]]/[[Machine_Learning|Machine Learning]]), and rapid development cycle for various robotics tasks.
 
 ---
 
@@ -65,7 +65,7 @@ related:
 
 ## Core ROS Concepts in Python
 
-The core ROS communication mechanisms ([[Topics]], [[Services]], [[Actions]], [[Parameters]]) are accessed via the `rospy` (ROS 1) or `rclpy` (ROS 2) libraries.
+The core ROS communication mechanisms ([[ROS_2_Communication|Topics]], [[ROS_2_Communication|Services]], [[Actions]], [[ROS_2_Communication|Parameters]]) are accessed via the `rospy` (ROS 1) or `rclpy` (ROS 2) libraries.
 
 | Feature         | ROS 1 (`rospy`)                     | ROS 2 (`rclpy`)                                       |
 | :-------------- | :---------------------------------- | :---------------------------------------------------- |

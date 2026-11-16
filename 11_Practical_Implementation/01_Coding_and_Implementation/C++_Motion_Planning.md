@@ -31,7 +31,7 @@ related:
   - "[[C++]]"
   - "[[Python_ROS_Nodes]]"
   - "[[Robot_Operating_System_(ROS)]]"
-  - "[[MoveIt]]"
+  - "[[MoveIt2]]"
   - "[[OMPL]]"
   - "[[FCL]]"
   - "[[PCL]]"
@@ -71,13 +71,13 @@ While [[Python_ROS_Nodes|Python]] is widely used in robotics for scripting, high
 Instead of implementing complex algorithms from scratch, developers typically leverage specialized C++ libraries:
 
 * **[[OMPL]] (Open Motion Planning Library):** A powerful, open-source C++ library focused purely on motion planning. It provides state-of-the-art implementations of many sampling-based algorithms (PRM, RRT, RRT*, KPIECE, etc.) and interfaces for defining state spaces, state validity checkers (collision checking), and goal conditions. It is widely used both standalone and as a core planning engine within frameworks like MoveIt.
-* **[[MoveIt]] (ROS/ROS 2):** A comprehensive open-source framework built on ROS/ROS 2, primarily in C++, specifically for [[Manipulation|manipulation]] tasks. MoveIt integrates:
+* **[[MoveIt2|MoveIt]] (ROS/ROS 2):** A comprehensive open-source framework built on ROS/ROS 2, primarily in C++, specifically for [[Manipulation|manipulation]] tasks. MoveIt integrates:
     * **Planners:** Typically uses [[OMPL]] plugins for planning.
     * **[[Collision_Detection|Collision Detection]]:** Uses [[FCL]] for efficient collision checking against environment models (often OctoMaps built from sensor data).
     * **[[Kinematics]]:** Interfaces with [[Forward_Kinematics|forward]] and [[Inverse_Kinematics|inverse kinematics]] solvers.
     * **[[Perception]]:** Integrates with sensor processing nodes (e.g., to update collision environments).
     * **[[Trajectory_Planning]]:** Includes modules for post-processing paths into smooth, executable trajectories (e.g., TOTG, TOPP-RA).
-    It provides [[Services]], [[Actions]], and [[RViz_Tutorial|RViz]] plugins for easy use within the ROS ecosystem.
+    It provides [[ROS_2_Communication|Services]], [[Actions]], and [[RViz_Tutorial|RViz]] plugins for easy use within the ROS ecosystem.
 * **[[FCL]] (Flexible Collision Library):** A dedicated C++ library providing fast and accurate collision detection algorithms for pairs of geometric models (meshes, basic shapes). It also supports distance queries. It's a dependency for many planning systems.
 * **[[PCL]] (Point Cloud Library):** An extensive C++ library for processing 3D point cloud data obtained from sensors like [[LIDAR]] or depth cameras. Used extensively in the [[Perception]] pipeline to build environment representations (e.g., filtering, segmentation, registration, mesh generation) that serve as input to motion planners for collision checking.
 * **SBPL (Search-Based Planning Library):** A C++ library focusing on heuristic search algorithms (like ARA*, AD*) for planning on discrete representations (grids or graphs), often used in mobile robot navigation.
@@ -93,9 +93,9 @@ Instead of implementing complex algorithms from scratch, developers typically le
 * **Algorithms:** C++ implementations leverage efficiency through pointers, references, optimized loops, and efficient data structures (e.g., k-d trees from FLANN or nanoflann for nearest-neighbor searches in sampling-based planners). Object-Oriented Programming (OOP) principles help structure complex planning algorithms and state representations.
 * **[[Robot_Operating_System_(ROS)|ROS]] Integration:**
     * C++ nodes (`rclcpp`/`roscpp`) encapsulate planning functionality.
-    * Planning requests are often handled via ROS [[Services]] (for simpler path requests) or [[Actions]] (for complex planning with feedback, like in MoveIt's `/move_group` action).
-    * Nodes subscribe to [[Topics]] carrying sensor data (`sensor_msgs/PointCloud2`, `sensor_msgs/JointState`), goal specifications (`geometry_msgs/PoseStamped`), or map updates (`nav_msgs/OccupancyGrid`).
-    * Planned paths or trajectories are published on [[Topics]] (e.g., `moveit_msgs/DisplayTrajectory`, `trajectory_msgs/JointTrajectory`) for execution by controllers or visualization in [[RViz_Tutorial|RViz]].
+    * Planning requests are often handled via ROS [[ROS_2_Communication|Services]] (for simpler path requests) or [[Actions]] (for complex planning with feedback, like in MoveIt's `/move_group` action).
+    * Nodes subscribe to [[ROS_2_Communication|Topics]] carrying sensor data (`sensor_msgs/PointCloud2`, `sensor_msgs/JointState`), goal specifications (`geometry_msgs/PoseStamped`), or map updates (`nav_msgs/OccupancyGrid`).
+    * Planned paths or trajectories are published on [[ROS_2_Communication|Topics]] (e.g., `moveit_msgs/DisplayTrajectory`, `trajectory_msgs/JointTrajectory`) for execution by controllers or visualization in [[RViz_Tutorial|RViz]].
     * [[TF_and_Topic_Architecture|TF]] library (`tf2_ros`) is used extensively for coordinate transformations between sensor frames, robot frames, and world frames.
 
 ---
@@ -107,7 +107,7 @@ Instead of implementing complex algorithms from scratch, developers typically le
 3.  **Planning:** Call the planner's `solve()` or equivalent function.
 4.  **Path Retrieval & Smoothing:** Extract the resulting geometric path. Often apply post-processing/smoothing algorithms.
 5.  **[[Trajectory_Planning|Trajectory Generation]]:** Time-parameterize the path considering velocity/acceleration limits to create an executable trajectory (e.g., using MoveIt's trajectory processing).
-6.  **Execution:** Send the trajectory (often as joint commands over ROS [[Topics]] or [[Actions]]) to the robot's low-level controllers.
+6.  **Execution:** Send the trajectory (often as joint commands over ROS [[ROS_2_Communication|Topics]] or [[Actions]]) to the robot's low-level controllers.
 
 C++ remains a cornerstone for implementing performance-critical motion planning algorithms and integrating them effectively within robotics systems, particularly when using frameworks like ROS/ROS 2.
 

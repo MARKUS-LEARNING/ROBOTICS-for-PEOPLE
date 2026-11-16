@@ -17,10 +17,10 @@ prerequisites:
   - "[[Labs_Projects_and_Tutorials]]"
 related:
   - "[[ROS_2_Overview]]"
-  - "[[Nodes]]"
-  - "[[Topics]]"
-  - "[[Services]]"
-  - "[[Parameters]]"
+  - "[[Custom_Packages_and_Nodes]]"
+  - "[[ROS_2_Communication]]"
+  - "[[ROS_2_Communication]]"
+  - "[[ROS_2_Communication]]"
   - "[[Python_ROS_Nodes]]"
   - "[[C++_Motion_Planning]]"
   - "[[Control_Theory]]"
@@ -75,7 +75,7 @@ Here are some classic Turtlesim projects to practice core ROS skills:
     * **Concepts Learned:** Creating a Subscriber, defining callback functions, basic feedback control logic, using TF math (for angles) or `atan2`.
 
 3.  **Pen Control and Services:**
-    * **Goal:** Enhance the shape-drawing or go-to-goal projects by using ROS [[Services]]. For example, create a service that allows lifting/lowering the pen (`/turtle1/set_pen`) or teleporting the turtle (`/turtle1/teleport_absolute`) before starting a drawing.
+    * **Goal:** Enhance the shape-drawing or go-to-goal projects by using ROS [[ROS_2_Communication|Services]]. For example, create a service that allows lifting/lowering the pen (`/turtle1/set_pen`) or teleporting the turtle (`/turtle1/teleport_absolute`) before starting a drawing.
     * **Concepts Learned:** Creating Service Clients, calling services, understanding request/response structures.
 
 4.  **Multi-Turtle Follower:**

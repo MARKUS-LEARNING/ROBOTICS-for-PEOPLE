@@ -1,6 +1,10 @@
 ---
 title: rosbag2
-description: Explains rosbag2, the ROS 2 tool for recording and playing back ROS topic data, covering recording, playback, filtering, conversion, and use cases in debugging, testing, and dataset collection.
+description: "rosbag2 records and replays the messages flowing through a ROS 2 system. Covers recording, compression, QoS overrides, inspecting and converting bags, reading and writing them from Python, the MCAP default format, the 2026 additions (remote record and stop services, Python playback control, circular recording, message-loss reporting), and bags as the raw material for robot-learning datasets."
+aliases:
+  - ros2 bag
+  - rosbag
+  - MCAP
 tags:
   - rosbag2
   - ros2
@@ -8,36 +12,39 @@ tags:
   - debugging
   - testing
   - robotics-software
-  - middleware
   - dataset
-  - simulation
 type: tool
 level: intermediate
 subfield:
   - software
-status: draft
+status: reviewed
 author: Jordan_Smith
-date: 2025-05-02
+date: 2025-04-28
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
   - "[[ROS_2_Overview]]"
-  - "[[Robot_Operating_System_(ROS)]]"
 related:
-  - "[[Robot_Operating_System_(ROS)]]"
-  - "[[ROS_2_Overview]]"
-  - "[[Topics]]"
-  - "[[Nodes]]"
   - "[[RViz_Tutorial]]"
-  - "[[Sensor_Fusion]]"
-  - "[[SLAM_with_ROS]]"
-  - "[[Machine_Learning]]"
-  - "[[Custom_Packages_and_Nodes]]"
+  - "[[Robot_Learning_Datasets_and_Benchmarks]]"
+  - "[[Teleoperation_and_Data_Collection]]"
+  - "[[TF_and_Topic_Architecture]]"
+key_takeaways:
+  - "A bag is a time-stamped log of topics; replaying it reproduces what the robot saw, so perception and planning bugs can be debugged off the robot."
+  - "MCAP is the default storage format (SQLite3 remains available); it is indexed, compressible per chunk and opens directly in Foxglove."
+  - "Lyrical (2026) made recording controllable by services and from Python, added circular recording and message-loss reporting, which suits always-on data collection for learning."
+sources:
+  - "Open Robotics (2026). rosbag2: ROS 2 bag recording and playback. https://github.com/ros2/rosbag2"
+  - "Open Robotics (2026). ROS 2 Lyrical Luth release notes (rosbag2 services, Python control, circular recording). https://github.com/ros2/ros2_documentation/blob/rolling/source/Releases/Release-Lyrical-Luth.rst"
+  - "Foxglove (2026). MCAP: a container file format for multimodal log data. https://github.com/foxglove/mcap"
+  - "Cadene, R. et al. (2024). LeRobot: State-of-the-art Machine Learning for Real-World Robotics in Pytorch. https://github.com/huggingface/lerobot"
 ---
 
 # rosbag2
 
-**rosbag2** is the ROS 2 tool for recording and playing back data published on ROS [[Topics]]. It captures a timestamped log of messages across any number of topics into a **bag file** — a portable, queryable data archive that can be replayed to reproduce system behavior exactly as it occurred.
+**rosbag2** is the ROS 2 tool for recording and playing back data published on ROS [[ROS_2_Communication|Topics]]. It captures a timestamped log of messages across any number of topics into a **bag file** — a portable, queryable data archive that can be replayed to reproduce system behavior exactly as it occurred.
 
-rosbag2 is a successor to `rosbag` from ROS 1, with significant improvements: a pluggable storage backend (SQLite3 by default, with MCAP support), improved performance for high-bandwidth data (cameras, LiDAR), and a flexible serialization layer.
+rosbag2 is a successor to `rosbag` from ROS 1, with significant improvements: a pluggable storage backend (MCAP by default since Iron in 2023; SQLite3 also bundled), improved performance for high-bandwidth data (cameras, LiDAR), and a flexible serialization layer.
 
 ---
 
@@ -74,7 +81,7 @@ ros2 bag record -a --max-bag-size 1073741824  # 1 GB
 ```
 
 This creates a directory `my_experiment/` (or `rosbag2_YYYY_MM_DD-HH_MM_SS/` by default) containing:
-* `my_experiment_0.db3` — SQLite3 database with message data.
+* `my_experiment_0.mcap` — the messages, in MCAP format (`.db3` if you chose SQLite3).
 * `metadata.yaml` — Bag metadata: topics, message types, duration, message counts.
 
 ### Compression
@@ -161,9 +168,9 @@ Node(
 ros2 bag info my_experiment/
 
 # Example output:
-# Files:             my_experiment_0.db3
+# Files:             my_experiment_0.mcap
 # Bag size:          1.2 GiB
-# Storage id:        sqlite3
+# Storage id:        mcap
 # Duration:          120.5s
 # Start:             May  2 2025 14:23:11.123 (1746185791.123)
 # End:               May  2 2025 14:25:11.623 (1746185911.623)
@@ -190,13 +197,13 @@ ros2 bag filter my_experiment/ -o filtered_bag \
 ### Convert Storage Format
 
 ```bash
-# Convert from SQLite3 to MCAP format (better for large bags, seekable)
+# Convert an older SQLite3 bag to MCAP (indexed, seekable, opens in Foxglove)
 ros2 bag convert \
   --input my_experiment/ \
   --output-options "uri: my_experiment_mcap, storage_id: mcap"
 ```
 
-**MCAP** (Machine-readable Capture) is a modern, indexed bag format developed by Foxglove with superior seek performance for large files and native support in the **Foxglove Studio** visualization tool.
+**MCAP** is an open, indexed container format created by Foxglove. It seeks quickly in large files, compresses per chunk while staying indexed, and opens directly in Foxglove. It has been rosbag2's default since Iron (2023).
 
 ### Reindex a Corrupted Bag
 
@@ -217,7 +224,7 @@ from rosbag2_py import SequentialReader, StorageOptions, ConverterOptions
 from rclpy.serialization import deserialize_message
 from sensor_msgs.msg import LaserScan
 
-storage_options = StorageOptions(uri='my_experiment/', storage_id='sqlite3')
+storage_options = StorageOptions(uri='my_experiment/', storage_id='mcap')
 converter_options = ConverterOptions('', '')
 
 reader = SequentialReader()
@@ -244,7 +251,7 @@ from rclpy.serialization import serialize_message
 from std_msgs.msg import String
 import time
 
-storage_options = StorageOptions(uri='output_bag/', storage_id='sqlite3')
+storage_options = StorageOptions(uri='output_bag/', storage_id='mcap')
 converter_options = ConverterOptions('', '')
 
 writer = SequentialWriter()
@@ -267,9 +274,9 @@ del writer  # flushes and closes
 
 ---
 
-## Visualization with Foxglove Studio
+## Visualization with Foxglove
 
-**Foxglove Studio** is a popular open-source tool for visualizing and analyzing rosbag2 data with a web-based interface. It supports MCAP and ROS 2 bag files natively and provides panels for:
+**Foxglove** is a widely used tool for visualizing and analyzing rosbag2 data in a browser or desktop app. (Its original open-source *Studio* repository was archived in 2024 when development moved to a closed-source product; the MCAP format and `foxglove_bridge` remain open source.) It supports MCAP and ROS 2 bag files natively and provides panels for:
 
 * 3D scene visualization (robot model, point clouds, markers).
 * Time-series plots.
@@ -311,12 +318,30 @@ ros2 run my_package evaluate_slam --bag reference_bag/ --expected-output expecte
 
 ---
 
-## Dataview Plugin Features
+## New in Lyrical (2026)
 
-```dataview
-LIST FROM #rosbag2 OR #debugging WHERE contains(file.outlinks, [[rosbag2]])
+- **Remote control by services.** A running recorder exposes `~/record`, `~/stop`, `~/start_discovery` and `~/stop_discovery`, so a fleet manager or a teleoperation UI can start and stop recording without a terminal:
+
+```bash
+ros2 service call /rosbag2_recorder/stop rosbag2_interfaces/srv/Stop "{}"
+ros2 service call /rosbag2_recorder/record rosbag2_interfaces/srv/Record "{uri: 'file:///data/episode_0042'}"
 ```
 
+- **Python control.** `rosbag2_py.Recorder` and `rosbag2_py.Player` can pause, resume, seek and step from Python, which makes scripted evaluation and dataset tooling simpler.
+- **Circular recording** with a limit on the number of bag files keeps only the most recent data: useful as a "black box" that is saved only when something goes wrong.
+- **Message-loss observability** reports dropped messages early instead of leaving silent gaps in a dataset.
+
+## Bags and robot learning
+
+Teleoperation demonstrations for [[Imitation_Learning|imitation learning]] are usually recorded as bags (camera images, joint states, commands) and then converted into a learning dataset format such as LeRobot's. Three habits make that conversion painless:
+- record the robot description and `/tf_static`;
+- keep image and joint topics on one clock;
+- split recordings at episode boundaries (one bag per demonstration, or service calls per episode).
+
+See [[Teleoperation_and_Data_Collection]] and [[Robot_Learning_Datasets_and_Benchmarks]].
+
+## Dataview
+
 ```dataview
-TABLE title, description FROM #ros WHERE contains(file.tags, "data-recording")
+LIST FROM "" WHERE contains(file.outlinks, [[rosbag2]])
 ```

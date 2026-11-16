@@ -1,6 +1,9 @@
 ---
 title: ros2_control
-description: Explains ros2_control, the hardware abstraction and real-time control framework for ROS 2, covering the controller manager, hardware interfaces, controllers, and the resource manager that enables portable, modular robot control.
+description: "ros2_control is ROS 2's framework for real-time robot control: hardware interfaces expose joint states and commands, a controller manager runs controllers in a fixed-rate loop, and the same controllers drive simulation and the real robot. Covers the architecture, URDF tags, controller configuration, lifecycle commands, writing a hardware interface, the Lyrical (2026) changes, and how learned policies plug in."
+aliases:
+  - ros2 control
+  - controller_manager
 tags:
   - ros2_control
   - ros2
@@ -8,30 +11,37 @@ tags:
   - hardware-interface
   - real-time
   - robotics-software
-  - middleware
   - actuators
 type: tool
 level: intermediate
 subfield:
   - software
   - electronics-embedded
-status: draft
+  - control
+status: reviewed
 author: Jordan_Smith
-date: 2025-05-02
+date: 2025-04-28
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
   - "[[ROS_2_Overview]]"
-  - "[[Robot_Operating_System_(ROS)]]"
-related:
-  - "[[Robot_Operating_System_(ROS)]]"
-  - "[[ROS_2_Overview]]"
   - "[[URDF]]"
+related:
   - "[[MoveIt2]]"
-  - "[[Control_Systems]]"
-  - "[[Actuator]]"
-  - "[[Joints]]"
-  - "[[Trajectory_Planning]]"
   - "[[Gazebo_Simulator]]"
-  - "[[Custom_Packages_and_Nodes]]"
+  - "[[PID_Control]]"
+  - "[[Reinforcement_Learning_for_Robots]]"
+  - "[[ROS_AI_Integration]]"
+key_takeaways:
+  - "ros2_control separates what talks to motors (hardware interfaces) from what decides commands (controllers); a controller manager runs both in one real-time loop."
+  - "The same controllers run in Gazebo (gz_ros2_control), MuJoCo or Isaac bridges, and on hardware: only the hardware plugin in the URDF changes."
+  - "Learned policies usually sit above ros2_control, sending joint position or effort targets at 50–500 Hz to controllers that run at 500 Hz–1 kHz."
+sources:
+  - "Chitta, S. et al. (2017). ros_control: A generic and simple control framework for ROS. https://joss.theoj.org/papers/10.21105/joss.00456"
+  - "ros-controls (2026). ros2_control. https://github.com/ros-controls/ros2_control"
+  - "ros-controls (2026). ros2_control release notes: Kilted Kaiju to Lyrical Luth. https://github.com/ros-controls/ros2_control/blob/master/doc/release_notes.rst"
+  - "ros-controls (2026). ros2_controllers. https://github.com/ros-controls/ros2_controllers"
+  - "ros-controls (2026). gz_ros2_control: ros2_control for modern Gazebo. https://github.com/ros-controls/gz_ros2_control"
 ---
 
 # ros2_control
@@ -161,13 +171,21 @@ ros2_control is configured through the [[URDF]] or xacro file via the `<ros2_con
 </ros2_control>
 ```
 
-For **Gazebo simulation**, replace the hardware plugin with the Gazebo bridge:
+For **Gazebo simulation** (modern Gazebo: Harmonic with Jazzy, Jetty with Lyrical), replace the hardware plugin with `gz_ros2_control` and load its system plugin in the model:
 
 ```xml
 <hardware>
-  <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+  <plugin>gz_ros2_control/GazeboSimSystem</plugin>
 </hardware>
+<!-- elsewhere in the URDF -->
+<gazebo>
+  <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+    <parameters>$(find my_robot)/config/controllers.yaml</parameters>
+  </plugin>
+</gazebo>
 ```
+
+(`gazebo_ros2_control/GazeboSystem` was the Gazebo Classic plugin; Gazebo Classic reached end of life in January 2025.)
 
 ---
 
@@ -314,16 +332,27 @@ MoveIt 2 (motion planner)
         → Physical Robot or Gazebo
 ```
 
-This clean layering means MoveIt 2 works identically with a Gazebo simulation (using `gazebo_ros2_control`) and the real robot (using the custom hardware interface plugin) — only the `<hardware><plugin>` line in the URDF changes.
+This clean layering means MoveIt 2 works identically with a Gazebo simulation (using `gz_ros2_control`) and the real robot (using the custom hardware interface plugin) — only the `<hardware><plugin>` line in the URDF changes.
 
 ---
 
-## Dataview Plugin Features
+## Worked example: rates and latency budget
+
+A 6-joint arm runs its controller manager at 1 kHz, so each cycle has 1 ms for `read()` → controllers → `write()`. Suppose EtherCAT `read` and `write` take 0.15 ms each and a joint trajectory controller takes 0.05 ms. That leaves 1 − 0.35 = 0.65 ms of slack, enough for a few more controllers but not for anything that allocates memory or waits on the network. That is why non-real-time work (planning, perception, learned policies) runs in other nodes and only *sends targets* into the loop.
+
+A learned policy at 50 Hz sends a new target every 20 ms, so the 1 kHz controller interpolates and tracks each target over 20 cycles. The split, a slow learned brain over a fast classical spine, is how most 2026 robots deploy [[Reinforcement_Learning_for_Robots|RL]] and [[Vision-Language-Action_Models|VLA]] policies.
+
+## What changed for Lyrical (2026)
+
+From the ros2_control release notes (Kilted → Lyrical):
+- **Safer switching.** `switch_controller` now defaults to `strict`. If a controller in a chain fails during an update, the controller manager deactivates the whole chain. A new `handle_exceptions` parameter decides whether controller exceptions are caught.
+- **More data types.** Handles now carry `float32` and integer types, not only `double` and `bool`.
+- **Tooling.** There is a new `cleanup_controller` service (and CLI verb), the spawner accepts per-controller arguments, and a `--reconfigure` option was added.
+- **Performance.** Clocks are resolved once per cycle, and the hardware-interface listings now scale linearly.
+- **Sensors.** A `MagneticFieldSensor` semantic component was added.
+
+## Dataview
 
 ```dataview
-LIST FROM #ros2_control OR #control WHERE contains(file.outlinks, [[ros2_control]])
-```
-
-```dataview
-TABLE title, description FROM #ros WHERE contains(file.tags, "ros2_control")
+LIST FROM "" WHERE contains(file.outlinks, [[ros2_control]])
 ```

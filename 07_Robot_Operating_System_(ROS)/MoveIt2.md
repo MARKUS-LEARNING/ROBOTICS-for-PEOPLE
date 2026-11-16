@@ -1,6 +1,9 @@
 ---
 title: MoveIt 2
-description: Covers MoveIt 2, the leading motion planning framework for ROS 2, including its planning pipeline, SRDF configuration, collision checking, kinematics solvers, and integration with ros2_control for robot arm manipulation.
+description: "MoveIt 2 is ROS 2's motion-planning framework for robot arms: it plans collision-free trajectories, solves inverse kinematics, manages the planning scene and executes motions through ros2_control. Covers the architecture, SRDF, planners (OMPL, Pilz, STOMP, CHOMP), MoveItPy, Task Constructor, versions per ROS distribution in 2026, MoveIt Pro, and GPU motion generation (cuRobo) next to learned policies."
+aliases:
+  - MoveIt
+  - MoveItPy
 tags:
   - moveit
   - motion-planning
@@ -8,7 +11,6 @@ tags:
   - manipulation
   - kinematics
   - collision-detection
-  - path-planning
   - robotics-software
   - manipulator-arm
 type: tool
@@ -17,26 +19,31 @@ subfield:
   - software
   - planning
   - manipulation
-status: draft
+status: reviewed
 author: Jordan_Smith
-date: 2025-05-02
+date: 2025-04-28
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
   - "[[ROS_2_Overview]]"
-  - "[[Robot_Operating_System_(ROS)]]"
+  - "[[URDF]]"
   - "[[Path_Planning]]"
 related:
-  - "[[Robot_Operating_System_(ROS)]]"
-  - "[[ROS_2_Overview]]"
   - "[[ros2_control]]"
-  - "[[URDF]]"
-  - "[[Actions]]"
-  - "[[Forward_Kinematics]]"
   - "[[Inverse_Kinematics]]"
-  - "[[Trajectory_Planning]]"
-  - "[[Path_Planning]]"
-  - "[[Collision_Detection]]"
-  - "[[Gazebo_Simulator]]"
+  - "[[Manipulation]]"
   - "[[RViz_Tutorial]]"
+  - "[[Vision-Language-Action_Models]]"
+key_takeaways:
+  - "MoveIt turns 'put the gripper here without hitting anything' into a time-parameterised joint trajectory, and sends it to a ros2_control trajectory controller."
+  - "Versions follow ROS distributions: MoveIt 2.15 for Lyrical (recommended in 2026), 2.12 for Jazzy, 2.5 for Humble."
+  - "Learned policies and MoveIt coexist: policies handle contact-rich, perception-driven skills; MoveIt handles collision-free transit, reachability and safety checks."
+sources:
+  - "Coleman, D., Sucan, I., Chitta, S. and Correll, N. (2014). Reducing the Barrier to Entry of Complex Robotic Software: a MoveIt! Case Study. https://arxiv.org/abs/1404.3785"
+  - "PickNik Robotics (2026). MoveIt Motion Planning Framework. https://moveit.ai/"
+  - "moveit (2026). moveit2: MoveIt for ROS 2. https://github.com/moveit/moveit2"
+  - "Qualcomm (2026). Qualcomm to acquire PickNik to advance the future of open robotics. https://www.qualcomm.com/news/releases/2026/09/qualcomm-to-acquire-picknik-to-advance-the-future-of-open-roboti"
+  - "Sundaralingam, B. et al. (2023). cuRobo: Parallelized Collision-Free Minimum-Jerk Robot Motion Generation. https://arxiv.org/abs/2310.17274"
 ---
 
 # MoveIt 2
@@ -300,14 +307,13 @@ The Cartesian path is parameterized such that the end effector moves linearly th
 ## Launching MoveIt 2
 
 ```bash
-# Launch MoveIt 2 with a specific robot (e.g., UR5e)
-ros2 launch ur_moveit_config ur_moveit.launch.py ur_type:=ur5e use_fake_hardware:=true
+# A UR5e with mock hardware (no robot needed): start the driver, then MoveIt with RViz
+ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur5e robot_ip:=0.0.0.0 use_mock_hardware:=true launch_rviz:=false
+ros2 launch ur_moveit_config ur_moveit.launch.py ur_type:=ur5e launch_rviz:=true
 
-# Launch with Gazebo simulation
+# Your own robot: generate a config package with the Setup Assistant, then run its demo
+ros2 launch moveit_setup_assistant setup_assistant.launch.py
 ros2 launch my_robot_moveit_config demo.launch.py
-
-# Open RViz with the MoveIt plugin
-ros2 launch moveit2_tutorials demo.launch.py
 ```
 
 ---
@@ -323,12 +329,25 @@ MoveIt 2 and [[ros2_control]] work together as the standard manipulation stack:
 
 ---
 
-## Dataview Plugin Features
+## Versions and support (November 2026)
+
+| ROS 2 distribution | MoveIt | Status |
+|---|---|---|
+| Lyrical (LTS) | 2.15 | Latest stable, recommended |
+| Kilted | 2.14 | Maintained |
+| Jazzy (LTS) | 2.12 | Maintained |
+| Humble (LTS) | 2.5 | Maintained |
+| Noetic (ROS 1) | 1.1 | End of life |
+
+**MoveIt Pro** is PickNik Robotics' commercially supported product built on MoveIt, adding behavior-tree task authoring, a web interface and teleoperation tools. In September 2026 Qualcomm announced it would acquire PickNik; the open-source MoveIt project continues under the same maintainers' stewardship.
+
+## Planning on GPUs and alongside learned policies
+
+- **GPU motion generation.** NVIDIA's cuRobo (2023) runs many trajectory optimisations in parallel on a GPU, producing collision-free, minimum-jerk motions in tens of milliseconds. It is packaged for ROS as Isaac ROS cuMotion, which includes a MoveIt planner plugin. Fast planning makes reactive replanning practical in cluttered scenes.
+- **Division of labour with learned policies.** A typical 2026 manipulation stack uses MoveIt (or cuRobo) to move the arm safely to a pre-grasp pose, then hands control to a learned policy ([[Diffusion_Policy]] or a [[Vision-Language-Action_Models|VLA]]) for the contact-rich part, then returns to MoveIt for transit. MoveIt's planning scene still provides the collision checks and joint limits that learned policies do not guarantee.
+
+## Dataview
 
 ```dataview
-LIST FROM #motion-planning OR #manipulation WHERE contains(file.outlinks, [[MoveIt2]])
-```
-
-```dataview
-TABLE title, description FROM #ros WHERE contains(file.tags, "moveit")
+LIST FROM "" WHERE contains(file.outlinks, [[MoveIt2]])
 ```
