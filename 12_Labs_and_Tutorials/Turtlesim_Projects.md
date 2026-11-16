@@ -24,7 +24,7 @@ related:
   - "[[Python_ROS_Nodes]]"
   - "[[C++_Motion_Planning]]"
   - "[[Control_Theory]]"
-  - "[[Simulation]]"
+  - "[[Robot_Simulation]]"
   - "[[Labs_Projects_and_Tutorials]]"
 ---
 

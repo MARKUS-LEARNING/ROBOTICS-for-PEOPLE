@@ -44,7 +44,7 @@ related:
 
 4. **[[Control_Systems|Control Systems]]**: The algorithms that close the loop between sensing and actuation. In practice, most industrial robots run cascaded control: an outer position loop at 100–500 Hz commands an inner current/torque loop running at 5–20 kHz.
 
-5. **[[Artificial_Intelligence|Artificial Intelligence]]**: Enables robots to handle uncertainty and adapt. Classical AI provides path planning (e.g., [[Path_Planning|A*, RRT]]); modern deep learning enables vision-based grasping, [[Reinforcement_Learning_for_Robots|reinforcement learning]] for locomotion, and [[Foundation_Models|foundation models]] for task planning from natural language.
+5. **[[Artificial_Intelligence|Artificial Intelligence]]**: Enables robots to handle uncertainty and adapt. Classical AI provides path planning (e.g., [[Path_Planning|A*, RRT]]); modern deep learning enables vision-based grasping, [[Reinforcement_Learning_for_Robots|reinforcement learning]] for locomotion, and [[Vision-Language-Action_Models|foundation models]] for task planning from natural language.
 
 6. **[[Human-Robot_Interaction|Human-Robot Interaction]]**: [[Collaborative_Robots|Cobots]] like the Universal Robots UR5e limit contact forces to < 150 N (per ISO/TS 15066) via force-limited joints and power monitoring, enabling cage-free operation alongside humans.
 

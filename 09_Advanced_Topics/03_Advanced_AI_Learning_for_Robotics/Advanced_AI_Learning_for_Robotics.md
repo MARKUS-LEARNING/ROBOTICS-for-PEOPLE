@@ -1,109 +1,88 @@
 ---
 title: Advanced AI Learning for Robotics
-description: Advanced AI Learning for Robotics involves the application of cutting-edge artificial intelligence techniques to enable robots to learn, adapt, and make decisions in complex and dynamic environments, enhancing their autonomy and performance.
+description: "Section overview of the research frontier in robot learning as of late 2026: generalist robot foundation models, world action models, reinforcement learning at scale and on top of imitation, cross-embodiment learning, and the open problems of data, evaluation and safety."
 tags:
   - robot-learning
-  - artificial-intelligence
-  - machine-learning
-  - mobile-robot
+  - foundation-models
+  - world-models
+  - reinforcement-learning
+  - future-of-robotics
 type: overview
 level: advanced
 subfield:
   - robot-learning
-status: draft
+  - frontiers
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Machine_Learning]]"
-  - "[[Artificial_Intelligence]]"
-  - "[[Deep_Learning]]"
+  - "[[Reinforcement_Learning_for_Robots]]"
+  - "[[Vision-Language-Action_Models]]"
+  - "[[World_Models]]"
 related:
-  - "[[Artificial_Intelligence]]"
-  - "[[Machine_Learning]]"
-  - "[[Deep_Learning]]"
-  - "[[Robot_Control]]"
-  - "[[Autonomous_Systems]]"
+  - "[[Embodied_AI]]"
+  - "[[Robot_Learning_Datasets_and_Benchmarks]]"
+  - "[[Teleoperation_and_Data_Collection]]"
+  - "[[Future_Trends_2025-2035]]"
+key_takeaways:
+  - "Three model families compete for the generalist robot: vision-language-action models, world action models, and hierarchies that pair a reasoning model with a fast controller."
+  - "The binding constraint is data; the field's answers are pooling across robots, simulation, handheld data collection and human video."
+  - "Evaluation and safety lag capability: most reported results are vendor-run, and long-horizon autonomy and dexterity remain unsolved."
+sources:
+  - "Physical Intelligence (2026). π0.7: a Steerable Generalist Robotic Foundation Model with Emergent Capabilities. https://arxiv.org/abs/2604.15483"
+  - "Ye, S. et al. (2026). World Action Models are Zero-shot Policies. https://arxiv.org/abs/2602.15922"
+  - "Google DeepMind (2026). Gemini Robotics 2 brings whole body intelligence to robots. https://deepmind.google/blog/gemini-robotics-2-brings-whole-body-intelligence-to-robots/"
+  - "NVIDIA (2026). GR00T 2: Scaling Robot Foundation Models for Generalization, Dexterity, and Adaptation. https://research.nvidia.com/labs/gear/gr00t-2/"
+  - "NVIDIA (2026). Isaac Lab 3.0 release notes. https://github.com/isaac-sim/IsaacLab/releases/tag/v3.0.0"
 ---
 
 # Advanced AI Learning for Robotics
 
-**Advanced AI Learning for Robotics** involves the application of cutting-edge artificial intelligence techniques to enable robots to learn, adapt, and make decisions in complex and dynamic environments. This includes techniques such as deep learning, reinforcement learning, and transfer learning, which enhance the autonomy, performance, and capabilities of robotic systems. Advanced AI learning is fundamental in developing robots that can operate effectively in diverse and challenging settings, from manufacturing and healthcare to exploration and entertainment.
+This section collects the research frontier of robot learning. The foundations are covered in [[Reinforcement_Learning]], [[Imitation_Learning]] and [[Generative_Models]]; this page maps how they combine in the systems being built in late 2026, and what is still unsolved.
 
----
+> **Etymology.** *Advanced* comes from Old French *avancer*, from Late Latin *abante*, "from before, in front". The *frontier* this page maps is from Latin *frons*, "forehead, front": the edge where settled ground ends.
 
-## Key Concepts
+## Three families competing for the generalist robot
 
-### Deep Learning
+| Family | Core idea | 2026 examples | Read |
+|---|---|---|---|
+| **Vision-language-action models** | A pretrained vision-language model plus an action decoder | π0.7, GR00T N1.7, Gemini Robotics 2 / 2.5 | [[Vision-Language-Action_Models]] |
+| **World action models** | Predict future video and actions together from a video-model backbone | DreamZero, GR00T 2 | [[World_Models]] |
+| **Hierarchies** | A slow reasoning model plans and monitors; a fast policy acts | Gemini Robotics ER 2 directing VLAs | [[Vision-Language-Action_Models]] |
 
-Deep learning involves the use of multi-layered neural networks to model and solve complex problems, enabling robots to interpret and interact with their environment, learn from data, and adapt to new tasks and conditions.
+They are converging: VLAs now use world models to generate subgoal images (π0.7), and world action models inherit language understanding from their backbones.
 
-### Reinforcement Learning
+## The learning recipe, 2026 version
 
-Reinforcement learning is a technique used to train robots to make decisions and perform tasks by interacting with their environment and receiving feedback in the form of rewards or penalties. This enables robots to learn optimal behaviors and strategies through trial and error.
+1. **Pretrain** on everything available: robot teleoperation across many embodiments, handheld-gripper data, human egocentric video, simulation and web data.
+2. **Post-train** for a robot and task with a few demonstrations or hours of data.
+3. **Improve with reinforcement learning**, in simulation or on hardware, from the robot's own attempts.
+4. **Deploy** under a classical low-level controller and safety layer.
 
-### Transfer Learning
+Massively parallel simulation underpins steps 1 and 3: Isaac Lab 3.0 (October 2026) runs one task API across PhysX and the open-source Newton engine, including deformable-object and fluid solvers. See [[Reinforcement_Learning_for_Robots]].
 
-Transfer learning involves the use of pre-trained models and knowledge from one task to improve the learning and performance of another task. This enables robots to leverage existing knowledge and adapt to new tasks and environments more efficiently.
+## Open problems
 
-### Adaptive Control
+| Problem | Status in late 2026 |
+|---|---|
+| **Data** | Robot data is still scarce and expensive; human video and handheld tools help but differ from robot embodiment |
+| **Long-horizon autonomy** | Multi-minute tasks from one instruction remain unreliable |
+| **Dexterity** | Multi-finger manipulation is explicitly described as "challenging" by leading labs |
+| **Evaluation** | Most headline numbers are vendor-reported; shared real-robot evaluation is growing but small |
+| **Safety** | Physical-safety benchmarks and safety filters are early; regulation is catching up |
+| **Compute at the edge** | Large models must be distilled or split to run on the robot |
 
-Adaptive control involves adjusting the control algorithm based on the robot's performance and the environment's conditions, enabling it to adapt to uncertainties and changes. This includes techniques such as model predictive control and adaptive filtering, which enhance the robot's ability to perform tasks effectively.
+## Where to go next
 
----
+[[Policy]] → [[Markov_Decision_Process]] → [[Reinforcement_Learning]] → [[Reinforcement_Learning_for_Robots]]
 
-## Mathematical Formulation
+[[Imitation_Learning]] → [[Teleoperation_and_Data_Collection]] → [[Diffusion_Policy]] → [[Vision-Language-Action_Models]]
 
-### Deep Learning Model
+[[Generative_Models]] → [[World_Models]]
 
-A deep learning model in robotics can be represented as a neural network with multiple layers, where the output of a layer \( l \) is given by:
-
-$$
-a^{(l)} = \sigma(W^{(l)} \cdot a^{(l-1)} + b^{(l)})
-$$
-
-where:
-- $a^{(l)}$ is the output of layer $l$.
-- $W^{(l)}$ is the weight matrix of layer $l$.
-- $a^{(l-1)}$ is the output of the previous layer.
-- $b^{(l)}$ is the bias vector of layer $l$.
-- $\sigma$ is the activation function.
-
-### Reinforcement Learning Update
-
-The Q-value update equation in reinforcement learning is given by:
-
-$$
-Q(s, a) = Q(s, a) + \alpha \left[ r + \gamma \max_{a'} Q(s', a') - Q(s, a) \right]
-$$
-
-where:
-- $Q(s, a)$ is the Q-value for state $s$ and action $a$.
-- $\alpha$ is the learning rate.
-- $r$ is the reward.
-- $\gamma$ is the discount factor.
-- $s'$ is the next state.
-- $a'$ is the next action.
-
-### Example: Autonomous Navigation
-
-Consider a mobile robot using advanced AI learning for autonomous navigation. The robot's deep learning model processes sensory inputs, such as images and lidar data, to interpret its environment and make decisions. The reinforcement learning algorithm enables the robot to learn optimal behaviors and strategies, adapting to changes in the environment and performing tasks effectively. The adaptive control algorithm adjusts the robot's behavior based on its performance and the environment's conditions, ensuring effective and efficient navigation.
-
----
-
-## Applications in Robotics
-
-- **Autonomous Navigation**: Advanced AI learning is used to enable robots to navigate through their environment, avoiding obstacles and reaching destinations.
-- **Object Manipulation**: Enables robots to interact with and manipulate objects, performing tasks such as grasping, lifting, and assembling.
-- **Decision Making**: Advanced AI learning is used to make decisions under uncertainty, adapting to changing conditions and performing tasks effectively.
-- **Control Systems**: Enables the design of control algorithms that regulate the behavior of robotic systems, enabling precise and adaptive control.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Advanced_AI_Learning_for_Robotics]])

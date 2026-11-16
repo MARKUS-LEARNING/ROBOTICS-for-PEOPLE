@@ -22,7 +22,7 @@ related:
   - "[[Mechatronics]]"
   - "[[Control_Systems]]"
   - "[[Actuator]]"
-  - "[[Teleoperation]]"
+  - "[[Teleoperation_and_Data_Collection]]"
   - "[[Kinematics_and_Dynamics]]"
 ---
 

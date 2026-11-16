@@ -529,9 +529,11 @@ def cmd_export(a):
     for f in os.listdir(explore_src):
         shutil.copy(os.path.join(explore_src, f), os.path.join(explore_dst, f))
     for lib in ('3d-force-graph', 'force-graph'):
-        src = os.path.join(V.ROOT, 'site', 'node_modules', lib, 'dist', f'{lib}.min.js')
+        # site/node_modules in CI; locally EXPLORE_NODE_MODULES can point outside the vault so Obsidian never indexes it
+        nm = os.environ.get('EXPLORE_NODE_MODULES') or os.path.join(V.ROOT, 'site', 'node_modules')
+        src = os.path.join(nm, lib, 'dist', f'{lib}.min.js')
         if not os.path.isfile(src):
-            raise SystemExit(f'{src} missing: run `npm ci` in site/ first')
+            raise SystemExit(f'{src} missing: run `npm ci` in site/ (or set EXPLORE_NODE_MODULES) first')
         shutil.copy(src, os.path.join(explore_dst, 'vendor', f'{lib}.min.js'))
     for n in notes:
         dst = os.path.join(out, 'raw', n.path); os.makedirs(os.path.dirname(dst), exist_ok=True)
