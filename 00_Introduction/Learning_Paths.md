@@ -42,7 +42,7 @@ No background needed. What robots are, how they came to be, and the ideas everyt
 11. [[Manipulator_Arm|Manipulator Arm]] · *beginner*
 12. [[Wheeled_Mobile_Robots|Wheeled Mobile Robots]] · *beginner*
 13. [[Mobile_Robots|Mobile Robots]] · *beginner*
-14. [[Industrial_Arms|Industrial Arms]] · *beginner*
+14. [[Legged_Robots|Legged Robots]] · *beginner*
 
 ### Student: the core stack
 
@@ -248,9 +248,9 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 38. [[Manipulability]] · *intermediate*
 39. [[Motion_Control|Motion Control]] · *intermediate*
 40. [[Parallel_Mechanisms_and_Robots|Parallel Mechanisms and Robots]] · *intermediate*
-41. [[Stability]] · *intermediate*
-42. [[Manipulator_Arm_Types|Manipulator Arm Types]] · *intermediate*
-43. [[Newton-Euler_Equations|Newton-Euler Equations]] · *intermediate*
+41. [[Manipulator_Arm_Types|Manipulator Arm Types]] · *intermediate*
+42. [[Newton-Euler_Equations|Newton-Euler Equations]] · *intermediate*
+43. [[Stability]] · *intermediate*
 44. [[Torque]] · *intermediate*
 45. [[Cartesian_Space|Cartesian Space]] · *intermediate*
 46. [[DC_Motors|DC Motors]] · *intermediate*
@@ -404,8 +404,8 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 14. [[Feedback_Control|Feedback Control]] · *intermediate*
 15. [[Control_Systems|Control Systems]] · *intermediate*
 16. [[PID_Control|PID Control]] · *intermediate*
-17. [[Adaptive_Control|Adaptive Control]] · *intermediate*
-18. [[Compliance|Compliance (Robotics)]] · *intermediate*
+17. [[Compliance|Compliance (Robotics)]] · *intermediate*
+18. [[Adaptive_Control|Adaptive Control]] · *intermediate*
 19. [[State_Space_Representation|State Space Representation]] · *intermediate*
 20. [[Computed_Torque_Control|Computed Torque Control]] · *intermediate*
 21. [[Transfer_Function|Transfer Function]] · *intermediate*
@@ -553,18 +553,19 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 
 1. [[Wheeled_Mobile_Robots|Wheeled Mobile Robots]] · *beginner*
 2. [[Mobile_Robots|Mobile Robots]] · *beginner*
-3. [[Autonomous_Robots|Autonomous Robots]] · *beginner*
-4. [[Omnidirectional_Robots|Omnidirectional Robots]] · *beginner*
-5. [[Nonholonomic_Constraint|Nonholonomic Constraint]] · *intermediate*
-6. [[Differential_Drive|Differential Drive]] · *intermediate*
-7. [[Instantaneous_Center_of_Rotation_(ICR)|Instantaneous Center of Rotation (ICR)]] · *intermediate*
-8. [[SLAM|SLAM (Simultaneous Localization and Mapping)]] · *intermediate*
-9. [[LIDAR|LIDAR (Light Detection and Ranging)]] · *intermediate*
-10. [[GPS]] · *intermediate*
-11. [[Autonomous_Navigation|Autonomous Navigation]] · *intermediate*
-12. [[Collision_Avoidance|Collision Avoidance]] · *intermediate*
-13. [[Nav2_Navigation|Nav2 Navigation Stack]] · *intermediate*
-14. [[SLAM_with_ROS|SLAM with ROS]] · *intermediate*
+3. [[Legged_Robots|Legged Robots]] · *beginner*
+4. [[Autonomous_Robots|Autonomous Robots]] · *beginner*
+5. [[Omnidirectional_Robots|Omnidirectional Robots]] · *beginner*
+6. [[Nonholonomic_Constraint|Nonholonomic Constraint]] · *intermediate*
+7. [[Differential_Drive|Differential Drive]] · *intermediate*
+8. [[Instantaneous_Center_of_Rotation_(ICR)|Instantaneous Center of Rotation (ICR)]] · *intermediate*
+9. [[SLAM|SLAM (Simultaneous Localization and Mapping)]] · *intermediate*
+10. [[LIDAR|LIDAR (Light Detection and Ranging)]] · *intermediate*
+11. [[GPS]] · *intermediate*
+12. [[Autonomous_Navigation|Autonomous Navigation]] · *intermediate*
+13. [[Collision_Avoidance|Collision Avoidance]] · *intermediate*
+14. [[Nav2_Navigation|Nav2 Navigation Stack]] · *intermediate*
+15. [[SLAM_with_ROS|SLAM with ROS]] · *intermediate*
 
 ### Legged Locomotion and Humanoids
 
