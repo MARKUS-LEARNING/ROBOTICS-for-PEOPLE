@@ -56,13 +56,36 @@ def _fetch_once(url: str) -> tuple[int, str]:
         return 0, f'{type(e).__name__}: {e}'
 
 
-def arxiv_titles(ids: list[str]) -> dict:
+def _arxiv_query(q: str, waits=(10, 30, 60)):
+    """One arXiv API call, retried on rate limits (429), 5xx and network errors.
+    Returns the parsed feed, or None if arXiv still refuses after every retry."""
+    for attempt in range(len(waits) + 1):
+        try:
+            req = urllib.request.Request(q, headers={'User-Agent': UA})
+            with urllib.request.urlopen(req, timeout=60) as r:
+                return ET.fromstring(r.read())
+        except urllib.error.HTTPError as e:
+            if e.code != 429 and e.code < 500:
+                raise
+            err = f'HTTP {e.code}'
+            retry_after = e.headers.get('Retry-After', '') if e.headers else ''
+        except (urllib.error.URLError, TimeoutError, ET.ParseError) as e:
+            err, retry_after = f'{type(e).__name__}: {e}', ''
+        if attempt < len(waits):
+            wait = int(retry_after) if retry_after.isdigit() else waits[attempt]
+            print(f'arXiv API: {err}; retrying in {wait}s', file=sys.stderr)
+            time.sleep(min(wait, 120))
+    print(f'arXiv API: {err} after {len(waits) + 1} attempts', file=sys.stderr)
+    return None
+
+
+def arxiv_titles(ids: list[str]) -> dict | None:
     out = {}
     for i in range(0, len(ids), 50):
         q = 'https://export.arxiv.org/api/query?' + urllib.parse.urlencode({'id_list': ','.join(ids[i:i + 50]), 'max_results': 50})
-        req = urllib.request.Request(q, headers={'User-Agent': UA})
-        with urllib.request.urlopen(req, timeout=60) as r:
-            root = ET.fromstring(r.read())
+        root = _arxiv_query(q)
+        if root is None:
+            return None                                    # arXiv unreachable: titles go unchecked
         ns = {'a': 'http://www.w3.org/2005/Atom'}
         for e in root.findall('a:entry', ns):
             aid = re.search(r'(\d{4}\.\d{4,5})', e.findtext('a:id', '', ns) or '')
@@ -85,6 +108,8 @@ def main(argv):
         status = dict(zip(urls, ex.map(fetch, urls)))
     ids = sorted({ARXIV.search(m.group('url')).group(1) for _, _, m in cites if m and ARXIV.search(m.group('url'))})
     titles = arxiv_titles(ids) if ids else {}
+    if titles is None:                                     # rate-limited: still check URLs, flag titles as unchecked
+        print('::warning::arXiv API unavailable; arXiv titles were not checked this run')
     failed = blocked = 0
     for n, c, m in cites:
         if not m:
@@ -95,13 +120,13 @@ def main(argv):
         elif not 200 <= code < 400:
             failed += 1; print(f'DEAD     {n.name}: HTTP {code} {m.group("url")} {final if code == 0 else ""}')
         a = ARXIV.search(m.group('url'))
-        if a:
+        if a and titles is not None:
             real = titles.get(a.group(1))
             if real is None:
                 failed += 1; print(f'ARXIV?   {n.name}: {a.group(1)} not found in the arXiv API')
             elif not same_title(m.group('title'), real):
                 failed += 1; print(f'TITLE    {n.name}: cited "{m.group("title")}" but arXiv {a.group(1)} is "{real}"')
-    print(f'{len(cites)} citations in {len(notes)} notes: {len(urls)} URLs, {len(ids)} arXiv papers checked; '
+    print(f'{len(cites)} citations in {len(notes)} notes: {len(urls)} URLs, {len(ids) if titles is not None else 0} arXiv papers checked; '
           f'{failed} problems, {blocked} blocked by the site')
     return 1 if failed else 0
 
