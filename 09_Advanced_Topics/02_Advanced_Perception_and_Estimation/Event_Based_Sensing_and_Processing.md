@@ -1,108 +1,75 @@
 ---
 title: Event-Based Sensing and Processing
-description: Event-Based Sensing and Processing involves processing data triggered by specific events, enabling real-time and efficient perception in dynamic environments.
+description: "Event cameras report per-pixel brightness changes asynchronously with microsecond timing instead of full frames. Covers how they work, their advantages (latency, dynamic range, no motion blur) with a computed blur comparison, processing methods (event frames, filters, spiking and learned networks), robotics uses such as fast obstacle dodging, and limits as of 2026."
+aliases:
+  - Event Cameras
+  - Event Camera
+  - Neuromorphic Vision
+  - Dynamic Vision Sensor
 tags:
-  - perception
-  - event-based-sensing
-  - real-time
+  - computer-vision
   - sensors
-  - mechanism
-  - mobile-robot
+  - perception
 type: concept
 level: advanced
 subfield:
   - perception
-  - frontiers
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
   - "[[Camera_Systems]]"
 related:
-  - "[[Sensors]]"
-  - "[[Machine_Learning]]"
+  - "[[Computer_Vision_in_Robotics]]"
+  - "[[Drones]]"
+  - "[[Advanced_Sensor_Fusion]]"
+key_takeaways:
+  - "Each pixel of an event camera fires independently when its log-brightness changes by a threshold, producing a stream of (x, y, time, polarity) events with microsecond resolution."
+  - "No exposure means no motion blur: an object at 10 m/s smears 10 cm across a 10 ms frame exposure, while events track it continuously; dynamic range exceeds 120 dB."
+  - "They shine for fast motion, high-dynamic-range scenes and low power; algorithms and datasets lag frame-based vision, so most robots in 2026 pair them with ordinary cameras."
+sources:
+  - "Gallego, G. et al. (2019). Event-based Vision: A Survey. https://arxiv.org/abs/1904.08405"
+  - "Falanga, D., Kleber, K. and Scaramuzza, D. (2020). Dynamic obstacle avoidance for quadrotors with event cameras. https://www.science.org/doi/10.1126/scirobotics.aaz9712"
+  - "Siciliano, B. and Khatib, O., eds. (2016). Springer Handbook of Robotics, 2nd edition (vision sensors). https://link.springer.com/referencework/10.1007/978-3-319-32552-1"
 ---
 
 # Event-Based Sensing and Processing
 
-**Event-Based Sensing and Processing** involves processing data triggered by specific events, enabling real-time and efficient perception in dynamic environments. Unlike traditional frame-based sensing, which processes data at fixed intervals, event-based sensing responds to changes or significant occurrences in the environment. This approach is particularly useful in robotics for applications that require immediate responses to environmental changes, such as obstacle avoidance, real-time tracking, and interactive tasks.
+An **event camera** does not take pictures. Each of its pixels independently watches the brightness it sees and emits an **event** the moment that brightness changes by more than a threshold: position, timestamp (microsecond resolution) and polarity (brighter or darker). A static scene produces almost no data; a moving edge produces a dense stream exactly where and when it moves.
 
----
+> **Etymology.** *Event* from Latin *evenire*, "to come out, happen". The sensors descend from Carver Mead's *neuromorphic* (brain-shaped) engineering at Caltech in the late 1980s; the Dynamic Vision Sensor (DVS) from ETH Zurich and the University of Zurich (2008) made them practical.
 
-## Key Concepts
+## Why they are different
 
-### Event-Driven Architectures
+| Property | Frame camera | Event camera |
+|---|---|---|
+| Output | Full image every 1/30 s or so | Asynchronous events per pixel |
+| Latency | Up to one frame period (33 ms at 30 Hz) | Microseconds |
+| Motion blur | Yes, during exposure | None (no exposure) |
+| Dynamic range | ~60–70 dB | >120 dB |
+| Data when nothing moves | Full frames anyway | Almost none |
+| Absolute brightness and texture | Yes | Only changes; static scenes are invisible |
 
-Event-driven architectures are designed to process data only when specific events occur, reducing computational load and latency. This approach is ideal for real-time applications where timely responses are crucial.
+## Worked example: motion blur
 
-### Asynchronous Sensing
+A ball thrown at 10 m/s passes a camera. In a frame with a 10 ms exposure, the ball moves $10 \times 0.01 = 0.1$ m, a 10 cm smear. An event camera reports its edges continuously as they move, with no exposure-time smear, so its position can be estimated at any instant. Event-based drones have used this to detect and dodge objects thrown at them with reaction times of a few milliseconds (Falanga et al., 2020).
 
-Asynchronous sensing involves capturing data at irregular intervals based on the occurrence of events rather than at fixed time intervals. This method is efficient for dynamic environments where changes are sporadic but significant.
+## Processing events
 
-### Neuromorphic Engineering
+- **Event frames and voxel grids**: accumulate events over short windows into image-like tensors, so standard CNNs and transformers can be used.
+- **Filters and model fitting**: update estimates (feature tracks, optical flow, pose) event by event.
+- **Spiking neural networks** on neuromorphic chips: process events natively, at very low power.
+- **Learned networks** trained on event data or on simulated events (generated from video).
+- **Fusion with frames and IMUs** for visual-inertial odometry robust to fast motion and harsh lighting (see [[Advanced_Sensor_Fusion]]).
 
-Neuromorphic engineering focuses on developing sensors and processing systems inspired by biological neural systems. These systems are designed to handle event-based data efficiently, mimicking the way biological systems process information.
+## Uses and limits (2026)
 
-### Dynamic Vision Sensors
+Fast drone navigation and obstacle avoidance, high-speed tracking, tactile sensing (event-based touch), automotive night and glare conditions, and always-on low-power monitoring. Commercial sensors exist from several vendors. Limits: noisy output in low light, no information in static scenes, fewer large datasets and pretrained models than for frames, and processing pipelines that are less mature. For now event cameras are mostly a specialist addition rather than a replacement.
 
-Dynamic Vision Sensors (DVS) are a type of event-based sensor that captures changes in light intensity asynchronously. DVS are particularly useful for high-speed and low-latency vision applications, such as tracking fast-moving objects.
-
----
-
-## Mathematical Formulation
-
-### Event Representation
-
-Events can be represented as discrete occurrences in time, often modeled as:
-
-$$
-e_i = (t_i, \mathbf{x}_i, \mathbf{d}_i)
-$$
-
-where:
-- $t_i$ is the timestamp of the event.
-- $\mathbf{x}_i$ is the spatial location of the event.
-- $\mathbf{d}_i$ is the data or attributes associated with the event.
-
-### Event-Based Processing
-
-Event-based processing involves updating the system state or taking actions based on incoming events. This can be represented as:
-
-$$
-\mathbf{s}_{t+1} = f(\mathbf{s}_t, e_i)
-$$
-
-where:
-- $\mathbf{s}_t$ is the system state at time $t$.
-- $f(\mathbf{s}_t, e_i)$ is the state transition function based on the event $e_i$.
-
-### Asynchronous Data Stream
-
-The asynchronous data stream from an event-based sensor can be modeled as a sequence of events:
-
-$$
-E = \{ e_1, e_2, \ldots, e_N \}
-$$
-
-where $E$ is the set of events, and $N$ is the total number of events.
-
----
-
-## Applications in Robotics
-
-- **Obstacle Avoidance**: Event-based sensing enables robots to detect and respond to obstacles in real-time, enhancing navigation safety.
-- **Real-Time Tracking**: Allows for efficient tracking of moving objects by processing data only when significant changes occur.
-- **Interactive Tasks**: Facilitates real-time interaction with humans or other robots by responding to events such as gestures or commands.
-- **Environmental Monitoring**: Enables efficient monitoring of dynamic environments by focusing on significant changes or events.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
-LIST FROM "" WHERE contains(file.outlinks, [[Event-Based_Sensing_and_Processing]])
+LIST FROM "" WHERE contains(file.outlinks, [[Event_Based_Sensing_and_Processing]])
 ```

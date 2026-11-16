@@ -1,115 +1,78 @@
 ---
 title: Active Perception and Sensing
-description: Active Perception and Sensing involves dynamically controlling the sensing process to gather more informative or relevant data, enhancing the robot's understanding of its environment.
+description: "Active perception chooses where to look, move or touch in order to perceive better, instead of passively processing whatever sensors receive. Covers the idea, information gain with a computed entropy example, next-best-view planning for 3D reconstruction, active search and interactive perception (pushing and probing), and how learned policies and vision-language models decide where to look in 2026."
+aliases:
+  - Active Perception
+  - Active Vision
+  - Next-Best-View
+  - Interactive Perception
 tags:
   - perception
-  - active-perception
-  - sensors
-  - mechanism
-  - mobile-robot
+  - computer-vision
+  - uncertainty
 type: concept
 level: advanced
 subfield:
-  - estimation-mapping
   - perception
-status: draft
+  - planning
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Sensors]]"
-  - "[[SLAM]]"
-  - "[[Computer_Vision]]"
+  - "[[Probabilistic_Robotics]]"
 related:
-  - "[[Sensors]]"
-  - "[[Computer_Vision]]"
-  - "[[SLAM]]"
-  - "[[Bayesian_Inference]]"
-  - "[[Control_Theory]]"
-  - "[[Machine_Learning]]"
+  - "[[Semantic_Scene_Understanding]]"
+  - "[[Knowledge_Representation_and_Reasoning]]"
+  - "[[Robot_Hands]]"
+key_takeaways:
+  - "Perception improves when the robot acts to gather information: moving the camera, changing focus, touching or pushing objects."
+  - "Information gain measures the value of a look: a cell known only at 50/50 holds 1 bit of uncertainty; a view that makes it 90/10 removes 0.53 bits."
+  - "Classical methods plan views by expected information gain; 2026 policies often learn where to look, and language models decide what to look for."
+sources:
+  - "Bajcsy, R. (1988). Active perception. https://ieeexplore.ieee.org/document/5968"
+  - "Thrun, S., Burgard, W. and Fox, D. (2005). Probabilistic Robotics, chapter 17: Exploration. https://mitpress.mit.edu/9780262201629/probabilistic-robotics/"
+  - "Gu, Q. et al. (2023). ConceptGraphs: Open-Vocabulary 3D Scene Graphs for Perception and Planning. https://arxiv.org/abs/2309.16650"
 ---
 
 # Active Perception and Sensing
 
-**Active Perception and Sensing** involves dynamically controlling the sensing process to gather more informative or relevant data, enhancing the robot's understanding of its environment. Unlike passive sensing, which relies on static or predefined sensing strategies, active perception adapts the sensing process in real-time to focus on areas of interest or uncertainty. This approach is crucial in robotics for improving the efficiency and accuracy of perception tasks, such as object recognition, mapping, and navigation.
+A camera bolted to a wall sees what happens in front of it. A robot can do better: turn its head, step around an obstacle, open a drawer to look inside, or poke an object to see if it moves. **Active perception** treats sensing as something the robot *does*, choosing actions for the information they will bring.
 
----
+> **Etymology.** Ruzena Bajcsy's 1988 paper *Active perception* defined the field: "we do not just see, we look". It built on psychologist James Gibson's view that animals perceive by acting.
 
-## Key Concepts
+## Why act to perceive?
 
-### Active Sensing
+| Problem | Passive result | Active solution |
+|---|---|---|
+| Occlusion | Object hidden | Move to a better viewpoint |
+| Ambiguity | Is it a picture of a cup or a cup? | Move sideways (parallax) or touch it |
+| Insufficient resolution | Text too small | Zoom or approach |
+| Unknown properties | Weight, friction, articulation unknown | Lift, push or pull |
+| Search | Object not in view | Plan where to look first |
 
-Active sensing involves actively controlling the sensor parameters or the robot's motion to optimize the data collection process. This can include adjusting sensor settings, changing viewpoints, or directing attention to specific regions of interest.
+## Worked example: value of a look
 
-### Information Gain
+A cell in an occupancy map has a 50% chance of being occupied. Its uncertainty is the binary entropy $H(0.5) = 1$ bit. A view from a new pose would, on average, push the estimate to 90/10, with entropy $H(0.9) = -0.9\log_2 0.9 - 0.1\log_2 0.1 = 0.469$ bits. That view gains $1 - 0.469 = 0.53$ bits for this cell.
 
-Information gain is a measure of the amount of new information obtained from sensing actions. Active perception aims to maximize information gain by focusing on areas with high uncertainty or importance.
+**Next-best-view** planners sum this expected gain over all the cells a candidate view would see, subtract the cost of getting there, and pick the best: "the most uncertainty removed per metre travelled". The same calculation drives exploration (frontier-based and information-theoretic) and inspection planning.
 
-### Bayesian Inference
+## Families of methods
 
-Bayesian inference provides a probabilistic framework for updating beliefs about the environment based on new sensor data. It is used in active perception to guide the sensing process by estimating the expected information gain from potential sensing actions.
+- **Next-best-view** for 3D reconstruction and inspection.
+- **Active search**: find a target object, using priors about where things usually are (mugs near sinks).
+- **Active localization**: move to disambiguate where you are.
+- **Interactive perception**: push, pull and probe to segment objects and discover joints, mass and friction.
+- **Gaze control**: humanoid head and camera pointing to support the current task.
 
-### Control Theory
+## Active perception in 2026
 
-Control theory is applied in active perception to design strategies for controlling the sensing process. This involves dynamically adjusting sensor parameters or robot movements to achieve desired perception goals.
+- **Learned policies**: end-to-end policies with movable cameras (wrist cameras, active necks) learn to look where it helps the task.
+- **Language-guided search**: vision-language models supply priors ("cereal is usually in a cupboard near the fridge") and evaluate views, while scene graphs keep track of what has been seen (see [[Semantic_Scene_Understanding]]).
+- **Touch as active sensing**: tactile exploration with vision-based tactile sensors (see [[Robot_Hands]]).
 
----
-
-## Mathematical Formulation
-
-### Information Gain
-
-The information gain $I$ from a sensing action can be quantified using information theory:
-
-$$
-I(\mathbf{z}; \mathbf{x}) = H(\mathbf{x}) - H(\mathbf{x} \mid \mathbf{z})
-$$
-
-where:
-- $H(\mathbf{x})$ is the entropy of the state $\mathbf{x}$ before sensing.
-- $H(\mathbf{x} \mid \mathbf{z})$ is the entropy of the state $\mathbf{x}$ given the sensor measurement $\mathbf{z}$.
-
-### Bayesian Update
-
-The Bayesian update rule is used to incorporate new sensor data into the belief about the environment:
-
-$$
-P(\mathbf{x} \mid \mathbf{z}) = \frac{P(\mathbf{z} \mid \mathbf{x}) P(\mathbf{x})}{P(\mathbf{z})}
-$$
-
-where:
-- $P(\mathbf{x} \mid \mathbf{z})$ is the posterior probability of the state given the measurement.
-- $P(\mathbf{z} \mid \mathbf{x})$ is the likelihood of the measurement given the state.
-- $P(\mathbf{x})$ is the prior probability of the state.
-- $P(\mathbf{z})$ is the marginal likelihood of the measurement.
-
-### Active Sensing Strategy
-
-An active sensing strategy involves selecting sensing actions that maximize the expected information gain. This can be formulated as an optimization problem:
-
-$$
-\mathbf{u}^* = \arg\max_{\mathbf{u}} \mathbb{E}[I(\mathbf{z}; \mathbf{x}) \mid \mathbf{u}]
-$$
-
-where:
-- $\mathbf{u}$ is the sensing action (e.g., sensor parameters or robot motion).
-- $\mathbb{E}[I(\mathbf{z}; \mathbf{x}) \mid \mathbf{u}]$ is the expected information gain given the sensing action.
-
----
-
-## Applications in Robotics
-
-- **Object Recognition**: Active perception enhances object recognition by focusing sensing efforts on distinguishing features or uncertain regions of objects.
-- **Mapping and Navigation**: Improves the accuracy of maps and navigation paths by actively exploring uncertain or unexplored areas.
-- **Human-Robot Interaction**: Enables robots to focus on relevant human gestures or expressions, improving interaction quality.
-- **Environmental Monitoring**: Optimizes the monitoring of dynamic environments by adapting sensing strategies to changes in the environment.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Active_Perception_and_Sensing]])
