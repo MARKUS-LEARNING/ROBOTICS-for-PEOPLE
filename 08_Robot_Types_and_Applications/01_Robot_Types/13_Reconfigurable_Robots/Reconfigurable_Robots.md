@@ -1,85 +1,79 @@
 ---
 title: Reconfigurable Robots
-description: Reconfigurable Robots are robotic systems designed to adapt their structure, functionality, or behavior to meet changing task requirements or environmental conditions.
+description: "Reconfigurable robots change their own shape or structure to suit the task: self-reconfigurable modular robots that rearrange identical units, reconfigurable manufacturing cells, and robots with morphing bodies. Covers types, how reconfiguration is planned, a computed example of how fast the number of possible shapes grows, landmark systems (M-TRAN, M-Blocks, Roombots), and why practical use is still limited in 2026."
+aliases:
+  - Self-Reconfigurable Robots
+  - Reconfigurable Robot
+  - Morphing Robots
 tags:
-  - adaptability
+  - reconfigurability
   - modularity
-  - design
-type: robot-type
-level: beginner
+  - robot-design
+  - multi-robot-systems
+type: concept
+level: advanced
 subfield:
   - modular-reconfigurable
-status: draft
+status: reviewed
 author: Jordan_Smith
-date: 2025-04-29
-related:
-  - "[[Robot_Design]]"
+date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
   - "[[Modular_Robotics]]"
-  - "[[Adaptive_Control]]"
-  - "[[Human-Robot_Interaction]]"
-  - "[[Autonomous_Robots]]"
+related:
+  - "[[Swarm_Robots]]"
+  - "[[Soft_Robotics]]"
+  - "[[Bio-inspired_Robotics]]"
+key_takeaways:
+  - "A self-reconfigurable robot is many modules that can detach, move and reattach, so one system can become a snake, a walker or a manipulator."
+  - "The space of possible configurations explodes combinatorially (a chain of 10 modules with 4 attachment choices per joint already has 262,144 variants), so planning reconfiguration is a hard search problem."
+  - "After two decades of research, connectors, power and reliability still limit practical use; morphing bodies and reconfigurable factory cells are where the idea is most used in 2026."
+sources:
+  - "Yim, M. et al. (2007). Modular Self-Reconfigurable Robot Systems [Grand Challenges of Robotics]. https://ieeexplore.ieee.org/document/4141037"
+  - "Seo, J., Paik, J. and Yim, M. (2019). Modular Reconfigurable Robotics. https://www.annualreviews.org/doi/10.1146/annurev-control-053018-023834"
+  - "MIT News (2013). Surprisingly simple scheme for self-assembling robots (M-Blocks). https://news.mit.edu/2013/simple-scheme-for-self-assembling-robots-1004"
+  - "Brambilla, M., Ferrante, E., Birattari, M. and Dorigo, M. (2013). Swarm robotics: a review from the swarm engineering perspective. https://link.springer.com/article/10.1007/s11721-012-0075-2"
 ---
 
 # Reconfigurable Robots
 
-**Reconfigurable Robots** are robotic systems designed to adapt their structure, functionality, or behavior to meet changing task requirements or environmental conditions. These robots are characterized by their modularity and flexibility, allowing them to be reconfigured to perform a variety of tasks without the need for complete redesign. Reconfigurable robots are essential in applications where versatility and adaptability are crucial, such as manufacturing, exploration, and rescue operations.
+A **reconfigurable robot** can change its own structure: rearrange its parts, change its shape, or reorganise how it is assembled, to suit a new task or terrain. The ambition is one robot that can crawl through a pipe as a snake, cross rubble as a walker, and then become an arm to turn a valve.
 
----
+> **Etymology.** Latin *re-*, "again", + *configurare*, "to shape after a pattern". Toshio Fukuda's CEBOT (cellular robot, 1988) is usually credited as the first self-reconfigurable robot concept.
 
-## Key Concepts in Reconfigurable Robots
+## Types
 
-1. **Modularity**: The design principle that allows robots to be constructed from interchangeable modules or components. Modularity enables easy reconfiguration and customization of robotic systems to suit specific tasks or environments.
+| Type | What changes | Examples |
+|---|---|---|
+| **Lattice** | Modules move between positions on a grid, like pixels | M-Blocks (cubes that pivot using internal flywheels, MIT 2013) |
+| **Chain** | Modules form chains and limbs that bend | PolyBot, CKBot |
+| **Hybrid** | Both lattice and chain moves | M-TRAN, SMORES, Roombots (furniture-forming modules) |
+| **Morphing bodies** | One robot changes shape without detaching parts | Wheel-leg hybrids, drones with folding arms, soft morphing robots |
+| **Reconfigurable manufacturing** | A production cell's machines and robots are rearranged for new products | Flexible factory cells |
 
-2. **Adaptive Control**: Control strategies that allow robots to adjust their behavior or configuration in response to changes in their environment or task requirements. Adaptive control is crucial for enabling reconfigurable robots to operate effectively in dynamic and unpredictable conditions.
+## Worked example: why planning reconfiguration is hard
 
-3. **Task Planning**: The process of determining the sequence of actions or configurations required to achieve a specific goal or task. Task planning is essential for reconfigurable robots, as it allows them to adapt their structure and behavior to meet the demands of different tasks.
+Consider a chain of $n$ modules where each new module can attach to the previous one in 4 orientations. The number of distinct chains is $4^{\,n-1}$:
+- 3 modules: 16;
+- 10 modules: $4^9 = 262{,}144$;
+- 20 modules: about $2.7 \times 10^{11}$.
 
-4. **Self-Reconfiguration**: The ability of a robot to autonomously change its configuration or structure in response to internal or external stimuli. Self-reconfiguration enhances the robot's adaptability and autonomy, allowing it to operate effectively in changing environments.
+That counts only chains. Branching shapes are far more numerous. Planning a sequence of module moves from one shape to another means searching this enormous space while keeping the structure connected and stable. Planners use hierarchical decompositions, lattice-specific rules, and increasingly learned heuristics.
 
-5. **Multi-Agent Systems**: Systems composed of multiple robotic agents that can collaborate and coordinate their actions to achieve common goals. Reconfigurable robots often operate within multi-agent systems, where their adaptability and flexibility are leveraged to enhance the overall system's performance and versatility.
+## Why it has not taken over
 
----
+- **Connectors** must be strong, precise, quick and reliable through thousands of cycles; they are the weak point.
+- **Power and communication** must pass through every joint.
+- **Cost per module**, and **performance compared with purpose-built robots** for any single task.
+- **Control**: every configuration needs its own locomotion or manipulation controller. Learning in simulation can now train controllers per morphology, or one controller for many morphologies, which addresses part of this.
 
-## Key Equations
+## Where the idea lives in 2026
 
-- **Modularity Index**:
-  $$
-  M = \frac{N_m}{N_t}
-  $$
-  where $M$ is the modularity index, $N_m$ is the number of modular components, and $N_t$ is the total number of components. This equation quantifies the degree of modularity in a robotic system.
-<br></br>
-- **Adaptive Control Law**:
-  $$
-  u(t) = K_p \cdot e(t) + K_i \cdot \int e(t) \, dt + K_d \cdot \frac{de(t)}{dt} + K_a \cdot f(t)
-  $$
-  where $u(t)$ is the control input, $K_p$, $K_i$, and $K_d$ are the proportional, integral, and derivative gains, respectively, $e(t)$ is the error between the desired and actual states, and $K_a \cdot f(t)$ represents the adaptive component that adjusts the control input based on environmental or task changes.
-<br></br>
-- **Task Completion Time**:
-  $$
-  T_c = \sum_{i=1}^{n} t_i
-  $$
-  where $T_c$ is the total task completion time, and $t_i$ is the time taken to complete each subtask $i$. This equation is used to evaluate the efficiency of task planning and execution in reconfigurable robots.
-<br></br>
----
+Robots with morphing bodies (transforming wheel-legs, foldable drones), reconfigurable industrial cells, and research systems that co-design body and controller in simulation. The original vision of a general-purpose shape-shifting robot remains a research goal.
 
-## Impact on Robotics
-
-- **Versatility and Flexibility**: Reconfigurable robots enhance the versatility and flexibility of robotic systems, enabling them to adapt to a wide range of tasks and environments. This is particularly important in fields like [[Manufacturing Automation]] and [[Exploration Robotics]].
-
-- **Efficient Resource Utilization**: By allowing robots to be reconfigured for different tasks, reconfigurable robots promote efficient use of resources, reducing the need for multiple specialized robots and lowering operational costs.
-
-- **Enhanced Autonomy**: The ability to self-reconfigure and adapt to changing conditions enhances the autonomy of robotic systems, enabling them to operate effectively in dynamic and unpredictable environments. This is crucial in applications like [[Autonomous_Robots|Autonomous Systems]] and [[Search and Rescue Robotics]].
-
-- **Collaboration and Coordination**: Reconfigurable robots can operate within [[Multi-Agent Systems]], where their adaptability and flexibility contribute to the overall system's ability to collaborate and coordinate actions to achieve common goals.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
-LIST FROM "" WHERE contains(file.outlinks, [[Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Reconfigurable_Robots]])
 ```
