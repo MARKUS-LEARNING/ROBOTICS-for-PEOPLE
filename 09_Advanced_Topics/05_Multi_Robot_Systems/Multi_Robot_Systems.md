@@ -1,99 +1,86 @@
 ---
 title: Multi-Robot Systems
-description: Multi-Robot Systems involve the coordination and cooperation of multiple robots to perform tasks, enhancing efficiency, robustness, and adaptability in various applications such as search and rescue, exploration, and logistics.
+description: "Section overview for systems of many robots: task allocation (with a computed example where greedy assignment costs twice the optimum), multi-agent path finding, coordination architectures from central fleet managers to decentralised swarms, communication, interoperability (Open-RMF), and multi-robot learning in 2026."
+aliases:
+  - Multi-Robot Coordination
+  - Fleet Management
+  - Multi-Agent Robotics
 tags:
   - multi-robot-systems
-  - collaborative-robots
-  - swarm-robotics
-type: concept
+  - path-planning
+type: overview
 level: advanced
 subfield:
   - multi-robot
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
+  - "[[Mobile_Robots]]"
+  - "[[Path_Planning_Algorithms]]"
 related:
-  - "[[Robot_Control]]"
-  - "[[Autonomous_Robots]]"
-  - "[[Machine_Learning]]"
+  - "[[Swarm_Robots]]"
+  - "[[Agents_and_Environments]]"
+  - "[[Nav2_Navigation]]"
+key_takeaways:
+  - "Multi-robot problems add three questions to single-robot ones: who does which task, how robots avoid each other, and how they share information."
+  - "Task allocation is an optimisation, not a greedy choice: in a three-robot example greedy assignment costs 12 while the optimum (Hungarian algorithm) costs 6."
+  - "Most deployed fleets are centrally managed with learned and optimised traffic control; interoperability standards such as Open-RMF let robots from different vendors share buildings."
+sources:
+  - "Gerkey, B. P. and Matarić, M. J. (2004). A Formal Analysis and Taxonomy of Task Allocation in Multi-Robot Systems. https://journals.sagepub.com/doi/10.1177/0278364904045564"
+  - "Open Robotics and contributors (2026). Open-RMF: robotics middleware framework for multi-fleet interoperability. https://github.com/open-rmf/rmf"
+  - "Brambilla, M., Ferrante, E., Birattari, M. and Dorigo, M. (2013). Swarm robotics: a review from the swarm engineering perspective. https://link.springer.com/article/10.1007/s11721-012-0075-2"
+  - "TechCrunch (2025). Amazon deploys its one millionth robot, releases generative AI model. https://techcrunch.com/2025/07/01/amazon-deploys-its-one-millionth-robot-releases-generative-ai-model/"
 ---
 
 # Multi-Robot Systems
 
-**Multi-Robot Systems** involve the coordination and cooperation of multiple robots to perform tasks, enhancing efficiency, robustness, and adaptability in various applications. These systems are designed to leverage the capabilities of individual robots and their interactions to achieve complex and dynamic goals. Multi-robot systems are widely used in applications such as search and rescue, exploration, and logistics, providing capabilities that surpass those of single robots.
+A **multi-robot system** uses several robots together: warehouse fleets, delivery robots sharing a building, drones mapping a forest, robot teams exploring a cave. More robots can do more work, cover more ground and survive failures. But they must decide who does what, avoid each other, and share what they know.
 
----
+> **Etymology.** *Multi-* from Latin *multus*, "many". Research on multi-robot coordination grew in the 1990s; Gerkey and Matarić's 2004 taxonomy of task allocation is a standard reference.
 
-## Key Concepts
+## The three extra problems
 
-### Collaborative Robotics
+| Problem | Question | Methods |
+|---|---|---|
+| **Task allocation** | Which robot does which task? | Optimal assignment (Hungarian algorithm), auctions and market methods, integer programming |
+| **Multi-agent path finding (MAPF)** | How do many robots move without collisions or deadlocks? | Prioritised planning, conflict-based search, reservation tables, learned traffic models |
+| **Information sharing** | How do robots build common maps and beliefs? | Multi-robot SLAM, consensus, map merging |
 
-Collaborative robotics involves the coordination and cooperation of multiple robots to perform tasks, where each robot contributes its capabilities and resources to achieve a common goal. This includes techniques such as task allocation, role assignment, and coordination, which enable the robots to work together effectively and efficiently.
+## Worked example: greedy versus optimal assignment
 
-### Swarm Intelligence
+Three robots, three tasks; the table gives travel cost (minutes):
 
-Swarm intelligence involves the collective behavior of decentralized, self-organized systems, where the interactions between the robots lead to the emergence of global patterns and behaviors. This includes techniques such as flocking, foraging, and consensus, which enable the robots to adapt to their environment and perform tasks effectively.
+| | Task A | Task B | Task C |
+|---|---|---|---|
+| Robot 1 | 2 | 3 | 9 |
+| Robot 2 | 1 | 8 | 9 |
+| Robot 3 | 9 | 9 | 2 |
 
-### Task Allocation
+- **Greedy**: robot 1 takes its cheapest task, A (2); robot 2 is left with B or C and takes B (8); robot 3 takes C (2). Total **12**.
+- **Optimal**: robot 1 → B (3), robot 2 → A (1), robot 3 → C (2). Total **6**.
 
-Task allocation involves the assignment of tasks to individual robots based on their capabilities, resources, and the requirements of the task. This includes techniques such as auction-based allocation, market-based allocation, and optimization-based allocation, which enable the robots to perform tasks effectively and efficiently.
+The greedy choice that looked best for robot 1 cost the team double. The Hungarian algorithm finds the optimum in (n^3)$; auction methods reach similar results with decentralised bidding when robots cannot all talk to a centre.
 
-### Coordination
+## Architectures
 
-Coordination involves the synchronization and integration of the robots' actions and behaviors, ensuring that they work together to achieve the common goal. This includes techniques such as communication, negotiation, and consensus, which enable the robots to adapt to their environment and perform tasks effectively.
+| Architecture | Pros | Cons | Typical use |
+|---|---|---|---|
+| **Centralised** fleet manager | Near-optimal plans, simple to reason about | Single point of failure; communication needed | Warehouses, hospitals |
+| **Decentralised** / swarm | Robust, scalable | Suboptimal, harder to guarantee | Exploration, swarms (see [[Swarm_Robots]]) |
+| **Hybrid** | Central goals, local avoidance | Integration complexity | Most real fleets |
 
----
+## In 2026
 
-## Mathematical Formulation
+- **Large fleets**: warehouse operators run fleets of thousands of robots per site; Amazon described a generative model (DeepFleet) that predicts traffic to coordinate its robots.
+- **Interoperability**: buildings host robots from many vendors (cleaning, delivery, security). **Open-RMF** provides shared traffic schedules, door and lift integration, and task dispatch across fleets.
+- **Multi-robot learning**: multi-agent reinforcement learning trains decentralised policies; fleets also pool data so each robot learns from all (fleet learning).
+- **Heterogeneous teams**: drones scout for ground robots; humanoids and mobile manipulators share work with fixed automation.
 
-### Task Allocation Optimization
-
-The task allocation optimization problem can be represented as:
-
-$$
-\min_{x} \sum_{i=1}^{n} \sum_{j=1}^{m} c_{ij} x_{ij}
-$$
-
-where:
-- $x_{ij}$ is the assignment of task $j$ to robot $i$.
-- $c_{ij}$ is the cost of assigning task $j$ to robot $i$.
-- $n$ is the number of robots.
-- $m$ is the number of tasks.
-
-### Consensus Algorithm
-
-The consensus algorithm involves the robots reaching an agreement on a common value or decision, where the state of robot $i$ at time $t$ is given by:
-
-$$
-x_i(t+1) = x_i(t) + \sum_{j \in N_i} a_{ij} (x_j(t) - x_i(t))
-$$
-
-where:
-- $x_i(t)$ is the state of robot $i$ at time $t$.
-- $N_i$ is the set of neighbors of robot $i$.
-- $a_{ij}$ is the weight of the edge between robot $i$ and robot $j$.
-
-### Example: Search and Rescue
-
-Consider a multi-robot system designed for search and rescue operations. The robots are equipped with advanced sensors and control systems, enabling them to explore and map the environment, detect and locate survivors, and coordinate their actions to perform the rescue effectively. The task allocation algorithm assigns tasks to the robots based on their capabilities and the requirements of the task, ensuring that the robots work together to achieve the common goal. The coordination algorithm synchronizes the robots' actions and behaviors, enabling them to adapt to the environment and perform the rescue effectively.
-
----
-
-## Applications in Robotics
-
-- **Search and Rescue**: Multi-robot systems are used to explore and map the environment, detect and locate survivors, and coordinate their actions to perform the rescue effectively.
-- **Exploration**: Enables robots to explore and collect data in unknown and challenging environments, facilitating tasks such as space exploration and underwater mapping.
-- **Logistics**: Multi-robot systems are used to transport and deliver goods and packages, enhancing the efficiency and adaptability of logistics operations.
-- **Control Systems**: Enables the design of control algorithms that regulate the behavior of multi-robot systems, enabling precise and adaptive control.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
-LIST FROM "" WHERE contains(file.outlinks, [[Multi-Robot_Systems]])
+LIST FROM "" WHERE contains(file.outlinks, [[Multi_Robot_Systems]])
 ```

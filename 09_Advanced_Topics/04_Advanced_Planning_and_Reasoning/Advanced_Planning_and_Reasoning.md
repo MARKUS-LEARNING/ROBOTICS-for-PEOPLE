@@ -1,103 +1,78 @@
 ---
-title: Advanced Planning and Reasoning for Robotics
-description: Advanced Planning and Reasoning for Robotics involves the application of sophisticated techniques to enable robots to make decisions, solve problems, and perform tasks in complex and dynamic environments, enhancing their autonomy and adaptability.
+title: Advanced Planning and Reasoning
+description: "Section overview for planning beyond paths: task and motion planning (TAMP), planning under uncertainty, long-horizon reasoning, and the 2023–2026 combination of language models with planners. Includes a computed example of why task plans explode combinatorially, and a map of the related notes."
+aliases:
+  - Task and Motion Planning
+  - TAMP
+  - Robot Reasoning
 tags:
   - motion-planning
   - reasoning
   - artificial-intelligence
-  - control
-  - mobile-robot
 type: overview
 level: advanced
 subfield:
   - planning
-status: draft
+  - robot-learning
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Motion_Planning]]"
+  - "[[Path_Planning_Algorithms]]"
+  - "[[Knowledge_Representation_and_Reasoning]]"
 related:
-  - "[[Artificial_Intelligence]]"
-  - "[[Control_Systems]]"
-  - "[[Robot_Control]]"
-  - "[[Autonomous_Robots]]"
-  - "[[Machine_Learning]]"
+  - "[[Optimal_Control]]"
+  - "[[Formal_Methods_in_Control]]"
+  - "[[Vision-Language-Action_Models]]"
+  - "[[Active_Perception_and_Sensing]]"
+key_takeaways:
+  - "Real tasks need both symbolic decisions (what to do, in what order) and geometric ones (where to grasp, how to move); TAMP plans them together."
+  - "The space explodes: five objects with four grasp choices each give 5! × 4⁵ = 122,880 combinations before any motion is planned, so planners prune with heuristics, sampling and learned guidance."
+  - "Language models now propose plans and supply common sense, while TAMP solvers, simulators and checks verify feasibility."
+sources:
+  - "Garrett, C. R. et al. (2021). Integrated Task and Motion Planning. https://arxiv.org/abs/2010.01083"
+  - "Garrett, C. R., Lozano-Pérez, T. and Kaelbling, L. P. (2018). PDDLStream: Integrating Symbolic Planners and Blackbox Samplers via Optimistic Adaptive Planning. https://arxiv.org/abs/1802.08705"
+  - "Liu, B. et al. (2023). LLM+P: Empowering Large Language Models with Optimal Planning Proficiency. https://arxiv.org/abs/2304.11477"
+  - "Ahn, M. et al. (2022). Do As I Can, Not As I Say: Grounding Language in Robotic Affordances. https://arxiv.org/abs/2204.01691"
 ---
 
-# Advanced Planning and Reasoning for Robotics
+# Advanced Planning and Reasoning
 
-**Advanced Planning and Reasoning for Robotics** involves the application of sophisticated techniques to enable robots to make decisions, solve problems, and perform tasks in complex and dynamic environments. This includes techniques such as hierarchical task networks, model predictive control, and probabilistic reasoning, which enhance the autonomy, adaptability, and capabilities of robotic systems. Advanced planning and reasoning are fundamental in developing robots that can operate effectively in diverse and challenging settings, from manufacturing and healthcare to exploration and entertainment.
+Path planning answers "how do I get from A to B?". Real tasks ask much more: "unload the dishwasher" means deciding the order, which grasp to use for each item, where each goes, what to move out of the way, and how to recover when a plate slips. This section covers planning and reasoning at that level.
 
----
+> **Etymology.** See [[Knowledge_Representation_and_Reasoning]]. Task and motion planning as a named field dates from the early 2010s, when symbolic AI planning and geometric motion planning were joined.
 
-## Key Concepts
+## Task and motion planning (TAMP)
 
-### Hierarchical Task Networks (HTN)
+Symbolic planners (STRIPS, PDDL) choose action sequences but ignore geometry. Motion planners find collision-free motions but do not choose goals. **TAMP** couples them: a candidate symbolic plan ("pick cup, place cup in cupboard") is checked by sampling continuous parameters (grasps, placements, trajectories). If geometry fails, for example when the cupboard shelf is too full, the planner backtracks or adds actions such as "move bowl first". PDDLStream (2018) is a widely used framework.
 
-Hierarchical Task Networks (HTN) are a planning technique that decomposes complex tasks into simpler subtasks, enabling robots to perform tasks effectively and efficiently. HTN involves the use of a hierarchy of tasks, where each task is decomposed into subtasks until the primitive tasks are reached.
+### Worked example: why it explodes
 
-### Model Predictive Control (MPC)
+Clearing a table of 5 objects, with 4 possible grasps per object:
+- orderings: ! = 120$;
+- grasp combinations: ^5 = 1{,}024$;
+- together:  \times 1{,}024 = 122{,}880$ discrete combinations, before choosing placements or planning a single motion.
 
-Model Predictive Control (MPC) is a control technique that involves the use of a model of the system to predict its behavior and determine the optimal control actions. MPC enables robots to adapt to changes in the environment and perform tasks with high precision and efficiency.
+Exhaustive search is impossible for realistic tasks. Planners use heuristics, lazy evaluation (check geometry only for promising plans), learned guidance (predict which grasps will work) and, increasingly, language-model priors (sensible orderings).
 
-### Probabilistic Reasoning
+## Planning under uncertainty
 
-Probabilistic reasoning involves the use of probability theory to make decisions and solve problems under uncertainty. This includes techniques such as Bayesian networks and Markov decision processes, which enable robots to interpret their environment and make decisions based on probabilistic models.
+When the robot is unsure (an object hidden, a grasp may slip), plans must include sensing and contingencies: POMDPs and belief-space planning, information-gathering actions (see [[Active_Perception_and_Sensing]]), and re-planning when observations disagree with expectations.
 
-### Adaptive Control
+## Language models and planning (2022–2026)
 
-Adaptive control involves adjusting the control algorithm based on the robot's performance and the environment's conditions, enabling it to adapt to uncertainties and changes. This includes techniques such as reinforcement learning, which enables the robot to learn optimal behaviors through interaction with its environment.
+| Approach | Example |
+|---|---|
+| LLM proposes skills, weighted by feasibility | SayCan (2022) |
+| LLM writes code calling skills | Code as Policies, ProgPrompt (2022) |
+| LLM translates to PDDL, classical planner solves | LLM+P (2023) |
+| Vision-language reasoning model supervises VLA policies | Hierarchical systems in 2025–26 (see [[Vision-Language-Action_Models]]) |
 
----
+The emerging consensus: language models are good at proposing and explaining plans and poor at guaranteeing them; formal planners, simulators and preconditions check them (see [[Formal_Methods_in_Control]]).
 
-## Mathematical Formulation
-
-### Hierarchical Task Network
-
-A Hierarchical Task Network (HTN) can be represented as a tree of tasks, where each task is decomposed into subtasks. The decomposition of a task $T$ can be represented as:
-
-$$
-T = \{T_1, T_2, \ldots, T_n\}
-$$
-
-where:
-- $T$ is the task.
-- $T_1, T_2, \ldots, T_n$ are the subtasks.
-
-### Model Predictive Control
-
-Model Predictive Control (MPC) involves the use of a model of the system to predict its behavior and determine the optimal control actions. The optimization problem for MPC can be represented as:
-
-$$
-\min_{u} \sum_{k=0}^{N-1} \|x_k - x_{ref}\|^2 + \|u_k\|^2
-$$
-
-where:
-- $u$ is the control action.
-- $x_k$ is the state of the system at time $k$.
-- $x_{ref}$ is the reference state.
-- $N$ is the prediction horizon.
-
-### Example: Autonomous Navigation
-
-Consider a mobile robot using advanced planning and reasoning for autonomous navigation. The robot's hierarchical task network decomposes the navigation task into subtasks, such as obstacle avoidance and path planning. The model predictive control algorithm uses a model of the robot and its environment to predict the robot's behavior and determine the optimal control actions, enabling it to navigate through the environment and reach its destination effectively. The probabilistic reasoning technique enables the robot to make decisions under uncertainty, adapting to changes in the environment and performing tasks with high precision and efficiency.
-
----
-
-## Applications in Robotics
-
-- **Autonomous Navigation**: Advanced planning and reasoning are used to enable robots to navigate through their environment, avoiding obstacles and reaching destinations.
-- **Object Manipulation**: Enables robots to interact with and manipulate objects, performing tasks such as grasping, lifting, and assembling.
-- **Decision Making**: Advanced planning and reasoning are used to make decisions under uncertainty, adapting to changing conditions and performing tasks effectively.
-- **Control Systems**: Enables the design of control algorithms that regulate the behavior of robotic systems, enabling precise and adaptive control.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Advanced_Planning_and_Reasoning]])

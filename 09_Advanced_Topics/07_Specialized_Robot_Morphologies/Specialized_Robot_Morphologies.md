@@ -1,87 +1,76 @@
 ---
 title: Specialized Robot Morphologies
-description: Specialized Robot Morphologies focus on the design and development of robots with unique and adaptive physical forms, enabling them to perform tasks in diverse and challenging environments, from exploration and inspection to manipulation and locomotion.
+description: "Robot body plans beyond arms, wheels and legs: continuum and snake robots, tensegrity robots, wheel-leg hybrids, cable and parallel robots, modular and reconfigurable robots, micro and soft robots. Covers what each body is good at, a computed continuum-robot curvature example, how body and controller are co-designed, and the 2026 trend toward morphology chosen by optimisation and learning."
+aliases:
+  - Robot Morphologies
+  - Unconventional Robots
+  - Continuum Robots
+  - Snake Robots
 tags:
-  - specialized-robot-morphologies
-  - robot-design
-  - biomechanics
-  - manipulator-arm
+  - mechanism-design
+  - locomotion
 type: overview
-level: advanced
+level: intermediate
 subfield:
-  - modular-reconfigurable
-status: draft
+  - mechanisms-actuation
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
+  - "[[Robots]]"
 related:
-  - "[[Robot_Design]]"
-  - "[[Biomechanics]]"
-  - "[[Exploration]]"
-  - "[[Manipulation]]"
-  - "[[Locomotion]]"
+  - "[[Soft_Robotics]]"
+  - "[[Cable-Driven_Robots]]"
+  - "[[Parallel_Robots]]"
+  - "[[Modular_Robotics]]"
+  - "[[Reconfigurable_Robots]]"
+  - "[[Medical_Robotics]]"
+key_takeaways:
+  - "A robot's body (morphology) decides what it can do as much as its software: continuum and snake bodies reach through clutter, tensegrity survives drops, wheel-legs combine speed and stepping."
+  - "A continuum segment 0.3 m long bent through 90° has constant curvature 5.24 rad/m, a bend radius of 0.19 m; modelling bending this way underlies continuum-robot kinematics."
+  - "Morphology is increasingly co-designed with control by optimisation and learning in simulation, rather than chosen first by hand."
+sources:
+  - "Rus, D. and Tolley, M. T. (2015). Design, fabrication and control of soft robots. https://www.nature.com/articles/nature14543"
+  - "Yim, M. et al. (2007). Modular Self-Reconfigurable Robot Systems [Grand Challenges of Robotics]. https://ieeexplore.ieee.org/document/4141037"
+  - "Pott, A. (2018). Cable-Driven Parallel Robots: Theory and Application. https://link.springer.com/book/10.1007/978-3-319-76138-1"
+  - "Merlet, J.-P. (2006). Parallel Robots, 2nd edition. https://link.springer.com/book/10.1007/1-4020-4133-0"
 ---
 
 # Specialized Robot Morphologies
 
-**Specialized Robot Morphologies** focus on the design and development of robots with unique and adaptive physical forms, enabling them to perform tasks in diverse and challenging environments. This includes the development of robots with specialized morphologies, such as legged robots, snake robots, and soft robots, which can adapt to their environment and perform tasks effectively. Specialized robot morphologies are fundamental in developing robots that can operate in complex and dynamic settings, from exploration and inspection to manipulation and locomotion.
+**Morphology** is a robot's body plan: its shape, joints, materials and how it touches the world. Most robots are arms, wheeled bases or legged walkers, but many tasks are better served by other bodies. This overview maps the unusual ones and links to their notes.
 
----
+> **Etymology.** Greek *morphē*, "form", + *logos*, "study". *Morphological computation*, the idea that a well-designed body does part of the control work for free, became a theme in robotics in the 2000s.
 
-## Key Concepts
+## A gallery of body plans
 
-### Legged Robots
+| Morphology | Strength | Typical use | See |
+|---|---|---|---|
+| **Continuum / tentacle** | Bends continuously, reaches around obstacles | Surgery (steerable catheters, endoscopes), inspection inside engines | [[Medical_Robotics]] |
+| **Snake robots** | Move through pipes, rubble and narrow gaps | Search and rescue, inspection | — |
+| **Soft robots** | Safe, conforming, robust | Gripping delicate objects, wearables | [[Soft_Robotics]] |
+| **Tensegrity** | Rods and cables in tension; light, deformable, survives impacts | Planetary landers and rovers (research) | — |
+| **Wheel-leg hybrids** | Fast on flat ground, can step over obstacles | Wheeled quadrupeds and humanoids | [[Legged_Robots]] |
+| **Cable-driven** | Huge workspaces, light | Stadium cameras, telescopes | [[Cable-Driven_Robots]] |
+| **Parallel** | Stiff, fast, precise | Delta pickers, hexapod positioners | [[Parallel_Robots]] |
+| **Modular / reconfigurable** | Change shape for the task | Research, adaptable systems | [[Modular_Robotics]], [[Reconfigurable_Robots]] |
+| **Micro and nano** | Go where nothing else fits | Medicine | [[Nanorobots]] |
 
-Legged robots are designed with legs to enable locomotion and mobility in challenging and uneven terrains. They are equipped with advanced sensors, actuators, and control systems, enabling them to adapt to their environment and perform tasks such as exploration and inspection.
+## Worked example: continuum-robot curvature
 
-### Snake Robots
+Many continuum robots are modelled as segments of **constant curvature**: each segment bends into a circular arc. A segment of length  = 0.3$ m bent through $\theta = 90° = \pi/2$ rad has curvature
 
-Snake robots are designed with a serpentine form to enable locomotion and mobility in confined and complex spaces. They are equipped with advanced sensors, actuators, and control systems, enabling them to adapt to their environment and perform tasks such as inspection and search and rescue.
+58113\kappa = \frac{\theta}{s} = \frac{1.571}{0.3} = 5.24\ \text{rad/m}, \qquad r = \frac{1}{\kappa} = 0.19\ \text{m}.58113
 
-### Soft Robots
+Its tip ends \sin\theta = 0.19$ m along the original axis and (1 - \cos\theta) = 0.19$ m to the side. Chaining several such arcs gives the forward kinematics of a multi-segment continuum robot; tendon lengths or tube rotations set the curvatures.
 
-Soft robots are designed with soft and deformable materials to enable adaptability and compliance in their interactions with the environment. They are equipped with advanced sensors, actuators, and control systems, enabling them to perform tasks such as manipulation and locomotion in delicate and dynamic settings.
+## Co-designing body and brain (2026)
 
-### Adaptive Morphologies
+Instead of choosing a body and then writing a controller, researchers increasingly **optimise both together** in simulation: evolutionary and gradient-based morphology search, RL policies trained across body variations, and differentiable simulators that compute how a change in link length or stiffness affects performance. Commercial humanoids and quadrupeds also show morphological trends, such as wheel-legs and parallel-linkage ankles, chosen to make learned controllers more effective.
 
-Adaptive morphologies involve the development of robots with physical forms that can adapt to their environment and tasks. This includes techniques such as reconfigurable robots, modular robots, and transformable robots, which enhance the robot's ability to perform tasks effectively and efficiently.
-
----
-
-## Mathematical Formulation
-
-### Kinematic Equations
-
-The kinematic equations of a robot describe the relationship between its joint variables and the position and orientation of its end-effector. For a robot with $n$ joints, the forward kinematics can be represented as:
-
-$$
-T = f(\theta_1, \theta_2, \ldots, \theta_n)
-$$
-
-where:
-- $T$ is the transformation matrix representing the position and orientation of the end-effector.
-- $f$ is the forward kinematics function.
-- $\theta_1, \theta_2, \ldots, \theta_n$ are the joint variables.
-
-### Example: Exploration and Inspection
-
-Consider a legged robot designed for exploration and inspection tasks. The robot's specialized morphology enables it to navigate and adapt to challenging and uneven terrains, performing tasks such as exploration and inspection effectively. The kinematic equations of the robot describe the relationship between its joint variables and the position and orientation of its end-effector, enabling it to perform tasks with high precision and efficiency. The adaptive control algorithm adjusts the robot's behavior based on its performance and the environment's conditions, ensuring effective and efficient exploration and inspection.
-
----
-
-## Applications in Robotics
-
-- **Exploration**: Specialized robot morphologies are used to enable robots to explore and inspect challenging and unknown environments, facilitating tasks such as space exploration and underwater mapping.
-- **Inspection**: Enables robots to inspect and monitor structures and systems, performing tasks such as maintenance and quality control.
-- **Manipulation**: Specialized robot morphologies are used to enable robots to interact with and manipulate objects, performing tasks such as grasping, lifting, and assembling.
-- **Locomotion**: Enables robots to navigate and move through their environment, adapting to challenging and dynamic conditions.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Specialized_Robot_Morphologies]])

@@ -1,100 +1,80 @@
 ---
 title: Advanced Human-Robot Interaction (HRI)
-description: Advanced Human-Robot Interaction (HRI) focuses on the development of intelligent and adaptive interfaces that facilitate effective and natural interactions between humans and robots, enhancing collaboration, communication, and cooperation.
+description: "Section overview for advanced HRI: shared autonomy (blending human and robot control, with a computed arbitration example), intent and motion prediction, learning from human feedback and corrections, teleoperation for data collection, augmented-reality interfaces, and conversational robots built on language models in 2026."
+aliases:
+  - Advanced HRI
+  - Shared Autonomy
+  - Shared Control
 tags:
   - human-robot-interaction
-  - collaborative-robots
-  - artificial-intelligence
-type: concept
+  - teleoperation
+  - robot-learning
+type: overview
 level: advanced
 subfield:
   - human-robot-interaction
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
   - "[[Human-Robot_Interaction]]"
 related:
-  - "[[Human-Robot_Interaction]]"
-  - "[[Robot_Control]]"
-  - "[[Artificial_Intelligence]]"
-  - "[[Machine_Learning]]"
+  - "[[Teleoperation_and_Data_Collection]]"
+  - "[[Imitation_Learning]]"
+  - "[[Natural_Language_Processing_Basics]]"
+  - "[[Exoskeletons]]"
+key_takeaways:
+  - "Shared autonomy blends what the human commands with what the robot infers the human wants, giving more help when the robot is confident about the goal."
+  - "With arbitration weight α tied to confidence, a 0.8-confident robot moving 0.3 m/s toward the inferred goal while the human commands 0.1 m/s sideways produces 0.24 m/s toward the goal and 0.02 m/s sideways."
+  - "Human interaction is also a data source: corrections, preferences and teleoperated demonstrations train the policies that later need less help."
+sources:
+  - "Javdani, S., Srinivasa, S. S. and Bagnell, J. A. (2015). Shared Autonomy via Hindsight Optimization. https://arxiv.org/abs/1503.07619"
+  - "Zhao, T. et al. (2023). Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware. https://arxiv.org/abs/2304.13705"
+  - "Bartneck, C. et al. (2020). Human-Robot Interaction: An Introduction. https://www.human-robot-interaction.org/"
+  - "Ahn, M. et al. (2022). Do As I Can, Not As I Say: Grounding Language in Robotic Affordances. https://arxiv.org/abs/2204.01691"
 ---
 
 # Advanced Human-Robot Interaction (HRI)
 
-**Advanced Human-Robot Interaction (HRI)** focuses on the development of intelligent and adaptive interfaces that facilitate effective and natural interactions between humans and robots. This includes the design and implementation of systems that enable robots to understand, interpret, and respond to human actions, intentions, and emotions, enhancing collaboration, communication, and cooperation. Advanced HRI is fundamental in developing robots that can operate effectively in diverse and dynamic settings, from healthcare and education to manufacturing and entertainment.
+The basics of HRI, such as proxemics, legibility and interfaces, are in [[Human-Robot_Interaction]]. This section covers the advanced topics where control, learning and interaction meet: robots that share control with people, predict what they will do, learn from them, and talk with them.
 
----
+> **Etymology.** See [[Human-Robot_Interaction]]. *Shared autonomy* became a named research area in the 2010s, especially for assistive arms used by people with disabilities.
 
-## Key Concepts
+## Shared autonomy
 
-### Intelligent Interfaces
+Teleoperating a robot arm with a joystick is slow and tiring. In **shared autonomy**, the robot infers which goal the person is heading for (which cup, which button) and helps. A common form blends the two commands:
 
-Intelligent interfaces in HRI involve the development of systems that enable robots to interpret and respond to human actions, intentions, and emotions. This includes techniques such as gesture recognition, speech recognition, and emotion detection, which enhance the robot's ability to interact with humans naturally and effectively.
+58088\mathbf u = \alpha\, \mathbf u_{robot} + (1 - \alpha)\, \mathbf u_{human},58088
 
-### Adaptive Control
+with $\alpha$ rising as the robot becomes confident about the goal. Hindsight optimisation (Javdani et al., 2015) instead acts to help across *all* likely goals, without needing to commit to one.
 
-Adaptive control in HRI involves the adjustment of the robot's behavior based on the human's actions, intentions, and emotions, enabling it to adapt to the human's needs and preferences. This includes techniques such as reinforcement learning and adaptive filtering, which enhance the robot's ability to perform tasks and interact with humans effectively.
+**Worked example.** The robot is 80% confident ($\alpha = 0.8$) and would move at 0.3 m/s toward the inferred goal (the $ direction). The person pushes the joystick at 0.1 m/s sideways (the $ direction). Then
 
-### Collaborative Systems
+58088\mathbf u = 0.8\,(0.3, 0) + 0.2\,(0, 0.1) = (0.24,\ 0.02)\ \text{m/s}.58088
 
-Collaborative systems in HRI involve the design and implementation of systems that enable humans and robots to work together to achieve common goals. This includes techniques such as task allocation, role assignment, and coordination, which enhance the efficiency and effectiveness of the collaboration.
+The robot mostly follows its inference, but the person's input still steers it. If the person keeps pushing sideways, the robot's belief shifts toward a goal in that direction and $\alpha$ adapts. Too much assistance frustrates people who feel their control taken away, so good systems keep the human clearly in charge.
 
-### Communication and Cooperation
+## Predicting people
 
-Communication and cooperation in HRI involve the exchange of information and the coordination of actions between humans and robots, enabling them to work together effectively and efficiently. This includes techniques such as dialogue management, negotiation, and consensus, which enhance the robot's ability to interact with humans and perform tasks.
+Robots in shared spaces predict where people will walk, what they will reach for, and when they will hand an object over, using motion forecasting (trajectory prediction networks), gaze, body pose and context. Prediction feeds planning (see [[Collision_Avoidance]]).
 
----
+## Learning from people
 
-## Mathematical Formulation
+- **Demonstrations**: teleoperation and kinesthetic teaching produce training data (see [[Imitation_Learning]], [[Teleoperation_and_Data_Collection]]).
+- **Corrections**: a person nudging the arm during a task signals a better trajectory, and the robot updates.
+- **Preferences and feedback**: comparisons ("this one was better") train reward models, as in reinforcement learning from human feedback for language models.
+- **Language**: instructions and corrections in words ("a bit to the left, more gently").
 
-### Gesture Recognition
+## Interfaces at the frontier (2026)
 
-Gesture recognition in HRI involves the interpretation of human gestures and the determination of their meaning and intent. The recognition of a gesture $g$ can be represented as:
+- **VR and AR teleoperation** for data collection and remote work, often at scale across many operators.
+- **Augmented reality** overlays showing the robot's planned path and intentions.
+- **Conversational robots** using language models, with grounding in the robot's skills (see [[Natural_Language_Processing_Basics]]).
+- **Physical human-robot interaction**: exoskeletons and assistive arms (see [[Exoskeletons]]).
 
-$$
-g = f(x)
-$$
-
-where:
-- $g$ is the recognized gesture.
-- $f$ is the recognition function.
-- $x$ is the input data, such as images or sensor readings.
-
-### Adaptive Control Algorithm
-
-The adaptive control algorithm in HRI involves the adjustment of the robot's behavior based on the human's actions, intentions, and emotions. The control signal $u(t)$ is given by:
-
-$$
-u(t) = K_p e(t) + K_i \int_0^t e(\tau) d\tau + K_d \frac{de(t)}{dt}
-$$
-
-where:
-- $u(t)$ is the control signal.
-- $e(t)$ is the error at time $t$.
-- $K_p$, $K_i$, and $K_d$ are the proportional, integral, and derivative gains, respectively.
-
-### Example: Collaborative Assembly
-
-Consider a collaborative system designed for assembly tasks, where a human and a robot work together to assemble a product. The robot's intelligent interface interprets the human's gestures and actions, enabling it to understand the human's intentions and respond effectively. The adaptive control algorithm adjusts the robot's behavior based on the human's actions and the assembly's requirements, ensuring that the robot performs the tasks effectively and efficiently. The communication and cooperation techniques enable the human and the robot to exchange information and coordinate their actions, enhancing the efficiency and effectiveness of the collaboration.
-
----
-
-## Applications in Robotics
-
-- **Healthcare**: Advanced HRI is used to enable robots to assist in healthcare settings, performing tasks such as patient care, rehabilitation, and surgery, enhancing the quality and efficiency of healthcare.
-- **Education**: Enables robots to assist in educational settings, performing tasks such as tutoring, mentoring, and assessment, enhancing the quality and effectiveness of education.
-- **Manufacturing**: Advanced HRI is used to enable robots to assist in manufacturing settings, performing tasks such as assembly, inspection, and maintenance, enhancing the efficiency and precision of manufacturing.
-- **Entertainment**: Enables robots to assist in entertainment settings, performing tasks such as gaming, performance, and companionship, enhancing the quality and enjoyment of entertainment.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Advanced_Human_Robot_Interaction_(HRI)]])
