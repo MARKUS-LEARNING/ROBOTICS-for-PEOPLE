@@ -29,15 +29,15 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 
 | Subfield | Notes | Beginner | Intermediate | Advanced | Research |
 |---|---:|---:|---:|---:|---:|
-| [[#Foundations of Robotics]] | 10 | 10 | 0 | 0 | 0 |
-| [[#Mathematics for Robotics]] | 16 | 4 | 12 | 0 | 0 |
+| [[#Foundations of Robotics]] | 12 | 12 | 0 | 0 | 0 |
+| [[#Mathematics for Robotics]] | 17 | 4 | 13 | 0 | 0 |
 | [[#Kinematics and Dynamics]] | 65 | 14 | 50 | 1 | 0 |
 | [[#Mechanisms, Actuation and Materials]] | 41 | 11 | 22 | 8 | 0 |
 | [[#Sensing and Perception]] | 23 | 0 | 19 | 4 | 0 |
 | [[#State Estimation, Localization and Mapping]] | 15 | 0 | 12 | 3 | 0 |
-| [[#Motion Planning and Decision Making]] | 19 | 1 | 17 | 1 | 0 |
+| [[#Motion Planning and Decision Making]] | 21 | 2 | 18 | 1 | 0 |
 | [[#Control]] | 38 | 3 | 23 | 12 | 0 |
-| [[#AI and Robot Learning]] | 49 | 9 | 33 | 7 | 0 |
+| [[#AI and Robot Learning]] | 49 | 13 | 29 | 7 | 0 |
 | [[#Robot Software and Middleware]] | 39 | 8 | 28 | 3 | 0 |
 | [[#Electronics, Power and Embedded Systems]] | 9 | 5 | 4 | 0 | 0 |
 | [[#Systems Engineering, Safety and Testing]] | 2 | 1 | 0 | 1 | 0 |
@@ -48,7 +48,7 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 
 **Start here:** [[Robotics]] → [[Robot_Design|Robot Design]] → [[Actuator]] → [[Mechatronics]]
 
-**All 10 notes, in reading order:** [[Robotics]] · [[Robot_Design|Robot Design]] · [[Actuator]] · [[Mechatronics]] · [[Robots]] · [[Artificial_Intelligence|Artificial Intelligence]] · [[Links_and_Joints_Definitions|Links and Joints Definitions]] · [[End_Effector_Definition|End Effector Definition]] · [[Actuator_Definition|Actuator Definition]] · [[Embodied_AI|Embodied AI]]
+**All 12 notes, in reading order:** [[Robotics]] · [[Robot_Design|Robot Design]] · [[Actuator]] · [[Mechatronics]] · [[Robots]] · [[Artificial_Intelligence|Artificial Intelligence]] · [[Links_and_Joints_Definitions|Links and Joints Definitions]] · [[End_Effector_Definition|End Effector Definition]] · [[Actuator_Definition|Actuator Definition]] · [[Embodied_AI|Embodied AI]] · [[Agents_and_Environments|Agents and Environments]] · [[Artificial_Intelligence_vs_Machine_Learning_vs_Deep_Learning|Artificial Intelligence vs Machine Learning vs Deep Learning]]
 
 ### Mathematics for Robotics
 
@@ -56,9 +56,9 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 
 **Keystones:** [[Product_of_Exponentials|Product of Exponentials (PoE)]] · [[Markov_Decision_Process|Markov Decision Process (MDP)]]
 
-**Start here:** [[Optimization]] → [[Graph_Theory|Graph Theory]] → [[Pose_Representation|Pose Representation]] → [[Euclidean_Space|Euclidean Space]]
+**Start here:** [[Optimization]] → [[Pose_Representation|Pose Representation]] → [[Graph_Theory|Graph Theory]] → [[Euclidean_Space|Euclidean Space]]
 
-**All 16 notes, in reading order:** [[Optimization]] · [[Graph_Theory|Graph Theory]] · [[Pose_Representation|Pose Representation]] · [[Euclidean_Space|Euclidean Space]] · [[Linear_Algebra_for_Robotics|Linear Algebra for Robotics]] · [[Lie_Groups|Lie Groups (SO(3), SE(3))]] · [[Euler_Angles|Euler Angles]] · [[Probability_and_Statistics_for_Robotics|Probability and Statistics for Robotics]] · [[Quaternions]] · [[Bayesian_Inference|Bayesian Inference]] · [[Rotation_Matrix|Rotation Matrix]] · [[Calculus_for_Robotics|Calculus for Robotics]] · [[Optimization_for_Robotics|Optimization for Robotics]] · [[Homogeneous_Transformation|Homogeneous Transformation]] · [[Product_of_Exponentials|Product of Exponentials (PoE)]] · [[Markov_Decision_Process|Markov Decision Process (MDP)]]
+**All 17 notes, in reading order:** [[Optimization]] · [[Pose_Representation|Pose Representation]] · [[Graph_Theory|Graph Theory]] · [[Euclidean_Space|Euclidean Space]] · [[Linear_Algebra_for_Robotics|Linear Algebra for Robotics]] · [[Lie_Groups|Lie Groups (SO(3), SE(3))]] · [[Euler_Angles|Euler Angles]] · [[Probability_and_Statistics_for_Robotics|Probability and Statistics for Robotics]] · [[Quaternions]] · [[Bayesian_Inference|Bayesian Inference]] · [[Calculus_for_Robotics|Calculus for Robotics]] · [[Rotation_Matrix|Rotation Matrix]] · [[Optimization_for_Robotics|Optimization for Robotics]] · [[Homogeneous_Transformation|Homogeneous Transformation]] · [[Product_of_Exponentials|Product of Exponentials (PoE)]] · [[Markov_Decision_Process|Markov Decision Process (MDP)]] · [[Optimization_and_Loss_Functions|Optimization and Loss Functions]]
 
 ### Kinematics and Dynamics
 
@@ -102,9 +102,9 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 
 *Deciding where to go and how: path and trajectory planning, sampling-based planners, task planning and behaviour trees.* (`subfield: planning`)
 
-**Start here:** [[Heuristics]] → [[Trajectory_Planning|Trajectory Planning]] → [[Path_Planning|Path Planning]] → [[Configuration_Space|Configuration Space]]
+**Start here:** [[Heuristics]] → [[Trajectory_Planning|Trajectory Planning]] → [[Configuration_Space|Configuration Space]] → [[Path_Planning|Path Planning]]
 
-**All 19 notes, in reading order:** [[Heuristics]] · [[Trajectory_Planning|Trajectory Planning]] · [[Path_Planning|Path Planning]] · [[Configuration_Space|Configuration Space]] · [[Motion_Planning|Motion Planning]] · [[Collision_Detection|Collision Detection]] · [[Sampling-Based_Planning|Sampling-Based Planning]] · [[Search_Algorithms|Search Algorithms]] · [[Probabilistic_Roadmaps|Probabilistic Roadmaps]] · [[Path_Planning_Algorithms|Path Planning Algorithms]] · [[Dijkstra's_Algorithm|Dijkstra's Algorithm]] · [[A*_Algorithm|A* Algorithm]] · [[Shortest_Path|Shortest Path]] · [[Collision_Avoidance|Collision Avoidance]] · [[MoveIt2|MoveIt 2]] · [[Nav2_Navigation|Nav2 Navigation Stack]] · [[C++_Motion_Planning|C++ Motion Planning]] · [[OMPL]] · [[Advanced_Planning_and_Reasoning|Advanced Planning and Reasoning for Robotics]]
+**All 21 notes, in reading order:** [[Heuristics]] · [[Trajectory_Planning|Trajectory Planning]] · [[Configuration_Space|Configuration Space]] · [[Path_Planning|Path Planning]] · [[Path_Planning_Algorithms|Path Planning Algorithms]] · [[Motion_Planning|Motion Planning]] · [[Collision_Detection|Collision Detection]] · [[Search_Algorithms|Search Algorithms]] · [[Shortest_Path|Shortest Path]] · [[Dijkstra's_Algorithm|Dijkstra's Algorithm]] · [[A*_Algorithm|A* Algorithm]] · [[Probabilistic_Roadmaps|Probabilistic Roadmaps]] · [[Sampling-Based_Planning|Sampling-Based Planning]] · [[Decision_Trees_and_Rule-Based_Systems|Decision Trees and Rule-Based Systems]] · [[Knowledge_Representation_and_Reasoning|Knowledge Representation and Reasoning]] · [[Collision_Avoidance|Collision Avoidance]] · [[Nav2_Navigation|Nav2 Navigation Stack]] · [[MoveIt2|MoveIt 2]] · [[C++_Motion_Planning|C++ Motion Planning]] · [[OMPL]] · [[Advanced_Planning_and_Reasoning|Advanced Planning and Reasoning for Robotics]]
 
 ### Control
 
@@ -120,11 +120,11 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 
 *Machine learning, deep learning, reinforcement and imitation learning, foundation and vision-language-action models.* (`subfield: robot-learning`)
 
-**Keystones:** [[Machine_Learning|Machine Learning]] · [[Policy|Policy (Robot Control Policy)]] · [[Robot_Simulation|Robot Simulation]] · [[Generative_Models|Generative Models]] · [[Transformers_and_Attention|Transformers and Attention]] · [[Markov_Decision_Process|Markov Decision Process (MDP)]] · [[Reinforcement_Learning|Reinforcement Learning]] · [[Reinforcement_Learning_for_Robots|Reinforcement Learning for Robots]] · [[Imitation_Learning|Imitation Learning]] · [[World_Models|World Models]] · [[Diffusion_Policy|Diffusion Policy]] · [[Vision-Language-Action_Models|Vision-Language-Action Models (VLAs)]] · [[Sim-to-Real_Transfer|Sim-to-Real Transfer]]
+**Keystones:** [[Machine_Learning|Machine Learning]] · [[Policy|Policy (Robot Control Policy)]] · [[Robot_Simulation|Robot Simulation]] · [[Imitation_Learning|Imitation Learning]] · [[Generative_Models|Generative Models]] · [[Transformers_and_Attention|Transformers and Attention]] · [[Markov_Decision_Process|Markov Decision Process (MDP)]] · [[Reinforcement_Learning|Reinforcement Learning]] · [[Reinforcement_Learning_for_Robots|Reinforcement Learning for Robots]] · [[World_Models|World Models]] · [[Diffusion_Policy|Diffusion Policy]] · [[Vision-Language-Action_Models|Vision-Language-Action Models (VLAs)]] · [[Sim-to-Real_Transfer|Sim-to-Real Transfer]]
 
 **Start here:** [[Artificial_Intelligence|Artificial Intelligence]] → [[AI_and_Robot_Control|AI and Robot Control]] → [[Machine_Learning|Machine Learning]] → [[Neural_Networks|Neural Networks]]
 
-**All 49 notes, in reading order:** [[Artificial_Intelligence|Artificial Intelligence]] · [[AI_and_Robot_Control|AI and Robot Control]] · [[Machine_Learning|Machine Learning]] · [[Neural_Networks|Neural Networks]] · [[Policy|Policy (Robot Control Policy)]] · [[Embodied_AI|Embodied AI]] · [[Agents_and_Environments|Agents and Environments]] · [[Artificial_Intelligence_vs_Machine_Learning_vs_Deep_Learning|Artificial Intelligence vs Machine Learning vs Deep Learning]] · [[Autonomous_Robots|Autonomous Robots]] · [[Computer_Vision_in_Robotics|Computer Vision in Robotics]] · [[Robot_Simulation|Robot Simulation]] · [[Deep_Learning|Deep Learning]] · [[Deep_Learning_in_Robotics|Deep Learning in Robotics]] · [[Generative_Models|Generative Models]] · [[Transformers_and_Attention|Transformers and Attention]] · [[Convolutional_Neural_Networks|Convolutional Neural Networks]] · [[Markov_Decision_Process|Markov Decision Process (MDP)]] · [[Reinforcement_Learning|Reinforcement Learning]] · [[Reinforcement_Learning_for_Robots|Reinforcement Learning for Robots]] · [[Neural_Networks_and_Backpropagation|Neural Networks and Backpropagation]] · [[Supervised_Learning|Supervised Learning]] · [[Imitation_Learning|Imitation Learning]] · [[Teleoperation_and_Data_Collection|Teleoperation and Data Collection]] · [[Robot_Learning_Datasets_and_Benchmarks|Robot Learning Datasets and Benchmarks]] · [[Unsupervised_Learning|Unsupervised Learning]] · [[RNN_and_LSTM|RNN and LSTM]] · [[Activation_Functions_(ReLU,_Sigmoid,_Tanh)|Activation Functions (ReLU, Sigmoid, Tanh)]] · [[Autoencoders]] · [[Transfer_Learning|Transfer Learning]] · [[Bias,_Variance,_and_Overfitting|Bias, Variance, and Overfitting]] · [[CNN_in_Robotics|CNN in Robotics]] · [[Optimization_and_Loss_Functions|Optimization and Loss Functions]] · [[Classification_vs_Regression_vs_Clustering|Classification vs Regression vs Clustering]] · [[Decision_Trees_and_Rule-Based_Systems|Decision Trees and Rule-Based Systems]] · [[Feature_Engineering_and_Data_Preprocessing|Feature Engineering and Data Preprocessing]] · [[Knowledge_Representation_and_Reasoning|Knowledge Representation and Reasoning]] · [[Natural_Language_Processing_Basics|Natural Language Processing Basics]] · [[Semi-Supervised_Learning|Semi-Supervised Learning]] · [[ROS_AI_Integration|ROS AI Integration]] · [[MuJoCo]] · [[World_Models|World Models]] · [[Diffusion_Policy|Diffusion Policy]] · [[Vision-Language-Action_Models|Vision-Language-Action Models (VLAs)]] · [[Advanced_AI_Learning_for_Robotics|Advanced AI Learning for Robotics]] · [[Neural_Networks_in_Control|Neural Networks in Control]] · [[Sim-to-Real_Transfer|Sim-to-Real Transfer]] · [[Sim2Real_Experiments|Sim2Real Experiments]] · [[GPU-Parallel_Simulation|GPU-Parallel Simulation]] · [[Isaac_Lab|Isaac Lab]]
+**All 49 notes, in reading order:** [[Artificial_Intelligence|Artificial Intelligence]] · [[AI_and_Robot_Control|AI and Robot Control]] · [[Machine_Learning|Machine Learning]] · [[Neural_Networks|Neural Networks]] · [[Policy|Policy (Robot Control Policy)]] · [[Embodied_AI|Embodied AI]] · [[Supervised_Learning|Supervised Learning]] · [[Unsupervised_Learning|Unsupervised Learning]] · [[Agents_and_Environments|Agents and Environments]] · [[Classification_vs_Regression_vs_Clustering|Classification vs Regression vs Clustering]] · [[Artificial_Intelligence_vs_Machine_Learning_vs_Deep_Learning|Artificial Intelligence vs Machine Learning vs Deep Learning]] · [[Natural_Language_Processing_Basics|Natural Language Processing Basics]] · [[Autonomous_Robots|Autonomous Robots]] · [[Computer_Vision_in_Robotics|Computer Vision in Robotics]] · [[Robot_Simulation|Robot Simulation]] · [[Imitation_Learning|Imitation Learning]] · [[Deep_Learning|Deep Learning]] · [[Deep_Learning_in_Robotics|Deep Learning in Robotics]] · [[Teleoperation_and_Data_Collection|Teleoperation and Data Collection]] · [[Robot_Learning_Datasets_and_Benchmarks|Robot Learning Datasets and Benchmarks]] · [[Generative_Models|Generative Models]] · [[Transformers_and_Attention|Transformers and Attention]] · [[Markov_Decision_Process|Markov Decision Process (MDP)]] · [[Reinforcement_Learning|Reinforcement Learning]] · [[Reinforcement_Learning_for_Robots|Reinforcement Learning for Robots]] · [[Bias,_Variance,_and_Overfitting|Bias, Variance, and Overfitting]] · [[Convolutional_Neural_Networks|Convolutional Neural Networks]] · [[Neural_Networks_and_Backpropagation|Neural Networks and Backpropagation]] · [[Autoencoders]] · [[Optimization_and_Loss_Functions|Optimization and Loss Functions]] · [[RNN_and_LSTM|RNN and LSTM]] · [[Activation_Functions_(ReLU,_Sigmoid,_Tanh)|Activation Functions (ReLU, Sigmoid, Tanh)]] · [[Decision_Trees_and_Rule-Based_Systems|Decision Trees and Rule-Based Systems]] · [[Knowledge_Representation_and_Reasoning|Knowledge Representation and Reasoning]] · [[Semi-Supervised_Learning|Semi-Supervised Learning]] · [[Transfer_Learning|Transfer Learning]] · [[CNN_in_Robotics|CNN in Robotics]] · [[Feature_Engineering_and_Data_Preprocessing|Feature Engineering and Data Preprocessing]] · [[ROS_AI_Integration|ROS AI Integration]] · [[MuJoCo]] · [[World_Models|World Models]] · [[Diffusion_Policy|Diffusion Policy]] · [[Vision-Language-Action_Models|Vision-Language-Action Models (VLAs)]] · [[Advanced_AI_Learning_for_Robotics|Advanced AI Learning for Robotics]] · [[Neural_Networks_in_Control|Neural Networks in Control]] · [[Sim-to-Real_Transfer|Sim-to-Real Transfer]] · [[Sim2Real_Experiments|Sim2Real Experiments]] · [[GPU-Parallel_Simulation|GPU-Parallel Simulation]] · [[Isaac_Lab|Isaac Lab]]
 
 ### Robot Software and Middleware
 
@@ -134,7 +134,7 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 
 **Start here:** [[Robot_Operating_System_(ROS)|Robot Operating System (ROS)]] → [[Labs_Projects_and_Tutorials|Labs Projects and Tutorials (Robotics)]] → [[ROS_2_Communication|ROS 2 Communication: Topics, Services, Messages and Parameters]] → [[Serial_Communication_Tutorials|Serial Communication Tutorials (Robotics)]]
 
-**All 39 notes, in reading order:** [[Robot_Operating_System_(ROS)|Robot Operating System (ROS)]] · [[Labs_Projects_and_Tutorials|Labs Projects and Tutorials (Robotics)]] · [[ROS_2_Communication|ROS 2 Communication: Topics, Services, Messages and Parameters]] · [[Serial_Communication_Tutorials|Serial Communication Tutorials (Robotics)]] · [[Robotics_Lab_Template|Robotics Lab Template]] · [[Turtlesim_Projects|Turtlesim Projects]] · [[Simulators_and_IDEs|Simulators and IDEs]] · [[Robot_Simulation|Robot Simulation]] · [[ROS_2_Overview|ROS 2 Overview]] · [[URDF]] · [[Gazebo_Simulator|Gazebo Simulator]] · [[TF_and_Topic_Architecture|TF and Topic Architecture]] · [[RViz_Tutorial|RViz Tutorial]] · [[Custom_Packages_and_Nodes|Custom Packages and Nodes]] · [[MoveIt2|MoveIt 2]] · [[Nav2_Navigation|Nav2 Navigation Stack]] · [[Actions]] · [[Launch_Files|Launch Files]] · [[ros2_control]] · [[rosbag2]] · [[SLAM_with_ROS|SLAM with ROS]] · [[ROS_AI_Integration|ROS AI Integration]] · [[Python_ROS_Nodes|Python ROS Nodes]] · [[C++|C++ (Robotics)]] · [[C++_Motion_Planning|C++ Motion Planning]] · [[Python_for_Robotics|Python for Robotics]] · [[Arduino]] · [[Git_Integration_and_Version_Control|Git Integration and Version Control]] · [[Hardware_Interface_Setup|Hardware Interface Setup]] · [[OMPL]] · [[CUDA|CUDA (Robotics)]] · [[MATLAB|MATLAB (Robotics)]] · [[Rust|Rust (Programming Language, extensive and focus on robotics coding examples)]] · [[Sim-to-Real_Transfer|Sim-to-Real Transfer]] · [[Physics_Engines|Physics Engines]] · [[MuJoCo]] · [[Sim2Real_Experiments|Sim2Real Experiments]] · [[GPU-Parallel_Simulation|GPU-Parallel Simulation]] · [[Isaac_Lab|Isaac Lab]]
+**All 39 notes, in reading order:** [[Robot_Operating_System_(ROS)|Robot Operating System (ROS)]] · [[Labs_Projects_and_Tutorials|Labs Projects and Tutorials (Robotics)]] · [[ROS_2_Communication|ROS 2 Communication: Topics, Services, Messages and Parameters]] · [[Serial_Communication_Tutorials|Serial Communication Tutorials (Robotics)]] · [[Robotics_Lab_Template|Robotics Lab Template]] · [[Turtlesim_Projects|Turtlesim Projects]] · [[Simulators_and_IDEs|Simulators and IDEs]] · [[Robot_Simulation|Robot Simulation]] · [[ROS_2_Overview|ROS 2 Overview]] · [[URDF]] · [[Gazebo_Simulator|Gazebo Simulator]] · [[MoveIt2|MoveIt 2]] · [[TF_and_Topic_Architecture|TF and Topic Architecture]] · [[RViz_Tutorial|RViz Tutorial]] · [[Nav2_Navigation|Nav2 Navigation Stack]] · [[Custom_Packages_and_Nodes|Custom Packages and Nodes]] · [[Actions]] · [[Launch_Files|Launch Files]] · [[ros2_control]] · [[rosbag2]] · [[SLAM_with_ROS|SLAM with ROS]] · [[ROS_AI_Integration|ROS AI Integration]] · [[Python_ROS_Nodes|Python ROS Nodes]] · [[C++|C++ (Robotics)]] · [[C++_Motion_Planning|C++ Motion Planning]] · [[Python_for_Robotics|Python for Robotics]] · [[Arduino]] · [[Git_Integration_and_Version_Control|Git Integration and Version Control]] · [[Hardware_Interface_Setup|Hardware Interface Setup]] · [[OMPL]] · [[CUDA|CUDA (Robotics)]] · [[MATLAB|MATLAB (Robotics)]] · [[Rust|Rust (Programming Language, extensive and focus on robotics coding examples)]] · [[Sim-to-Real_Transfer|Sim-to-Real Transfer]] · [[Physics_Engines|Physics Engines]] · [[MuJoCo]] · [[Sim2Real_Experiments|Sim2Real Experiments]] · [[GPU-Parallel_Simulation|GPU-Parallel Simulation]] · [[Isaac_Lab|Isaac Lab]]
 
 ### Electronics, Power and Embedded Systems
 
@@ -157,7 +157,7 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 | Subfield | Notes | Beginner | Intermediate | Advanced | Research |
 |---|---:|---:|---:|---:|---:|
 | [[#Manipulation and Grasping]] | 13 | 6 | 5 | 2 | 0 |
-| [[#Mobile Robots and Navigation]] | 15 | 4 | 11 | 0 | 0 |
+| [[#Mobile Robots and Navigation]] | 14 | 4 | 10 | 0 | 0 |
 | [[#Legged Locomotion and Humanoids]] | 4 | 2 | 1 | 1 | 0 |
 | [[#Aerial Robotics]] | 1 | 1 | 0 | 0 | 0 |
 | [[#Soft and Continuum Robotics]] | 2 | 2 | 0 | 0 | 0 |
@@ -183,7 +183,7 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 
 **Start here:** [[Wheeled_Mobile_Robots|Wheeled Mobile Robots]] → [[Mobile_Robots|Mobile Robots]] → [[Autonomous_Robots|Autonomous Robots]] → [[Omnidirectional_Robots|Omnidirectional Robots]]
 
-**All 15 notes, in reading order:** [[Wheeled_Mobile_Robots|Wheeled Mobile Robots]] · [[Mobile_Robots|Mobile Robots]] · [[Autonomous_Robots|Autonomous Robots]] · [[Omnidirectional_Robots|Omnidirectional Robots]] · [[Nonholonomic_Constraint|Nonholonomic Constraint]] · [[Differential_Drive|Differential Drive]] · [[Instantaneous_Center_of_Rotation_(ICR)|Instantaneous Center of Rotation (ICR)]] · [[SLAM|SLAM (Simultaneous Localization and Mapping)]] · [[LIDAR|LIDAR (Light Detection and Ranging)]] · [[GPS]] · [[Path_Planning_Algorithms|Path Planning Algorithms]] · [[Autonomous_Navigation|Autonomous Navigation]] · [[Collision_Avoidance|Collision Avoidance]] · [[Nav2_Navigation|Nav2 Navigation Stack]] · [[SLAM_with_ROS|SLAM with ROS]]
+**All 14 notes, in reading order:** [[Wheeled_Mobile_Robots|Wheeled Mobile Robots]] · [[Mobile_Robots|Mobile Robots]] · [[Autonomous_Robots|Autonomous Robots]] · [[Omnidirectional_Robots|Omnidirectional Robots]] · [[Nonholonomic_Constraint|Nonholonomic Constraint]] · [[Differential_Drive|Differential Drive]] · [[Instantaneous_Center_of_Rotation_(ICR)|Instantaneous Center of Rotation (ICR)]] · [[SLAM|SLAM (Simultaneous Localization and Mapping)]] · [[LIDAR|LIDAR (Light Detection and Ranging)]] · [[GPS]] · [[Autonomous_Navigation|Autonomous Navigation]] · [[Collision_Avoidance|Collision Avoidance]] · [[Nav2_Navigation|Nav2 Navigation Stack]] · [[SLAM_with_ROS|SLAM with ROS]]
 
 ### Legged Locomotion and Humanoids
 
@@ -323,9 +323,9 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 
 | Subfield | Notes | Beginner | Intermediate | Advanced | Research |
 |---|---:|---:|---:|---:|---:|
-| [[#Human-Robot Interaction]] | 4 | 1 | 2 | 1 | 0 |
+| [[#Human-Robot Interaction]] | 5 | 2 | 2 | 1 | 0 |
 | [[#Multi-Robot Systems and Swarms]] | 2 | 1 | 0 | 1 | 0 |
-| [[#Ethics, Safety and Society]] | 4 | 2 | 1 | 1 | 0 |
+| [[#Ethics, Safety and Society]] | 4 | 3 | 0 | 1 | 0 |
 | [[#History and Futures of Robotics]] | 5 | 5 | 0 | 0 | 0 |
 | [[#Research Practice]] | 4 | 2 | 1 | 0 | 1 |
 
@@ -333,9 +333,9 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 
 *Working with, near and for people: collaboration, communication, teleoperation, social robots.* (`subfield: human-robot-interaction`)
 
-**Start here:** [[Collaborative_Robots|Collaborative Robots (Cobots)]] → [[Teleoperation_and_Data_Collection|Teleoperation and Data Collection]] → [[Human-Robot_Interaction|Human-Robot Interaction]] → [[Advanced_Human_Robot_Interaction_(HRI)|Advanced Human-Robot Interaction (HRI)]]
+**Start here:** [[Natural_Language_Processing_Basics|Natural Language Processing Basics]] → [[Collaborative_Robots|Collaborative Robots (Cobots)]] → [[Teleoperation_and_Data_Collection|Teleoperation and Data Collection]] → [[Human-Robot_Interaction|Human-Robot Interaction]]
 
-**All 4 notes, in reading order:** [[Collaborative_Robots|Collaborative Robots (Cobots)]] · [[Teleoperation_and_Data_Collection|Teleoperation and Data Collection]] · [[Human-Robot_Interaction|Human-Robot Interaction]] · [[Advanced_Human_Robot_Interaction_(HRI)|Advanced Human-Robot Interaction (HRI)]]
+**All 5 notes, in reading order:** [[Natural_Language_Processing_Basics|Natural Language Processing Basics]] · [[Collaborative_Robots|Collaborative Robots (Cobots)]] · [[Teleoperation_and_Data_Collection|Teleoperation and Data Collection]] · [[Human-Robot_Interaction|Human-Robot Interaction]] · [[Advanced_Human_Robot_Interaction_(HRI)|Advanced Human-Robot Interaction (HRI)]]
 
 ### Multi-Robot Systems and Swarms
 
@@ -349,9 +349,9 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 
 *What robots should do, who they affect, and how we govern them.* (`subfield: ethics-society`)
 
-**Start here:** [[Robot_Ethics_and_Policy_Debates|Robot Ethics and Policy Debates]] → [[Speculative_Robotics_Scenarios|Speculative Robotics Scenarios]] → [[Ethical_and_Social_Implications|Ethical and Social Implications (# AI & Robotics)]] → [[Robotics_Ethics_Safety_and_Society|Robotics Ethics, Safety, and Society]]
+**Start here:** [[Ethical_and_Social_Implications|Ethical and Social Implications]] → [[Robot_Ethics_and_Policy_Debates|Robot Ethics and Policy Debates]] → [[Speculative_Robotics_Scenarios|Speculative Robotics Scenarios]] → [[Robotics_Ethics_Safety_and_Society|Robotics Ethics, Safety, and Society]]
 
-**All 4 notes, in reading order:** [[Robot_Ethics_and_Policy_Debates|Robot Ethics and Policy Debates]] · [[Speculative_Robotics_Scenarios|Speculative Robotics Scenarios]] · [[Ethical_and_Social_Implications|Ethical and Social Implications (# AI & Robotics)]] · [[Robotics_Ethics_Safety_and_Society|Robotics Ethics, Safety, and Society]]
+**All 4 notes, in reading order:** [[Ethical_and_Social_Implications|Ethical and Social Implications]] · [[Robot_Ethics_and_Policy_Debates|Robot Ethics and Policy Debates]] · [[Speculative_Robotics_Scenarios|Speculative Robotics Scenarios]] · [[Robotics_Ethics_Safety_and_Society|Robotics Ethics, Safety, and Society]]
 
 ### History and Futures of Robotics
 
