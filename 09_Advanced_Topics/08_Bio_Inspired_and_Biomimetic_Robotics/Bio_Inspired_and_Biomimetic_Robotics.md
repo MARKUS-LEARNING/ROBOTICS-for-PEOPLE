@@ -1,6 +1,6 @@
 ---
 title: Bio-Inspired and Biomimetic Robotics
-description: "Section overview for robotics that learns from biology: locomotion, sensing, materials, control and collective behaviour. Includes a computed example of the Froude number that predicts when walking animals and robots switch to running, a map of related notes (bio-inspired robots, soft robotics, swarms, biomaterials, event cameras) and the 2026 frontier: biohybrids, neuromorphic computing, and learning that rediscovers animal behaviour."
+description: "Section overview for robotics that learns from biology: locomotion, sensing, materials, control and collective behaviour. Includes a computed Froude-number example that predicts when walking animals and robots switch to running, a map of related notes, and the 2026 frontier: biohybrids, neuromorphic computing, and learning that rediscovers animal behaviour."
 aliases:
   - Biomimetic Robotics
   - Biorobotics

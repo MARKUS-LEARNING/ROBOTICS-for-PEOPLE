@@ -1,6 +1,6 @@
 ---
 title: Natural Language Processing Basics
-description: "Natural language processing (NLP) lets machines read, interpret and produce human language. Covers tokens, embeddings and language models, the shift from rule-based and statistical NLP to large language models, and how robots use language in 2026: instructions grounded in what the robot can actually do (with a computed SayCan-style example), dialogue and feedback, and language inside vision-language-action models."
+description: "Natural language processing (NLP) lets machines read, interpret and produce human language. Covers tokens, embeddings and language models, the shift from rules and statistics to large language models, and how robots use language in 2026: instructions grounded in what the robot can do (with a computed SayCan-style example), dialogue and feedback, and language inside vision-language-action models."
 aliases:
   - NLP
   - Natural Language Processing

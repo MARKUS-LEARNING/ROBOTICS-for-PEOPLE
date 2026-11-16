@@ -1,6 +1,6 @@
 ---
 title: URDF
-description: "URDF (Unified Robot Description Format) is the XML file that tells ROS what a robot is made of: links, joints, shapes, masses and limits. Covers the format with a worked example whose inertias are computed, Xacro, the URDF 1.2 additions in ROS 2 Lyrical (quaternions, capsules, acceleration and jerk limits), modern Gazebo integration, and how URDF relates to SDF, MJCF and OpenUSD in simulation and robot learning."
+description: "URDF (Unified Robot Description Format) is the XML file that tells ROS what a robot is made of: links, joints, shapes, masses and limits. Covers the format with a worked example whose inertias are computed, Xacro, the URDF 1.2 additions in ROS 2 Lyrical (quaternions, capsules, acceleration and jerk limits), modern Gazebo integration, and how URDF relates to SDF, MJCF and OpenUSD."
 aliases:
   - Unified Robot Description Format
   - Xacro

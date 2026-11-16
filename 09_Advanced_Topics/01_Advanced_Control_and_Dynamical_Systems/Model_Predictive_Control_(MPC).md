@@ -1,6 +1,6 @@
 ---
 title: Model Predictive Control (MPC)
-description: "Model predictive control repeatedly solves a short-horizon optimal-control problem with an explicit model and constraints, applies the first command, and re-solves. Covers the receding-horizon idea, the standard formulation, a simulated example showing how actuator limits change the motion, solvers (QP, nonlinear, sampling-based MPPI), MPC for legged and humanoid robots, and how MPC and learned policies combine in 2026."
+description: "Model predictive control repeatedly solves a short-horizon optimal-control problem with an explicit model and constraints, applies the first command, and re-solves. Covers the receding-horizon idea, the standard formulation, a simulated example of how actuator limits change the motion, solvers (QP, nonlinear, sampling-based MPPI), MPC for legged and humanoid robots, and MPC with learned policies."
 aliases:
   - MPC
   - Model Predictive Control

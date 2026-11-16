@@ -1,6 +1,6 @@
 ---
 title: MoveIt 2
-description: "MoveIt 2 is ROS 2's motion-planning framework for robot arms: it plans collision-free trajectories, solves inverse kinematics, manages the planning scene and executes motions through ros2_control. Covers the architecture, SRDF, planners (OMPL, Pilz, STOMP, CHOMP), MoveItPy, Task Constructor, versions per ROS distribution in 2026, MoveIt Pro, and GPU motion generation (cuRobo) next to learned policies."
+description: "MoveIt 2 is ROS 2's motion-planning framework for robot arms: it plans collision-free trajectories, solves inverse kinematics, manages the planning scene and executes motions through ros2_control. Covers the architecture, SRDF, planners (OMPL, Pilz, STOMP, CHOMP), MoveItPy, Task Constructor, versions per ROS distribution in 2026, MoveIt Pro, and GPU motion generation (cuRobo)."
 aliases:
   - MoveIt
   - MoveItPy

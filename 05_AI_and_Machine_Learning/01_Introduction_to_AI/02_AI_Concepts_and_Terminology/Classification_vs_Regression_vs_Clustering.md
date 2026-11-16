@@ -1,6 +1,6 @@
 ---
 title: Classification vs Regression vs Clustering
-description: "Three basic kinds of prediction: classification picks a category, regression predicts a number, clustering finds groups without labels. Compares them on the same robot-grasping data, explains the loss and metrics each uses, and shows with a computed example how robot actions can be treated either way: discretised into tokens (classification, as in RT-2 and OpenVLA) or predicted continuously (regression and generative models)."
+description: "Three basic kinds of prediction: classification picks a category, regression predicts a number, clustering finds groups without labels. Compares them on the same robot-grasping data, with the loss and metrics each uses, and shows with a computed example how robot actions can be discretised into tokens (as in RT-2 and OpenVLA) or predicted continuously (regression and generative models)."
 aliases:
   - Classification
   - Regression

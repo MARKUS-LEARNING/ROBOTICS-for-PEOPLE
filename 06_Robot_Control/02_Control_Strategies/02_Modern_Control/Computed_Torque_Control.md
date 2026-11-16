@@ -1,6 +1,6 @@
 ---
 title: Computed Torque Control
-description: "Computed torque control uses the robot's dynamic model to cancel its nonlinear dynamics, leaving simple linear error dynamics that a PD law can shape exactly. Covers the control law (feedback linearisation for manipulators), a simulated one-link example comparing PD alone, exact-model computed torque and a 20%-wrong model, gain selection, and its descendants (operational-space and whole-body control) in 2026."
+description: "Computed torque control uses the robot's dynamic model to cancel its nonlinear dynamics, leaving linear error dynamics that a PD law can shape exactly. Covers the control law (feedback linearisation for manipulators), a simulated one-link example comparing PD alone, exact-model computed torque and a 20%-wrong model, gain selection, and its descendants (operational-space and whole-body control)."
 aliases:
   - Computed-Torque Control
   - Inverse Dynamics Control

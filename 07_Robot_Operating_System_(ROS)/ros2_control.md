@@ -1,6 +1,6 @@
 ---
 title: ros2_control
-description: "ros2_control is ROS 2's framework for real-time robot control: hardware interfaces expose joint states and commands, a controller manager runs controllers in a fixed-rate loop, and the same controllers drive simulation and the real robot. Covers the architecture, URDF tags, controller configuration, lifecycle commands, writing a hardware interface, the Lyrical (2026) changes, and how learned policies plug in."
+description: "ros2_control is ROS 2's framework for real-time robot control: hardware interfaces expose joint states and commands, a controller manager runs controllers in a fixed-rate loop, and the same controllers drive simulation and the real robot. Covers the architecture, URDF tags, controller configuration, lifecycle commands, writing a hardware interface, the Lyrical (2026) changes, and learned policies."
 aliases:
   - ros2 control
   - controller_manager

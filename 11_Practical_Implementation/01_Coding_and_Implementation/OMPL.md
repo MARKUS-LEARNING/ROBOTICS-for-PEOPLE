@@ -1,6 +1,6 @@
 ---
 title: OMPL
-description: "OMPL (Open Motion Planning Library) is the standard open-source library of sampling-based motion planners, used by MoveIt and many research systems. Covers what it provides and what it deliberately leaves out, the main planners, a minimal Python example, OMPL 2.0 (April 2026: rewritten Python bindings installable with pip, VAMP vectorised collision checking, new planners), and how it compares with GPU planners."
+description: "OMPL (Open Motion Planning Library) is the standard open-source library of sampling-based planners, used by MoveIt and many research systems. Covers what it provides and what it leaves out, the main planners, a minimal Python example, OMPL 2.0 (April 2026: rewritten Python bindings installable with pip, VAMP vectorised collision checking, new planners), and how it compares with GPU planning."
 aliases:
   - Open Motion Planning Library
 tags:

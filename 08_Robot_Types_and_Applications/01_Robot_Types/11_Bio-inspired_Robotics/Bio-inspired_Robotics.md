@@ -1,6 +1,6 @@
 ---
 title: Bio-inspired Robotics
-description: "Bio-inspired robotics borrows principles from animals and plants: how they move, sense, grip and control their bodies. Covers the difference between copying and abstracting a principle, landmark robots (salamander, RoboBee, Octobot, legged robots), central pattern generators, a computed scaling example that explains why small fliers differ from large ones, and how learning in simulation has partly replaced hand-copied biology in 2026."
+description: "Bio-inspired robotics borrows principles from animals and plants: how they move, sense, grip and control their bodies. Covers copying versus abstracting a principle, landmark robots (salamander, RoboBee, Octobot, legged robots), central pattern generators, a computed scaling example explaining why small fliers differ from large ones, and how learning has partly replaced hand-copied biology."
 aliases:
   - Biomimetics
   - Bioinspired Robotics

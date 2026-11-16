@@ -1,6 +1,6 @@
 ---
 title: Formal Methods in Control
-description: "Formal methods give mathematical guarantees about what a control system will and will not do: temporal-logic specifications (LTL, STL), model checking, correct-by-construction controller synthesis, and reachability analysis. Includes a worked reachable-set example, how formal methods verify safety layers around learned components, and the 2023–2026 use of language models to translate instructions into checkable specifications."
+description: "Formal methods give mathematical guarantees about what a control system will and will not do: temporal-logic specifications (LTL, STL), model checking, correct-by-construction synthesis and reachability analysis. Includes a worked reachable-set example, how formal methods verify the safety layers around learned components, and language models translating instructions into checkable specifications."
 aliases:
   - Formal Verification
   - Temporal Logic

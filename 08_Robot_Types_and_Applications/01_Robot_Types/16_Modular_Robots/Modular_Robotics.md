@@ -1,6 +1,6 @@
 ---
 title: Modular Robotics
-description: "Modular robots are built from standard, interchangeable modules: actuators, links, sensors, end effectors or whole robot units. Covers the two meanings of modularity (engineering modularity, as in actuator modules and tool changers, and self-reconfigurable modular robots), benefits and costs, a computed example of how module mass limits the length of a modular arm, and modular design in 2026 robot platforms."
+description: "Modular robots are built from standard, interchangeable modules: actuators, links, sensors, end effectors or whole robot units. Covers the two meanings of modularity (engineering modularity, as in actuator modules and tool changers, and self-reconfigurable modular robots), benefits and costs, a computed example of how module mass limits the length of a modular arm, and modular design in 2026."
 aliases:
   - Modular Robots
   - Modular Robot

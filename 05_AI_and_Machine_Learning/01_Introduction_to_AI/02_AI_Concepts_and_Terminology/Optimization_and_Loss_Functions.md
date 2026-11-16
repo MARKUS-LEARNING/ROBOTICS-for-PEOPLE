@@ -1,6 +1,6 @@
 ---
 title: Optimization and Loss Functions
-description: "Learning is optimisation: choose a loss that measures what you care about, then adjust parameters to minimise it. Covers the common losses (squared error, cross-entropy, Huber, KL), gradient descent with a computed example of good, perfect and divergent learning rates, SGD, momentum and Adam/AdamW, convex versus non-convex problems, and how the same tools run robot controllers, trajectory optimisation and system identification."
+description: "Learning is optimisation: choose a loss that measures what you care about, then adjust parameters to minimise it. Covers the common losses, gradient descent with a computed example of slow, exact and divergent learning rates, SGD, momentum and Adam/AdamW, convex versus non-convex problems, and how the same tools run robot controllers, trajectory optimisation and system identification."
 aliases:
   - Loss Function
   - Gradient Descent

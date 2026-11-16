@@ -1,6 +1,6 @@
 ---
 title: Supervised Learning
-description: "Supervised learning fits a model to examples of inputs paired with correct outputs, for classification (which category?) and regression (how much?). Covers the setup, common models, how to measure performance with a worked grasp-success confusion matrix, where labels come from in robotics (human annotation, self-supervision from robot outcomes, simulation, foundation-model auto-labelling), and imitation learning as supervised learning of actions."
+description: "Supervised learning fits a model to examples of inputs paired with correct outputs, for classification (which category?) and regression (how much?). Covers the workflow, common models, metrics with a worked grasp-success confusion matrix, where robot labels come from (people, robot outcomes, simulation, foundation-model auto-labelling), and imitation learning as supervised learning of actions."
 aliases:
   - Supervised Machine Learning
 tags:

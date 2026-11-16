@@ -1,6 +1,6 @@
 ---
 title: Actions
-description: "ROS 2 actions are the interface for long-running goals: a client sends a goal, the server streams feedback, and either side can end it with a result or a cancellation. Covers the .action format, the goal state machine, a correct rclpy server and client (including the cancel callback and executor details that trip people up), when to use actions instead of topics or services, and command-line tools."
+description: "ROS 2 actions are the interface for long-running goals: a client sends a goal, the server streams feedback, and either side can end it with a result or a cancellation. Covers the .action format, the goal state machine, a correct rclpy server and client (including the cancel callback and executor details that trip people up), when to use actions instead of topics or services, and the command line."
 aliases:
   - ROS Actions
   - Action Server

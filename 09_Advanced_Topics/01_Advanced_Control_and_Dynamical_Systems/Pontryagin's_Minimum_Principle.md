@@ -1,6 +1,6 @@
 ---
 title: Pontryagin's Minimum Principle
-description: "Pontryagin's minimum (maximum) principle gives necessary conditions for an optimal trajectory using costates and the Hamiltonian, without solving for the value function everywhere. Covers the conditions, a worked minimum-time example (bang-bang control of a double integrator: 1 m in 2 s with one switch), singular arcs, and how the principle underlies indirect trajectory optimisation and explains the bang-bang motions of time-optimal robots."
+description: "Pontryagin's minimum (maximum) principle gives necessary conditions for an optimal trajectory using costates and the Hamiltonian, without solving for the value function everywhere. Covers the conditions, a worked minimum-time example (bang-bang control of a double integrator: 1 m in 2 s with one switch), singular arcs, and its role in trajectory optimisation."
 aliases:
   - Pontryagin's Maximum Principle
   - Pontryagin Minimum Principle

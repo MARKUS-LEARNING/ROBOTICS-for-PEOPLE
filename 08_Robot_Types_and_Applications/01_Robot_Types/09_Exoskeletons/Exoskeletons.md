@@ -1,6 +1,6 @@
 ---
 title: Exoskeletons
-description: "Exoskeletons are wearable robots that add strength, support or assistance to a person's own movement: medical devices for walking after spinal cord injury or stroke, industrial suits that reduce strain, and soft exosuits that cut the energy cost of walking. Covers types, how assistance is controlled, a computed assistance-power example, the learning-based advances of 2022–2024 (real-world personalisation, deep-network joint-moment estimation), and open problems."
+description: "Exoskeletons are wearable robots that add strength, support or assistance to a person's movement: medical devices for walking after injury or stroke, industrial suits that reduce strain, and soft exosuits that cut the energy cost of walking. Covers types, control of assistance, a computed assistance-power example, learning-based advances of 2022–2024, and open problems."
 aliases:
   - Exoskeleton
   - Exosuit

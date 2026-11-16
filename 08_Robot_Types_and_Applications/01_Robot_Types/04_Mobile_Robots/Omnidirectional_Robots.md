@@ -1,6 +1,6 @@
 ---
 title: Omnidirectional Robots
-description: "Omnidirectional robots can move in any direction and rotate at the same time, using mecanum wheels, omni wheels, swerve (independently steered) modules or ball drives. Covers how each works, mecanum-wheel kinematics with a computed sideways-motion example, trade-offs in efficiency and floor sensitivity, and where holonomic bases are used in 2026 (factory AGVs, mobile manipulators, wheeled humanoids)."
+description: "Omnidirectional robots can move in any direction and rotate at the same time, using mecanum wheels, omni wheels, swerve (independently steered) modules or ball drives. Covers how each works, mecanum-wheel kinematics with a computed sideways-motion example, trade-offs in efficiency and floor sensitivity, and where holonomic bases are used (factory AGVs, mobile manipulators, wheeled humanoids)."
 aliases:
   - Omnidirectional Robot
   - Holonomic Robots

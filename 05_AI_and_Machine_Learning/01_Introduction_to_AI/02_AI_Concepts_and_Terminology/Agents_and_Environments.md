@@ -1,6 +1,6 @@
 ---
 title: Agents and Environments
-description: "The agent–environment loop is the frame that connects AI, control and robotics: an agent perceives, decides and acts in an environment that responds. Covers the PEAS description of a task, the properties that make environments hard (partial observability, stochasticity, continuous time, other agents), agent architectures from reflexes to learning agents, a worked expected-utility decision, and 2026 agents that plan with language models."
+description: "The agent–environment loop is the frame that connects AI, control and robotics: an agent perceives, decides and acts in an environment that responds. Covers the PEAS description of a task, what makes environments hard (partial observability, randomness, continuous time, other agents), agent architectures, a worked expected-utility decision, and 2026 agents that plan with language models."
 aliases:
   - Intelligent Agents
   - Agent

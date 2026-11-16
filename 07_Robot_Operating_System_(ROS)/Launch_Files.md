@@ -1,6 +1,6 @@
 ---
 title: Launch Files
-description: "How ROS 2 starts a whole robot with one command: launch files in Python, XML or YAML that start nodes, pass parameters, remap topics, include other launch files and react to events. Covers the three formats side by side, parameters and remapping, the 2025–2026 additions (PathJoinSubstitution concatenation, per-message log levels, string-join and path-join substitutions), and how ROS 1 roslaunch maps across."
+description: "How ROS 2 starts a whole robot with one command: launch files in Python, XML or YAML that start nodes, pass parameters, remap topics, include other launch files and react to events. Covers the three formats side by side, parameters and remapping, the 2025–2026 additions (path concatenation, per-message log levels, string-join and path-join substitutions), and how ROS 1 roslaunch maps across."
 aliases:
   - ros2 launch
   - Launch File

@@ -1,6 +1,6 @@
 ---
 title: Drones
-description: "Drones (uncrewed aerial vehicles) are flying robots: multirotors, fixed-wing and hybrid VTOL aircraft. Covers how a quadrotor flies and is controlled, a computed hover-power and endurance estimate, autonomy stacks (state estimation, mapping, planning), learned flight control (champion-level racing with RL, 2023), the main applications, and the regulatory picture in late 2026, including the still-pending US Part 108 rule for beyond-visual-line-of-sight flight."
+description: "Drones (uncrewed aerial vehicles) are flying robots: multirotors, fixed-wing and hybrid VTOL aircraft. Covers how a quadrotor flies and is controlled, a computed hover-power and endurance estimate, autonomy, learned flight control (champion-level racing with RL, 2023), applications, and regulation in late 2026, including the pending US Part 108 rule for flight beyond visual line of sight."
 aliases:
   - Drone
   - UAV

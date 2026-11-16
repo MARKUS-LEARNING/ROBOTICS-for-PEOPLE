@@ -1,6 +1,6 @@
 ---
 title: Robot Hands
-description: "Robot hands and grippers are where a robot touches the world. Covers the spectrum from two-finger and suction grippers to multi-fingered dexterous hands, a computed grip-force example with friction, tactile sensing (vision-based fingertips such as GelSight and DIGIT), how dexterity is learned in 2026 (RL in simulation, teleoperation, human video), and why dexterous manipulation remains one of robotics' hardest open problems."
+description: "Robot hands and grippers are where a robot touches the world. Covers the spectrum from two-finger and suction grippers to multi-fingered dexterous hands, a computed grip-force example with friction, tactile sensing (vision-based fingertips such as GelSight and DIGIT), how dexterity is learned in 2026, and why dexterous manipulation remains one of robotics' hardest open problems."
 aliases:
   - Robot Hand
   - Grippers

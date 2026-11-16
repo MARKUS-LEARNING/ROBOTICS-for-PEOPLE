@@ -1,6 +1,6 @@
 ---
 title: Soft Robotics
-description: "Soft robots are made of compliant materials (silicones, fabrics, gels) that bend and stretch instead of rigid links and joints. Covers why softness helps (safety, adaptability, simple grasping), materials and actuation (pneumatic, cable, smart materials), a computed actuator-force and stiffness comparison, sensing, modelling and control (Cosserat rods, learned models, deformable simulation), applications, and limits."
+description: "Soft robots are made of compliant materials (silicones, fabrics, gels) that bend and stretch instead of rigid links and joints. Covers why softness helps, materials and actuation (pneumatic, cable, smart materials), a computed actuator-force and stiffness comparison, sensing, modelling and control (Cosserat rods, learned models, deformable simulation), applications, and limits."
 aliases:
   - Soft Robots
   - Soft Robot

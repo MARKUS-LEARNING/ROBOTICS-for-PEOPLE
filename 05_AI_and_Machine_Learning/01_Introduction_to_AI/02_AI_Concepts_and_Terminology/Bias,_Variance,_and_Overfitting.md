@@ -1,6 +1,6 @@
 ---
 title: Bias, Variance, and Overfitting
-description: "Why models fail to generalise: bias (too simple to capture the pattern), variance (so flexible it fits the noise), and the overfitting and underfitting they cause. Includes a reproducible polynomial-fitting experiment with train and test errors, the remedies (more data, regularisation, augmentation, early stopping), the modern 'double descent' picture, and the robotics version of overfitting: failing under distribution shift and the sim-to-real gap."
+description: "Why models fail to generalise: bias (too simple to capture the pattern), variance (so flexible it fits the noise), and the underfitting and overfitting they cause. Includes a reproducible polynomial-fitting experiment, the remedies (more data, regularisation, augmentation, early stopping), double descent, and the robotics version: failing under distribution shift and the sim-to-real gap."
 aliases:
   - Overfitting
   - Underfitting

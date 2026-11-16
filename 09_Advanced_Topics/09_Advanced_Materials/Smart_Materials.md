@@ -1,6 +1,6 @@
 ---
 title: Smart Materials
-description: "Smart materials change shape, stiffness or properties in response to a stimulus (heat, electric or magnetic field, light, moisture) and can act as actuators or sensors without conventional motors. Covers the main families (shape-memory alloys and polymers, piezoelectrics, electroactive polymers, magnetostrictive, liquid-crystal elastomers, magnetorheological fluids), a comparison table, computed examples, and where they are used in robots in 2026."
+description: "Smart materials change shape, stiffness or other properties in response to heat, electric or magnetic fields, or light, and can act as actuators or sensors without conventional motors. Covers the main families (shape-memory alloys and polymers, piezoelectrics, electroactive polymers, liquid-crystal elastomers, magnetorheological fluids), a comparison table, a computed example, and uses in robots."
 aliases:
   - Active Materials
   - Responsive Materials

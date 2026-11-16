@@ -1,6 +1,6 @@
 ---
 title: Neural Networks and Backpropagation
-description: "Backpropagation is the algorithm that trains neural networks: it applies the chain rule backwards through the network to get the gradient of the loss with respect to every weight in one pass. Covers the idea, the equations for a layer, a fully computed two-weight example with one update step, automatic differentiation in PyTorch and JAX, and the practical problems (vanishing gradients, initialisation, normalisation)."
+description: "Backpropagation is the algorithm that trains neural networks: it applies the chain rule backwards through the network to get the gradient of the loss for every weight in one pass. Covers the idea, the equations for a layer, a computed two-weight example with one update step, automatic differentiation in PyTorch and JAX, and practical problems (vanishing gradients, initialisation, normalisation)."
 aliases:
   - Backpropagation
   - Backprop

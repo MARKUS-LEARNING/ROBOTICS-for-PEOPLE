@@ -1,6 +1,6 @@
 ---
 title: Decision Trees and Rule-Based Systems
-description: "Decision trees learn if-then rules from data; rule-based systems are written by experts; behaviour trees organise a robot's actions. Covers how a tree chooses splits with a computed information-gain example on terrain data, random forests and gradient boosting (still the best tools for many tabular problems), expert systems, and behaviour trees as the standard way to structure robot tasks in 2026 (Nav2, BehaviorTree.CPP)."
+description: "Decision trees learn if-then rules from data; rule-based systems are written by experts; behaviour trees organise a robot's actions. Covers how a tree chooses splits with a computed information-gain example on terrain data, random forests and gradient boosting (still the best tools for many tabular problems), expert systems, and behaviour trees for structuring robot tasks (Nav2, BehaviorTree.CPP)."
 aliases:
   - Decision Tree
   - Random Forest

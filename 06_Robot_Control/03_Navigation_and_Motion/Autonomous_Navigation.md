@@ -1,6 +1,6 @@
 ---
 title: Autonomous Navigation
-description: "Autonomous navigation gets a robot from where it is to where it should be, safely and without a driver: localization, mapping, planning and control working together, indoors and outdoors. Covers the classical pipeline, a computed localization-accuracy budget for sidewalk delivery, GNSS and RTK, semantic and social navigation, and the learned navigation foundation models (ViNT, NoMaD) that emerged in 2023–2026."
+description: "Autonomous navigation gets a robot from where it is to where it should be, safely and without a driver: localization, mapping, planning and control working together. Covers the classical pipeline, a computed localization-accuracy budget for sidewalk delivery, GNSS and RTK, semantic and social navigation, and the learned navigation foundation models (ViNT, NoMaD) of 2023–2026."
 aliases:
   - Robot Navigation
   - Navigation

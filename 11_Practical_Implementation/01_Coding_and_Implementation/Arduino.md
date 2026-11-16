@@ -1,6 +1,6 @@
 ---
 title: Arduino
-description: "Arduino is the open hardware and software platform most people first use to make things move: microcontroller boards, a simple C++ framework and a huge library ecosystem. Covers the boards that matter in 2026 (UNO R4, Nano RP2040 Connect, Portenta), a computed serial-bandwidth example, typical robot jobs (motor control, sensors, safety I/O), connecting to ROS 2 via micro-ROS, and when to move to a more capable microcontroller."
+description: "Arduino is the open hardware and software platform most people first use to make things move: microcontroller boards, a simple C++ framework and a huge library ecosystem. Covers the boards that matter in 2026 (UNO R4, Nano RP2040 Connect, Portenta), a computed serial-bandwidth example, typical robot jobs, connecting to ROS 2 via micro-ROS, and when to move to a more capable microcontroller."
 aliases:
   - Arduino Uno
   - Arduino IDE

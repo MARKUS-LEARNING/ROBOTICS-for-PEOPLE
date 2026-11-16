@@ -1,6 +1,6 @@
 ---
 title: Cable-Driven Robots
-description: "Cable-driven robots move by pulling cables or tendons: cable-driven parallel robots that hang a platform from winches (stadium cameras, the FAST radio telescope's feed cabin, large-scale 3D printing), and tendon-driven arms and hands with motors kept away from the joints. Covers why cables help, the rule that cables can only pull, a computed tension example that shows why near-horizontal cables are a problem, and current uses."
+description: "Cable-driven robots move by pulling cables or tendons: cable-driven parallel robots that hang a platform from winches (stadium cameras, the FAST radio telescope's feed cabin), and tendon-driven arms and hands with motors kept away from the joints. Covers why cables help, the rule that cables can only pull, a computed tension example showing why near-horizontal cables are a problem, and uses."
 aliases:
   - Cable-Driven Parallel Robots
   - CDPR

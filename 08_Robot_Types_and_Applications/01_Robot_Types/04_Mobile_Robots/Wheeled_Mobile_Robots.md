@@ -1,6 +1,6 @@
 ---
 title: Wheeled Mobile Robots
-description: "Wheeled robots are the most common mobile robots: differential drive, Ackermann (car-like), skid-steer, omnidirectional and balancing designs. Covers each drive's kinematics and constraints, a computed differential-drive example (speed, turn rate and turning radius from wheel speeds), why some robots cannot move sideways (nonholonomic constraints), odometry error, and the ROS 2 controllers that implement them."
+description: "Wheeled robots are the most common mobile robots: differential drive, Ackermann (car-like), skid-steer, omnidirectional and balancing designs. Covers each drive's kinematics and constraints, a computed differential-drive example (speed, turn rate and turning radius from wheel speeds), why some robots cannot move sideways (nonholonomic constraints), odometry error, and the ROS 2 controllers."
 aliases:
   - Wheeled Robots
   - Differential Drive

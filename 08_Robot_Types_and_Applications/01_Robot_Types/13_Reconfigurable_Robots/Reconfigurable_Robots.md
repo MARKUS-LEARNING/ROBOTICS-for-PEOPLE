@@ -1,6 +1,6 @@
 ---
 title: Reconfigurable Robots
-description: "Reconfigurable robots change their own shape or structure to suit the task: self-reconfigurable modular robots that rearrange identical units, reconfigurable manufacturing cells, and robots with morphing bodies. Covers types, how reconfiguration is planned, a computed example of how fast the number of possible shapes grows, landmark systems (M-TRAN, M-Blocks, Roombots), and why practical use is still limited in 2026."
+description: "Reconfigurable robots change their own shape or structure to suit the task: modular robots that rearrange identical units, reconfigurable manufacturing cells, and robots with morphing bodies. Covers types, how reconfiguration is planned, a computed example of how fast the number of possible shapes grows, landmark systems (M-TRAN, M-Blocks, Roombots), and why practical use is still limited."
 aliases:
   - Self-Reconfigurable Robots
   - Reconfigurable Robot

@@ -1,6 +1,6 @@
 ---
 title: Material Science
-description: "Materials science for robot builders: the properties that matter (stiffness, strength, density, fatigue, damping, thermal and electrical behaviour), choosing materials by performance indices with a computed specific-stiffness comparison of aluminium, steel, titanium and carbon fibre, manufacturing routes, and the materials trends shaping robots in 2026 (composites, engineering polymers, soft and active materials)."
+description: "Materials science for robot builders: the properties that matter (stiffness, strength, density, fatigue, damping, thermal and electrical behaviour), choosing materials by performance indices with a computed specific-stiffness comparison of aluminium, steel, titanium and carbon fibre, and the materials trends shaping robots in 2026 (composites, engineering polymers, soft and active materials)."
 aliases:
   - Materials Science
   - Materials for Robotics

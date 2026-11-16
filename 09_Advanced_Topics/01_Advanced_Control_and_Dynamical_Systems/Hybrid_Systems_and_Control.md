@@ -1,6 +1,6 @@
 ---
 title: Hybrid Systems and Control
-description: "Hybrid systems mix continuous dynamics with discrete jumps or mode switches: feet touching down, grippers closing, controllers switching. Covers the hybrid-automaton model, a computed bouncing-ball example including Zeno behaviour (infinitely many bounces in about 4 s), stability under switching, walking robots as hybrid systems (hybrid zero dynamics), and how contact-rich simulation and learning handle hybrid dynamics in 2026."
+description: "Hybrid systems mix continuous dynamics with discrete jumps or mode switches: feet touching down, grippers closing, controllers switching. Covers the hybrid-automaton model, a computed bouncing-ball example with Zeno behaviour (infinitely many bounces in about 4 s), stability under switching, walking robots as hybrid systems, and how contact-rich simulation and learning handle hybrid dynamics."
 aliases:
   - Hybrid Systems
   - Hybrid Dynamical Systems

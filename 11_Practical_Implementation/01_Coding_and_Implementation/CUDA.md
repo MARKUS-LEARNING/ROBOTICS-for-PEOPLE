@@ -1,6 +1,6 @@
 ---
 title: CUDA
-description: "CUDA is NVIDIA's platform for programming GPUs, the hardware that trains and runs robot learning models and powers massively parallel simulation. Covers the programming model (kernels, threads, memory), why robotics needs it (simulation, perception, learning, GPU planning), Amdahl's law with a computed limit on speed-up, embedded GPUs (Jetson Thor), and the higher-level tools most people use instead of raw CUDA in 2026."
+description: "CUDA is NVIDIA's platform for programming GPUs, the hardware that trains and runs robot learning models and powers massively parallel simulation. Covers the programming model (kernels, threads, memory), why robotics needs it, Amdahl's law with a computed limit on speed-up, embedded GPUs (Jetson Thor), and the higher-level tools most people use instead of raw CUDA in 2026."
 aliases:
   - GPU Programming
   - CUDA Programming

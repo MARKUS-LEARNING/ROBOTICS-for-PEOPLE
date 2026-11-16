@@ -1,6 +1,6 @@
 ---
 title: Nanorobots
-description: "Nanorobots and microrobots are tiny machines, usually driven by external magnetic fields, light or ultrasound, or by chemistry or living cells, intended for medicine and micromanipulation. Covers the honest size range (mostly micrometres, not nanometres), propulsion at low Reynolds number, magnetic actuation, imaging and control, the 2025 large-animal results, and remaining barriers to clinical use."
+description: "Nanorobots and microrobots are tiny machines, usually driven by external magnetic fields, light or ultrasound, or by chemistry or living cells, intended for medicine and micromanipulation. Covers the honest size range (mostly micrometres, not nanometres), propulsion at low Reynolds number, magnetic actuation, imaging and control, the 2025 large-animal results, and barriers to clinical use."
 aliases:
   - Microrobots
   - Nanorobot

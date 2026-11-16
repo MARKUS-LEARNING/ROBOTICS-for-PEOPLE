@@ -1,6 +1,6 @@
 ---
 title: Swarm Robots
-description: "Swarm robotics coordinates many simple robots through local rules and local communication, so that useful group behaviour emerges without a central controller. Covers the principles (decentralisation, scalability, robustness), coordination mechanisms (flocking, stigmergy, consensus), landmark systems (Kilobots, termite-inspired builders, micro-drone swarms), a computed communication-scaling example, how swarms differ from fleets, and the 2026 state of the field."
+description: "Swarm robotics coordinates many simple robots through local rules and local communication, so useful group behaviour emerges with no central controller. Covers the principles, coordination mechanisms (flocking, stigmergy, consensus), landmark systems (Kilobots, TERMES, micro-drone swarms), a computed communication-scaling example, and how swarms differ from centrally managed fleets."
 aliases:
   - Swarm Robotics
   - Robot Swarms

@@ -1,6 +1,6 @@
 ---
 title: Active Perception and Sensing
-description: "Active perception chooses where to look, move or touch in order to perceive better, instead of passively processing whatever sensors receive. Covers the idea, information gain with a computed entropy example, next-best-view planning for 3D reconstruction, active search and interactive perception (pushing and probing), and how learned policies and vision-language models decide where to look in 2026."
+description: "Active perception chooses where to look, move or touch in order to perceive better, instead of passively processing whatever sensors receive. Covers the idea, information gain with a computed entropy example, next-best-view planning for 3D reconstruction, active search and interactive perception (pushing and probing), and how learned policies and vision-language models decide where to look."
 aliases:
   - Active Perception
   - Active Vision

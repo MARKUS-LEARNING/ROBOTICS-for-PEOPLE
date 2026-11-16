@@ -1,6 +1,6 @@
 ---
 title: Adaptive Control
-description: "Adaptive control adjusts a controller's parameters while it runs, to cope with unknown or changing dynamics such as an unknown payload. Covers model-reference and self-tuning approaches, Slotine–Li adaptive control for robot arms with a simulated example in which the controller learns an unknown link mass and its tracking error falls 150-fold, conditions for convergence, and the learned descendant: rapid motor adaptation in legged robots."
+description: "Adaptive control adjusts a controller's parameters while it runs, to cope with unknown or changing dynamics such as an unknown payload. Covers the main approaches, Slotine–Li adaptive control for robot arms with a simulated example in which the controller learns a link's mass and tracking error falls 150-fold, conditions for convergence, and learned adaptation in legged robots."
 aliases:
   - Adaptive Controller
   - MRAC

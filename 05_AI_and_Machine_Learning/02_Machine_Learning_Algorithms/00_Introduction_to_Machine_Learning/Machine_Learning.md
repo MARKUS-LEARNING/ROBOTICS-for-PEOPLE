@@ -1,6 +1,6 @@
 ---
 title: Machine Learning
-description: "Machine learning is how a program improves at a task from data instead of from hand-written rules. Covers the three classic settings (supervised, unsupervised, reinforcement) plus self-supervised pretraining, the train–validate–test discipline, a fully computed sensor-calibration example, why deep learning and scale took over, and what machine learning does and does not yet do well on robots in 2026."
+description: "Machine learning is how a program improves at a task from data instead of from hand-written rules. Covers the three classic settings (supervised, unsupervised, reinforcement) plus self-supervised pretraining, the train–validate–test discipline, a fully computed sensor-calibration example, why deep learning and scale took over, and what machine learning does and does not yet do well on robots."
 aliases:
   - ML
 tags:
