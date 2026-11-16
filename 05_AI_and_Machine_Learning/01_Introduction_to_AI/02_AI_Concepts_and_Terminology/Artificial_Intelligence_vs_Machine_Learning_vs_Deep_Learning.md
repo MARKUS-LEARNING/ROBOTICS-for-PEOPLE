@@ -1,117 +1,84 @@
 ---
 title: Artificial Intelligence vs Machine Learning vs Deep Learning
-description: This entry compares and contrasts Artificial Intelligence (AI), Machine Learning (ML), and Deep Learning (DL), highlighting their roles, relationships, and applications in the field of robotics.
+description: "How the terms nest: artificial intelligence is the goal, machine learning is one way to reach it (learning from data), deep learning is one kind of machine learning (many-layered neural networks), and foundation models are deep networks pretrained at scale. With one robot task solved four ways to show the difference, and a guide to which approach fits which robotics problem in 2026."
+aliases:
+  - AI vs ML vs DL
 tags:
   - artificial-intelligence
   - machine-learning
   - deep-learning
-  - mobile-robot
+  - foundation-models
 type: concept
 level: beginner
 subfield:
   - robot-learning
-status: draft
+  - foundations
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
   - "[[Artificial_Intelligence]]"
 related:
-  - "[[Artificial_Intelligence]]"
   - "[[Machine_Learning]]"
-  - "[[Deep_Learning_in_Robotics]]"
-  - "[[Robot_Control]]"
-  - "[[Neural_Networks]]"
+  - "[[Deep_Learning]]"
+  - "[[Vision-Language-Action_Models]]"
+  - "[[Embodied_AI]]"
+key_takeaways:
+  - "AI ⊃ machine learning ⊃ deep learning ⊃ foundation models: each is a subset of the one before."
+  - "Not all AI learns (search, planning and logic are AI too), and not all learning is deep (linear models, trees and Gaussian processes are machine learning)."
+  - "Pick the simplest approach that meets the requirement: hand-written logic for safety rules, classical ML for small tabular problems, deep learning for perception, foundation models when open-ended generalisation is worth their cost."
+sources:
+  - "Russell, S. and Norvig, P. (2020). Artificial Intelligence: A Modern Approach, 4th edition. https://aima.cs.berkeley.edu/"
+  - "Goodfellow, I., Bengio, Y. and Courville, A. (2016). Deep Learning, chapter 1 (figure 1.4: AI, ML, representation learning, DL). https://www.deeplearningbook.org/"
+  - "LeCun, Y., Bengio, Y. and Hinton, G. (2015). Deep learning. https://www.nature.com/articles/nature14539"
+  - "Bommasani, R. et al. (2021). On the Opportunities and Risks of Foundation Models. https://arxiv.org/abs/2108.07258"
 ---
 
 # Artificial Intelligence vs Machine Learning vs Deep Learning
 
-This entry compares and contrasts **Artificial Intelligence (AI)**, **Machine Learning (ML)**, and **Deep Learning (DL)**, highlighting their roles, relationships, and applications in the field of robotics. Understanding these concepts is essential for grasping how modern robotic systems are designed and implemented.
+The three terms are often used interchangeably, but they are nested, each a subset of the one before:
 
----
+```
+Artificial intelligence  (machines that act intelligently, by any method)
+└── Machine learning      (… by learning from data)
+    └── Deep learning     (… using many-layered neural networks)
+        └── Foundation models (… pretrained at very large scale, then adapted)
+```
 
-## Key Concepts
+> **Etymology.** *Artificial intelligence* was named in 1955 (McCarthy et al.), *machine learning* in 1959 (Samuel), *deep learning* in the 2000s, and *foundation model* in 2021 by a Stanford report (Bommasani et al.).
 
-### Artificial Intelligence (AI)
+## The differences in one table
 
-**Artificial Intelligence** refers to the simulation of human intelligence in machines that are programmed to think, learn, and make decisions. AI encompasses a broad range of techniques and approaches aimed at creating systems capable of performing tasks that typically require human intelligence, such as visual perception, speech recognition, decision-making, and language translation.
+| | Artificial intelligence | Machine learning | Deep learning | Foundation models |
+|---|---|---|---|---|
+| What it is | The goal: intelligent behaviour | Learning behaviour from data | ML with deep neural networks | Deep networks pretrained on huge, broad data |
+| Includes | Search, planning, logic, probability, learning | Linear models, trees, kernels, neural networks | CNNs, RNNs, transformers, diffusion models | LLMs, VLMs, CLIP, DINOv2, VLAs |
+| Who writes the knowledge | People write rules or models | People choose features; data sets the parameters | Data sets features *and* parameters | Mostly data, much of it from the web |
+| Data needed | None to some | Hundreds to thousands of examples | Thousands to millions | Billions of tokens or images to pretrain; little to adapt |
+| Robotics example | A* path planner, STRIPS task planner | Boosted trees predicting motor faults | CNN detector, RL locomotion policy | VLA following spoken instructions |
 
-### Machine Learning (ML)
+## One task, four ways: "sort recyclables on a conveyor"
 
-**Machine Learning** is a subset of AI that involves the development of algorithms that allow machines to learn from and make decisions based on data. ML focuses on building systems that can learn and improve from experience without being explicitly programmed. It includes techniques such as supervised learning, unsupervised learning, and reinforcement learning.
+1. **AI without learning.** Rules: "if the object is metallic (inductive sensor) → bin A; if transparent (light sensor) → bin B." Predictable and certifiable, but it fails on anything the rules did not foresee.
+2. **Classical machine learning.** Hand-designed features (colour histogram, shape, weight) feed a random forest trained on a few thousand labelled items. Better coverage; needs feature engineering.
+3. **Deep learning.** A CNN trained on tens of thousands of labelled images learns its own features. High accuracy on the trained categories; retraining is needed for new ones.
+4. **Foundation model.** An open-vocabulary detector or VLM, prompted with "aluminium can, PET bottle, cardboard", recognises new items with few or no new labels. It is the most flexible, but heavier to run and harder to certify.
 
-### Deep Learning (DL)
+Real systems mix them: a foundation model labels data, a small deep network runs on the line, and hand-written rules handle safety and jams.
 
-**Deep Learning** is a subset of machine learning that uses multi-layered neural networks to model and solve complex problems. DL is particularly effective for tasks involving large amounts of data, such as image and speech recognition, natural language processing, and autonomous decision-making. It leverages neural networks with many layers to extract high-level features from raw input data.
+## Which approach when (robotics, 2026)
 
----
+| Need | Usually best |
+|---|---|
+| Hard guarantees (safety limits, interlocks) | Hand-written logic and classical control |
+| Small tabular data (diagnostics, battery health) | Classical ML (gradient-boosted trees) |
+| Real-time perception of known categories | Compact deep networks |
+| Open-ended instructions, novel objects | Foundation models (VLMs, VLAs), with classical safety layers |
+| Locomotion and agile control | Deep RL trained in simulation |
 
-## Comparative Overview
-
-### Relationships
-
-- **AI** is the broadest concept, encompassing both **ML** and **DL**.
-- **ML** is a specific approach within AI, focusing on learning from data.
-- **DL** is a specialized form of ML, using deep neural networks to model complex patterns.
-
-### Applications in Robotics
-
-- **AI** is used in robotics for tasks such as reasoning, planning, and natural language processing.
-- **ML** is applied in robotics for tasks such as object recognition, navigation, and control.
-- **DL** is utilized in robotics for tasks such as image and speech recognition, autonomous navigation, and complex decision-making.
-
----
-
-## Mathematical Formulation
-
-### Linear Regression in ML
-
-Linear regression is a supervised learning technique used to model the relationship between a dependent variable and one or more independent variables. The linear regression model can be represented as:
-
-$$
-y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \ldots + \beta_n x_n + \epsilon
-$$
-
-where:
-- $y$ is the dependent variable.
-- $x_1, x_2, \ldots, x_n$ are the independent variables.
-- $\beta_0, \beta_1, \ldots, \beta_n$ are the regression coefficients.
-- $\epsilon$ is the error term.
-
-### Neural Network in DL
-
-A neural network in deep learning consists of layers of interconnected nodes (neurons) that process and transmit information. The output of a neuron in a neural network can be represented as:
-
-$$
-y = \sigma \left( \sum_{i=1}^{n} w_i x_i + b \right)
-$$
-
-where:
-- $y$ is the output of the neuron.
-- $x_i$ is the input to the neuron.
-- $w_i$ is the weight of the connection.
-- $b$ is the bias term.
-- $\sigma$ is the activation function.
-
-### Example: Autonomous Navigation
-
-Consider a robotic system using AI, ML, and DL for autonomous navigation. The AI system plans the overall navigation strategy, the ML model learns to recognize and avoid obstacles based on sensor data, and the DL model processes visual data to identify and interpret the environment, enabling the robot to navigate and reach its destination.
-
----
-
-## Applications in Robotics
-
-- **Autonomous Navigation**: AI, ML, and DL are used to enable robots to navigate through their environment, avoiding obstacles and reaching destinations.
-- **Object Recognition**: ML and DL are used to recognize and classify objects in the environment, enabling tasks such as grasping and manipulation.
-- **Decision Making**: AI and ML are used to make decisions under uncertainty, adapting to changing conditions and performing tasks effectively.
-- **Control Systems**: AI, ML, and DL are used to design control algorithms that regulate the behavior of robotic systems, enabling precise and adaptive control.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Artificial_Intelligence_vs_Machine_Learning_vs_Deep_Learning]])

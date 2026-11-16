@@ -1,107 +1,91 @@
 ---
-title: "Ethical and Social Implications (# AI & Robotics)"
-description: This entry explores the ethical and social implications of AI and robotics, addressing the challenges and considerations in their development and deployment, and their impact on society.
+title: Ethical and Social Implications
+description: "The ethical and social questions raised by AI-driven robots: physical safety of learned behaviour, privacy of always-on sensors, bias, work and jobs, accountability, dual use and autonomous weapons, and environmental cost. Covers the 2025–2026 rules that apply (EU AI Act and its 2026 amendments, EU Machinery Regulation, ISO 10218:2025, NIST AI RMF) and practical habits for people who build robots."
+aliases:
+  - Robot Ethics
+  - AI Ethics
+  - Roboethics
 tags:
   - ethics
-  - social-impact
+  - safety
+  - regulation
   - artificial-intelligence
-type: concept
-level: intermediate
+type: overview
+level: beginner
 subfield:
   - ethics-society
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-related:
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
   - "[[Artificial_Intelligence]]"
-  - "[[Robotics]]"
-  - "[[Ethics]]"
-  - "[[Societal_Impact]]"
-  - "[[Machine_Learning]]"
+related:
+  - "[[Embodied_AI]]"
+  - "[[Vision-Language-Action_Models]]"
+  - "[[Industrial_Arms]]"
+  - "[[Humanoid_Robots]]"
+key_takeaways:
+  - "Robots turn AI errors into physical events, so safety (and proving it) is the first ethical obligation; learned policies make that harder because their failures are hard to predict."
+  - "Rules are arriving: the EU AI Act (amended in 2026 to delay high-risk obligations to December 2027 and, for AI inside regulated products such as machinery, August 2028), the EU Machinery Regulation from January 2027, and the revised ISO 10218 robot-safety standards (2025)."
+  - "Beyond safety: privacy of cameras and microphones in homes and workplaces, fair performance across people, effects on work, clear accountability, and refusing harmful uses."
+sources:
+  - "European Union (2024). Regulation (EU) 2024/1689: the Artificial Intelligence Act. https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+  - "Addleshaw Goddard (2026). EU AI Act: AI Omnibus formally adopted. https://www.addleshawgoddard.com/en/insights/insights-briefings/2026/technology/eu-ai-act-ai-omnibus-formally-adopted/"
+  - "European Union (2023). Regulation (EU) 2023/1230 on machinery products. https://eur-lex.europa.eu/eli/reg/2023/1230/oj"
+  - "ISO (2025). ISO 10218-1:2025 Robotics — Safety requirements — Part 1: Industrial robots. https://www.iso.org/standard/73933.html"
+  - "NIST (2023). AI Risk Management Framework (AI RMF 1.0). https://www.nist.gov/itl/ai-risk-management-framework"
+  - "Bommasani, R. et al. (2021). On the Opportunities and Risks of Foundation Models. https://arxiv.org/abs/2108.07258"
 ---
 
-# Ethical and Social Implications (# AI & Robotics)
+# Ethical and Social Implications
 
-This entry explores the **ethical and social implications** of AI and robotics, addressing the challenges and considerations in their development and deployment, and their impact on society. As AI and robotics technologies advance, they bring significant benefits but also pose ethical dilemmas and societal challenges that need to be carefully managed.
+AI that runs on a robot acts in the physical world. A chatbot's mistake is a wrong sentence; a robot's mistake can be a broken object, an injured person or a leaked video of someone's home. The ethics of robotics is therefore practical: what to build, how to make it safe, whose data it uses, who answers when it fails.
 
----
+> **Etymology.** *Ethics* is from Greek *ēthikos*, "of character", from *ēthos*, "custom, character". *Roboethics* was coined by Gianmarco Veruggio in 2002 for the ethics of the people who design and use robots. Asimov's fictional Three Laws (1942) started the public conversation, but they are a plot device, not an engineering method.
 
-## Key Concepts
+## The main issues
 
-### Ethical Considerations
+| Issue | Why robots make it sharper | What builders do |
+|---|---|---|
+| **Physical safety** | Learned policies can behave unpredictably outside their training data; humanoids and mobile manipulators work near people | Safety-rated stops, speed and force limits, independent monitors under the AI, testing on held-out conditions, staged deployment |
+| **Privacy** | Cameras, depth sensors and microphones in homes, hospitals and workplaces; recorded data used for training | Minimise and blur, on-device processing, clear consent, retention limits, opt-outs for training use |
+| **Bias and fairness** | Perception can work worse for some skin tones, body shapes, accents or mobility aids | Evaluate per group, diversify data, design for accessibility |
+| **Work and jobs** | Automation moves from factories into logistics, retail, care and homes | Plan for transition and retraining; design robots to assist workers |
+| **Accountability** | When a learned system fails, it is unclear whether the cause was the data, the model, the integrator or the operator | Logging (black-box recorders), documented data and models, clear responsibility in contracts and regulation |
+| **Dual use and weapons** | Navigation, perception and autonomy transfer to weapons; debate on lethal autonomous weapons continues at the UN | Use policies, export controls, refusing harmful applications |
+| **Environmental cost** | Training large models and building hardware use energy and materials | Efficient models, repairable hardware, measuring the footprint |
 
-Ethical considerations in AI and robotics involve ensuring that these technologies are developed and used in ways that respect human rights, privacy, and autonomy. This includes addressing issues such as bias, discrimination, and the potential for misuse in areas like surveillance and autonomous weapons.
+## Rules that apply (as of November 2026)
 
-### Social Impact
+- **EU Artificial Intelligence Act** (Regulation 2024/1689). In force since August 2024, with prohibitions from February 2025 and general-purpose-model duties from August 2025.
+  - A "Digital Omnibus" amendment, adopted in mid-2026, postponed the high-risk obligations: to **2 December 2027** for stand-alone high-risk systems, and to **2 August 2028** for AI built into products already regulated by EU product law, which includes AI safety components of robots and machinery.
+  - Check the Official Journal for the consolidated text.
+- **EU Machinery Regulation** (2023/1230). Replaces the Machinery Directive from **20 January 2027** and explicitly covers machines whose behaviour is shaped by self-learning software.
+- **ISO 10218-1 and -2:2025.** The revised industrial-robot safety standards, published February 2025, integrate collaborative-robot requirements. ISO 13482 covers personal care robots.
+- **NIST AI Risk Management Framework** (US, 2023). A voluntary framework for governing, mapping, measuring and managing AI risk, widely used by companies.
 
-The social impact of AI and robotics encompasses their effects on employment, social interactions, and cultural norms. These technologies can lead to job displacement, changes in social dynamics, and new forms of interaction that need to be understood and managed.
+Regulation is changing quickly. Treat this list as a starting point and check the current texts.
 
-### Regulatory Frameworks
+## Learned policies raise new questions
 
-Regulatory frameworks are essential for guiding the ethical development and deployment of AI and robotics. These frameworks include standards, guidelines, and laws that ensure these technologies are used responsibly and for the benefit of society.
+[[Vision-Language-Action_Models|Robot foundation models]] can be told what to do in plain language. That raises questions classical industrial robots never did:
+- Who may instruct the robot?
+- How does it refuse unsafe or harmful instructions?
+- How do you certify a system whose behaviour depends on billions of learned parameters?
 
-### Bias and Discrimination
+Current practice keeps learned components *above* certified safety layers, so the AI decides what to do but cannot override force limits or emergency stops. Researchers are developing physical-safety benchmarks and formal "safety filters" that check commands before execution.
 
-Bias and discrimination in AI systems can arise from flawed data or algorithms, leading to unfair outcomes and reinforcing existing inequalities. Addressing these issues is crucial for developing equitable and just AI applications.
+## Habits for people who build robots
 
----
+1. Write down what the robot must never do, and enforce it outside the learned model.
+2. Test where it will fail: new people, new objects, bad lighting, edge cases.
+3. Collect only the data you need; tell people what you record and why.
+4. Log enough to explain incidents.
+5. Ask who benefits and who bears the risk, before deployment rather than after.
 
-## Ethical and Social Challenges
-
-### Job Displacement
-
-The advancement of AI and robotics can lead to significant job displacement, particularly in sectors like manufacturing, elder care, and agriculture. This poses challenges for workforce transition and economic stability, requiring strategies for retraining and supporting affected workers.
-
-### Privacy Concerns
-
-Privacy concerns arise from the use of AI in surveillance and data collection, where the potential for misuse and unauthorized access to personal information can threaten individual autonomy and freedom.
-
-### Autonomous Weapons
-
-The development of autonomous weapons raises ethical and legal challenges, particularly concerning the delegation of life-and-death decisions to machines. This necessitates robust frameworks to ensure accountability and human oversight.
-
-### Social and Political Environments
-
-AI and robotics can influence social and political environments by enabling new forms of surveillance and control, which may impact individual autonomy and societal norms. This requires careful consideration of their deployment and use.
-
----
-
-## Mathematical Formulation
-
-### Bias Measurement
-
-Bias in AI systems can be measured using metrics that evaluate the disparity in outcomes across different groups. For example, demographic parity can be assessed by:
-
-$$
-D = \frac{1}{n} \sum_{i=1}^{n} |P(\hat{Y}=1|G=g_i) - P(\hat{Y}=1|G=g_j)|
-$$
-
-where:
-- $D$ is the disparity measure.
-- $n$ is the number of groups.
-- $P(\hat{Y}=1|G=g_i)$ is the probability of a positive outcome for group $g_i$.
-- $P(\hat{Y}=1|G=g_j)$ is the probability of a positive outcome for group $g_j$.
-
-### Example: Ethical AI Deployment
-
-Consider a robotic system designed for healthcare applications. The system uses AI to diagnose and recommend treatments, ensuring that the algorithms are free from bias and respect patient privacy. The deployment of this system involves adherence to regulatory frameworks that promote transparency, accountability, and fairness, ensuring that the technology benefits all patients equitably.
-
----
-
-## Applications in Robotics
-
-- **Healthcare**: Ethical AI and robotics are used to improve diagnostics and treatment, ensuring that patient data is handled responsibly and that decisions are made fairly.
-- **Education**: AI and robotics can enhance learning experiences, providing personalized education while addressing concerns about data privacy and equity.
-- **Criminal Justice**: Ethical considerations in AI are crucial for applications in criminal justice, ensuring that decisions are made without bias and with respect for individual rights.
-- **Military**: The use of AI in military applications requires strict ethical guidelines to prevent misuse and ensure accountability in autonomous systems.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Ethical_and_Social_Implications]])
