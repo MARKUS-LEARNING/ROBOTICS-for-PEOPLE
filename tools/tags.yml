@@ -305,6 +305,7 @@ vocabulary:
   - configuration
   - configuration-space
   - constraints
+  - contributing
   - control
   - control-theory
   - convention
@@ -409,6 +410,7 @@ vocabulary:
   - knowledge-representation
   - lagrangian-dynamics
   - launch
+  - learning-paths
   - legged-robot
   - lidar
   - lidar-calibration

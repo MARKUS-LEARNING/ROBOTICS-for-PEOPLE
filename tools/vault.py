@@ -380,6 +380,8 @@ def check_note(n: Note, v: Vault, schema: dict, tm: TagMap, subfields: set, L: L
                         L.add('error', 'field-wikilink', n.path, f'`{f}` item {item!r} is not a [[wikilink]]')
                     elif v.resolve(lk, n) is None:
                         L.add('warning' if f == 'related' else 'error', f'{f}-unresolved', n.path, f'`{f}` points to missing note [[{lk.target}]]')
+    if unclosed_fence(n.body):
+        L.add('error', 'fence-unclosed', n.path, 'the note ends inside a code block that is never closed (run `vault.py fix-fences --write`)')
     for t in n.invalid_tags:
         L.add('error', 'tag-invalid', n.path, f'tag `{t}` is not a valid Obsidian tag (no spaces or punctuation like +), so Obsidian ignores it')
     if not FILENAME_OK.match(n.name):
@@ -747,6 +749,367 @@ def cmd_fix_dataview(a):
     print(f'{changed} notes have Dataview queries to update' + ('' if a.write else ' (dry run; --write to apply)'))
 
 
+# ------------------------------------------------------------------------------------------------------------ fix-fences
+def unclosed_fence(body: str) -> str | None:
+    """The opening fence (e.g. '```') if the note ends inside a code block that was never closed, else None."""
+    fence = None
+    for line in body.split('\n'):
+        m = FENCE.match(line)
+        if fence is None and m:
+            fence = m.group(2)[0] * len(m.group(2)); continue
+        if fence is not None and m and m.group(2).startswith(fence) and not m.group(3).strip():
+            fence = None
+    return fence
+
+
+def cmd_fix_fences(a):
+    """Close code blocks left open at the end of a note. Obsidian tolerates them; GitHub, Quartz and Dataview tooling do not."""
+    v = Vault(); fixed = 0
+    for n in v.notes:
+        f = unclosed_fence(n.body)
+        if f:
+            fixed += 1
+            if a.write:
+                with open(os.path.join(ROOT, n.path), 'w', encoding='utf-8') as fh:
+                    fh.write(n.raw.rstrip('\n') + '\n' + f + '\n')
+    print(f'{fixed} notes end inside an unclosed code block' + (' (closed)' if a.write else ' (dry run; --write to close them)'))
+
+
+# ------------------------------------------------------------------------------------------------------------- fix-links
+def near_miss_index(v: Vault) -> dict:
+    """Normalized spellings -> note: 'machine learning', 'Reinforcement Learning (RL)', 'Torques' all find their note."""
+    def norm(s):
+        return re.sub(r'[\s\-_]+', '_', re.sub(r'\.md$', '', nfc(str(s)).lower())).strip('_')
+    idx = {}
+    for n in v.notes:
+        fm = n.frontmatter or {}
+        names = [n.name, re.sub(r'_?\([^)]*\)$', '', n.name)]
+        if fm.get('title'):
+            names += [str(fm['title']), re.sub(r'\s*\([^)]*\)$', '', str(fm['title']))]
+        names += [str(x) for x in fm.get('aliases') or []]
+        for s in names:
+            idx.setdefault(norm(s), n)
+    def find(target):
+        base = target.split('/')[-1]
+        for c in (base, re.sub(r'\s*\([^)]*\)$', '', base), re.sub(r's$', '', base), base + 's'):
+            if norm(c) in idx:
+                return idx[norm(c)]
+        return None
+    return find
+
+
+def fix_links_in(text: str, fix) -> tuple[str, int]:
+    """Rewrite [[target|alias]] outside fenced and inline code. `fix(target) -> new target or None`."""
+    out, count, fence = [], 0, None
+    def repl(m):
+        nonlocal count
+        embed, inner = m.group(1), m.group(2)
+        esc = '\\|' in inner
+        parts = inner.replace('\\|', '|').split('|', 1)
+        tgt, alias = parts[0], (parts[1] if len(parts) > 1 else None)
+        head = ''
+        if '#' in tgt:
+            tgt, h = tgt.split('#', 1); head = '#' + h
+        new = fix(tgt.strip())
+        if not new:
+            return m.group(0)
+        count += 1
+        shown = alias if alias is not None else (tgt.strip() if not head else None)
+        sep = '\\|' if esc else '|'
+        return f'{embed}[[{new}{head}' + (f'{sep}{shown}' if shown and shown != new else '') + ']]'
+    for line in text.split('\n'):
+        m = FENCE.match(line)
+        if fence is None and m:
+            fence = m.group(2)[0] * len(m.group(2)); out.append(line); continue
+        if fence is not None:
+            if m and m.group(2).startswith(fence) and not m.group(3).strip():
+                fence = None
+            out.append(line); continue
+        pieces = re.split(r'(`+[^`]*`+)', line)          # keep inline code untouched
+        out.append(''.join(p if p.startswith('`') else WIKILINK.sub(repl, p) for p in pieces))
+    return '\n'.join(out), count
+
+
+def cmd_fix_links(a):
+    """Point links at the note they obviously mean ([[Machine Learning]] -> [[Machine_Learning|Machine Learning]])."""
+    v = Vault(); find = near_miss_index(v)
+    def fix(target):
+        lk = Link(target=target, heading=None, alias=None, embed=False, source='body')
+        if not target or v.resolve(lk, None) is not None:
+            return None
+        n = find(target)
+        return n.name if n else None
+    total, files = 0, 0
+    for n in v.notes:
+        fm_part = n.raw[:len(n.raw) - len(n.body)]
+        new_fm, c1 = re.subn(r'"\[\[([^\]|#]+)\]\]"', lambda m: f'"[[{fix(m.group(1)) or m.group(1)}]]"', fm_part)
+        c1 = sum(1 for m in re.finditer(r'"\[\[([^\]|#]+)\]\]"', fm_part) if fix(m.group(1)))
+        new_body, c2 = fix_links_in(n.body, fix)
+        if c1 + c2:
+            total += c1 + c2; files += 1
+            if a.write:
+                with open(os.path.join(ROOT, n.path), 'w', encoding='utf-8') as fh:
+                    fh.write(new_fm + new_body)
+    print(f'{total} links in {files} notes point to an existing note under another spelling' + ('' if a.write else ' (dry run; --write to apply)'))
+
+
+# ----------------------------------------------------------------------------------------------------------------- pages
+GEN_START = '<!-- generated by tools/vault.py pages: do not edit below this line -->'
+GEN_END = '<!-- end generated -->'
+GROUPS = [('core', 'Core: the stack every robot is built on'), ('body', 'Body: how robots are shaped and move'),
+          ('domain', 'Domains: where robots work'), ('society', 'Society: robots among people'),
+          ('frontier', 'Frontier: directions still being invented')]
+
+
+class Book:
+    """The vault as a textbook: notes with v2 metadata, subfields, prerequisites and one global reading order."""
+
+    def __init__(self, v: Vault):
+        self.v = v
+        self.sfs = load_yaml('subfields.yml').get('subfields') or {}
+        self.notes = [n for n in v.notes if n.frontmatter and n.frontmatter.get('type') != 'guide']
+        # links from vault guides (including the generated pages) do not count: otherwise each rebuild would shift itself
+        guides = {n.path for n in v.notes if (n.frontmatter or {}).get('type') == 'guide'}
+        self.inbound = {k: {s for s in srcs if s not in guides} for k, srcs in v.backlinks().items()}
+        self.by_sub = collections.defaultdict(list)
+        for n in self.notes:
+            for s in n.frontmatter.get('subfield') or []:
+                self.by_sub[s].append(n)
+        self.prereq = {}
+        for n in self.notes:
+            ps = []
+            for p in n.frontmatter.get('prerequisites') or []:
+                lk = wikilink_target(p); r = v.resolve(lk, n) if lk else None
+                if isinstance(r, Note):
+                    ps.append(r)
+            self.prereq[n.path] = ps
+        self.rank = {n.path: i for i, n in enumerate(self.order(self.notes))}
+
+    def key(self, n):
+        fm = n.frontmatter
+        return (LEVEL_RANK.get(fm.get('level'), 1), 0 if fm.get('type') == 'overview' else 1, chapter_key(n),
+                -len(self.inbound.get(n.path, ())), self.title(n).lower())
+
+    def order(self, notes):
+        """Prerequisites first (topological), otherwise easier, overview, earlier chapter, more linked."""
+        import heapq
+        S = {n.path for n in notes}; by = {n.path: n for n in notes}
+        indeg = {p: 0 for p in S}; kids = collections.defaultdict(list)
+        for n in notes:
+            for r in self.prereq.get(n.path, []):
+                if r.path in S:
+                    indeg[n.path] += 1; kids[r.path].append(n.path)
+        heap = [(self.key(by[p]), p) for p in S if indeg[p] == 0]; heapq.heapify(heap); out = []
+        while heap:
+            _, p = heapq.heappop(heap); out.append(by[p])
+            for c in kids[p]:
+                indeg[c] -= 1
+                if indeg[c] == 0:
+                    heapq.heappush(heap, (self.key(by[c]), c))
+        return out
+
+    @staticmethod
+    def title(n):
+        return re.sub(r'[|\[\]]', '', str((n.frontmatter or {}).get('title') or n.name.replace('_', ' ')))
+
+    def link(self, n, table=False):
+        t = self.title(n)
+        if t == n.name or t == n.name.replace('_', ' '):
+            return f'[[{n.name}]]'
+        return f'[[{n.name}{chr(92) if table else ""}|{t}]]'
+
+    def missing(self):
+        """Missing notes: target -> (refs, linking notes)."""
+        out = {}
+        for n in self.notes:
+            for l in n.links:
+                if self.v.resolve(l, n) is None and l.target and not l.target.endswith('/'):
+                    t = nfc(l.target.split('/')[-1]); k = t.lower()
+                    e = out.setdefault(k, [t, 0, {}]); e[1] += 1; e[2][n.path] = n
+        return out
+
+    def likely_subfield(self, sources):
+        c = collections.Counter(s for n in sources for s in (n.frontmatter or {}).get('subfield') or [])
+        return c.most_common(1)[0][0] if c else None
+
+
+def page_atlas(b: Book) -> str:
+    L = []
+    empty = [k for k in b.sfs if not b.by_sub.get(k)]
+    L.append(f'**{len(b.notes)} notes** across **{len(b.sfs)} subfields**. '
+             f'{len(empty)} subfields have no notes yet; each is an open invitation (see [[Frontier]]).\n')
+    for g, gtitle in GROUPS:
+        keys = [k for k, s in b.sfs.items() if s.get('group') == g]
+        L.append(f'## {gtitle}\n')
+        L.append('| Subfield | Notes | Beginner | Intermediate | Advanced | Research |')
+        L.append('|---|---:|---:|---:|---:|---:|')
+        for k in keys:
+            ns = b.by_sub.get(k, [])
+            c = collections.Counter(n.frontmatter.get('level') for n in ns)
+            L.append(f'| [[#{b.sfs[k]["title"]}]] | {len(ns)} | {c["beginner"]} | {c["intermediate"]} | {c["advanced"]} | {c["research"]} |')
+        L.append('')
+        for k in keys:
+            s = b.sfs[k]; ns = b.order(b.by_sub.get(k, []))
+            L.append(f'### {s["title"]}\n')
+            L.append(f'*{s["description"]}* (`subfield: {k}`)\n')
+            if not ns:
+                L.append('**No notes yet.** This subfield is waiting for its first note: see [[Frontier]] for how to start one.\n')
+                continue
+            keys_ = [n for n in ns if n.frontmatter.get('status') == 'keystone']
+            if keys_:
+                L.append('**Keystones:** ' + ' · '.join(b.link(n) for n in keys_) + '\n')
+            L.append('**Start here:** ' + ' → '.join(b.link(n) for n in ns[:4]) + '\n')
+            L.append(f'**All {len(ns)} notes, in reading order:** ' + ' · '.join(b.link(n) for n in ns) + '\n')
+    return '\n'.join(L)
+
+
+def page_frontier(b: Book) -> str:
+    miss = b.missing(); L = []
+    stubs = [n for n in b.notes if n.frontmatter.get('status') == 'stub']
+    thin = [k for k in b.sfs if len(b.by_sub.get(k, [])) < 3]
+    refs = sum(e[1] for e in miss.values())
+    L.append(f'**{len(miss)} notes are wanted**: existing notes link to them {refs} times, but they have not been written yet. '
+             f'**{len(stubs)} stub{"s" if len(stubs) != 1 else ""}** need{"s" if len(stubs) == 1 else ""} content, and **{len(thin)} subfields** have fewer than three notes.\n')
+    L.append('Pick one, write it, and open a pull request. The [[Vault_Taxonomy_Guide]] has the frontmatter template; '
+             '`python3 tools/vault.py lint` checks your note before you submit.\n')
+    ranked = sorted(miss.values(), key=lambda e: (-e[1], e[0].lower()))
+    L.append('## Most wanted\n')
+    L.append('Ranked by how many links already point at the missing note. The file name to create is in `code`.\n')
+    L.append('| # | Wanted note | Links | Linked from | Likely subfield |')
+    L.append('|---:|---|---:|---|---|')
+    for i, (t, c, src) in enumerate(ranked[:50], 1):
+        srcs = sorted(src.values(), key=lambda n: -len(b.inbound.get(n.path, ())))
+        more = f' +{len(srcs) - 3}' if len(srcs) > 3 else ''
+        sf = b.likely_subfield(srcs)
+        fname = re.sub(r'\s+', '_', t)
+        L.append(f'| {i} | **{t.replace("_", " ")}** `{fname}.md` | {c} | ' + ', '.join(b.link(n, table=True) for n in srcs[:3]) + more +
+                 f' | {b.sfs[sf]["title"] if sf in b.sfs else "—"} |')
+    L.append('')
+    L.append('## Stubs to fill\n')
+    L.append('\n'.join(f'- {b.link(n)}: {n.frontmatter.get("description", "")}' for n in stubs) or '*None right now.*')
+    L.append('')
+    L.append('## Subfields with fewer than three notes\n')
+    L.append('Robotics is wider than any table of contents. These parts of it are barely covered yet:\n')
+    for k in thin:
+        s = b.sfs[k]; n = len(b.by_sub.get(k, []))
+        L.append(f'- **{s["title"]}** ({n} note{"s" if n != 1 else ""}): {s["description"]}')
+    L.append('\nHave an idea for a part of robotics that is not on the list at all? Propose it: add it to `tools/subfields.yml` '
+             'in the same pull request as its first note.\n')
+    L.append('## Drafts awaiting review, by chapter\n')
+    L.append('| Chapter | Notes | Draft | Reviewed | Keystone |')
+    L.append('|---|---:|---:|---:|---:|')
+    byc = collections.defaultdict(collections.Counter)
+    for n in b.notes:
+        byc[n.chapter][n.frontmatter.get('status')] += 1
+    for ch in sorted(byc):
+        c = byc[ch]
+        L.append(f'| {ch.replace("_", " ")} | {sum(c.values())} | {c["draft"]} | {c["reviewed"]} | {c["keystone"]} |')
+    L.append('')
+    L.append('## Every wanted note, by likely subfield\n')
+    groups = collections.defaultdict(list)
+    for t, c, src in ranked:
+        groups[b.likely_subfield(src.values()) or 'unsorted'].append((t, c))
+    for k in [k for k in b.sfs if k in groups] + (['unsorted'] if 'unsorted' in groups else []):
+        title = b.sfs[k]['title'] if k in b.sfs else 'Unsorted'
+        items = ', '.join(f'{t.replace("_", " ")} ({c})' for t, c in groups[k])
+        L.append(f'**{title}** ({len(groups[k])}): {items}\n')
+    return '\n'.join(L)
+
+
+def page_paths(b: Book) -> str:
+    L = []
+    def path(notes, limit=None):
+        ns = b.order(notes)[:limit] if limit else b.order(notes)
+        return '\n'.join(f'{i}. {b.link(n)} · *{n.frontmatter.get("level")}*' for i, n in enumerate(ns, 1))
+    def pick(subs, levels, types=None, keystone_first=False, limit=None):
+        ns = [n for n in b.notes if set(n.frontmatter.get('subfield') or []) & set(subs) and n.frontmatter.get('level') in levels
+              and (types is None or n.frontmatter.get('type') in types)]
+        if limit:
+            ns = sorted(ns, key=lambda n: (n.frontmatter.get('status') != 'keystone', n.frontmatter.get('type') != 'overview',
+                                           -len(b.inbound.get(n.path, ()))))[:limit]
+        return ns
+    personas = [
+        ('Curious about robots', 'No background needed. What robots are, how they came to be, and the ideas everything else builds on.',
+         pick(['foundations', 'history-future', 'kinematics-dynamics', 'mobile-robots', 'manipulation'], ['beginner'], limit=14)),
+        ('Student: the core stack', 'The sequence most robotics courses follow: maths, then how bodies move, how robots sense, estimate, plan and control.',
+         pick(['mathematics', 'kinematics-dynamics', 'perception', 'estimation-mapping', 'planning', 'control'], ['beginner', 'intermediate'], limit=24)),
+        ('Builder: make a robot work', 'Hardware, software and tooling: actuators, electronics, ROS 2, simulation and the labs.',
+         pick(['mechanisms-actuation', 'electronics-embedded', 'software', 'systems-engineering'], ['beginner', 'intermediate'], limit=20)),
+        ('Learning-based robotics', 'From machine learning basics to deep and reinforcement learning on real robots.',
+         pick(['robot-learning'], ['beginner', 'intermediate', 'advanced'], limit=18)),
+        ('Researcher: the edge of the field', 'Advanced methods, open problems and the directions still being invented.',
+         [n for n in b.notes if n.frontmatter.get('level') in ('advanced', 'research') or 'frontiers' in (n.frontmatter.get('subfield') or [])]),
+    ]
+    L.append('Each path lists notes so that **every note comes after its prerequisites**. Among notes that do not depend on each other, '
+             'easier and more introductory ones come first. Paths are rebuilt from the notes\' `prerequisites`, `level` and `subfield` '
+             'whenever the vault changes.\n')
+    L.append('## Start here, by who you are\n')
+    for name, desc, ns in personas:
+        L.append(f'### {name}\n\n{desc}\n\n{path(ns)}\n')
+    L.append('## Paths through each subfield\n')
+    L.append('Every subfield with three or more notes, in reading order. The [[Subfield_Atlas]] describes each subfield; '
+             'the [[Frontier]] lists the ones still waiting for notes.\n')
+    for k, s in b.sfs.items():
+        ns = b.by_sub.get(k, [])
+        if len(ns) >= 3:
+            L.append(f'### {s["title"]}\n\n{path(ns)}\n')
+    return '\n'.join(L)
+
+
+PAGES = {
+    '00_Introduction/Subfield_Atlas.md': (page_atlas, 'Subfield Atlas',
+        'A map of robotics as a field without edges: every subfield, how many notes cover it at each level, its keystone notes and where to start.',
+        ['vault-meta', 'learning-paths'], ['[[Learning_Paths]]', '[[Frontier]]', '[[Robotics_Vault_Dashboard]]'],
+        'Robotics is not one subject. It is a meeting point for mathematics, mechanics, electronics, computing, biology, design and ethics, '
+        'and it keeps growing into places nobody planned for. This atlas maps the part of it this textbook covers so far, '
+        'grouped from the core stack every robot needs, to the bodies robots take, the places they work, the people they work with, '
+        'and the frontier.\n\nEvery note names its subfields in its `subfield:` frontmatter, so this page rebuilds itself as the textbook grows. '
+        'Subfields with no notes yet are listed on purpose.'),
+    '00_Introduction/Frontier.md': (page_frontier, 'Frontier',
+        'What this textbook is missing: notes that other notes already link to, stubs to fill, and parts of robotics that are barely covered yet.',
+        ['vault-meta', 'contributing'], ['[[Subfield_Atlas]]', '[[Learning_Paths]]', '[[Vault_Taxonomy_Guide]]'],
+        'A textbook about a field that is still being invented is never finished. This page is the list of what to write next, '
+        'built from the textbook itself: every time a note links to a topic that has no note yet, that topic appears here, '
+        'ranked by how many notes are waiting for it.\n\nIt is the best place to start contributing, for people and for AI agents alike.'),
+    '00_Introduction/Learning_Paths.md': (page_paths, 'Learning Paths',
+        'Reading orders through the textbook, built from each note\'s prerequisites and level: one path per kind of reader and one per subfield.',
+        ['vault-meta', 'learning-paths'], ['[[Subfield_Atlas]]', '[[Frontier]]', '[[How_to_Use_This_Vault]]'],
+        'You do not have to read this textbook front to back. Pick the path that matches why you are here, or a subfield you care about. '
+        'Every note lists its `prerequisites`, so each path below puts the ideas you need before the ideas that use them.'),
+}
+
+
+def render_page(path, spec, b: Book) -> str:
+    fn, title, desc, tags, related, intro = spec
+    full = os.path.join(ROOT, path)
+    gen = GEN_START + '\n\n' + fn(b).rstrip() + '\n\n' + GEN_END + '\n'
+    if os.path.exists(full):
+        with open(full, encoding='utf-8') as fh:
+            cur = fh.read()
+        if GEN_START in cur and GEN_END in cur:
+            return cur[:cur.index(GEN_START)] + gen + cur[cur.index(GEN_END) + len(GEN_END) + 1:]
+    fm = {'title': title, 'description': desc, 'tags': tags, 'type': 'guide', 'level': 'beginner', 'status': 'reviewed',
+          'author': 'Jordan_Smith', 'date': '2026-11-15', 'related': related}
+    return f'---\n{emit_frontmatter(fm)}\n---\n\n# {title}\n\n{intro}\n\n{gen}'
+
+
+def cmd_pages(a):
+    v = Vault(); b = Book(v); stale = []
+    for path, spec in PAGES.items():
+        new = render_page(path, spec, b)
+        full = os.path.join(ROOT, path)
+        old = open(full, encoding='utf-8').read() if os.path.exists(full) else None
+        if new != old:
+            stale.append(path)
+            if a.write:
+                with open(full, 'w', encoding='utf-8') as fh:
+                    fh.write(new)
+    if a.check and stale:
+        print('generated pages are out of date: ' + ', '.join(stale) + '\nrun `python3 tools/vault.py pages --write` and commit the result')
+        sys.exit(1)
+    print(f'{len(PAGES)} pages, {len(stale)} ' + ('updated' if a.write else 'out of date'))
+
+
 # -------------------------------------------------------------------------------------------------------- obsidian-check
 def cmd_obsidian_check(a):
     """Compare this module's view of the vault with Obsidian's own metadata cache, through the Obsidian CLI
@@ -855,6 +1218,15 @@ def main(argv=None):
     p = sub.add_parser('fix-dataview', help='map tag references inside ```dataview blocks to the v2 vocabulary')
     p.add_argument('--write', action='store_true')
     p.set_defaults(fn=cmd_fix_dataview)
+    p = sub.add_parser('pages', help='rebuild Subfield Atlas, Frontier and Learning Paths in 00_Introduction')
+    p.add_argument('--write', action='store_true'); p.add_argument('--check', action='store_true', help='exit 1 if out of date')
+    p.set_defaults(fn=cmd_pages)
+    p = sub.add_parser('fix-fences', help='close code blocks left open at the end of a note')
+    p.add_argument('--write', action='store_true')
+    p.set_defaults(fn=cmd_fix_fences)
+    p = sub.add_parser('fix-links', help='repoint links that misspell an existing note ([[Machine Learning]] -> Machine_Learning)')
+    p.add_argument('--write', action='store_true')
+    p.set_defaults(fn=cmd_fix_links)
     p = sub.add_parser('obsidian-check', help="compare with Obsidian's own index via the Obsidian CLI (local only)")
     p.add_argument('--obsidian', help='path to the obsidian CLI'); p.add_argument('--vault', help='Obsidian vault name')
     p.set_defaults(fn=cmd_obsidian_check)

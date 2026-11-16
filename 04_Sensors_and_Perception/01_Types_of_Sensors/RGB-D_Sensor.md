@@ -90,4 +90,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #sensors WHERE contains(file.outlinks, [[RGB-D_Sensor]])
+LIST FROM "" WHERE contains(file.outlinks, [[RGB-D_Sensor]])
+```

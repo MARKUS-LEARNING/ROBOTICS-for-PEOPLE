@@ -121,3 +121,4 @@ This template provides a structured approach to researching labs online, creatin
 LIST
 FROM "12_Labs_and_Tutorials"
 WHERE type = "lab"
+```

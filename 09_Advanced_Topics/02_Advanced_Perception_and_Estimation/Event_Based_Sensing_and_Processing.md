@@ -109,4 +109,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #perception WHERE contains(file.outlinks, [[Event-Based_Sensing_and_Processing]])
+LIST FROM "" WHERE contains(file.outlinks, [[Event-Based_Sensing_and_Processing]])
+```

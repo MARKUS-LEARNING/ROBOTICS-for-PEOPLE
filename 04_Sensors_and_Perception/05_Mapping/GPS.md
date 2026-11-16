@@ -88,4 +88,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #navigation WHERE contains(file.outlinks, [[GPS]])
+LIST FROM "" WHERE contains(file.outlinks, [[GPS]])
+```

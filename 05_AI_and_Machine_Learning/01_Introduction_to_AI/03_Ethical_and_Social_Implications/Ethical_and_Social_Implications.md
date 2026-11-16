@@ -104,4 +104,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #ethics WHERE contains(file.outlinks, [[Ethical_and_Social_Implications]])
+LIST FROM "" WHERE contains(file.outlinks, [[Ethical_and_Social_Implications]])
+```

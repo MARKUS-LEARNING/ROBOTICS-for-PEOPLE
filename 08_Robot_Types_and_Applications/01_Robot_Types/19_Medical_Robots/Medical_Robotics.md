@@ -88,4 +88,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #healthcare WHERE contains(file.outlinks, [[Medical_Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Medical_Robots]])
+```

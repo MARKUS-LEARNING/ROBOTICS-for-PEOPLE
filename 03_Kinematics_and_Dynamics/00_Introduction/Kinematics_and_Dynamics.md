@@ -130,7 +130,7 @@ Together these two equations describe every serial-arm robot from a desktop SCAR
 
 ## How this chapter feeds the rest of the vault
 
-- **Robot Control** ([[Control_Theory]], [[PID_Control]], [[Model_Predictive_Control]]) — every controller is a feedback law on the dynamic model.
+- **Robot Control** ([[Control_Theory]], [[PID_Control]], [[Model_Predictive_Control_(MPC)|Model_Predictive_Control]]) — every controller is a feedback law on the dynamic model.
 - **AI / Machine Learning** ([[Reinforcement_Learning]], imitation learning) — policies output actions in joint or task space, decoded by kinematics.
 - **Sensors & Perception** — pose estimates from [[SLAM]] live in $SE(3)$, the same Lie group as kinematic transforms.
 - **ROS** — the `tf2` library and `URDF` description format codify exactly the kinematic-tree formalism described here.

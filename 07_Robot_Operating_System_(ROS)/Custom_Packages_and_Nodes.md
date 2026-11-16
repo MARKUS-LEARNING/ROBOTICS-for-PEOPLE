@@ -20,13 +20,13 @@ date: 2025-04-28
 prerequisites:
   - "[[ROS_2_Overview]]"
 related:
-  - "[[ROS (Robot Operating System)]]"
+  - "[[Robot_Operating_System_(ROS)]]"
   - "[[Nodes]]"
   - "[[Topics]]"
   - "[[Services]]"
   - "[[Actions]]"
   - "[[Messages]]"
-  - "[[Launch Files]]"
+  - "[[Launch_Files]]"
   - "[[ROS_2_Overview]]"
   - "[[Python_ROS_Nodes]]"
   - "[[Git_Integration_and_Version_Control]]"
@@ -34,7 +34,7 @@ related:
 
 # Custom Packages and Nodes in ROS
 
-While the [[ROS (Robot Operating System)]] ecosystem provides a vast collection of publicly available software packages for common robotics tasks (e.g., navigation, perception, simulation), most real-world robotics applications require the development of custom software to implement specific algorithms, control unique hardware, or orchestrate system behavior. In ROS, custom software development primarily involves creating **custom packages** and **custom nodes**.
+While the [[Robot_Operating_System_(ROS)|ROS (Robot Operating System)]] ecosystem provides a vast collection of publicly available software packages for common robotics tasks (e.g., navigation, perception, simulation), most real-world robotics applications require the development of custom software to implement specific algorithms, control unique hardware, or orchestrate system behavior. In ROS, custom software development primarily involves creating **custom packages** and **custom nodes**.
 
 ---
 
@@ -54,7 +54,7 @@ A **package** is the fundamental unit of software organization and distribution 
     * `msg/`: Contains custom [[Messages|message (.msg) definitions]].
     * `srv/`: Contains custom [[Services|service (.srv) definitions]].
     * `action/`: Contains custom [[Actions|action (.action) definitions]].
-    * `launch/`: Contains [[Launch Files|launch files (.launch, .launch.py, .launch.xml)]] used to start nodes.
+    * `launch/`: Contains [[Launch_Files|launch files (.launch, .launch.py, .launch.xml)]] used to start nodes.
     * `config/`: Contains configuration files (e.g., YAML parameter files).
     * `CMakeLists.txt`: (Required for C++ packages) Build instructions for CMake, used by Catkin/Colcon. Specifies executables, libraries, dependencies, and code generation steps for messages/services/actions.
     * `package.xml`: (Required) Manifest file containing package metadata (name, version, author, license), build system dependencies (e.g., `ament_cmake`, `catkin`), build tool dependencies (e.g., `rosidl_default_generators`), and runtime dependencies (other ROS packages needed).
@@ -127,4 +127,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #kinematics WHERE contains(file.outlinks, [[Custom_Packages_and_Nodes]])
+LIST FROM "" WHERE contains(file.outlinks, [[Custom_Packages_and_Nodes]])
+```

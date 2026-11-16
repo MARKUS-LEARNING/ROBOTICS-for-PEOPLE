@@ -30,7 +30,7 @@ related:
 
 # Turtlesim Projects
 
-**Turtlesim** is a lightweight, 2D simulator that comes standard with many [[ROS (Robot Operating System)|ROS]] distributions. It features a simple graphical window where one or more "turtle" robots move within a 2D plane, optionally drawing trails behind them. While visually basic, Turtlesim is an invaluable tool for beginners learning core ROS concepts without the complexity of real hardware or advanced simulators like [[Gazebo_Simulator]].
+**Turtlesim** is a lightweight, 2D simulator that comes standard with many [[Robot_Operating_System_(ROS)|ROS]] distributions. It features a simple graphical window where one or more "turtle" robots move within a 2D plane, optionally drawing trails behind them. While visually basic, Turtlesim is an invaluable tool for beginners learning core ROS concepts without the complexity of real hardware or advanced simulators like [[Gazebo_Simulator]].
 
 Its primary purpose is educational: providing a hands-on way to understand and experiment with fundamental ROS mechanisms.
 
@@ -71,7 +71,7 @@ Here are some classic Turtlesim projects to practice core ROS skills:
     * **Concepts Learned:** Creating a ROS node, creating a Publisher, using ROS message types (`geometry_msgs/Twist`), controlling timing (`rospy.Rate` / `rclpy.Rate`), basic open-loop control.
 
 2.  **Go-to-Goal Controller:**
-    * **Goal:** Write a node that makes the turtle drive towards a target (x, y) coordinate. The node should subscribe to `/turtle1/pose` to get the current position and orientation, calculate the distance and angle error to the goal, and publish appropriate linear and angular velocities to `/turtle1/cmd_vel` using a simple proportional [[Control Theory|controller]]. Stop when close enough to the goal.
+    * **Goal:** Write a node that makes the turtle drive towards a target (x, y) coordinate. The node should subscribe to `/turtle1/pose` to get the current position and orientation, calculate the distance and angle error to the goal, and publish appropriate linear and angular velocities to `/turtle1/cmd_vel` using a simple proportional [[Control_Theory|controller]]. Stop when close enough to the goal.
     * **Concepts Learned:** Creating a Subscriber, defining callback functions, basic feedback control logic, using TF math (for angles) or `atan2`.
 
 3.  **Pen Control and Services:**
@@ -99,4 +99,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #labs OR #robotics WHERE contains(file.outlinks, [[Turtlesim_Projects]])
+LIST FROM "" WHERE contains(file.outlinks, [[Turtlesim_Projects]])
+```

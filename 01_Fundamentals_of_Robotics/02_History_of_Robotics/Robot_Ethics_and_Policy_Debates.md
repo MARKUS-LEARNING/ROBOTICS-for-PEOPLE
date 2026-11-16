@@ -29,7 +29,7 @@ related:
 
 # Robot Ethics and Policy Debates
 
-**Robot Ethics**, often termed **Roboethics**, is a field concerned with the ethical questions surrounding the design, construction, use, and deployment of [[Robots|robots]] and [[Artificial Intelligence (AI)|artificial intelligence systems]]. As robots become more autonomous, capable, and integrated into various aspects of human life – from factories and homes to healthcare and defense – the ethical implications and the need for considered policy responses become increasingly urgent.
+**Robot Ethics**, often termed **Roboethics**, is a field concerned with the ethical questions surrounding the design, construction, use, and deployment of [[Robots|robots]] and [[Artificial_Intelligence|artificial intelligence systems]]. As robots become more autonomous, capable, and integrated into various aspects of human life – from factories and homes to healthcare and defense – the ethical implications and the need for considered policy responses become increasingly urgent.
 
 ---
 

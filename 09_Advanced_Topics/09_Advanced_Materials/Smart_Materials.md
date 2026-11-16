@@ -23,7 +23,7 @@ related:
   - "[[Material_Science]]"
   - "[[Robot_Design]]"
   - "[[Actuator]]"
-  - "[[Sensor]]"
+  - "[[Sensors]]"
   - "[[Nanotechnology]]"
   - "[[Biomaterials]]"
   - "[[Composite_Materials]]"
@@ -137,4 +137,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #materials OR #engineering WHERE contains(file.outlinks, [[Smart_Materials]])
+LIST FROM "" WHERE contains(file.outlinks, [[Smart_Materials]])
+```

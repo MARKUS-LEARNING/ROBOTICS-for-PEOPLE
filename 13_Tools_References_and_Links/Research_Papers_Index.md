@@ -20,7 +20,7 @@ date: 2025-05-02
 related:
   - "[[Resources_Index]]"
   - "[[SLAM_with_ROS]]"
-  - "[[Reinforcement_Learning_(RL)]]"
+  - "[[Reinforcement_Learning]]"
   - "[[Nav2_Navigation]]"
   - "[[MoveIt2]]"
   - "[[Computer_Vision_in_Robotics]]"

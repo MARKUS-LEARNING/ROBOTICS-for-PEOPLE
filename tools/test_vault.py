@@ -44,6 +44,20 @@ class Links(unittest.TestCase):
         self.assertIsNone(v.resolve(missing, real))
 
 
+class FixLinks(unittest.TestCase):
+    def test_rewrites_outside_code_and_keeps_display_text(self):
+        fix = {'Machine Learning': 'Machine_Learning', 'Reinforcement Learning (RL)': 'Reinforcement_Learning'}.get
+        text = ('See [[Machine Learning]] and [[Reinforcement Learning (RL)|RL]].\n'
+                '| t | [[Machine Learning\\|ML]] |\n'
+                '`[[Machine Learning]]` stays\n```dataview\nLIST WHERE contains(file.outlinks, [[Machine Learning]])\n```')
+        out, n = vault.fix_links_in(text, fix)
+        self.assertEqual(n, 3)
+        self.assertIn('See [[Machine_Learning|Machine Learning]] and [[Reinforcement_Learning|RL]].', out)
+        self.assertIn('| t | [[Machine_Learning\\|ML]] |', out)
+        self.assertIn('`[[Machine Learning]]` stays', out)
+        self.assertIn('contains(file.outlinks, [[Machine Learning]])', out)
+
+
 class Tags(unittest.TestCase):
     def test_inline_tags_need_whitespace(self):
         n = note('#start and mid #ok, "#quoted" x#no `#code` #123 #v2/sub')

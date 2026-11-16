@@ -46,13 +46,13 @@ Robots are being developed and deployed across the entire agricultural cycle:
     *(Example: Autonomous tractor potentially performing planting)*
 
 2.  **Crop Monitoring & Management:**
-    * **Scouting Robots:** Ground-based mobile robots or [[Drones]] equipped with [[Camera_Systems|Camera Systems]] (including multispectral or thermal cameras) and other [[Sensor|sensors]] to monitor crop health, detect diseases or pest infestations, assess soil moisture, and estimate yield.
-    * **Precision Spraying/Fertilizing:** Robots that apply pesticides, herbicides, or fertilizers only where needed, identified through sensor data and [[Computer Vision in Robotics|computer vision]], minimizing chemical usage.
+    * **Scouting Robots:** Ground-based mobile robots or [[Drones]] equipped with [[Camera_Systems|Camera Systems]] (including multispectral or thermal cameras) and other [[Sensors|sensors]] to monitor crop health, detect diseases or pest infestations, assess soil moisture, and estimate yield.
+    * **Precision Spraying/Fertilizing:** Robots that apply pesticides, herbicides, or fertilizers only where needed, identified through sensor data and [[Computer_Vision_in_Robotics|computer vision]], minimizing chemical usage.
     ![Agricultural Drone Monitoring](https://www.researchgate.net/publication/348883371/figure/fig1/AS:986748967301124@1612270011941/Agricultural-drone-spraying-pesticides-in-rural-area.jpg)
     *(Example: Agricultural drone likely used for crop monitoring or spraying)*
 
 3.  **Weeding:**
-    * **Automated Weeders:** Robots using [[Computer Vision in Robotics|vision systems]] to distinguish between crops and weeds, then removing weeds either mechanically (e.g., using small robotic tools) or via highly targeted micro-spraying of herbicides.
+    * **Automated Weeders:** Robots using [[Computer_Vision_in_Robotics|vision systems]] to distinguish between crops and weeds, then removing weeds either mechanically (e.g., using small robotic tools) or via highly targeted micro-spraying of herbicides.
 
 4.  **Harvesting:**
     * **Robotic Harvesters:** Often the most complex Agribots, designed to autonomously harvest crops like fruits (strawberries, apples, citrus), vegetables (lettuce, asparagus), or broadacre crops. Requires advanced [[Perception]] to identify ripe produce and delicate [[Manipulation]] to pick without damage.
@@ -81,9 +81,9 @@ Robots are being developed and deployed across the entire agricultural cycle:
 ## Key Enabling Technologies
 
 * **[[Navigation]]:** Robust outdoor navigation is crucial, often using [[GPS]] (RTK for cm-level accuracy), [[IMU_Sensors]], wheel [[Odometry]], [[LIDAR]], and/or [[Visual Odometry]]/[[SLAM]]. Path planning often involves following predefined row patterns or area coverage strategies.
-* **[[Perception]]:** [[Computer Vision in Robotics]] is essential for identifying crops vs. weeds, detecting fruits and assessing ripeness, recognizing animals, and navigating using visual cues. [[LIDAR]] aids in 3D mapping and obstacle detection. Multispectral and thermal imaging provide information about plant health or soil conditions.
+* **[[Perception]]:** [[Computer_Vision_in_Robotics|Computer Vision in Robotics]] is essential for identifying crops vs. weeds, detecting fruits and assessing ripeness, recognizing animals, and navigating using visual cues. [[LIDAR]] aids in 3D mapping and obstacle detection. Multispectral and thermal imaging provide information about plant health or soil conditions.
 * **[[Manipulation]]:** Dexterous grippers and end-effectors capable of handling delicate biological products without damage are needed for harvesting and handling tasks.
-* **[[AI_and_Robot_Control]]:** [[Machine Learning]] (especially [[Deep Learning]]) powers perception systems. [[Control Theory]] and [[Reinforcement Learning for Robots|RL]] are used for precise motion control and learning complex tasks like harvesting or navigating difficult terrain. [[Decision Making|Decision-making]] algorithms determine optimal actions based on sensor data (e.g., which fruit to pick, where to apply fertilizer).
+* **[[AI_and_Robot_Control]]:** [[Machine_Learning|Machine Learning]] (especially [[Deep_Learning|Deep Learning]]) powers perception systems. [[Control_Theory|Control Theory]] and [[Reinforcement_Learning_for_Robots|RL]] are used for precise motion control and learning complex tasks like harvesting or navigating difficult terrain. [[Decision Making|Decision-making]] algorithms determine optimal actions based on sensor data (e.g., which fruit to pick, where to apply fertilizer).
 
 ---
 
@@ -109,4 +109,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #automation WHERE contains(file.outlinks, [[Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Robots]])
+```

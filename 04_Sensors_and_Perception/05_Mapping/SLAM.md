@@ -322,3 +322,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #localization OR #mapping WHERE contains(file.outlinks, [[SLAM]])
+```

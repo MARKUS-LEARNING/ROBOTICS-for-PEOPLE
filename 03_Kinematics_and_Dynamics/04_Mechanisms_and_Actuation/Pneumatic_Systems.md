@@ -35,7 +35,7 @@ related:
 
 # Pneumatic Systems in Robotics
 
-**Pneumatic Systems** utilize compressed gas, typically filtered air, as a medium to transmit and control energy to perform mechanical work, primarily through [[Pneumatic Actuators|pneumatic actuators]]. Historically significant in early industrial automation and still widely used for specific applications, pneumatic systems offer distinct advantages and disadvantages compared to [[Hydraulic_Systems|hydraulic]] or [[Electric_Motor|electric]] actuation methods.
+**Pneumatic Systems** utilize compressed gas, typically filtered air, as a medium to transmit and control energy to perform mechanical work, primarily through [[Pneumatic Actuators|pneumatic actuators]]. Historically significant in early industrial automation and still widely used for specific applications, pneumatic systems offer distinct advantages and disadvantages compared to [[Hydraulic_Systems|hydraulic]] or [[Electric_Motors|electric]] actuation methods.
 
 ---
 

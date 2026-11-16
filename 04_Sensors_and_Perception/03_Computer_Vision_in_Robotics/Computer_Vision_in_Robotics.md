@@ -51,7 +51,7 @@ Vision is arguably the richest sensory modality for both humans and robots opera
 * **Understand their surroundings:** Identify objects, surfaces, free space, and potential hazards.
 * **Interact physically:** Locate and estimate the pose of objects for manipulation and grasping.
 * **Navigate autonomously:** Build maps ([[SLAM]]), estimate their own motion ([[Visual_Odometry]]), [[Localization|localize]] themselves, and follow paths while avoiding obstacles.
-* **Collaborate with humans:** Recognize people, interpret gestures and actions, and understand shared workspaces ([[Human-Robot Interaction (HRI)|HRI]]).
+* **Collaborate with humans:** Recognize people, interpret gestures and actions, and understand shared workspaces ([[Human-Robot_Interaction|HRI]]).
 
 ---
 
@@ -68,7 +68,7 @@ Computer vision enables a wide array of robotic tasks:
 * **[[Visual Servoing]]:** Using visual features directly in the feedback control loop to guide the robot's motion relative to a target or desired visual configuration.
 * **Inspection:** Automating visual inspection tasks for manufacturing quality control, surface analysis, or infrastructure monitoring.
 * **Place Recognition:** Identifying if a currently viewed scene corresponds to a previously visited location, crucial for [[Loop_Closure]] in SLAM and global localization.
-* **[[Human-Robot Interaction (HRI)|Human-Robot Interaction]]:** Recognizing faces, tracking gaze, identifying gestures, understanding activities.
+* **[[Human-Robot_Interaction|Human-Robot Interaction]]:** Recognizing faces, tracking gaze, identifying gestures, understanding activities.
 
 ---
 
@@ -77,7 +77,7 @@ Computer vision enables a wide array of robotic tasks:
 The primary sensor for computer vision is the [[Camera_Systems|camera]]. Different types are used depending on the application:
 * **Monocular Cameras:** Single cameras providing 2D information.
 * **[[Stereo Vision|Stereo Cameras]]:** Provide depth information through triangulation.
-* **[[RGB-D Sensor|RGB-D Cameras]]:** Provide registered color and dense depth images (e.g., using Structured Light or Time-of-Flight).
+* **[[RGB-D_Sensor|RGB-D Cameras]]:** Provide registered color and dense depth images (e.g., using Structured Light or Time-of-Flight).
 * **Omnidirectional Cameras:** Offer 360° views.
 * **Event-Based Cameras:** High speed, high dynamic range sensing of intensity changes.
 * **Thermal/Infrared Cameras:** Sense heat signatures.
@@ -131,4 +131,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #computer-vision WHERE contains(file.outlinks, [[Computer_Vision_in_Robotics]])
+LIST FROM "" WHERE contains(file.outlinks, [[Computer_Vision_in_Robotics]])
+```

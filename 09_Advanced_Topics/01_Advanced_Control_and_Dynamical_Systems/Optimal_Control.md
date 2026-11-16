@@ -129,4 +129,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #control OR #robotics WHERE contains(file.outlinks, [[Optimal_Control]])
+LIST FROM "" WHERE contains(file.outlinks, [[Optimal_Control]])
+```

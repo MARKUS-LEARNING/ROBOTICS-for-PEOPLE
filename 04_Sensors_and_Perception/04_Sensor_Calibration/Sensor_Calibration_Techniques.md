@@ -24,7 +24,7 @@ last_reviewed: 2026-04-27
 prerequisites:
   - "[[Perception]]"
 related:
-  - "[[Sensor]]"
+  - "[[Sensors]]"
   - "[[Perception]]"
   - "[[Sensor_Fusion]]"
   - "[[Camera_Systems]]"
@@ -122,4 +122,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ### List of Related Concepts
 ```dataview
-LIST FROM #robotics OR #navigation WHERE contains(file.outlinks, [[Sensor_Calibration_Techniques]])
+LIST FROM "" WHERE contains(file.outlinks, [[Sensor_Calibration_Techniques]])
+```

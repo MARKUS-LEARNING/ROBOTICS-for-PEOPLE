@@ -107,7 +107,7 @@ where:
 - **Design and Integration**: The selection and integration of EAPs are important aspects of [[Robot_Design]] and [[Mechatronics]], influencing the performance and capabilities of robotic systems. EAPs enable the creation of soft, adaptive, and efficient robotic components.
   <br>
 
-- **Control Systems**: EAPs can be integrated into [[Control Systems]] to provide precise and responsive control over robotic movements, enhancing the overall performance and adaptability of robotic systems.
+- **Control Systems**: EAPs can be integrated into [[Control_Systems|Control Systems]] to provide precise and responsive control over robotic movements, enhancing the overall performance and adaptability of robotic systems.
   <br>
 
 ---
@@ -119,4 +119,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #materials OR #robotics WHERE contains(file.outlinks, [[Electroactive_Polymers]])
+LIST FROM "" WHERE contains(file.outlinks, [[Electroactive_Polymers]])
+```

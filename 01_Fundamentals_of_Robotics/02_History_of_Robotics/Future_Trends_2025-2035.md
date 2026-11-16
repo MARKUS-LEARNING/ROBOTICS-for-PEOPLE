@@ -28,7 +28,7 @@ related:
 
 # Future Trends in Robotics (2025-2035)
 
-The field of robotics is advancing at an unprecedented pace, driven largely by breakthroughs in [[Artificial Intelligence (AI)]], [[Machine_Learning|ML]], improved sensors, actuators, and computational power. Based on current research trajectories and industry adoption patterns, several key trends are expected to shape the landscape of robotics significantly between 2025 and 2035.
+The field of robotics is advancing at an unprecedented pace, driven largely by breakthroughs in [[Artificial_Intelligence|Artificial Intelligence (AI)]], [[Machine_Learning|ML]], improved sensors, actuators, and computational power. Based on current research trajectories and industry adoption patterns, several key trends are expected to shape the landscape of robotics significantly between 2025 and 2035.
 
 ---
 
@@ -51,7 +51,7 @@ Applications in logistics (piece picking at $> 600$ picks/hr), lab automation, a
 
 3.  **Enhanced Human-Robot Interaction & Collaboration:**
     * **[[Collaborative_Robots|Cobots]]:** Market growth will continue, driven by ease of use, falling costs, and adoption by small and medium-sized enterprises (SMEs). Cobots will become more capable, integrating better sensing (vision, force) and potentially AI for more adaptive interaction.
-    * **[[Human-Robot Interaction (HRI)]]:** Interfaces will become more natural, utilizing speech, gesture, and context awareness. Research focuses on safe physical interaction, trust, intuitive teaching (like [[Robot Programming by Demonstration]]), and shared autonomy.
+    * **[[Human-Robot_Interaction|Human-Robot Interaction (HRI)]]:** Interfaces will become more natural, utilizing speech, gesture, and context awareness. Research focuses on safe physical interaction, trust, intuitive teaching (like [[Robot Programming by Demonstration]]), and shared autonomy.
 
 4.  **Advanced [[Perception]] and [[Manipulation]]:**
     * **Sensing Capabilities:** Sensors ([[LIDAR]], [[Camera_Systems]], [[IMU_Sensors]], tactile, force/torque) will continue to improve in performance, robustness, and cost-effectiveness. Event cameras will enable high-speed perception. Advances in tactile sensing are crucial for dexterous manipulation.

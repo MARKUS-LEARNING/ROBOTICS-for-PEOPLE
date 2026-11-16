@@ -105,7 +105,7 @@ where:
 - **Design and Integration**: The selection and integration of MEMS are important aspects of [[Robot_Design]] and [[Mechatronics]], influencing the performance and capabilities of robotic systems. MEMS enable the creation of compact, efficient, and highly functional components.
   <br>
 
-- **Control Systems**: MEMS sensors and actuators are integral to [[Control Systems]], providing the necessary feedback and control mechanisms to ensure precise and responsive operation of robotic systems.
+- **Control Systems**: MEMS sensors and actuators are integral to [[Control_Systems|Control Systems]], providing the necessary feedback and control mechanisms to ensure precise and responsive operation of robotic systems.
   <br>
 
 ---
@@ -117,4 +117,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #technology OR #robotics WHERE contains(file.outlinks, [[MEMS]])
+LIST FROM "" WHERE contains(file.outlinks, [[MEMS]])
+```

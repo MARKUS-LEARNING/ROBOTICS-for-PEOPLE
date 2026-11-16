@@ -30,7 +30,7 @@ related:
 
 # Speculative Robotics Scenarios
 
-Speculative robotics involves exploring potential long-term trajectories (decades to centuries) for the development and societal integration of robots and [[Artificial Intelligence (AI)|AI]]. These scenarios are not firm predictions but rather thought experiments based on extrapolating current [[Future_Trends_2025-2035|trends]], considering theoretical possibilities, and often drawing inspiration from science fiction. Their value lies in stimulating discussion about desirable futures, potential risks, guiding research priorities, and informing [[Robot_Ethics_and_Policy_Debates|ethical and policy considerations]].
+Speculative robotics involves exploring potential long-term trajectories (decades to centuries) for the development and societal integration of robots and [[Artificial_Intelligence|AI]]. These scenarios are not firm predictions but rather thought experiments based on extrapolating current [[Future_Trends_2025-2035|trends]], considering theoretical possibilities, and often drawing inspiration from science fiction. Their value lies in stimulating discussion about desirable futures, potential risks, guiding research priorities, and informing [[Robot_Ethics_and_Policy_Debates|ethical and policy considerations]].
 
 ---
 

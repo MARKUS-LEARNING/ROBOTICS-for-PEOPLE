@@ -113,4 +113,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #control OR #robotics WHERE contains(file.outlinks, [[Model_Predictive_Control_(MPC)]])
+LIST FROM "" WHERE contains(file.outlinks, [[Model_Predictive_Control_(MPC)]])
+```

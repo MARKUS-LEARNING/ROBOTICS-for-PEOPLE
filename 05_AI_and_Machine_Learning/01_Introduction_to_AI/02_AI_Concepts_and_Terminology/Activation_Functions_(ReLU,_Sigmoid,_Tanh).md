@@ -98,4 +98,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #deep-learning OR #AI WHERE contains(file.outlinks, [[Activation_Functions_(ReLU,_Sigmoid,_Tanh)]])
+LIST FROM #deep-learning OR #artificial-intelligence WHERE contains(file.outlinks, [[Activation_Functions_(ReLU,_Sigmoid,_Tanh)]])
+```

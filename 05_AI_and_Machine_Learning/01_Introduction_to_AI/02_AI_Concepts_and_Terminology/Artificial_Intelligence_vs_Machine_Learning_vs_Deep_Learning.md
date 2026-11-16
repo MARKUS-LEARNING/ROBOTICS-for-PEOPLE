@@ -114,4 +114,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #artificial-intelligence WHERE contains(file.outlinks, [[Artificial_Intelligence_vs_Machine_Learning_vs_Deep_Learning]])
+LIST FROM "" WHERE contains(file.outlinks, [[Artificial_Intelligence_vs_Machine_Learning_vs_Deep_Learning]])
+```

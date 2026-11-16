@@ -24,7 +24,7 @@ related:
   - "[[SLAM_with_ROS]]"
   - "[[Nav2_Navigation]]"
   - "[[MoveIt2]]"
-  - "[[Reinforcement_Learning_(RL)]]"
+  - "[[Reinforcement_Learning]]"
 ---
 
 # MOOCs and Courses for Robotics

@@ -87,4 +87,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #artificial-intelligence WHERE contains(file.outlinks, [[Agents_and_Environments]])
+LIST FROM "" WHERE contains(file.outlinks, [[Agents_and_Environments]])
+```

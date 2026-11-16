@@ -97,4 +97,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #collaborative-robotics WHERE contains(file.outlinks, [[Multi-Robot_Systems]])
+LIST FROM "" WHERE contains(file.outlinks, [[Multi-Robot_Systems]])
+```

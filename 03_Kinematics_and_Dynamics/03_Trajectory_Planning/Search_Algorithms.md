@@ -109,4 +109,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 - **List all related algorithms and techniques**:
   ```dataview
-  LIST FROM #Algorithms OR #Optimization WHERE contains(file.outlinks, [[Search_Algorithms]])
+  LIST FROM #algorithms OR #optimization WHERE contains(file.outlinks, [[Search_Algorithms]])
+```

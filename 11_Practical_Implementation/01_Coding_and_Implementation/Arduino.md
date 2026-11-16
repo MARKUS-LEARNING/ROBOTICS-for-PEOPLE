@@ -15,7 +15,7 @@ author: Jordan_Smith
 date: 2025-05-02
 related:
   - "[[Embedded_Systems]]"
-  - "[[Microcontrollers]]"
+  - "[[Microcontroller]]"
   - "[[Sensor_Integration]]"
   - "[[Robot_Design]]"
   - "[[Control_Systems]]"
@@ -96,4 +96,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #embedded-systems WHERE contains(file.outlinks, [[Arduino]])
+LIST FROM "" WHERE contains(file.outlinks, [[Arduino]])
+```

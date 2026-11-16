@@ -95,7 +95,7 @@ The core ROS communication mechanisms ([[Topics]], [[Services]], [[Actions]], [[
 Python ROS nodes excel in areas where development speed and library availability outweigh raw computational performance:
 
 * **High-Level Task Coordination:** Implementing state machines, behavior trees, or task planners that orchestrate other nodes.
-* **AI/ML Integration:** Running inference with TensorFlow/PyTorch models for [[Perception|perception]], creating [[Reinforcement Learning for Robots|RL]] agents, or using Natural Language Processing libraries.
+* **AI/ML Integration:** Running inference with TensorFlow/PyTorch models for [[Perception|perception]], creating [[Reinforcement_Learning_for_Robots|RL]] agents, or using Natural Language Processing libraries.
 * **Rapid Prototyping:** Quickly developing and testing new algorithms or system logic before potentially optimizing critical parts in C++.
 * **Simple [[Hardware_Interface_Setup|Hardware Interfaces]]:** Interfacing with devices via [[Serial_Communication_Tutorials|Serial]] or simple USB protocols where Python libraries exist and real-time performance is not paramount (e.g., using `pyserial`). `rosserial_python` is a common package for Arduino/microcontroller communication in ROS 1.
 * **Utility Scripts:** Creating simple nodes for data conversion, logging, system monitoring, or parameter management.
@@ -126,4 +126,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #implementation  OR #coding WHERE contains(file.outlinks, [[Python_ROS_Nodes]])
+LIST FROM "" WHERE contains(file.outlinks, [[Python_ROS_Nodes]])
+```

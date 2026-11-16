@@ -25,7 +25,7 @@ related:
   - "[[Manipulation]]"
   - "[[End-Effector]]"
   - "[[Actuator]]"
-  - "[[Sensor]]"
+  - "[[Sensors]]"
   - "[[Tactile_Sensing]]"
   - "[[Force_Control]]"
   - "[[Degrees_of_Freedom]]"
@@ -60,12 +60,12 @@ Designing a robot hand involves numerous trade-offs:
 
 * **Task Requirements:** The specific application dictates the necessary capabilities (e.g., lifting heavy boxes vs. assembling delicate electronics vs. handling soft fruit).
 * **[[Degrees_of_Freedom]] (DoF):** The number of independent joints determines the hand's dexterity. Simple grippers might have 1 DoF, while advanced hands can exceed 20 DoF.
-* **Anthropomorphism:** The degree to which the design mimics the human hand (number of fingers, thumb opposability, proportions). This can be important for using human tools or for [[Human-Robot Interaction (HRI)|HRI]] acceptance, but is not strictly necessary for dexterity.
+* **Anthropomorphism:** The degree to which the design mimics the human hand (number of fingers, thumb opposability, proportions). This can be important for using human tools or for [[Human-Robot_Interaction|HRI]] acceptance, but is not strictly necessary for dexterity.
 * **[[Actuator|Actuation]]:** How the joints are powered.
-    * *Type:* [[Electric_Motor|Electric motors]] (DC, servo, stepper), [[Hydraulic Actuators|hydraulics]], [[Pneumatic Actuators|pneumatics]], [[Shape Memory Alloys (SMAs)|SMAs]], [[Soft_Robotics|soft actuators]] (e.g., fluidic).
+    * *Type:* [[Electric_Motors|Electric motors]] (DC, servo, stepper), [[Hydraulic Actuators|hydraulics]], [[Pneumatic Actuators|pneumatics]], [[Shape_Memory_Alloys|SMAs]], [[Soft_Robotics|soft actuators]] (e.g., fluidic).
     * *Placement:* Intrinsic (within the hand/fingers) or Extrinsic (in the forearm/base, using tendons/cables). Extrinsic actuation reduces finger inertia but adds transmission complexity (friction, elasticity).
     * *Underactuation:* Using fewer actuators than DoF, relying on mechanical coupling (tendons, linkages) to allow fingers to passively conform to object shapes. This simplifies control but limits independent finger movement.
-* **[[Sensor|Sensing]]:** Crucial for feedback and intelligent manipulation.
+* **[[Sensors|Sensing]]:** Crucial for feedback and intelligent manipulation.
     * **[[Tactile Sensing]]:** Distributed sensors (often arrays of "taxels") on finger surfaces to detect contact location, pressure distribution, shape, texture, slip. Various transduction methods exist (resistive, capacitive, piezoelectric, optical).
     * **Force/Torque Sensing:** Measures overall grasp force or interaction forces, often integrated into joints, tendons, or the wrist.
     * **Proprioception:** [[Joint_Kinematics|Joint]] angle/position sensors (encoders, Hall effect sensors).
@@ -111,10 +111,10 @@ Despite decades of research, creating robot hands with human-level dexterity rem
 * Replicating the combination of strength, speed, and fine motor control of the human hand.
 * Developing robust and high-resolution [[Tactile Sensing]] comparable to human skin.
 * Effectively integrating complex sensing and actuation for real-time control.
-* Learning robust [[Grasping|grasping]] and [[Manipulation]] strategies that generalize across objects and tasks, especially using [[Machine Learning|learning-based approaches]] ([[Reinforcement Learning (RL)]], [[Imitation Learning]]).
+* Learning robust [[Grasping|grasping]] and [[Manipulation]] strategies that generalize across objects and tasks, especially using [[Machine_Learning|learning-based approaches]] ([[Reinforcement_Learning|Reinforcement Learning (RL)]], [[Imitation Learning]]).
 * Achieving cost-effective, durable, and reliable designs for widespread deployment.
 
-Future research continues to explore novel materials ([[Soft_Robotics]]), bio-inspired designs, advanced [[Sensor|sensing]] modalities, and [[AI_and_Robot_Control|AI-driven control]] to push the boundaries of robotic manipulation.
+Future research continues to explore novel materials ([[Soft_Robotics]]), bio-inspired designs, advanced [[Sensors|sensing]] modalities, and [[AI_and_Robot_Control|AI-driven control]] to push the boundaries of robotic manipulation.
 
 ---
 
@@ -125,4 +125,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #automation WHERE contains(file.outlinks, [[Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Robots]])
+```

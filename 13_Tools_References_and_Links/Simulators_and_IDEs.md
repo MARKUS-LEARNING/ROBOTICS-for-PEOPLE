@@ -28,7 +28,7 @@ related:
   - "[[rosbag2]]"
   - "[[C++]]"
   - "[[Python_for_Robotics]]"
-  - "[[Reinforcement_Learning_(RL)]]"
+  - "[[Reinforcement_Learning]]"
   - "[[Sim2Real_Experiments]]"
   - "[[SLAM_with_ROS]]"
   - "[[Nav2_Navigation]]"
@@ -45,7 +45,7 @@ See also: [[Resources_Index]], [[rosbag2]], [[Sim2Real_Experiments]]
 
 ## Physics Simulators
 
-Physics simulators provide virtual environments with accurate dynamics, sensor modeling, and robot interaction — essential for algorithm development, [[Reinforcement_Learning_(RL)|RL]] training, and [[Sim2Real_Experiments|Sim2Real]] research without risking hardware.
+Physics simulators provide virtual environments with accurate dynamics, sensor modeling, and robot interaction — essential for algorithm development, [[Reinforcement_Learning|RL]] training, and [[Sim2Real_Experiments|Sim2Real]] research without risking hardware.
 
 ### Gazebo / Gazebo Sim
 

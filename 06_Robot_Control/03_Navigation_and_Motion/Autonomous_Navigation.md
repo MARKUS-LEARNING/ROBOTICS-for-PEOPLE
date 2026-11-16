@@ -112,4 +112,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ### List of Related Concepts
 ```dataview
-LIST FROM #robotics OR #control-systems WHERE contains(file.outlinks, [[Autonomous_Navigation]])
+LIST FROM "" WHERE contains(file.outlinks, [[Autonomous_Navigation]])
+```

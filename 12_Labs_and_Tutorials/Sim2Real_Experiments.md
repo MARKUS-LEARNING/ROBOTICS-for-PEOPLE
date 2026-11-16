@@ -31,7 +31,7 @@ related:
 
 # Sim2Real Experiments
 
-**Sim2Real (Simulation-to-Reality) transfer** is a critical process in modern robotics, particularly for developing controllers using [[Machine Learning]] techniques like [[Reinforcement Learning (RL)]] or [[Imitation Learning]]. It involves training a robot's control policy or algorithm within a [[Simulation]] environment (like [[Gazebo_Simulator]]) and then successfully deploying that policy onto the physical robot hardware to perform the task in the real world.
+**Sim2Real (Simulation-to-Reality) transfer** is a critical process in modern robotics, particularly for developing controllers using [[Machine_Learning|Machine Learning]] techniques like [[Reinforcement_Learning|Reinforcement Learning (RL)]] or [[Imitation Learning]]. It involves training a robot's control policy or algorithm within a [[Simulation]] environment (like [[Gazebo_Simulator]]) and then successfully deploying that policy onto the physical robot hardware to perform the task in the real world.
 
 The primary motivations for leveraging simulation are clear:
 * **Speed:** Simulation runs much faster than real-time, allowing for accelerated training.
@@ -62,8 +62,8 @@ Various strategies have been developed to mitigate the reality gap:
 
 * **[[System Identification]]:** Building higher-fidelity simulation models by measuring parameters (mass, inertia, friction, sensor noise, delays) from the real robot and environment.
 * **[[Domain Randomization]]:** During simulation training, intentionally randomizing various parameters (physics properties, visual textures, lighting, sensor noise, actuator delays) across a wide range. The goal is to train a policy that is robust to these variations and therefore robust to the specific mismatch between the chosen simulation parameters and reality.
-* **Domain Adaptation:** Using techniques from [[Machine Learning|transfer learning]] to adapt either the simulation data, the real-world data, or the learned policy itself to reduce the domain shift (e.g., using adversarial methods like GANs to make simulated images look more realistic).
-* **Robust Policy Learning/Control:** Developing [[Reinforcement Learning (RL)|RL]] algorithms or [[Control Theory|control laws]] that are inherently less sensitive to modeling errors and perturbations.
+* **Domain Adaptation:** Using techniques from [[Machine_Learning|transfer learning]] to adapt either the simulation data, the real-world data, or the learned policy itself to reduce the domain shift (e.g., using adversarial methods like GANs to make simulated images look more realistic).
+* **Robust Policy Learning/Control:** Developing [[Reinforcement_Learning|RL]] algorithms or [[Control_Theory|control laws]] that are inherently less sensitive to modeling errors and perturbations.
 * **Real-World Fine-tuning:** Training the bulk of the policy in simulation and then performing a limited amount of additional training or fine-tuning directly on the physical robot. Requires careful setup and safety considerations.
 * **Grounded Simulation / Digital Twins:** Creating simulations that are continuously updated or grounded by real-time data streamed from the physical robot, aiming for a highly accurate, dynamic virtual representation.
 
@@ -77,7 +77,7 @@ Building on the structure suggested in [[Manipulator_Control_Experiments]], docu
 
 * **Date:** YYYY-MM-DD
 * **Objective:** State the goal, focusing on transferring a specific capability (e.g., a learned grasping policy) from simulation to a real robot and evaluating the transfer performance. Explicitly state the Sim2Real technique being tested.
-* **Theoretical Background:** Link to relevant concepts ([[Reinforcement Learning (RL)]], [[Domain Randomization]], [[Simulation]], specific algorithms).
+* **Theoretical Background:** Link to relevant concepts ([[Reinforcement_Learning|Reinforcement Learning (RL)]], [[Domain Randomization]], [[Simulation]], specific algorithms).
 * **Setup (Simulation):**
     * Simulator: ([[Gazebo_Simulator]], Isaac Sim, MuJoCo, PyBullet, etc.).
     * Robot Model: [[URDF]]/SDF file used, kinematic/dynamic parameters.
@@ -87,7 +87,7 @@ Building on the structure suggested in [[Manipulator_Control_Experiments]], docu
 * **Setup (Real World):**
     * Physical Robot: Specific hardware model, controller/firmware versions.
     * Sensors: Real sensors used, calibration status.
-    * Control Interface: Software used to command the real robot ([[ROS (Robot Operating System)|ROS]] nodes, custom drivers).
+    * Control Interface: Software used to command the real robot ([[Robot_Operating_System_(ROS)|ROS]] nodes, custom drivers).
     * Environment: Description of the physical test setup.
 * **Sim2Real Transfer Technique:**
     * Detail the specific method employed (e.g., For Domain Randomization: list parameters randomized and their ranges. For System ID: describe parameters identified and how. For Adaptation: describe the algorithm).
@@ -117,3 +117,4 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ```dataview
 LIST FROM #electronics OR #embedded-systems WHERE contains(file.outlinks, [[Sim2Real_Experiments]])
+```

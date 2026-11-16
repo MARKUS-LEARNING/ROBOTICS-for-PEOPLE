@@ -98,4 +98,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #human-robot-interaction WHERE contains(file.outlinks, [[Advanced_Human_Robot_Interaction_(HRI)]])
+LIST FROM "" WHERE contains(file.outlinks, [[Advanced_Human_Robot_Interaction_(HRI)]])
+```

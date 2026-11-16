@@ -21,7 +21,7 @@ related:
   - "[[Mechatronics]]"
   - "[[Control_Systems]]"
   - "[[Medical_Robotics]]"
-  - "[[Material Science]]"
+  - "[[Material_Science]]"
 ---
 
 # Nanorobots
@@ -108,7 +108,7 @@ where:
 - **Environmental Benefits**: The use of nanorobots in environmental remediation provides a novel and effective approach to cleaning up pollutants at the molecular level.
   <br>
 
-- **Design and Integration**: The selection and integration of nanorobots are important aspects of [[Robot Design]] and [[Nanotechnology]], influencing the development of advanced robotic systems capable of operating at the nanoscale.
+- **Design and Integration**: The selection and integration of nanorobots are important aspects of [[Robot_Design|Robot Design]] and [[Nanotechnology]], influencing the development of advanced robotic systems capable of operating at the nanoscale.
   <br>
 
 ---
@@ -120,4 +120,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #nanotechnology WHERE contains(file.outlinks, [[Nanorobots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Nanorobots]])
+```

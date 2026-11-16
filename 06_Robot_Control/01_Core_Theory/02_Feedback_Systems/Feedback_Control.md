@@ -15,17 +15,17 @@ date: 2025-04-29
 prerequisites:
   - "[[Open_Loop_vs_Closed_Loop]]"
 related:
-  - "[[Control Systems]]"
+  - "[[Control_Systems]]"
   - "[[Sensors]]"
   - "[[Actuator]]"
-  - "[[Servo Motors]]"
+  - "[[Servo_Motors]]"
   - "[[Encoders]]"
   - "[[Resolvers]]"
   - "[[Robot_Design]]"
   - "[[Mechatronics]]"
   - "[[Kinematics_and_Dynamics]]"
-  - "[[Manipulator Arm]]"
-  - "[[Legged Robots]]"
+  - "[[Manipulator_Arm]]"
+  - "[[Legged_Robots]]"
   - "[[Wheeled_Mobile_Robots]]"
 ---
 
@@ -115,6 +115,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 ### List of Related Concepts
 
 ```dataview
-LIST FROM #robotics OR #control-systems WHERE contains(file.outlinks, [[Robot_Control]])
-
-
+LIST FROM "" WHERE contains(file.outlinks, [[Robot_Control]])
+```

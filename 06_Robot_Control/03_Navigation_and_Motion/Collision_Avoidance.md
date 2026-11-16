@@ -74,7 +74,7 @@ related:
 
 ## Impact on Robotics
 
-- **Safety and Reliability**: Collision avoidance is essential for ensuring the safety and reliability of robotic operations, particularly in environments where robots interact with humans or other objects. It is a critical component of [[Human-Robot_Interaction|Human-Robot Interaction]] and [[Autonomous Navigation]].
+- **Safety and Reliability**: Collision avoidance is essential for ensuring the safety and reliability of robotic operations, particularly in environments where robots interact with humans or other objects. It is a critical component of [[Human-Robot_Interaction|Human-Robot Interaction]] and [[Autonomous_Navigation|Autonomous Navigation]].
 
 - **Efficient Navigation**: Effective collision avoidance enables robots to navigate efficiently through cluttered and dynamic environments, improving their performance and productivity. This is crucial in applications like [[Mobile_Robots|Mobile Robots]] and [[Service_Robots|Service Robots]].
 
@@ -90,4 +90,5 @@ To integrate this entry with the Dataview plugin, you can use the following quer
 
 ### List of Related Concepts
 ```dataview
-LIST FROM #robotics OR #control-systems WHERE contains(file.outlinks, [[Collision_Avoidance]])
+LIST FROM "" WHERE contains(file.outlinks, [[Collision_Avoidance]])
+```
