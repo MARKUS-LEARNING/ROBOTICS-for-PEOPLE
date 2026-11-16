@@ -1,105 +1,91 @@
 ---
 title: RNN and LSTM
-description: Recurrent Neural Networks (RNNs) and Long Short-Term Memory networks (LSTMs) are types of neural networks designed for processing sequential data, widely used in robotics for tasks such as time series prediction and motion planning.
+description: "Recurrent neural networks carry a hidden state from one time step to the next, which gives them memory for sequences such as sensor streams. Covers the simple RNN, why its gradients vanish (computed), how LSTM and GRU gates fix it, where recurrent policies still matter in robotics (memory of terrain, contact and history), and how transformers and state-space models compare in 2026."
+aliases:
+  - RNN
+  - LSTM
+  - GRU
+  - Recurrent Neural Networks
 tags:
-  - recurrent-neural-networks
-  - long-short-term-memory
-  - machine-learning
   - neural-networks
-  - mobile-robot
+  - deep-learning
+  - locomotion
+  - robot-learning
 type: concept
 level: intermediate
 subfield:
   - robot-learning
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Deep_Learning]]"
-related:
   - "[[Neural_Networks]]"
-  - "[[Machine_Learning]]"
+  - "[[Neural_Networks_and_Backpropagation]]"
+related:
+  - "[[Transformers_and_Attention]]"
+  - "[[Reinforcement_Learning_for_Robots]]"
+  - "[[Legged_Robots]]"
   - "[[Deep_Learning]]"
-  - "[[Robot_Control]]"
+key_takeaways:
+  - "An RNN updates a hidden state h_t = f(h_{t-1}, x_t) every step, so it can remember what it has seen; it is trained by backpropagation through time."
+  - "Simple RNNs forget quickly because gradients shrink geometrically with time; LSTM and GRU gates let the network decide what to keep, preserving information over hundreds of steps."
+  - "Recurrent policies (often GRU or LSTM) remain common in legged locomotion, where the robot must infer terrain, friction and its own state from recent history; transformers and state-space models are the alternatives."
+sources:
+  - "Hochreiter, S. and Schmidhuber, J. (1997). Long Short-Term Memory. https://direct.mit.edu/neco/article/9/8/1735/6109/Long-Short-Term-Memory"
+  - "Cho, K. et al. (2014). Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation. https://arxiv.org/abs/1406.1078"
+  - "Miki, T. et al. (2022). Learning robust perceptive locomotion for quadrupedal robots in the wild. https://arxiv.org/abs/2201.08117"
+  - "Radosavovic, I. et al. (2023). Real-World Humanoid Locomotion with Reinforcement Learning. https://arxiv.org/abs/2303.03381"
+  - "Gu, A. and Dao, T. (2023). Mamba: Linear-Time Sequence Modeling with Selective State Spaces. https://arxiv.org/abs/2312.00752"
 ---
 
 # RNN and LSTM
 
-**Recurrent Neural Networks (RNNs)** and **Long Short-Term Memory networks (LSTMs)** are types of neural networks designed for processing sequential data. They are widely used in robotics for tasks such as time series prediction, motion planning, and natural language processing. RNNs and LSTMs are particularly effective for tasks that involve temporal dependencies, as they can capture patterns and relationships in sequential data.
+A **recurrent neural network (RNN)** processes a sequence one step at a time and carries a **hidden state** forward, a running summary of everything it has seen. A robot needs exactly this when one sensor reading is not enough: a single IMU sample cannot say whether the ground is slippery, but the last second of joint and IMU readings can.
 
----
+> **Etymology.** *Recurrent* is from Latin *recurrere*, "to run back": the network's output runs back in as its own input at the next step. *LSTM* stands for *long short-term memory*, a short-term memory (the hidden state) that lasts a long time. Sepp Hochreiter and Jürgen Schmidhuber introduced it in 1997.
 
-## Key Concepts
+## The simple RNN
 
-### Recurrent Neural Networks (RNNs)
+$$\mathbf h_t = \tanh(W\mathbf h_{t-1} + U\mathbf x_t + \mathbf b), \qquad \mathbf y_t = V\mathbf h_t$$
 
-RNNs are neural networks that include loops in their architecture, allowing information to persist and be used in subsequent steps. This enables them to process sequential data, where the output at each step depends on the previous computations.
+The same weights $W, U, V$ are reused at every step. Training "unrolls" the network over time and applies backpropagation through the unrolled chain (**backpropagation through time**).
 
-### Long Short-Term Memory Networks (LSTMs)
+## Why simple RNNs forget: a computed example
 
-LSTMs are a type of RNN that include a memory cell, which can maintain information over long periods of time. This enables them to capture long-term dependencies in sequential data, improving their ability to learn and predict patterns.
+The influence of an input $k$ steps back is multiplied by roughly the recurrent weight (times the activation's derivative) once per step. With an effective factor of 0.5 per step, an input 10 steps back contributes $0.5^{10} \approx 0.001$ of its original effect, so the network effectively cannot learn from it. At 100 Hz, 10 steps is just 0.1 s of memory. Factors above 1 cause the opposite problem: exploding gradients.
 
-### Hidden State
+## LSTM and GRU: learned memory
 
-The hidden state in an RNN or LSTM is the internal representation of the network at each time step, capturing the information from the previous steps and using it to influence the current computation.
+The **LSTM** adds a separate *cell state* $\mathbf c_t$ and three gates (sigmoids between 0 and 1) that decide what to forget, what to write and what to output:
 
-### Backpropagation Through Time (BPTT)
+$$\mathbf c_t = \mathbf f_t \odot \mathbf c_{t-1} + \mathbf i_t \odot \tilde{\mathbf c}_t, \qquad \mathbf h_t = \mathbf o_t \odot \tanh(\mathbf c_t)$$
 
-Backpropagation Through Time (BPTT) is the algorithm used to train RNNs and LSTMs, involving the unfolding of the network in time and the computation of the gradient of the loss function with respect to the weights.
+Because the cell state is updated by addition, scaled by the forget gate $\mathbf f_t$, the network can hold information as long as it chooses. With a forget gate of 0.95, an input still carries $0.95^{10} = 0.60$ of its weight after 10 steps and $0.95^{50} = 0.077$ after 50. At 0.99 it keeps $0.99^{100} = 0.37$ after 100 steps, a full second at 100 Hz. The network *learns* these gate values for each situation.
 
----
+The **GRU** (Cho et al., 2014) merges the gates into two and drops the separate cell state. It is slightly cheaper and often performs as well, and it is a frequent choice in robot policies.
 
-## Mathematical Formulation
+## Where recurrence matters in robotics
 
-### RNN Hidden State Update
+| Use | Why memory is needed |
+|---|---|
+| **Legged locomotion** | Terrain, friction and payload are not directly observed; a GRU or LSTM infers them from recent proprioception (e.g. ANYmal's perceptive locomotion, 2022) |
+| **State estimation** | Learned odometry and contact estimation from IMU and joint histories |
+| **Partial observability in RL** | Occluded objects, hidden velocities; recurrent policies (PPO + LSTM) |
+| **Time-series monitoring** | Fault and anomaly detection on motor currents and vibration |
 
-The hidden state update in an RNN can be represented as:
+Alternatives that keep a fixed **window of history** are also common: stack the last N observations into an MLP, or use a 1D convolution over time. RMA (2021) used a temporal convolution to estimate environment properties.
 
-$$
-h_t = \sigma(W_{xh} \cdot x_t + W_{hh} \cdot h_{t-1} + b)
-$$
+## RNNs, transformers and state-space models (2026)
 
-where:
-- $h_t$ is the hidden state at time $t$.
-- $x_t$ is the input at time $t$.
-- $W_{xh}$ and $W_{hh}$ are the weight matrices.
-- $b$ is the bias term.
-- $\sigma$ is the activation function.
+| Model | Memory | Cost per step at run time | Training | Robotics use |
+|---|---|---|---|---|
+| **LSTM / GRU** | Compressed into a fixed-size state | Constant, tiny | Sequential, slower | Onboard locomotion policies at 50–1,000 Hz |
+| **[[Transformers_and_Attention\|Transformer]]** | Exact access to a window of past tokens | Grows with the window | Parallel, fast | Humanoid locomotion (2023), VLAs, world models |
+| **State-space models** (S4, Mamba) | Fixed-size state with structured, selective updates | Constant | Parallel | Long-horizon sequence modelling; emerging in robot policies |
 
-### LSTM Cell State Update
-
-The cell state update in an LSTM can be represented as:
-
-$$
-C_t = f_t \cdot C_{t-1} + i_t \cdot \tilde{C}_t
-$$
-
-where:
-- $C_t$ is the cell state at time $t$.
-- $f_t$ is the forget gate.
-- $i_t$ is the input gate.
-- $\tilde{C}_t$ is the candidate cell state.
-
-### Example: Motion Planning
-
-Consider a robotic system using an LSTM for motion planning. The LSTM processes sequential data from the robot's sensors, capturing the temporal dependencies in the data. The hidden state of the LSTM represents the robot's internal state, capturing the information from the previous steps and using it to plan the current motion. This enables the robot to perform tasks such as navigation and manipulation, adapting to changing conditions and performing tasks effectively.
-
----
-
-## Applications in Robotics
-
-- **Time Series Prediction**: RNNs and LSTMs are used to predict future values in time series data, enabling tasks such as trajectory planning and control.
-- **Motion Planning**: Enables robots to plan and execute motions, capturing the temporal dependencies in the data and adapting to changing conditions.
-- **Natural Language Processing**: RNNs and LSTMs are used to process and generate natural language, facilitating tasks such as instruction interpretation and communication.
-- **Control Systems**: RNNs and LSTMs are used to design control algorithms that regulate the behavior of robotic systems, enabling precise and adaptive control.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[RNN_and_LSTM]])

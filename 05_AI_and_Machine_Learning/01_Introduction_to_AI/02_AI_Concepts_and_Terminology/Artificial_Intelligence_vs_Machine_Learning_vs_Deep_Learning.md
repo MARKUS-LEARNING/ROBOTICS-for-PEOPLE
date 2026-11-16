@@ -20,7 +20,7 @@ related:
   - "[[Machine_Learning]]"
   - "[[Deep_Learning_in_Robotics]]"
   - "[[Robot_Control]]"
-  - "[[Neural_Networks_Basics]]"
+  - "[[Neural_Networks]]"
 ---
 
 # Artificial Intelligence vs Machine Learning vs Deep Learning

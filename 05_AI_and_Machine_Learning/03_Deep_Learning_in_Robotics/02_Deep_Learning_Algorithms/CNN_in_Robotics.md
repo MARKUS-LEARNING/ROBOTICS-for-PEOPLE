@@ -1,107 +1,94 @@
 ---
 title: CNN in Robotics
-description: Convolutional Neural Networks (CNNs) in Robotics are a type of deep neural network designed for processing grid-like data, such as images, widely used for tasks such as object recognition, scene understanding, and visual navigation.
+description: "How convolutional networks are used on real robots: real-time object detection (YOLO), instance segmentation, monocular depth, grasp prediction from depth images, and image encoders inside learned policies. Includes a worked latency budget for a 30 Hz camera pipeline on embedded hardware and guidance on CNNs versus vision transformers in 2026."
+aliases:
+  - CNNs in Robotics
 tags:
-  - convolutional-neural-networks
-  - deep-learning
-  - machine-learning
+  - neural-networks
   - computer-vision
-  - mobile-robot
-type: concept
+  - object-detection
+  - grasping
+  - robot-learning
+type: method
 level: intermediate
 subfield:
+  - perception
   - robot-learning
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
   - "[[Convolutional_Neural_Networks]]"
-  - "[[Computer_Vision]]"
 related:
-  - "[[Deep_Learning]]"
-  - "[[Computer_Vision]]"
-  - "[[Robot_Control]]"
-  - "[[Image_Recognition]]"
-  - "[[Object_Detection]]"
+  - "[[Computer_Vision_in_Robotics]]"
+  - "[[Diffusion_Policy]]"
+  - "[[Grasping]]"
+  - "[[Transformers_and_Attention]]"
+  - "[[Camera_Systems]]"
+key_takeaways:
+  - "CNNs do most of a robot's real-time image work: detection, segmentation, depth and keypoints, at camera frame rates on embedded GPUs."
+  - "Grasping from depth images with CNNs (Dex-Net, 2017) was an early large-scale success of learning in manipulation; today's policies use CNN or ViT encoders end to end."
+  - "Budget latency end to end: capture, preprocessing, network and postprocessing must fit inside the frame period, or the robot acts on stale images."
+sources:
+  - "Redmon, J. et al. (2015). You Only Look Once: Unified, Real-Time Object Detection. https://arxiv.org/abs/1506.02640"
+  - "He, K., Gkioxari, G., Dollár, P. and Girshick, R. (2017). Mask R-CNN. https://arxiv.org/abs/1703.06870"
+  - "Mahler, J. et al. (2017). Dex-Net 2.0: Deep Learning to Plan Robust Grasps with Synthetic Point Clouds and Analytic Grasp Metrics. https://arxiv.org/abs/1703.09312"
+  - "Yang, L. et al. (2024). Depth Anything V2. https://arxiv.org/abs/2406.09414"
+  - "Ultralytics (2026). Ultralytics YOLO (YOLO26 models). https://github.com/ultralytics/ultralytics"
+  - "Chi, C. et al. (2023). Diffusion Policy: Visuomotor Policy Learning via Action Diffusion. https://arxiv.org/abs/2303.04137"
 ---
 
 # CNN in Robotics
 
-**Convolutional Neural Networks (CNNs)** in Robotics are a type of deep neural network designed for processing grid-like data, such as images. They are widely used in robotics for tasks such as object recognition, scene understanding, and visual navigation. CNNs are particularly effective for tasks that involve spatial data, as they can capture local patterns and hierarchically compose them into more complex structures.
+[[Convolutional_Neural_Networks|Convolutional neural networks]] are the workhorses of robot vision. Wherever a robot needs to know what is in a camera image, where it is and how far away it is, within the time of one camera frame, there is usually a CNN.
 
----
+> **Etymology.** See [[Convolutional_Neural_Networks]]. *CNN* became robotics vocabulary after 2012, when AlexNet's ImageNet result made learned vision clearly better than hand-designed features.
 
-## Key Concepts
+## Main uses
 
-### Convolutional Layers
+| Task | Output | Typical models (2026) | Robot use |
+|---|---|---|---|
+| **Object detection** | Boxes + class labels | YOLO family (YOLO26), RT-DETR | Find people, parts, obstacles |
+| **Instance segmentation** | Pixel masks per object | Mask R-CNN, YOLO-seg; SAM 2 (transformer) for any object | Pick a specific item from clutter |
+| **Monocular depth** | Depth per pixel from one image | Depth Anything V2 (ViT encoder + convolutional decoder) | Obstacle sensing without lidar |
+| **Keypoints and pose** | Joints of people, 6-DoF object pose | Pose networks, FoundationPose | Human-robot interaction, part insertion |
+| **Grasp prediction** | Grasp quality per candidate or pixel | Dex-Net, GG-CNN | Bin picking |
+| **Policy encoders** | Feature vector per image | ResNet-18/34 (often with spatial softmax), or ViT | Inputs to [[Diffusion_Policy]] and other visuomotor policies |
 
-Convolutional layers apply a set of filters to the input data, extracting features such as edges, textures, and patterns. Each filter is convolved across the input, producing a feature map that represents the presence of the filter's pattern in the input.
+## Two landmark examples
 
-### Pooling Layers
+**Grasping from depth (Dex-Net 2.0, 2017).** A CNN trained on 6.7 million *synthetic* depth images, labelled with physics-based grasp robustness, predicted grasp success on real objects with high reliability. It showed that simulation-generated data could train real-robot vision, an early sim-to-real success (see [[Sim-to-Real_Transfer]]).
 
-Pooling layers reduce the spatial dimensions of the feature maps, decreasing the computational load and providing a form of translation invariance. Common pooling operations include max pooling and average pooling.
+**Visuomotor policies (2016–2026).** Instead of detecting objects and then planning, the CNN's features feed directly into a network that outputs actions, trained end to end from demonstrations. The ResNet-18 image encoder in Diffusion Policy (2023) is typical: small enough to run at 10+ Hz on a laptop GPU, rich enough for contact-rich tasks.
 
-### Fully Connected Layers
+## Worked example: a 30 Hz latency budget
 
-Fully connected layers are traditional neural network layers where each neuron is connected to every neuron in the previous layer. They are used at the end of a CNN to combine the extracted features and make final predictions or decisions.
+A mobile robot's camera runs at 30 Hz, so a new frame arrives every 1000/30 = 33.3 ms. On an embedded GPU the pipeline costs:
 
-### Activation Functions
+| Stage | Time |
+|---|---|
+| Capture and transfer | 5 ms |
+| Resize and normalise | 1.7 ms |
+| Detector inference (small YOLO, FP16) | 8 ms |
+| Postprocessing (non-maximum suppression, tracking) | 2 ms |
+| **Total** | **16.7 ms** |
 
-Activation functions introduce non-linearity into the model, allowing the network to learn complex patterns. Common activation functions include ReLU (Rectified Linear Unit), sigmoid, and tanh.
+That leaves about 17 ms of slack per frame. Add a 20 ms depth network on the same GPU and the total reaches 36.7 ms, more than one frame. Frames start queuing, and the robot reacts to images that are older every second. Fixes: run depth at 15 Hz, use a smaller model, quantise to INT8 with TensorRT, or move a stage to another accelerator. Always measure on the target hardware; desktop benchmarks mislead.
 
----
+## CNN or vision transformer?
 
-## Mathematical Formulation
+| Choose a CNN when… | Choose a ViT when… |
+|---|---|
+| Latency and power are tight (embedded, battery) | You use a large pretrained foundation model (CLIP, DINOv2, a VLA backbone) |
+| Training data is modest | Data or pretraining is abundant |
+| The task is well defined (detect these 20 classes) | The task is open-ended (any object named in language) |
 
-### Convolution Operation
+Hybrids are common: Depth Anything V2 pairs a transformer encoder with a convolutional decoder, and many detectors mix both.
 
-The convolution operation in a CNN can be represented as:
-
-$$
-y_{i,j} = \sigma \left( \sum_{m=0}^{M-1} \sum_{n=0}^{N-1} w_{m,n} \cdot x_{i+m,j+n} + b \right)
-$$
-
-where:
-- $y_{i,j}$ is the output feature map.
-- $w_{m,n}$ is the filter weight.
-- $x_{i+m,j+n}$ is the input data.
-- $b$ is the bias term.
-- $\sigma$ is the activation function.
-
-### Pooling Operation
-
-The max pooling operation can be represented as:
-
-$$
-y_{i,j} = \max_{m,n \in S} x_{i+m,j+n}
-$$
-
-where:
-- $y_{i,j}$ is the output of the pooling operation.
-- $S$ is the pooling window.
-- $x_{i+m,j+n}$ is the input data.
-
-### Example: Object Recognition
-
-Consider a robotic system using a CNN for object recognition. The convolutional layers extract features such as edges and textures from the input image. The pooling layers reduce the spatial dimensions of the feature maps, and the fully connected layers combine the features to classify the image. This enables the robot to recognize and interact with objects in its environment.
-
----
-
-## Applications in Robotics
-
-- **Object Recognition**: CNNs are used to recognize and classify objects in the environment, enabling tasks such as grasping and manipulation.
-- **Navigation**: Enables robots to navigate through their environment, using visual data to predict paths and avoid obstacles.
-- **Scene Understanding**: Provides the perceptual capabilities for robots to interpret and understand their surroundings, enabling tasks such as path planning and decision-making.
-- **Control Systems**: CNNs are used to design control algorithms that regulate the behavior of robotic systems, enabling precise and adaptive control.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
-LIST FROM "" WHERE contains(file.outlinks, [[CNN_in_Robotics]])``
+LIST FROM "" WHERE contains(file.outlinks, [[CNN_in_Robotics]])
 ```

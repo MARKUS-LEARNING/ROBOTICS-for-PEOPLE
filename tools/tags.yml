@@ -474,6 +474,7 @@ vocabulary:
   - nonholonomic
   - nonlinear-systems
   - numerical-methods
+  - object-detection
   - obstacle-avoidance
   - obstacle-detection
   - occupancy-grid

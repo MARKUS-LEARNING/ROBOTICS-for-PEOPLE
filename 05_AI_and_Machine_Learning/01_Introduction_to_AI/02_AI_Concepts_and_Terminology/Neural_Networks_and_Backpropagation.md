@@ -1,106 +1,102 @@
 ---
 title: Neural Networks and Backpropagation
-description: Neural Networks and Backpropagation are fundamental concepts in machine learning, involving the use of interconnected nodes to model complex patterns and the algorithm for training these networks by minimizing the error.
+description: "Backpropagation is the algorithm that trains neural networks: it applies the chain rule backwards through the network to get the gradient of the loss with respect to every weight in one pass. Covers the idea, the equations for a layer, a fully computed two-weight example with one update step, automatic differentiation in PyTorch and JAX, and the practical problems (vanishing gradients, initialisation, normalisation)."
+aliases:
+  - Backpropagation
+  - Backprop
 tags:
   - neural-networks
-  - backpropagation
+  - deep-learning
+  - optimization
   - machine-learning
-  - artificial-intelligence
-  - mobile-robot
 type: method
 level: intermediate
 subfield:
   - robot-learning
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
   - "[[Neural_Networks]]"
   - "[[Calculus_for_Robotics]]"
 related:
-  - "[[Machine_Learning]]"
-  - "[[Artificial_Intelligence]]"
+  - "[[Optimization_and_Loss_Functions]]"
+  - "[[Activation_Functions_(ReLU,_Sigmoid,_Tanh)]]"
   - "[[Deep_Learning]]"
-  - "[[Robot_Control]]"
-  - "[[Model_Training]]"
+key_takeaways:
+  - "Backpropagation is the chain rule applied from the loss back to the inputs, reusing each layer's intermediate results; it costs about as much as two forward passes."
+  - "Modern frameworks (PyTorch, JAX) do it automatically (reverse-mode automatic differentiation); you write the forward computation, they produce the gradients."
+  - "Deep networks train well only with care: sensible initialisation, non-saturating activations, residual connections, normalisation and adaptive optimisers such as Adam."
+sources:
+  - "Rumelhart, D. E., Hinton, G. E. and Williams, R. J. (1986). Learning representations by back-propagating errors. https://www.nature.com/articles/323533a0"
+  - "Glorot, X., Bordes, A. and Bengio, Y. (2011). Deep Sparse Rectifier Neural Networks. https://proceedings.mlr.press/v15/glorot11a.html"
+  - "Kingma, D. P. and Ba, J. (2014). Adam: A Method for Stochastic Optimization. https://arxiv.org/abs/1412.6980"
+  - "Baydin, A. G. et al. (2015). Automatic differentiation in machine learning: a survey. https://arxiv.org/abs/1502.05767"
+  - "Goodfellow, I., Bengio, Y. and Courville, A. (2016). Deep Learning, chapter 6.5: Back-Propagation. https://www.deeplearningbook.org/"
 ---
 
 # Neural Networks and Backpropagation
 
-**Neural Networks** are computational models inspired by the structure and function of the human brain, consisting of interconnected nodes (neurons) that process and transmit information. **Backpropagation** is the algorithm used to train these networks by minimizing the error between the predicted and actual outputs. These concepts are fundamental in machine learning and are widely used in robotics for tasks such as pattern recognition, decision-making, and control.
+Training a [[Neural_Networks|neural network]] means adjusting millions or billions of weights so that a loss goes down. To know which way to move each weight, you need the **gradient**: how much the loss changes when that weight changes. **Backpropagation** computes all of those gradients in one backward sweep through the network.
 
----
+> **Etymology.** *Back-propagation of errors*: the error signal is propagated backwards from the output. The method has several inventors: Seppo Linnainmaa described reverse-mode differentiation in 1970 and Paul Werbos applied it to networks in 1974. Rumelhart, Hinton and Williams's 1986 *Nature* paper made it the standard way to train networks.
 
-## Key Concepts
+## The idea: the chain rule, run backwards
 
-### Neural Networks
+A network is a chain of functions: input → layer 1 → layer 2 → … → output → loss. The chain rule says the sensitivity of the loss to an early quantity equals the product of the sensitivities along the chain. Going **backwards** means each layer's gradient is computed once and reused by every layer before it. The whole backward pass therefore costs about the same as two forward passes, however many weights there are. Computing each weight's effect separately would cost a full forward pass *per weight*.
 
-Neural networks are composed of layers of interconnected nodes, including an input layer, one or more hidden layers, and an output layer. Each node applies a transformation to its input and passes the result to the next layer, enabling the network to learn complex patterns and relationships in the data.
+For a layer $\mathbf h = \sigma(\mathbf z)$ with $\mathbf z = W\mathbf x + \mathbf b$, given the upstream gradient $\boldsymbol\delta_h = \partial L/\partial \mathbf h$:
 
-### Backpropagation
+$$\boldsymbol\delta_z = \boldsymbol\delta_h \odot \sigma'(\mathbf z), \qquad \frac{\partial L}{\partial W} = \boldsymbol\delta_z\,\mathbf x^\top, \qquad \frac{\partial L}{\partial \mathbf b} = \boldsymbol\delta_z, \qquad \frac{\partial L}{\partial \mathbf x} = W^\top \boldsymbol\delta_z$$
 
-Backpropagation is the algorithm used to train neural networks by propagating the error from the output layer back to the input layer, adjusting the weights of the connections to minimize the error. This involves calculating the gradient of the loss function with respect to the weights and updating the weights using optimization techniques such as gradient descent.
+The last quantity is passed back to the previous layer, and so on.
 
-### Activation Functions
+## Worked example: one training step by hand
 
-Activation functions introduce non-linearity into the model, allowing the network to learn complex patterns. Common activation functions include ReLU (Rectified Linear Unit), sigmoid, and tanh, which determine the output of a node given its input.
+A tiny network: $h = \text{ReLU}(w_1 x)$, $y = w_2 h$, loss $L = \tfrac12 (y - t)^2$. Take $x = 1$, target $t = 2$, and start from $w_1 = 0.5$, $w_2 = 2$.
 
-### Loss Function
+**Forward pass.** $h = \text{ReLU}(0.5) = 0.5$, $y = 2 \times 0.5 = 1.0$, $L = \tfrac12(1-2)^2 = 0.5$.
 
-The loss function measures the difference between the predicted and actual outputs, providing the error signal that is used to update the weights during backpropagation. Common loss functions include mean squared error (MSE) for regression tasks and cross-entropy for classification tasks.
+**Backward pass.**
 
----
+| Quantity | Chain rule | Value |
+|---|---|---|
+| $\partial L/\partial y$ | $y - t$ | −1 |
+| $\partial L/\partial w_2$ | $\partial L/\partial y \cdot h$ | −0.5 |
+| $\partial L/\partial h$ | $\partial L/\partial y \cdot w_2$ | −2 |
+| $\partial L/\partial w_1$ | $\partial L/\partial h \cdot \text{ReLU}'(0.5) \cdot x$ | −2 |
 
-## Mathematical Formulation
+**Update** with learning rate $\eta = 0.1$: $w_2 \leftarrow 2 - 0.1(-0.5) = 2.05$ and $w_1 \leftarrow 0.5 - 0.1(-2) = 0.7$.
 
-### Forward Propagation
+**Check.** Now $h = 0.7$, $y = 2.05 \times 0.7 = 1.435$, and $L = \tfrac12(1.435 - 2)^2 = 0.160$. One step cut the loss from 0.5 to 0.16. Notice that $w_1$ moved more than $w_2$: the gradient automatically sends more of the blame to the weight whose change helps most.
 
-Forward propagation involves calculating the output of the neural network for a given input. The output of a node $j$ in layer $l$ is given by:
+## You rarely write it yourself
 
-$$
-a_j^{(l)} = \sigma \left( \sum_{i=1}^{n} w_{ji}^{(l)} a_i^{(l-1)} + b_j^{(l)} \right)
-$$
+Frameworks implement backpropagation as **reverse-mode automatic differentiation**. You write the forward computation and they record it and produce exact gradients:
 
-where:
-- $a_j^{(l)}$ is the output of node $j$ in layer $l$.
-- $w_{ji}^{(l)}$ is the weight of the connection from node $i$ in layer $l-1$ to node $j$ in layer $l$.
-- $a_i^{(l-1)}$ is the output of node $i$ in layer $l-1$.
-- $b_j^{(l)}$ is the bias of node $j$ in layer $l$.
-- $\sigma$ is the activation function.
+```python
+import torch
+w1 = torch.tensor(0.5, requires_grad=True); w2 = torch.tensor(2.0, requires_grad=True)
+y = w2 * torch.relu(w1 * 1.0)
+loss = 0.5 * (y - 2.0) ** 2
+loss.backward()
+print(w1.grad, w2.grad)   # tensor(-2.) tensor(-0.5)
+```
 
-### Backpropagation Algorithm
+The same machinery differentiates through anything written in the framework, including physics: **differentiable simulators** (MJX, Warp-based engines) let gradients flow through rigid-body dynamics into a controller.
 
-The backpropagation algorithm involves calculating the gradient of the loss function with respect to the weights and updating the weights using gradient descent. The weight update equation is given by:
+## Making deep networks trainable
 
-$$
-w_{ji}^{(l)} = w_{ji}^{(l)} - \alpha \frac{\partial J}{\partial w_{ji}^{(l)}}
-$$
+| Problem | What happens | Remedy |
+|---|---|---|
+| **Vanishing gradients** | Repeated multiplication by small derivatives (sigmoid's is at most 0.25) shrinks gradients toward zero in early layers | ReLU-family activations, residual connections |
+| **Exploding gradients** | Products grow without bound, especially in recurrent nets | Gradient clipping, careful initialisation, LSTMs or transformers |
+| **Bad scale** | Activations drift in size layer to layer | Normalisation (LayerNorm, BatchNorm), Xavier or He initialisation |
+| **Slow or unstable descent** | One learning rate fits no weight well | Adaptive optimisers (Adam, AdamW), learning-rate warm-up and decay |
 
-where:
-- $w_{ji}^{(l)}$ is the weight of the connection from node $i$ in layer $l-1$ to node $j$ in layer $l$.
-- $\alpha$ is the learning rate.
-- $\frac{\partial J}{\partial w_{ji}^{(l)}}$ is the gradient of the loss function with respect to the weight.
-
-### Example: Pattern Recognition
-
-Consider a robotic system using a neural network for pattern recognition. The network is trained using backpropagation to minimize the error between the predicted and actual outputs, enabling the robot to recognize and interpret patterns in its environment. The activation functions introduce non-linearity into the model, allowing the network to learn complex patterns and relationships in the data.
-
----
-
-## Applications in Robotics
-
-- **Pattern Recognition**: Neural networks and backpropagation are used to recognize and interpret patterns in the environment, enabling tasks such as object recognition and scene understanding.
-- **Decision Making**: Enables robots to make decisions based on complex patterns and relationships in the data, facilitating tasks such as navigation and control.
-- **Control Systems**: Neural networks and backpropagation are used to design control algorithms that regulate the behavior of robotic systems, enabling precise and adaptive control.
-- **Model Training**: Fundamental in training neural networks, enabling them to learn and adapt to new tasks and environments.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Neural_Networks_and_Backpropagation]])

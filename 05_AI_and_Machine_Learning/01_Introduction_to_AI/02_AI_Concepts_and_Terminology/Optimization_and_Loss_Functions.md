@@ -22,7 +22,7 @@ related:
   - "[[Model_Training]]"
   - "[[Robot_Control]]"
   - "[[Data_Analysis]]"
-  - "[[Neural_Networks_Basics]]"
+  - "[[Neural_Networks]]"
 ---
 
 # Optimization and Loss Functions

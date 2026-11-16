@@ -107,14 +107,14 @@ From machine learning basics to deep and reinforcement learning on real robots.
 3. [[Policy|Policy (Robot Control Policy)]] · *beginner*
 4. [[Computer_Vision_in_Robotics|Computer Vision in Robotics]] · *intermediate*
 5. [[Robot_Simulation|Robot Simulation]] · *intermediate*
-6. [[Deep_Learning|Deep Learning]] · *intermediate*
-7. [[Deep_Learning_in_Robotics|Deep Learning in Robotics]] · *intermediate*
-8. [[Imitation_Learning|Imitation Learning]] · *intermediate*
+6. [[Imitation_Learning|Imitation Learning]] · *intermediate*
+7. [[Deep_Learning|Deep Learning]] · *intermediate*
+8. [[Deep_Learning_in_Robotics|Deep Learning in Robotics]] · *intermediate*
 9. [[Generative_Models|Generative Models]] · *intermediate*
-10. [[Markov_Decision_Process|Markov Decision Process (MDP)]] · *intermediate*
-11. [[Reinforcement_Learning|Reinforcement Learning]] · *intermediate*
-12. [[Reinforcement_Learning_for_Robots|Reinforcement Learning for Robots]] · *intermediate*
-13. [[Transformers_and_Attention|Transformers and Attention]] · *intermediate*
+10. [[Transformers_and_Attention|Transformers and Attention]] · *intermediate*
+11. [[Markov_Decision_Process|Markov Decision Process (MDP)]] · *intermediate*
+12. [[Reinforcement_Learning|Reinforcement Learning]] · *intermediate*
+13. [[Reinforcement_Learning_for_Robots|Reinforcement Learning for Robots]] · *intermediate*
 14. [[World_Models|World Models]] · *advanced*
 15. [[Diffusion_Policy|Diffusion Policy]] · *advanced*
 16. [[Vision-Language-Action_Models|Vision-Language-Action Models (VLAs)]] · *advanced*
@@ -325,8 +325,8 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 6. [[Camera_Systems|Camera Systems]] · *intermediate*
 7. [[LIDAR|LIDAR (Light Detection and Ranging)]] · *intermediate*
 8. [[IMU_Sensors|IMU Sensors (Inertial Measurement Unit)]] · *intermediate*
-9. [[Computer_Vision|Computer Vision]] · *intermediate*
-10. [[Obstacle_Avoidance|Obstacle Avoidance]] · *intermediate*
+9. [[Obstacle_Avoidance|Obstacle Avoidance]] · *intermediate*
+10. [[Computer_Vision|Computer Vision]] · *intermediate*
 11. [[RGB-D_Sensor|RGB-D Sensor]] · *intermediate*
 12. [[Sensor_Calibration_Techniques|Sensor Calibration Techniques]] · *intermediate*
 13. [[Encoders]] · *intermediate*
@@ -334,10 +334,12 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 15. [[Ultrasonic_Sensors|Ultrasonic Sensors]] · *intermediate*
 16. [[Resolvers]] · *intermediate*
 17. [[Piezoelectricity]] · *intermediate*
-18. [[MEMS|Microelectromechanical Systems (MEMS)]] · *advanced*
-19. [[Active_Perception_and_Sensing|Active Perception and Sensing]] · *advanced*
-20. [[Event_Based_Sensing_and_Processing|Event-Based Sensing and Processing]] · *advanced*
-21. [[Semantic_Scene_Understanding|Semantic Scene Understanding (Beyond Geometric Mapping)]] · *advanced*
+18. [[Convolutional_Neural_Networks|Convolutional Neural Networks]] · *intermediate*
+19. [[CNN_in_Robotics|CNN in Robotics]] · *intermediate*
+20. [[MEMS|Microelectromechanical Systems (MEMS)]] · *advanced*
+21. [[Active_Perception_and_Sensing|Active Perception and Sensing]] · *advanced*
+22. [[Event_Based_Sensing_and_Processing|Event-Based Sensing and Processing]] · *advanced*
+23. [[Semantic_Scene_Understanding|Semantic Scene Understanding (Beyond Geometric Mapping)]] · *advanced*
 
 ### State Estimation, Localization and Mapping
 
@@ -425,40 +427,40 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 1. [[Artificial_Intelligence|Artificial Intelligence]] · *beginner*
 2. [[AI_and_Robot_Control|AI and Robot Control]] · *beginner*
 3. [[Machine_Learning|Machine Learning]] · *beginner*
-4. [[Policy|Policy (Robot Control Policy)]] · *beginner*
-5. [[Embodied_AI|Embodied AI]] · *beginner*
-6. [[Agents_and_Environments|Agents and Environments]] · *beginner*
-7. [[Artificial_Intelligence_vs_Machine_Learning_vs_Deep_Learning|Artificial Intelligence vs Machine Learning vs Deep Learning]] · *beginner*
-8. [[Autonomous_Robots|Autonomous Robots]] · *beginner*
-9. [[Computer_Vision_in_Robotics|Computer Vision in Robotics]] · *intermediate*
-10. [[Robot_Simulation|Robot Simulation]] · *intermediate*
-11. [[Neural_Networks|Neural Networks]] · *intermediate*
+4. [[Neural_Networks|Neural Networks]] · *beginner*
+5. [[Policy|Policy (Robot Control Policy)]] · *beginner*
+6. [[Embodied_AI|Embodied AI]] · *beginner*
+7. [[Agents_and_Environments|Agents and Environments]] · *beginner*
+8. [[Artificial_Intelligence_vs_Machine_Learning_vs_Deep_Learning|Artificial Intelligence vs Machine Learning vs Deep Learning]] · *beginner*
+9. [[Autonomous_Robots|Autonomous Robots]] · *beginner*
+10. [[Computer_Vision_in_Robotics|Computer Vision in Robotics]] · *intermediate*
+11. [[Robot_Simulation|Robot Simulation]] · *intermediate*
 12. [[Deep_Learning|Deep Learning]] · *intermediate*
 13. [[Deep_Learning_in_Robotics|Deep Learning in Robotics]] · *intermediate*
 14. [[Generative_Models|Generative Models]] · *intermediate*
-15. [[Markov_Decision_Process|Markov Decision Process (MDP)]] · *intermediate*
-16. [[Reinforcement_Learning|Reinforcement Learning]] · *intermediate*
-17. [[Reinforcement_Learning_for_Robots|Reinforcement Learning for Robots]] · *intermediate*
-18. [[Convolutional_Neural_Networks|Convolutional Neural Networks]] · *intermediate*
-19. [[Supervised_Learning|Supervised Learning]] · *intermediate*
-20. [[Imitation_Learning|Imitation Learning]] · *intermediate*
-21. [[Teleoperation_and_Data_Collection|Teleoperation and Data Collection]] · *intermediate*
-22. [[Robot_Learning_Datasets_and_Benchmarks|Robot Learning Datasets and Benchmarks]] · *intermediate*
-23. [[Unsupervised_Learning|Unsupervised Learning]] · *intermediate*
-24. [[Neural_Networks_and_Backpropagation|Neural Networks and Backpropagation]] · *intermediate*
-25. [[RNN_and_LSTM|RNN and LSTM]] · *intermediate*
-26. [[Transfer_Learning|Transfer Learning]] · *intermediate*
-27. [[Autoencoders]] · *intermediate*
-28. [[Bias,_Variance,_and_Overfitting|Bias, Variance, and Overfitting]] · *intermediate*
-29. [[Transformers_and_Attention|Transformers and Attention]] · *intermediate*
-30. [[Activation_Functions_(ReLU,_Sigmoid,_Tanh)|Activation Functions (ReLU, Sigmoid, Tanh)]] · *intermediate*
-31. [[Classification_vs_Regression_vs_Clustering|Classification vs Regression vs Clustering]] · *intermediate*
-32. [[CNN_in_Robotics|CNN in Robotics]] · *intermediate*
-33. [[Decision_Trees_and_Rule-Based_Systems|Decision Trees and Rule-Based Systems]] · *intermediate*
-34. [[Feature_Engineering_and_Data_Preprocessing|Feature Engineering and Data Preprocessing]] · *intermediate*
-35. [[Knowledge_Representation_and_Reasoning|Knowledge Representation and Reasoning]] · *intermediate*
-36. [[Natural_Language_Processing_Basics|Natural Language Processing Basics]] · *intermediate*
-37. [[Optimization_and_Loss_Functions|Optimization and Loss Functions]] · *intermediate*
+15. [[Transformers_and_Attention|Transformers and Attention]] · *intermediate*
+16. [[Convolutional_Neural_Networks|Convolutional Neural Networks]] · *intermediate*
+17. [[Markov_Decision_Process|Markov Decision Process (MDP)]] · *intermediate*
+18. [[Reinforcement_Learning|Reinforcement Learning]] · *intermediate*
+19. [[Reinforcement_Learning_for_Robots|Reinforcement Learning for Robots]] · *intermediate*
+20. [[Neural_Networks_and_Backpropagation|Neural Networks and Backpropagation]] · *intermediate*
+21. [[Supervised_Learning|Supervised Learning]] · *intermediate*
+22. [[Imitation_Learning|Imitation Learning]] · *intermediate*
+23. [[Teleoperation_and_Data_Collection|Teleoperation and Data Collection]] · *intermediate*
+24. [[Robot_Learning_Datasets_and_Benchmarks|Robot Learning Datasets and Benchmarks]] · *intermediate*
+25. [[Unsupervised_Learning|Unsupervised Learning]] · *intermediate*
+26. [[RNN_and_LSTM|RNN and LSTM]] · *intermediate*
+27. [[Activation_Functions_(ReLU,_Sigmoid,_Tanh)|Activation Functions (ReLU, Sigmoid, Tanh)]] · *intermediate*
+28. [[Autoencoders]] · *intermediate*
+29. [[Transfer_Learning|Transfer Learning]] · *intermediate*
+30. [[Bias,_Variance,_and_Overfitting|Bias, Variance, and Overfitting]] · *intermediate*
+31. [[CNN_in_Robotics|CNN in Robotics]] · *intermediate*
+32. [[Optimization_and_Loss_Functions|Optimization and Loss Functions]] · *intermediate*
+33. [[Classification_vs_Regression_vs_Clustering|Classification vs Regression vs Clustering]] · *intermediate*
+34. [[Decision_Trees_and_Rule-Based_Systems|Decision Trees and Rule-Based Systems]] · *intermediate*
+35. [[Feature_Engineering_and_Data_Preprocessing|Feature Engineering and Data Preprocessing]] · *intermediate*
+36. [[Knowledge_Representation_and_Reasoning|Knowledge Representation and Reasoning]] · *intermediate*
+37. [[Natural_Language_Processing_Basics|Natural Language Processing Basics]] · *intermediate*
 38. [[Semi-Supervised_Learning|Semi-Supervised Learning]] · *intermediate*
 39. [[ROS_AI_Integration|ROS AI Integration]] · *intermediate*
 40. [[MuJoCo]] · *intermediate*
