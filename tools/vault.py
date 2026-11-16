@@ -1312,6 +1312,69 @@ def cmd_obsidian_check(a):
 
 
 # ---------------------------------------------------------------------------------------------------------------- stats
+def refresh_queue(v, b):
+    """Notes still to be brought up to date, most urgent first. A note is done when it has `as_of` and enough
+    `sources`. Urgency: fast-moving subfield (state of the art changes yearly), draft status, how many notes link
+    to it (fixing it improves the most reading paths), then shortness."""
+    inbound = {k: len(s) for k, s in b.inbound.items()}
+    rows = []
+    for n in b.notes:
+        fm = n.frontmatter
+        if fm.get('as_of') and len(fm.get('sources') or []) >= 3:
+            continue
+        score = 4 * b.fast(n) + 2 * (fm.get('status') in ('draft', 'stub')) + min(inbound.get(n.path, 0), 20) / 5
+        rows.append((round(score, 1), inbound.get(n.path, 0), n))
+    rows.sort(key=lambda r: (-r[0], -r[1], r[2].word_count, r[2].path))
+    return rows
+
+
+def cmd_queue(a):
+    v = Vault(); b = Book(v)
+    rows = refresh_queue(v, b)
+    if a.chapter:
+        rows = [r for r in rows if r[2].chapter.startswith(a.chapter)]
+    if a.json:
+        print(json.dumps([dict(path=n.path, score=s, inbound=i, status=n.frontmatter.get('status'), fast=b.fast(n),
+                               words=n.word_count) for s, i, n in rows], indent=1)); return
+    print(f'{len(rows)} notes to refresh (done = as_of + 3 sources)')
+    for s, i, n in rows[:a.limit or None]:
+        print(f'{s:5.1f}  in={i:3d}  {"fast " if b.fast(n) else "     "}{n.frontmatter.get("status", ""):9}{n.word_count:6d}w  {n.path}')
+
+
+TAG_WORD = re.compile(r'[a-z0-9]+')
+
+
+def suggest_tags(n, vocabulary, min_hits=2, limit=6):
+    """Vocabulary tags a note's text discusses but its `tags:` omit. A tag matches when all its words appear as a
+    phrase (hyphens = spaces); the title and headings count triple. Suggestions only: a person accepts them."""
+    text = ' '.join(TAG_WORD.findall(n.body.lower()))
+    heads = ' '.join(TAG_WORD.findall(' '.join([n.name.replace('_', ' ')] + re.findall(r'^#+ (.*)$', n.body, re.M)).lower()))
+    have = {t.lower() for t in n.fm_tags}
+    out = []
+    for t in vocabulary:
+        if t in have or len(t) < 3:
+            continue
+        phrase = ' '.join(t.split('-'))
+        pat = re.compile(r'\b' + re.escape(phrase) + r's?\b')
+        hits = len(pat.findall(text)) + 3 * len(pat.findall(heads))
+        if hits >= min_hits:
+            out.append((hits, t))
+    return [t for _, t in sorted(out, key=lambda x: (-x[0], x[1]))[:limit]]
+
+
+def cmd_suggest_tags(a):
+    v = Vault(); tm = TagMap()
+    want = {x.removesuffix('.md') for x in a.notes}
+    for n in v.notes:
+        if want and n.name not in want and n.path.removesuffix('.md') not in want:
+            continue
+        if (n.frontmatter or {}).get('type') == 'guide':
+            continue
+        s = suggest_tags(n, sorted(tm.vocabulary), a.min_hits)
+        if s:
+            print(f'{n.path}: ' + ', '.join(s))
+
+
 def cmd_stats(a):
     v = Vault()
     links = [(n, l) for n in v.notes for l in n.links]
@@ -1387,6 +1450,12 @@ def main(argv=None):
     p = sub.add_parser('fix-links', help='repoint links that misspell an existing note ([[Machine Learning]] -> Machine_Learning)')
     p.add_argument('--write', action='store_true')
     p.set_defaults(fn=cmd_fix_links)
+    p = sub.add_parser('queue', help='notes still to bring up to date (as_of + sources), most urgent first')
+    p.add_argument('--chapter', default=''); p.add_argument('--limit', type=int, default=40); p.add_argument('--json', action='store_true')
+    p.set_defaults(fn=cmd_queue)
+    p = sub.add_parser('suggest-tags', help='vocabulary tags a note discusses but does not carry (suggestions only)')
+    p.add_argument('notes', nargs='*'); p.add_argument('--min-hits', type=int, default=3)
+    p.set_defaults(fn=cmd_suggest_tags)
     p = sub.add_parser('obsidian-check', help="compare with Obsidian's own index via the Obsidian CLI (local only)")
     p.add_argument('--obsidian', help='path to the obsidian CLI'); p.add_argument('--vault', help='Obsidian vault name')
     p.set_defaults(fn=cmd_obsidian_check)

@@ -99,5 +99,13 @@ class Tags(unittest.TestCase):
         self.assertIsNone(tm.canonical('tutorial'))   # becomes `type: tutorial`
 
 
+class SuggestTags(unittest.TestCase):
+    def test_phrases_headings_and_existing(self):
+        n = note('# Model Predictive Control\nMPC solves an optimal control problem. Optimal control again.\n'
+                 'A word on kalman.\n', fm='title: T\ntags:\n  - mpc\n')
+        got = vault.suggest_tags(n, ['mpc', 'optimal-control', 'kalman-filter', 'model-predictive-control'], min_hits=2)
+        self.assertEqual(got, ['model-predictive-control', 'optimal-control'])   # mpc already tagged; kalman alone is not "kalman filter"
+
+
 if __name__ == '__main__':
     unittest.main()

@@ -180,6 +180,8 @@ python3 tools/vault.py obsidian-check   # compare with Obsidian's own index (nee
 python3 tools/vault.py pages --write    # rebuild Subfield_Atlas, Frontier and Learning_Paths from the notes
 python3 tools/vault.py fix-links        # find links that misspell an existing note; --write repoints them
 python3 tools/vault.py trim-related     # find related: links to missing notes nothing else mentions; --write removes them
+python3 tools/vault.py queue            # notes still to bring up to date (as_of + 3 sources), most urgent first
+python3 tools/vault.py suggest-tags     # vocabulary tags a note discusses but does not carry (you decide which to add)
 ```
 
 The [[Subfield_Atlas]], [[Learning_Paths]], [[Frontier]] and [[Whats_New|What's New]] pages are generated from every note's frontmatter. After adding or editing notes, run `pages --write` and commit the result; CI fails if they are out of date.
