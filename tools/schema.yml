@@ -1,0 +1,48 @@
+# Frontmatter schema v2 for ROBOTICS-for-PEOPLE notes. Enforced by `python3 tools/vault.py lint`.
+# Documented for humans in 00_Introduction/Vault_Taxonomy_Guide.md; keep the two in sync.
+
+version: 2
+
+fields:
+  title:         {required: true,  kind: string}
+  description:   {required: true,  kind: string, max_length: 400}   # one-line summary: meta description, llms.txt, graph.json
+  tags:          {required: true,  kind: list,   item: tag}          # every tag must be in tools/tags.yml
+  type:          {required: true,  kind: enum,   values: [concept, method, component, robot-type, application, tool, tutorial, lab, overview, reference, guide, person]}
+  level:         {required: true,  kind: enum,   values: [beginner, intermediate, advanced, research]}
+  subfield:      {required: true,  kind: list,   item: subfield, min: 1, max: 3}   # keys from tools/subfields.yml
+  status:        {required: true,  kind: enum,   values: [stub, draft, reviewed, keystone]}
+  author:        {required: true,  kind: enum,   values: [Jordan_Smith]}
+  date:          {required: true,  kind: date}
+  related:       {required: false, kind: list,   item: wikilink}
+  prerequisites: {required: false, kind: list,   item: wikilink}   # must resolve and form no cycle
+  last_reviewed: {required: false, kind: date}
+  key_takeaways: {required: false, kind: list,   item: string, max: 5}
+  aliases:       {required: false, kind: list,   item: string}
+
+# Fields from schema v1 that `vault.py migrate` removes. Lint reports them while they remain.
+removed: [layout, permalink, category, application, control_strategy]
+
+# Meaning of each enum value, shown in the Taxonomy Guide and used by the site badges.
+levels:
+  beginner:     No background needed beyond curiosity and school maths.
+  intermediate: Assumes the beginner notes it lists as prerequisites; undergraduate level.
+  advanced:     Graduate or practitioner level; assumes the core stack.
+  research:     Open problems and recent work; expect papers, not settled answers.
+statuses:
+  stub:     Placeholder or a few paragraphs; listed on the Frontier page.
+  draft:    Substantial but not yet reviewed against the chapter template.
+  reviewed: Passed a chapter review pass.
+  keystone: A deep, highly linked entry rewritten to the full template (etymology to reading list).
+types:
+  concept:     An idea or quantity (Jacobian, Degrees of Freedom).
+  method:      An algorithm or technique (PID Control, Particle Filter).
+  component:   A physical part or sensor (LIDAR, Harmonic Drive).
+  robot-type:  A family of robots (Humanoid Robots, Drones).
+  application: A use of robots in a domain (Agricultural Robotics).
+  tool:        Software or hardware tooling (Gazebo, MoveIt 2).
+  tutorial:    Step-by-step how-to.
+  lab:         Hands-on exercise with an outcome to check.
+  overview:    Chapter or section introduction that maps other notes.
+  reference:   Lists of resources, papers, courses, links.
+  guide:       How to use or contribute to this vault.
+  person:      A pioneer or researcher.

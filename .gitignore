@@ -10,3 +10,16 @@ CLAUDE.md
 # Obsidian workspace-local files (keep vault portable)
 .obsidian/workspace.json
 .obsidian/workspace-mobile.json
+
+# Obsidian: share vault settings (app, core and community plugin lists), not third-party plugin code or personal UI state
+.obsidian/plugins/
+.obsidian/appearance.json
+.obsidian/graph.json
+.obsidian/hotkeys.json
+.obsidian/themes/
+.obsidian/snippets/
+
+# Tooling
+__pycache__/
+*.pyc
+.venv/

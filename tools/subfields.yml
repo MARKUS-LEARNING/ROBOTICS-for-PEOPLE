@@ -1,0 +1,232 @@
+# The Subfield Atlas: robotics as a field without edges.
+#
+# Every note names 1-3 of these keys in its `subfield:` frontmatter. The Atlas page, the site navigation, the
+# learning paths and graph.json are all built from this list. A subfield with no notes yet is kept on purpose: it is
+# an open invitation and shows up on the Frontier page.
+#
+# Adding a subfield: add an entry here (key in kebab-case), then tag notes with it. `folders` and `tags` are only
+# hints used by `vault.py migrate` to propose values; authors have the final say in each note's frontmatter.
+#
+# group: core      = the stack every robot is built on
+#        body      = how robots are shaped and move
+#        domain    = where robots work
+#        society   = robots among people
+#        frontier  = directions still being invented
+
+subfields:
+  # ------------------------------------------------------------------------------------------------ core
+  mathematics:
+    title: Mathematics for Robotics
+    group: core
+    description: "Linear algebra, calculus, probability, spatial math (SO(3)/SE(3), Lie groups) and optimization."
+    folders: [02_Mathematics_for_Robotics]
+    tags: [mathematics, linear-algebra, calculus, probability, statistics, optimization, lie-groups, spatial-math, so3, se3, quaternions, manifolds, numerical-methods]
+  kinematics-dynamics:
+    title: Kinematics and Dynamics
+    group: core
+    description: "How bodies and chains move and why: forward/inverse/differential kinematics, Jacobians, Newton-Euler and Lagrangian dynamics."
+    folders: [03_Kinematics_and_Dynamics/00_Introduction, 03_Kinematics_and_Dynamics/01_Forward_and_Inverse_Kinematics, 03_Kinematics_and_Dynamics/02_Dynamics_of_Robot_Manipulators]
+    tags: [kinematics, forward-kinematics, inverse-kinematics, differential-kinematics, jacobian, dynamics, lagrangian-dynamics, newton-euler, degrees-of-freedom, singularities, workspace, configuration-space]
+  mechanisms-actuation:
+    title: Mechanisms, Actuation and Materials
+    group: core
+    description: "Joints, linkages, gears and transmissions, motors, hydraulics and pneumatics, and the materials robots are made of."
+    folders: [03_Kinematics_and_Dynamics/04_Mechanisms_and_Actuation, 09_Advanced_Topics/09_Advanced_Materials]
+    tags: [mechanism, mechanism-design, actuators, transmission, gears, hydraulics, pneumatics, materials, smart-materials, mechanical-design, joints]
+  perception:
+    title: Sensing and Perception
+    group: core
+    description: "Sensors and turning their signals into understanding: cameras, LIDAR, IMUs, computer vision, calibration."
+    folders: [04_Sensors_and_Perception/00_Introduction_to_Sensors_and_Perception, 04_Sensors_and_Perception/01_Types_of_Sensors, 04_Sensors_and_Perception/03_Computer_Vision_in_Robotics, 04_Sensors_and_Perception/04_Sensor_Calibration]
+    tags: [sensors, perception, computer-vision, camera, lidar, imu, rgb-d, calibration, point-cloud, image-processing]
+  estimation-mapping:
+    title: State Estimation, Localization and Mapping
+    group: core
+    description: "Knowing where the robot is and what is around it: filters, sensor fusion, localization, mapping and SLAM."
+    folders: [04_Sensors_and_Perception/02_Sensor_Fusion, 04_Sensors_and_Perception/05_Mapping, 09_Advanced_Topics/02_Advanced_Perception_and_Estimation]
+    tags: [state-estimation, sensor-fusion, kalman-filter, localization, mapping, slam, occupancy-grid, probabilistic-robotics]
+  planning:
+    title: Motion Planning and Decision Making
+    group: core
+    description: "Deciding where to go and how: path and trajectory planning, sampling-based planners, task planning and behaviour trees."
+    folders: [03_Kinematics_and_Dynamics/03_Trajectory_Planning, 09_Advanced_Topics/04_Advanced_Planning_and_Reasoning]
+    tags: [path-planning, motion-planning, trajectory-optimization, obstacle-avoidance, decision-making, behavior-tree, graph-traversal]
+  control:
+    title: Control
+    group: core
+    description: "Making the body do what the plan says: feedback, PID, state-space, optimal, adaptive, robust and interaction control."
+    folders: [06_Robot_Control/00_Introduction_to_Robot_Control, 06_Robot_Control/01_Core_Theory, 06_Robot_Control/02_Control_Strategies, 09_Advanced_Topics/01_Advanced_Control_and_Dynamical_Systems]
+    tags: [control, control-theory, feedback-control, pid, state-space, optimal-control, mpc, lqr, adaptive-control, robust-control, stability]
+  robot-learning:
+    title: AI and Robot Learning
+    group: core
+    description: "Machine learning, deep learning, reinforcement and imitation learning, foundation and vision-language-action models."
+    folders: [05_AI_and_Machine_Learning, 09_Advanced_Topics/03_Advanced_AI_Learning_for_Robotics]
+    tags: [artificial-intelligence, machine-learning, deep-learning, reinforcement-learning, neural-networks, robot-learning, embodied-ai]
+  software:
+    title: Robot Software and Middleware
+    group: core
+    description: "ROS 2 and its ecosystem, simulation, build tools, and the engineering practice of shipping robot code."
+    folders: [07_Robot_Operating_System_(ROS), 11_Practical_Implementation, 12_Labs_and_Tutorials]
+    tags: [ros, ros2, robotics-software, middleware, simulation, gazebo, software-engineering, programming]
+  electronics-embedded:
+    title: Electronics, Power and Embedded Systems
+    group: core
+    description: "Power systems, batteries, motor drivers, buses (CAN, EtherCAT), microcontrollers and real-time computing."
+    folders: []
+    tags: [electronics, electrical, embedded-systems, power-systems, communication-protocols, real-time, hardware-interface]
+  systems-engineering:
+    title: Systems Engineering, Safety and Testing
+    group: core
+    description: "Integrating everything into a robot that works, is safe, and can be tested, verified and maintained."
+    folders: []
+    tags: [systems-engineering, safety, testing, verification, integration, system-design]
+
+  # ------------------------------------------------------------------------------------------------ body
+  manipulation:
+    title: Manipulation and Grasping
+    group: body
+    description: "Arms, grippers and hands: grasping, dexterous and in-hand manipulation, tactile sensing."
+    folders: [08_Robot_Types_and_Applications/01_Robot_Types/03_Industrial_Arms, 08_Robot_Types_and_Applications/01_Robot_Types/08_Robot_Hands]
+    tags: [manipulator-arm, manipulation, grasping, end-effector, gripper, dexterity]
+  mobile-robots:
+    title: Mobile Robots and Navigation
+    group: body
+    description: "Wheeled and tracked robots, odometry, navigation stacks and autonomous ground vehicles."
+    folders: [08_Robot_Types_and_Applications/01_Robot_Types/04_Mobile_Robots, 08_Robot_Types_and_Applications/01_Robot_Types/14_Autonomous_Robots, 06_Robot_Control/03_Navigation_and_Motion]
+    tags: [mobile-robot, wheeled-robot, navigation, nonholonomic, autonomous-driving, rover]
+  legged-humanoid:
+    title: Legged Locomotion and Humanoids
+    group: body
+    description: "Walking and running machines, from quadrupeds to full humanoids: gaits, balance, whole-body control."
+    folders: [08_Robot_Types_and_Applications/01_Robot_Types/02_Humanoid_Robots, 08_Robot_Types_and_Applications/01_Robot_Types/07_Legged_Robots]
+    tags: [legged-robot, humanoid, locomotion, gait, bipedal, quadruped, hexapod]
+  aerial-robotics:
+    title: Aerial Robotics
+    group: body
+    description: "Drones, multirotors and fixed-wing UAVs, aerial manipulation."
+    folders: [08_Robot_Types_and_Applications/01_Robot_Types/20_Drones]
+    tags: [aerial-robotics]
+  soft-robotics:
+    title: Soft and Continuum Robotics
+    group: body
+    description: "Robots made of compliant materials, continuum and cable-driven bodies."
+    folders: [08_Robot_Types_and_Applications/01_Robot_Types/10_Soft_Robotics, 08_Robot_Types_and_Applications/01_Robot_Types/12_Cable-Driven_Robots]
+    tags: [soft-robotics, compliance]
+  bio-inspired:
+    title: Bio-inspired Robotics
+    group: body
+    description: "Borrowing from animals and plants: biomimetic design, morphology and locomotion."
+    folders: [08_Robot_Types_and_Applications/01_Robot_Types/11_Bio-inspired_Robotics, 09_Advanced_Topics/08_Bio_Inspired_and_Biomimetic_Robotics]
+    tags: [bio-inspired-robotics, biomechanics]
+  modular-reconfigurable:
+    title: Modular, Reconfigurable and Parallel Robots
+    group: body
+    description: "Robots that change shape or are built from repeated modules, and parallel mechanisms."
+    folders: [08_Robot_Types_and_Applications/01_Robot_Types/13_Reconfigurable_Robots, 08_Robot_Types_and_Applications/01_Robot_Types/16_Modular_Robots, 08_Robot_Types_and_Applications/01_Robot_Types/17_Parallel_Robots, 09_Advanced_Topics/07_Specialized_Robot_Morphologies]
+    tags: [modularity, reconfigurability, parallel-robot]
+  micro-nano:
+    title: Micro- and Nanorobotics
+    group: body
+    description: "Robots too small to see: magnetic microswimmers, nanomanipulation, robots inside the body."
+    folders: []
+    tags: [nanotechnology]
+
+  # ------------------------------------------------------------------------------------------------ domain
+  industrial-automation:
+    title: Industrial Automation and Logistics
+    group: domain
+    description: "Factories, warehouses and supply chains: industrial arms, cobots, AMRs, workcells."
+    folders: [08_Robot_Types_and_Applications/01_Robot_Types/18_Collaborative_Robots]
+    tags: [industrial-robot, automation, manufacturing, collaborative-robots, workcell-design, amr]
+  field-robotics:
+    title: Field Robotics
+    group: domain
+    description: "Robots outdoors and in extreme environments: mining, construction, disaster response, inspection."
+    folders: []
+    tags: [field-robotics, extreme-environments]
+  agriculture:
+    title: Agricultural Robotics
+    group: domain
+    description: "Planting, weeding, harvesting and monitoring crops and livestock."
+    folders: [08_Robot_Types_and_Applications/01_Robot_Types/01_Agricultural_Robots]
+    tags: [agriculture]
+  marine-robotics:
+    title: Marine and Underwater Robotics
+    group: domain
+    description: "AUVs, ROVs and surface vessels."
+    folders: []
+    tags: [underwater-robotics]
+  space-robotics:
+    title: Space Robotics
+    group: domain
+    description: "Planetary rovers, orbital manipulators and in-space assembly."
+    folders: [08_Robot_Types_and_Applications/01_Robot_Types/06_Underwater_and_Space_Robots]
+    tags: [space-robotics]
+  medical-robotics:
+    title: Medical and Surgical Robotics
+    group: domain
+    description: "Surgical systems, hospital logistics, diagnostics and robots that work inside the body."
+    folders: [08_Robot_Types_and_Applications/01_Robot_Types/19_Medical_Robots]
+    tags: [medical-robots, surgery]
+  assistive-rehabilitation:
+    title: Assistive Robotics, Prosthetics and Exoskeletons
+    group: domain
+    description: "Robots that restore or extend human ability: exoskeletons, prostheses, rehabilitation and care robots."
+    folders: [08_Robot_Types_and_Applications/01_Robot_Types/09_Exoskeletons]
+    tags: [exoskeleton, assistive-robotics, rehabilitation]
+  construction:
+    title: Construction and Architecture Robotics
+    group: domain
+    description: "Robots that build: additive construction, bricklaying, site layout, large-scale fabrication."
+    folders: []
+    tags: []
+  creative-education:
+    title: Robots in Art, Entertainment and Education
+    group: domain
+    description: "Animatronics, robot art and performance, toys, and robots as teaching tools."
+    folders: []
+    tags: [education]
+
+  # ------------------------------------------------------------------------------------------------ society
+  human-robot-interaction:
+    title: Human-Robot Interaction
+    group: society
+    description: "Working with, near and for people: collaboration, communication, teleoperation, social robots."
+    folders: [06_Robot_Control/04_Human_Robot_Interaction, 09_Advanced_Topics/06_Advanced_Human_Robot_Interaction_(HRI)]
+    tags: [human-robot-interaction, teleoperation, collaboration]
+  multi-robot:
+    title: Multi-Robot Systems and Swarms
+    group: society
+    description: "Many robots at once: coordination, distributed control, swarm intelligence."
+    folders: [08_Robot_Types_and_Applications/01_Robot_Types/05_Swarm_Robots, 09_Advanced_Topics/05_Multi_Robot_Systems]
+    tags: [multi-robot-systems, swarm-robotics, distributed-control]
+  ethics-society:
+    title: Ethics, Safety and Society
+    group: society
+    description: "What robots should do, who they affect, and how we govern them."
+    folders: [09_Advanced_Topics/10_Robotics_Ethics_Safety_and_Society, 05_AI_and_Machine_Learning/01_Introduction_to_AI/03_Ethical_and_Social_Implications]
+    tags: [ethics, social-impact, ai-safety]
+  history-future:
+    title: History and Futures of Robotics
+    group: society
+    description: "Where robotics came from, who built it, and where it might go."
+    folders: [01_Fundamentals_of_Robotics/02_History_of_Robotics]
+    tags: [robotics-history, future-of-robotics]
+  research-practice:
+    title: Research Practice
+    group: society
+    description: "Reading and writing papers, benchmarks, datasets, conferences and reproducibility."
+    folders: [10_Research_and_Development]
+    tags: [research, papers, benchmarks, dataset]
+
+  # ------------------------------------------------------------------------------------------------ frontier
+  frontiers:
+    title: Emerging Frontiers
+    group: frontier
+    description: "Directions still being invented: bio-hybrid and living machines, neuromorphic and event-based systems, quantum sensing, self-assembling and self-repairing robots, and ideas nobody has named yet."
+    folders: []
+    tags: [neurocontrol, event-based-sensing, speculative-robotics]
+
+# Folders whose notes span many subfields (overviews and glossary-style fundamentals): migrate proposes from tags only.
+general_folders: [00_Introduction, 01_Fundamentals_of_Robotics, 08_Robot_Types_and_Applications/01_Robot_Types, 13_Tools_References_and_Links]

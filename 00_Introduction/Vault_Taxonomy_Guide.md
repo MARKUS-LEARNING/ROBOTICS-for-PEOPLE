@@ -62,7 +62,17 @@ Tags supplement folders with orthogonal metadata. A note on PID tuning sits in `
 
 **Rule of thumb.** Prefer reusing an existing tag over inventing a new one. Check the Obsidian Tags pane before adding a tag — if the concept is already covered under a different spelling (e.g., `#slam` vs `#SLAM`), normalize to the existing form.
 
-The legacy tag `#glossary-term` is being retired. Files that outgrew pure glossary entries should drop it.
+**The controlled vocabulary.** Every allowed tag is listed in `tools/tags.yml`, and `tools/vault.py lint` checks each note against it. The file also records the decisions behind the list:
+
+- **Spelling.** Lowercase kebab-case. Well-known acronyms stay acronyms, in lowercase: `ros`, `ros2`, `slam`, `pid`, `urdf`, `imu`, `mpc`.
+- **Synonyms.** Each variant points to one canonical tag, e.g. `ROS2` → `ros2`, and `actuator`/`actuation` → `actuators`.
+- **Dropped tags.** Tags too broad to tell notes apart are removed: `robotics` (every note is about robotics), `engineering`, `technology`, and the retired `glossary-term`.
+- **Tags that were fields.** Document-type and level tags such as `tutorial`, `lab` and `beginner` now live in the `type:` and `level:` fields.
+- **Bulk tags.** `mobile-robot` and `manipulator-arm` were once applied to most notes. They're kept only where the note is really about mobile robots or arms.
+
+To add a genuinely new tag, add it to `vocabulary` in `tools/tags.yml` in the same pull request.
+
+The legacy tag `#glossary-term` is retired. The schema v2 migration removes it.
 
 ---
 
@@ -96,29 +106,78 @@ related:
 
 ---
 
-## Frontmatter Schema
+## Frontmatter Schema (v2)
 
-Every content note carries YAML frontmatter:
+Every content note carries YAML frontmatter. The fields serve two readers. **People** browse by level and subfield, follow learning paths, and see which notes are reviewed. **Agents** read the same fields from `graph.json` and `llms.txt`, generated from the vault on every site build. The machine-readable version is `tools/schema.yml`.
 
 ```yaml
 ---
-title: Human-readable title
-description: One-sentence summary of what the note covers.
+title: Inverse Kinematics
+description: Finding the joint angles that put the end-effector at a desired pose.
 tags:
-  - primary-topic
-  - secondary-topic
-category: robotics
+  - kinematics
+  - inverse-kinematics
+type: method
+level: intermediate
+subfield:
+  - kinematics-dynamics
+  - manipulation
+status: reviewed
 author: Jordan_Smith
-date: YYYY-MM-DD
+date: 2025-04-29
+last_reviewed: 2026-11-15
+prerequisites:
+  - "[[Forward_Kinematics]]"
+  - "[[Jacobian_Matrix]]"
 related:
-  - "[[Adjacent_Topic_1]]"
-  - "[[Adjacent_Topic_2]]"
+  - "[[Degrees_of_Freedom]]"
+  - "[[Singularities]]"
+key_takeaways:
+  - IK inverts forward kinematics; it can have zero, one, several or infinitely many solutions.
+  - Analytical solutions exist for some arms (e.g. a spherical wrist); otherwise use iterative Jacobian methods.
 ---
 ```
 
-**Required**: `title`, `tags`, `author`, `date`.
-**Strongly recommended**: `description`, `related`.
-**Author**: always `Jordan_Smith` — do not add co-authors or AI model names.
+| Field | Required | Values | What it drives |
+|---|---|---|---|
+| `title` | yes | text | Page title |
+| `description` | yes | one sentence, at most 400 characters | Search snippets, social cards, `llms.txt`, `graph.json` |
+| `tags` | yes | tags from `tools/tags.yml` | Tag pages, Dataview queries |
+| `type` | yes | `concept`, `method`, `component`, `robot-type`, `application`, `tool`, `tutorial`, `lab`, `overview`, `reference`, `guide`, `person` | Filters and site badges |
+| `level` | yes | `beginner`, `intermediate`, `advanced`, `research` | Level filters, learning paths |
+| `subfield` | yes | 1–3 keys from `tools/subfields.yml` | [[Robotics_Vault_Dashboard]], site navigation, the Subfield Atlas |
+| `status` | yes | `stub`, `draft`, `reviewed`, `keystone` | The Frontier (stubs), quality badges |
+| `author` | yes | `Jordan_Smith` | — |
+| `date` | yes | `YYYY-MM-DD` | Created date |
+| `last_reviewed` | no | `YYYY-MM-DD` | Freshness |
+| `prerequisites` | no | wikilinks to existing notes, with no cycles | Learning paths: what to read first |
+| `related` | no | 2–5 wikilinks | Graph edges without cluttering prose |
+| `key_takeaways` | no | 3–5 short lines | The summary agents read first |
+| `aliases` | no | alternative names | Obsidian link suggestions |
+
+**Levels.** `beginner` needs no background beyond curiosity and school maths. `intermediate` assumes the notes it lists as prerequisites and is undergraduate level. `advanced` is graduate or practitioner level. `research` covers open problems and recent work.
+
+**Statuses.** `stub` is a placeholder, listed on the Frontier page. `draft` is substantial but not yet reviewed. `reviewed` has passed a chapter review pass. `keystone` is a deep, highly linked entry written to the full template.
+
+**Removed in v2.** `layout`, `permalink` and `category` were Jekyll-era fields that nothing reads. `type`, `level` and `subfield` replace them.
+
+**Author.** Always `Jordan_Smith`; do not add co-authors or AI model names.
+
+---
+
+## Tooling
+
+`tools/vault.py` reads the vault exactly as Obsidian does: the same link resolution, the same tag rules, and links inside code blocks ignored. It needs Python 3.10+ and PyYAML.
+
+```bash
+python3 tools/vault.py stats            # notes, links, unresolved links, tags
+python3 tools/vault.py lint --verbose   # every note checked against tools/schema.yml and tools/tags.yml
+python3 tools/vault.py obsidian-check   # compare with Obsidian's own index (needs the Obsidian CLI)
+```
+
+`obsidian-check` uses the official [Obsidian CLI](https://help.obsidian.md/cli). It needs Obsidian 1.12+ running with this folder open as a vault, and Settings → General → Command line interface turned on. It checks that the tooling and Obsidian agree on every unresolved link and tag.
+
+Every pull request runs the same lint in GitHub Actions. One rule always applies: **the number of unresolved links may only go down.** The baseline is in `tools/baseline.json`.
 
 ---
 
