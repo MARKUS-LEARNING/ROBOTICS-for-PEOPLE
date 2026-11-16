@@ -1,104 +1,87 @@
 ---
 title: Bio-inspired Robotics
-description: Bio-inspired Robotics involves the design and development of robots that mimic biological systems found in nature, such as animals and insects, to achieve advanced capabilities in movement, sensing, and adaptation.
+description: "Bio-inspired robotics borrows principles from animals and plants: how they move, sense, grip and control their bodies. Covers copying versus abstracting a principle, landmark robots (salamander, RoboBee, Octobot, legged robots), central pattern generators, a computed scaling example explaining why small fliers differ from large ones, and how learning has partly replaced hand-copied biology."
+aliases:
+  - Biomimetics
+  - Bioinspired Robotics
+  - Biomimetic Robots
 tags:
-  - robot-types
   - bio-inspired-robotics
-  - innovation
-  - adaptability
   - locomotion
-  - sensors
-  - control
-type: robot-type
+  - soft-robotics
+type: concept
 level: beginner
 subfield:
   - bio-inspired
-status: draft
+status: reviewed
 author: Jordan_Smith
-date: 2025-04-29
+date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
+  - "[[Robots]]"
 related:
-  - "[[Locomotion]]"
-  - "[[Sensors]]"
-  - "[[Control_Systems]]"
   - "[[Soft_Robotics]]"
-  - "[[Exoskeletons]]"
-  - "[[Nanorobots]]"
   - "[[Legged_Robots]]"
-  - "[[Manipulator_Arm]]"
-  - "[[Robot_Hands]]"
-  - "[[Human-Robot_Interaction]]"
-  - "[[AI_and_Robot_Control]]"
-  - "[[Kinematics_and_Dynamics]]"
-  - "[[Mechanisms_and_Actuation]]"
-  - "[[Power_Density]]"
-  - "[[Hydraulic_Systems]]"
-  - "[[Pneumatic_Systems]]"
-  - "[[Electric_Motors]]"
-  - "[[Transmission_Mechanisms]]"
-  - "[[Robot_Design]]"
-  - "[[Mechatronics]]"
-  - "[[Feedback_Control]]"
-  - "[[Statics]]"
-  - "[[Gears]]"
-  - "[[Backlash]]"
-  - "[[Friction]]"
-  - "[[Stiffness]]"
-  - "[[Compliance]]"
+  - "[[Drones]]"
+  - "[[Swarm_Robots]]"
+  - "[[Exoskeletons]]"
+key_takeaways:
+  - "The useful move is to abstract a principle from biology (compliance, passive dynamics, rhythmic pattern generators, distributed control), not to copy an animal's appearance."
+  - "Scale changes the physics: weight grows with length cubed but wing or foot area with length squared, so insect-sized robots fly, stick and survive falls in ways large robots cannot."
+  - "Since about 2020 much 'biological' behaviour, such as gaits and agile reflexes, emerges from reinforcement learning in simulation rather than from hand-copied neural circuits; biology still guides body design."
+sources:
+  - "Ijspeert, A. J., Crespi, A., Ryczko, D. and Cabelguen, J.-M. (2007). From swimming to walking with a salamander robot driven by a spinal cord model. https://www.science.org/doi/10.1126/science.1138353"
+  - "Ma, K. Y., Chirarattananon, P., Fuller, S. B. and Wood, R. J. (2013). Controlled flight of a biologically inspired, insect-scale robot. https://www.science.org/doi/10.1126/science.1231806"
+  - "Wehner, M. et al. (2016). An integrated design and fabrication strategy for entirely soft, autonomous robots. https://www.nature.com/articles/nature19100"
+  - "Rus, D. and Tolley, M. T. (2015). Design, fabrication and control of soft robots. https://www.nature.com/articles/nature14543"
+  - "Hwangbo, J. et al. (2019). Learning agile and dynamic motor skills for legged robots. https://arxiv.org/abs/1901.08652"
 ---
 
 # Bio-inspired Robotics
 
-**Bio-inspired Robotics** is a field that draws inspiration from natural biological systems to design robots that can mimic the efficiency, adaptability, and functionality found in living organisms. By studying the principles of biology and applying them to robotics, researchers aim to create systems that are more agile, efficient, and capable of navigating complex environments.
+**Bio-inspired robotics** designs robots using principles found in living things. Evolution has solved locomotion, grasping, sensing and control under tight energy budgets for hundreds of millions of years. Engineers borrow those solutions: legs that store energy in springy tendons, fish-like tails, insect wings, gecko-like adhesives, octopus-like soft arms.
 
----
+> **Etymology.** Greek *bios*, "life". *Biomimetics*, from *mimesis*, "imitation", was coined by Otto Schmitt in the 1950s. *Bionics* (biology + electronics) dates from 1958 and gave its name to Festo's long-running Bionic Learning Network.
 
-## Principles and Applications
+## Copy or abstract?
 
-Bio-inspired robotics leverages the evolutionary optimizations found in nature to enhance robotic performance. Key areas of focus include:
+| Approach | Example | Lesson |
+|---|---|---|
+| **Copy the form** | Robotic fish that look like fish | Appealing, often inefficient |
+| **Abstract the principle** | Velcro from burrs; compliant legs from tendons; rhythmic controllers from spinal circuits | Usually more useful |
+| **Use robots to study biology** | Salamander robot testing a spinal-cord model (Ijspeert et al., 2007) | Robots as scientific instruments |
 
-- **[[Locomotion]]**: Developing robots that can move like animals, whether it's flying like birds, swimming like fish, or walking like humans or insects. This involves studying the mechanics of animal movement to create more efficient and adaptable robotic systems.
+## Landmark robots
 
-- **[[Sensing]] and [[Perception]]**: Utilizing biological sensing mechanisms, such as vision, touch, and hearing, to improve a robot's ability to perceive and interact with its environment. This can involve the use of advanced sensors and algorithms inspired by animal sensory systems.
+- **Salamander robot (2007)**: a spinal-cord-inspired central pattern generator switched between swimming and walking gaits, mirroring how a real salamander's nervous system might.
+- **RoboBee (2013)**: an 80 mg insect-scale robot made the first controlled flight of its kind, using flapping wings driven by piezoelectric actuators (tethered for power).
+- **Octobot (2016)**: the first entirely soft, autonomous robot, see [[Soft_Robotics]].
+- **Legged robots**: cheetah-inspired and dog-like quadrupeds, with compliant legs that absorb impacts; see [[Legged_Robots]].
+- **Gecko grippers**: dry adhesives with microscopic structures, used for perching drones and space-debris capture concepts.
+- **Swarms**: ant- and bee-inspired coordination of many simple robots; see [[Swarm_Robots]].
 
-- **Adaptability and [[Control_Systems|Control]]**: Implementing control systems that allow robots to adapt to changing conditions, much like animals do. This includes developing algorithms for learning, decision-making, and autonomous behavior.
+## Central pattern generators
 
----
+Many animals produce rhythmic movements (walking, swimming, breathing) with **central pattern generators**: neural circuits that oscillate on their own and are shaped by sensory feedback. In robots, coupled oscillators generate gait rhythms with few parameters, and a single "drive" signal can shift between gaits. CPGs remain popular in swimming and crawling robots. In legged robots they are often combined with, or replaced by, learned policies.
 
-## Examples of Bio-inspired Robots
+## Worked example: why size changes everything
 
-1. **[[Legged_Robots]]**: Robots like Boston Dynamics' Spot are inspired by the movement of quadrupedal animals, allowing them to traverse uneven terrain with agility and stability.
+Scale a creature or robot by a length factor $L$:
+- mass and weight grow like $L^3$ (volume);
+- wing area, foot area and muscle cross-section grow like $L^2$.
 
-2. **[[Flying Robots]]**: Drones and other aerial robots are often modeled after birds and insects, utilizing similar wing structures and flight mechanics to achieve efficient and maneuverable flight.
+So **wing loading** (weight ÷ wing area) grows like $L^3/L^2 = L$. A robot 10× smaller has 1/10 the wing loading, which is why insect-scale robots can fly on tiny, inefficient wings while large aircraft need speed. The same ratio explains why:
+- small animals and robots survive falls: impact energy per unit of supporting area is smaller;
+- geckos and small robots can climb with adhesion, which scales with area, while their weight shrinks faster;
+- large legged robots need disproportionately strong actuators.
 
-3. **[[Swimming Robots]]**: Robots designed to mimic the swimming patterns of fish or other aquatic creatures, enabling them to navigate underwater environments with precision and efficiency.
+## Biology and learning in 2026
 
-4. **[[Soft_Robotics|Soft Robotics]]**: Robots made from flexible, compliant materials that can change shape and adapt to their environment, inspired by the soft tissues and muscles found in living organisms.
+Hand-copying biological controllers has partly given way to **learning**. Reinforcement learning in simulation discovers gaits, recovery reflexes and agile behaviours (see [[Reinforcement_Learning_for_Robots]]), and often reproduces animal-like features, such as gait transitions with speed, without being told to. Biology still shapes the hardware: compliant actuators, tendon-like elastic elements, soft skins, and sensor placement.
 
----
-
-## Benefits and Challenges
-
-### Benefits
-- **Efficiency**: Bio-inspired designs often result in more energy-efficient systems, as they are modeled after natural systems that have evolved over millions of years.
-- **Adaptability**: Robots inspired by nature are often better equipped to handle unpredictable environments and tasks.
-- **Innovation**: Studying biological systems can lead to new ideas and approaches in robotics that might not have been considered otherwise.
-
-### Challenges
-- **Complexity**: Replicating the intricate mechanics and control systems found in nature can be technically challenging.
-- **Integration**: Combining bio-inspired components with traditional robotic systems can require innovative solutions to ensure compatibility and functionality.
-
----
-
-Bio-inspired robotics represents a cutting-edge approach to robot design, leveraging the wisdom of nature to create more capable and adaptable machines. By continuing to explore and apply biological principles, researchers aim to push the boundaries of what robots can achieve.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
-LIST FROM "" WHERE contains(file.outlinks, [[Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Bio-inspired_Robotics]])
 ```

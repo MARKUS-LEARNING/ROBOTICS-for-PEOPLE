@@ -1,106 +1,88 @@
 ---
 title: Transfer Function
-description: The Transfer Function is a mathematical representation of the relationship between the input and output of a linear time-invariant (LTI) system in the frequency domain, used extensively in control theory and system analysis.
+description: "A transfer function G(s) = Y(s)/U(s) describes a linear system's input–output behaviour in the Laplace domain. Covers how it is derived, poles and zeros, a worked mass-spring-damper example including its frequency response at resonance (computed), block-diagram algebra for feedback loops, the link to Bode plots and margins, and where transfer functions are still used in robotics in 2026."
+aliases:
+  - Transfer Functions
+  - Laplace Transform
 tags:
   - control
-  - dynamics
-  - frequency-domain
-  - linear-systems
-  - mechanism
+  - mathematics
+  - stability
 type: concept
 level: intermediate
 subfield:
   - control
-status: draft
+  - mathematics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Calculus_for_Robotics]]"
-  - "[[Feedback_Control]]"
-related:
   - "[[Control_Theory]]"
-  - "[[Bode_Plot]]"
-  - "[[Pole-Zero_Analysis]]"
-  - "[[Feedback_Control]]"
-  - "[[Stability]]"
+  - "[[Calculus_for_Robotics]]"
+related:
+  - "[[State_Space_Representation]]"
+  - "[[PID_Control]]"
+  - "[[Control_Theory_and_Principles]]"
+key_takeaways:
+  - "A transfer function is the ratio of output to input in the Laplace domain for a linear, time-invariant system with zero initial conditions; its denominator's roots are the poles."
+  - "Evaluating G(jω) gives the frequency response: the mass-spring-damper 1/(s² + 1.2s + 4) amplifies a 2 rad/s input by 0.417 (versus 0.25 at DC) and lags it by 90°."
+  - "Transfer functions remain the everyday tool for single-loop tuning (motor and joint loops, filters, drone rate loops); multi-input robot dynamics use state space."
+sources:
+  - "Åström, K. J. and Murray, R. M. (2021). Feedback Systems, 2nd edition, chapter 9: Transfer Functions. https://fbswiki.org/wiki/index.php/Feedback_Systems:_An_Introduction_for_Scientists_and_Engineers"
+  - "Åström, K. J. and Murray, R. M. (2020). Feedback Systems, public PDF edition. https://www.cds.caltech.edu/~murray/books/AM08/pdf/fbs-public_24Jul2020.pdf"
+  - "Lynch, K. M. and Park, F. C. (2017). Modern Robotics, chapter 11: Robot Control. https://hades.mech.northwestern.edu/index.php/Modern_Robotics"
 ---
 
 # Transfer Function
 
-The **Transfer Function** is a mathematical representation of the relationship between the input and output of a linear time-invariant (LTI) system in the frequency domain. It is used extensively in control theory and system analysis to describe how a system responds to inputs, particularly in terms of stability, performance, and dynamic behavior.
+A **transfer function** describes how a linear system turns inputs into outputs. It is the ratio of the output's Laplace transform to the input's, assuming the system starts at rest:
 
----
+$$G(s) = \frac{Y(s)}{U(s)}$$
 
-## Definition
+The Laplace transform turns differential equations into algebra: differentiation becomes multiplication by $s$. Combining systems in series, parallel and feedback then becomes multiplying and dividing polynomials.
 
-The transfer function $H(s)$ of an LTI system is defined as the ratio of the output $Y(s)$ to the input $U(s)$ in the Laplace domain:
+> **Etymology.** Pierre-Simon Laplace introduced the transform in the late 18th century. Oliver Heaviside's operational calculus (1880s–90s) and the work of Nyquist (1932) and Bode (1940s) made transfer functions the basis of classical control.
 
-$$
-H(s) = \frac{Y(s)}{U(s)}
-$$
+## Deriving one
 
-where $s$ is the complex frequency variable. The transfer function encapsulates the system's dynamics, including its poles and zeros, which are critical for analyzing stability and performance.
+For a mass-spring-damper, $m\ddot y + b\dot y + k y = u$. Take Laplace transforms (zero initial conditions):
 
----
+$$(ms^2 + bs + k)\,Y(s) = U(s) \quad\Rightarrow\quad G(s) = \frac{1}{ms^2 + bs + k}$$
 
-## Key Concepts
+- **Poles** (roots of the denominator) set stability and the natural response.
+- **Zeros** (roots of the numerator) shape the response; zeros in the right half-plane cause an initial move in the wrong direction.
 
-### Poles and Zeros
+## Worked example
 
-- **Poles**: The roots of the denominator polynomial of the transfer function. They determine the system's natural frequencies and damping characteristics, influencing stability and transient response.
-- **Zeros**: The roots of the numerator polynomial of the transfer function. They affect the system's behavior at specific frequencies and can influence the system's gain and phase response.
+With $m = 1$, $b = 1.2$, $k = 4$: $G(s) = 1/(s^2 + 1.2s + 4)$.
 
-### System Order
+- **Poles**: $s = -0.6 \pm 1.908j$, the same as the eigenvalues of the state-space model (see [[State_Space_Representation]]).
+- **Static gain**: $G(0) = 1/4 = 0.25$, so a constant 1 N force moves the mass 0.25 m.
+- **At resonance**, $\omega = 2$ rad/s: $G(2j) = 1/(4 - 4 + 2.4j) = 1/(2.4j)$, so the gain is $1/2.4 = 0.417$ (1.7× the static gain) and the phase is −90°.
 
-The order of a system is determined by the highest power of $s$ in the denominator of the transfer function. It indicates the complexity of the system and the number of independent energy storage elements (e.g., inductors, capacitors, or masses).
+A lightly damped joint or flexible arm link behaves like this. Excite it near resonance and it swings far more than the static gain suggests, which is why controllers and trajectories avoid exciting structural resonances (input shaping, notch filters).
 
----
+## Feedback in transfer functions
 
-## Mathematical Representation
+For plant $P(s)$ and controller $C(s)$ in a unity-feedback loop:
 
-### General Form
+$$T(s) = \frac{PC}{1 + PC}\ \ (\text{reference} \to \text{output}), \qquad S(s) = \frac{1}{1 + PC}\ \ (\text{disturbance} \to \text{output})$$
 
-The general form of a transfer function for an $n$-th order system is:
+These two functions summarise what feedback does (see [[Control_Theory_and_Principles]]). A PID controller is $C(s) = K_p + K_i/s + K_d s$ (see [[PID_Control]]).
 
-$$
-H(s) = \frac{b_m s^m + b_{m-1} s^{m-1} + \ldots + b_1 s + b_0}{a_n s^n + a_{n-1} s^{n-1} + \ldots + a_1 s + a_0}
-$$
+## Frequency response, Bode plots and margins
 
-where $b_i$ and $a_i$ are constants that describe the system's dynamics.
+Setting $s = j\omega$ gives the **frequency response**: its magnitude and phase plotted against frequency form the **Bode plot**. Gain and phase margins read from it say how much extra gain or delay the loop tolerates before going unstable.
 
-### Example: Second-Order System
+## Use in robotics (2026)
 
-For a second-order system, the transfer function can be written as:
+- **Tuning single loops**: motor current loops, joint velocity loops, drone rate loops, and filters (low-pass, notch) are designed and checked with transfer functions and Bode plots.
+- **System identification**: frequency sweeps on a real joint measure its transfer function, revealing resonances and delays before tuning.
+- **Limits**: transfer functions describe linear, time-invariant, single-input single-output systems. Coupled, nonlinear robot dynamics, MPC and learned controllers use state space instead.
 
-$$
-H(s) = \frac{\omega_n^2}{s^2 + 2\zeta\omega_n s + \omega_n^2}
-$$
-
-where $\omega_n$ is the natural frequency, and $\zeta$ is the damping ratio. This form is commonly used to analyze the dynamic response of mechanical and electrical systems.
-
----
-
-## Applications
-
-### Bode Plot
-
-The Bode plot is a graphical representation of the transfer function's magnitude and phase as functions of frequency. It is used to analyze the system's frequency response, including gain margins, phase margins, and bandwidth.
-
-### Nyquist Plot
-
-The Nyquist plot is a graphical method for assessing the stability of a system by plotting the transfer function in the complex plane. It provides insights into the system's stability margins and the number of unstable poles.
-
-### Pole-Zero Analysis
-
-Pole-zero analysis involves examining the locations of the poles and zeros of the transfer function in the complex plane. This analysis helps in understanding the system's stability, transient response, and frequency response characteristics.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Transfer_Function]])

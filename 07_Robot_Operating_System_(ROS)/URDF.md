@@ -1,6 +1,9 @@
 ---
 title: URDF
-description: Explains the Unified Robot Description Format (URDF), the XML-based standard used in ROS to describe a robot's physical structure, kinematics, dynamics, visual appearance, and collision geometry.
+description: "URDF (Unified Robot Description Format) is the XML file that tells ROS what a robot is made of: links, joints, shapes, masses and limits. Covers the format with a worked example whose inertias are computed, Xacro, the URDF 1.2 additions in ROS 2 Lyrical (quaternions, capsules, acceleration and jerk limits), modern Gazebo integration, and how URDF relates to SDF, MJCF and OpenUSD."
+aliases:
+  - Unified Robot Description Format
+  - Xacro
 tags:
   - urdf
   - ros
@@ -15,29 +18,36 @@ type: tool
 level: intermediate
 subfield:
   - software
-status: draft
+status: reviewed
 author: Jordan_Smith
-date: 2025-05-02
+date: 2025-04-28
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
   - "[[ROS_2_Overview]]"
-  - "[[Robot_Operating_System_(ROS)]]"
+  - "[[Forward_Kinematics]]"
 related:
-  - "[[Robot_Operating_System_(ROS)]]"
-  - "[[ROS_2_Overview]]"
   - "[[TF_and_Topic_Architecture]]"
   - "[[Gazebo_Simulator]]"
-  - "[[RViz_Tutorial]]"
-  - "[[Forward_Kinematics]]"
-  - "[[Inverse_Kinematics]]"
-  - "[[DH_Parameters]]"
-  - "[[Links]]"
-  - "[[Joints]]"
-  - "[[Launch_Files]]"
+  - "[[MuJoCo]]"
   - "[[ros2_control]]"
   - "[[MoveIt2]]"
+  - "[[RViz_Tutorial]]"
+key_takeaways:
+  - "A URDF is a tree of links (rigid bodies with visual, collision and inertial data) joined by joints (revolute, continuous, prismatic, fixed, planar, floating)."
+  - "Wrong inertias and oversized collision meshes are the most common reasons a model that looks right behaves wrongly in simulation; compute inertias from geometry and mass, never copy placeholders."
+  - "URDF 1.2 (ROS 2 Lyrical, 2026) adds quaternion orientations, capsule shapes and acceleration, deceleration and jerk limits; opt in with version=\"1.2\"."
+sources:
+  - "Open Robotics (2026). urdfdom: URDF parser and XML specification. https://github.com/ros/urdfdom"
+  - "Open Robotics (2026). ROS 2 Lyrical Luth release notes: URDF improvements. https://github.com/ros2/ros2_documentation/blob/rolling/source/Releases/Release-Lyrical-Luth.rst"
+  - "Open Robotics (2026). xacro: XML macro language. https://github.com/ros/xacro"
+  - "Open Robotics (2026). ros_gz: integration between ROS and Gazebo. https://github.com/gazebosim/ros_gz"
+  - "Google DeepMind (2026). MuJoCo Menagerie: a collection of high-quality simulation models. https://github.com/google-deepmind/mujoco_menagerie"
 ---
 
 # URDF — Unified Robot Description Format
+
+> **Etymology.** *Unified* because one file serves every tool: the same description drives visualisation, kinematics, planning and simulation. The format was created at Willow Garage around 2009 for the PR2 robot. *Xacro* is short for *XML macros*.
 
 The **Unified Robot Description Format (URDF)** is an XML-based file format used in the [[Robot_Operating_System_(ROS)|ROS]] ecosystem to describe the physical structure of a robot. A URDF file encodes a robot's complete model: its kinematic chain of rigid **links** connected by **joints**, visual geometry for rendering, collision geometry for physics simulation, and dynamic properties (mass, inertia) for dynamics calculations.
 
@@ -97,27 +107,33 @@ A minimal two-link robot arm in URDF:
     </collision>
     <inertial>
       <mass value="1.0"/>
-      <inertia ixx="0.01" ixy="0.0" ixz="0.0"
-               iyy="0.01" iyz="0.0" izz="0.01"/>
+      <!-- solid cylinder r=0.05, h=0.1: Ixx=Iyy=m(3r²+h²)/12, Izz=mr²/2 -->
+      <inertia ixx="0.00146" ixy="0.0" ixz="0.0"
+               iyy="0.00146" iyz="0.0" izz="0.00125"/>
     </inertial>
   </link>
 
   <!-- First arm segment -->
   <link name="upper_arm">
+    <!-- the box's centre sits 0.15 m up the link, so it hangs from the shoulder -->
     <visual>
+      <origin xyz="0 0 0.15"/>
       <geometry>
         <box size="0.05 0.05 0.3"/>
       </geometry>
     </visual>
     <collision>
+      <origin xyz="0 0 0.15"/>
       <geometry>
         <box size="0.05 0.05 0.3"/>
       </geometry>
     </collision>
     <inertial>
+      <origin xyz="0 0 0.15"/>
       <mass value="0.5"/>
-      <inertia ixx="0.005" ixy="0.0" ixz="0.0"
-               iyy="0.005" iyz="0.0" izz="0.001"/>
+      <!-- solid box 0.05 x 0.05 x 0.3: Ixx=Iyy=m(y²+z²)/12, Izz=m(x²+y²)/12 -->
+      <inertia ixx="0.00385" ixy="0.0" ixz="0.0"
+               iyy="0.00385" iyz="0.0" izz="0.000208"/>
     </inertial>
   </link>
 
@@ -147,8 +163,8 @@ URDF supports both **primitive shapes** and **mesh files**:
 <!-- Mesh (STL or DAE/Collada) -->
 <geometry>
   <mesh filename="package://my_robot/meshes/upper_arm.stl" scale="0.001 0.001 0.001"/>
-</mesh>
 </geometry>
+<!-- scale 0.001 converts a CAD mesh exported in millimetres to metres -->
 ```
 
 ### Origin Transform
@@ -180,6 +196,12 @@ For common primitives (computed about the center of mass):
 | Solid cylinder (axis z, radius $r$, length $h$) | $\frac{m}{12}(3r^2 + h^2)$ | $\frac{m}{12}(3r^2 + h^2)$ | $\frac{mr^2}{2}$ |
 | Solid box ($x \times y \times z$) | $\frac{m}{12}(y^2 + z^2)$ | $\frac{m}{12}(x^2 + z^2)$ | $\frac{m}{12}(x^2 + y^2)$ |
 | Solid sphere (radius $r$) | $\frac{2mr^2}{5}$ | $\frac{2mr^2}{5}$ | $\frac{2mr^2}{5}$ |
+
+**Worked example (the arm above).** The upper arm is a 0.5 kg box, 0.05 × 0.05 × 0.3 m:
+
+$$I_{xx} = I_{yy} = \tfrac{0.5}{12}(0.05^2 + 0.3^2) = \tfrac{0.5}{12}(0.0925) = 0.00385\ \text{kg·m}^2, \qquad I_{zz} = \tfrac{0.5}{12}(0.05^2+0.05^2) = 0.000208\ \text{kg·m}^2$$
+
+These are about the link's centre of mass, which is why `<inertial>` carries `<origin xyz="0 0 0.15"/>`. Placeholder values such as 0.01 everywhere make the arm 2.6 times "heavier" to rotate than it is, so a simulated controller tuned on it will be badly tuned on the real robot. CAD tools (Onshape, SolidWorks, Fusion) export exact inertias; for primitives, compute them.
 
 ---
 
@@ -230,41 +252,35 @@ Processing a xacro file to URDF:
 
 ```bash
 xacro robot.urdf.xacro > robot.urdf
-# Or load directly in a launch file:
-ros2 param set /robot_description "$(xacro /path/to/robot.urdf.xacro)"
+# Most launch files instead expand the xacro and pass the text to robot_state_publisher:
+#   robot_description = Command(['xacro ', PathJoinSubstitution([pkg, 'urdf', 'robot.urdf.xacro'])])
 ```
 
 ---
 
-## Gazebo Extensions
+## Simulation tags: modern Gazebo and ros2_control
 
-To use a URDF in [[Gazebo_Simulator|Gazebo]], additional Gazebo-specific tags are added within `<gazebo>` elements:
+Simulator-specific settings live inside `<gazebo>` elements, and the hardware interface inside a `<ros2_control>` element. With **modern Gazebo** (Harmonic for Jazzy, Jetty for Lyrical) the plugin names differ from the old Gazebo Classic tutorials (`libgazebo_ros_*.so`, `gazebo_ros2_control/GazeboSystem`), which no longer apply because Gazebo Classic reached end of life in January 2025:
 
 ```xml
-<!-- Material override for Gazebo rendering -->
-<gazebo reference="base_link">
-  <material>Gazebo/Grey</material>
-</gazebo>
-
-<!-- Attach a sensor plugin -->
+<!-- A 2D lidar simulated by Gazebo; ros_gz_bridge then carries /scan into ROS -->
 <gazebo reference="laser_link">
-  <sensor type="ray" name="lidar">
-    <ray>
-      <scan><horizontal><samples>360</samples><min_angle>-3.14</min_angle>
-            <max_angle>3.14</max_angle></horizontal></scan>
+  <sensor name="lidar" type="gpu_lidar">
+    <topic>scan</topic>
+    <update_rate>10</update_rate>
+    <gz_frame_id>laser_link</gz_frame_id>
+    <lidar>
+      <scan><horizontal><samples>360</samples>
+        <min_angle>-3.14159</min_angle><max_angle>3.14159</max_angle></horizontal></scan>
       <range><min>0.1</min><max>30.0</max></range>
-    </ray>
-    <plugin name="gazebo_ros_laser" filename="libgazebo_ros_laser.so">
-      <topicName>/scan</topicName>
-      <frameName>laser_link</frameName>
-    </plugin>
+    </lidar>
   </sensor>
 </gazebo>
 
-<!-- ros2_control hardware interface -->
+<!-- ros2_control: the same controllers run in simulation and on hardware -->
 <ros2_control name="my_arm" type="system">
   <hardware>
-    <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+    <plugin>gz_ros2_control/GazeboSimSystem</plugin>   <!-- on the robot: the vendor's hardware plugin -->
   </hardware>
   <joint name="shoulder_joint">
     <command_interface name="position"/>
@@ -272,7 +288,15 @@ To use a URDF in [[Gazebo_Simulator|Gazebo]], additional Gazebo-specific tags ar
     <state_interface name="velocity"/>
   </joint>
 </ros2_control>
+
+<gazebo>
+  <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+    <parameters>$(find my_arm)/config/controllers.yaml</parameters>
+  </plugin>
+</gazebo>
 ```
+
+The sensor needs the Gazebo `Sensors` system loaded in the world, and a `ros_gz_bridge` entry to appear as a ROS topic. See [[Gazebo_Simulator]] and [[ros2_control]].
 
 ---
 
@@ -280,7 +304,7 @@ To use a URDF in [[Gazebo_Simulator|Gazebo]], additional Gazebo-specific tags ar
 
 The `robot_state_publisher` node is the primary consumer of URDF in a running ROS system. It:
 
-1. Reads the URDF from the `/robot_description` parameter.
+1. Reads the URDF from its `robot_description` parameter and republishes it on the `/robot_description` topic (from Lyrical it can instead *subscribe* to that topic, with `use_robot_description_topic:=true`, so another framework can own the model).
 2. Subscribes to `/joint_states` (published by the hardware driver or simulator).
 3. Uses [[Forward_Kinematics|forward kinematics]] (via the KDL library) to compute the transform of each link.
 4. Broadcasts all link transforms to the [[TF_and_Topic_Architecture|TF tree]].
@@ -308,12 +332,45 @@ ros2 launch urdf_launch display.launch.py urdf_package:=my_robot urdf_package_pa
 
 ---
 
-## Dataview Plugin Features
+## URDF 1.2: what Lyrical added (2026)
 
-```dataview
-LIST FROM #urdf OR #robot-model WHERE contains(file.outlinks, [[URDF]])
+Add `version="1.2"` to the `<robot>` tag to use three new features:
+
+```xml
+<robot name="capsule_arm" version="1.2">
+  <link name="link1">
+    <collision>
+      <origin xyz="0 0 0.25" quat_xyzw="0 0 0 1"/>      <!-- quaternion instead of rpy -->
+      <geometry><capsule radius="0.1" length="0.5"/></geometry>
+    </collision>
+  </link>
+  <joint name="joint1" type="revolute">
+    <origin xyz="0 0 0.5" quat_xyzw="0 0.7071068 0 0.7071068"/>   <!-- 90° about y -->
+    <limit lower="-1.57" upper="1.57" effort="100" velocity="2.0"
+           acceleration="10.0" deceleration="5.0" jerk="50.0"/>
+  </joint>
+</robot>
 ```
 
+- **Quaternions** (`quat_xyzw`) avoid roll-pitch-yaw singularities and rounding when converting from CAD.
+- **Capsules** are the cheapest smooth collision shape and the default in most learning simulators.
+- **Acceleration, deceleration and jerk limits** let planners and controllers read motion limits from the model instead of separate configuration files.
+
+At release, RViz's Robot Model display did not yet draw capsules.
+
+## URDF and the other robot formats
+
+| Format | From | Strength | Limits |
+|---|---|---|---|
+| **URDF** | ROS (2009) | Universal in ROS; every arm vendor ships one | Tree only (no closed loops); no world, lights or sensors beyond extensions |
+| **SDFormat (SDF)** | Gazebo | Whole worlds, sensors, closed chains | Mainly the Gazebo ecosystem |
+| **MJCF** | [[MuJoCo]] | Contact, actuator and tendon detail for fast, accurate simulation | MuJoCo-specific |
+| **OpenUSD** | Pixar, now the Alliance for OpenUSD | Scenes, materials, large assets; Isaac Sim's native format | Robot physics schemas still maturing |
+
+**In robot learning (2026).** A typical pipeline starts from the manufacturer's URDF and converts it to MJCF or USD for GPU simulation (see [[Isaac_Lab]], [[MuJoCo]]). It then tunes masses, friction, armature and actuator models against the real robot (see [[Sim-to-Real_Transfer]]). Curated, tested models such as **MuJoCo Menagerie** save weeks of this work. Keep the URDF as the single source of truth for kinematics, so the simulated policy and the real robot agree on joint names, zero positions and limits.
+
+## Dataview
+
 ```dataview
-TABLE title, description FROM #ros WHERE contains(file.tags, "urdf")
+LIST FROM "" WHERE contains(file.outlinks, [[URDF]])
 ```

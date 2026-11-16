@@ -16,10 +16,10 @@ author: Jordan_Smith
 date: 2025-05-02
 last_reviewed: 2026-04-27
 related:
-  - "[[Navigation]]"
+  - "[[Autonomous_Navigation]]"
   - "[[Localization]]"
   - "[[Robot_Design]]"
-  - "[[Autonomous_Systems]]"
+  - "[[Autonomous_Robots]]"
 ---
 
 # GPS

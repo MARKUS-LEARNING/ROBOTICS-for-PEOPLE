@@ -65,7 +65,7 @@ Applications in logistics (piece picking at $> 600$ picks/hr), lab automation, a
 
 6.  **Accelerating Industry Adoption:**
     * **Manufacturing & Logistics:** Remain dominant sectors, adopting more advanced automation, AI-driven quality control, AMRs, and potentially humanoids.
-    * **Growth Sectors:** Significant acceleration expected in [[Agricultural_Robots|agriculture]] ([[Precision Agriculture]], automated harvesting), healthcare (surgical assistance, hospital logistics, patient care), construction (automation, site monitoring), retail (inventory, logistics), and domestic/service robotics (cleaning, assistance).
+    * **Growth Sectors:** Significant acceleration expected in [[Agricultural_Robots|agriculture]] ([[Agricultural_Robots|Precision Agriculture]], automated harvesting), healthcare (surgical assistance, hospital logistics, patient care), construction (automation, site monitoring), retail (inventory, logistics), and domestic/service robotics (cleaning, assistance).
 
 7.  **[[Soft_Robotics]] and [[Bio-inspired_Robotics]]:**
     * These fields will continue to mature, leading to robots with enhanced safety, compliance, adaptability, and capabilities for interacting with delicate objects or navigating constrained spaces. Applications in healthcare (minimally invasive tools, wearables) and manipulation are likely.

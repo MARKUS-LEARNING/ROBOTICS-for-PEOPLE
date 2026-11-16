@@ -1,122 +1,74 @@
 ---
 title: Electroactive Polymers
-description: Electroactive Polymers (EAPs) are materials that change shape or size in response to an electrical stimulus, making them useful for actuation and sensing in robotic systems.
+description: "Electroactive polymers (EAPs) change shape in response to electric fields: dielectric elastomers that act like stretchy capacitors, and ionic polymers that bend at a few volts. Covers how each works, the Maxwell-pressure equation with a computed example, performance compared with natural muscle, HASEL actuators, and uses and open problems in 2026."
+aliases:
+  - EAP
+  - Dielectric Elastomer Actuators
+  - Artificial Muscles
 tags:
   - materials
-  - polymers
   - actuators
-  - sensors
-type: component
+  - soft-robotics
+type: concept
 level: advanced
 subfield:
   - mechanisms-actuation
-status: draft
+  - soft-robotics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Robot_Design]]"
-  - "[[Actuator]]"
-  - "[[Mechatronics]]"
+  - "[[Smart_Materials]]"
 related:
-  - "[[Material_Science]]"
-  - "[[Robot_Design]]"
-  - "[[Mechatronics]]"
-  - "[[Actuator]]"
-  - "[[Sensors]]"
-  - "[[Control_Systems]]"
-  - "[[Manipulator_Arm]]"
-  - "[[Legged_Robots]]"
-  - "[[Wheeled_Mobile_Robots]]"
+  - "[[Soft_Robotics]]"
+  - "[[Robot_Hands]]"
+  - "[[Shape_Memory_Alloys]]"
+key_takeaways:
+  - "Dielectric elastomers squeeze a soft insulating film between compliant electrodes; the electrostatic Maxwell pressure p = ε₀εᵣE² thins it and makes it spread."
+  - "At 50 V/µm in an elastomer with εᵣ = 3 the pressure is about 66 kPa, comparable to natural muscle stress, but it needs kilovolts across practical film thicknesses."
+  - "Ionic EAPs work at 1–5 V and bend, but are slow and weak; high voltage, durability and electrode reliability are the main barriers to wider use."
+sources:
+  - "Maksimkin, A. V. et al. (2022). Electroactive Polymer-Based Composites for Artificial Muscle-like Actuators: A Review. https://pmc.ncbi.nlm.nih.gov/articles/PMC9268644/"
+  - "Dewang, Y. et al. (2025). Research Progress in Electroactive Polymers for Soft Robotics and Artificial Muscle Applications. https://pmc.ncbi.nlm.nih.gov/articles/PMC11945207/"
+  - "Zhang, L. et al. (2021). A comparative review of artificial muscles for microsystem applications. https://www.nature.com/articles/s41378-021-00323-5"
 ---
 
 # Electroactive Polymers
 
-**Electroactive Polymers (EAPs)** are materials that change shape or size in response to an electrical stimulus. This property makes them highly suitable for actuation and sensing applications in robotic systems. EAPs can be classified into two main categories: ionic and electronic, each with distinct mechanisms and characteristics. Their ability to convert electrical energy into mechanical motion makes them valuable in the development of lightweight, flexible, and efficient robotic components.
+**Electroactive polymers (EAPs)** are plastics and rubbers that move when an electric field is applied. Because they are soft, light and can strain a lot, they are the leading candidates for **artificial muscles** in soft robots, haptics and prosthetics.
 
----
+> **Etymology.** *Electro-* + *active* + *polymer* (Greek *poly*, "many", + *meros*, "part"). Work on dielectric elastomer actuators at SRI International in the late 1990s showed strains above 100%, launching the field as it is today.
 
-## Types of Electroactive Polymers
+## Two classes
 
-1. **Ionic EAPs**:
-   - **Mechanism**: Operate through the movement of ions within the polymer matrix.
-   - **Examples**: Ionic polymer-metal composites (IPMCs) and conductive polymers.
-   - **Characteristics**: Typically require a low voltage to activate but need a continuous electrical current to maintain actuation. They are often used in applications where low voltage operation is critical.
-   - **Applications**: Commonly used in micro-actuators and bio-inspired robots due to their ability to mimic natural muscle movements.
+| Class | Mechanism | Voltage | Strain | Speed | Downsides |
+|---|---|---|---|---|---|
+| **Electronic (field-driven)**: dielectric elastomers, ferroelectric polymers, liquid-crystal elastomers | Electrostatic forces squeeze the material | kV | Large (10–100%+) | Fast (ms) | High voltage, breakdown, electrode fatigue |
+| **Ionic**: ionic polymer–metal composites, conducting polymers, ionic gels | Ion migration swells one side, causing bending | 1–5 V | Bending | Slow (s) | Weak force, often need to stay wet, efficiency |
 
-2. **Electronic EAPs**:
-   - **Mechanism**: Operate through electronic mechanisms, such as electrostatic forces or electronic polarization.
-   - **Examples**: Dielectric elastomers and ferroelectric polymers.
-   - **Characteristics**: Generally require higher voltages but can hold their position without continuous power. They are suitable for applications where maintaining a position without continuous energy input is beneficial.
-   - **Applications**: Used in artificial muscles and actuators for robotic systems that require precise control and energy efficiency.
+## Worked example: Maxwell pressure
 
----
+A dielectric elastomer actuator is a compliant capacitor: a soft insulating film between stretchable electrodes. The effective electrostatic pressure squeezing the film is
 
-## Key Equations
+57839p = \varepsilon_0 \varepsilon_r E^2.57839
 
-### Electrostatic Pressure
+For an acrylic or silicone film with $\varepsilon_r = 3$ at a field of  = 50$ V/µm  5\times10^7$ V/m:
 
-The electrostatic pressure $P$ generated in an EAP can be calculated using:
+57839p = 8.85\times10^{-12} \times 3 \times (5\times10^7)^2 \approx 66\ \text{kPa}.57839
 
-$$
-P = \epsilon_0 \epsilon_r \frac{V^2}{d^2}
-$$
+That is in the range of natural skeletal muscle's typical working stress. But a 50 µm film needs 2.5 kV to reach that field, so stacking many thin layers, thinner films, and compact high-voltage electronics are central engineering problems.
 
-where:
-- $P$ is the electrostatic pressure.
-- $\epsilon_0$ is the permittivity of free space.
-- $\epsilon_r$ is the relative permittivity of the polymer.
-- $V$ is the applied voltage.
-- $d$ is the thickness of the polymer.
+## Related actuators
 
-### Strain in Dielectric Elastomers
+**HASEL** (hydraulically amplified self-healing electrostatic) actuators use electrostatic zipping to push liquid within flexible pouches. They combine muscle-like speed and force with tolerance of dielectric breakdown (they self-heal), and are an active direction in 2020s soft robotics.
 
-The strain $\epsilon$ in a dielectric elastomer is given by:
+## Uses and open problems (2026)
 
-$$
-\epsilon = \frac{\Delta L}{L_0}
-$$
+Haptic displays, tunable lenses, soft grippers, small swimming and crawling robots, wearable assistive devices, and sensors (the same capacitor measures stretch). Open problems: lower driving voltages, long-term reliability of electrodes and films, compact power electronics, and scaling force up for limbs.
 
-where:
-- $\epsilon$ is the strain.
-- $\Delta L$ is the change in length.
-- $L_0$ is the original length of the elastomer.
-
-### Capacitance of a Parallel Plate Actuator
-
-The capacitance $C$ of a parallel plate actuator is calculated as:
-
-$$
-C = \frac{\epsilon_0 \epsilon_r A}{d}
-$$
-
-where:
-- $C$ is the capacitance.
-- $A$ is the area of the electrodes.
-- $d$ is the distance between the electrodes.
-
----
-
-## Impact on Robotics
-
-- **Actuators**: EAPs are used to create lightweight and flexible actuators that can mimic biological muscles. These actuators are ideal for applications requiring soft, adaptive movement, such as in bio-inspired robots and wearable devices.
-  <br>
-
-- **Sensors**: The responsiveness of EAPs to electrical stimuli makes them suitable for sensing applications, where they can detect changes in electrical fields or mechanical stress.
-  <br>
-
-- **Design and Integration**: The selection and integration of EAPs are important aspects of [[Robot_Design]] and [[Mechatronics]], influencing the performance and capabilities of robotic systems. EAPs enable the creation of soft, adaptive, and efficient robotic components.
-  <br>
-
-- **Control Systems**: EAPs can be integrated into [[Control_Systems|Control Systems]] to provide precise and responsive control over robotic movements, enhancing the overall performance and adaptability of robotic systems.
-  <br>
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Electroactive_Polymers]])

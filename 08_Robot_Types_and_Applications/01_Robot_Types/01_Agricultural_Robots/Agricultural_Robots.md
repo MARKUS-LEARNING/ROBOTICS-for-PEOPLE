@@ -1,112 +1,87 @@
 ---
 title: Agricultural Robots
-description: Overview of robots used in agriculture (Agribots), covering applications like planting, harvesting, monitoring, and weeding, key technologies, and challenges.
+description: "Robots on farms: autonomous tractors, precision sprayers that target individual weeds, laser and mechanical weeders, harvesting robots, milking robots and agricultural drones. Covers the enabling technologies (RTK GNSS, machine vision, deep learning), a computed example from 2025 precision-spraying results, why harvesting is still hard, and the economics and open problems in 2026."
+aliases:
+  - Agribots
+  - Agbots
+  - Agricultural Robotics
+  - Precision Agriculture
 tags:
-  - robot-types
   - agriculture
-  - automation
-  - mobile-robot
-  - aerial-robotics
+  - computer-vision
+  - autonomous-systems
+  - field-robotics
 type: robot-type
 level: beginner
 subfield:
   - agriculture
-status: draft
+  - field-robotics
+status: reviewed
 author: Jordan_Smith
-date: 2025-04-28
-related:
-  - "[[Robots]]"
+date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
   - "[[Mobile_Robots]]"
+related:
   - "[[Drones]]"
-  - "[[Manipulator_Arm_Types]]"
-  - "[[Perception]]"
-  - "[[Computer_Vision_in_Robotics]]"
-  - "[[Navigation]]"
-  - "[[GPS]]"
-  - "[[LIDAR]]"
-  - "[[Manipulation]]"
-  - "[[Robot_Types_and_Applications]]"
+  - "[[CNN_in_Robotics]]"
+  - "[[Autonomous_Robots]]"
+  - "[[Soft_Robotics]]"
+key_takeaways:
+  - "Farm robots already work at scale where tasks are repetitive and positions are known: guidance with RTK GNSS, milking, and vision-targeted spraying."
+  - "Plant-level precision is the big win: John Deere reported See & Spray on over five million acres in 2025, cutting non-residual herbicide use by nearly 50% on average (about 31 million gallons of mix)."
+  - "Harvesting delicate produce remains hard because of occlusion, variability and gentle handling at speed; labour shortages keep pushing development."
+sources:
+  - "John Deere (2025). John Deere customers use See & Spray technology across five million acres in 2025. https://www.deere.com/en/news/all-news/see-spray-technology-across-5-million-acres/"
+  - "Carbon Robotics (2026). LaserWeeder. https://carbonrobotics.com/laserweeder"
+  - "Siciliano, B. and Khatib, O., eds. (2016). Springer Handbook of Robotics, 2nd edition, chapter on robotics in agriculture and forestry. https://link.springer.com/referencework/10.1007/978-3-319-32552-1"
+  - "Lely (2026). Astronaut A5 milking robot. https://www.lely.com/us/solutions/milking/astronaut-a5/"
 ---
 
-# Agricultural Robots (Agribots / Agbots)
+# Agricultural Robots
 
-**Agricultural Robots**, often called **Agribots** or **Agbots**, are robots designed specifically for use in agriculture, horticulture, aquaculture, and forestry. They aim to automate repetitive, labor-intensive, or complex tasks, leading to increased efficiency, reduced labor costs, improved resource management (e.g., water, fertilizer, pesticides), enhanced crop yields, and enabling practices like [[Precision Agriculture]].
+**Agricultural robots** bring automation to farming: machines that steer themselves across fields, spray only the weeds, pull or laser weeds, pick fruit, milk cows and survey crops from the air. They respond to labour shortages, rising input costs and the push to use fewer chemicals.
 
----
+> **Etymology.** Latin *ager*, "field", + *cultura*, "cultivation". *Precision agriculture*, managing each part of a field (and now each plant) according to its needs, grew out of GPS guidance in the 1990s.
 
-## Key Applications
+## What they do
 
-Robots are being developed and deployed across the entire agricultural cycle:
+| Task | Robots | Maturity (2026) |
+|---|---|---|
+| **Guidance and autonomy** | Self-steering and driverless tractors using RTK GNSS (centimetre-level positioning) | Mature (guidance); driverless tillage in early commercial use |
+| **Precision spraying** | Cameras on a sprayer boom detect weeds and fire individual nozzles | Commercial at scale |
+| **Weeding** | Laser weeders, mechanical weeding robots | Commercial in high-value crops |
+| **Milking** | Cows walk into robotic milking stalls voluntarily; arms attach cups using vision | Mature since the 1990s |
+| **Harvesting** | Strawberry, apple and tomato pickers; robotic lettuce harvest | Pilot to early commercial |
+| **Drones** | Mapping, crop health imaging, spraying | Widespread; see [[Drones]] |
+| **Monitoring** | Ground robots scouting rows for disease and yield estimation | Research to early commercial |
 
-1.  **Field Preparation & Planting:**
-    * **Autonomous Tractors:** Large [[Mobile_Robots|mobile platforms]] capable of autonomous plowing, tilling, and seeding, often guided by high-precision [[GPS]] (RTK) and other sensors like [[LIDAR]] for obstacle avoidance.
-    * **Robotic Planters:** Systems for precisely placing seeds or transplanting seedlings at optimal spacing and depth.
-    ![Autonomous Tractor Planting](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj-8n-tO6B0CgK7B3-4vE-dM3Lh4U-1yB8n2m9s3P0A9m1K4e8X8l4H9j0Z3t7J9r0w8y6E5e1k2X7j5f3b/s1600/Autonomous+Tractor.jpg)
-    *(Example: Autonomous tractor potentially performing planting)*
+## Worked example: what precision spraying saves
 
-2.  **Crop Monitoring & Management:**
-    * **Scouting Robots:** Ground-based mobile robots or [[Drones]] equipped with [[Camera_Systems|Camera Systems]] (including multispectral or thermal cameras) and other [[Sensors|sensors]] to monitor crop health, detect diseases or pest infestations, assess soil moisture, and estimate yield.
-    * **Precision Spraying/Fertilizing:** Robots that apply pesticides, herbicides, or fertilizers only where needed, identified through sensor data and [[Computer_Vision_in_Robotics|computer vision]], minimizing chemical usage.
-    ![Agricultural Drone Monitoring](https://www.researchgate.net/publication/348883371/figure/fig1/AS:986748967301124@1612270011941/Agricultural-drone-spraying-pesticides-in-rural-area.jpg)
-    *(Example: Agricultural drone likely used for crop monitoring or spraying)*
+John Deere reported that farmers ran See & Spray on more than 5 million acres in the 2025 season, saving about 31 million gallons of herbicide mix: a reduction in non-residual herbicide of nearly 50% on average.
 
-3.  **Weeding:**
-    * **Automated Weeders:** Robots using [[Computer_Vision_in_Robotics|vision systems]] to distinguish between crops and weeds, then removing weeds either mechanically (e.g., using small robotic tools) or via highly targeted micro-spraying of herbicides.
+Per acre, that is $31\times10^6 / 5\times10^6 = 6.2$ gallons of mix saved. If that is about half of what broadcast spraying would have used, broadcast use was around 12 gallons per acre on those fields. On a 1,000-acre farm, the savings are about 6,200 gallons of mix per season.
 
-4.  **Harvesting:**
-    * **Robotic Harvesters:** Often the most complex Agribots, designed to autonomously harvest crops like fruits (strawberries, apples, citrus), vegetables (lettuce, asparagus), or broadacre crops. Requires advanced [[Perception]] to identify ripe produce and delicate [[Manipulation]] to pick without damage.
-    ![Robotic Fruit Harvesting](https://www.therobotreport.com/wp-content/uploads/2019/10/advanced_farm_strawberry_robot.jpeg)
-    *(Example: Robotic arm harvesting strawberries)*
+These are the vendor's own figures. Independent university trials have reported similar reductions in post-emergence herbicide, but savings depend on weed pressure: a field with few weeds saves more.
 
-5.  **Livestock Management:**
-    * **Robotic Milking Systems:** Automated systems that allow cows to be milked voluntarily, identifying the cow and attaching milking equipment automatically.
-    * **Automated Feeding Systems:** Robots that prepare and distribute feed rations.
-    * **Health Monitoring:** Sensors and cameras used to monitor animal behavior, feeding patterns, and vital signs for early detection of health issues.
+## Enabling technologies
 
-6.  **Forestry & Aquaculture:** Robots are also used for tasks like automated tree planting/felling, fish feeding, and monitoring water quality.
+- **RTK GNSS**: satellite positioning corrected by a base station to about 2 cm, enough to drive between crop rows.
+- **Machine vision and deep learning**: detecting weeds among crops, ripeness and disease from images; trained on large labelled datasets (see [[CNN_in_Robotics]]).
+- **Fast actuation**: individually controlled nozzles, lasers or blades acting within milliseconds as the machine moves.
+- **Fleet management**: scheduling, remote supervision and data platforms.
 
----
+## Why harvesting is hard
 
-## Types of Robots Used
+Fruit hides behind leaves; every plant is different; produce bruises easily; and picking must be fast enough to compete with skilled workers at harvest-season wages. Approaches include soft grippers and suction (see [[Soft_Robotics]]), redesigned orchards (trellised "fruit walls" that are easier for machines), and multi-arm platforms.
 
-* **Autonomous Tractors & Large [[Mobile_Robots|Mobile Platforms]]:** For tasks covering large field areas.
-* **Small Mobile Robots:** Designed for specific tasks like weeding or monitoring within crop rows.
-* **[[Drones]] / Unmanned Aerial Vehicles (UAVs):** Primarily for aerial imaging, mapping, and spraying.
-* **[[Manipulator_Arm_Types|Robotic Arms]]:** Often mounted on mobile bases or fixed stations for harvesting, milking, or precise planting.
-* **Specialized Systems:** Custom-designed robots for specific tasks (e.g., robotic milking parlors).
+## Open problems
 
----
+Cost per acre for smaller farms; reliability in dust, mud and weather; connectivity in rural areas; safety around people and animals; data ownership; and regulation of driverless machines on public roads between fields.
 
-## Key Enabling Technologies
-
-* **[[Navigation]]:** Robust outdoor navigation is crucial, often using [[GPS]] (RTK for cm-level accuracy), [[IMU_Sensors]], wheel [[Odometry]], [[LIDAR]], and/or [[Visual Odometry]]/[[SLAM]]. Path planning often involves following predefined row patterns or area coverage strategies.
-* **[[Perception]]:** [[Computer_Vision_in_Robotics|Computer Vision in Robotics]] is essential for identifying crops vs. weeds, detecting fruits and assessing ripeness, recognizing animals, and navigating using visual cues. [[LIDAR]] aids in 3D mapping and obstacle detection. Multispectral and thermal imaging provide information about plant health or soil conditions.
-* **[[Manipulation]]:** Dexterous grippers and end-effectors capable of handling delicate biological products without damage are needed for harvesting and handling tasks.
-* **[[AI_and_Robot_Control]]:** [[Machine_Learning|Machine Learning]] (especially [[Deep_Learning|Deep Learning]]) powers perception systems. [[Control_Theory|Control Theory]] and [[Reinforcement_Learning_for_Robots|RL]] are used for precise motion control and learning complex tasks like harvesting or navigating difficult terrain. [[Decision Making|Decision-making]] algorithms determine optimal actions based on sensor data (e.g., which fruit to pick, where to apply fertilizer).
-
----
-
-## Challenges
-
-* **Harsh & Unstructured Environments:** Robots must operate reliably outdoors under varying weather conditions (sun, rain, wind, dust), on uneven and muddy terrain, and amongst variable natural obstacles.
-* **Variability:** Dealing with the inherent variability and unpredictability of biological systems (plants grow differently, fruits ripen unevenly, animals move).
-* **Perception Reliability:** Robustly identifying objects (crops, weeds, fruits, obstacles) under changing lighting, occlusion, and background clutter remains difficult.
-* **Manipulation Dexterity:** Matching human dexterity for delicate tasks like fruit picking is challenging.
-* **Cost & ROI:** High initial cost of robotic systems can be a barrier for adoption, requiring clear return on investment.
-* **Reliability & Maintenance:** Systems need to be robust and easily maintainable for farm use.
-* **Integration:** Fitting robotic systems into existing farm infrastructure and workflows.
-* **Power Management:** Ensuring sufficient battery life or power supply for robots operating over large areas for extended periods.
-
-Agricultural robotics is a rapidly growing field driven by the need for increased food production, resource efficiency, and solutions to labor shortages in the agricultural sector.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
-LIST FROM "" WHERE contains(file.outlinks, [[Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Agricultural_Robots]])
 ```

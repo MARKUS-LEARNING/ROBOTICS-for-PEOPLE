@@ -1,115 +1,87 @@
 ---
 title: Advanced Sensor Fusion
-description: Advanced Sensor Fusion involves integrating data from multiple sensors to enhance the accuracy and reliability of perception in robotic systems, using techniques such as factor graphs and multi-modal fusion.
+description: "Combining several sensors into one better estimate: the inverse-variance principle (computed), Kalman-family filters, tightly and loosely coupled fusion, factor-graph smoothing for visual-inertial and lidar-inertial odometry, time synchronisation and calibration, and learned fusion in bird's-eye-view networks, with guidance on what robots use in 2026."
+aliases:
+  - Multi-Sensor Fusion
+  - Visual-Inertial Odometry
+  - VIO
 tags:
-  - perception
   - sensor-fusion
-  - factor-graphs
-  - mechanism
-  - mobile-robot
-type: method
+  - state-estimation
+  - kalman-filter
+type: concept
 level: advanced
 subfield:
   - estimation-mapping
-status: draft
+  - perception
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
   - "[[Sensor_Fusion]]"
-  - "[[Kalman_Filter]]"
+  - "[[Probabilistic_Robotics]]"
 related:
-  - "[[Kalman_Filter]]"
-  - "[[Bayesian_Inference]]"
+  - "[[SLAM_with_ROS]]"
+  - "[[Event_Based_Sensing_and_Processing]]"
+  - "[[Localization]]"
+key_takeaways:
+  - "Independent estimates combine by weighting each with the inverse of its variance: fusing variances 0.04 and 0.01 gives 0.008, better than either."
+  - "Tightly coupled fusion (raw measurements in one estimator) beats loosely coupled fusion (combining finished estimates) when sensors are individually weak, at the cost of complexity; factor graphs are the standard for VIO and LIO."
+  - "Calibration and time synchronisation are where most fusion systems fail; learned bird's-eye-view fusion now dominates multi-camera and lidar perception for driving."
+sources:
+  - "Thrun, S., Burgard, W. and Fox, D. (2005). Probabilistic Robotics. https://mitpress.mit.edu/9780262201629/probabilistic-robotics/"
+  - "Qin, T., Li, P. and Shen, S. (2017). VINS-Mono: A Robust and Versatile Monocular Visual-Inertial State Estimator. https://arxiv.org/abs/1708.03852"
+  - "Geneva, P. et al. (2026). OpenVINS: open-source visual-inertial navigation. https://github.com/rpng/open_vins"
+  - "Liu, Z. et al. (2022). BEVFusion: Multi-Task Multi-Sensor Fusion with Unified Bird's-Eye View Representation. https://arxiv.org/abs/2205.13542"
+  - "Dellaert, F. and Kaess, M. (2017). Factor Graphs for Robot Perception. https://www.cs.cmu.edu/~kaess/pub/Dellaert17fnt.pdf"
 ---
 
 # Advanced Sensor Fusion
 
-**Advanced Sensor Fusion** involves integrating data from multiple sensors to enhance the accuracy and reliability of perception in robotic systems. Techniques such as factor graphs and multi-modal fusion are used to combine information from various sensor modalities, enabling robots to achieve a more comprehensive understanding of their environment. This is crucial for tasks that require robust and precise perception, such as autonomous navigation, object recognition, and human-robot interaction.
+Every sensor has blind spots:
+- cameras fail in the dark or under motion blur;
+- IMUs drift;
+- GNSS bounces off buildings;
+- lidar struggles with glass, rain and long featureless corridors.
 
----
+**Sensor fusion** combines them so that the result is more accurate and more robust than any one alone. The basics are in [[Sensor_Fusion]]; this note covers the methods used in current robots.
 
-## Key Concepts
+> **Etymology.** Latin *fundere*, "to pour": fusion pours several streams into one.
 
-### Factor Graphs
+## The principle, computed
 
-Factor graphs are a probabilistic graphical model used to represent the relationships between variables and factors in a system. In sensor fusion, factor graphs are used to model the dependencies between sensor measurements and the states of the environment, facilitating the integration of data from multiple sources.
+Two independent, unbiased measurements of the same quantity, with variances $\sigma_1^2$ and $\sigma_2^2$, combine best by weighting each with the inverse of its variance:
 
-### Multi-modal Fusion
+$$\hat x = \frac{x_1/\sigma_1^2 + x_2/\sigma_2^2}{1/\sigma_1^2 + 1/\sigma_2^2}, \qquad \sigma^2 = \Big(\frac{1}{\sigma_1^2} + \frac{1}{\sigma_2^2}\Big)^{-1}.$$
 
-Multi-modal fusion involves combining data from different types of sensors, such as cameras, lidar, radar, and IMUs, to leverage the strengths of each modality. This approach enhances the robustness and accuracy of perception by providing a more comprehensive view of the environment.
+With $\sigma_1^2 = 0.04$ m² (wheel odometry) and $\sigma_2^2 = 0.01$ m² (lidar matching), the fused variance is $1/(25 + 100) = 0.008$ m², better than either. The noisier sensor still contributes, with weight $25/125 = 0.2$. The Kalman filter applies this rule recursively, with a motion model in between.
 
-### Bayesian Inference
+## Architectures
 
-Bayesian inference is a statistical method used to update the belief about the state of the environment based on new sensor data. It provides a probabilistic framework for integrating uncertain and noisy measurements from multiple sensors.
+| Approach | What is fused | Pros | Cons |
+|---|---|---|---|
+| **Loosely coupled** | Each sensor's finished estimate (e.g. a GNSS position and a VO pose) | Modular, simple | Throws away information; fails if one sub-estimate fails |
+| **Tightly coupled** | Raw measurements (feature tracks, IMU samples, lidar points) in one estimator | More accurate and robust | Complex; needs a good joint model |
+| **Filtering** (EKF, error-state EKF, UKF, MSCKF) | Current state only | Fast, constant cost | Linearisation errors accumulate |
+| **Smoothing** (factor graphs, sliding-window optimisation) | A window or whole trajectory | Accurate, relinearises | More computation |
 
----
+Visual-inertial odometry (VINS-Mono, OpenVINS), lidar-inertial odometry (FAST-LIO2, GLIM) and full SLAM back-ends (GTSAM, iSAM2) are tightly coupled factor-graph or filter systems (see [[SLAM_with_ROS]]).
 
-## Mathematical Formulation
+## The unglamorous essentials
 
-### Factor Graph Representation
+- **Extrinsic calibration**: where each sensor sits relative to the others; a 1° camera–IMU misalignment corrupts every estimate.
+- **Intrinsic calibration**: lens distortion, IMU biases and scale factors.
+- **Time synchronisation**: hardware triggering or precise timestamps. A 10 ms offset between camera and IMU, at 3 rad/s of rotation, is a 1.7° error.
+- **Outlier rejection**: robust cost functions, consistency checks, gating.
+- **Degeneracy detection**: noticing when a sensor carries no information (lidar in a featureless tunnel) and down-weighting it.
 
-A factor graph represents the relationships between variables (states) and factors (sensor measurements) as a bipartite graph:
+## Learned fusion (2026)
 
-$$
-G = (V, F, E)
-$$
+Autonomous-driving perception fuses multiple cameras and lidar into a shared **bird's-eye-view** representation inside one network (BEVFusion, 2022, and successors), learning what classical fusion encodes by hand. In robots, learned components increasingly supply measurements (learned odometry, depth, contact) to classical estimators, while end-to-end policies fuse sensors implicitly. Classical filters remain essential wherever uncertainty must be explicit and auditable.
 
-where:
-- $V$ is the set of variable nodes (states).
-- $F$ is the set of factor nodes (sensor measurements).
-- $E$ is the set of edges connecting variables to factors.
-
-The joint probability distribution over the variables can be expressed as:
-
-$$
-P(\mathbf{x}) = \prod_{f \in F} \psi_f(\mathbf{x}_f)
-$$
-
-where $\psi_f(\mathbf{x}_f)$ is the factor potential associated with factor $f$, and $\mathbf{x}_f$ is the subset of variables connected to factor $f$.
-
-### Multi-modal Fusion
-
-Multi-modal fusion can be represented as the combination of measurements from different sensors to estimate the state of the environment. The fusion process can be modeled using a weighted sum or a probabilistic framework:
-
-$$
-\mathbf{x} = \sum_{i=1}^N w_i \cdot \mathbf{z}_i
-$$
-
-where:
-- $\mathbf{x}$ is the estimated state.
-- $\mathbf{z}_i$ is the measurement from sensor $i$.
-- $w_i$ is the weight assigned to sensor $i$, reflecting its reliability or importance.
-
-### Bayesian Inference
-
-Bayesian inference involves updating the belief about the state $\mathbf{x}$ based on new sensor data $\mathbf{z}$:
-
-$$
-P(\mathbf{x} \mid \mathbf{z}) = \frac{P(\mathbf{z} \mid \mathbf{x}) P(\mathbf{x})}{P(\mathbf{z})}
-$$
-
-where:
-- $P(\mathbf{x} \mid \mathbf{z})$ is the posterior probability of the state given the measurements.
-- $P(\mathbf{z} \mid \mathbf{x})$ is the likelihood of the measurements given the state.
-- $P(\mathbf{x})$ is the prior probability of the state.
-- $P(\mathbf{z})$ is the marginal likelihood of the measurements.
-
----
-
-## Applications in Robotics
-
-- **Autonomous Navigation**: Advanced sensor fusion enables robots to navigate complex environments by integrating data from various sensors to build a comprehensive map and detect obstacles.
-- **Object Recognition**: Combining visual and depth information from cameras and lidar sensors improves the accuracy of object recognition and classification.
-- **Human-Robot Interaction**: Multi-modal fusion allows robots to understand and respond to human gestures, speech, and facial expressions, facilitating natural interaction.
-- **Environmental Monitoring**: Enhances the ability of robots to monitor and analyze their surroundings by integrating data from multiple sensor types, such as temperature, humidity, and gas sensors.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Advanced_Sensor_Fusion]])

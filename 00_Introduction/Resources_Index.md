@@ -10,14 +10,24 @@ level: beginner
 subfield:
   - research-practice
 status: reviewed
+as_of: 2026-11
 author: Jordan_Smith
 date: 2026-04-23
-last_reviewed: 2026-04-23
+last_reviewed: 2026-11-15
 related:
   - "[[MOOCs_and_Courses]]"
   - "[[Research_Papers_Index]]"
   - "[[Simulators_and_IDEs]]"
   - "[[Hardware_Shopping_List]]"
+key_takeaways:
+  - "This index points to the best entry points by type (textbooks, papers, courses, simulators, hardware, labs and communities); each links to a fuller page in the vault."
+  - "Simulators changed most since 2024: Gazebo Classic is retired, MuJoCo 4 and Isaac Lab 3.0 shipped in late 2026, and GPU-parallel simulation is standard for learning."
+  - "For the state of the art in robot learning, start with the Frontier and What's New pages, which are generated from each note's as_of date."
+sources:
+  - "Google DeepMind (2026). MuJoCo 4.0.0 release notes. https://github.com/google-deepmind/mujoco/releases/tag/4.0.0"
+  - "NVIDIA (2026). Isaac Lab 3.0 release notes. https://github.com/isaac-sim/IsaacLab/releases/tag/v3.0.0"
+  - "Open Robotics (2026). Gazebo releases. https://gazebosim.org/docs/latest/releases/"
+  - "Lynch, K. M. and Park, F. C. (2017). Modern Robotics. https://hades.mech.northwestern.edu/index.php/Modern_Robotics"
 ---
 
 # Resources Index
@@ -59,6 +69,8 @@ A short list. The full, curated list lives in [[Research_Papers_Index]].
 - *Deep Residual Learning for Image Recognition* — He et al. (2015). The ResNet paper behind most vision backbones.
 - *Proximal Policy Optimization* — Schulman et al. (2017). Workhorse policy-gradient algorithm.
 - *RT-2: Vision-Language-Action Models* — Google DeepMind (2023). The VLA paradigm.
+- *Diffusion Policy* — Chi et al. (2023). Generative action models for imitation learning.
+- *π0* — Black et al. (2024). Flow-matching VLA; with its successors π0.5 (2025) and π0.7 (2026), a reference point for generalist robot policies.
 
 ---
 
@@ -76,14 +88,13 @@ Full list at [[MOOCs_and_Courses]].
 
 ## Simulators and Tools
 
-Full list at [[Simulators_and_IDEs]].
+Full list at [[Simulators_and_IDEs]]; background in [[Robot_Simulation]] and [[Physics_Engines]].
 
-- [Gazebo](https://gazebosim.org/) — standard ROS-integrated physics simulator.
-- [NVIDIA Isaac Sim](https://developer.nvidia.com/isaac/sim) — GPU-accelerated, photorealistic, RL-friendly.
-- [MuJoCo](https://mujoco.org/) — fast rigid-body dynamics; now open-source (DeepMind).
-- [Webots](https://cyberbotics.com/) — open-source cross-platform simulator.
-- [RViz2](https://github.com/ros2/rviz) — the ROS 2 visualizer.
-- [Foxglove Studio](https://foxglove.dev/) — modern rosbag2 visualization and debugging.
+- [Gazebo](https://gazebosim.org/): the standard ROS-integrated simulator (Jetty with ROS 2 Lyrical; Gazebo Classic reached end of life in January 2025). See [[Gazebo_Simulator]].
+- [MuJoCo](https://mujoco.org/): fast, accurate contact dynamics from Google DeepMind; MuJoCo 4 (November 2026) added Studio, deformables and system identification. See [[MuJoCo]].
+- [NVIDIA Isaac Sim and Isaac Lab](https://developer.nvidia.com/isaac/sim): photoreal simulation and GPU-parallel robot learning; Isaac Lab 3.0 (October 2026) runs on PhysX or Newton. See [[Isaac_Lab]].
+- [Webots](https://cyberbotics.com/): open-source cross-platform simulator, popular in education.
+- [RViz2](https://github.com/ros2/rviz), [Foxglove](https://docs.foxglove.dev/docs) and [Rerun](https://github.com/rerun-io/rerun): visualisation and debugging. See [[RViz_Tutorial]].
 
 ---
 

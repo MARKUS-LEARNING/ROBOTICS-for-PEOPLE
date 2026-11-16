@@ -7,7 +7,7 @@ For each citation ("Author or org (Year). Title. URL"):
 
 Usage:  python3 tools/check_sources.py [note names or paths ...]     (default: every note with sources)
 Exit status 1 if any URL fails or any arXiv title does not match. Sites that refuse automated requests
-(HTTP 401/403/429, or a timeout after retries) are reported as "blocked" and do not fail the check; read those by hand.
+(HTTP 401/403/429, a timeout or 5xx after retries, or a certificate this machine cannot verify) are reported as "blocked" and do not fail the check; read those by hand.
 """
 from __future__ import annotations
 
@@ -79,6 +79,26 @@ def _arxiv_query(q: str, waits=(10, 30, 60)):
     return None
 
 
+def classify(code: int, detail: str = '') -> tuple[str, str]:
+    """('ok' | 'blocked' | 'dead', reason) for one fetch result.
+
+    'Blocked' means the check could not tell and never fails the run: bot walls (401/403/429), servers that drop
+    datacenter traffic (timeouts), certificates this machine's trust store cannot verify although browsers can, and
+    server errors (5xx) that persist through the retries, which say the site is unwell, not that the page is gone.
+    Anything else that is not a 2xx/3xx answer (404, 410, refused connection, unknown host) is dead."""
+    if 200 <= code < 400:
+        return 'ok', ''
+    if code in (401, 403, 429):
+        return 'blocked', f'HTTP {code}'
+    if code == 0 and 'timed out' in detail:
+        return 'blocked', 'timed out'
+    if code == 0 and 'CERTIFICATE_VERIFY_FAILED' in detail:
+        return 'blocked', 'certificate not verified by this machine'
+    if code >= 500:
+        return 'blocked', f'server error {code} after retries'
+    return 'dead', f'HTTP {code}' + (f' {detail}' if code == 0 and detail else '')
+
+
 def arxiv_titles(ids: list[str]) -> dict | None:
     out = {}
     for i in range(0, len(ids), 50):
@@ -114,12 +134,11 @@ def main(argv):
     for n, c, m in cites:
         if not m:
             failed += 1; print(f'FORMAT   {n.name}: {c[:90]}'); continue
-        code, final = status[m.group('url')]
-        if code in (401, 403, 429) or (code == 0 and 'timed out' in final):
-            # Bot walls and servers that silently drop datacenter traffic: the link may be fine.
-            blocked += 1; print(f'BLOCKED  {n.name}: {"timed out" if code == 0 else f"HTTP {code}"} {m.group("url")}')
-        elif not 200 <= code < 400:
-            failed += 1; print(f'DEAD     {n.name}: HTTP {code} {m.group("url")} {final if code == 0 else ""}')
+        verdict, why = classify(*status[m.group('url')])
+        if verdict == 'blocked':
+            blocked += 1; print(f'BLOCKED  {n.name}: {why} {m.group("url")}')
+        elif verdict == 'dead':
+            failed += 1; print(f'DEAD     {n.name}: {why} {m.group("url")}')
         a = ARXIV.search(m.group('url'))
         if a and titles is not None:
             real = titles.get(a.group(1))

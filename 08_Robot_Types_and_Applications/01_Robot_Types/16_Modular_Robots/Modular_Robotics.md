@@ -1,126 +1,88 @@
 ---
 title: Modular Robotics
-description: Modular Robotics involves the design and construction of robots using modular components, allowing for flexibility, reconfigurability, and adaptability in robotic systems.
+description: "Modular robots are built from standard, interchangeable modules: actuators, links, sensors, end effectors or whole robot units. Covers the two meanings of modularity (engineering modularity, as in actuator modules and tool changers, and self-reconfigurable modular robots), benefits and costs, a computed example of how module mass limits the length of a modular arm, and modular design in 2026."
+aliases:
+  - Modular Robots
+  - Modular Robot
 tags:
   - modularity
-  - design
-  - flexibility
-  - reconfigurability
-  - adaptability
-  - mechatronics
-  - customization
-type: robot-type
-level: beginner
+  - actuators
+  - robot-design
+type: concept
+level: intermediate
 subfield:
   - modular-reconfigurable
-status: draft
+  - mechanisms-actuation
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
+  - "[[Robots]]"
+  - "[[Manipulator_Arm]]"
 related:
-  - "[[Robot_Design]]"
-  - "[[Links]]"
-  - "[[Joints]]"
-  - "[[Actuator]]"
-  - "[[Kinematic_Chains]]"
-  - "[[Manipulator_Dynamics]]"
-  - "[[Mechatronics]]"
-  - "[[Mobile_Robots]]"
-  - "[[Humanoid_Robots]]"
-  - "[[Exoskeletons]]"
+  - "[[Reconfigurable_Robots]]"
+  - "[[Swarm_Robots]]"
+  - "[[ros2_control]]"
+  - "[[Robot_Hands]]"
+key_takeaways:
+  - "Modularity means building robots from standard parts with standard interfaces (mechanical, electrical, software), so they can be assembled, repaired and changed quickly."
+  - "Modules carry their own mass and the arm must lift it: with 1 kg modules spaced 0.15 m apart and 20 N·m at the base, a horizontal arm can hold only four modules."
+  - "In 2026 modularity shows up as integrated actuator modules (motor, gearbox, driver, sensors in one unit), quick-change end effectors, and software modularity (ROS 2 packages, ros2_control plugins); self-reconfiguring modular robots remain mostly in research."
+sources:
+  - "Yim, M. et al. (2007). Modular Self-Reconfigurable Robot Systems [Grand Challenges of Robotics]. https://ieeexplore.ieee.org/document/4141037"
+  - "Seo, J., Paik, J. and Yim, M. (2019). Modular Reconfigurable Robotics. https://www.annualreviews.org/doi/10.1146/annurev-control-053018-023834"
+  - "HEBI Robotics (2026). Actuators. https://www.hebirobotics.com/actuators"
+  - "ros-controls (2026). ros2_control. https://github.com/ros-controls/ros2_control"
 ---
 
 # Modular Robotics
 
-**Modular Robotics** involves the design and construction of robots using modular components, allowing for flexibility, reconfigurability, and adaptability in robotic systems. This approach enables robots to be easily customized, upgraded, or reconfigured to meet specific task requirements or environmental conditions. Modular robotics is particularly valuable in applications where versatility and adaptability are crucial, such as research, education, and industrial automation.
+A **modular robot** is assembled from standard building blocks with standard connections, much like LEGO. Instead of designing every robot from scratch, engineers combine existing modules: joints, links, sensors, grippers, even complete mobile units. Modularity makes robots faster to build, easier to repair and possible to reconfigure.
 
----
+> **Etymology.** Latin *modulus*, "small measure", the diminutive of *modus*, "measure". In engineering, a *module* is a self-contained unit with defined interfaces.
 
-## Key Concepts
+## Two meanings
 
-1. **Modularity**: The principle of designing robots with interchangeable, standardized components that can be easily assembled, disassembled, and reconfigured.
-   <br>
+| Meaning | What is modular | Examples |
+|---|---|---|
+| **Engineering modularity** | Components with standard interfaces, combined at design or setup time | Integrated actuator modules; tool changers; mobile bases with swappable top modules; ROS 2 packages |
+| **Self-reconfigurable modular robots** | Identical robotic units that connect and rearrange *themselves* into different shapes | M-TRAN, SMORES, M-Blocks; see [[Reconfigurable_Robots]] |
 
-2. **Reconfigurability**: The ability to change the configuration or structure of a robot by adding, removing, or rearranging modules to suit different tasks or environments.
-   <br>
+## Benefits and costs
 
-3. **Standardization**: The use of standardized interfaces and protocols for connecting and communicating between modules, ensuring compatibility and ease of integration.
-   <br>
+| Benefits | Costs |
+|---|---|
+| Faster design and prototyping | Interfaces add mass, volume and cost |
+| Repair by swapping a module | Connectors are weak points (stiffness, wear, signal integrity) |
+| Reuse across products and tasks | Less optimised than a purpose-built design |
+| Scales production of one part | Need for standards across vendors |
 
-4. **Scalability**: The capacity to scale the robot's capabilities by adding more modules or upgrading existing ones, allowing for growth and enhancement over time.
-   <br>
+## Worked example: how long can a modular arm be?
 
-5. **Adaptability**: The ability of a modular robotic system to adapt to changing requirements or conditions by reconfiguring its modules or integrating new technologies.
-   <br>
+Build a horizontal arm from identical 1 kg joint modules spaced 0.15 m apart. The base joint must hold the weight of every module beyond it, each at its own distance:
 
----
+$$\tau_{base} = \sum_{i=1}^{n} m g\,(0.15\,i) = 9.81 \times 0.15 \times \frac{n(n+1)}{2}$$
 
-## Components of Modular Robotics
+| Modules $n$ | Base torque (N·m) |
+|---|---|
+| 3 | 8.8 |
+| 4 | 14.7 |
+| 5 | 22.1 |
+| 6 | 30.9 |
 
-Modular robotic systems are composed of various interchangeable components:
+If each module can produce 20 N·m, the arm can hold out **four** modules horizontally, with 5.3 N·m left for payload. The fifth exceeds the base's capacity before carrying anything. This is the central trade-off of modular arms: identical modules are convenient, but the joints near the base need far more torque than those at the tip. Real designs mix module sizes, larger near the base, which is why actuator families come in several torque classes.
 
-* **Structural Modules**: These include [[Links]] and [[Joints]], which form the basic structure of the robot. They provide the framework for attaching other modules and defining the robot's kinematic and dynamic properties.
-  <br>
+## Modularity in 2026
 
-* **Actuation Modules**: These are the [[Actuator|actuators]] that provide the motive power for the robot, enabling movement and interaction with the environment. Modular actuators can be easily swapped or upgraded to change the robot's capabilities.
-  <br>
+- **Integrated actuator modules**: motor, gearbox, motor driver, encoders and sometimes torque sensing in one unit with a single bus connection, used in humanoids, quadrupeds and research arms.
+- **Quick-change tooling**: standard flanges and automatic tool changers let one arm switch grippers, screwdrivers and cameras.
+- **Mobile manipulation kits**: bases, arms and sensor heads from different vendors combined through common interfaces.
+- **Software modularity**: ROS 2 packages, [[ros2_control]] hardware plugins and standard message types let modules from different vendors work together.
 
-* **Sensing Modules**: These modules include sensors and perception systems that allow the robot to gather information about its environment. Modular sensors can be added or replaced to enhance the robot's sensing capabilities.
-  <br>
-
-* **Control Modules**: These modules handle the processing and control of the robot's operations. They include microcontrollers, processors, and communication interfaces that manage the robot's behavior and interaction with other systems.
-  <br>
-
-* **Power Modules**: These provide the energy required to operate the robot. Modular power systems can include batteries, power management systems, and charging modules.
-  <br>
-
----
-
-## Advantages of Modular Robotics
-
-1. **Flexibility**: Modular robots can be easily reconfigured to perform a wide range of tasks, making them highly versatile and adaptable to different applications.
-   <br>
-
-2. **Cost-Effectiveness**: The use of standardized, interchangeable components reduces the cost of development and maintenance, as modules can be reused across different robotic systems.
-   <br>
-
-3. **Rapid Prototyping**: Modular robotics enables quick assembly and testing of new designs, facilitating rapid prototyping and iteration in research and development.
-   <br>
-
-4. **Customization**: Users can customize modular robots to meet specific needs or preferences, allowing for personalized and specialized robotic solutions.
-   <br>
-
-5. **Upgradability**: Modular systems can be easily upgraded with new technologies or capabilities, ensuring that the robot remains up-to-date and effective over time.
-   <br>
-
----
-
-## Applications of Modular Robotics
-
-Modular robotics is applied in various fields:
-
-* **Research and Development**: Used in robotics labs and research institutions to develop and test new robotic technologies and concepts.
-  <br>
-
-* **Education**: Employed in educational settings to teach students about robotics, engineering, and mechatronics, providing hands-on learning experiences.
-  <br>
-
-* **Industrial Automation**: Utilized in manufacturing and automation to create flexible and adaptable robotic systems that can be reconfigured for different tasks.
-  <br>
-
-* **Healthcare**: Applied in medical and assistive technologies, such as [[Exoskeletons]] and rehabilitation devices, where customization and adaptability are essential.
-  <br>
-
-* **Space Exploration**: Used in space robotics to create adaptable and reconfigurable systems that can operate in diverse and challenging environments.
-  <br>
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
-LIST FROM "" WHERE contains(file.outlinks, [[Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Modular_Robotics]])
 ```

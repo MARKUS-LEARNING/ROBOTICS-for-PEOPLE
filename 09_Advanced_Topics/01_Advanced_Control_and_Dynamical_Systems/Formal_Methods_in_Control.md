@@ -1,99 +1,79 @@
 ---
-title: Formal Methods in Control (Verification, Synthesis)
-description: Formal Methods in Control involve rigorous mathematical techniques for verifying and synthesizing control systems, ensuring they meet specified performance and safety criteria.
+title: Formal Methods in Control
+description: "Formal methods give mathematical guarantees about what a control system will and will not do: temporal-logic specifications (LTL, STL), model checking, correct-by-construction synthesis and reachability analysis. Includes a worked reachable-set example, how formal methods verify the safety layers around learned components, and language models translating instructions into checkable specifications."
+aliases:
+  - Formal Verification
+  - Temporal Logic
+  - LTL
+  - Reachability Analysis
 tags:
-  - control
-  - formal-methods
   - verification
-  - synthesis
-  - control-theory
-  - dynamics
-  - mechanism
-type: method
-level: advanced
+  - safety
+  - control
+type: concept
+level: research
 subfield:
   - control
-status: draft
+  - planning
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Control_Theory]]"
+  - "[[Hybrid_Systems_and_Control]]"
 related:
-  - "[[Control_Theory]]"
-  - "[[Dynamics]]"
-  - "[[Lyapunov_Stability]]"
-  - "[[Optimal_Control]]"
-  - "[[Robust_Control_Methods]]"
+  - "[[Knowledge_Representation_and_Reasoning]]"
+  - "[[Collision_Avoidance]]"
+  - "[[Ethical_and_Social_Implications]]"
+  - "[[Hamilton-Jacobi-Bellman_Equation]]"
+key_takeaways:
+  - "Formal methods state requirements precisely (for example in temporal logic) and then prove, rather than test, that a system meets them."
+  - "Reachability analysis computes every state a system could reach: a robot with speed at most 1 m/s can be anywhere within 2 m of its start after 2 s, so a safety zone must cover that."
+  - "Proving a whole learned robot correct is out of reach; the practical 2026 pattern is to verify the safety layer (reachability sets, barrier-function filters, verified switching logic) that the learned components run inside."
+sources:
+  - "Belta, C., Yordanov, B. and Aydin Gol, E. (2017). Formal Methods for Discrete-Time Dynamical Systems. https://link.springer.com/book/10.1007/978-3-319-50763-7"
+  - "Kress-Gazit, H., Lahijanian, M. and Raman, V. (2018). Synthesis for Robots: Guarantees and Feedback for Robot Behavior. https://www.annualreviews.org/doi/10.1146/annurev-control-060117-104838"
+  - "Bansal, S., Chen, M., Herbert, S. and Tomlin, C. J. (2017). Hamilton-Jacobi Reachability: A Brief Overview and Recent Advances. https://arxiv.org/abs/1709.07523"
+  - "Ames, A. D. et al. (2019). Control Barrier Functions: Theory and Applications. https://arxiv.org/abs/1903.11199"
 ---
 
-# Formal Methods in Control (Verification, Synthesis)
+# Formal Methods in Control
 
-**Formal Methods in Control** involve rigorous mathematical techniques for verifying and synthesizing control systems, ensuring they meet specified performance and safety criteria. These methods provide a systematic approach to analyzing control systems, verifying their correctness, and synthesizing controllers that satisfy given specifications. Formal methods are crucial in robotics for ensuring the reliability and safety of control systems in complex and dynamic environments.
+Testing shows that a system works in the cases you tried. **Formal methods** prove properties for *all* cases covered by a model: "the robot never enters the forbidden zone", "every request is eventually served", "the gripper never opens while carrying a load above the table". For safety-critical robots, that difference matters.
 
----
+> **Etymology.** *Formal*: expressed in a precise mathematical language. Temporal logic was brought into computer science by Amir Pnueli in 1977 for reasoning about programs over time, work that earned him the Turing Award. Its use for robot control grew in the 2000s.
 
-## Key Concepts
+## Specifying what "correct" means
 
-### Verification
+**Linear temporal logic (LTL)** adds time operators to logic: **G** (always), **F** (eventually), **X** (next) and **U** (until). For example,
 
-Verification involves checking whether a control system satisfies given specifications or properties. This process ensures that the system behaves as expected under various conditions and meets performance and safety requirements.
+$$\mathbf G\,\neg \text{collision} \ \wedge\ \mathbf G\,(\text{request} \rightarrow \mathbf F\,\text{delivered})$$
 
-### Synthesis
+means "never collide, and every request is eventually delivered". **Signal temporal logic (STL)** adds real-valued, timed conditions, for example "always keep distance > 0.5 m, and reach the goal within 30 s", and gives a *robustness* score saying by how much a trajectory satisfies or violates a specification.
 
-Synthesis involves designing control systems that satisfy given specifications. It focuses on constructing control laws and strategies that ensure the system meets desired performance criteria and operational constraints.
+## The main techniques
 
-### Model Checking
+| Technique | Question | Robotics use |
+|---|---|---|
+| **Model checking** | Does this finite model satisfy the specification? | Verifying mission and switching logic, behaviour trees |
+| **Controller synthesis** | Build a controller that is correct by construction | High-level task controllers from LTL specifications |
+| **Reachability analysis** | What states can the system possibly reach? | Safety envelopes, collision guarantees |
+| **Theorem proving** | Prove properties of a model or code | Certified control software components |
+| **Runtime monitoring** | Check the specification while running, and react to violations | Safety monitors on deployed robots |
 
-Model checking is a formal verification technique that involves systematically exploring all possible states and transitions of a system to verify that it satisfies given properties. This method is particularly useful for verifying safety and liveness properties in control systems.
+## Worked example: a reachable set
 
-### Reachability Analysis
+A mobile robot moves in the plane with speed at most 1 m/s. Starting at position $\mathbf p_0$, after $t$ seconds it can be anywhere within a disc of radius $t$ m around $\mathbf p_0$; after 2 s, a disc of radius 2 m. If a person may be 1.5 m away, the robot cannot rule out contact within 2 s unless it restricts its speed. Reachability analysis does this computation for real dynamics and disturbances, often by solving an [[Hamilton-Jacobi-Bellman_Equation|HJ]] equation, and the result defines the zone a safety controller must keep clear.
 
-Reachability analysis is a formal method used to determine the set of states that a system can reach from a given initial state. It is used to verify safety properties by ensuring that the system does not enter unsafe states.
+## Formal methods and learning (2026)
 
----
+- **Verify the shield, not the brain.** Neural policies are too large to verify completely. The safety layer around them can be verified: control barrier function filters, reachability-based envelopes, verified switching to a fallback controller (see [[Collision_Avoidance]]).
+- **Neural network verification** for small networks: bounding outputs over input sets.
+- **Language to specifications**: language models translate natural-language instructions into LTL or STL, which planners then satisfy with guarantees, and which people can inspect.
+- **Regulation**: safety standards for autonomous and AI-driven machines increasingly ask for evidence of this kind (see [[Ethical_and_Social_Implications]]).
 
-## Mathematical Formulation
-
-### Lyapunov Stability
-
-Lyapunov stability is a fundamental concept in control theory used to analyze the stability of dynamical systems. It involves finding a Lyapunov function $V(\mathbf{x})$ that satisfies certain conditions to prove stability.
-
-- **Lyapunov Function**:
-  $$
-  V(\mathbf{x}) > 0 \quad \text{and} \quad \dot{V}(\mathbf{x}) \leq 0
-  $$
-  where $V(\mathbf{x})$ is a positive definite function, and $\dot{V}(\mathbf{x})$ is its time derivative.
-
-### Model Checking
-
-Model checking involves verifying that a system model satisfies a given specification, often expressed in temporal logic. The system model is typically represented as a state transition system, and the specification is checked against all possible behaviors of the system.
-
-### Reachability Analysis
-
-Reachability analysis involves computing the set of states that a system can reach from a given initial state. This is often represented as:
-
-$$
-\mathcal{R}(\mathcal{X}_0) = \{ \mathbf{x} \mid \exists \mathbf{x}_0 \in \mathcal{X}_0, \exists t \geq 0, \mathbf{x} = \phi(t, \mathbf{x}_0) \}
-$$
-
-where $\mathcal{X}_0$ is the set of initial states, and $\phi(t, \mathbf{x}_0)$ represents the state of the system at time $t$ starting from $\mathbf{x}_0$.
-
----
-
-## Applications in Robotics
-
-- **Safety Verification**: Formal methods are used to verify that robotic systems operate safely within their environments, avoiding collisions and other hazards.
-- **Performance Guarantees**: Ensuring that control systems meet specified performance criteria, such as response time, accuracy, and stability.
-- **Controller Synthesis**: Designing control laws that satisfy given specifications, ensuring robust and reliable operation in dynamic environments.
-- **Autonomous Systems**: Verifying and synthesizing control strategies for autonomous vehicles and robots to ensure safe and efficient operation.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Formal_Methods_in_Control]])

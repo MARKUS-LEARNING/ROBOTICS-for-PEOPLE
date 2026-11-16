@@ -1,6 +1,9 @@
 ---
 title: Nav2 Navigation Stack
-description: Covers the ROS 2 Navigation Stack (Nav2), the framework for autonomous mobile robot navigation including global/local planning, costmaps, recovery behaviors, and the behavior tree-based task orchestration system.
+description: "Nav2 is ROS 2's navigation system: it takes a map, a pose estimate and a goal, and drives a mobile robot there safely. Covers costmaps, planners (NavFn, Smac, Theta*), controllers (DWB, Regulated Pure Pursuit, MPPI, Graceful), behavior trees, recoveries, the newer servers (docking, routes, following, coverage, collision monitor), configuration, and how learned perception plugs in."
+aliases:
+  - Nav2
+  - Navigation2
 tags:
   - nav2
   - navigation
@@ -8,38 +11,39 @@ tags:
   - mobile-robot
   - path-planning
   - costmap
-  - slam
   - behavior-tree
   - robotics-software
-  - autonomous-systems
 type: tool
 level: intermediate
 subfield:
   - software
   - planning
   - mobile-robots
-status: draft
+status: reviewed
 author: Jordan_Smith
-date: 2025-05-02
+date: 2025-04-28
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[LIDAR]]"
   - "[[ROS_2_Overview]]"
-  - "[[Robot_Operating_System_(ROS)]]"
-related:
-  - "[[Robot_Operating_System_(ROS)]]"
-  - "[[ROS_2_Overview]]"
-  - "[[Actions]]"
   - "[[TF_and_Topic_Architecture]]"
+  - "[[Path_Planning]]"
+related:
   - "[[SLAM_with_ROS]]"
   - "[[Localization]]"
-  - "[[Mapping]]"
-  - "[[A*_Algorithm]]"
-  - "[[Path_Planning]]"
-  - "[[Obstacle_Avoidance]]"
-  - "[[LIDAR]]"
-  - "[[Odometry]]"
-  - "[[Launch_Files]]"
   - "[[RViz_Tutorial]]"
+  - "[[Gazebo_Simulator]]"
+  - "[[Model_Predictive_Control_(MPC)]]"
+key_takeaways:
+  - "Nav2 splits navigation into servers: a planner finds a path on the global costmap, a controller tracks it on the local costmap, and a behavior tree decides what to do, including recoveries."
+  - "Choose plugins by robot: Smac Hybrid-A* or State Lattice for car-like and legged bases, MPPI or Regulated Pure Pursuit for most differential-drive robots."
+  - "Since 2024 Nav2 has grown task servers (docking, routes on a graph, dynamic object following, coverage) and a collision monitor that acts as a last safety layer."
+sources:
+  - "Macenski, S., Martín, F., White, R. and Ginés Clavero, J. (2020). The Marathon 2: A Navigation System. https://arxiv.org/abs/2003.00368"
+  - "Macenski, S., Moore, T., Lu, D. V., Merzlyakov, A. and Ferguson, M. (2023). From the desks of ROS maintainers: A survey of modern & capable mobile robotics algorithms in the robot operating system 2. https://arxiv.org/abs/2307.15236"
+  - "Open Navigation (2026). Nav2 documentation. https://docs.nav2.org/"
+  - "ros-navigation (2026). navigation2. https://github.com/ros-navigation/navigation2"
+  - "Williams, G., Aldrich, A. and Theodorou, E. (2015). Model Predictive Path Integral Control using Covariance Variable Importance Sampling. https://arxiv.org/abs/1509.01149"
 ---
 
 # Nav2 — ROS 2 Navigation Stack
@@ -52,7 +56,7 @@ Nav2 is used in ground robots, logistics AMRs, service robots, outdoor vehicles,
 
 ## System Architecture
 
-Nav2 operates as an orchestrated collection of ROS 2 [[Nodes|servers]], each responsible for a specific function. The **BT Navigator** is the central coordinator, using a **Behavior Tree (BT)** to decide which servers to call and in what sequence.
+Nav2 operates as an orchestrated collection of ROS 2 [[Custom_Packages_and_Nodes|servers]], each responsible for a specific function. The **BT Navigator** is the central coordinator, using a **Behavior Tree (BT)** to decide which servers to call and in what sequence.
 
 ```
                ┌──────────────────────────────────┐
@@ -109,6 +113,7 @@ Computes a collision-free path from the robot's current pose to the goal pose us
 * **NavFn** (Dijkstra/A*): Classic grid-based planner, robust and well-tested.
 * **Smac Planner 2D**: Improved A* with kinematic constraints.
 * **Smac Planner Hybrid-A\***: Kinodynamically feasible paths for Ackermann (car-like) robots.
+* **Smac State Lattice**: Feasible paths from precomputed motion primitives, for any drive type including legged and omnidirectional bases.
 * **Theta\***: Any-angle paths that are shorter than grid-constrained A*.
 
 The planner produces a `nav_msgs/Path` that is passed to the controller.
@@ -119,8 +124,11 @@ Tracks the global path in real time, reacting to dynamic obstacles detected in t
 
 * **DWB (Dynamic Window Approach)**: Samples feasible velocity trajectories, scores them, and selects the best. Successor to DWA from ROS 1.
 * **RPP (Regulated Pure Pursuit)**: Follows the path by steering toward a look-ahead point; velocity regulated near obstacles.
-* **TEB (Timed Elastic Band)**: Optimizes a trajectory as a band of intermediate poses, considering time and kinodynamic constraints.
-* **MPPI (Model Predictive Path Integral)**: Sampling-based MPC controller; GPU-acceleratable.
+* **MPPI (Model Predictive Path Integral)**: Sampling-based [[Model_Predictive_Control_(MPC)|MPC]]. It rolls out thousands of noisy control sequences on the CPU (vectorised), scores them with plugin "critics" and averages the best. It is the most capable general-purpose controller in Nav2.
+* **Graceful Controller**: Smooth, pose-following control law, good for docking approaches and final alignment.
+* **Rotation Shim**: Rotates in place toward the path before handing over to another controller.
+
+(TEB, the Timed Elastic Band planner popular in ROS 1, is not part of Nav2.)
 
 ### 4. Behavior Tree Navigator (BT Navigator)
 
@@ -271,12 +279,34 @@ while not navigator.isTaskComplete():
 
 ---
 
-## Dataview Plugin Features
+## Worked example: how many rollouts MPPI evaluates
+
+MPPI's defaults are 1,000 sampled trajectories (`batch_size`) of 56 points (`time_steps`) spaced 0.05 s apart (`model_dt`), so each candidate looks 56 × 0.05 = 2.8 s ahead. At the 30 Hz controller rate used in the example configuration, MPPI simulates 1,000 × 56 = 56,000 motion steps per cycle, or about 1.7 million per second. Each step is a few multiply-adds for a differential-drive model, which is why the maintainers report 50+ Hz on a 4th-generation Intel i5. Doubling the batch to 2,000 smooths the result but roughly doubles the cost, so `batch_size` is the first parameter to adjust on small computers.
+
+## Beyond point-to-point: task servers (2024–2026)
+
+| Server | What it does |
+|---|---|
+| **Docking Server** | Detects a charging dock and performs the precise approach and contact |
+| **Route Server** | Plans on a hand-made graph of lanes, such as warehouse aisles or sidewalks, instead of free space |
+| **Following Server** | Follows a moving target such as a person or another robot |
+| **Coverage Server** | Plans complete-coverage paths for mowing, cleaning and agriculture |
+| **Collision Monitor** | Independent safety layer: slows or stops the robot when anything enters configured zones, whatever the planner says |
+
+## Learned perception in Nav2
+
+The costmap is where learning enters most navigation stacks today:
+- segmentation or detection networks mark people, glass or drivable terrain as costmap layers;
+- learned depth turns a single camera into an obstacle sensor.
+
+The Nav2 documentation added tutorials on depth estimation and semantic segmentation in 2025–2026. The planners and controllers themselves mostly remain classical and verifiable, with learned components supplying *what is where*.
+
+## Distributions
+
+Nav2 is released for every ROS 2 distribution. In November 2026, Lyrical and Jazzy are in active support, Kilted and Humble are maintained, and Iron is end of life. Match the Nav2 documentation version to your distribution, because parameter names change between releases; each release has a migration guide.
+
+## Dataview
 
 ```dataview
-LIST FROM #navigation OR #mobile-robot WHERE contains(file.outlinks, [[Nav2_Navigation]])
-```
-
-```dataview
-TABLE title, description FROM #ros WHERE contains(file.tags, "navigation")
+LIST FROM "" WHERE contains(file.outlinks, [[Nav2_Navigation]])
 ```

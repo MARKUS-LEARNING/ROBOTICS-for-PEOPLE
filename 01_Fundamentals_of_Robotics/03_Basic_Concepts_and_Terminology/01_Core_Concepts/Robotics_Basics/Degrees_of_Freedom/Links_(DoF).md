@@ -200,7 +200,7 @@ This is why base joints on industrial robots are massively built while wrist joi
 
 Links are integral to various robotic systems:
 
-* **Manipulator Arms**: Form the structural framework that connects joints and [[End_Effectors]], enabling precise and controlled movements.
+* **Manipulator Arms**: Form the structural framework that connects joints and [[Robot_Hands|End_Effectors]], enabling precise and controlled movements.
 * **Mobile Robots**: Provide the chassis and structural components that support locomotion and interaction with the environment.
 * **Humanoid Robots**: Require links that mimic human limbs, balancing strength, flexibility, and weight.
 * **Exoskeletons**: Need links that are lightweight, strong, and adaptable to human movements.

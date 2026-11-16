@@ -1,129 +1,105 @@
 ---
 title: Python ROS Nodes
-description: Guide to creating ROS nodes using Python (rospy for ROS 1, rclpy for ROS 2), covering core concepts, setup, use cases, and comparison with C++.
-tags:
-  - python
-  - ros
-  - rospy
+description: "Writing ROS 2 nodes in Python with rclpy: structure, publishers and subscriptions with QoS, timers, parameters, services and actions, executors and the asyncio AsyncNode (Lyrical), packaging and launching, a computed timing budget for Python callbacks, and when to move code to C++. Updated for ROS 2 Lyrical (Python 3.12–3.14); ROS 1 rospy is end of life."
+aliases:
   - rclpy
-  - nodes
+  - Python ROS 2 Nodes
+tags:
+  - ros2
+  - python
   - robotics-software
-  - programming
 type: tutorial
 level: intermediate
 subfield:
   - software
-status: draft
+status: reviewed
 author: Jordan_Smith
-date: 2025-04-29
+date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Robot_Operating_System_(ROS)]]"
-  - "[[Actions]]"
   - "[[Custom_Packages_and_Nodes]]"
-related:
   - "[[Python_for_Robotics]]"
-  - "[[Robot_Operating_System_(ROS)]]"
-  - "[[Nodes]]"
-  - "[[Topics]]"
-  - "[[Services]]"
+related:
+  - "[[ROS_2_Communication]]"
   - "[[Actions]]"
-  - "[[Messages]]"
-  - "[[Parameters]]"
-  - "[[C++_Motion_Planning]]"
-  - "[[Custom_Packages_and_Nodes]]"
-  - "[[Coding_and_Implementation]]"
+  - "[[Launch_Files]]"
+  - "[[C++]]"
+key_takeaways:
+  - "rclpy is the Python client library for ROS 2; a node subclasses Node and creates publishers, subscriptions, timers, services and actions."
+  - "A 100 Hz callback has a 10 ms budget; if each call takes 2 ms of Python, that is 20% of a core, so heavy per-message work belongs in NumPy, compiled extensions or C++."
+  - "ROS 2 Lyrical supports Python 3.12–3.14 and adds the experimental AsyncNode for asyncio; ROS 1's rospy reached end of life with Noetic in May 2025."
+sources:
+  - "Open Robotics (2026). rclpy: ROS 2 client library for Python. https://github.com/ros2/rclpy"
+  - "Open Robotics (2026). ROS 2 Lyrical Luth supported platforms (Python 3.12–3.14). https://github.com/ros2/ros2_documentation/blob/rolling/source/Releases/lyrical/supported-platforms.rst"
+  - "Open Robotics (2026). ROS 2 documentation source: Writing a simple publisher and subscriber (Python). https://github.com/ros2/ros2_documentation/blob/rolling/source/ROS-Framework/client-libraries/Working-with-Client-Libraries/Writing-A-Simple-Py-Publisher-And-Subscriber.rst"
 ---
 
 # Python ROS Nodes
 
-[[Python_for_Robotics]] is a popular and powerful language choice for developing [[Nodes|ROS nodes]], alongside [[C++_Motion_Planning|C++]]. ROS provides dedicated Python client libraries – `rospy` for ROS 1 and `rclpy` for ROS 2 – enabling developers to leverage Python's ease of use, extensive libraries (especially in [[AI_and_Robot_Control|AI]]/[[Machine_Learning|Machine Learning]]), and rapid development cycle for various robotics tasks.
+Python is the fastest way to write a ROS 2 node: perception glue, high-level behaviours, bridges to machine-learning models, test tools. The client library is **rclpy**. (ROS 1's `rospy` reached end of life with Noetic in May 2025.)
 
----
+> **Etymology.** *rclpy* = **R**OS **c**lient **l**ibrary for **Py**thon, built on the common C library *rcl*.
 
-## Why Use Python for ROS Nodes?
+## A complete node
 
-* **Ease of Use & Rapid Prototyping:** Python's simpler syntax and dynamic typing allow for faster development and iteration compared to C++. This is ideal for prototyping algorithms, scripting tasks, and developing non-performance-critical nodes.
-* **Rich Ecosystem:** Access to a vast collection of Python libraries for data science, machine learning (TensorFlow, PyTorch, scikit-learn), web development, and more, facilitating integration with other technologies.
-* **AI/ML Integration:** Python is the dominant language in the AI/ML community, making it straightforward to integrate trained models and AI algorithms directly into ROS nodes.
-* **Readability:** Python code is often considered more readable and maintainable, especially for developers less familiar with C++.
+```python
+import rclpy
+from rclpy.node import Node
+from rclpy.qos import qos_profile_sensor_data
+from sensor_msgs.msg import LaserScan
+from geometry_msgs.msg import Twist
 
----
+class Stopper(Node):
+    """Stop the robot if anything is closer than a threshold in front of it."""
+    def __init__(self):
+        super().__init__('stopper')
+        self.declare_parameter('stop_distance', 0.5)
+        self.sub = self.create_subscription(LaserScan, 'scan', self.on_scan, qos_profile_sensor_data)
+        self.pub = self.create_publisher(Twist, 'cmd_vel', 10)
+        self.closest = float('inf')
+        self.timer = self.create_timer(0.05, self.tick)          # 20 Hz control loop
 
-## Setting Up a Python ROS Node
+    def on_scan(self, msg: LaserScan):
+        n = len(msg.ranges); front = msg.ranges[n // 2 - 20 : n // 2 + 20]
+        self.closest = min((r for r in front if msg.range_min < r < msg.range_max), default=float('inf'))
 
-1.  **Package Structure:** Python ROS nodes are typically placed as scripts within the `scripts/` directory of a [[Custom_Packages_and_Nodes|ROS package]].
-2.  **Executable Permissions:** Python scripts intended to be run as nodes need executable permissions. Use `chmod +x your_node_script.py` in the terminal.
-3.  **Shebang Line:** Start your Python script with `#!/usr/bin/env python3` (or `python` for ROS 1) to indicate it should be executed with the Python interpreter found in the environment.
-4.  **Dependencies:**
-    * **ROS Dependencies:** Declare dependencies on `rospy` or `rclpy` and any necessary message packages (e.g., `std_msgs`, `sensor_msgs`) in your `package.xml` file using `<exec_depend>` (or `<depend>` in ROS 1).
-    * **Python Libraries:** Manage external Python library dependencies using standard Python practices (e.g., `requirements.txt` and `pip`, or listing them in `setup.py` for ROS 2 `ament_python` packages).
-5.  **Installation (Making Nodes Executable):**
-    * **ROS 1 (Catkin):** Typically involves adding an `install` rule in `CMakeLists.txt` to install the script into the package's `lib/<package_name>/` directory.
-    * **ROS 2 (Colcon/Ament):** In `setup.py` for an `ament_python` package, define entry points under `console_scripts` to make the Python script runnable via `ros2 run`.
+    def tick(self):
+        cmd = Twist()
+        if self.closest > self.get_parameter('stop_distance').value:
+            cmd.linear.x = 0.2
+        self.pub.publish(cmd)
 
----
+def main():
+    rclpy.init()
+    rclpy.spin(Stopper())
 
-## Core ROS Concepts in Python
+if __name__ == '__main__':
+    main()
+```
 
-The core ROS communication mechanisms ([[Topics]], [[Services]], [[Actions]], [[Parameters]]) are accessed via the `rospy` (ROS 1) or `rclpy` (ROS 2) libraries.
+Notes: the scan subscription uses the **sensor-data QoS** (best effort) to match lidar drivers (see [[ROS_2_Communication]]); a timer runs the control loop independently of the scan rate; the threshold is a declared parameter, adjustable at launch.
 
-| Feature         | ROS 1 (`rospy`)                     | ROS 2 (`rclpy`)                                       |
-| :-------------- | :---------------------------------- | :---------------------------------------------------- |
-| **Initialization** | `rospy.init_node('node_name')`      | `rclpy.init()` <br> `node = rclpy.create_node('node_name')` |
-| **Publisher** | `pub = rospy.Publisher(...)`        | `pub = node.create_publisher(...)`                    |
-|                 | `pub.publish(msg)`                  | `pub.publish(msg)`                                    |
-| **Subscriber** | `sub = rospy.Subscriber(...)`       | `sub = node.create_subscription(...)`                 |
-|                 | *(Callback function passed)* | *(Callback function passed)* |
-| **Service Server**| `srv = rospy.Service(...)`          | `srv = node.create_service(...)`                      |
-|                 | *(Callback function passed)* | *(Callback function passed)* |
-| **Service Client**| `proxy = rospy.ServiceProxy(...)`   | `client = node.create_client(...)`                    |
-|                 | `resp = proxy(req)`                 | `future = client.call_async(req)`                     |
-| **Action Server** | `import actionlib` <br> `server = actionlib.SimpleActionServer(...)` | `from rclpy.action import ActionServer` <br> `server = ActionServer(...)` |
-| **Action Client** | `import actionlib` <br> `client = actionlib.SimpleActionClient(...)` | `from rclpy.action import ActionClient` <br> `client = ActionClient(...)` |
-| **Get Parameter** | `rospy.get_param('param_name', default)` | `node.get_parameter('param_name').value` (or declare first) |
-| **Set Parameter** | `rospy.set_param('param_name', value)` | `node.set_parameters([Parameter(...)])`               |
-| **Rate Limiting** | `rate = rospy.Rate(hz)` <br> `rate.sleep()` | `rate = node.create_rate(hz)` <br> `rate.sleep()`           |
-| **Spinning** | `rospy.spin()` (blocking) <br> `while not rospy.is_shutdown(): rate.sleep()` (manual loop) | `rclpy.spin(node)` (blocking) <br> `rclpy.spin_once(node, timeout_sec=...)` (non-blocking) |
-| **Logging** | `rospy.loginfo("msg")`              | `node.get_logger().info("msg")`                       |
+## Executors, threads and async
 
-*Note:* ROS 2's `rclpy` is generally more object-oriented, with most functionalities accessed via the `node` object, whereas `rospy` often uses global functions. ROS 2 also makes heavy use of asynchronous programming (`async`/`await`) for clients and actions.
+`rclpy.spin` uses a single-threaded executor. Long callbacks block everything else on that node, and calling a service synchronously from a callback deadlocks (see [[ROS_2_Communication]]). Options:
+- `MultiThreadedExecutor` with reentrant callback groups;
+- `call_async` for services;
+- in Lyrical, the experimental **AsyncNode**, which runs callbacks on an `asyncio` loop so they can `await` service calls and sleeps, using less CPU than the default executor.
 
----
+## Worked example: Python's time budget
 
-## Common Use Cases
+At 100 Hz each callback has 10 ms. If processing one message in Python takes 2 ms, the node uses /10 = 20\%$ of one CPU core for that topic alone, and other callbacks queue behind it. Ways to keep within budget:
+- vectorise with NumPy (see [[Python_for_Robotics]]);
+- move hot loops to compiled code;
+- reduce rates;
+- for 1 kHz control or large point clouds, write the node in [[C++]] and compose it in-process.
 
-Python ROS nodes excel in areas where development speed and library availability outweigh raw computational performance:
+## Packaging and running
 
-* **High-Level Task Coordination:** Implementing state machines, behavior trees, or task planners that orchestrate other nodes.
-* **AI/ML Integration:** Running inference with TensorFlow/PyTorch models for [[Perception|perception]], creating [[Reinforcement_Learning_for_Robots|RL]] agents, or using Natural Language Processing libraries.
-* **Rapid Prototyping:** Quickly developing and testing new algorithms or system logic before potentially optimizing critical parts in C++.
-* **Simple [[Hardware_Interface_Setup|Hardware Interfaces]]:** Interfacing with devices via [[Serial_Communication_Tutorials|Serial]] or simple USB protocols where Python libraries exist and real-time performance is not paramount (e.g., using `pyserial`). `rosserial_python` is a common package for Arduino/microcontroller communication in ROS 1.
-* **Utility Scripts:** Creating simple nodes for data conversion, logging, system monitoring, or parameter management.
-* **GUI Development:** Building graphical user interfaces using ROS tools like `rqt` which heavily utilizes Python.
+Create with `ros2 pkg create --build-type ament_python`, declare entry points in `setup.py`, build with `colcon build --symlink-install` (edits take effect without rebuilding), and start with `ros2 run` or a [[Launch_Files|launch file]]. Lyrical targets Ubuntu 26.04 with Python 3.14; it supports Python 3.12–3.14 across its platforms.
 
----
-
-## Python vs. C++ in ROS
-
-* **Choose Python when:**
-    * Development speed is critical.
-    * Integrating with existing Python libraries (especially AI/ML) is needed.
-    * Computational performance is not the primary bottleneck.
-    * Readability and ease of maintenance are high priorities.
-* **Choose C++ when:**
-    * High computational performance or real-time execution is required (e.g., low-level control loops, intensive [[C++_Motion_Planning|motion planning]], heavy image/point cloud processing).
-    * Fine-grained memory management is necessary.
-    * Interfacing with hardware requires specific C/C++ SDKs or low-level access.
-
-Often, complex ROS systems use a mix of C++ and Python nodes, leveraging the strengths of each language for different components of the system.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Python_ROS_Nodes]])

@@ -1,119 +1,90 @@
 ---
 title: Feedback Control
-description: Feedback Control is a system that uses the output of a process to adjust its input, ensuring stability and accuracy in robotic systems.
+description: "Feedback control measures what a system is actually doing and corrects the difference from what it should do. A first explanation for beginners: negative and positive feedback, the loop and its parts, a computed motor-speed example with and without feedback, everyday and robot examples, and why feedback is everywhere in robots from motor drivers to learned policies."
+aliases:
+  - Feedback
+  - Closed-Loop Control
+  - Negative Feedback
 tags:
+  - feedback-control
   - control
-  - automation
-  - mechatronics
 type: concept
-level: intermediate
+level: beginner
 subfield:
   - control
-status: draft
+status: reviewed
 author: Jordan_Smith
-date: 2025-04-29
+date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Open_Loop_vs_Closed_Loop]]"
+  - "[[Control_Theory_Overview]]"
 related:
+  - "[[PID_Control]]"
+  - "[[Control_Theory_and_Principles]]"
   - "[[Control_Systems]]"
   - "[[Sensors]]"
-  - "[[Actuator]]"
-  - "[[Servo_Motors]]"
   - "[[Encoders]]"
-  - "[[Resolvers]]"
-  - "[[Robot_Design]]"
-  - "[[Mechatronics]]"
-  - "[[Kinematics_and_Dynamics]]"
-  - "[[Manipulator_Arm]]"
-  - "[[Legged_Robots]]"
-  - "[[Wheeled_Mobile_Robots]]"
+key_takeaways:
+  - "Negative feedback subtracts the measured output from the goal and acts on the error, which makes systems accurate and steady even when loads and conditions change."
+  - "With a loop gain of 20, a load that would slow an uncontrolled motor by 20% slows it by under 1%."
+  - "Positive feedback amplifies change; useful for snapping between states, dangerous in a controller."
+sources:
+  - "Åström, K. J. and Murray, R. M. (2021). Feedback Systems: An Introduction for Scientists and Engineers, 2nd edition. https://fbswiki.org/wiki/index.php/Feedback_Systems:_An_Introduction_for_Scientists_and_Engineers"
+  - "Åström, K. J. and Murray, R. M. (2020). Feedback Systems, public PDF edition. https://www.cds.caltech.edu/~murray/books/AM08/pdf/fbs-public_24Jul2020.pdf"
+  - "Lynch, K. M. and Park, F. C. (2017). Modern Robotics, chapter 11: Robot Control. https://hades.mech.northwestern.edu/index.php/Modern_Robotics"
 ---
-
-# PID Control in Robotic Arms
-
-This note discusses the implementation of PID control in robotic arms for precise movement and stability.
-
-
 
 # Feedback Control
 
-**Feedback Control** is a system that uses the output of a process to adjust its input, ensuring stability and accuracy in robotic systems. It is a fundamental concept in control theory and is widely used in robotics to manage and regulate motion, position, and other dynamic behaviors. Feedback control systems are essential for achieving precise and reliable performance in automated systems.
+**Feedback control** is the idea of measuring what a system is actually doing, comparing it with what it should be doing, and using the difference to adjust. You do it constantly: steering a bicycle, adjusting the shower temperature, reaching for a cup. Robots do it thousands of times per second.
 
----
+> **Etymology.** *Feed back*: send part of the output *back* to the input. The term comes from 1920s radio engineering. Feedback devices are much older: Ktesibios's water clock regulator (3rd century BC) and James Watt's centrifugal governor (1788).
 
-## Types of Feedback Control
+## The loop
 
-1. **Negative Feedback**:
-   - The most common type, where the feedback signal is subtracted from the input to reduce the error.
-   - Used to stabilize systems and minimize deviations from the desired state.
+1. **Goal** (reference): what we want, for example a joint at 90°.
+2. **Sensor**: measures the actual value, for example an encoder reading 85°.
+3. **Comparison**: the error is 90° − 85° = 5°.
+4. **Controller**: decides a correction from the error.
+5. **Actuator**: applies it (motor torque), and the loop repeats.
 
-2. **Positive Feedback**:
-   - The feedback signal is added to the input, which can lead to instability if not properly managed.
-   - Less common in control systems but used in specific applications like oscillators.
+## Negative and positive feedback
 
-3. **Proportional Control (P)**:
-   - Adjusts the control signal proportionally to the error between the desired and actual output.
-   - Simple but can lead to steady-state errors.
+- **Negative feedback** acts *against* the error: too low, push up; too high, push down. It stabilises and is what controllers use.
+- **Positive feedback** acts *with* the change, amplifying it: microphone squeal, a ball rolling off a hill. It is useful where you want a decisive switch between states (a latching circuit, a snap-through gripper) and dangerous in a controller.
 
-4. **Integral Control (I)**:
-   - Integrates the error over time to eliminate steady-state errors.
-   - Can introduce oscillations if not tuned properly.
+## Worked example: holding speed under load
 
-5. **Derivative Control (D)**:
-   - Uses the rate of change of the error to anticipate future behavior.
-   - Helps to dampen oscillations and improve stability.
+A wheel motor runs at 100 rpm with no load. A load that, without feedback, would slow it by 20% (to 80 rpm) is applied.
 
-6. **Proportional-Integral-Derivative (PID) Control**:
-   - Combines proportional, integral, and derivative control to provide robust and adaptive control.
-   - Widely used due to its effectiveness and flexibility.
+With negative feedback of loop gain $L = 20$ (the controller's correction is 20 times the speed error, in consistent units), the speed drop is reduced by the factor $1/(1 + L) = 1/21$:
 
----
+$$\text{drop} = 20\% \times \frac{1}{21} \approx 0.95\%,$$
 
-## Key Equations
+so the wheel keeps about **99 rpm**. Adding integral action (see [[PID_Control]]) removes even that remaining error. This is the core benefit of feedback, explained further in [[Control_Theory_and_Principles]].
 
-- **Proportional Control**:
-  $$
-  u(t) = K_p \cdot e(t)
-  $$
-  where $u(t)$ is the control signal, $K_p$ is the proportional gain, and $e(t)$ is the error between the desired and actual output.
-  <br></br>
+## Open loop versus closed loop
 
-- **Integral Control**:
-  $$
-  u(t) = K_i \int_{0}^{t} e(\tau) \, d\tau
-  $$
-  where $K_i$ is the integral gain, and $e(\tau)$ is the error over time.
-  <br></br>
+| | Open loop | Closed loop (feedback) |
+|---|---|---|
+| Measures the result? | No | Yes |
+| Handles disturbances and model error? | No | Yes |
+| Risk of instability? | No | Yes, if badly tuned |
+| Example | Stepper motor moved by counting steps; toaster timer | Servo motor with encoder; robot joint controller; cruise control |
 
-- **Derivative Control**:
-  $$
-  u(t) = K_d \frac{de(t)}{dt}
-  $$
-  where $K_d$ is the derivative gain.
-  <br></br>
+Many robot systems combine **feedforward** (what a model predicts is needed) with **feedback** (correcting what the model missed).
 
-- **PID Control**:
-  $$
-  u(t) = K_p \cdot e(t) + K_i \int_{0}^{t} e(\tau) \, d\tau + K_d \frac{de(t)}{dt}
-  $$
-  Combines proportional, integral, and derivative control for comprehensive feedback.
+## Feedback everywhere in a robot
 
----
+- **Motor drivers** regulate current tens of thousands of times per second.
+- **Joint controllers** hold positions and follow trajectories (see [[ros2_control]]).
+- **Balance**: drones and legged robots use IMU feedback to stay upright.
+- **Navigation**: localization corrects the robot's position estimate, and the path follower corrects deviations.
+- **Learned policies** are feedback controllers too: they observe the state and act on it, many times per second.
 
-## Impact on Robotics
-
-- **Stability and Accuracy**: Feedback control systems ensure that robotic systems operate stably and accurately, minimizing errors and deviations from desired states.
-- **Adaptability**: They allow robots to adapt to changing conditions and disturbances, maintaining performance in dynamic environments.
-- **Design and Integration**: The selection and integration of feedback control strategies are critical aspects of [[Robot_Design]] and [[Mechatronics]], influencing the performance and reliability of robotic systems.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
-LIST FROM "" WHERE contains(file.outlinks, [[Robot_Control]])
+LIST FROM "" WHERE contains(file.outlinks, [[Feedback_Control]])
 ```

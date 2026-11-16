@@ -1,86 +1,72 @@
 ---
 title: Bio-Inspired and Biomimetic Robotics
-description: Bio-Inspired and Biomimetic Robotics focus on the development of robots that mimic the structures, functions, and behaviors of biological systems, enabling them to perform tasks in diverse and challenging environments, from exploration and inspection to manipulation and locomotion.
+description: "Section overview for robotics that learns from biology: locomotion, sensing, materials, control and collective behaviour. Includes a computed Froude-number example that predicts when walking animals and robots switch to running, a map of related notes, and the 2026 frontier: biohybrids, neuromorphic computing, and learning that rediscovers animal behaviour."
+aliases:
+  - Biomimetic Robotics
+  - Biorobotics
 tags:
   - bio-inspired-robotics
-  - manipulator-arm
-type: concept
-level: advanced
+  - locomotion
+type: overview
+level: intermediate
 subfield:
   - bio-inspired
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
   - "[[Bio-inspired_Robotics]]"
 related:
-  - "[[Bio-inspired_Robotics]]"
-  - "[[Exploration]]"
-  - "[[Manipulation]]"
-  - "[[Locomotion]]"
+  - "[[Soft_Robotics]]"
+  - "[[Swarm_Robots]]"
+  - "[[Biomaterials]]"
+  - "[[Event_Based_Sensing_and_Processing]]"
+  - "[[Legged_Robots]]"
+key_takeaways:
+  - "Biology offers tested solutions in five areas: moving, sensing, building (materials and morphology), controlling, and cooperating."
+  - "The Froude number v²/(gL) predicts gait changes across animals of different size; walk-to-run happens near 0.5, which for 0.5 m legs is about 1.6 m/s."
+  - "The 2026 frontier includes biohybrid robots, neuromorphic sensing and computing, and reinforcement learning that reproduces animal-like gaits without being told to."
+sources:
+  - "Ijspeert, A. J., Crespi, A., Ryczko, D. and Cabelguen, J.-M. (2007). From swimming to walking with a salamander robot driven by a spinal cord model. https://www.science.org/doi/10.1126/science.1138353"
+  - "Webster-Wood, V. A. et al. (2023). Biohybrid robots: recent progress, challenges, and perspectives. https://iopscience.iop.org/article/10.1088/1748-3190/ac9c3b"
+  - "Gallego, G. et al. (2019). Event-based Vision: A Survey. https://arxiv.org/abs/1904.08405"
+  - "Rus, D. and Tolley, M. T. (2015). Design, fabrication and control of soft robots. https://www.nature.com/articles/nature14543"
 ---
 
 # Bio-Inspired and Biomimetic Robotics
 
-**Bio-Inspired and Biomimetic Robotics** focus on the development of robots that mimic the structures, functions, and behaviors of biological systems, enabling them to perform tasks in diverse and challenging environments. This includes the design and implementation of robots that are inspired by the principles and mechanisms of biological organisms, such as insects, birds, and mammals, enhancing their adaptability, efficiency, and performance. Bio-inspired and biomimetic robotics are fundamental in developing robots that can operate in complex and dynamic settings, from exploration and inspection to manipulation and locomotion.
+This section collects robotics that borrows from living things. The principles and landmark robots are in [[Bio-inspired_Robotics]]; this overview maps the related notes and the frontier.
 
----
+> **Etymology.** See [[Bio-inspired_Robotics]]. *Biomimetic* (imitating life) usually means closer copying; *bio-inspired* means borrowing principles.
 
-## Key Concepts
+## Five areas of inspiration
 
-### Bio-Inspired Design
+| Area | Biological model | Robotics | Notes |
+|---|---|---|---|
+| Moving | Legs, fins, wings, wriggling | Legged, swimming, flying, snake robots | [[Legged_Robots]], [[Drones]] |
+| Sensing | Eyes, whiskers, skin, lateral lines | Event cameras, whisker sensors, tactile skins | [[Event_Based_Sensing_and_Processing]], [[Robot_Hands]] |
+| Building | Muscles, tendons, soft bodies, materials | Soft robots, artificial muscles, biomaterials | [[Soft_Robotics]], [[Electroactive_Polymers]], [[Biomaterials]] |
+| Controlling | Central pattern generators, reflexes, learning | CPGs, reflex layers, RL | [[Bio-inspired_Robotics]] |
+| Cooperating | Ant colonies, flocks, bee swarms | Swarms, multi-robot coordination | [[Swarm_Robots]], [[Multi_Robot_Systems]] |
 
-Bio-inspired design involves the development of robots that are inspired by the principles and mechanisms of biological systems, such as the structure of an insect's exoskeleton or the flight of a bird. This includes the use of biomimicry, where the robot's design and function are modeled after biological systems, enhancing its adaptability and performance.
+## Worked example: when to switch from walking to running
 
-### Biomimetics
+The **Froude number** $\mathrm{Fr} = v^2/(gL)$ compares speed with leg length $. Animals of very different sizes change gait at similar Froude numbers; walking gives way to running near $\mathrm{Fr} \approx 0.5$, a result popularised by zoologist R. McNeill Alexander. For a robot or animal with 0.5 m legs:
 
-Biomimetics involves the study and imitation of biological systems to solve complex engineering problems, such as the development of robots that can navigate and adapt to their environment. This includes the use of biological principles, such as the structure of a bird's wing or the movement of a fish, to enhance the robot's capabilities and performance.
+58113v = \sqrt{0.5 \times 9.81 \times 0.5} \approx 1.57\ \text{m/s}.58113
 
-### Adaptive Morphologies
+Above this, an inverted-pendulum walking gait becomes inefficient, or physically impossible, because gravity can no longer hold the body on the stance leg, so running is better. Engineers use the same scaling to compare robots of different sizes and to choose gaits.
 
-Adaptive morphologies involve the development of robots with physical forms that can adapt to their environment and tasks, such as the structure of a chameleon's skin or the movement of a snake. This includes the use of reconfigurable and transformable robots, which can change their shape and form to perform tasks effectively and efficiently.
+## The frontier in 2026
 
-### Locomotion and Manipulation
+- **Biohybrid robots** that use living muscle cells or microorganisms as actuators (see [[Biomaterials]]).
+- **Neuromorphic computing and sensing**: event cameras and spiking networks on low-power chips.
+- **Learning that rediscovers biology**: RL in simulation reproduces gait transitions and reflex-like recoveries with no explicit biological model; comparing learned and animal behaviour is a growing research theme.
+- **Robots as scientific instruments** for biology: robotic models test hypotheses about how animals move and sense.
 
-Locomotion and manipulation in bio-inspired and biomimetic robotics involve the development of robots that can move and interact with their environment, such as the movement of a cheetah or the grasping of a monkey. This includes the use of advanced sensors, actuators, and control systems, which enable the robot to perform tasks with high precision and efficiency.
-
----
-
-## Mathematical Formulation
-
-### Kinematic Equations
-
-The kinematic equations of a robot describe the relationship between its joint variables and the position and orientation of its end-effector. For a robot with $n$ joints, the forward kinematics can be represented as:
-
-$$
-T = f(\theta_1, \theta_2, \ldots, \theta_n)
-$$
-
-where:
-- $T$ is the transformation matrix representing the position and orientation of the end-effector.
-- $f$ is the forward kinematics function.
-- $\theta_1, \theta_2, \ldots, \theta_n$ are the joint variables.
-
-### Example: Exploration and Inspection
-
-Consider a bio-inspired robot designed for exploration and inspection tasks, modeled after the structure and movement of a snake. The robot's specialized morphology enables it to navigate and adapt to challenging and confined spaces, performing tasks such as exploration and inspection effectively. The kinematic equations of the robot describe the relationship between its joint variables and the position and orientation of its end-effector, enabling it to perform tasks with high precision and efficiency. The adaptive control algorithm adjusts the robot's behavior based on its performance and the environment's conditions, ensuring effective and efficient exploration and inspection.
-
----
-
-## Applications in Robotics
-
-- **Exploration**: Bio-inspired and biomimetic robotics are used to enable robots to explore and inspect challenging and unknown environments, facilitating tasks such as space exploration and underwater mapping.
-- **Inspection**: Enables robots to inspect and monitor structures and systems, performing tasks such as maintenance and quality control.
-- **Manipulation**: Bio-inspired and biomimetic robotics are used to enable robots to interact with and manipulate objects, performing tasks such as grasping, lifting, and assembling.
-- **Locomotion**: Enables robots to navigate and move through their environment, adapting to challenging and dynamic conditions.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Bio_Inspired_and_Biomimetic_Robotics]])

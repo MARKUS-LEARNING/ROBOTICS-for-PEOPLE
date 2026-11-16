@@ -1,87 +1,94 @@
 ---
 title: Compliance (Robotics)
-description: Compliance in robotics refers to the ability of a robotic system to yield or deform under applied forces, allowing for safe and adaptive interaction with the environment.
+description: "Compliance is how much a robot gives way under force. Covers passive compliance (springs, soft materials, series-elastic actuators) and active compliance (impedance and admittance control), a computed example of contact force with stiff versus compliant control, how to choose stiffness and damping, and why compliant action spaces help learned policies with contact-rich tasks in 2026."
+aliases:
+  - Impedance Control
+  - Admittance Control
+  - Compliant Control
+  - Series Elastic Actuator
 tags:
-  - mechanics
   - control
+  - compliance
+  - manipulation
   - safety
 type: concept
 level: intermediate
 subfield:
   - control
-status: draft
+  - manipulation
+status: reviewed
 author: Jordan_Smith
-date: 2025-04-29
+date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Stiffness]]"
+  - "[[Robot_Control]]"
+  - "[[PID_Control]]"
 related:
-  - "[[Robot_Design]]"
-  - "[[Mechatronics]]"
-  - "[[Control_Systems]]"
-  - "[[Actuator]]"
-  - "[[Manipulator_Arm]]"
-  - "[[Legged_Robots]]"
-  - "[[Wheeled_Mobile_Robots]]"
-  - "[[Variable_Stiffness_Actuators]]"
+  - "[[Collaborative_Robots]]"
+  - "[[Soft_Robotics]]"
+  - "[[Robot_Hands]]"
+  - "[[Reinforcement_Learning_for_Robots]]"
+key_takeaways:
+  - "A compliant robot behaves like a spring and damper around its target, so position errors at contact produce bounded forces instead of very large ones."
+  - "With 500 N/m of stiffness, pushing 1 cm into a surface produces 5 N; a stiff position loop of 100,000 N/m would try to produce 1,000 N."
+  - "Impedance (force from motion) suits torque-controlled robots; admittance (motion from measured force) suits stiff, geared industrial arms with a force sensor; learned policies that output impedance targets transfer to contact tasks more reliably."
+sources:
+  - "Lynch, K. M. and Park, F. C. (2017). Modern Robotics, chapter 11.5–11.6: force control and hybrid motion-force control. https://hades.mech.northwestern.edu/index.php/Modern_Robotics"
+  - "Siciliano, B. and Khatib, O., eds. (2016). Springer Handbook of Robotics, 2nd edition, chapter on force control. https://link.springer.com/referencework/10.1007/978-3-319-32552-1"
+  - "Martín-Martín, R. et al. (2019). Variable Impedance Control in End-Effector Space: An Action Space for Reinforcement Learning in Contact-Rich Tasks. https://arxiv.org/abs/1906.08880"
+  - "ros-controls (2026). ros2_controllers: admittance_controller. https://github.com/ros-controls/ros2_controllers/tree/master/admittance_controller"
 ---
 
 # Compliance (Robotics)
 
-**Compliance in robotics** refers to the ability of a robotic system to yield or deform under applied forces, allowing for safe and adaptive interaction with the environment. This property is crucial for robots that operate in dynamic or unpredictable environments, where they must interact with humans or handle delicate objects. Compliance can be achieved through mechanical design, control strategies, or the use of specialized materials and actuators.
+**Compliance** is the opposite of stiffness: how much a robot yields when pushed. A perfectly stiff robot holds its position whatever the force, so any position error at contact turns into enormous forces. A compliant robot gives way like a spring, which makes contact gentle, tolerant of error and safe for people.
 
----
+> **Etymology.** Latin *complere*, "to fulfil", through *comply*, "to yield, to accommodate". Neville Hogan's 1985 papers on **impedance control** set out the idea of controlling the relationship between motion and force rather than either alone.
 
-## Key Concepts in Compliance
+## Passive and active compliance
 
-1. **Mechanical Compliance**: The inherent flexibility or elasticity of robotic components, such as joints, links, or end-effectors, which allows them to deform under load.
+| Kind | How | Examples |
+|---|---|---|
+| **Passive** | Physical springs, soft materials, elastic elements | Series-elastic actuators (a spring between motor and joint), soft fingertips, remote centre compliance devices for peg insertion |
+| **Active** | The controller makes the robot behave like a spring and damper | Impedance and admittance control on arms, legs and hands |
+| **Variable** | Stiffness changed mechanically or in software during a task | Variable-stiffness actuators; variable impedance control |
 
-2. **Control-Based Compliance**: The use of control algorithms to adjust the robot's response to external forces, enabling it to behave in a compliant manner without necessarily having flexible mechanical components.
+## Impedance and admittance control
 
-3. **Variable Stiffness**: The ability to dynamically adjust the stiffness of robotic components, allowing the robot to switch between rigid and compliant behaviors as needed. This is often achieved using variable stiffness actuators.
+**Impedance control** makes the end effector behave like a mass–spring–damper around a target $\mathbf x_d$:
 
----
+$$\mathbf F = K(\mathbf x_d - \mathbf x) + D(\dot{\mathbf x}_d - \dot{\mathbf x})$$
 
-## Key Equations
+The robot *measures motion and outputs force* (joint torques $\boldsymbol\tau = J^\top \mathbf F$ plus gravity compensation). It suits torque-controlled robots: cobots with joint torque sensing, legged robots.
 
-- **Spring-Mass-Damper Model**:
-  $$
-  m\ddot{x} + b\dot{x} + kx = F
-  $$
-  where $m$ is the mass, $b$ is the damping coefficient, $k$ is the spring constant, $x$ is the displacement, and $F$ is the applied force. This model is often used to represent compliant behavior in robotic systems.
-  <br></br>
+**Admittance control** is the dual: it *measures force* (with a force-torque sensor) and *outputs motion*, moving the position target as if the robot were a mass–spring–damper. It suits stiff, highly geared industrial arms that only accept position commands.
 
-- **Stiffness and Compliance Relationship**:
-  $$
-  C = \frac{1}{k}
-  $$
-  where $C$ is the compliance, and $k$ is the stiffness. Compliance is the reciprocal of stiffness and represents how easily a system deforms under load.
-  <br></br>
+## Worked example: why compliance matters at contact
 
-- **Impedance Control**:
-  $$
-  F = b(\dot{x} - \dot{x}_d) + k(x - x_d)
-  $$
-  where $F$ is the control force, $b$ is the damping coefficient, $k$ is the stiffness, $x$ is the actual position, and $x_d$ is the desired position. Impedance control is a common method for achieving compliant behavior through control algorithms.
+A robot is told to place its tool on a table but its estimate of the table height is 1 cm too low, so it tries to push 1 cm *into* the surface.
 
----
+| Control | Effective stiffness | Contact force |
+|---|---|---|
+| Compliant (impedance) | 500 N/m | $500 \times 0.01 = 5$ N |
+| Stiff position loop | ~100,000 N/m | $100{,}000 \times 0.01 = 1{,}000$ N (in practice: the motor saturates, something breaks, or a safety stop trips) |
 
-## Impact on Robotics
+The compliant robot presses with 5 N, gentle enough to hold a part against a surface. Choosing stiffness is a trade-off: low stiffness tolerates errors and contact, high stiffness tracks precisely in free space. Damping is usually set for near-critical behaviour, $D \approx 2\sqrt{KM}$ for apparent mass $M$, to avoid bouncing.
 
-- **Safe Human-Robot Interaction**: Compliance is essential for ensuring safe interactions between robots and humans, as it allows robots to yield to external forces, reducing the risk of injury.
+## Uses
 
-- **Adaptive Manipulation**: Compliant robots can handle delicate or fragile objects more effectively, as they can adapt to the object's stiffness and shape.
+- **Assembly and insertion**: pegs in holes, connectors, screws, where small misalignments must be absorbed.
+- **Polishing, sanding, wiping**: maintain a set contact force while moving.
+- **Safe human-robot interaction**: hand guiding and collision tolerance (see [[Collaborative_Robots]]).
+- **Legged locomotion**: compliant legs absorb landing impacts.
+- **Grasping**: compliant fingers conform to object shape (see [[Robot_Hands]]).
 
-- **Dynamic Environments**: In unpredictable or dynamic environments, compliance enables robots to navigate and interact more effectively, as they can absorb and respond to unexpected forces.
+## Compliance and learning (2026)
 
-- **Design and Integration**: The selection and integration of compliance mechanisms are important aspects of [[Robot_Design]] and [[Mechatronics]], influencing the performance and safety of robotic systems. Compliance enables the creation of adaptive and responsive components that enhance robotic functionality.
+Learned manipulation policies are often trained to output **impedance targets** (desired pose plus stiffness) rather than raw joint positions or torques. Martín-Martín et al. (2019) showed that variable impedance in end-effector space is a better action space for reinforcement learning in contact-rich tasks: the low-level controller handles contact physics predictably, which also eases sim-to-real transfer. Many 2025–26 VLA deployments on arms run under a Cartesian impedance controller for the same reason.
 
----
+## Dataview
 
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Compliance]])
 ```

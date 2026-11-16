@@ -1,132 +1,95 @@
 ---
 title: Optimal Control
-description: Optimal Control is a branch of control theory that focuses on finding control strategies that minimize or maximize a cost function subject to system dynamics and constraints.
+description: "Optimal control chooses control inputs that minimise a cost over time subject to the system's dynamics and limits. Covers the problem statement, the two classical routes (dynamic programming / HJB and Pontryagin's principle), LQR with computed gains for a double integrator, trajectory optimisation, MPC as online optimal control, and reinforcement learning as optimal control without a known model."
+aliases:
+  - Optimal Control Theory
+  - LQR
+  - Linear Quadratic Regulator
+  - Trajectory Optimization
 tags:
+  - optimal-control
   - control
   - optimization
-  - optimal-control
-  - dynamics
-  - mechanism
-type: method
+type: concept
 level: advanced
 subfield:
   - control
-status: draft
+  - planning
+status: keystone
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Control_Theory]]"
   - "[[State_Space_Representation]]"
-  - "[[Linear_Quadratic_Regulator_(LQR)]]"
+  - "[[Optimization_and_Loss_Functions]]"
 related:
-  - "[[Control_Theory]]"
-  - "[[Dynamics]]"
-  - "[[State_Space_Representation]]"
-  - "[[Pontryagin's_Minimum_Principle]]"
   - "[[Hamilton-Jacobi-Bellman_Equation]]"
-  - "[[Linear_Quadratic_Regulator_(LQR)]]"
+  - "[[Pontryagin's_Minimum_Principle]]"
   - "[[Model_Predictive_Control_(MPC)]]"
-  - "[[Convex_Optimization]]"
+  - "[[Reinforcement_Learning]]"
+  - "[[Markov_Decision_Process]]"
+key_takeaways:
+  - "Optimal control asks for the input history that minimises a cost (tracking error, effort, time, energy) while obeying the dynamics and constraints."
+  - "LQR solves the linear-quadratic case exactly: for a double integrator with Q = diag(1, 0), R = 1 the optimal gain is K = [1, 1.414], giving closed-loop poles at −0.707 ± 0.707j (damping 0.707)."
+  - "MPC is optimal control re-solved online; reinforcement learning is optimal control learned from samples when the model is unknown; all share Bellman's principle."
+sources:
+  - "Liberzon, D. (2011). Calculus of Variations and Optimal Control Theory: A Concise Introduction. http://liberzon.csl.illinois.edu/teaching/cvoc.pdf"
+  - "Bertsekas, D. P. (2017). Dynamic Programming and Optimal Control, 4th edition. http://www.athenasc.com/dpbook.html"
+  - "Tedrake, R. (2026). Underactuated Robotics, chapter: Linear Quadratic Regulators. https://underactuated.csail.mit.edu/lqr.html"
+  - "Rawlings, J. B., Mayne, D. Q. and Diehl, M. M. (2020). Model Predictive Control: Theory, Computation, and Design, 2nd edition. https://sites.engineering.ucsb.edu/~jbraw/mpc/"
 ---
 
 # Optimal Control
 
-**Optimal Control** is a branch of control theory that focuses on finding control strategies that minimize or maximize a cost function subject to system dynamics and constraints. It is essential for designing control systems that achieve desired performance objectives while optimizing resources such as energy, time, or accuracy. Optimal control is widely used in robotics for tasks that require precise and efficient operation.
+**Optimal control** finds the best way to steer a dynamic system: the input history that minimises a chosen cost, such as time, energy, tracking error or effort, subject to the system's dynamics and limits. It underlies trajectory planning for arms and drones, MPC for legged robots, and, through Bellman's principle, reinforcement learning.
 
----
+> **Etymology.** *Optimal* from Latin *optimus*, "best". The field grew from the calculus of variations (Euler, Lagrange, 18th century). In the 1950s Richard Bellman (dynamic programming, 1957) and Lev Pontryagin's group (maximum principle, 1956–62) gave it its two main methods, driven by rocket and missile guidance.
 
-## Key Concepts
+## The problem
 
-### Cost Function
+$$\min_{\mathbf u(\cdot)}\ \ \phi(\mathbf x(T)) + \int_0^T \ell(\mathbf x(t), \mathbf u(t))\, dt \quad \text{s.t.} \quad \dot{\mathbf x} = f(\mathbf x, \mathbf u),\ \ \mathbf u \in \mathcal U,\ \ \mathbf x \in \mathcal X$$
 
-The cost function, also known as the objective function, quantifies the performance of the control system. It is typically a function of the system states, control inputs, and time. The goal of optimal control is to minimize or maximize this cost function.
+The terminal cost $\phi$ and the running cost $\ell$ express what "best" means. Change them and the optimal behaviour changes: minimum time gives aggressive bang-bang control, minimum effort gives gentle motion.
 
-### Constraints
+## Two classical routes
 
-Constraints are conditions that must be satisfied during the optimization process. They can include limits on control inputs, state variables, or system dynamics.
+| Route | Idea | Gives | See |
+|---|---|---|---|
+| **Dynamic programming** | The optimal cost-to-go $V(\mathbf x, t)$ satisfies a recursion (Bellman) or PDE (HJB) | A feedback **policy** for every state | [[Hamilton-Jacobi-Bellman_Equation]] |
+| **Pontryagin's principle** | Necessary conditions along one optimal trajectory, using costates | An open-loop **trajectory** from one start | [[Pontryagin's_Minimum_Principle]] |
 
----
+Dynamic programming suffers the "curse of dimensionality" (the value function lives on the whole state space). Trajectory methods scale to many dimensions but give one trajectory at a time.
 
-## Mathematical Formulation
+## LQR: the case solved exactly
 
-### General Optimal Control Problem
+For linear dynamics $\dot{\mathbf x} = A\mathbf x + B\mathbf u$ and quadratic cost $\int (\mathbf x^\top Q \mathbf x + \mathbf u^\top R \mathbf u)\, dt$, the optimal policy is linear state feedback $\mathbf u = -K\mathbf x$ with $K = R^{-1}B^\top P$, where $P$ solves the algebraic Riccati equation.
 
-The general optimal control problem can be formulated as:
+**Worked example.** A double integrator (position $x$, velocity $v$, acceleration input):
 
-$$
-\min_{\mathbf{u}(t)} J(\mathbf{x}(t), \mathbf{u}(t), t)
-$$
+| Weights | Optimal gain $K$ | Closed-loop poles |
+|---|---|---|
+| $Q = \mathrm{diag}(1, 0)$, $R = 1$ | [1.000, 1.414] | $-0.707 \pm 0.707j$ |
+| $Q = \mathrm{diag}(100, 0)$, $R = 1$ | [10.0, 4.472] | $-2.236 \pm 2.236j$ |
 
-subject to:
+Raising the position weight 100-fold makes the controller 10× stiffer and about 3× faster, but always at damping ratio 0.707: LQR finds a well-damped compromise automatically. LQR stabilises balancing robots, drones about hover, and the linearised dynamics inside trajectory-tracking controllers.
 
-$$
-\dot{\mathbf{x}}(t) = f(\mathbf{x}(t), \mathbf{u}(t), t)
-$$
+## Trajectory optimisation
 
-where:
-- $J(\mathbf{x}(t), \mathbf{u}(t), t)$ is the cost function.
-- $\mathbf{x}(t)$ is the state vector.
-- $\mathbf{u}(t)$ is the control input vector.
-- $f(\mathbf{x}(t), \mathbf{u}(t), t)$ represents the system dynamics.
+For nonlinear robots, **direct methods** turn the problem into a finite-dimensional optimisation over discretised states and inputs:
+- direct collocation;
+- shooting;
+- DDP and iLQR, which iterate LQR around a trajectory.
 
-### Pontryagin's Minimum Principle
+Solvers such as Drake, Crocoddyl, CasADi and GPU-parallel cuRobo plan motions for arms, legged robots and drones.
 
-Pontryagin's Minimum Principle provides a necessary condition for optimality. It introduces the Hamiltonian function:
+## Optimal control everywhere in 2026
 
-$$
-H(\mathbf{x}(t), \mathbf{u}(t), \mathbf{\lambda}(t), t) = J(\mathbf{x}(t), \mathbf{u}(t), t) + \mathbf{\lambda}^T(t) f(\mathbf{x}(t), \mathbf{u}(t), t)
-$$
+- **[[Model_Predictive_Control_(MPC)|MPC]]**: optimal control re-solved every few milliseconds with the current state.
+- **[[Reinforcement_Learning|Reinforcement learning]]**: optimal control of a [[Markov_Decision_Process]] learned from experience, with reward as negative cost. Locomotion policies trained in simulation are approximate optimal feedback policies.
+- **Hybrid**: learned value functions as MPC terminal costs; policies distilled from trajectory optimisation.
 
-where $\mathbf{\lambda}(t)$ is the costate vector. The optimal control $\mathbf{u}^*(t)$ minimizes the Hamiltonian.
-
-### Hamilton-Jacobi-Bellman Equation
-
-The Hamilton-Jacobi-Bellman (HJB) equation is a partial differential equation that must be satisfied by the value function $V(\mathbf{x}, t)$, which represents the optimal cost-to-go from state $\mathbf{x}$ at time $t$:
-
-$$
--\frac{\partial V}{\partial t} = \min_{\mathbf{u}} \left[ J(\mathbf{x}, \mathbf{u}, t) + \nabla V \cdot f(\mathbf{x}, \mathbf{u}, t) \right]
-$$
-
----
-
-## Common Optimal Control Methods
-
-### Linear Quadratic Regulator (LQR)
-
-LQR is a widely used optimal control method for linear systems with quadratic cost functions. It provides a feedback control law that minimizes the cost function:
-
-$$
-J = \int_0^\infty (\mathbf{x}^T Q \mathbf{x} + \mathbf{u}^T R \mathbf{u}) \, dt
-$$
-
-where $Q$ and $R$ are weighting matrices. The optimal control law is given by:
-
-$$
-\mathbf{u}(t) = -K \mathbf{x}(t)
-$$
-
-where $K$ is the gain matrix obtained by solving the algebraic Riccati equation.
-
-### Model Predictive Control (MPC)
-
-MPC is an optimization-based control strategy that solves the optimal control problem in real-time over a finite horizon. It is particularly useful for handling constraints and nonlinearities in the system dynamics.
-
----
-
-## Applications in Robotics
-
-- **Trajectory Planning**: Optimal control is used to plan trajectories that minimize energy consumption or execution time while avoiding obstacles.
-- **Precision Tasks**: Ensures precise and efficient execution of tasks such as assembly, welding, or material handling.
-- **Autonomous Systems**: Optimizes the control of autonomous vehicles, drones, and robots in dynamic environments.
-- **Energy Management**: Minimizes energy consumption in robotic systems, extending their operational duration.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Optimal_Control]])

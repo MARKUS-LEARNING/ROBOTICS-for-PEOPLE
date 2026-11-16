@@ -1,102 +1,105 @@
 ---
 title: Robot Control
-description: Robot Control involves the techniques and methodologies used to regulate the behavior of robotic systems, enabling them to perform tasks autonomously and adapt to their environment.
+description: "How robots in particular are controlled: what makes robot dynamics hard (coupled, nonlinear, configuration-dependent), joint-space versus task-space control, the control modes motors expose (position, velocity, torque, impedance), a computed gravity-compensation example, and how model-based and learned controllers share the work on a 2026 robot."
+aliases:
+  - Robotic Control
+  - Robot Motion Control
 tags:
   - control
-  - automation
-  - mobile-robot
+  - manipulation
+  - dynamics
 type: overview
 level: intermediate
 subfield:
   - control
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
+  - "[[Control_Theory_Overview]]"
+  - "[[Manipulator_Arm]]"
 related:
-  - "[[Control_Systems]]"
-  - "[[Autonomous_Systems]]"
-  - "[[Machine_Learning]]"
-  - "[[Robotics]]"
-  - "[[Automation]]"
+  - "[[PID_Control]]"
+  - "[[Computed_Torque_Control]]"
+  - "[[Compliance]]"
+  - "[[Model_Predictive_Control_(MPC)]]"
+  - "[[Reinforcement_Learning_for_Robots]]"
+  - "[[ros2_control]]"
+key_takeaways:
+  - "Robot dynamics are nonlinear and coupled: gravity, inertia and Coriolis effects change with posture, so fixed-gain loops alone leave errors that model-based terms remove."
+  - "Without gravity compensation, a PD joint with stiffness 50 N·m/rad sags about 5° holding a 2 kg link; adding the model's gravity torque removes the sag without raising the gains."
+  - "Choose the control mode by the task: position control for free motion, torque or impedance control for contact; learned policies typically command position targets or impedance set points."
+sources:
+  - "Lynch, K. M. and Park, F. C. (2017). Modern Robotics, chapter 11: Robot Control. https://hades.mech.northwestern.edu/index.php/Modern_Robotics"
+  - "Khatib, O. (1987). A unified approach for motion and force control of robot manipulators: The operational space formulation. https://ieeexplore.ieee.org/document/1087068"
+  - "Siciliano, B. and Khatib, O., eds. (2016). Springer Handbook of Robotics, 2nd edition, chapters on motion and force control. https://link.springer.com/referencework/10.1007/978-3-319-32552-1"
+  - "Tedrake, R. (2026). Underactuated Robotics. https://underactuated.csail.mit.edu/"
 ---
 
 # Robot Control
 
-**Robot Control** involves the techniques and methodologies used to regulate the behavior of robotic systems, enabling them to perform tasks autonomously and adapt to their environment. This includes the design and implementation of control algorithms that govern the robot's movements, interactions, and decision-making processes. Robot control is fundamental in developing systems that can operate effectively in dynamic and uncertain environments.
+**Robot control** applies [[Control_Theory|control theory]] to the particular difficulties of robots: many joints that affect each other, dynamics that change with posture, contact with the world, and goals expressed in terms of where the hand or body should be rather than individual motor angles.
 
----
+> **Etymology.** See [[Control_Theory_Overview]].
 
-## Key Concepts
+## Why robots are hard to control
 
-### Control Algorithms
+A manipulator's dynamics are
 
-Control algorithms are the mathematical and computational methods used to determine the actions of a robot based on its sensory inputs and goals. These algorithms can be based on classical control theory, modern control theory, or machine learning techniques.
+$$M(\mathbf q)\ddot{\mathbf q} + C(\mathbf q, \dot{\mathbf q})\dot{\mathbf q} + \mathbf g(\mathbf q) = \boldsymbol\tau + J^\top(\mathbf q)\mathbf F_{ext}$$
 
-### Feedback Control
+- the inertia $M(\mathbf q)$ changes as the arm moves (an outstretched arm is harder to swing);
+- Coriolis and centrifugal terms $C$ couple the joints at speed;
+- gravity $\mathbf g(\mathbf q)$ depends on posture;
+- contact forces $\mathbf F_{ext}$ enter through the Jacobian $J$.
 
-Feedback control involves using the robot's sensory inputs to continuously adjust its actions, ensuring that it achieves its goals and adapts to changes in the environment. This includes techniques such as PID control, which adjusts the robot's behavior based on the error between the desired and actual states.
+Independent PID loops per joint ignore all this, which works for slow, stiff, highly geared industrial arms and less well for fast, light or torque-controlled robots.
 
-### Motion Planning
+## Joint space and task space
 
-Motion planning involves determining the sequence of movements that a robot should execute to achieve a goal, such as navigating to a destination or manipulating an object. This includes techniques such as path planning and trajectory optimization.
+| | Joint space | Task (operational) space |
+|---|---|---|
+| Goal expressed as | Joint angles $\mathbf q$ | Hand pose, force, body centre of mass |
+| Typical controller | Per-joint PID, computed torque | Operational-space control, inverse-kinematics-based control, whole-body QP |
+| Strengths | Simple, robust | Natural for tasks, contact and redundancy |
 
-### Adaptive Control
+Khatib's **operational-space formulation** (1987) controls the end effector's motion and force directly through the robot's dynamics. It is the ancestor of today's whole-body controllers for humanoids.
 
-Adaptive control involves adjusting the control algorithm based on the robot's performance and the environment's conditions, enabling it to adapt to uncertainties and changes. This includes techniques such as reinforcement learning, which enables the robot to learn optimal behaviors through interaction with its environment.
+## Control modes motors expose
 
----
+| Mode | You command | Good for |
+|---|---|---|
+| **Position** | Joint angles; the drive runs its own loop | Free-space motion, most industrial arms |
+| **Velocity** | Joint speeds | Mobile bases, teleoperation |
+| **Torque / current** | Joint torques | Model-based and force control, legged robots |
+| **Impedance** | Stiffness, damping and a set point | Safe contact, learned policies (see [[Compliance]]) |
 
-## Mathematical Formulation
+## Worked example: gravity compensation
 
-### PID Control
+A single link of mass 2 kg, with its centre of mass 0.25 m from the joint, is held at 30° above horizontal. Gravity pulls with a torque of
 
-PID control is a feedback control algorithm that adjusts the robot's behavior based on the error between the desired and actual states. The control signal $u(t)$ is given by:
+$$\tau_g = m g\, l_c \cos\theta = 2 \times 9.81 \times 0.25 \times \cos 30° = 4.25\ \text{N·m}.$$
 
-$$
-u(t) = K_p e(t) + K_i \int_0^t e(\tau) d\tau + K_d \frac{de(t)}{dt}
-$$
+A PD controller with stiffness $K_p = 50$ N·m/rad settles where $K_p e = \tau_g$, so it sags by $e = 4.25/50 = 0.085$ rad (4.9°). Options:
+- raise $K_p$, which makes the arm stiffer and less safe, and amplifies noise;
+- add an integral term, which is slow and can wind up;
+- **add the model's gravity torque as feedforward**: $\tau = K_p e + K_d \dot e + \mathbf g(\mathbf q)$. The sag disappears and the gains can stay low, which keeps the arm compliant.
 
-where:
-- $u(t)$ is the control signal.
-- $e(t)$ is the error at time $t$.
-- $K_p$, $K_i$, and $K_d$ are the proportional, integral, and derivative gains, respectively.
+This is the simplest model-based controller. [[Computed_Torque_Control]] extends it to cancel the whole dynamics.
 
-### Reinforcement Learning
+## The 2026 picture
 
-Reinforcement learning is a technique used to train control algorithms, where the robot learns optimal behaviors through interaction with its environment. The Q-value update equation is given by:
+| Layer | Who does it |
+|---|---|
+| Hard real-time joint and contact control | Classical model-based control (PD + gravity, impedance, whole-body QP or [[Model_Predictive_Control_(MPC)\|MPC]]) |
+| Skills: walking, grasping, insertion | Increasingly learned policies ([[Reinforcement_Learning_for_Robots]], [[Diffusion_Policy]]) sending targets or impedance set points |
+| Tasks | Planners and vision-language-action models |
 
-$$
-Q(s, a) = Q(s, a) + \alpha \left[ r + \gamma \max_{a'} Q(s', a') - Q(s, a) \right]
-$$
+Learned policies benefit from good low-level control: a policy that outputs impedance set points is easier to transfer from simulation, because contact behaviour is governed by known stiffness rather than raw torques.
 
-where:
-- $Q(s, a)$ is the Q-value for state $s$ and action $a$.
-- $\alpha$ is the learning rate.
-- $r$ is the reward.
-- $\gamma$ is the discount factor.
-- $s'$ is the next state.
-- $a'$ is the next action.
-
-### Example: Autonomous Navigation
-
-Consider a mobile robot using a control algorithm for autonomous navigation. The robot's sensory inputs provide information about its environment, such as the presence of obstacles and the layout of the space. The control algorithm uses this information to determine the robot's actions, such as moving forward or turning, enabling it to navigate through the environment and reach its destination. The algorithm adapts to changes in the environment, adjusting the robot's behavior to ensure effective and efficient navigation.
-
----
-
-## Applications in Robotics
-
-- **Autonomous Navigation**: Robot control is used to enable robots to navigate through their environment, avoiding obstacles and reaching destinations.
-- **Object Manipulation**: Enables robots to interact with and manipulate objects, performing tasks such as grasping, lifting, and assembling.
-- **Decision Making**: Robot control is used to make decisions under uncertainty, adapting to changing conditions and performing tasks effectively.
-- **Control Systems**: Enables the design of control algorithms that regulate the behavior of robotic systems, enabling precise and adaptive control.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Robot_Control]])

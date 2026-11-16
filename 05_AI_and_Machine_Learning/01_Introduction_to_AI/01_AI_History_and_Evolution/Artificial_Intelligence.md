@@ -1,110 +1,107 @@
 ---
 title: Artificial Intelligence
-description: Artificial Intelligence (AI) is the simulation of human intelligence processes by machines, especially computer systems, enabling them to perform tasks that typically require human intelligence.
+description: "Artificial intelligence is the effort to build machines that perceive, reason, learn and act. Covers what the term means, the main approaches (search and logic, probability, learning), a short history from Turing and Dartmouth to foundation models, how AI shows up inside a robot in 2026, and the limits that remain."
+aliases:
+  - AI
 tags:
   - artificial-intelligence
   - machine-learning
-  - deep-learning
-  - neural-networks
-  - decision-making
-  - autonomous-systems
-  - algorithms
+  - robotics-history
+  - foundation-models
 type: overview
 level: beginner
 subfield:
   - robot-learning
-status: draft
+  - foundations
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
+  - "[[Robots]]"
 related:
   - "[[Machine_Learning]]"
-  - "[[Deep_Learning_in_Robotics]]"
-  - "[[Neural_Networks]]"
-  - "[[Computer_Vision]]"
-  - "[[Natural_Language_Processing]]"
-  - "[[Reinforcement_Learning]]"
-  - "[[Autonomous_Robots]]"
-  - "[[Decision_Making]]"
-  - "[[Data_Analysis]]"
+  - "[[Agents_and_Environments]]"
+  - "[[Embodied_AI]]"
+  - "[[Artificial_Intelligence_vs_Machine_Learning_vs_Deep_Learning]]"
+  - "[[Ethical_and_Social_Implications]]"
+key_takeaways:
+  - "AI is a goal (machines that behave intelligently), not one technique; search, logic, probability and learning are all AI."
+  - "Since about 2012 learning from data, and since about 2020 large pretrained 'foundation' models, have driven most progress, now including robot control."
+  - "A 2026 robot combines learned components (perception, language, policies) with classical ones (estimation, control, safety), because learned components still fail in ways that are hard to predict."
+sources:
+  - "Turing, A. M. (1950). Computing Machinery and Intelligence. https://academic.oup.com/mind/article/LIX/236/433/986238"
+  - "McCarthy, J., Minsky, M., Rochester, N. and Shannon, C. (1955). A Proposal for the Dartmouth Summer Research Project on Artificial Intelligence. http://jmc.stanford.edu/articles/dartmouth/dartmouth.pdf"
+  - "Russell, S. and Norvig, P. (2020). Artificial Intelligence: A Modern Approach, 4th edition. https://aima.cs.berkeley.edu/"
+  - "SRI International (2026). Shakey the Robot. https://www.sri.com/hoi/shakey-the-robot/"
+  - "LeCun, Y., Bengio, Y. and Hinton, G. (2015). Deep learning. https://www.nature.com/articles/nature14539"
+  - "Stanford HAI (2026). The 2026 AI Index Report. https://hai.stanford.edu/ai-index/2026-ai-index-report"
 ---
 
 # Artificial Intelligence
 
-**Artificial Intelligence (AI)** is the simulation of human intelligence processes by machines, especially computer systems. AI enables machines to perform tasks that typically require human intelligence, such as visual perception, speech recognition, decision-making, and language translation. AI is a broad field that encompasses various subfields and technologies, each contributing to the development of intelligent systems.
+**Artificial intelligence (AI)** is the science and engineering of machines that do things we would call intelligent if a person did them: perceive, reason, plan, learn, communicate and act. For robotics, AI is what turns a programmable machine into one that can cope with situations its programmers did not foresee.
 
----
+> **Etymology.** *Artificial* is from Latin *artificium*, "craftsmanship"; *intelligence* is from *intellegere*, "to choose between, to understand" (*inter* + *legere*, "to pick out"). John McCarthy coined *artificial intelligence* in the 1955 proposal for the Dartmouth summer workshop of 1956, which is usually taken as the field's founding.
 
-## Key Components of AI
+## Four ways to define it
 
-1. **Machine Learning**: A subset of AI that involves training algorithms to learn from data and make predictions or decisions without being explicitly programmed.
+Russell and Norvig's textbook sorts definitions along two axes: thinking versus acting, and like humans versus rationally. Modern AI, and robotics in particular, mostly aims at **acting rationally**: an **agent** that perceives its environment and chooses actions that best achieve its goals given what it knows (see [[Agents_and_Environments]]). A robot is an agent with a body.
 
-2. **Deep Learning**: A type of machine learning that uses neural networks with many layers to model complex patterns in data. It is particularly effective for tasks like image and speech recognition.
+## The main approaches
 
-3. **Natural Language Processing (NLP)**: The ability of machines to understand, interpret, and generate human language, enabling applications like chatbots and language translation.
+| Approach | Idea | Robotics example |
+|---|---|---|
+| **Search and planning** | Explore possible action sequences to reach a goal | A* path planning, task planners |
+| **Logic and knowledge** | Represent facts and rules; infer new facts | Early planners such as STRIPS; ontologies for tasks |
+| **Probability** | Reason with uncertainty using probability theory | Kalman filters, particle filters, SLAM |
+| **Machine learning** | Fit models to data instead of writing rules (see [[Machine_Learning]]) | Object detection, learned locomotion, VLAs |
 
-4. **Computer Vision**: The ability to interpret and understand visual data from the world, enabling tasks like object recognition, image classification, and scene understanding.
+These are complementary. A 2026 delivery robot plans paths with search, localises with probability, recognises people with learned vision, and may take instructions through a language model.
 
-5. **Reinforcement Learning**: A type of machine learning where an agent learns to make decisions by interacting with an environment to maximize a reward signal.
+## A short history
 
-6. **Robotics**: The application of AI to enable machines to perform tasks autonomously, including navigation, manipulation, and interaction with the environment.
+| Years | Milestone |
+|---|---|
+| 1950 | Alan Turing asks "Can machines think?" and proposes the imitation game |
+| 1956 | Dartmouth workshop names the field |
+| 1966–72 | **Shakey** (SRI): the first mobile robot to reason about its actions; gives us A* search and STRIPS planning |
+| 1970s–80s | Expert systems; "AI winters" when promises outrun results |
+| 1986 | Backpropagation popularised for training neural networks |
+| 1990s–2000s | Probabilistic robotics: Kalman and particle filters, SLAM; DARPA Grand Challenges (2004–07) |
+| 2012 | Deep learning wins ImageNet; learned perception spreads |
+| 2016 | AlphaGo combines deep learning with search and reinforcement learning |
+| 2017 | The transformer architecture |
+| 2020–23 | Large language models and vision-language models; "foundation models" |
+| 2023–26 | Robot foundation models (vision-language-action models), world models, RL-trained humanoid locomotion |
 
----
+## AI inside a robot (2026)
 
-## Mathematical Representations
+```
+cameras, lidar, joints ──> perception (learned) ──> world state (probabilistic estimation)
+language instruction ──> reasoning / task planning (language & vision-language models)
+                         ──> skills: learned policies (VLA, RL) + classical planners (MoveIt, Nav2)
+                         ──> control (classical: PID, MPC) ──> motors
+                                    safety monitors (classical, verified) watch every layer
+```
 
-### Machine Learning
+The learned parts give flexibility: new objects, new instructions, messy scenes. The classical parts give guarantees: stability, joint limits, emergency stops. See [[Embodied_AI]] and [[Vision-Language-Action_Models]].
 
-In supervised learning, the goal is to learn a function $f(x)$ that maps input data $x$ to output labels $y$. The learning process involves minimizing a loss function $L(y, f(x))$:
+## What is still hard
 
-$$
-\min_{\theta} \sum_{i=1}^{N} L(y_i, f(x_i; \theta))
-$$
+- **Reliability.** Learned systems can fail suddenly on inputs unlike their training data.
+- **Common sense about the physical world.** Weight, friction, fragility and what happens next.
+- **Long tasks.** Chaining many steps without compounding errors.
+- **Data for robots.** Unlike text and images, robot experience is expensive to collect.
+- **Verification and trust.** Proving that a learned controller is safe is an open research problem; see [[Ethical_and_Social_Implications]].
 
-where $\theta$ represents the model parameters, $N$ is the number of training samples, and $L$ is the loss function.
+## Where to go next
 
-<br>
+[[Artificial_Intelligence_vs_Machine_Learning_vs_Deep_Learning]] → [[Machine_Learning]] → [[Deep_Learning]] → [[Embodied_AI]]
 
-### Neural Networks
+## Dataview
 
-A neural network is a model composed of layers of interconnected nodes (neurons). The output of a neuron is given by:
-
-$$
-y = \sigma \left( \sum_{i=1}^{n} w_i x_i + b \right)
-$$
-
-where $x_i$ are the inputs, $w_i$ are the weights, $b$ is the bias, $\sigma$ is the activation function, and $y$ is the output.
-
-<br>
-
-### Reinforcement Learning
-
-In reinforcement learning, an agent learns to make decisions by interacting with an environment to maximize a reward signal. The goal is to learn a policy $\pi(a|s)$ that maps states $s$ to actions $a$ to maximize the expected reward:
-
-$$
-\max_{\pi} \mathbb{E} \left[ \sum_{t=0}^{\infty} \gamma^t r_t \right]
-$$
-
-where $r_t$ is the reward at time $t$, $\gamma$ is the discount factor, and $\mathbb{E}$ denotes the expected value.
-
----
-
-## Applications of AI
-
-AI is applied in various fields, including:
-
-- **Healthcare**: Diagnosing diseases, personalizing treatment plans, and assisting in surgeries.
-- **Finance**: Detecting fraud, managing risk, and automating trading.
-- **Transportation**: Enabling autonomous vehicles and optimizing traffic management.
-- **Manufacturing**: Automating production lines, quality control, and predictive maintenance.
-- **Customer Service**: Powering chatbots and virtual assistants for customer support.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-- **List all related components and concepts**:
-  ```dataview
-  LIST FROM #components OR #mechatronics WHERE contains(file.outlinks, [[Artificial_Intelligence]])
+```dataview
+LIST FROM "" WHERE contains(file.outlinks, [[Artificial_Intelligence]])
 ```

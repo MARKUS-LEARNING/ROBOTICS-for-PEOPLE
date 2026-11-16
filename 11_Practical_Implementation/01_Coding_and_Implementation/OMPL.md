@@ -1,71 +1,98 @@
 ---
 title: OMPL
-description: OMPL (Open Motion Planning Library) is an open-source library for motion planning, providing tools and algorithms for computing collision-free paths for robotic systems.
+description: "OMPL (Open Motion Planning Library) is the standard open-source library of sampling-based planners, used by MoveIt and many research systems. Covers what it provides and what it leaves out, the main planners, a minimal Python example, OMPL 2.0 (April 2026: rewritten Python bindings installable with pip, VAMP vectorised collision checking, new planners), and how it compares with GPU planning."
+aliases:
+  - Open Motion Planning Library
 tags:
   - motion-planning
   - path-planning
-  - open-source
-  - algorithms
-  - automation
-  - control
+  - robotics-software
 type: tool
 level: intermediate
 subfield:
-  - software
   - planning
-status: draft
+  - software
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Path_Planning]]"
-  - "[[Motion_Planning]]"
-  - "[[Collision_Avoidance]]"
+  - "[[Path_Planning_Algorithms]]"
 related:
-  - "[[Motion_Planning]]"
-  - "[[Path_Planning]]"
-  - "[[Robot_Control]]"
-  - "[[Collision_Avoidance]]"
-  - "[[Optimization_Techniques]]"
+  - "[[MoveIt2]]"
+  - "[[C++_Motion_Planning]]"
+  - "[[Sampling-Based_Planning]]"
+  - "[[Probabilistic_Roadmaps]]"
+key_takeaways:
+  - "OMPL implements dozens of sampling-based planners (RRT, RRT-Connect, PRM, RRT*, BIT*, AIT*, EIT* and more) behind one interface; you supply the state space and a validity (collision) checker."
+  - "OMPL 2.0 (April 2026) rewrote the Python bindings (pip install ompl) and added VAMP, a SIMD-vectorised collision-checking backend reported to plan at up to 25 kHz for common arms."
+  - "It is the default planning backend of MoveIt; GPU trajectory optimisers (cuRobo) complement it for fast, smooth arm motions."
+sources:
+  - "Şucan, I. A., Moll, M. and Kavraki, L. E. (2012). The Open Motion Planning Library. https://ieeexplore.ieee.org/document/6377468"
+  - "Kavraki Lab and contributors (2026). OMPL repository and release notes (2.0.0, 2.0.2). https://github.com/ompl/ompl"
+  - "Thomason, W., Kingston, Z. and Kavraki, L. E. (2023). Motions in Microseconds via Vectorized Sampling-Based Planning. https://arxiv.org/abs/2309.14545"
 ---
 
-# OMPL (Open Motion Planning Library)
+# OMPL
 
-**OMPL (Open Motion Planning Library)** is an open-source library designed for motion planning, providing a suite of tools and algorithms for computing collision-free paths for robotic systems. It is widely used in robotics research and industry for developing efficient and reliable motion planning solutions. OMPL supports a variety of algorithms and is highly customizable, making it suitable for a wide range of robotic applications.
+**OMPL**, the Open Motion Planning Library, is a C++ library (with Python bindings) of sampling-based motion planners. It is the planning engine behind [[MoveIt2]] and countless research projects.
 
----
+> **Etymology.** Open Motion Planning Library, from Lydia Kavraki's lab at Rice University (2010 onward), described by Şucan, Moll and Kavraki in 2012.
 
-## Key Features of OMPL
+## What it provides, and what it leaves out
 
-1. **Sampling-Based Algorithms**: OMPL includes a variety of sampling-based motion planning algorithms, such as PRM (Probabilistic Roadmap) and RRT (Rapidly-exploring Random Tree), which are effective for high-dimensional planning problems.
+OMPL provides **planners** and **state spaces** (real vectors, SO(2), SO(3), SE(2), SE(3), compound spaces, Dubins and Reeds–Shepp curves). It deliberately does **not** include collision checking, robot models or visualisation. You supply a **state validity checker** (for example via FCL or MoveIt's planning scene). This separation is why OMPL fits so many robots.
 
-2. **Optimization Techniques**: The library provides tools for optimizing paths to minimize criteria such as length, smoothness, or energy consumption.
+## Main planners
 
-3. **Collision Detection**: OMPL integrates with collision detection libraries, such as FCL (Flexible Collision Library), to ensure that computed paths are collision-free.
+| Planner | Character |
+|---|---|
+| RRT, RRT-Connect | Fast single queries; RRT-Connect is the usual default for arms |
+| PRM, PRM* | Reusable roadmaps for repeated queries |
+| RRT*, Informed RRT*, BIT*, AIT*, EIT* | Asymptotically optimal; improve the path with more time |
+| KPIECE, EST, SBL | Exploration-oriented; useful in difficult spaces |
+| Kinodynamic planners | Respect dynamics through controls (RRT, KPIECE with controls) |
+| New in 2.0: AORRTC, BLIT* and others | Faster optimal planning |
 
-4. **Modular Design**: The library is designed to be modular, allowing users to easily integrate custom algorithms, constraints, and cost functions.
+## A minimal Python example
 
-5. **Visualization Tools**: OMPL includes visualization tools for inspecting and debugging motion plans, which are essential for developing and refining planning algorithms.
+```python
+from ompl import base as ob, geometric as og
 
-6. **Interoperability**: OMPL is compatible with other robotic software frameworks, such as ROS (Robot Operating System), making it easy to integrate into larger robotic systems.
+space = ob.RealVectorStateSpace(2)
+bounds = ob.RealVectorBounds(2); bounds.setLow(0); bounds.setHigh(10)
+space.setBounds(bounds)
 
----
+def is_valid(s):                      # a circular obstacle centred at (5, 5), radius 2
+    return (s[0] - 5) ** 2 + (s[1] - 5) ** 2 > 4
 
-## Applications of OMPL
+ss = og.SimpleSetup(space)
+ss.setStateValidityChecker(ob.StateValidityCheckerFn(is_valid))
+start, goal = ob.State(space), ob.State(space)
+start[0], start[1], goal[0], goal[1] = 1, 1, 9, 9
+ss.setStartAndGoalStates(start, goal)
+if ss.solve(1.0):                      # plan for up to 1 s
+    ss.simplifySolution()
+    print(ss.getSolutionPath())
+```
 
-OMPL is used in various robotic applications:
+The exact Python API changed with the 2.0 rewrite of the bindings, so check the current examples in the repository.
 
-- **Robotic Arms**: Planning collision-free paths for robotic manipulators in cluttered environments, enabling tasks such as assembly, welding, and material handling.
-- **Mobile Robots**: Computing efficient and safe paths for mobile robots navigating through complex environments, such as warehouses or outdoor terrains.
-- **Autonomous Vehicles**: Developing motion plans for self-driving cars, drones, and underwater vehicles to avoid obstacles and reach their destinations safely.
-- **Humanoid Robots**: Planning motions for humanoid robots to perform tasks such as walking, grasping, and manipulating objects in dynamic environments.
+## OMPL 2.0 (2026)
 
----
+From the release notes (2.0.0, April 2026):
+- **rewritten Python bindings**, enabled by default and installable with `pip install ompl`;
+- **VAMP integration**: a vectorised (SIMD) backend for forward kinematics and collision checking, reported to reach planning speeds of up to 25 kHz for common arms (Panda, UR5, Fetch, Baxter);
+- **new planners**, including AORRTC and BLIT*.
 
-## Dataview Plugin Features
+Version 1.7 (2025) had added Effort Informed Trees (EIT*) and dropped the old ODE and MORSE integrations.
 
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
+## OMPL and GPU planners
 
-### List of Related Concepts
+Sampling-based planning is fast to find *a* path but usually needs smoothing and time-parameterisation. GPU trajectory optimisers such as cuRobo produce smooth, minimum-jerk motions in tens of milliseconds. Vectorised CPU planning (VAMP) has made OMPL competitive for speed again. Many stacks use both: OMPL for hard, cluttered problems, optimisers for smoothness and reactivity (see [[C++_Motion_Planning]]).
+
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[OMPL]])

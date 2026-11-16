@@ -474,6 +474,7 @@ vocabulary:
   - nonholonomic
   - nonlinear-systems
   - numerical-methods
+  - object-detection
   - obstacle-avoidance
   - obstacle-detection
   - occupancy-grid
@@ -490,12 +491,14 @@ vocabulary:
   - papers
   - parallel-computing
   - parallel-robot
+  - parallel-robots
   - path-planning
   - pcl
   - perception
   - performance-metric
   - physics
   - pid
+  - plc
   - pneumatics
   - point-cloud
   - policy
@@ -524,6 +527,7 @@ vocabulary:
   - references
   - regenerative-medicine
   - regression
+  - regulation
   - rehabilitation
   - reinforcement-learning
   - research
@@ -592,6 +596,7 @@ vocabulary:
   - system-design
   - system-identification
   - systems-engineering
+  - tactile-sensing
   - task-space
   - teleoperation
   - testing
@@ -606,6 +611,7 @@ vocabulary:
   - transduction
   - transfer-function
   - transfer-learning
+  - transformers
   - transhumanism
   - translational-motion
   - transmission
@@ -628,6 +634,7 @@ vocabulary:
   - visual-servoing
   - visualization
   - vscode
+  - welding
   - wheeled-robot
   - wishlist
   - workcell-design

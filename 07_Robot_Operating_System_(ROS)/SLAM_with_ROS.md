@@ -1,6 +1,9 @@
 ---
 title: SLAM with ROS
-description: Covers the implementation of Simultaneous Localization and Mapping (SLAM) in ROS 2, including SLAM Toolbox, RTABMap, and LiDAR-based approaches, with sensor requirements, TF configuration, and integration with the Nav2 navigation stack.
+description: "How to build a map and localize in it with ROS 2: the SLAM problem, the TF tree it needs, SLAM Toolbox for 2D lidar, RTAB-Map for visual and RGB-D SLAM, lidar(-inertial) odometry (KISS-ICP, FAST-LIO2, GLIM) for 3D, handing maps to Nav2, and where learned 3D reconstruction (MASt3R-SLAM) stands in 2026."
+aliases:
+  - SLAM Toolbox
+  - ROS SLAM
 tags:
   - slam
   - ros2
@@ -10,36 +13,39 @@ tags:
   - lidar
   - robotics-software
   - navigation
-  - sensor-fusion
   - occupancy-grid
-type: tool
+type: tutorial
 level: intermediate
 subfield:
   - software
   - estimation-mapping
   - mobile-robots
-status: draft
+status: reviewed
 author: Jordan_Smith
-date: 2025-05-02
+date: 2025-04-28
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
   - "[[LIDAR]]"
-  - "[[Sensor_Fusion]]"
   - "[[Localization]]"
-related:
-  - "[[Robot_Operating_System_(ROS)]]"
-  - "[[ROS_2_Overview]]"
-  - "[[Nav2_Navigation]]"
   - "[[TF_and_Topic_Architecture]]"
-  - "[[URDF]]"
-  - "[[LIDAR]]"
-  - "[[Camera_Systems]]"
-  - "[[IMU_Sensors]]"
-  - "[[Odometry]]"
-  - "[[Sensor_Fusion]]"
-  - "[[Mapping]]"
-  - "[[Localization]]"
-  - "[[RViz_Tutorial]]"
+related:
+  - "[[SLAM]]"
+  - "[[Nav2_Navigation]]"
   - "[[rosbag2]]"
+  - "[[RViz_Tutorial]]"
+  - "[[Sensor_Fusion]]"
+key_takeaways:
+  - "SLAM publishes map → odom; odometry publishes odom → base_link. Get that TF split right before tuning anything else."
+  - "For 2D indoor robots use SLAM Toolbox; for cameras and RGB-D use RTAB-Map; for 3D lidar, pair lidar-inertial odometry (FAST-LIO2, GLIM, KISS-ICP) with a loop-closure back end."
+  - "Cartographer, once the default 3D choice, has had no core development since early 2024; learned dense SLAM (MASt3R-SLAM) runs in real time but is not yet a drop-in ROS component."
+sources:
+  - "Macenski, S. and Jambrecic, I. (2021). SLAM Toolbox: SLAM for the dynamic world. https://joss.theoj.org/papers/10.21105/joss.02783"
+  - "Vizzo, I. et al. (2022). KISS-ICP: In Defense of Point-to-Point ICP -- Simple, Accurate, and Robust Registration If Done the Right Way. https://arxiv.org/abs/2209.15397"
+  - "Xu, W. et al. (2021). FAST-LIO2: Fast Direct LiDAR-inertial Odometry. https://arxiv.org/abs/2107.06829"
+  - "Koide, K. et al. (2024). GLIM: 3D Range-Inertial Localization and Mapping with GPU-Accelerated Scan Matching Factors. https://arxiv.org/abs/2407.10344"
+  - "Murai, R., Dexheimer, E. and Davison, A. J. (2024). MASt3R-SLAM: Real-Time Dense SLAM with 3D Reconstruction Priors. https://arxiv.org/abs/2412.12392"
+  - "Labbé, M. and Michaud, F. (2026). rtabmap_ros: RTAB-Map's ROS package. https://github.com/introlab/rtabmap_ros"
 ---
 
 # SLAM with ROS
@@ -167,7 +173,7 @@ ros2 run nav2_map_server map_saver_cli -f /home/user/maps/my_map
 
 ## Cartographer (2D/3D LiDAR SLAM)
 
-**Cartographer** (Google) supports both 2D and 3D SLAM using a scan matching approach with submap-based loop closure. It is particularly strong for 3D environments using 3D LiDAR (Velodyne, Ouster).
+**Cartographer** (Google) supports both 2D and 3D SLAM using a scan matching approach with submap-based loop closure. It was long the standard choice for 3D lidar, but its core repository has seen no development since January 2024. It still works, but for new 3D projects prefer the lidar-inertial options below.
 
 ```bash
 sudo apt install ros-$ROS_DISTRO-cartographer ros-$ROS_DISTRO-cartographer-ros
@@ -224,6 +230,8 @@ For 3D outdoor environments or when wheel odometry is unavailable or unreliable 
 | **LeGO-LOAM** | Lightweight LOAM variant | Ground-segmented, designed for ground vehicles |
 | **LIO-SAM** | LiDAR + IMU tightly coupled | High accuracy, requires IMU |
 | **KISS-ICP** | ICP with adaptive threshold | Simple, robust, real-time on all platforms |
+| **FAST-LIO2** | Direct lidar-inertial, iterated Kalman filter | Fast and accurate; widely used on drones and legged robots |
+| **GLIM** | Lidar-inertial with GPU-accelerated factor graph | Odometry plus global mapping and loop closure in one package (2024) |
 
 KISS-ICP example (ROS 2):
 
@@ -292,12 +300,22 @@ ros2 launch slam_toolbox online_async_launch.py use_sim_time:=true
 
 ---
 
-## Dataview Plugin Features
+## Learned SLAM in 2026
+
+Learned 3D reconstruction models now estimate dense geometry and camera motion directly from images. MASt3R-SLAM (2024) builds dense maps in real time from a single uncalibrated camera, using a pretrained two-view reconstruction network as its "front end". These systems are strongest where classical visual SLAM is weakest: low texture, no calibration, and wide baselines. They are still heavier and less predictable than lidar SLAM, so production mobile robots mostly keep lidar or visual-inertial SLAM and use learned models for perception layers and offline mapping.
+
+## Choosing a SLAM package
+
+| Situation | Start with |
+|---|---|
+| Indoor robot, 2D lidar | SLAM Toolbox (lifelong mapping, localization mode, Nav2 integration) |
+| RGB-D or stereo camera | RTAB-Map |
+| 3D lidar plus IMU, outdoor or legged | FAST-LIO2 or GLIM for odometry, with loop closure (GLIM includes it) |
+| No IMU, any 3D lidar | KISS-ICP odometry + a pose-graph back end |
+| NVIDIA Jetson with cameras | Isaac ROS visual SLAM (cuVSLAM) |
+
+## Dataview
 
 ```dataview
-LIST FROM #slam OR #mapping WHERE contains(file.outlinks, [[SLAM_with_ROS]])
-```
-
-```dataview
-TABLE title, description FROM #ros WHERE contains(file.tags, "slam")
+LIST FROM "" WHERE contains(file.outlinks, [[SLAM_with_ROS]])
 ```

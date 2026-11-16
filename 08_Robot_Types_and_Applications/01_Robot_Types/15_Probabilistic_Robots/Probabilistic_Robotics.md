@@ -1,109 +1,92 @@
 ---
 title: Probabilistic Robotics
-description: Probabilistic Robotics is a framework that uses probabilistic models and algorithms to handle uncertainty in robotic systems, enabling robots to make decisions and operate effectively in dynamic and unpredictable environments.
+description: "Probabilistic robotics represents what a robot knows as probability distributions and updates them with Bayes' rule as it moves and senses. Covers the Bayes filter with a computed door-sensing example, the main filters (Kalman, extended and unscented Kalman, particle), factor graphs for SLAM, planning under uncertainty, and how probabilistic estimation and learned models work together in 2026."
+aliases:
+  - Probabilistic Robots
+  - Bayes Filter
+  - Bayesian Filtering
 tags:
-  - probability
-  - state-estimation
-  - uncertainty
+  - probabilistic-robotics
   - bayesian-inference
-  - localization
-  - mapping
-  - decision-making
+  - kalman-filter
+  - uncertainty
+  - state-estimation
 type: concept
 level: intermediate
 subfield:
   - estimation-mapping
-status: draft
+status: keystone
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
   - "[[Probability_and_Statistics_for_Robotics]]"
   - "[[Bayesian_Inference]]"
 related:
-  - "[[Bayesian_Estimation]]"
-  - "[[Kalman_Filter]]"
-  - "[[Particle_Filter]]"
-  - "[[SLAM]]"
   - "[[Localization]]"
-  - "[[Mapping]]"
+  - "[[SLAM]]"
   - "[[Sensor_Fusion]]"
+  - "[[SLAM_with_ROS]]"
+  - "[[Knowledge_Representation_and_Reasoning]]"
+key_takeaways:
+  - "Robots never know their state exactly; probabilistic robotics keeps a belief (a probability distribution) and updates it with a motion step (prediction) and a measurement step (Bayes' rule)."
+  - "The Kalman filter does this exactly for linear-Gaussian systems; particle filters handle multimodal beliefs such as 'I might be in either corridor'; factor graphs solve whole trajectories at once and power modern SLAM."
+  - "In 2026 learned networks often provide measurements (detections, learned odometry), while probabilistic estimators fuse them and keep track of how uncertain the robot should be."
+sources:
+  - "Thrun, S., Burgard, W. and Fox, D. (2005). Probabilistic Robotics. https://mitpress.mit.edu/9780262201629/probabilistic-robotics/"
+  - "Dellaert, F. and Kaess, M. (2017). Factor Graphs for Robot Perception. https://www.cs.cmu.edu/~kaess/pub/Dellaert17fnt.pdf"
+  - "Dellaert, F. et al. (2026). GTSAM: Georgia Tech Smoothing and Mapping library. https://gtsam.org/"
+  - "Moore, T. and Stouch, D. (2026). robot_localization: nonlinear state estimation for ROS. https://github.com/cra-ros-pkg/robot_localization"
 ---
 
 # Probabilistic Robotics
 
-**Probabilistic Robotics** is a framework that uses probabilistic models and algorithms to handle uncertainty in robotic systems. It enables robots to make decisions and operate effectively in dynamic and unpredictable environments by representing and reasoning about uncertainty in sensor data, models, and actions. Probabilistic robotics is essential for tasks such as localization, mapping, and decision-making.
+**Probabilistic robotics** is the practice of representing everything a robot believes, such as where it is, what the map looks like, or where an object is, as a **probability distribution** rather than a single answer, and updating those beliefs as new evidence arrives. Sensors are noisy, wheels slip and the world changes; probability is the mathematics of reasoning under exactly those conditions.
 
----
+> **Etymology.** Latin *probabilis*, "provable, credible". The term became the name of a field with Thrun, Burgard and Fox's 2005 textbook *Probabilistic Robotics*, which collected the methods that made robust localization and SLAM practical.
 
-## Key Concepts in Probabilistic Robotics
+## The Bayes filter
 
-1. **Uncertainty**: The inherent variability and noise in sensor data, models, and actions, which probabilistic methods aim to quantify and manage.
+A belief $bel(x_t)$ over the state is updated in two steps every cycle:
 
-2. **Probabilistic Models**: Mathematical representations of the system or environment that incorporate uncertainty, often using probability distributions.
+1. **Predict** with the motion model, $\overline{bel}(x_t) = \int p(x_t \mid u_t, x_{t-1})\, bel(x_{t-1})\, dx_{t-1}$. Uncertainty grows.
+2. **Correct** with the measurement, $bel(x_t) = \eta\, p(z_t \mid x_t)\, \overline{bel}(x_t)$. Uncertainty shrinks.
 
-3. **Bayesian Inference**: A framework for updating beliefs based on new evidence, central to many probabilistic algorithms in robotics.
+Here $u_t$ is the control (for example odometry), $z_t$ the measurement, and $\eta$ normalises the result.
 
-4. **Estimation**: The process of approximating or predicting unknown quantities, such as positions or states, based on available data.
+### Worked example: is the door open?
 
-5. **Decision-Making**: Using probabilistic models to make informed decisions under uncertainty, often involving the maximization of expected utility or reward.
+A robot's prior belief is 50% that a door is open. Its camera says "open" correctly 60% of the time when the door is open, and wrongly says "open" 30% of the time when it is closed. It sees "open":
 
----
+$$P(\text{open}\mid z) = \frac{0.6 \times 0.5}{0.6 \times 0.5 + 0.3 \times 0.5} = \frac{0.30}{0.45} = 0.667$$
 
-## Mathematical Representations
+One noisy reading moves the belief from 50% to 67%, not to certainty. A second independent "open" reading moves it to $0.6 \times 0.667 / (0.6 \times 0.667 + 0.3 \times 0.333) = 0.80$. Evidence accumulates, and the robot can act when its belief is strong enough for the cost of being wrong.
 
-### Bayesian Inference
+## Main filters
 
-Bayesian inference is a fundamental concept in probabilistic robotics, used to update beliefs based on new evidence. The posterior distribution is computed using Bayes' theorem:
+| Filter | Belief represented as | Good for |
+|---|---|---|
+| **Kalman filter** | Gaussian (mean + covariance); exact for linear systems | IMU and odometry fusion, tracking |
+| **Extended / unscented Kalman filter** | Gaussian through nonlinear models | Most robot state estimation (e.g. ROS `robot_localization`) |
+| **Particle filter** | A set of weighted samples | Multimodal beliefs; global localization (AMCL in Nav2) |
+| **Histogram / grid filters** | Probabilities over discrete cells | Occupancy grid mapping |
+| **Factor graphs (smoothing)** | Joint distribution over a whole trajectory, solved by optimisation | SLAM and visual-inertial odometry (GTSAM, iSAM2, g2o) |
 
-$$
-P(A|B) = \frac{P(B|A) \cdot P(A)}{P(B)}
-$$
+## Planning under uncertainty
 
-where $P(A|B)$ is the posterior probability, $P(B|A)$ is the likelihood, $P(A)$ is the prior probability, and $P(B)$ is the marginal likelihood.
+When the robot is unsure, the best action may be to gather information first: look in the cupboard before trying to grasp. **POMDPs** (partially observable Markov decision processes) formalise this. Exact solutions are intractable for real robots, but approximations, belief-space planning and learned policies with memory (see [[RNN_and_LSTM]]) put the idea to work.
 
-<br>
+## Probabilistic estimation and learning (2026)
 
-### Markov Models
+Learned networks and probabilistic estimators are complementary:
+- networks supply measurements and their uncertainty (object detections, learned depth and odometry, contact estimates);
+- filters and factor graphs fuse them with physics-based motion models, catch inconsistent readings, and say how confident the robot should be.
 
-Markov models are used to represent systems where the future state depends only on the current state, not on the sequence of events that preceded it. The transition probability is given by:
+Learned models trained to output calibrated uncertainty, and differentiable filters trained end to end, blur the boundary further. The principle stays the same: a robot that knows how uncertain it is can act safely.
 
-$$
-P(x_{t+1} | x_t)
-$$
-
-where $x_t$ is the state at time $t$, and $x_{t+1}$ is the state at the next time step.
-
-<br>
-
-### Kalman Filter
-
-The Kalman Filter is a recursive algorithm used to estimate the state of a linear dynamic system with Gaussian noise. It involves prediction and update steps to refine the state estimate based on new measurements.
-
-<br>
-
-### Particle Filter
-
-The Particle Filter is a non-parametric estimation technique suitable for non-linear systems. It represents the probability distribution of the state using a set of particles, which are updated based on new measurements.
-
----
-
-## Applications of Probabilistic Robotics
-
-Probabilistic robotics is applied in various robotic tasks:
-
-- **Localization**: Estimating the robot's position and orientation within the environment, often using techniques like the Kalman Filter or Particle Filter.
-- **Mapping**: Building a map of the environment while accounting for uncertainties in sensor data and robot motion.
-- **SLAM (Simultaneous Localization and Mapping)**: Combining localization and mapping to enable robots to navigate and interact with unknown environments.
-- **Decision-Making**: Using probabilistic models to make informed decisions under uncertainty, such as path planning and obstacle avoidance.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
-LIST FROM "" WHERE contains(file.outlinks, [[Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Probabilistic_Robotics]])
 ```

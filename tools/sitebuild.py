@@ -325,6 +325,7 @@ def home_page(b: V.Book, base: str = BASE_URL) -> str:
          '- **New to robotics?** Follow the [[Learning_Paths#Curious about robots|Curious about robots]] path.',
          '- **Studying it?** The [[Learning_Paths#Student: the core stack|core stack]] runs from maths to kinematics, sensing, estimation, planning and control.',
          '- **Building something?** The [[Learning_Paths#Builder: make a robot work|builder path]] covers actuators, electronics, ROS 2 and the labs.',
+         '- **Working in manufacturing?** The [[Learning_Paths#Manufacturing: robots on the factory floor|manufacturing path]] covers industrial arms, work cells, PLCs, welding, vision and safety.',
          '- **Into learning-based robotics?** [[Learning_Paths#Learning-based robotics|Machine learning to robot learning]].',
          '- **Researching?** Start at [[Learning_Paths#Researcher: the edge of the field|the edge of the field]].', '',
          '## The map', '',

@@ -1,119 +1,81 @@
 ---
 title: Composite Materials
-description: Composite Materials are engineered materials made from two or more constituent materials with significantly different physical or chemical properties, which remain separate and distinct on a macroscopic level within the finished structure.
+description: "Composites combine materials, typically strong fibres in a polymer matrix, to get properties neither has alone. Covers fibre types, lay-up and anisotropy, the rule of mixtures with a computed example, why composites suit robot links, legs and drone frames, manufacturing, and failure modes such as delamination and impact damage."
+aliases:
+  - Composites
+  - Carbon Fibre
+  - CFRP
 tags:
   - materials
-  - composites
-  - structures
-  - design
-  - lightweight
-  - solid-mechanics
+  - mechanical-design
 type: concept
-level: advanced
+level: intermediate
 subfield:
   - mechanisms-actuation
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Robot_Design]]"
-  - "[[Mechatronics]]"
-  - "[[Structural_Analysis]]"
-related:
   - "[[Material_Science]]"
-  - "[[Robot_Design]]"
-  - "[[Links]]"
-  - "[[Structural_Analysis]]"
-  - "[[Mechatronics]]"
+related:
+  - "[[Drones]]"
+  - "[[Legged_Robots]]"
+  - "[[Manipulator_Arm]]"
+key_takeaways:
+  - "Fibres (carbon, glass, aramid) carry load; the matrix (usually epoxy) holds them together and transfers load; properties depend strongly on fibre direction."
+  - "Along the fibres, the rule of mixtures gives E ≈ V_f E_f + (1 − V_f) E_m: 60% carbon fibre at 230 GPa in 3.5 GPa epoxy gives about 139 GPa, a stiffness that drops sharply across the fibres."
+  - "Composites save mass in arms, legs and drone frames, but are anisotropic, can delaminate under impact, and are harder to join and inspect than metals."
+sources:
+  - "Yuan, M. et al. (2024). Progress and prospects of recycling technology for carbon fiber reinforced polymer. https://www.frontiersin.org/journals/materials/articles/10.3389/fmats.2024.1484544/full"
+  - "Siciliano, B. and Khatib, O., eds. (2016). Springer Handbook of Robotics, 2nd edition. https://link.springer.com/referencework/10.1007/978-3-319-32552-1"
+  - "Ateeq, M. (2023). A state of art review on recycling and remanufacturing of the carbon fiber from carbon fiber polymer composite. https://doi.org/10.1016/j.jcomc.2023.100412"
 ---
 
 # Composite Materials
 
-**Composite Materials** are engineered materials made from two or more constituent materials with significantly different physical or chemical properties, which remain separate and distinct on a macroscopic level within the finished structure. These materials are designed to combine the best properties of their constituents, such as strength, light weight, and durability, making them ideal for a wide range of applications in engineering and technology.
+A **composite** combines two or more materials into one with better properties than either alone. The most important for robots is **carbon-fibre-reinforced polymer (CFRP)**: very stiff, strong carbon fibres embedded in an epoxy matrix.
 
----
+> **Etymology.** Latin *compositus*, "put together". Straw-reinforced mud bricks are an ancient composite; modern carbon fibre was developed in the late 1950s and 1960s, notably at the UK's Royal Aircraft Establishment.
 
-## Key Concepts
+## Ingredients
 
-1. **Reinforcement**: The primary load-bearing component in a composite material, typically in the form of fibers, particles, or sheets, which provides strength and stiffness.
-   <br>
+| Fibre | Strengths | Typical use |
+|---|---|---|
+| Carbon | Highest stiffness and strength per weight | Robot links, drone frames, legs |
+| Glass | Cheap, tough, electrically insulating | Housings, covers, printed composites |
+| Aramid (Kevlar) | Impact and cut resistance | Protective parts |
 
-2. **Matrix**: The material that surrounds and binds the reinforcement, transferring stress to the reinforcement and protecting it from environmental damage.
-   <br>
+The **matrix** (epoxy, or thermoplastics such as nylon or PEEK) holds fibres in place and transfers load between them.
 
-3. **Interface**: The boundary between the reinforcement and the matrix, which plays a critical role in the composite's mechanical properties. A strong interface ensures effective stress transfer.
-   <br>
+## Worked example: rule of mixtures
 
-4. **Fiber Orientation**: The arrangement of fibers within the composite, which significantly influences the material's strength and stiffness in different directions.
-   <br>
+Along the fibre direction, stiffness is roughly the volume-weighted average:
 
-5. **Volume Fraction**: The proportion of the composite occupied by the reinforcement or matrix, which affects the material's properties.
-   <br>
+57768E_\parallel \approx V_f E_f + (1 - V_f)E_m = 0.6 \times 230 + 0.4 \times 3.5 = 139.4\ \text{GPa}.57768
 
----
+Across the fibres the matrix dominates and stiffness falls to roughly 8–10 GPa. This **anisotropy** is why laminates stack plies at 0°, ±45° and 90°. A balanced "quasi-isotropic" layup ends up near 70 GPa in every in-plane direction: about aluminium's stiffness at 60% of its density (see [[Material_Science]]).
 
-## Types of Composite Materials
+## Why robots use them
 
-Composite materials can be classified based on their reinforcement and matrix types:
+- Lighter links mean less inertia, so smaller motors, faster motion and safer collisions.
+- Higher natural frequencies, so less vibration and better precision.
+- Tubes and shells made of composites resist bending and torsion efficiently.
 
-* **Fiber-Reinforced Composites**: These composites use fibers as the reinforcement, providing high strength-to-weight ratios. Examples include:
-  - **Carbon Fiber Reinforced Polymers (CFRP)**: Known for their exceptional strength, stiffness, and light weight, commonly used in aerospace and high-performance sports equipment.
-  - **Glass Fiber Reinforced Polymers (GFRP)**: Offer good strength and are more cost-effective than carbon fiber, used in automotive and marine applications.
-  - **Aramid Fiber Reinforced Polymers (AFRP)**: Provide excellent impact resistance and are used in ballistic protection and aerospace.
-  <br>
+Typical uses: drone frames and propellers, arm links of fast or collaborative arms, legs of quadrupeds and humanoids, end-effector tooling.
 
-* **Particle-Reinforced Composites**: These composites use particles as the reinforcement, providing isotropic properties. Examples include concrete and metal matrix composites.
-  <br>
+## Manufacturing and pitfalls
 
-* **Laminated Composites**: These are made by stacking layers of different materials to achieve desired properties. Examples include plywood and laminated glass.
-  <br>
+Made by prepreg lay-up and autoclave curing, filament winding (tubes), pultrusion (constant profiles), resin transfer moulding, or 3D printing with chopped or continuous fibre.
 
----
+Pitfalls:
+- **delamination** from impacts, which may be invisible on the surface;
+- difficult **joints**: metal inserts and bonded fittings concentrate stress;
+- electrical conductivity of carbon (galvanic corrosion against aluminium);
+- harder **repair, inspection and recycling** than metals. Thermoset (epoxy) composites are especially hard to recycle; pyrolysis, solvolysis and mechanical methods recover fibres at reduced quality, and recycled-fibre 3D printing is an active area (reviews 2023–2024).
 
-## Mathematical Representations
-
-### Rule of Mixtures
-
-The rule of mixtures is used to estimate the properties of composite materials based on the properties and volume fractions of their constituents. For example, the Young's modulus $E_c$ of a composite can be approximated as:
-
-$$
-E_c = V_f E_f + V_m E_m
-$$
-
-where $V_f$ and $V_m$ are the volume fractions of the fiber and matrix, respectively, and $E_f$ and $E_m$ are their respective Young's moduli.
-
-### Halpin-Tsai Equations
-
-The Halpin-Tsai equations provide a more accurate model for the modulus of composites, accounting for the geometry and orientation of the reinforcement:
-
-$$
-E_c = E_m \left[ \frac{1 + \xi \eta V_f}{1 - \eta V_f} \right]
-$$
-
-where $\eta$ is a factor dependent on the geometry and properties of the reinforcement and matrix, and $\xi$ is a shape factor.
-
----
-
-## Applications in Robotics
-
-Composite materials are widely used in robotics for their lightweight and high-strength properties:
-
-* **Structural Components**: Used in robot frames, [[Links|links]], and other structural components to reduce weight and improve strength-to-weight ratios.
-  <br>
-
-* **Aerospace and Automotive**: Employed in the design of lightweight and durable components for drones, robotic vehicles, and automotive parts.
-  <br>
-
-* **Biomedical Engineering**: Utilized in prosthetics and implants due to their biocompatibility and ability to mimic the properties of natural tissues.
-  <br>
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Composite_Materials]])

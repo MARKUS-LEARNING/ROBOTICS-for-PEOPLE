@@ -1,114 +1,98 @@
 ---
 title: Swarm Robots
-description: An overview of swarm robotics, focusing on the coordination of large numbers of simple robots through local interactions to achieve collective emergent behavior.
+description: "Swarm robotics coordinates many simple robots through local rules and local communication, so useful group behaviour emerges with no central controller. Covers the principles, coordination mechanisms (flocking, stigmergy, consensus), landmark systems (Kilobots, TERMES, micro-drone swarms), a computed communication-scaling example, and how swarms differ from centrally managed fleets."
+aliases:
+  - Swarm Robotics
+  - Robot Swarms
+  - Swarm Intelligence
 tags:
-  - robot-types
   - swarm-robotics
   - multi-robot-systems
-  - distributed-control
-  - emergent-behavior
   - bio-inspired-robotics
 type: robot-type
-level: beginner
+level: intermediate
 subfield:
   - multi-robot
-status: draft
+  - bio-inspired
+status: reviewed
 author: Jordan_Smith
-date: 2025-04-28
-related:
-  - "[[Robots]]"
-  - "[[Multi_Robot_Systems]]"
-  - "[[Self-Organization]]"
-  - "[[Bio-inspired_Robotics]]"
+date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
   - "[[Mobile_Robots]]"
+related:
+  - "[[Bio-inspired_Robotics]]"
   - "[[Drones]]"
-  - "[[Robot_Types_and_Applications]]"
+  - "[[Modular_Robotics]]"
+  - "[[Agents_and_Environments]]"
+key_takeaways:
+  - "A swarm has no leader: each robot follows simple rules using what it senses nearby, and group behaviour (flocking, aggregation, construction) emerges."
+  - "Local interaction is what makes swarms scale: all-to-all communication grows with n², local-neighbour communication only with n."
+  - "Most real deployments are centrally coordinated fleets (warehouses, drone light shows); fully decentralised swarms are proven in research, from 1,024 Kilobots (2014) to micro-drone swarms flying through forests (2022)."
+sources:
+  - "Brambilla, M., Ferrante, E., Birattari, M. and Dorigo, M. (2013). Swarm robotics: a review from the swarm engineering perspective. https://link.springer.com/article/10.1007/s11721-012-0075-2"
+  - "Rubenstein, M., Cornejo, A. and Nagpal, R. (2014). Programmable self-assembly in a thousand-robot swarm. https://www.science.org/doi/10.1126/science.1254295"
+  - "Werfel, J., Petersen, K. and Nagpal, R. (2014). Designing collective behavior in a termite-inspired robot construction team. https://www.science.org/doi/10.1126/science.1245842"
+  - "Zhou, X. et al. (2022). Swarm of micro flying robots in the wild. https://www.science.org/doi/10.1126/scirobotics.abm5954"
 ---
 
 # Swarm Robots
 
-**Swarm Robotics** is a field focused on the coordination of large numbers of relatively simple robots, often referred to as a swarm. It takes inspiration from the collective behavior observed in social insects (like ants, bees, termites) and other biological systems (like flocks of birds or schools of fish). The core idea is that complex, useful global behaviors can arise from numerous local interactions between simple individual robots operating under decentralized control, without needing a central coordinator or complex individual capabilities. Swarm robotics is considered a subfield of [[Multi_Robot_Systems|Multi-Robot Systems]].
+**Swarm robotics** studies how large numbers of relatively simple robots can achieve together what none could alone, by following local rules and interacting with neighbours, with no central controller. The inspiration is social insects: ants find short paths to food, termites build mounds, bees choose nest sites, all without a leader.
 
----
+> **Etymology.** *Swarm* is from Old English *swearm*, a mass of bees. *Swarm intelligence* was coined by Gerardo Beni and Jing Wang in 1989 in the context of cellular robotic systems.
 
-## Key Characteristics
+## Principles
 
-Swarm robotics systems are typically characterized by:
+| Principle | Meaning | Why it helps |
+|---|---|---|
+| **Decentralisation** | Each robot decides for itself | No single point of failure |
+| **Locality** | Robots sense and talk only to neighbours | Scales to large numbers |
+| **Simplicity** | Cheap individuals with simple rules | Low cost per unit; losses are tolerable |
+| **Emergence** | Group behaviour arises from interactions | Complex outcomes from simple programs |
+| **Redundancy** | Many interchangeable robots | Robust to failures |
 
-* **Large Numbers:** Involving tens, hundreds, or even thousands of robots.
-* **Simple Individuals:** Each robot often possesses limited sensing, computational power, and actuation capabilities. This focus on simplicity aims for cost-effectiveness per unit and redundancy through numbers.
-* **Local Interactions:** Robots primarily sense and interact with their immediate neighbors and local environment. Global information or long-range communication is usually limited or absent.
-* **Decentralized Control:** Control logic is distributed among the individual robots. Each robot operates based on local rules and information, without a central command structure.
-* **[[Emergent Behavior]]:** The desired collective behavior (e.g., flocking, foraging, pattern formation) is not explicitly programmed but emerges from the accumulated effect of simple, local interactions. Designing these local rules to achieve specific global outcomes is a key challenge.
-* **Scalability, Robustness, Flexibility:** Swarms are inherently scalable (performance often degrades gracefully rather than failing completely if some units are lost), robust to individual failures (due to redundancy), and potentially flexible in adapting to different tasks or environments by modifying local rules.
+## Coordination mechanisms
 
----
+- **Flocking**: Reynolds's three rules (separation, alignment, cohesion, 1987) produce bird-like flocks.
+- **Stigmergy**: indirect coordination through the environment, as termites do; robots react to what others have built or marked.
+- **Consensus**: robots average their estimates or decisions with neighbours until they agree.
+- **Pattern formation and self-assembly**: robots move to form shapes using only local distance measurements.
+- **Learned policies**: multi-agent reinforcement learning trains decentralised policies in simulation.
 
-## Coordination Mechanisms
+## Worked example: why locality matters
 
-Coordination in swarms relies on mechanisms that function with local information:
+If every robot must talk to every other robot, the number of messages per round is $n(n-1)$. If each robot talks only to about 6 nearest neighbours, it is about $6n$.
 
-* **[[Self-Organization]]:** The spontaneous emergence of global order and patterns from local interactions, without explicit instructions or external control.
-* **Stigmergy:** A form of indirect communication where robots interact by sensing and modifying their local environment. Other robots then react to these environmental changes (e.g., simulated pheromone trails, physical constructions).
-* **Direct Local Communication:** Short-range communication methods (e.g., infrared, local radio broadcasts) allow nearby robots to exchange limited information (e.g., state, position relative to neighbors).
-* **Gradient Following:** Robots move according to sensed environmental gradients (e.g., light intensity, chemical concentration, temperature).
-* **Flocking/Schooling Rules:** Simple rules based on maintaining separation from neighbors, aligning velocity with neighbors, and maintaining cohesion with the group center (often inspired by Reynolds' Boids model).
+| Robots $n$ | All-to-all $n(n-1)$ | Local, 6 neighbours |
+|---|---|---|
+| 10 | 90 | 60 |
+| 100 | 9,900 | 600 |
+| 1,000 | 999,000 | 6,000 |
 
----
+At 1,000 robots, all-to-all needs about 166 times more messages. Radio bandwidth and power run out long before. Local rules are not a limitation of swarm robotics: they are what makes it scale.
 
-## Distinction from General Multi-Robot Systems (MRS)
+## Landmark systems
 
-While swarm robotics falls under the umbrella of [[Multi_Robot_Systems|Multi-Robot Systems]], it represents a specific approach. General MRS can involve smaller numbers of potentially complex, heterogeneous robots with sophisticated individual capabilities, often relying on explicit communication protocols, task allocation mechanisms, and sometimes centralized or hierarchical coordination strategies. In contrast, swarm robotics emphasizes massive parallelism through large numbers of simple, often homogeneous, agents using decentralized control and local interactions leading to emergent behavior.
+- **Kilobots (2014)**: 1,024 coin-sized robots self-assembled into programmed shapes using only infrared communication with neighbours.
+- **TERMES (2014)**: termite-inspired robots built structures from blocks using local rules and stigmergy.
+- **Micro-drone swarms (2022)**: palm-sized drones flew as a swarm through a dense forest, each planning with onboard sensing and limited communication.
+- **Light shows**: hundreds to thousands of drones fly choreographed shows. These are centrally planned trajectories, not true swarms.
 
----
+## Swarms versus fleets
 
-## Applications
+Most commercial multi-robot systems, such as warehouse robots, delivery fleets and drone shows, are **centrally coordinated fleets**: a server assigns tasks and plans traffic (Amazon's DeepFleet model coordinates its warehouse robots, for example). True swarms trade optimality for robustness and scalability, and are used where central control is impossible or fragile: underwater, underground, in contested or disaster areas, and in space.
 
-The properties of swarm robotics make them potentially suitable for tasks requiring:
+## Open problems
 
-* **Large Area Coverage:** Exploration, mapping, or environmental monitoring (e.g., pollution sensing) over vast areas.
-* **Distributed Sensing:** Combining local measurements from many simple sensors to build a global picture.
-* **Search and Rescue:** Rapidly covering large disaster areas to locate survivors or map hazards.
-* **Construction:** Cooperative building of structures inspired by insect colonies (e.g., termite-inspired construction robots).
-* **Agriculture:** Coordinated tasks like monitoring large fields, targeted pest control, or distributed seeding/harvesting.
-* **Entertainment:** Large-scale drone light shows creating complex aerial patterns.
-* **Defense/Security:** Distributed surveillance, reconnaissance, or area denial.
-* **Micro/Nano Robotics:** Coordinating vast numbers of micro- or nanobots for tasks like targeted drug delivery.
+- **Designing local rules** that provably produce the desired global behaviour.
+- **Real-world sensing** and communication limits.
+- **Human supervision** of hundreds of robots.
+- **Safety**: also the dual-use concerns of drone swarms (see [[Ethical_and_Social_Implications]]).
 
----
-
-## Challenges
-
-Despite its potential, swarm robotics faces significant challenges:
-
-* **Design of Emergent Behavior:** Programming simple local rules that reliably produce a desired complex global behavior is difficult (often called the "micro-macro problem").
-* **Hardware Limitations:** Building large numbers of small, capable, robust, and low-cost robots with sufficient power autonomy remains challenging.
-* **Limited Individual Capabilities:** Simple sensors and actuators limit the complexity of tasks individuals can perform and perceive.
-* **Coordination and Scalability:** While inherently scalable in theory, practical coordination and communication can become bottlenecks in very large swarms.
-* **Real-World Deployment:** Transitioning swarm concepts from simulation or controlled lab environments to operate robustly in complex, dynamic real-world settings is difficult (power management, individual localization, environmental interaction).
-* **Modeling and Analysis:** Predicting and analyzing the behavior of large, complex swarm systems is mathematically challenging.
-
-Swarm robotics remains an active area of research, blending insights from biology, physics (statistical mechanics, self-organization), computer science (distributed algorithms), and robotics engineering.
-
----
-
-### Example Image URLs
-
-* **Kilobots:** (Example search result page: `https://wyss.harvard.edu/technology/kilobots/`)
-* **Termite Inspired Construction Robots:** (Example search result page: `https://www.seas.harvard.edu/news/2014/02/termite-inspired-robots`)
-* **Drone Swarm Light Show:** (Example search result page: `https://www.intel.com/content/www/us/en/technology-innovation/aerial-technology-light-show.html`)
-* **Underwater Robot Swarm:** (Example search result page: `https://www.theguardian.com/environment/2022/jul/13/robot-swarm-suggested-study-ocean-currents-climate-crisis`)
-
-*(Note: These URLs link to pages containing images, not necessarily direct image files. For use in Obsidian, download images from these sources and link locally.)*
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
-LIST FROM "" WHERE contains(file.outlinks, [[Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Swarm_Robots]])
 ```

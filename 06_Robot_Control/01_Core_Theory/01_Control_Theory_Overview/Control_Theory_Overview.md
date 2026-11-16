@@ -1,184 +1,86 @@
 ---
-title: Control Systems Overview
-description: Provides an overview of Control Systems and Control Theory, explaining core concepts like feedback, stability, and common strategies used in robotics.
+title: Control Theory Overview
+description: "Section overview for robot control: what a controller does, the feedback loop, the layers of control on a 2026 robot (from 1 kHz joint loops to learned policies), and a guided map to the notes in this chapter: theory and modelling, classical and modern strategies, interaction control, navigation, and human-robot interaction."
+aliases:
+  - Control Systems Overview
+  - Robot Control Overview
 tags:
-  - control-theory
   - control
   - feedback-control
   - stability
-  - pid
-  - dynamics
-  - state-space
-  - transfer-function
 type: overview
-level: intermediate
+level: beginner
 subfield:
   - control
-status: draft
+status: keystone
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Open_Loop_vs_Closed_Loop]]"
+  - "[[Robots]]"
 related:
+  - "[[Control_Systems]]"
   - "[[Control_Theory]]"
-  - "[[Feedback_Control]]"
-  - "[[Stability]]"
+  - "[[Control_Theory_and_Principles]]"
   - "[[PID_Control]]"
-  - "[[Computed_Torque_Control]]"
-  - "[[Adaptive_Control]]"
-  - "[[Force_Control]]"
-  - "[[Visual_Servoing]]"
-  - "[[AI_and_Robot_Control]]"
-  - "[[Kinematics]]"
-  - "[[Dynamics]]"
-  - "[[Actuator]]"
-  - "[[Sensors]]"
-  - "[[Glossary]]"
+  - "[[Model_Predictive_Control_(MPC)]]"
+  - "[[Reinforcement_Learning_for_Robots]]"
+key_takeaways:
+  - "Control turns goals into motor commands, using feedback to correct errors as they happen."
+  - "A modern robot stacks controllers by speed: current loops at 10–40 kHz, joint loops at 1 kHz, whole-body or MPC at 100–1,000 Hz, learned policies at 10–500 Hz, planners and language models slower still."
+  - "Classical control supplies guarantees (stability, limits, safety); learned control supplies flexibility; 2026 systems combine both."
+sources:
+  - "Åström, K. J. and Murray, R. M. (2021). Feedback Systems: An Introduction for Scientists and Engineers, 2nd edition. https://fbswiki.org/wiki/index.php/Feedback_Systems:_An_Introduction_for_Scientists_and_Engineers"
+  - "Lynch, K. M. and Park, F. C. (2017). Modern Robotics, chapter 11: Robot Control. https://hades.mech.northwestern.edu/index.php/Modern_Robotics"
+  - "Tedrake, R. (2026). Underactuated Robotics: Algorithms for Walking, Running, Swimming, Flying, and Manipulation. https://underactuated.csail.mit.edu/"
+  - "Siciliano, B. and Khatib, O., eds. (2016). Springer Handbook of Robotics, 2nd edition. https://link.springer.com/referencework/10.1007/978-3-319-32552-1"
 ---
 
-# Control Systems / Control Theory Overview
+# Control Theory Overview
 
-**Control Systems** (or, more formally, the field of **[[Control_Theory]]**) is a fundamental engineering discipline concerned with analyzing and influencing the behavior of dynamical systems to achieve desired outcomes. In [[Robotics]], control systems are essential for making [[Robots|robots]] perform tasks accurately, efficiently, and safely by managing their [[Actuator|actuators]] based on [[Sensors|sensor]] information and desired goals.
+**Control** is how a robot turns what it wants (a joint angle, a path, a grasp) into what it does (motor currents), and keeps doing the right thing when the world pushes back. This page introduces the core idea and maps the notes in this chapter.
 
----
+> **Etymology.** *Control* is from Medieval Latin *contrarotulus*, "a counter-roll": a duplicate register used to check accounts. To *control* was first to check against a reference, which is still exactly what a feedback controller does. *Cybernetics* (Wiener, 1948) is from Greek *kybernētēs*, "steersman".
 
-## Core Concepts
+## The feedback loop
 
-* **Dynamical System**: A mathematical model (often differential equations) describing how a system's state (e.g., robot joint positions and velocities - [[Kinematics]], [[Dynamics]]) changes over time in response to inputs.
-* **Controller**: An algorithm or device that calculates the necessary control inputs (e.g., motor torques/voltages) to drive the system towards a desired state or trajectory.
-* **Plant**: The physical system being controlled (e.g., the robot arm, mobile robot base).
-* **Control Input (u)**: Variables manipulated by the controller (e.g., [[Actuator]] commands).
-* **System Output (y) / State (x)**: Variables measured or estimated from the system ([[Sensors|Sensor]] readings like joint angles, end-effector pose, contact forces).
-* **Setpoint / Reference / Desired Trajectory ($y_d$, $x_d$)**: The target value or time-varying path the system output should follow.
-* **Error (e)**: The difference between the desired setpoint/trajectory and the actual measured output (e = $y_d - y$).
-* **[[Feedback_Control]] (Closed-Loop)**: The controller uses measurements of the *actual* system output (feedback) to calculate the error and continuously adjust the control input to reduce this error. This makes the system robust to disturbances and modeling inaccuracies.
-    * *Typical Structure:* Setpoint -> Comparator (+) -> Controller -> Plant -> Output -> Sensor -> Comparator (-).
-* **Open-Loop Control**: The controller calculates the input based *only* on the desired setpoint and a model of the plant, without using feedback from the actual output. Simpler but very sensitive to errors and disturbances.
-* **[[Stability]]**: A critical property ensuring the system's output remains bounded and typically converges towards the desired state without oscillations or divergence. Formal methods (Lyapunov analysis, root locus, Bode plots, Nyquist criterion) are used to analyze stability.
-* **Performance**: Metrics used to evaluate how well a controller performs, such as:
-    * **Transient Response**: Rise time, settling time, overshoot.
-    * **Steady-State Error**: The remaining error after the system has settled.
-    * **Robustness**: Ability to maintain stability and performance despite modeling errors or external disturbances.
-    * **Tracking Accuracy**: How closely the system output follows a time-varying reference trajectory.
+```
+reference r ──►(+)── error e ──► controller ──► u ──► robot (plant) ──► output y
+               ▲ −                                                         │
+               └──────────────────── sensor ◄──────────────────────────────┘
+```
 
----
+The controller compares what is measured with what is wanted and acts on the difference. Feedback lets an imperfect model and an unpredictable world still produce accurate motion (see [[Control_Theory_and_Principles]]).
 
-## Common Control Strategies in Robotics
+## Layers of control on a 2026 robot
 
-While basic linear control theory forms the foundation, robotics often involves complex, nonlinear systems requiring specialized strategies:
+| Layer | Typical rate | Method | Example |
+|---|---|---|---|
+| Motor current | 10–40 kHz | PI current control in the motor driver | Torque from each motor |
+| Joint position or torque | 1 kHz | PID, impedance control | [[ros2_control]] joint controllers |
+| Whole body / trajectory | 100–1,000 Hz | Computed torque, operational-space control, [[Model_Predictive_Control_(MPC)\|MPC]] | Humanoid balance, arm tracking |
+| Learned policy | 10–500 Hz | Neural network trained with RL or imitation | Locomotion, manipulation skills |
+| Planning and reasoning | 0.1–10 Hz | Planners, vision-language models | Paths, task sequences |
 
-* **[[PID_Control]]**: Proportional-Integral-Derivative control. A workhorse linear controller calculating input based on the present error (P), the accumulation of past errors (I), and the rate of change of error (D). Widely used for independent joint control in industrial robots. Simple and often effective, but may struggle with highly coupled or nonlinear dynamics.
-* **[[Computed_Torque_Control]]**: (Nonlinear) Uses the robot's [[Inverse_Dynamics]] model to calculate the torques needed to cancel out nonlinear effects (Coriolis, centrifugal, gravity) and joint coupling. Transforms the complex robot dynamics into simpler, decoupled linear systems, which can then be easily controlled (often with [[PID_Control]] action). Requires an accurate dynamic model.
-* **[[Adaptive_Control]]**: Adjusts controller parameters online based on observed system behavior or estimated parameter changes. Useful when the robot's dynamics are uncertain or change over time (e.g., picking up unknown payloads).
-* **Robust Control**: Designs controllers guaranteed to maintain stability and performance within specified bounds, even with known limits on model uncertainty or disturbances.
-* **Optimal Control**: Formulates control design as an optimization problem to minimize a cost function (e.g., energy, time, error magnitude) subject to system dynamics and constraints.
-* **[[Force_Control]]**: Explicitly controls the interaction forces between the robot and its environment. Essential for tasks involving contact, such as assembly, grinding, or physical human-robot interaction. Includes methods like impedance control and hybrid position/force control.
-* **[[Visual_Servoing]]**: Uses visual information directly from [[Camera_Systems]] in the feedback loop to control the robot's motion relative to visual targets.
-* **Learning-Based Control**: Employs [[Machine_Learning]] techniques like [[Reinforcement_Learning_for_Robots]] or [[Imitation_Learning]] to learn control policies from data or interaction, potentially bypassing the need for explicit models. See [[Neural_Networks_in_Control]].
+Each layer treats the one below it as an actuator and the one above as its source of goals. Safety limits (torque, speed, workspace) are enforced in the low layers, where they are fast and simple to verify.
 
-Control systems are fundamental to enabling robots to perform useful tasks by bridging the gap between desired behavior and the complex physics of the real world.
+## Map of this chapter
 
----
+- **Foundations**: [[Control_Systems]] (building a controller), [[Control_Theory]] (mathematics: models, stability, response), [[Feedback_Control]], [[State_Space_Representation]], [[Transfer_Function]].
+- **Classical**: [[PID_Control]].
+- **Modern and model-based**: [[Computed_Torque_Control]], [[Adaptive_Control]], [[Robust_Control]], [[Model_Predictive_Control_(MPC)]].
+- **Interaction**: [[Compliance]], impedance and force control.
+- **Navigation and motion**: [[Autonomous_Navigation]], [[Collision_Avoidance]].
+- **People**: [[Human-Robot_Interaction]].
+- **Learning**: [[Neural_Networks_in_Control]], [[Reinforcement_Learning_for_Robots]].
 
-## Control Theory
+## Where to start
 
-**Control Theory** provides the mathematical and conceptual framework for designing and analyzing control systems, essential for ensuring stability, performance, and robustness in robotic and automated systems. It encompasses methods for modeling, analyzing, and designing controllers to achieve desired system behavior, particularly in the presence of disturbances and uncertainties.
+[[Feedback_Control]] → [[PID_Control]] → [[Control_Theory]] → [[State_Space_Representation]] → [[Computed_Torque_Control]] → [[Model_Predictive_Control_(MPC)]]
 
----
-
-### Feedback Control
-
-Feedback control is a fundamental concept in control theory, where the output of a system is fed back to the input to regulate the system's behavior. This approach is crucial for maintaining stability and achieving desired performance in dynamic systems.
-
-- **Open-Loop Control**: A control strategy where the control input is determined without considering the system output. It is simple but lacks the ability to correct for disturbances or model inaccuracies.
-- **Closed-Loop Control**: A control strategy where the control input is adjusted based on the system output, providing the ability to compensate for disturbances and uncertainties.
-
-### State Space Representation
-
-State space representation is a mathematical framework for describing the dynamics of a system using a set of first-order differential equations. It is particularly useful for multi-input, multi-output (MIMO) systems and systems with multiple states.
-
-- **State Equations**:
-  $$
-  \dot{\mathbf{x}}(t) = A \mathbf{x}(t) + B \mathbf{u}(t)
-  $$
-  $$
-  \mathbf{y}(t) = C \mathbf{x}(t) + D \mathbf{u}(t)
-  $$
-  where $\mathbf{x}(t)$ is the state vector, $\mathbf{u}(t)$ is the control input, $\mathbf{y}(t)$ is the output, and $A$, $B$, $C$, and $D$ are matrices describing the system dynamics.
-
-### Transfer Function
-
-The transfer function is a mathematical representation of the relationship between the input and output of a linear time-invariant (LTI) system in the frequency domain. It is used to analyze the system's stability, performance, and response to inputs.
-
-- **Transfer Function**:
-  $$
-  H(s) = \frac{Y(s)}{U(s)}
-  $$
-  where $H(s)$ is the transfer function, $Y(s)$ is the output, and $U(s)$ is the input in the Laplace domain.
-
----
-
-## Stability Analysis
-
-Stability analysis is a critical aspect of control theory, focusing on ensuring that a control system remains stable under various conditions.
-
-### Lyapunov Stability
-
-Lyapunov stability provides a method for analyzing the stability of a system without solving the differential equations directly. It involves finding a Lyapunov function $V(x)$ that satisfies certain conditions to prove stability.
-
-- **Lyapunov Function**:
-  $$
-  V(x) > 0 \quad \text{and} \quad \dot{V}(x) \leq 0
-  $$
-  where $V(x)$ is a positive definite function, and $\dot{V}(x)$ is its time derivative.
-
-### Root Locus
-
-The root locus is a graphical method used to analyze the stability of a control system by plotting the roots of the characteristic equation in the complex plane as a function of a system parameter.
-
-### Bode Plot
-
-The Bode plot is a graphical representation of the frequency response of a system, showing the magnitude and phase of the system's transfer function as a function of frequency. It is used to analyze the system's stability margins and performance characteristics.
-
-### Nyquist Stability Criterion
-
-The Nyquist stability criterion is a graphical method used to determine the stability of a control system by analyzing the plot of the system's transfer function in the complex plane. It provides insights into the system's stability margins and the number of unstable poles.
-
----
-
-## Advanced Control Strategies
-
-### Adaptive Control
-
-Adaptive control involves adjusting the control parameters in real-time to accommodate changes in the system dynamics or external conditions. This approach is particularly useful when the system model is uncertain or varies over time.
-
-### Robust Control
-
-Robust control focuses on designing controllers that can withstand uncertainties and disturbances, ensuring system stability and performance under adverse conditions. Techniques such as H-infinity control and sliding mode control are commonly used in robust control.
-
-### Optimal Control
-
-Optimal control involves designing control strategies that minimize a cost function, subject to the system dynamics and constraints. It is used to achieve the best possible performance under given conditions.
-
----
-
-## Applications
-
-Control theory is applied in various fields, including:
-
-- **Robotics**: Ensuring precise and stable control of robotic systems for tasks such as manipulation, locomotion, and interaction with the environment.
-- **Aerospace**: Designing control systems for aircraft and spacecraft to maintain stability and performance under varying conditions.
-- **Automotive**: Developing control strategies for vehicle dynamics, engine control, and advanced driver assistance systems.
-- **Industrial Automation**: Implementing control systems for manufacturing processes, ensuring efficiency, quality, and safety.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
-LIST FROM "" WHERE contains(file.outlinks, [[Robot_Control]])
+LIST FROM "" WHERE contains(file.outlinks, [[Control_Theory_Overview]])
 ```

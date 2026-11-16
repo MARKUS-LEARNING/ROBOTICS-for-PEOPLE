@@ -1,77 +1,112 @@
 ---
 title: Manipulator Arm
-description: Defines a robotic manipulator arm, its key components (links, joints, actuators, end-effector), structure, and basic function.
+description: "A manipulator arm is a chain of links and joints that positions a tool or hand in space. Covers the anatomy (joints, links, wrist, end effector), degrees of freedom and why six or seven, the main kinematic types, the specifications that matter (payload, reach, repeatability, speed), a computed shoulder-torque example, and how arms are programmed in 2026, from teach pendants to learned policies."
+aliases:
+  - Robot Arm
+  - Robotic Arm
+  - Manipulator
+  - Serial Manipulator
 tags:
   - manipulator-arm
-  - kinematic-chain
-  - industrial-robot
+  - manipulation
+  - kinematics
   - actuators
-  - end-effector
 type: robot-type
 level: beginner
 subfield:
   - manipulation
-status: draft
+  - kinematics-dynamics
+  - industrial-automation
+status: keystone
 author: Jordan_Smith
-date: 2025-04-29
+date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Manipulation]]"
-  - "[[End_Effector_Definition]]"
-related:
   - "[[Robots]]"
-  - "[[Glossary]]"
-  - "[[Manipulator_Arm_Types]]"
-  - "[[Industrial_Arms]]"
-  - "[[Kinematic_Chains]]"
-  - "[[Links]]"
-  - "[[Joint_Kinematics]]"
-  - "[[Actuator]]"
   - "[[Degrees_of_Freedom]]"
-  - "[[Workspace]]"
-  - "[[End-Effector]]"
+related:
+  - "[[Industrial_Arms]]"
   - "[[Forward_Kinematics]]"
   - "[[Inverse_Kinematics]]"
-  - "[[Control_Systems]]"
-  - "[[Manipulation]]"
+  - "[[Robot_Hands]]"
+  - "[[MoveIt2]]"
+  - "[[ros2_control]]"
+key_takeaways:
+  - "Six joints are the minimum to place a tool at any position and orientation in its workspace; a seventh adds redundancy to avoid obstacles, joint limits and singularities."
+  - "Payload, reach, repeatability and speed are the headline specifications, and they interact: the full payload is rated at the flange, and torque grows with distance from each joint."
+  - "Arms are programmed by teach pendant, offline simulation, motion planners (MoveIt, cuRobo) and, increasingly, learned policies trained from demonstrations."
+sources:
+  - "Lynch, K. M. and Park, F. C. (2017). Modern Robotics: Mechanics, Planning, and Control. https://hades.mech.northwestern.edu/index.php/Modern_Robotics"
+  - "Siciliano, B. and Khatib, O., eds. (2016). Springer Handbook of Robotics, 2nd edition. https://link.springer.com/referencework/10.1007/978-3-319-32552-1"
+  - "International Federation of Robotics (2026). Five Million Robots now Operate in Factories Globally (World Robotics 2026). https://ifr.org/ifr-press-releases/news/five-million-robots-now-operate-in-factories-globally"
+  - "Sundaralingam, B. et al. (2023). cuRobo: Parallelized Collision-Free Minimum-Jerk Robot Motion Generation. https://arxiv.org/abs/2310.17274"
+  - "Zhao, T. et al. (2023). Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware. https://arxiv.org/abs/2304.13705"
 ---
 
-# Manipulator Arm (Robotic Arm)
+# Manipulator Arm
 
-A **Manipulator Arm**, or **Robotic Arm**, is a type of [[Robots|robot]] designed primarily for [[Manipulation|manipulation]] tasks. It typically consists of a series of rigid [[Links|links]] connected by [[Joint_Kinematics|joints]], forming a [[Kinematic_Chains]]. One end of the chain (the base) is usually attached to a fixed surface or a [[Mobile_Robots|mobile platform]], while the other end is equipped with an [[End_Effector_Definition|End Effector]] or a tool designed to interact with objects or the environment.
+A **manipulator arm** is a series of rigid **links** connected by motorised **joints**, ending in a tool or hand (the **end effector**). Its job is to put that tool in the right place, at the right angle, at the right time. Robot arms weld cars, assemble phones, pick parcels, assist surgeons and, increasingly, learn household tasks.
 
-While often associated with [[Industrial_Arms]] used in manufacturing, the concept applies broadly to arms found on [[Humanoid_Robots]], [[Underwater_and_Space_Robots|space station robots]], [[Mobile_Robots|mobile manipulators]], and research platforms.
+> **Etymology.** Latin *manipulus*, "a handful" (from *manus*, "hand"): to manipulate is to work with the hands. The first industrial arm, the Unimate, went to work at a General Motors plant in 1961.
 
----
+## Anatomy
 
-## Key Components
+| Part | Role |
+|---|---|
+| **Base** | Fixed to the floor, a table or a mobile platform |
+| **Joints** | Revolute (rotate) or prismatic (slide), each driven by a motor and gearbox, with an encoder |
+| **Links** | Rigid segments between joints |
+| **Wrist** | The last 2–3 joints, which mostly set orientation |
+| **Flange and end effector** | Mounting plate, and the gripper, suction cup, welding torch or hand fitted to it |
 
-* **Base:** The foundation of the arm, providing support and often containing the first joint(s). It can be fixed or mounted on a mobile platform.
-* **Links:** The rigid structural segments connecting the joints.
-* **[[Joint_Kinematics|Joints]]:** Allow relative motion between links. Common types are [[Revolute Joint|revolute]] (rotation) and [[Prismatic Joint|prismatic]] (linear sliding). The number and arrangement of joints determine the arm's [[Degrees_of_Freedom]] (DoF).
-* **[[Actuator|Actuators]]:** Devices (e.g., electric motors, hydraulic/pneumatic cylinders) that power the movement of the joints. See [[Actuator]].
-* **[[End-Effector]] (EE):** The device attached to the final link of the arm, designed to perform the specific task. Examples include grippers, welding tools, paint sprayers, drills, cameras, or simply a mounting flange for custom tools. Often interchangeable.
-* **Control System:** The hardware and software responsible for calculating the required joint motions ([[Inverse_Kinematics|Inverse Kinematics]]), planning trajectories ([[Trajectory_Planning]]), and commanding the [[Actuator|actuators]] based on task requirements and [[Sensors|Sensor]] feedback. See [[Control_Systems|Control Systems]].
+## Why six or seven joints
 
----
+A rigid object in space has six [[Degrees_of_Freedom|degrees of freedom]]: three for position and three for orientation. An arm therefore needs at least **six** independent joints to reach arbitrary poses in its workspace. A **seventh** joint makes it **redundant**: the same hand pose can be reached with the elbow in different places. That helps it reach around obstacles, stay away from joint limits and singular configurations, and is why many research and collaborative arms (and the human arm) have seven.
 
-## Structure and Functionality
+## Kinematic types
 
-* **Structure:** Most manipulator arms are **serial kinematic chains**, where links and joints are arranged sequentially from base to end-effector. However, [[Parallel_Mechanisms_and_Robots|parallel]] or hybrid kinematic structures are also used, particularly for high-speed/high-precision tasks (e.g., [[Delta Robot]]). Common serial configurations are detailed in [[Manipulator_Arm_Types]].
-* **Functionality:** The primary function is to position and orient the [[End_Effector_Definition|End-Effector]] within the arm's reachable [[Workspace]] to perform manipulation tasks. Key aspects defining functionality include:
-    * **[[Kinematics]]:** Describes the geometric motion capabilities ([[Forward_Kinematics]], [[Inverse_Kinematics]], [[Workspace]], [[Degrees_of_Freedom]], [[Singularities]]).
-    * **[[Dynamics]]:** Describes the relationship between forces/torques and motion, considering mass, inertia, gravity, etc. ([[Torque_and_Force_Calculations]], [[Computed_Torque_Control|Computed Torque Control]]).
-    * **Performance Metrics:** Payload capacity, reach, speed, accuracy, and repeatability are critical specifications, especially for [[Industrial_Arms]].
+| Type | Joints | Typical use |
+|---|---|---|
+| **Articulated (anthropomorphic)** | 6–7 revolute | General purpose: welding, assembly, cobots |
+| **SCARA** | 2 revolute + 1 prismatic + wrist rotation | Fast pick-and-place on a plane, electronics |
+| **Cartesian (gantry)** | 3 prismatic | Large workspaces, 3D printers, CNC-like tasks |
+| **Delta (parallel)** | Three parallel arms | Very fast light picking (food, packaging); see [[Parallel_Robots]] |
 
-Manipulator arms are fundamental components in automation, capable of performing tasks requiring precise positioning, orientation, and interaction forces within their operational space.
+## Specifications that matter
 
----
+| Spec | Meaning | Typical range |
+|---|---|---|
+| **Payload** | Mass the arm can carry at the flange, including the gripper | 0.5 kg (small cobot) to 2,300 kg (heavy industrial) |
+| **Reach** | Maximum distance from base axis to flange | 0.3–4 m |
+| **Repeatability** | How closely it returns to a taught point | ±0.01–0.1 mm |
+| **Accuracy** | How closely it reaches a *commanded* point (needs calibration) | Often 10× worse than repeatability |
+| **Speed** | Joint speeds, or cycle time on a standard test motion | — |
 
-## Dataview Plugin Features
+## Worked example: why payload depends on reach
 
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
+A 5 kg payload held at a horizontal reach of 0.85 m exerts a static torque at the shoulder of
 
-### List of Related Concepts
+$$\tau = m g r = 5 \times 9.81 \times 0.85 = 41.7\ \text{N·m}.$$
+
+The arm's own links add more. Say 10 kg acting at an effective 0.4 m gives $10 \times 9.81 \times 0.4 = 39.2$ N·m, for a total of about **80.9 N·m** before any acceleration.
+
+With a 100:1 gearbox the motor must supply $80.9 / 100 = 0.81$ N·m, or about 1.0 N·m at 80% gearbox efficiency, just to hold still. Accelerating needs more. This is why rated payload falls when the load's centre of mass sits further from the flange, and why vendors publish **payload diagrams** rather than one number.
+
+## Programming and control (2026)
+
+| Method | How | Good for |
+|---|---|---|
+| **Teach pendant** | Jog to points and record them | Simple, repeated industrial tasks |
+| **Hand guiding** | Physically move a collaborative arm and record | Quick setup by non-experts |
+| **Offline programming** | Program and verify in simulation (digital twin) | Complex cells, no production downtime |
+| **Motion planning** | Give goals; a planner finds collision-free paths ([[MoveIt2]], cuRobo) | Changing scenes, perception-driven picking |
+| **Learned policies** | Train from teleoperated demonstrations or RL ([[Imitation_Learning]], [[Vision-Language-Action_Models]]) | Contact-rich, variable tasks (folding, assembly with variation) |
+
+Under all of these, a joint-level controller (PID or impedance control, often via [[ros2_control]]) runs at 500 Hz–1 kHz.
+
+## Dataview
 
 ```dataview
-LIST FROM "" WHERE contains(file.outlinks, [[Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Manipulator_Arm]])
 ```

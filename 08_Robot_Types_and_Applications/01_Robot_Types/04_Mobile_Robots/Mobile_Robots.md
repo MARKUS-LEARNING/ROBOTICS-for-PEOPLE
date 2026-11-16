@@ -1,116 +1,106 @@
 ---
 title: Mobile Robots
-description: An overview of mobile robots, which are capable of locomotion through various environments, covering types, components, capabilities, and applications.
+description: "Mobile robots move through their environment rather than staying bolted in place: wheeled, tracked, legged, flying and swimming. Covers the locomotion options, the navigation stack (perception, localization, mapping, planning, control), a computed stopping-distance example that sizes a safety field, where mobile robots work in 2026 (warehouses, delivery, robotaxis, homes), and what is still hard."
+aliases:
+  - Mobile Robot
+  - AMR
+  - Autonomous Mobile Robots
 tags:
-  - robot-types
   - mobile-robot
-  - locomotion
   - navigation
-  - wheeled-robot
-  - legged-robot
-  - amr
-  - underwater-robotics
-  - rover
-  - aerial-robotics
+  - locomotion
+  - autonomous-systems
 type: robot-type
 level: beginner
 subfield:
   - mobile-robots
-status: draft
+status: keystone
 author: Jordan_Smith
-date: 2025-04-28
-related:
+date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
   - "[[Robots]]"
-  - "[[Locomotion]]"
+related:
   - "[[Wheeled_Mobile_Robots]]"
   - "[[Legged_Robots]]"
-  - "[[Humanoid_Robots]]"
   - "[[Drones]]"
-  - "[[Underwater_and_Space_Robots]]"
-  - "[[Navigation]]"
-  - "[[Localization]]"
-  - "[[Mapping]]"
+  - "[[Nav2_Navigation]]"
   - "[[SLAM]]"
-  - "[[Perception]]"
-  - "[[Path_Planning_Algorithms]]"
-  - "[[Robot_Types_and_Applications]]"
+  - "[[Localization]]"
+  - "[[Autonomous_Robots]]"
+key_takeaways:
+  - "Choose locomotion by terrain: wheels for flat floors (efficient, simple), tracks for soft ground, legs for stairs and rubble, rotors for air, propellers or thrusters for water."
+  - "Every autonomous mobile robot answers four questions continuously: where am I (localization), what is around me (perception and mapping), where should I go (planning), how do I get there (control)."
+  - "Warehouse robots (Amazon passed one million in 2025) and robotaxis (Waymo about 400,000 paid rides per week in early 2026) are the largest deployments; mobile manipulation and humanoids are the frontier."
+sources:
+  - "Siegwart, R., Nourbakhsh, I. R. and Scaramuzza, D. (2011). Introduction to Autonomous Mobile Robots, 2nd edition. https://mitpress.mit.edu/9780262015356/introduction-to-autonomous-mobile-robots/"
+  - "Thrun, S., Burgard, W. and Fox, D. (2005). Probabilistic Robotics. https://mitpress.mit.edu/9780262201629/probabilistic-robotics/"
+  - "Macenski, S., Moore, T., Lu, D. V., Merzlyakov, A. and Ferguson, M. (2023). From the desks of ROS maintainers: A survey of modern & capable mobile robotics algorithms in the robot operating system 2. https://arxiv.org/abs/2307.15236"
+  - "TechCrunch (2025). Amazon deploys its one millionth robot, releases generative AI model. https://techcrunch.com/2025/07/01/amazon-deploys-its-one-millionth-robot-releases-generative-ai-model/"
+  - "Electrek (2026). Waymo begins fully autonomous ops with 6th-gen Driver, targets 1M weekly rides. https://electrek.co/2026/02/12/waymo-begins-fully-autonomous-ops-with-6th-gen-driver-targets-1m-weekly-rides/"
+  - "International Federation of Robotics (2026). Global Sales of Professional Service Robots Surge 24%. https://ifr.org/ifr-press-releases/news/global-sales-of-professional-service-robots-surge-24-percent"
 ---
 
 # Mobile Robots
 
-**Mobile Robots** are defined by their capacity for [[Locomotion|locomotion]] – the ability to move themselves through an environment. Unlike fixed [[Industrial_Arms|manipulators]] bolted to a factory floor, mobile robots can navigate potentially complex and unstructured spaces to perform tasks over extended areas. They represent a major branch of robotics, encompassing a wide variety of forms and application domains, unified by the core challenges of autonomous mobility.
+A **mobile robot** can move itself from place to place. A factory arm stays where it is bolted; a mobile robot carries its sensors, computer and tools through warehouses, streets, homes, fields, skies and oceans. Mobility multiplies what a robot can do and what can go wrong: the world keeps changing around it.
 
----
+> **Etymology.** Latin *mobilis*, "movable", from *movere*, "to move". Early milestones: Grey Walter's tortoises (1948–49), SRI's Shakey (1966–72), which first combined perception, planning and action, and the DARPA Grand Challenges (2004–07), which launched self-driving cars.
 
-## Key Components
+## Ways to move
 
-A typical autonomous mobile robot integrates several essential subsystems:
+| Locomotion | Best on | Trade-offs | See |
+|---|---|---|---|
+| **Wheels** | Flat, hard floors and roads | Efficient and simple; stopped by steps | [[Wheeled_Mobile_Robots]], [[Omnidirectional_Robots]] |
+| **Tracks** | Soft ground, rubble, slopes | Robust; inefficient when turning, damages floors | — |
+| **Legs** | Stairs, rough terrain, gaps | Versatile; complex and energy-hungry | [[Legged_Robots]], [[Humanoid_Robots]] |
+| **Rotors / wings** | Air | Fast, reach anywhere; short endurance | [[Drones]] |
+| **Thrusters / propellers** | Water | Large range underwater; communication is hard | [[Underwater_and_Space_Robots]] |
 
-* **Platform/Chassis:** The main structural body housing components.
-* **[[Locomotion]] System:** The mechanism enabling movement (e.g., wheels, legs, tracks, propellers). Covered in detail in [[Locomotion]].
-* **[[Sensors]]:**
-    * **Proprioceptive:** Measure internal state (e.g., [[IMU_Sensors]] for orientation/acceleration, [[Odometry|wheel encoders]] for distance traveled).
-    * **Exteroceptive:** Measure properties of the external environment (e.g., [[LIDAR]] or [[Ultrasonic_Sensors]] for rangefinding, [[Camera_Systems]] for vision, [[GPS]] for global position).
-* **Control System:** Onboard computing hardware and software responsible for:
-    * **[[Perception]]:** Interpreting sensor data.
-    * **[[Navigation]]:** The combination of [[Localization]] (determining position), [[Mapping]] (building environment representations), and [[Path_Planning_Algorithms|path planning]] (finding collision-free routes).
-    * **[[Motion_Control]]:** Executing planned paths or reactive behaviors (like [[Obstacle_Avoidance|Obstacle Avoidance]]) by commanding the locomotion system.
-    * **Decision Making:** Higher-level reasoning and task management ([[AI_and_Robot_Control]]).
-* **Power Source:** Provides energy for operation (e.g., batteries, fuel cells, internal combustion engines).
+## The navigation stack
 
----
+```
+sensors → perception → localization + mapping (SLAM) → planning (global path, local trajectory) → control → motors
+                                     ↑                                            |
+                                     └──────────────── feedback ──────────────────┘
+```
 
-## Types of Locomotion
+- **Localization**: where am I? (wheel odometry, IMU, lidar or visual matching to a map, GNSS outdoors). See [[Localization]].
+- **Mapping and SLAM**: what does the world look like? See [[SLAM]].
+- **Planning**: a global path on the map, a local trajectory around nearby obstacles. See [[Path_Planning_Algorithms]].
+- **Control**: track the trajectory with the drive system.
 
-Mobile robots are often categorized by their primary mode of locomotion:
+On ROS 2 robots, [[Nav2_Navigation|Nav2]] packages this stack.
 
-1.  **[[Wheeled_Mobile_Robots]]:** The most common type, especially for operation on relatively flat surfaces like indoor floors or paved areas. They offer high energy efficiency and mechanical simplicity. Various drive configurations exist, offering different trade-offs in stability, maneuverability, and controllability, including [[Differential_Drive]], Ackermann steering, omnidirectional drives, and Synchro drives.
-2.  **[[Legged_Robots]]:** Inspired by biological systems, these robots use articulated legs for locomotion. Examples include [[Bipedal Locomotion|bipeds]] ([[Humanoid_Robots]]), quadrupeds, and hexapods. They excel at traversing highly uneven terrain, discrete obstacles (like stairs), and gaps. However, they face significant challenges in control complexity (balance, gait generation), mechanical complexity, stability, and energy efficiency compared to wheeled robots.
-3.  **Tracked Robots:** Use continuous tracks (like tanks or bulldozers) for locomotion. Provide excellent traction and stability on loose or very rough terrain (e.g., rubble, sand). Steering typically involves slip/skid mechanisms, which makes [[Odometry]] unreliable and control less precise. Often used in military, demining, or construction applications.
-4.  **Flying Robots ([[Drones]] / UAVs):** Unmanned Aerial Vehicles use propellers or wings to achieve flight. Offer unique overhead perspectives for surveillance, mapping, inspection, and delivery. Key challenges include flight stability, limited endurance/payload, navigation in GPS-denied areas, and air traffic regulations. See [[Drones]].
-5.  **[[Underwater_and_Space_Robots|Underwater Robots]] (AUVs/ROVs):** Autonomous Underwater Vehicles (AUVs) and Remotely Operated Vehicles (ROVs) are designed for subsea exploration, inspection, and intervention. They typically use propellers or thrusters. Major challenges include waterproofing, pressure resistance, limited communication bandwidth (acoustic), and navigation without GPS. ROVs are remotely operated, AUVs are autonomous. See [[Underwater_and_Space_Robots]].
-6.  **[[Underwater_and_Space_Robots|Space Robots]] (Rovers):** Designed for exploring the surfaces of planets and moons (e.g., Mars rovers). Must cope with extreme temperatures, radiation, vacuum, communication delays, and challenging terrain. Often feature specialized wheel-leg hybrid suspension systems (like the rocker-bogie) for mobility. See [[Underwater_and_Space_Robots]].
-7.  **Other:** Various specialized or bio-inspired forms exist, such as snake-like robots for navigating pipes or rubble, climbing robots, and swimming robots.
+## Worked example: sizing a safety field
 
----
+A warehouse robot drives at 1.5 m/s and can brake at 1.0 m/s². Its safety lidar and controller take 0.2 s to react. Its stopping distance is
 
-## Key Challenges and Capabilities
+$$d = v\,t_{react} + \frac{v^2}{2a} = 1.5 \times 0.2 + \frac{1.5^2}{2 \times 1.0} = 0.30 + 1.125 = 1.425\ \text{m}.$$
 
-Developing autonomous mobile robots involves addressing several core challenges:
+The protective field in front of the robot must be at least 1.43 m long (plus a margin for measurement error) at this speed. At 0.5 m/s it shrinks to $0.1 + 0.125 = 0.225$ m. That is why mobile robots switch field sets with speed, and why they slow down in aisles where people walk: braking distance grows with the *square* of speed.
 
-* **[[Navigation]]:** Enabling the robot to successfully plan and execute movement from a starting point to a goal location, encompassing [[Localization]], [[Mapping]], and [[Path_Planning_Algorithms|Path Planning]]. This is arguably the central problem in mobile robotics.
-* **[[Perception]]:** Equipping the robot with sensors and algorithms to interpret its surroundings reliably, detect obstacles, identify landmarks, and build environmental models.
-* **[[Localization]]:** Accurately estimating the robot's own position and orientation within its environment, often using [[Sensor_Fusion]] techniques to combine data from various sensors ([[SLAM]] addresses simultaneous mapping and localization).
-* **[[Motion_Control]]:** Precisely controlling the robot's actuators to follow desired paths or execute specific maneuvers, considering the robot's [[Kinematics]] and [[Dynamics]].
-* **[[Obstacle_Avoidance|Obstacle Avoidance]]:** Reacting to unexpected static or dynamic obstacles detected in real-time.
-* **Power Management:** Operating efficiently to maximize mission duration given limited onboard energy storage.
-* **Robustness & Reliability:** Functioning consistently in complex, dynamic, and potentially harsh real-world conditions.
+## Where they work (2026)
 
----
+| Domain | Examples |
+|---|---|
+| **Warehouses and factories** | Goods-to-person robots, autonomous forklifts, tuggers. Amazon reported its one-millionth robot in July 2025, with a generative model (DeepFleet) coordinating fleet traffic |
+| **Roads** | Robotaxis. Waymo gave about 400,000 paid rides per week in February 2026, after 15 million rides in 2025, with a stated goal of over one million per week by the end of 2026 |
+| **Sidewalks and buildings** | Delivery robots, hospital and hotel delivery, cleaning robots. Professional service robots sold almost 250,000 units in 2025 (+24%); transport and logistics robots were 117,500 of them (IFR) |
+| **Inspection** | Legged and tracked robots in plants, tunnels and construction sites |
+| **Homes** | Robot vacuums and mops; home humanoids in early sales. Consumer service robots sold almost 34.2 million units in 2025, up 37% (IFR) |
+| **Fields, air and sea** | [[Agricultural_Robots]], [[Drones]], [[Underwater_and_Space_Robots]] |
 
-## Applications
+## What is still hard
 
-Mobile robots are used in a rapidly expanding range of applications:
+- **Crowds and social navigation**: moving efficiently without startling people.
+- **Long-term change**: furniture moves, seasons change, maps go stale.
+- **Rare events**: the "long tail" of unusual situations on roads and in public spaces.
+- **Mobile manipulation**: navigating *and* doing useful work with arms at the destination.
 
-* **Logistics & Warehousing:** Autonomous Mobile Robots (AMRs) and Automated Guided Vehicles (AGVs) for transporting goods.
-* **Exploration:** Planetary rovers, underwater vehicles for oceanography or archaeology, robots for exploring hazardous environments (e.g., disaster sites, mines, nuclear facilities).
-* **Service Robotics:** Delivery robots (hospitals, hotels, campuses), automated cleaning robots, security and surveillance robots, telepresence robots.
-* **[[Agricultural_Robots]]:** Autonomous tractors, robotic weeders, monitoring drones, automated harvesting systems.
-* **Military & Defense:** Reconnaissance (UAVs, UGVs), bomb disposal, logistics support.
-* **Construction & Mining:** Automated excavation, material transport, site survey.
-* **Personal & Domestic:** Robotic vacuum cleaners, lawnmowers, potential future assistants.
-* **Research & Education:** Platforms like Pioneer, Khepera, TurtleBot are widely used for teaching and research.
-
-The field continues to advance rapidly, driven by progress in sensing, computation, [[AI_and_Robot_Control|AI]], and battery technology, pushing mobile robots into increasingly diverse and challenging domains.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
-LIST FROM "" WHERE contains(file.outlinks, [[Robots]])
+LIST FROM "" WHERE contains(file.outlinks, [[Mobile_Robots]])
 ```

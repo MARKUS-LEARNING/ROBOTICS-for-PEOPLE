@@ -1,101 +1,80 @@
 ---
 title: Hamilton-Jacobi-Bellman Equation
-description: The Hamilton-Jacobi-Bellman (HJB) Equation is a partial differential equation central to optimal control theory, used to determine the optimal value function and derive optimal control policies.
+description: "The Hamilton–Jacobi–Bellman (HJB) equation is the partial differential equation the optimal cost-to-go satisfies in continuous-time optimal control. Covers where it comes from (Bellman's principle of optimality), a solved scalar example, how it reduces to the Riccati equation for LQR, the curse of dimensionality, and the discrete-time Bellman equation that reinforcement learning approximates."
+aliases:
+  - HJB Equation
+  - HJB
+  - Bellman Equation
 tags:
-  - control
-  - optimization
   - optimal-control
-  - dynamics
-  - mechanism
+  - reinforcement-learning
+  - control
 type: concept
-level: advanced
+level: research
 subfield:
   - control
-status: draft
+  - mathematics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Control_Theory]]"
-  - "[[State_Space_Representation]]"
-related:
-  - "[[Control_Theory]]"
   - "[[Optimal_Control]]"
+related:
   - "[[Pontryagin's_Minimum_Principle]]"
-  - "[[Dynamic_Programming]]"
-  - "[[State_Space_Representation]]"
-  - "[[Dynamics]]"
+  - "[[Reinforcement_Learning]]"
+  - "[[Markov_Decision_Process]]"
+key_takeaways:
+  - "The HJB equation states that the optimal cost-to-go V(x) balances the best instantaneous cost against the rate of change of V along the dynamics: 0 = min_u [ℓ(x, u) + ∇V·f(x, u)] (infinite horizon)."
+  - "For ẋ = u with cost ∫(x² + u²) dt, V(x) = x² and the optimal control is u = −x, which can be checked by substitution."
+  - "Solving HJB on a grid is exponential in the state dimension; reinforcement learning sidesteps this by approximating V or the policy with neural networks trained on samples."
+sources:
+  - "Bertsekas, D. P. (2017). Dynamic Programming and Optimal Control, 4th edition. http://www.athenasc.com/dpbook.html"
+  - "Liberzon, D. (2011). Calculus of Variations and Optimal Control Theory: A Concise Introduction, chapter 5. http://liberzon.csl.illinois.edu/teaching/cvoc.pdf"
+  - "Tedrake, R. (2026). Underactuated Robotics, chapter: Dynamic Programming. https://underactuated.csail.mit.edu/dp.html"
+  - "Sutton, R. S. and Barto, A. G. (2018). Reinforcement Learning: An Introduction, 2nd edition. http://incompleteideas.net/book/the-book-2nd.html"
 ---
 
 # Hamilton-Jacobi-Bellman Equation
 
-The **Hamilton-Jacobi-Bellman (HJB) Equation** is a partial differential equation central to optimal control theory, used to determine the optimal value function and derive optimal control policies. It provides a framework for solving optimization problems involving dynamic systems, where the goal is to minimize a cost function over time. The HJB equation is essential for designing control strategies that optimize performance in robotic systems.
+The **Hamilton–Jacobi–Bellman (HJB) equation** is the central equation of continuous-time optimal control. Its solution, the **value function** $V(\mathbf x)$, gives the minimum cost achievable from every state, and from it the optimal feedback controller follows immediately.
 
----
+> **Etymology.** It joins two traditions: William Rowan Hamilton's and Carl Jacobi's 19th-century equation from classical mechanics, and Richard Bellman's dynamic programming (1950s). Bellman chose the name "dynamic programming" partly, he later wrote, because it sounded impressive and hard to object to.
 
-## Key Concepts
+## From Bellman's principle
 
-### Value Function
+**Principle of optimality**: the remainder of an optimal path is itself optimal. Over a short interval $dt$, the optimal cost from $\mathbf x$ is the cost of the next instant plus the optimal cost from wherever that leads. Letting $dt \to 0$ gives, for an infinite-horizon problem with dynamics $\dot{\mathbf x} = f(\mathbf x, \mathbf u)$ and running cost $\ell$:
 
-The value function $V(\mathbf{x}, t)$ represents the optimal cost-to-go from a given state $\mathbf{x}$ at time $t$. It encapsulates the minimum cost that can be achieved from that state onward, following an optimal control policy.
+$$0 = \min_{\mathbf u}\ \Big[\, \ell(\mathbf x, \mathbf u) + \nabla V(\mathbf x)^\top f(\mathbf x, \mathbf u) \,\Big]$$
 
-### Hamiltonian
+(Finite-horizon problems add $\partial V/\partial t$ and a terminal condition.) The minimising $\mathbf u$ at each state *is* the optimal policy.
 
-The Hamiltonian function $H(\mathbf{x}, \mathbf{u}, \mathbf{\lambda}, t)$ is used in the HJB equation to relate the value function to the system dynamics and cost function. It is defined as:
+## Worked example
 
-$$
-H(\mathbf{x}, \mathbf{u}, \mathbf{\lambda}, t) = J(\mathbf{x}, \mathbf{u}, t) + \mathbf{\lambda}^T f(\mathbf{x}, \mathbf{u}, t)
-$$
+Dynamics $\dot x = u$, cost $\int_0^\infty (x^2 + u^2)\, dt$. Guess $V(x) = p x^2$. Then
 
-where:
-- $J(\mathbf{x}, \mathbf{u}, t)$ is the cost function.
-- $\mathbf{x}$ is the state vector.
-- $\mathbf{u}$ is the control input vector.
-- $f(\mathbf{x}, \mathbf{u}, t)$ represents the system dynamics.
-- $\mathbf{\lambda}$ is the costate vector.
+$$0 = \min_u \big[x^2 + u^2 + 2px\,u\big].$$
 
----
+Setting the derivative in $u$ to zero gives $u^* = -px$. Substituting: $0 = x^2 + p^2x^2 - 2p^2x^2 = (1 - p^2)x^2$, so $p = 1$ (taking the positive root, since cost is positive).
 
-## Mathematical Formulation
+**Result:** $V(x) = x^2$ and $u^* = -x$. Check from $x_0 = 2$: the closed loop $\dot x = -x$ gives $x = 2e^{-t}$, and the cost is $\int_0^\infty (4e^{-2t} + 4e^{-2t})\,dt = 4 = V(2)$. The value function correctly predicts the cost.
 
-### HJB Equation
+For general linear-quadratic problems, $V = \mathbf x^\top P \mathbf x$ and HJB reduces to the Riccati equation behind LQR (see [[Optimal_Control]]).
 
-The HJB equation is given by:
+## Why it is hard
 
-$$
--\frac{\partial V}{\partial t} = \min_{\mathbf{u}} \left[ J(\mathbf{x}, \mathbf{u}, t) + \nabla V \cdot f(\mathbf{x}, \mathbf{u}, t) \right]
-$$
+For nonlinear systems HJB rarely has a closed-form solution. Solving it numerically on a grid needs a number of points exponential in the state dimension: 100 points per dimension for a 12-dimensional quadruped state is $10^{24}$ points. This "curse of dimensionality" (Bellman's own phrase) limits exact methods to systems with a handful of states. Grid-based solvers are still used for low-dimensional safety analysis (reachability).
 
-where:
-- $V(\mathbf{x}, t)$ is the value function.
-- $\nabla V$ is the gradient of the value function with respect to the state vector $\mathbf{x}$.
-- The minimization is performed over all admissible control inputs $\mathbf{u}$.
+## The discrete cousin: Bellman's equation and RL
 
-### Optimal Control Policy
+In discrete time and with randomness, the same principle gives the **Bellman equation**:
 
-The optimal control policy $\mathbf{u}^*(\mathbf{x}, t)$ is derived by minimizing the Hamiltonian:
+$$V(s) = \max_a\ \Big[r(s, a) + \gamma\, \mathbb E\, V(s')\Big]$$
 
-$$
-\mathbf{u}^*(\mathbf{x}, t) = \arg\min_{\mathbf{u}} H(\mathbf{x}, \mathbf{u}, \nabla V, t)
-$$
+the heart of [[Reinforcement_Learning]] and [[Markov_Decision_Process|MDPs]]. Value-based RL (Q-learning, the critics in actor-critic methods) approximates its solution with neural networks from sampled experience, which is how robot policies escape the curse of dimensionality without a model.
 
-This policy provides the optimal control input at each state and time, ensuring that the system follows the optimal trajectory.
-
----
-
-## Applications in Robotics
-
-- **Trajectory Planning**: The HJB equation is used to plan optimal trajectories for robotic systems, minimizing cost functions such as energy consumption or execution time.
-- **Real-Time Control**: Enables the design of real-time control strategies that adapt to changing conditions and optimize performance.
-- **Autonomous Systems**: Optimizes the control of autonomous vehicles and robots in dynamic environments.
-- **Energy Management**: Minimizes energy consumption in robotic systems, extending their operational duration.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Hamilton-Jacobi-Bellman_Equation]])

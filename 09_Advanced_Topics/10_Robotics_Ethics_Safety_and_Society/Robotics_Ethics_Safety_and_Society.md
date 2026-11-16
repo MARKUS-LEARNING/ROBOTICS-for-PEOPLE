@@ -1,108 +1,79 @@
 ---
-title: Robotics Ethics, Safety, and Society
-description: This entry explores the ethical considerations, safety protocols, and societal implications of robotics, addressing the challenges and responsibilities in the development and deployment of robotic systems.
+title: Robotics Ethics, Safety and Society
+description: "Section overview for the social side of robotics: safety engineering and risk assessment (with a computed risk-matrix example), semantic and AI safety for robots that follow language instructions, labour and economic effects, privacy, accountability and regulation in 2026. Points to the detailed notes in this textbook."
+aliases:
+  - Robot Ethics
+  - Robotics and Society
+  - Robot Safety
 tags:
   - ethics
   - safety
-  - social-impact
-  - artificial-intelligence
+  - regulation
 type: overview
-level: advanced
+level: intermediate
 subfield:
   - ethics-society
-  - systems-engineering
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
+  - "[[Ethical_and_Social_Implications]]"
 related:
-  - "[[Artificial_Intelligence]]"
-  - "[[Ethics]]"
-  - "[[Safety]]"
-  - "[[Societal_Impact]]"
-  - "[[Machine_Learning]]"
+  - "[[Collaborative_Robots]]"
+  - "[[Formal_Methods_in_Control]]"
+  - "[[Humanoid_Robots]]"
+  - "[[Autonomous_Robots]]"
+key_takeaways:
+  - "Safety engineering starts with risk assessment: identify hazards, estimate severity and likelihood, reduce risk by design first, then by safeguards, then by information."
+  - "Robots that take language instructions add semantic safety: knowing that 'put the knife in the toddler's hand' is unsafe even if physically possible; 2025 work generated robot 'constitutions' and benchmarks for it."
+  - "Society-level questions (jobs, privacy, accountability, access) are shaped by regulation that in 2026 is still being phased in; builders should design for it now."
+sources:
+  - "Sermanet, P. et al. (2025). Generating Robot Constitutions & Benchmarks for Semantic Safety. https://arxiv.org/abs/2503.08663"
+  - "European Union (2024). Regulation (EU) 2024/1689: the Artificial Intelligence Act. https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+  - "European Union (2023). Regulation (EU) 2023/1230 on machinery products. https://eur-lex.europa.eu/eli/reg/2023/1230/oj"
+  - "International Federation of Robotics (2026). Five Million Robots now Operate in Factories Globally (World Robotics 2026). https://ifr.org/ifr-press-releases/news/five-million-robots-now-operate-in-factories-globally"
 ---
 
-# Robotics Ethics, Safety, and Society
+# Robotics Ethics, Safety and Society
 
-This entry explores the **ethical considerations, safety protocols, and societal implications** of robotics, addressing the challenges and responsibilities in the development and deployment of robotic systems. As robotics technologies advance, they bring significant benefits but also pose ethical dilemmas, safety concerns, and societal challenges that need to be carefully managed.
+This section gathers the human questions about robots: how to make them safe, how to decide what they should and should not do, and how they change work and life. The core discussion, including 2026 regulation, is in [[Ethical_and_Social_Implications]]; this overview adds safety-engineering method and the newest concerns.
 
----
+> **Etymology.** See [[Ethical_and_Social_Implications]].
 
-## Key Concepts
+## Safety engineering: risk assessment
 
-### Ethical Considerations
+Machinery safety follows a standard sequence:
+1. identify hazards (crushing, impact, falling objects, electrical, software errors);
+2. estimate the **risk** of each, typically as severity × probability;
+3. reduce it in priority order: **inherently safe design**, then **safeguards** (sensing, stops, guards), then **information** (warnings, training);
+4. check what risk remains and document it.
 
-Ethical considerations in robotics involve ensuring that these technologies are developed and used in ways that respect human rights, privacy, and autonomy. This includes addressing issues such as bias, discrimination, and the potential for misuse in areas like surveillance and autonomous weapons.
+**Worked example.** On a 1–5 scale for severity and probability, a mobile robot's hazards might score:
+- running over a foot: severity 2 × probability 3 = **6**;
+- collision with a person at full speed: 4 × 2 = **8**;
+- tipping over on a ramp while carrying a load: 4 × 1 = **4**.
 
-### Safety Protocols
+Reducing speed near people lowers the collision probability to 1 (score 4), and a lower centre of mass lowers tipping probability further. Real assessments follow standards (ISO 12100, and robot-specific ones such as ISO 10218 and ISO 13482) with more detailed scoring, but the logic is the same.
 
-Safety protocols in robotics involve the implementation of measures and standards to ensure the safe operation of robotic systems. This includes techniques such as fail-safe mechanisms, redundancy, and risk assessment, which enhance the reliability and safety of robots in various applications.
+## Semantic safety for instruction-following robots
 
-### Societal Impact
+Physical safety layers prevent dangerous *forces*. Robots driven by language and vision-language models also need **semantic** safety: understanding that some requests are dangerous or inappropriate even when physically feasible, such as handing a knife blade-first or putting metal in a microwave. In 2025, researchers generated robot "constitutions" (rules derived from data and refined by language models) and a benchmark (ASIMOV) for this kind of judgement. Semantic safety is now an active research area alongside classical functional safety.
 
-The societal impact of robotics encompasses their effects on employment, social interactions, and cultural norms. These technologies can lead to job displacement, changes in social dynamics, and new forms of interaction that need to be understood and managed.
+## Society
 
-### Regulatory Frameworks
+- **Work**: around 600,000 industrial robots were installed in 2025 alone (IFR); automation is spreading to logistics, services and, through humanoids, potentially to many manual jobs. The effects depend heavily on policy, training and how robots are deployed.
+- **Privacy**: home and workplace robots are mobile sensor platforms (see [[Ethical_and_Social_Implications]]).
+- **Accountability and liability** for learned behaviour.
+- **Access and fairness**: who benefits, and who bears the risks.
+- **Military use**: autonomous weapons and dual-use concerns.
 
-Regulatory frameworks are essential for guiding the ethical development and deployment of robotics. These frameworks include standards, guidelines, and laws that ensure these technologies are used responsibly and for the benefit of society.
+## Regulation (2026)
 
----
+EU AI Act obligations for high-risk AI phase in during 2027–2028; the EU Machinery Regulation applies from January 2027; the robot-safety standards were revised in 2025 (see [[Collaborative_Robots]]). Designing for these now is cheaper than retrofitting.
 
-## Ethical and Safety Challenges
-
-### Job Displacement
-
-The advancement of robotics can lead to significant job displacement, particularly in sectors like manufacturing, logistics, and service industries. This poses challenges for workforce transition and economic stability, requiring strategies for retraining and supporting affected workers.
-
-### Privacy Concerns
-
-Privacy concerns arise from the use of robotics in surveillance and data collection, where the potential for misuse and unauthorized access to personal information can threaten individual autonomy and freedom.
-
-### Autonomous Weapons
-
-The development of autonomous weapons raises ethical and legal challenges, particularly concerning the delegation of life-and-death decisions to machines. This necessitates robust frameworks to ensure accountability and human oversight.
-
-### Social and Political Environments
-
-Robotics can influence social and political environments by enabling new forms of surveillance and control, which may impact individual autonomy and societal norms. This requires careful consideration of their deployment and use.
-
----
-
-## Mathematical Formulation
-
-### Risk Assessment
-
-Risk assessment in robotics involves evaluating the potential risks and hazards associated with the operation of robotic systems. The risk $R$ can be represented as:
-
-$$
-R = P \times S
-$$
-
-where:
-- $R$ is the risk.
-- $P$ is the probability of an event occurring.
-- $S$ is the severity of the event.
-
-### Example: Ethical AI Deployment
-
-Consider a robotic system designed for healthcare applications. The system uses AI to diagnose and recommend treatments, ensuring that the algorithms are free from bias and respect patient privacy. The deployment of this system involves adherence to regulatory frameworks that promote transparency, accountability, and fairness, ensuring that the technology benefits all patients equitably.
-
----
-
-## Applications in Robotics
-
-- **Healthcare**: Ethical and safe robotics are used to improve diagnostics and treatment, ensuring that patient data is handled responsibly and that decisions are made fairly.
-- **Education**: Robotics can enhance learning experiences, providing personalized education while addressing concerns about data privacy and equity.
-- **Criminal Justice**: Ethical considerations in robotics are crucial for applications in criminal justice, ensuring that decisions are made without bias and with respect for individual rights.
-- **Military**: The use of robotics in military applications requires strict ethical guidelines to prevent misuse and ensure accountability in autonomous systems.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Robotics_Ethics_Safety_and_Society]])

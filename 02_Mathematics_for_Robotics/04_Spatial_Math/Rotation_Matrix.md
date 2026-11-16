@@ -177,7 +177,7 @@ where $\boldsymbol{\omega}$ is the angular velocity in the world frame. If $\bol
 
 ## Where rotation matrices appear
 
-- Coordinate-frame transformations at every level of a [[TF]] tree in ROS 2
+- Coordinate-frame transformations at every level of a [[TF_and_Topic_Architecture|TF]] tree in ROS 2
 - [[Forward_Kinematics]] composition of joint rotations
 - Camera extrinsics in multi-view geometry
 - IMU attitude estimation

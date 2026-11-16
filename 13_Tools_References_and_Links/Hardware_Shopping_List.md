@@ -1,13 +1,14 @@
 ---
 title: Hardware Shopping List
-description: A curated reference of robotics hardware platforms, computing boards, sensors, actuators, and tools — organized by category and budget tier — to guide hardware selection for projects from hobbyist to research grade.
+description: "A curated reference of robotics hardware as of November 2026: mobile bases, arms (including the low-cost SO-101 used with LeRobot), legged robots and humanoids, microcontrollers, single-board and edge-AI computers (Raspberry Pi 5, Jetson Orin Nano Super, Jetson Thor), sensors, actuators and tools, organised by budget tier, with guidance on choosing."
+aliases:
+  - Robotics Hardware
+  - Hardware Reference
 tags:
   - hardware
-  - shopping-list
   - components
   - references
   - electronics
-  - wishlist
   - sensors
   - actuators
 type: reference
@@ -15,29 +16,34 @@ level: beginner
 subfield:
   - electronics-embedded
   - mechanisms-actuation
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 related:
   - "[[Resources_Index]]"
   - "[[Microcontroller]]"
-  - "[[LIDAR]]"
-  - "[[Camera_Systems]]"
-  - "[[IMU_Sensors]]"
-  - "[[Actuator]]"
   - "[[Arduino]]"
-  - "[[Python_for_Robotics]]"
-  - "[[ROS_2_Overview]]"
+  - "[[CUDA]]"
+  - "[[Labs_Projects_and_Tutorials]]"
   - "[[ros2_control]]"
-  - "[[Gazebo_Simulator]]"
-  - "[[Sim2Real_Experiments]]"
+key_takeaways:
+  - "Start in simulation, then buy the cheapest hardware that answers your question: a low-cost arm (SO-101) or small mobile base teaches most of what a research platform does."
+  - "Compute is the fastest-moving category: Raspberry Pi 5 for ROS 2 basics, Jetson Orin Nano Super for vision, Jetson Thor (up to 2070 FP4 TFLOPS, 128 GB) for onboard foundation models."
+  - "Prices and availability change quickly; vendor figures here are indicative and should be checked before buying."
+sources:
+  - "NVIDIA (2026). Jetson Thor series. https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-thor/"
+  - "Hugging Face (2026). LeRobot documentation: SO-101 arm. https://huggingface.co/docs/lerobot/so101"
+  - "Unitree Robotics (2026). G1 humanoid specifications and price. https://www.unitree.com/g1"
+  - "Arduino (2026). UNO R4 Minima documentation. https://docs.arduino.cc/hardware/uno-r4-minima/"
 ---
 
 # Hardware Shopping List & Reference
 
 A curated reference for robotics hardware selection — from hobby kits to research platforms. Organized by component category with budget tiers and application guidance.
 
-*Supplier examples are illustrative and not endorsements. Prices change frequently — verify current pricing before purchasing.*
+*Supplier examples are illustrative and not endorsements. Prices are indicative (mostly 2025–2026 list prices) and change frequently; verify before purchasing.*
 
 See also: [[Resources_Index]], [[ros2_control]], [[Sim2Real_Experiments]]
 
@@ -69,7 +75,7 @@ Ready-to-use or near-complete platforms that integrate computing, sensing, actua
 | **xArm 6 / xArm 7** (uFactory) | 6/7 | $$$ (~$3,000–5,000) | Mid-range industrial-grade arm |
 | **Franka Panda / FR3** | 7 | $$$$ (~$15,000) | Research manipulation; torque-controlled |
 | **Universal Robots UR3e/UR5e** | 6 | $$$$ | Industry-standard cobot |
-| **SO-ARM100** | 6 | $ (~$100) | Low-cost learning/LeRobot compatible |
+| **SO-101** (successor to SO-ARM100) | 6 | $ (low cost; parts list in the LeRobot docs) | Low-cost leader–follower arm for LeRobot imitation learning |
 | **Koch v1.1** | 6 | $ (~$250) | Open-source; teleoperation + imitation learning |
 
 ### Legged Robots
@@ -77,7 +83,7 @@ Ready-to-use or near-complete platforms that integrate computing, sensing, actua
 | Platform | Price Tier | Notes |
 |---|---|---|
 | **Unitree Go2** | $$$ (~$2,700) | Quadruped; SDK + ROS 2 bridge available |
-| **Unitree G1** | $$$$ (~$16,000) | Humanoid; research-grade |
+| **Unitree G1** | $$$$ (from ~$13,500, Unitree list price 2026) | Humanoid; research-grade; 23–43 DoF |
 | **Boston Dynamics Spot** | $$$$ (~$75,000) | Industrial-grade quadruped |
 | **Anybotics ANYmal** | $$$$ | Research quadruped; force-controlled |
 | **Petoi Bittle X** | $ (~$300) | Mini quadruped; beginner/education |
@@ -109,9 +115,10 @@ Run full Linux + ROS 2. Used for onboard computation, perception, and high-level
 | Board | CPU | GPU/AI | RAM | Best For | Price |
 |---|---|---|---|---|---|
 | **Raspberry Pi 5** | Cortex-A76 quad 2.4GHz | — | 4/8 GB | ROS 2, navigation, lightweight vision | ~$80 |
-| **NVIDIA Jetson Orin Nano** | Cortex-A78AE 6-core | 1024 CUDA cores | 8 GB | AI inference, perception pipelines | ~$250 |
+| **NVIDIA Jetson Orin Nano Super** | Cortex-A78AE 6-core | 1024 CUDA cores | 8 GB | AI inference, perception pipelines | ~$250 |
 | **NVIDIA Jetson Orin NX 16** | Cortex-A78AE 8-core | 1024 CUDA cores | 16 GB | Advanced perception, RL deployment | ~$500 |
 | **NVIDIA Jetson AGX Orin** | Cortex-A78AE 12-core | 2048 CUDA cores | 32/64 GB | Full research compute on robot | ~$1,000 |
+| **NVIDIA Jetson AGX Thor** (2025) | Arm Neoverse | Blackwell GPU, up to 2070 FP4 TFLOPS | 128 GB | Onboard VLAs and foundation models on humanoids | ~$3,500 (developer kit) |
 | **BeagleBone AI-64** | TDA4VM dual Cortex-A72 | MMA accelerator | 4 GB | Real-time + AI hybrid tasks | ~$240 |
 | **Khadas VIM4** | Cortex-A73 quad + A53 quad | NPUR 5 TOPs | 8 GB | Budget AI compute | ~$130 |
 

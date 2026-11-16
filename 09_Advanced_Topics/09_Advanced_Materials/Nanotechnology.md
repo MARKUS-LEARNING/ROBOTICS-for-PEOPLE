@@ -1,125 +1,75 @@
 ---
 title: Nanotechnology
-description: Nanotechnology involves the manipulation and engineering of materials and devices at the nanoscale, typically between 1 and 100 nanometers.
+description: "Nanotechnology works with structures from about 1 to 100 nanometres, where surface forces, quantum effects and viscosity dominate. Covers the scales involved, why physics changes when things shrink (a computed Reynolds-number example), fabrication approaches, molecular machines (Nobel Prize 2016), nanomaterials used in robots (sensors, batteries, coatings), and the honest state of nanorobotics."
+aliases:
+  - Nanotech
+  - Nanoscale Engineering
 tags:
+  - nanotechnology
   - materials
-type: concept
-level: advanced
+type: overview
+level: intermediate
 subfield:
   - micro-nano
-  - mechanisms-actuation
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
-related:
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
   - "[[Material_Science]]"
-  - "[[Robot_Design]]"
-  - "[[Mechatronics]]"
-  - "[[Sensors]]"
-  - "[[Actuator]]"
-  - "[[Control_Systems]]"
-  - "[[Manipulator_Arm]]"
-  - "[[Legged_Robots]]"
-  - "[[Wheeled_Mobile_Robots]]"
+related:
+  - "[[Nanorobots]]"
+  - "[[MEMS]]"
+  - "[[Smart_Materials]]"
+key_takeaways:
+  - "At the nanometre scale, gravity and inertia become negligible while surface forces, Brownian motion and viscosity dominate."
+  - "A 10 µm swimmer moving 10 µm/s in water has a Reynolds number of about 0.0001: it cannot coast, and must keep pushing like a person swimming in thick honey."
+  - "Nanotechnology already improves robots indirectly (sensors, battery electrodes, coatings, flexible electronics); autonomous nanometre-scale robots remain research."
+sources:
+  - "Feynman, R. P. (1959). There's Plenty of Room at the Bottom. https://web.pa.msu.edu/people/yang/RFeynman_plentySpace.pdf"
+  - "Nobel Prize Outreach (2016). The Nobel Prize in Chemistry 2016: the design and synthesis of molecular machines. https://www.nobelprize.org/prizes/chemistry/2016/summary/"
+  - "Zhou, J. et al. (2023). System integration of magnetic medical microrobots: from design to control. https://pmc.ncbi.nlm.nih.gov/articles/PMC10758462/"
 ---
 
 # Nanotechnology
 
-**Nanotechnology** involves the manipulation and engineering of materials and devices at the nanoscale, typically between 1 and 100 nanometers. This field focuses on creating structures and systems with novel properties and functions due to their extremely small size. Nanotechnology has wide-ranging applications in robotics, including the development of advanced sensors, actuators, and materials with enhanced performance characteristics.
+**Nanotechnology** is the science and engineering of matter at the scale of nanometres (billionths of a metre): roughly 1–100 nm, between single molecules and the smallest features of a living cell. At that scale materials behave differently, and the rules that govern robots built from metal and motors stop applying.
 
----
+> **Etymology.** Greek *nanos*, "dwarf". Richard Feynman's 1959 talk *There's Plenty of Room at the Bottom* is the usual starting point; Norio Taniguchi coined *nanotechnology* in 1974.
 
-## Key Concepts in Nanotechnology
+## Scales
 
-1. **Nanomaterials**: Materials engineered at the nanoscale to exhibit unique physical and chemical properties. Examples include carbon nanotubes, nanoparticles, and nanocomposites. These materials often possess enhanced strength, conductivity, and reactivity compared to their bulk counterparts.
-   <br>
+| Object | Size |
+|---|---|
+| Atom | ~0.1–0.3 nm |
+| DNA helix width | ~2 nm |
+| Virus | ~20–300 nm |
+| Transistor features (2026 chips) | a few nm to tens of nm |
+| Bacterium | ~1–2 µm |
+| Human hair width | ~70 µm |
 
-2. **Nanofabrication**: The process of designing and manufacturing devices at the nanoscale, often using techniques like lithography, etching, and deposition. Nanofabrication enables the creation of intricate structures with precise control over dimensions and properties.
-   <br>
+## Why physics changes
 
-3. **Nanorobotics**: The development of robots or machines that operate at the nanoscale, with potential applications in medicine, manufacturing, and environmental remediation. Nanorobots can perform tasks such as targeted drug delivery, microsurgery, and environmental cleanup.
-   <br>
+Shrink an object and its volume (mass, inertia) falls like ^3$ while its surface falls like ^2$: surface forces (adhesion, friction, electrostatics) win. Thermal jostling (Brownian motion) becomes significant, and fluids behave as if extremely viscous.
 
-4. **Nanomanipulation**: The precise control and movement of objects at the nanoscale. This is achieved using specialized tools and techniques, such as atomic force microscopy (AFM) and optical tweezers. Nanomanipulation is crucial for assembling nanodevices and studying the behavior of nanoscale systems.
-   <br>
+**Worked example: the Reynolds number.** $\mathrm{Re} = \rho v L/\mu$ compares inertia with viscosity. For a 10 µm swimmer at 10 µm/s in water ($\rho = 1000$ kg/m³, $\mu = 10^{-3}$ Pa·s):
 
----
+57905\mathrm{Re} = \frac{1000 \times 10^{-5} \times 10^{-5}}{10^{-3}} = 10^{-4}.57905
 
-## Key Equations
+A person swimming has $\mathrm{Re} \sim 10^6$. At ^{-4}$, inertia is irrelevant: stop pushing and you stop almost instantly, and reciprocal strokes (open–close) achieve no net motion, so propulsion needs corkscrews or travelling waves, as bacteria use. Physicist E. M. Purcell's 1977 lecture *Life at Low Reynolds Number* made this famous.
 
-### Surface Area to Volume Ratio
+## Making things small
 
-The surface area to volume ratio of a spherical nanoparticle is given by:
+- **Top-down**: lithography and etching (chips, MEMS, NEMS).
+- **Bottom-up**: chemistry and self-assembly (molecules, DNA origami, nanoparticles).
+- **Molecular machines**: synthetic molecular switches, shuttles and rotary motors, recognised by the 2016 Nobel Prize in Chemistry (Sauvage, Stoddart, Feringa).
 
-$$
-\frac{A}{V} = \frac{6}{d}
-$$
+## Nanotechnology in robots today
 
-where:
-- $A$ is the surface area.
-- $V$ is the volume.
-- $d$ is the diameter of the nanoparticle.
+Nanomaterials improve sensors (graphene and nanowire strain sensors, tactile skins), batteries (nanostructured electrodes), coatings (wear, friction, water repellency) and flexible electronics. Nanotechnology also underpins the chips that run robot AI. Autonomous robots *at* the nanoscale are not yet practical; the closest working systems are micro-scale, externally driven devices (see [[Nanorobots]]).
 
-This ratio is critical in understanding the unique properties of nanomaterials, as it influences their reactivity and interaction with other substances.
-
-### Quantum Confinement
-
-The energy levels in nanoscale structures due to quantum confinement are described by:
-
-$$
-E = \frac{h^2 n^2}{8mL^2}
-$$
-
-where:
-- $E$ is the energy level.
-- $h$ is Planck's constant.
-- $n$ is the quantum number.
-- $m$ is the mass of the particle.
-- $L$ is the confinement length.
-
-This equation describes how energy levels change in nanoscale structures due to quantum effects.
-
-### Nanoparticle Concentration
-
-The concentration $C$ of nanoparticles in a solution is given by:
-
-$$
-C = \frac{N}{V}
-$$
-
-where:
-- $C$ is the concentration.
-- $N$ is the number of nanoparticles.
-- $V$ is the volume of the solution.
-
-This equation is used to determine the density of nanoparticles in a given medium.
-
----
-
-## Impact on Robotics
-
-- **Advanced Sensors**: Nanotechnology enables the creation of highly sensitive and precise sensors, capable of detecting minute changes in the environment. These sensors are essential for robotic systems that require accurate perception and interaction with their surroundings.
-  <br>
-
-- **Enhanced Actuators**: Nanoscale actuators can provide precise control and movement, essential for applications requiring fine manipulation. These actuators are often based on materials like piezoelectrics, which can convert electrical energy into mechanical motion at the nanoscale.
-  <br>
-
-- **Material Innovations**: Nanomaterials offer improved strength, durability, and functionality, enhancing the performance of robotic components. For example, carbon nanotubes can be used to create lightweight and robust structures, while nanoparticles can enhance the thermal and electrical properties of materials.
-  <br>
-
-- **Nanomanipulation**: The ability to manipulate objects at the nanoscale opens up new possibilities for robotic systems. Nanomanipulation techniques are used in the assembly of nanodevices, the study of biological systems, and the development of advanced materials.
-  <br>
-
-- **Design and Integration**: The selection and integration of nanotechnology are important aspects of [[Robot_Design|Robot Design]] and [[Mechatronics]], influencing the capabilities and efficiency of robotic systems. Nanotechnology allows for the creation of smaller, more efficient, and more capable robotic components.
-  <br>
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Nanotechnology]])

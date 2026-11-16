@@ -1,110 +1,86 @@
 ---
 title: Nonlinear Control Theory
-description: Nonlinear Control Theory addresses the challenges of controlling systems with nonlinear dynamics, providing methods and strategies to stabilize and regulate such systems.
+description: "Tools for analysing and controlling nonlinear systems such as robots: Lyapunov stability (with an energy-based pendulum example), LaSalle's principle, feedback linearisation, backstepping, sliding modes, passivity, and control Lyapunov and barrier functions, which in 2026 are the main way to give learned controllers stability and safety guarantees."
+aliases:
+  - Nonlinear Control
+  - Lyapunov Stability
+  - Lyapunov Theory
 tags:
   - control
-  - nonlinear-systems
-  - control-theory
-  - dynamics
-  - mechanism
-  - manipulator-arm
-type: method
-level: advanced
+  - stability
+  - mathematics
+type: concept
+level: research
 subfield:
   - control
-status: draft
+  - mathematics
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
   - "[[Control_Theory]]"
-  - "[[Adaptive_Control]]"
-  - "[[Robust_Control]]"
+  - "[[State_Space_Representation]]"
 related:
-  - "[[Control_Theory]]"
-  - "[[Dynamics]]"
   - "[[Feedback_Linearization]]"
-  - "[[Sliding_Mode_Control]]"
-  - "[[Lyapunov_Stability]]"
-  - "[[Adaptive_Control]]"
-  - "[[Robust_Control]]"
+  - "[[Robust_Control_Methods]]"
+  - "[[Adaptive_Control_Theory]]"
+  - "[[Collision_Avoidance]]"
+key_takeaways:
+  - "Robots are nonlinear (gravity terms with sin q, posture-dependent inertia, contact), so linear tools only hold locally; nonlinear theory gives guarantees over large regions."
+  - "Lyapunov's direct method proves stability without solving the equations: find an energy-like V > 0 that never increases; for a damped pendulum, total energy works and V̇ = −b θ̇²."
+  - "Control Lyapunov and barrier functions turn stability and safety into constraints a quadratic program can enforce in real time, around any nominal controller, including learned ones."
+sources:
+  - "Khalil, H. K. (2002). Nonlinear Systems, 3rd edition. https://www.pearson.com/en-us/subject-catalog/p/nonlinear-systems/P200000003364"
+  - "Murray, R. M., Li, Z. and Sastry, S. S. (1994). A Mathematical Introduction to Robotic Manipulation. http://www.cds.caltech.edu/~murray/books/MLS/pdf/mls94-complete.pdf"
+  - "Tedrake, R. (2026). Underactuated Robotics, chapter: Lyapunov Analysis. https://underactuated.csail.mit.edu/lyapunov.html"
+  - "Ames, A. D. et al. (2019). Control Barrier Functions: Theory and Applications. https://arxiv.org/abs/1903.11199"
 ---
 
 # Nonlinear Control Theory
 
-**Nonlinear Control Theory** addresses the challenges of controlling systems with nonlinear dynamics, providing methods and strategies to stabilize and regulate such systems. Unlike linear control theory, which assumes linear relationships between inputs and outputs, nonlinear control theory deals with systems where these relationships are nonlinear. This is particularly relevant in robotics, where many systems exhibit nonlinear behavior due to complex dynamics, interactions, and constraints.
+**Nonlinear control theory** analyses and designs controllers for systems whose dynamics are not linear: almost every real robot. Gravity torques vary with $\sin q$, inertia changes with posture, friction and contact switch abruptly. Linearising works near one operating point; nonlinear tools give guarantees across large regions of the state space.
 
----
+> **Etymology.** Aleksandr Lyapunov's 1892 doctoral thesis, *The General Problem of the Stability of Motion*, founded the field. Its methods were largely unknown in the West until the 1960s.
 
-## Key Concepts
+## Lyapunov stability
 
-### Nonlinear Systems
+An equilibrium is **stable** if starting near it keeps you near it, and **asymptotically stable** if you also return to it. Lyapunov's **direct method** proves this without solving the dynamics: find a function $V(\mathbf x)$ that is positive except at the equilibrium (where it is 0) and never increases along trajectories, $\dot V \le 0$. If $\dot V < 0$ away from the equilibrium, the system is asymptotically stable.
 
-Nonlinear systems are characterized by dynamics that cannot be described by linear equations. These systems often exhibit complex behaviors such as limit cycles, chaos, and multiple equilibrium points. Nonlinear control theory provides tools to analyze and control these systems effectively.
+### Worked example: a damped pendulum
 
-### Feedback Linearization
+$ml^2\ddot\theta + b\dot\theta + mgl\sin\theta = 0$. Take total energy as $V$:
 
-Feedback linearization is a technique used to transform a nonlinear system into an equivalent linear system through a change of coordinates and feedback control. This allows linear control methods to be applied to the transformed system.
+$$V = \tfrac12 ml^2\dot\theta^2 + mgl(1 - \cos\theta) \ \ge 0.$$
 
-- **Mathematical Representation**:
-  Given a nonlinear system:
-  $$
-  \dot{\mathbf{x}} = f(\mathbf{x}) + g(\mathbf{x}) \mathbf{u}
-  $$
-  Feedback linearization involves finding a control law $\mathbf{u}$ such that the closed-loop system is linear.
+Differentiating along the dynamics,
 
-### Sliding Mode Control
+$$\dot V = ml^2\dot\theta\ddot\theta + mgl\sin\theta\,\dot\theta = \dot\theta(-b\dot\theta - mgl\sin\theta) + mgl\sin\theta\,\dot\theta = -b\dot\theta^2 \le 0.$$
 
-Sliding mode control is a robust control method designed to handle nonlinearities and uncertainties in the system dynamics. It forces the system states to slide along a predefined surface, ensuring stability and performance despite disturbances.
+Energy never increases, so the pendulum is stable. $\dot V$ is zero whenever $\dot\theta = 0$ (not only at the bottom), so the direct method alone gives only stability. **LaSalle's invariance principle** completes the argument: the only trajectory that can stay where $\dot\theta = 0$ is the equilibrium itself, so the pendulum converges to hanging straight down.
 
-- **Mathematical Representation**:
-  The control law is designed to drive the system states to a sliding surface $s(\mathbf{x}) = 0$:
-  $$
-  \mathbf{u} = \mathbf{u}_{eq} - K \cdot \text{sign}(s(\mathbf{x}))
-  $$
-  where $\mathbf{u}_{eq}$ is the equivalent control, and $K$ is the control gain.
+## Design methods
 
-### Lyapunov Stability
+| Method | Idea | Robot use |
+|---|---|---|
+| **[[Feedback_Linearization]]** | Cancel the nonlinearity with the control input | Computed-torque control of arms |
+| **Backstepping** | Build a controller and Lyapunov function step by step through a chain of integrators | Drones, underactuated systems |
+| **Sliding mode** | Drive the state onto a surface where dynamics are simple, and stay there despite bounded uncertainty | Robust tracking; see [[Robust_Control_Methods]] |
+| **Passivity-based control** | Shape the system's energy; passive systems interconnect stably | Interaction and teleoperation with force feedback |
+| **Control Lyapunov functions (CLF)** | Choose inputs that make $\dot V$ sufficiently negative, by quadratic program | Bipedal walking controllers |
+| **Control barrier functions (CBF)** | Choose inputs that keep a safe set invariant | Safety filters (see [[Collision_Avoidance]]) |
 
-Lyapunov stability is a fundamental concept in nonlinear control theory, providing a method to analyze the stability of nonlinear systems without solving the differential equations directly. It involves finding a Lyapunov function $V(\mathbf{x})$ that satisfies certain conditions to prove stability.
+## Nonlinear theory and learned control (2026)
 
-- **Lyapunov Function**:
-  $$
-  V(\mathbf{x}) > 0 \quad \text{and} \quad \dot{V}(\mathbf{x}) \leq 0
-  $$
-  where $V(\mathbf{x})$ is a positive definite function, and $\dot{V}(\mathbf{x})$ is its time derivative.
+Neural-network policies are nonlinear controllers whose stability is not obvious. Active research directions:
+- **learned Lyapunov or barrier certificates**: train a second network to be a Lyapunov or barrier function and verify its conditions, by sampling, by formal verification for small networks, or in a defined region;
+- **CBF safety filters**: a QP adjusts a learned policy's command minimally so the barrier condition holds;
+- **stable-by-construction architectures** for learned dynamics.
 
----
+These give learned robots guarantees in the same mathematical language as classical control.
 
-## Advanced Control Strategies
-
-### Backstepping
-
-Backstepping is a recursive design method for stabilizing nonlinear systems. It involves designing control laws for subsystems and combining them to stabilize the overall system.
-
-### Adaptive Control
-
-Adaptive control involves adjusting the control parameters in real-time to accommodate changes in the system dynamics or external conditions. This approach is particularly useful when the system model is uncertain or varies over time.
-
-### Robust Control
-
-Robust control focuses on designing controllers that can withstand uncertainties and disturbances, ensuring system stability and performance under adverse conditions. Techniques such as H-infinity control and sliding mode control are commonly used in robust control.
-
----
-
-## Applications in Robotics
-
-- **Robotic Manipulators**: Nonlinear control theory is used to stabilize and control robotic manipulators with complex, nonlinear dynamics.
-- **Autonomous Vehicles**: Ensures stable and efficient control of autonomous vehicles in dynamic and uncertain environments.
-- **Aerospace**: Designing control systems for aircraft and spacecraft that can handle nonlinear aerodynamics and complex maneuvers.
-- **Industrial Automation**: Implementing control strategies for manufacturing processes that involve nonlinear dynamics and constraints.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Nonlinear_Control_Theory]])

@@ -1,120 +1,75 @@
 ---
 title: Microelectromechanical Systems (MEMS)
-description: Microelectromechanical Systems (MEMS) are miniaturized devices that integrate mechanical and electrical components on a common silicon substrate, typically ranging from 1 to 100 micrometers in size.
+description: "MEMS are machines micrometres in size made with chip-fabrication methods: accelerometers, gyroscopes, pressure sensors, microphones, micromirrors and micro-actuators. Covers how they are made and how a MEMS gyroscope works, a computed drift example showing why IMUs need fusion, their role in every 2026 robot, and MEMS actuators for microrobots."
+aliases:
+  - MEMS
+  - Microelectromechanical Systems
+  - MEMS Sensors
 tags:
   - sensors
-  - actuators
+  - materials
+  - electronics
 type: concept
-level: advanced
+level: intermediate
 subfield:
+  - electronics-embedded
   - micro-nano
-  - mechanisms-actuation
-  - perception
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Robot_Design]]"
-  - "[[Actuator]]"
-  - "[[Mechatronics]]"
-related:
-  - "[[Material_Science]]"
-  - "[[Robot_Design]]"
-  - "[[Mechatronics]]"
   - "[[Sensors]]"
-  - "[[Actuator]]"
-  - "[[Control_Systems]]"
-  - "[[Manipulator_Arm]]"
-  - "[[Legged_Robots]]"
-  - "[[Wheeled_Mobile_Robots]]"
+related:
+  - "[[IMU_Sensors]]"
+  - "[[Advanced_Sensor_Fusion]]"
+  - "[[Nanotechnology]]"
+  - "[[Smart_Materials]]"
+key_takeaways:
+  - "MEMS put moving mechanical structures on silicon chips, which made accelerometers, gyroscopes and microphones cheap and tiny enough for every phone, drone and robot."
+  - "A MEMS gyroscope measures rotation through the Coriolis force on a vibrating mass; a bias of 10 °/h integrates to 0.17° of heading error per minute, which is why IMUs are fused with other sensors."
+  - "MEMS actuators (electrostatic comb drives, micromirrors, piezo films) power optics, lidar scanners and microrobots."
+sources:
+  - "Bosch Sensortec (2026). Inertial measurement units (MEMS). https://www.bosch-sensortec.com/products/motion-sensors/imus/"
+  - "Zhang, L. et al. (2021). A comparative review of artificial muscles for microsystem applications. https://www.nature.com/articles/s41378-021-00323-5"
+  - "Feynman, R. P. (1959). There's Plenty of Room at the Bottom. https://web.pa.msu.edu/people/yang/RFeynman_plentySpace.pdf"
 ---
 
 # Microelectromechanical Systems (MEMS)
 
-**Microelectromechanical Systems (MEMS)** are miniaturized devices that integrate mechanical and electrical components on a common silicon substrate, typically ranging from 1 to 100 micrometers in size. These devices are fabricated using techniques similar to those used in the semiconductor industry, allowing for precise control over their dimensions and properties. MEMS are widely used in robotics for creating compact, efficient, and highly functional sensors and actuators.
+**MEMS** are mechanical devices, such as beams, springs, membranes and moving masses, built at the scale of micrometres using the same lithography and etching processes that make computer chips. They turned motion and pressure sensors from precision instruments into components costing cents, and made drones, phones and modern robots possible.
 
----
+> **Etymology.** *Micro-electro-mechanical systems*, a term from the late 1980s. Silicon accelerometers for car airbags in the early 1990s were the first mass market.
 
-## Key Components of MEMS
+## How they are made
 
-1. **Sensors**: MEMS sensors are used to measure various physical quantities such as acceleration, pressure, temperature, and magnetic fields. They are essential in robotic systems for providing feedback and enabling interaction with the environment.
-   <br>
+Silicon wafers are patterned by photolithography and etched (deep reactive-ion etching) to release free-standing structures, sometimes bonded to other wafers and sealed in a vacuum. Thousands of devices are made at once on one wafer, which is why they are cheap.
 
-2. **Actuators**: MEMS actuators convert electrical energy into mechanical motion, enabling precise control over movement and positioning. They are used in applications requiring fine manipulation and dynamic response.
-   <br>
+## Common MEMS devices in robots
 
-3. **Microfabrication**: The process of creating MEMS devices involves techniques like photolithography, etching, and deposition, allowing for the creation of intricate structures with high precision.
-   <br>
+| Device | Principle | Robot use |
+|---|---|---|
+| **Accelerometer** | Proof mass on springs; displacement sensed capacitively | Tilt, vibration, impacts; part of every IMU |
+| **Gyroscope** | Vibrating mass; rotation causes a Coriolis force sensed as motion in another axis | Orientation, balance, stabilisation |
+| **Pressure sensor** | Membrane deflection | Altitude in drones, pneumatic actuators, touch |
+| **Microphone** | Membrane | Speech interfaces, acoustic sensing |
+| **Micromirror** | Electrostatic or electromagnetic tilting mirror | Scanning lidar, projectors |
+| **Actuators** | Electrostatic comb drives, thermal, piezo films | Micro-positioning, microrobots |
 
----
+## Worked example: why gyros need help
 
-## Key Equations
+Integrating a gyroscope's rate gives orientation, but its small constant error (**bias**) integrates too. With a residual bias of 10 °/h, typical of good consumer-grade parts after calibration:
 
-### Capacitive Sensor Principle
+57905\text{heading error after 60 s} = 10 \times \frac{60}{3600} = 0.17°.57905
 
-The capacitance $C$ of a capacitive sensor is given by:
+After 10 minutes it is 1.7°, and real biases also wander with temperature. A walking robot or drone therefore fuses the gyro with accelerometers (gravity fixes roll and pitch), magnetometers, cameras or lidar (to fix heading and position) in a filter (see [[Advanced_Sensor_Fusion]]). Tactical- and navigation-grade gyros are far more stable but cost orders of magnitude more.
 
-$$
-C = \frac{\epsilon_0 \epsilon_r A}{d}
-$$
+## MEMS in 2026
 
-where:
-- $C$ is the capacitance.
-- $\epsilon_0$ is the permittivity of free space.
-- $\epsilon_r$ is the relative permittivity of the material.
-- $A$ is the area of the capacitor plates.
-- $d$ is the distance between the plates.
+Every robot carries MEMS IMUs, usually several. Six-axis IMUs with built-in sensor-fusion processors are standard parts, MEMS mirrors steer beams in solid-state lidar, and MEMS microphones arrays localise sound. At the frontier, MEMS fabrication builds insect-scale robots and the actuators of microrobots (see [[Nanorobots]]).
 
-### Resonant Frequency of a MEMS Oscillator
-
-The resonant frequency $f_0$ of a MEMS oscillator is calculated as:
-
-$$
-f_0 = \frac{1}{2\pi} \sqrt{\frac{k}{m}}
-$$
-
-where:
-- $f_0$ is the resonant frequency.
-- $k$ is the spring constant.
-- $m$ is the mass of the oscillating structure.
-
-### Piezoresistive Effect
-
-The change in resistance $\Delta R$ due to the piezoresistive effect is given by:
-
-$$
-\Delta R = G \cdot \epsilon \cdot R
-$$
-
-where:
-- $\Delta R$ is the change in resistance.
-- $G$ is the gauge factor.
-- $\epsilon$ is the strain.
-- $R$ is the original resistance.
-
----
-
-## Impact on Robotics
-
-- **Compact and Efficient Sensors**: MEMS sensors are small, lightweight, and highly sensitive, making them ideal for integration into robotic systems. They enable precise measurement of various physical quantities, essential for feedback control and environmental interaction.
-  <br>
-
-- **Precision Actuators**: MEMS actuators provide precise and controlled movement, making them suitable for applications requiring fine manipulation and dynamic response. Their small size and low power consumption make them ideal for portable and miniaturized robotic systems.
-  <br>
-
-- **Design and Integration**: The selection and integration of MEMS are important aspects of [[Robot_Design]] and [[Mechatronics]], influencing the performance and capabilities of robotic systems. MEMS enable the creation of compact, efficient, and highly functional components.
-  <br>
-
-- **Control Systems**: MEMS sensors and actuators are integral to [[Control_Systems|Control Systems]], providing the necessary feedback and control mechanisms to ensure precise and responsive operation of robotic systems.
-  <br>
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[MEMS]])

@@ -20,7 +20,7 @@ last_reviewed: 2026-04-25
 related:
   - "[[Artificial_Intelligence]]"
   - "[[Machine_Learning]]"
-  - "[[Autonomous_Systems]]"
+  - "[[Autonomous_Robots]]"
   - "[[Control_Theory]]"
   - "[[Robot_Design]]"
   - "[[Sensor_Fusion]]"

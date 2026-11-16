@@ -68,7 +68,7 @@ Sensor calibration generally falls into two main categories:
         * **Range Sensor (LIDAR, Sonar):** Range offset (bias), scale factor error.
 2.  **[[Extrinsic Calibration]]:** Focuses on determining the relative spatial relationship (6 DoF pose: position and orientation, often represented by a [[Homogeneous Transformation Matrix]]) between the coordinate frames of:
     * **Multiple Sensors:** E.g., the transform between a [[Camera_Systems|camera]] and an [[IMU_Sensors|IMU]], a camera and a [[LIDAR]], or the baseline transform between cameras in a [[Stereo Vision|stereo rig]]. This is essential for [[Sensor_Fusion]].
-    * **Sensor and Robot Frame:** E.g., the transform between a camera mounted on a robot's [[End-Effector]] and the end-effector frame ([[Hand-Eye Calibration]]), or the pose of a fixed sensor (like a navigation camera or LIDAR) relative to the robot's base frame.
+    * **Sensor and Robot Frame:** E.g., the transform between a camera mounted on a robot's [[Robot_Hands|End-Effector]] and the end-effector frame ([[Hand-Eye Calibration]]), or the pose of a fixed sensor (like a navigation camera or LIDAR) relative to the robot's base frame.
 
 A related concept, particularly for manipulators, is:
 

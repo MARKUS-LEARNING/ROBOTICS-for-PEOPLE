@@ -1,115 +1,87 @@
 ---
 title: Autoencoders
-description: Autoencoders are a type of neural network used for unsupervised learning, designed to encode input data into a lower-dimensional representation and then decode it back to the original form, widely used in robotics for tasks such as feature extraction and anomaly detection.
+description: "An autoencoder learns to compress its input into a small code and reconstruct it, discovering structure without labels. Covers the plain, variational (VAE), vector-quantised (VQ-VAE) and masked (MAE) variants, a worked compression example, and their roles in 2026 robotics: visual pretraining for policies, latent world models, action tokenizers, and anomaly detection."
+aliases:
+  - Autoencoder
+  - VAE
+  - Variational Autoencoder
+  - VQ-VAE
+  - Masked Autoencoder
 tags:
-  - autoencoders
   - neural-networks
-  - machine-learning
-type: concept
+  - deep-learning
+  - generative-models
+  - robot-learning
+type: method
 level: intermediate
 subfield:
   - robot-learning
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Deep_Learning]]"
-related:
   - "[[Neural_Networks]]"
-  - "[[Machine_Learning]]"
-  - "[[Deep_Learning]]"
-  - "[[Robot_Control]]"
-  - "[[Data_Analysis]]"
+  - "[[Unsupervised_Learning]]"
+related:
+  - "[[Generative_Models]]"
+  - "[[World_Models]]"
+  - "[[Imitation_Learning]]"
+  - "[[Transformers_and_Attention]]"
+key_takeaways:
+  - "An autoencoder squeezes data through a small bottleneck and learns to rebuild it, so the bottleneck must capture what matters; no labels are needed."
+  - "Variants matter: VAEs give a smooth latent space you can sample, VQ-VAEs give discrete tokens, masked autoencoders learn strong visual features by filling in hidden patches."
+  - "In robotics they compress camera images for policies and world models, tokenise actions, structure demonstrations (ACT's CVAE), and flag anomalies by high reconstruction error."
+sources:
+  - "Hinton, G. E. and Salakhutdinov, R. R. (2006). Reducing the Dimensionality of Data with Neural Networks. https://www.science.org/doi/10.1126/science.1127647"
+  - "Kingma, D. P. and Welling, M. (2013). Auto-Encoding Variational Bayes. https://arxiv.org/abs/1312.6114"
+  - "van den Oord, A., Vinyals, O. and Kavukcuoglu, K. (2017). Neural Discrete Representation Learning. https://arxiv.org/abs/1711.00937"
+  - "He, K. et al. (2021). Masked Autoencoders Are Scalable Vision Learners. https://arxiv.org/abs/2111.06377"
+  - "Xiao, T. et al. (2022). Masked Visual Pre-training for Motor Control. https://arxiv.org/abs/2203.06173"
+  - "Zhao, T. et al. (2023). Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware. https://arxiv.org/abs/2304.13705"
+  - "Lee, S. et al. (2024). Behavior Generation with Latent Actions. https://arxiv.org/abs/2403.03181"
 ---
 
 # Autoencoders
 
-**Autoencoders** are a type of neural network used for unsupervised learning, designed to encode input data into a lower-dimensional representation and then decode it back to the original form. They are widely used in robotics for tasks such as feature extraction, dimensionality reduction, and anomaly detection. Autoencoders consist of two main parts: an encoder, which compresses the input data into a latent-space representation, and a decoder, which reconstructs the data from this representation.
+An **autoencoder** is a neural network trained to output its own input. That sounds pointless until you force the data through a narrow middle layer, the **bottleneck** or **latent code**. To rebuild a 27,648-number camera image from 64 numbers, the network must discover what actually varies in the images: object positions, the arm's pose, the lighting. No labels are needed.
 
----
+> **Etymology.** Greek *autos*, "self": it *encodes itself*. The idea dates to the 1980s; Hinton and Salakhutdinov's 2006 *Science* paper showed deep autoencoders beating PCA at compressing images and helped launch deep learning.
 
-## Key Concepts
+## Structure
 
-### Encoder
+$$\mathbf z = E_\phi(\mathbf x), \qquad \hat{\mathbf x} = D_\theta(\mathbf z), \qquad L = \lVert \mathbf x - \hat{\mathbf x}\rVert^2$$
 
-The encoder is the part of the autoencoder that compresses the input data into a lower-dimensional latent-space representation. This involves transforming the input data through a series of layers, each of which applies a non-linear transformation to reduce the dimensionality of the data.
+The **encoder** $E$ compresses and the **decoder** $D$ reconstructs. After training you often keep only the encoder, as a feature extractor.
 
-### Decoder
+### Worked example: how much compression?
 
-The decoder is the part of the autoencoder that reconstructs the data from the latent-space representation back to its original form. This involves transforming the compressed data through a series of layers, each of which applies a non-linear transformation to increase the dimensionality of the data.
+A 96×96 RGB image has $96 \times 96 \times 3 = 27{,}648$ values. With a 64-dimensional latent, the autoencoder compresses by $27{,}648 / 64 = 432\times$. A linear autoencoder with squared error learns the same subspace as PCA; the nonlinear one can follow curved structure (an arm's joint angles map to images along a curved surface), so it reconstructs better at the same size. Make the bottleneck too small and details that matter for control, such as a thin cable or a gripper's opening, are lost. Always check reconstructions of task-critical details.
 
-### Latent-Space Representation
+## The variants
 
-The latent-space representation is the lower-dimensional form of the input data, capturing the essential features and patterns in the data. This representation is used for tasks such as feature extraction, dimensionality reduction, and anomaly detection.
+| Variant | Twist | What it is good for |
+|---|---|---|
+| **Plain / denoising** | Reconstruct a clean input from a corrupted one | Robust features, denoising sensor data |
+| **Variational (VAE)** | Encoder outputs a distribution; a KL penalty keeps the latent space smooth and Gaussian | Sampling new data, smooth latent dynamics; a component of many world models |
+| **Conditional VAE** | Encoder and decoder also see a condition (the observation) | Capturing the "style" of demonstrations: ACT's action chunks (2023) |
+| **VQ-VAE** | Latents snapped to a learned codebook of discrete vectors | Turning images, video or actions into **tokens** for transformers |
+| **Masked autoencoder (MAE)** | Hide most image patches (e.g. 75%) and reconstruct them | Self-supervised visual pretraining; strong features for policies |
 
-### Loss Function
+The VAE trains on the **evidence lower bound**:
 
-The loss function measures the difference between the original input data and the reconstructed data, providing the error signal that is used to update the weights of the autoencoder during training. Common loss functions include mean squared error (MSE) for regression tasks.
+$$\mathcal L = \underbrace{\mathbb E_{q_\phi(\mathbf z|\mathbf x)}\big[-\log p_\theta(\mathbf x|\mathbf z)\big]}_{\text{reconstruction}} + \beta\,\underbrace{\mathrm{KL}\big(q_\phi(\mathbf z|\mathbf x)\,\Vert\,\mathcal N(0, I)\big)}_{\text{keep latents regular}}$$
 
----
+## Autoencoders in robotics (2026)
 
-## Mathematical Formulation
+- **Visual pretraining for control.** Masked visual pretraining (MVP, 2022) trained an MAE on egocentric and manipulation video, then froze it as the image encoder for robot policies. It outperformed ImageNet-trained encoders on motor-control tasks.
+- **Latent world models.** World models such as Dreamer, and video world models, predict the future in a learned latent space rather than in pixels, using a VAE-style encoder (see [[World_Models]]).
+- **Action tokenizers.** VQ-BeT (2024) uses a VQ-VAE to turn continuous action chunks into discrete tokens, so a transformer can predict multimodal behaviour; several VLAs tokenise actions in related ways.
+- **Demonstration structure.** ACT (ALOHA, 2023) wraps its transformer policy in a conditional VAE, so it can represent different ways a human performed the same task (see [[Imitation_Learning]]).
+- **Anomaly detection.** Train on normal operation; at run time, a high reconstruction error flags something new: a fault, an unexpected object, a sensor failure.
 
-### Encoder Transformation
-
-The encoder transformation involves compressing the input data $x$ into a latent-space representation $z$:
-
-$$
-z = f(x)
-$$
-
-where:
-- $z$ is the latent-space representation.
-- $f$ is the encoder function.
-- $x$ is the input data.
-
-### Decoder Transformation
-
-The decoder transformation involves reconstructing the data $x'$ from the latent-space representation $z$:
-
-$$
-x' = g(z)
-$$
-
-where:
-- $x'$ is the reconstructed data.
-- $g$ is the decoder function.
-- $z$ is the latent-space representation.
-
-### Loss Function
-
-The loss function for an autoencoder measures the difference between the original input data $x$ and the reconstructed data $x'$, typically using mean squared error (MSE):
-
-$$
-J = \frac{1}{n} \sum_{i=1}^{n} (x_i - x'_i)^2
-$$
-
-where:
-- $J$ is the loss function.
-- $n$ is the number of samples.
-- $x_i$ is the original input data.
-- $x'_i$ is the reconstructed data.
-
-### Example: Anomaly Detection
-
-Consider a robotic system using an autoencoder for anomaly detection. The autoencoder is trained to encode and decode normal operating data, capturing the essential features and patterns in the data. During operation, the autoencoder reconstructs the input data and measures the difference between the original and reconstructed data. Anomalies are detected when this difference exceeds a threshold, indicating a deviation from normal operation and enabling the robot to respond to potential issues.
-
----
-
-## Applications in Robotics
-
-- **Feature Extraction**: Autoencoders are used to extract relevant features from input data, improving the efficiency and interpretability of tasks such as pattern recognition.
-- **Dimensionality Reduction**: Enables the reduction of the complexity of data, facilitating tasks such as visualization and analysis.
-- **Anomaly Detection**: Autoencoders are used to detect anomalies in data, identifying potential errors or malfunctions in the system.
-- **Control Systems**: Enables the design of control algorithms that regulate the behavior of robotic systems, using autoencoders to adapt and perform tasks precisely.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Autoencoders]])

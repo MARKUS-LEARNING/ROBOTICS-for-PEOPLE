@@ -62,9 +62,9 @@ Commit what `pages --write` changes. Continuous integration runs the same checks
 
 This project is licensed under the MIT License. By contributing, you agree that your contributions will be licensed under its terms.
 
-## AI Agent
+## How notes are made
 
-I built an AI agent in Mistral, accessing an extensive dataset of top robotics textbooks, research papers, and deep research conducted by Gemini 2.5, ChatGPT, Claude. Each tool is used to cross-reference content, equations, and linting code for syntax. This is an opportunity for contributions from the community to build out content as the field continues to grow rapidly.
+Notes are researched and drafted with Claude, then checked before merging: equations and examples recomputed, code run, sources verified with `tools/check_sources.py`. Contributions are reviewed the same way.
 
 ## Review Process
 

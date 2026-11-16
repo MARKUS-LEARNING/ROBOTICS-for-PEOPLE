@@ -1,159 +1,79 @@
 ---
-title: Labs Projects and Tutorials (Robotics)
-description: A comprehensive guide for organizing notes and resources related to robotics labs, projects, and tutorials.
+title: Labs, Projects, and Tutorials
+description: "A learning path of hands-on robotics projects, from a first ROS 2 node to training a policy for a real low-cost arm, using free tools available in 2026 (ROS 2 Lyrical, turtlesim, Gazebo, MuJoCo and MuJoCo Playground, Isaac Lab, LeRobot with the SO-101 arm). Includes a computed forward-kinematics warm-up and links to the labs in this textbook."
+aliases:
+  - Robotics Labs
+  - Robotics Projects
+  - Labs Projects and Tutorials (Robotics)
 tags:
-  - vault-meta
   - education
+  - ros2
 type: overview
 level: beginner
 subfield:
-  - software
-status: draft
+  - creative-education
+status: reviewed
 author: Jordan_Smith
-date: 2025-05-12
+date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
+  - "[[Robots]]"
 related:
-  - "[[Robotics]]"
-  - "[[Control_Systems]]"
-  - "[[Kinematics_and_Dynamics]]"
-  - "[[PID_Control]]"
-  - "[[Manipulator_Arm]]"
+  - "[[Turtlesim_Projects]]"
+  - "[[Manipulator_Control_Experiments]]"
+  - "[[Sim2Real_Experiments]]"
+  - "[[Robotics_Lab_Template]]"
+  - "[[Course_Notes_Collection]]"
+key_takeaways:
+  - "Learn by building in small steps: simulation first, then cheap hardware, then real tasks."
+  - "In 2026 the whole path, from first node to a learned manipulation policy, can be done with free software and a low-cost arm such as the SO-101."
+  - "Every project should end with numbers and a write-up, so that it teaches you something and others can reproduce it."
+sources:
+  - "Hugging Face (2026). LeRobot documentation: SO-101 arm. https://huggingface.co/docs/lerobot/so101"
+  - "Hugging Face (2026). Robotics course. https://huggingface.co/learn/robotics-course"
+  - "Google DeepMind (2026). MuJoCo Playground. https://github.com/google-deepmind/mujoco_playground"
+  - "Open Robotics (2026). ROS 2 documentation source: Introducing turtlesim. https://github.com/ros2/ros2_documentation/blob/rolling/source/Get-Started/Introducing-Turtlesim/Introducing-Turtlesim.rst"
 ---
 
-# Labs, Projects, and Tutorials (Robotics)
+# Labs, Projects, and Tutorials
 
-## Overview
+This page is a **learning path**: a sequence of projects that build real skills, using tools that are free (or cheap) in 2026. Each step links to the notes that explain the theory.
 
-This note covers various labs, projects, and tutorials related to robotics. It includes practical examples, theoretical proofs, and key equations to help understand the fundamental concepts in robotics.
+> **Etymology.** *Laboratory* from Medieval Latin *laboratorium*, "a place for work" (*laborare*, "to work").
 
-## Key Concepts
+## Warm-up: compute before you code
 
-### Kinematics
+A planar two-link arm has links $l_1 = 0.3$ m and $l_2 = 0.25$ m. With joint angles $\theta_1 = 30°$ and $\theta_2 = 45°$, its tip is at
 
-Kinematics is the study of motion without considering the forces that cause it. It is crucial in robotics for understanding how robots move.
+$$x = l_1\cos\theta_1 + l_2\cos(\theta_1 + \theta_2) = 0.3(0.866) + 0.25(0.259) = 0.325\ \text{m},$$
+$$y = l_1\sin\theta_1 + l_2\sin(\theta_1 + \theta_2) = 0.3(0.5) + 0.25(0.966) = 0.391\ \text{m}.$$
 
-**Forward Kinematics**: Determines the position and orientation of the end-effector given the joint angles.
+Check it in code, then in simulation: three ways of getting the same answer is how you learn to trust each (see [[Forward_Kinematics]]).
 
-**Inverse Kinematics**: Determines the joint angles required to achieve a desired position and orientation of the end-effector.
+## The path
 
-### Dynamics
+| Stage | Project | Tools | Read |
+|---|---|---|---|
+| 1. ROS 2 basics | Drive turtles, write a publisher and subscriber, a service, a launch file | ROS 2 Lyrical, turtlesim | [[Turtlesim_Projects]], [[ROS_2_Communication]] |
+| 2. A simulated mobile robot | Map a world with SLAM, then navigate with Nav2 | Gazebo (Jetty), SLAM Toolbox, Nav2 | [[SLAM_with_ROS]], [[Nav2_Navigation]] |
+| 3. Arm control | PD control, gravity compensation, computed torque | MuJoCo | [[Manipulator_Control_Experiments]] |
+| 4. Sim-to-real thinking | Domain randomisation on a simple system | Python, MuJoCo | [[Sim2Real_Experiments]] |
+| 5. Reinforcement learning | Train a locomotion or manipulation policy in parallel simulation | MuJoCo Playground or Isaac Lab | [[Reinforcement_Learning_for_Robots]], [[GPU-Parallel_Simulation]] |
+| 6. A real arm and imitation learning | Build or buy an SO-101 leader–follower arm, record teleoperated demonstrations, train ACT or a diffusion policy, evaluate | LeRobot | [[Imitation_Learning]], [[Teleoperation_and_Data_Collection]], [[Diffusion_Policy]] |
+| 7. Fine-tune a generalist policy | Fine-tune an open VLA on your own demonstrations | LeRobot, open VLA checkpoints | [[Vision-Language-Action_Models]] |
 
-Dynamics involves the study of forces and torques and their effect on motion. It is essential for controlling robots.
+The **SO-101** is an open-source low-cost arm used with LeRobot. Its follower arm uses six Feetech STS3215 servos, and a matching leader arm is moved by hand to teleoperate it.
 
-**Newton-Euler Equations**: Used to describe the motion of a rigid body under the influence of forces and torques.
+## Habits that make projects worth doing
 
-$$
-F = m \cdot a
-$$
+- **One change at a time**, with a hypothesis.
+- **Measure**: success rates over many trials, not one good video.
+- **Record everything** (code version, parameters, data) and write it up (see [[Robotics_Lab_Template]]).
+- **Safety**: even small arms pinch fingers; keep an emergency stop within reach.
 
-$$
-\tau = I \cdot \alpha
-$$
-
-Where:
-- $F$ is the force,
-- $m$ is the mass,
-- $a$ is the acceleration,
-- $\tau$ is the torque,
-- $I$ is the moment of inertia,
-- $\alpha$ is the angular acceleration.
-
-### Control Systems
-
-Control systems are used to manage the behavior of robots. They include feedback loops to ensure the robot performs as desired.
-
-**PID Control**: Proportional-Integral-Derivative control is a common method used in robotics.
-
-$$
-u(t) = K_p e(t) + K_i \int_0^t e(\tau) \, d\tau + K_d \frac{de(t)}{dt}
-$$
-
-Where:
-- $u(t)$ is the control signal,
-- $e(t)$ is the error,
-- $K_p$, $K_i$, and $K_d$ are the proportional, integral, and derivative gains, respectively.
-
-## Practical Examples
-
-### Example 1: Forward Kinematics of a Robotic Arm
-
-Consider a robotic arm with two joints. The forward kinematics can be described using the following transformation matrices:
-
-$$
-T_0^1 = \begin{bmatrix}
-\cos(\theta_1) & -\sin(\theta_1) & 0 & a_1 \cos(\theta_1) \\
-\sin(\theta_1) & \cos(\theta_1) & 0 & a_1 \sin(\theta_1) \\
-0 & 0 & 1 & 0 \\
-0 & 0 & 0 & 1
-\end{bmatrix}
-$$
-
-$$
-T_1^2 = \begin{bmatrix}
-\cos(\theta_2) & -\sin(\theta_2) & 0 & a_2 \cos(\theta_2) \\
-\sin(\theta_2) & \cos(\theta_2) & 0 & a_2 \sin(\theta_2) \\
-0 & 0 & 1 & 0 \\
-0 & 0 & 0 & 1
-\end{bmatrix}
-$$
-
-The overall transformation matrix $T_0^2$ is given by:
-
-$$
-T_0^2 = T_0^1 \cdot T_1^2
-$$
-
-### Example 2: PID Control of a Robotic Joint
-
-Consider a robotic joint with a desired angle $\theta_d$ and an actual angle $\theta$. The error $e(t)$ is given by:
-
-$$
-e(t) = \theta_d - \theta
-$$
-
-The PID control signal \( u(t) \) is calculated as:
-
-$$
-u(t) = K_p e(t) + K_i \int_0^t e(\tau) \, d\tau + K_d \frac{de(t)}{dt}
-$$
-
-## Potential Project Ideas and Labs
-
-Here are some potential project ideas and labs that can help you apply the concepts learned in robotics:
-
-- **Autonomous Robot Navigation**: Design and implement an autonomous robot that can navigate through a maze or an obstacle course using sensors and control algorithms.
-
-- **Robotic Arm Control**: Build and program a robotic arm to perform tasks such as picking and placing objects. Implement forward and inverse kinematics to control the arm.
-
-- **Line-Following Robot**: Create a robot that can follow a line on the ground using sensors and feedback control. Implement PID control to improve the robot's performance.
-
-- **Swarm Robotics**: Develop a group of robots that can work together to achieve a common goal, such as exploring an environment or performing a task. Implement communication and coordination algorithms.
-
-- **Human-Robot Interaction**: Design a robot that can interact with humans using natural language processing and gesture recognition. Implement control systems to enable smooth and intuitive interactions.
-
-- **Robotics in Agriculture**: Build a robot that can perform agricultural tasks such as planting, watering, and harvesting crops. Implement sensors and control systems to optimize the robot's performance.
-
-- **Robotics in Healthcare**: Develop a robot that can assist in healthcare tasks such as delivering medications, monitoring patients, and performing surgeries. Implement safety and control systems to ensure the robot's reliability.
-
-- **Robotics in Manufacturing**: Create a robot that can perform manufacturing tasks such as assembling products, welding, and painting. Implement control systems to optimize the robot's efficiency and accuracy.
-
-- **Robotics in Education**: Design a robot that can be used as an educational tool to teach students about robotics, programming, and engineering. Implement interactive features to engage students and enhance their learning experience.
-
-- **Robotics in Exploration**: Build a robot that can explore and map unknown environments such as underwater, underground, or extraterrestrial environments. Implement sensors and control systems to enable the robot's autonomy and adaptability.
-
-## Related Notes
-
-- [[Robotics_Basics]]
-- [[Control_Systems]]
-- [[Kinematics_and_Dynamics]]
-- [[PID_Control]]
-- [[Robotic_Arm_Design]]
-
-## Dataview Queries
-
-### List of Related Projects
+## Dataview
 
 ```dataview
-LIST
-FROM "12_Labs_and_Tutorials"
-WHERE type = "lab" OR type = "tutorial"
+LIST FROM "" WHERE contains(file.outlinks, [[Labs_Projects_and_Tutorials]])
 ```

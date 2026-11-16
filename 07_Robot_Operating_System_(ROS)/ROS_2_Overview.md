@@ -1,6 +1,9 @@
 ---
 title: ROS 2 Overview
-description: Provides an overview of ROS 2, the second generation of the Robot Operating System, highlighting its key features, improvements over ROS 1, and core concepts.
+description: "How ROS 2 works under the hood and how it differs from ROS 1: the RMW middleware layer (DDS or Zenoh), Quality of Service, executors, composition, the build and launch tools, security and real-time support, with a worked QoS example and the 2025–2026 changes (Zenoh Tier 1, events executors, AsyncNode)."
+aliases:
+  - ROS2
+  - ROS 2
 tags:
   - ros
   - ros2
@@ -11,106 +14,132 @@ tags:
   - real-time
   - colcon
   - software-stack
-type: overview
+type: concept
 level: intermediate
 subfield:
   - software
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-04-28
-related:
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
   - "[[Robot_Operating_System_(ROS)]]"
-  - "[[DDS]]"
-  - "[[Nodes]]"
-  - "[[Topics]]"
-  - "[[Services]]"
+related:
   - "[[Actions]]"
-  - "[[Colcon]]"
   - "[[Launch_Files]]"
+  - "[[Custom_Packages_and_Nodes]]"
+  - "[[TF_and_Topic_Architecture]]"
+  - "[[ros2_control]]"
+key_takeaways:
+  - "ROS 2 sits on a pluggable middleware layer (RMW). Fast DDS is the default in Lyrical; Cyclone DDS, Connext and, since Kilted, Zenoh are the other Tier 1 options."
+  - "Quality of Service settings (reliability, durability, history, deadline) decide how each topic behaves on a lossy network; a publisher and subscriber whose QoS is incompatible silently never connect."
+  - "Executors decide how callbacks run. The events executors (rclcpp, and Lyrical's EventsCBGExecutor) and rclpy's AsyncNode cut CPU use compared with the classic executors."
+sources:
+  - "Macenski, S., Foote, T., Gerkey, B., Lalancette, C. and Woodall, W. (2022). Robot Operating System 2: Design, Architecture, and Uses In The Wild. https://arxiv.org/abs/2211.07752"
+  - "Gerkey, B. (2015). Why ROS 2? ROS 2 design article. https://design.ros2.org/articles/why_ros2.html"
+  - "Open Robotics (2026). ROS 2 Lyrical Luth release notes. https://github.com/ros2/ros2_documentation/blob/rolling/source/Releases/Release-Lyrical-Luth.rst"
+  - "Open Robotics (2025). ROS 2 Kilted Kaiju release notes. https://github.com/ros2/ros2_documentation/blob/rolling/source/Releases/Release-Kilted-Kaiju.rst"
+  - "Open Robotics (2026). rmw_zenoh: a ROS 2 middleware based on Zenoh. https://github.com/ros2/rmw_zenoh"
+  - "Object Management Group (2015). Data Distribution Service (DDS) 1.4. https://www.omg.org/spec/DDS/1.4/About-DDS"
 ---
 
 # ROS 2 Overview
 
-**ROS 2** is the second generation of the **[[Robot_Operating_System_(ROS)|ROS (Robot Operating System)]]**, representing a significant redesign of the original ROS (ROS 1) framework. It aims to address limitations encountered in ROS 1 and provide features needed for modern robotics applications, particularly in areas like multi-robot systems, real-time control, embedded systems, and commercial/production environments. While retaining the core philosophy of modularity and distributed communication, ROS 2 introduces substantial changes to its underlying architecture and tools.
+**ROS 2** is the second generation of the [[Robot_Operating_System_(ROS)|Robot Operating System]]. It keeps ROS 1's central idea, a graph of small programs exchanging typed messages, but rebuilds everything underneath for what ROS 1 was never designed for: several robots, unreliable wireless networks, real-time control loops, embedded processors, security, and products that must be maintained for years. ROS 1 reached end of life in May 2025, so ROS 2 is now simply "ROS".
 
----
+> **Etymology.** *Middleware*, the word at the heart of ROS 2, dates from a 1968 NATO software-engineering conference: the software in the *middle*, between applications and the operating system. *DDS* stands for *Data Distribution Service*, an Object Management Group standard first published in 2004 for military, aerospace and industrial systems.
 
-## Key Features and Differences from ROS 1
+## Why a redesign
 
-ROS 2 was developed to overcome specific shortcomings of ROS 1 and introduce new capabilities:
+| ROS 1 assumption | Problem in practice | ROS 2 answer |
+|---|---|---|
+| A central `roscore` master | Single point of failure; awkward for many robots | Decentralised discovery (DDS) or a router (Zenoh) |
+| Reliable, wired network | Wi-Fi drops packets; TCP stalls | Per-topic Quality of Service |
+| Linux workstation | No real-time guarantees, no microcontrollers | Real-time-friendly design; micro-ROS for MCUs |
+| Trusted lab network | No authentication or encryption | SROS2 security (DDS-Security) |
+| Research prototypes | Little attention to lifecycle or long-term support | Managed (lifecycle) nodes; 5-year LTS releases |
 
-* **Communication Middleware ([[DDS]]):**
-    * **ROS 1:** Uses a custom TCP/UDP-based communication system (TCPROS/UDPROS) requiring a central [[Robot_Operating_System_(ROS)|ROS Master]] for node discovery.
-    * **ROS 2:** Built on top of the industry-standard **[[DDS|Data Distribution Service]]** (or an abstraction layer called RMW - ROS Middleware Interface - allowing different DDS implementations like Fast DDS, Cyclone DDS, etc.). This provides:
-        * **Decentralized Discovery:** Eliminates the single point of failure of the ROS Master. [[Nodes]] discover each other automatically using DDS mechanisms.
-        * **Improved Performance:** DDS implementations are often optimized for low-latency, high-throughput communication.
-        * **[[Quality of Service (QoS)|Quality of Service]] Policies:** Granular control over communication reliability.
+## The layer cake
 
-* **[[Quality of Service (QoS)|Quality of Service (QoS)]]:**
-    * **ROS 1:** Primarily offered reliable (TCP) or best-effort (UDP) communication.
-    * **ROS 2:** Exposes underlying DDS QoS policies, allowing developers to configure aspects like:
-        * **Reliability:** Best-effort or reliable delivery.
-        * **Durability:** How long data persists for late-joining nodes (volatile or transient local).
-        * **History:** Keep last N messages or all messages within resource limits.
-        * **Deadline, Lifespan, Liveliness:** Policies related to timing and node/topic availability.
-    This enables tailoring communication for different needs (e.g., reliable service calls vs. best-effort sensor streams, real-time control data).
+```
+your nodes (rclcpp / rclpy)
+        │
+rcl  (common C core: names, parameters, graph, actions)
+        │
+rmw  (ROS middleware interface)  ← pick an implementation at run time
+        │
+Fast DDS · Cyclone DDS · Connext DDS · Zenoh
+```
 
-* **[[Nodes]] and Composition:**
-    * The concept of nodes as executable processes remains.
-    * ROS 2 introduces **component nodes** and **composition**, allowing multiple nodes (written as components/libraries) to be run within a single operating system process. This reduces overhead (inter-process communication becomes intra-process) and allows for more efficient deployment, especially on resource-constrained systems.
+Switch middleware with one environment variable, for example `RMW_IMPLEMENTATION=rmw_zenoh_cpp`. In Lyrical, four implementations are Tier 1 (fully supported):
+- Fast DDS (the default);
+- Cyclone DDS;
+- Connext (all architectures except arm64);
+- Zenoh (Tier 1 since Kilted in 2025).
 
-* **Client Libraries:**
-    * **ROS 1:** `roscpp` (C++) and `rospy` (Python).
-    * **ROS 2:** **`rclcpp`** (C++) and **`rclpy`** (Python). These libraries offer a more modern, object-oriented API and expose ROS 2 features like QoS and node composition.
+**DDS** discovers peers by multicast on the local network, which is automatic on a wired LAN but noisy and unreliable on Wi-Fi and impossible across the internet. **Zenoh** uses a router (`zenohd`) for discovery and copes better with those networks.
 
-* **Build System ([[Colcon]]):**
-    * **ROS 1:** Primarily used **Catkin**, an extension of CMake.
-    * **ROS 2:** Uses **Colcon** as the standard build tool. Colcon is a meta-build tool that orchestrates underlying build systems like CMake (for C++) and Python's setuptools. It works with the **Ament** build system framework, which provides CMake macros and Python packages to simplify package development.
+## Quality of Service (QoS)
 
-* **[[Launch_Files|Launch Files]]:**
-    * **ROS 1:** Used XML-based `.launch` files.
-    * **ROS 2:** Uses **Python-based `.launch.py` files**. This provides significantly more flexibility, allowing programmatic logic, conditionals, loops, and easier integration with external tools within the launch description. XML and YAML formats are also supported for simpler cases.
+Every publisher and subscriber carries a QoS profile:
 
-* **Command Line Interface (CLI):**
-    * **ROS 1:** Used multiple distinct commands (e.g., `rostopic`, `rosservice`, `rosnode`, `rosparam`, `roslaunch`).
-    * **ROS 2:** Uses a unified `ros2` command with various subcommands (verbs), e.g., `ros2 topic list`, `ros2 node info`, `ros2 launch <pkg> <launch_file>`, `ros2 run <pkg> <executable>`.
+| Policy | Options | Typical use |
+|---|---|---|
+| **Reliability** | `reliable` / `best_effort` | Commands reliable; high-rate sensor data best-effort |
+| **Durability** | `volatile` / `transient_local` | `transient_local` lets late joiners get the last message (maps, `/tf_static`, robot description) |
+| **History / depth** | keep last *N* / keep all | Queue size |
+| **Deadline, lifespan, liveliness** | durations | Detect a silent sensor or stale data |
 
-* **Real-Time and Embedded Support:**
-    * The architecture (DDS, client libraries) is designed to better support real-time performance requirements and deployment on embedded systems.
+**Compatibility rule.** A subscriber may ask for *less* than a publisher offers, never more. A `reliable` subscriber does not connect to a `best_effort` publisher, and a `transient_local` subscriber does not connect to a `volatile` publisher. ROS reports an "incompatible QoS" event, but the symptom is usually just *no data*. Check with `ros2 topic info -v /topic`.
 
-* **Cross-Platform Support:**
-    * ROS 2 officially supports Linux, macOS, and Windows, broadening its accessibility.
+### Worked example: a camera over Wi-Fi
 
----
+A 640×480 RGB camera at 30 Hz produces 640 × 480 × 3 = 921,600 bytes per frame, or about 27.6 MB/s, which is more than many Wi-Fi links can sustain.
+- **With `reliable` QoS**, every lost fragment is retransmitted. Queues fill, latency grows to seconds, and the robot reacts to old images.
+- **With `best_effort`** and a depth of 1, lost frames are simply dropped, and the subscriber always gets the newest image it can.
 
-## Core Concepts in ROS 2
+That is why the predefined `SensorDataQoS` profile is best-effort with a small queue. Even better, send compressed images (`image_transport`) or keep the image on the same machine and use zero-copy transport.
 
-Many core concepts from ROS 1 persist, albeit with implementation differences:
+## Executors and composition
 
-* **Packages:** The fundamental unit of software organization, containing nodes, libraries, configuration files, launch files, and interface definitions. Uses `package.xml` (format 2 or 3) and build files (`CMakeLists.txt`, `setup.py`).
-* **Nodes:** Individual executable processes performing specific computations.
-* **Topics:** Asynchronous, publish/subscribe communication channels for streaming data. Uses defined [[Messages|message types]]. Governed by QoS settings.
-* **Services:** Synchronous, request/reply communication for specific queries or commands. Uses defined service types (.srv). Governed by QoS settings.
-* **Actions:** Asynchronous, long-running, goal-oriented tasks with feedback. Uses defined action types (.action). Governed by QoS settings.
-* **Parameters:** Runtime configurable parameters associated with nodes.
-* **Launch System:** Mechanism for starting and configuring multiple nodes simultaneously.
+A node's callbacks (subscriptions, timers, services) run inside an **executor**:
 
----
+- **Single- and multi-threaded executors**: the classic ones.
+- **Events executor** (rclcpp; experimental in rclpy from Kilted). It reacts to a queue of events instead of repeatedly scanning every entity, which uses less CPU.
+- **EventsCBGExecutor** (rclcpp, Lyrical). It adds multiple threads and multiple time sources; the release notes report 10–15% less CPU than the single- and multi-threaded executors.
+- **`AsyncNode`** (rclpy, Lyrical, experimental). Runs an `asyncio` event loop, so callbacks can `await` service calls and timers.
 
-## Benefits and Status
+**Composition** loads several nodes as components into one process, so messages between them can pass by pointer (intra-process, zero-copy) instead of through the network stack. This matters for images and point clouds.
 
-ROS 2 offers several advantages over ROS 1, including improved performance, enhanced reliability (no single Master failure point), support for real-time applications, better multi-robot system capabilities, fine-grained communication control via QoS, and official support for more platforms.
+## Tools you use every day
 
-ROS 2 is the focus of active development by Open Robotics (formerly OSRF) and the global ROS community. While ROS 1 (specifically the Noetic Ninjemys distribution) is still widely used and benefits from a larger existing package ecosystem and long-term support, ROS 2 is generally recommended for new robotics projects, especially those requiring real-time capabilities, high reliability, or targeting commercial deployment. Migration guides and tools exist to help transition projects from ROS 1 to ROS 2.
+| Task | ROS 2 tool |
+|---|---|
+| Build a workspace | `colcon build` (packages use `ament_cmake` or `ament_python`) |
+| Start many nodes with parameters | `ros2 launch` with Python, XML or YAML launch files (see [[Launch_Files]]) |
+| Inspect the graph | `ros2 node`, `ros2 topic`, `ros2 service`, `ros2 action`, `ros2 param`, `rqt_graph` |
+| Diagnose setup problems | `ros2 doctor --report` |
+| Record and replay data | `ros2 bag` (MCAP format by default; see [[rosbag2]]) |
+| Visualise | [[RViz_Tutorial|RViz]]; Foxglove and Rerun are popular web and desktop alternatives |
 
----
+## Real-time, embedded and secure
 
-## Dataview Plugin Features
+- **Real time.** ROS 2 itself does not make Linux real-time, but its design (preallocated memory, controllable executors, real-time-safe [[ros2_control]] loops) works with a `PREEMPT_RT` kernel, which is part of mainline Linux since 6.12. Control loops at 1 kHz are routine.
+- **Microcontrollers.** micro-ROS runs ROS 2 nodes on microcontrollers over a serial or UDP link to an agent on the main computer.
+- **Security.** SROS2 adds authentication, encryption and access control through DDS-Security.
 
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
+## Migrating from ROS 1
 
-### List of Related Concepts
+Most concepts map directly:
+- `rospy` → `rclpy`, `roscpp` → `rclcpp`, `catkin` → `colcon`/`ament`.
+- `rostopic` → `ros2 topic`, and the other `ros*` commands likewise become `ros2` verbs.
+- `.launch` XML → Python, XML or YAML launch files.
+
+The work lies in parameters (which are per-node in ROS 2), QoS choices, and drivers. `ros1_bridge` still helps a gradual migration, but with Noetic past end of life, plan to finish it.
+
+## Dataview
 
 ```dataview
-LIST FROM "" WHERE contains(file.outlinks, [[Robot_Operating_System_(ROS)]])
+LIST FROM "" WHERE contains(file.outlinks, [[ROS_2_Overview]])
 ```

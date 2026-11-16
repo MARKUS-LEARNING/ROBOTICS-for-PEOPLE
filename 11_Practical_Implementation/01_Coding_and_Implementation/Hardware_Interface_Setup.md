@@ -1,120 +1,89 @@
 ---
 title: Hardware Interface Setup
-description: Discusses common methods and considerations for connecting physical sensors and actuators to a robot's control computer and integrating them with software, particularly ROS.
+description: "Connecting motors and sensors to a robot's computer and to ROS 2: the buses (UART, I²C, SPI, USB, CAN and CAN FD, EtherCAT, Ethernet), a computed CAN bandwidth budget for a 12-motor robot, writing a ros2_control hardware interface, drivers for sensors, time synchronisation, and a bring-up checklist."
+aliases:
+  - Hardware Interfaces
+  - Robot Bring-Up
+  - Hardware Integration
 tags:
-  - hardware
   - hardware-interface
-  - ros
-  - sensors
-  - actuators
-  - communication-protocols
-  - usb
-  - can-bus
-  - ethercat
-  - programming
-  - software-stack
+  - electronics
+  - ros2
+  - real-time
 type: tutorial
 level: intermediate
 subfield:
-  - software
   - electronics-embedded
-status: draft
+  - software
+status: reviewed
 author: Jordan_Smith
-date: 2025-04-29
+date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[ROS_2_Overview]]"
-  - "[[RViz_Tutorial]]"
-  - "[[Actions]]"
+  - "[[ros2_control]]"
+  - "[[Microcontroller]]"
 related:
-  - "[[ROS_2_Overview]]"
-  - "[[Custom_Packages_and_Nodes]]"
-  - "[[Sensors]]"
-  - "[[Actuator]]"
-  - "[[Topics]]"
-  - "[[Messages]]"
   - "[[Serial_Communication_Tutorials]]"
-  - "[[Camera_Systems]]"
-  - "[[LIDAR]]"
-  - "[[IMU_Sensors]]"
-  - "[[Udev Rules]]"
-  - "[[Coding_and_Implementation]]"
+  - "[[Arduino]]"
+  - "[[TF_and_Topic_Architecture]]"
+  - "[[URDF]]"
+key_takeaways:
+  - "Choose the bus by bandwidth, latency and robustness: I²C and SPI on a board, UART/USB for simple links, CAN or CAN FD for joints in vehicles and small robots, EtherCAT for fast, synchronised multi-axis robots."
+  - "Classic CAN at 1 Mbit/s carries about 7,700 eight-byte frames per second; a 12-motor robot sending a command and a state frame per motor per cycle tops out near 320 Hz, which is why fast robots use CAN FD or EtherCAT."
+  - "In ROS 2 the hardware interface is a ros2_control plugin with read() and write(); getting units, signs, zero offsets, limits and timestamps right matters more than any controller tuning."
+sources:
+  - "ros-controls (2026). ros2_control. https://github.com/ros-controls/ros2_control"
+  - "EtherCAT Technology Group (2026). EtherCAT technology. https://www.ethercat.org/en/technology.html"
+  - "CAN in Automation (2026). CAN knowledge. https://www.can-cia.org/can-knowledge/"
+  - "micro-ROS (2026). micro-ROS: ROS 2 for microcontrollers. https://micro.ros.org/"
 ---
 
-# Hardware Interface Setup in Robotics
+# Hardware Interface Setup
 
-**Hardware Interface Setup** is the crucial process of physically connecting robotic [[Sensors|sensors]] and [[Actuator|actuators]] to the robot's main computer (or microcontrollers) and configuring the software layer to enable communication and control. This involves managing both the physical connection (cables, ports) and the software protocols required to send commands and receive data, effectively bridging the gap between the robot's software "brain" and its physical interaction with the world. Within the [[Robot_Operating_System_(ROS)|ROS]] ecosystem, this typically involves setting up hardware drivers implemented as [[Nodes|ROS nodes]].
+**Hardware interface setup** ("bring-up") is the work of connecting a robot's motors, sensors and electronics to its computer, and exposing them to software in a consistent way. It is where most robot projects lose time, and where careful habits pay off most.
 
----
+> **Etymology.** *Interface*: the face *between* two systems. *Bring-up* is engineering slang for getting new hardware to work step by step.
 
-## Common Communication Interfaces
+## Buses and links
 
-Robots utilize various physical and logical interfaces to communicate with hardware components:
+| Link | Typical speed | Range | Use |
+|---|---|---|---|
+| I²C | 0.1–1 Mbit/s | On a board | IMUs, small sensors |
+| SPI | 10–50 Mbit/s | On a board | Fast sensors, encoders, displays |
+| UART / USB serial | 0.1–12 Mbit/s | Short cable | Microcontroller links (see [[Serial_Communication_Tutorials]]) |
+| CAN | up to 1 Mbit/s | Tens of metres, very robust | Motor drivers, vehicles, small robots |
+| CAN FD | Data phase typically up to 5–8 Mbit/s; 64-byte payloads | As CAN | Modern joint modules, humanoids |
+| EtherCAT | 100 Mbit/s Ethernet, cycle times ≤ 100 µs, jitter ≤ 1 µs | Long chains | Industrial arms, fast legged and humanoid robots |
+| Ethernet / GigE | 1–10 Gbit/s | Long | Cameras, lidar, computers |
 
-* **[[Serial_Communication_Tutorials|Serial (UART/RS-232/RS-485)]]:**
-    * **Description:** A common, relatively simple point-to-point communication method. UART (Universal Asynchronous Receiver/Transmitter) is the basic protocol, often implemented physically via RS-232 (older standard, larger voltage swing) or RS-485 (differential signaling for longer distances and noise immunity).
-    * **Use Cases:** Connecting microcontrollers (like Arduino via `rosserial`), simpler [[IMU_Sensors]], some GPS units, motor controllers, basic [[Range_Sensor|range sensors]].
-    * **Setup:** Requires configuring the serial port name (e.g., `/dev/ttyS0`, `/dev/ttyUSB0`, `/dev/ttyACM0` in Linux), baud rate, data bits, parity, and stop bits to match the device settings. Requires appropriate user permissions (e.g., membership in the `dialout` group in Linux). Libraries like `serial` (Python) or Boost.Asio (C++) are used for programming.
+## Worked example: a CAN bandwidth budget
 
-* **USB (Universal Serial Bus):**
-    * **Description:** A ubiquitous plug-and-play interface supporting various device classes and speeds.
-    * **Use Cases:** Connecting [[Camera_Systems]], [[LIDAR]], [[IMU_Sensors]], joysticks, GPS dongles, USB-to-Serial adapters, some motor controllers.
-    * **Setup:** Linux typically assigns device files like `/dev/videoX`, `/dev/input/jsX`, `/dev/ttyACMX`, `/dev/ttyUSBX`. Reliable identification often requires setting up **[[Udev Rules]]** to create persistent symbolic links (e.g., `/dev/my_camera`) based on device vendor/product IDs and serial numbers, and to set correct permissions. Communication often relies on manufacturer-provided SDKs or specialized ROS packages (e.g., `libuvc_camera`, `usb_cam`, `hokuyo_node`, `joy`).
+A classic CAN frame with 8 data bytes takes about 130 bits on the wire (identifier, control, CRC and bit stuffing). At 1 Mbit/s that is about $10^6 / 130 \approx 7{,}700$ frames per second.
 
-* **Ethernet (TCP/IP, UDP):**
-    * **Description:** Standard networking protocols used for higher bandwidth or distributed communication.
-    * **Use Cases:** High-resolution cameras, some 3D [[LIDAR]], communication between multiple onboard computers, connecting to networked PLCs or motor drives.
-    * **Setup:** Involves standard network configuration (IP addresses, subnets). Data exchange uses socket programming or higher-level ROS networking capabilities.
+A 12-joint quadruped sends each motor one command frame and receives one state frame per control cycle: 24 frames per cycle. The maximum cycle rate is therefore $7{,}700 / 24 \approx 320$ Hz, before any margin. Splitting the motors over several CAN buses, moving to CAN FD (faster data phase, larger frames carrying several values), or using EtherCAT is how robots reach the 1 kHz control loops learned policies and whole-body controllers expect.
 
-* **CAN Bus (Controller Area Network):**
-    * **Description:** A robust, differential, multi-master serial bus standard common in automotive and industrial automation. Known for its reliability and error handling capabilities.
-    * **Use Cases:** Connecting motor controllers (servo/stepper drives), [[IMU_Sensors]], battery management systems (BMS), and other distributed control units within a robot.
-    * **Setup:** Requires a CAN interface adapter (USB-to-CAN, PCI-CAN) on the host computer. Linux often uses the SocketCAN interface. ROS integration typically involves packages like `ros_canopen` or custom nodes using libraries like `python-can`.
+## The ROS 2 side: a ros2_control hardware interface
 
-* **EtherCAT (Ethernet for Control Automation Technology):**
-    * **Description:** A high-performance, real-time industrial Ethernet protocol based on a "processing-on-the-fly" principle. Offers deterministic, low-latency communication.
-    * **Use Cases:** High-performance, synchronized multi-axis motion control systems (e.g., connecting multiple servo drives in a robotic arm or machine tool).
-    * **Setup:** Requires a dedicated EtherCAT master interface card or compatible network interface on the host computer and specialized master software stacks (e.g., IgH EtherCAT Master for Linux). ROS integration often uses packages built on top of these master stacks.
+A hardware interface is a C++ plugin that implements:
+- `on_init` (read parameters from the URDF `<ros2_control>` tag);
+- `on_configure` / `on_activate` (open the bus, enable drives);
+- `export_state_interfaces` / `export_command_interfaces`;
+- `read()` and `write()`, called every control cycle.
 
-* **Other Interfaces:**
-    * **SPI/I2C:** Lower-level serial buses primarily used for connecting sensors and peripherals directly to microcontrollers or single-board computers (e.g., sensors on a Raspberry Pi HAT).
-    * **Modbus:** Industrial serial communication protocol.
-    * **GPIO:** General Purpose Input/Output pins for simple digital signals (on/off) or analog readings (voltages), common on embedded boards.
+Controllers then run unchanged in simulation and on hardware (see [[ros2_control]]). Sensors such as cameras and lidars usually have their own ROS 2 driver nodes that publish standard messages with correct frames and timestamps (see [[TF_and_Topic_Architecture]]).
 
----
+## Bring-up checklist
 
-## Software Layer: ROS Nodes as Drivers
+1. **Power and safety first**: emergency stop wired and tested; current limits set low; robot supported or restrained.
+2. **One device at a time**: talk to each motor or sensor alone before combining.
+3. **Units and signs**: radians versus degrees, counts versus radians, positive direction matching the URDF joint axis.
+4. **Zero offsets and limits**: calibrate joint zeros; set software limits inside the mechanical ones.
+5. **Timing**: measure the actual loop rate and jitter; hardware timestamps where possible.
+6. **Compare with simulation**: the same commands in sim and on hardware should move joints the same way; mismatches reveal sign or scale errors.
+7. **Log everything** with [[rosbag2]] during bring-up.
 
-In ROS, hardware interaction is typically encapsulated within dedicated [[Custom_Packages_and_Nodes|nodes]] acting as hardware drivers:
-
-* **Function:** These nodes manage the low-level communication details for a specific hardware device over its particular interface (Serial, USB, CAN, etc.).
-* **Publishing Sensor Data:** Sensor driver nodes read data from the hardware, parse it, potentially perform unit conversions or filtering, and then publish it onto standard ROS [[Topics]] using appropriate [[Messages]] (e.g., `sensor_msgs/LaserScan`, `sensor_msgs/Imu`, `sensor_msgs/Image`, `sensor_msgs/JointState`). They must correctly populate the message `header` field with the appropriate `frame_id` and `stamp`.
-* **Subscribing to Commands:** Actuator driver nodes subscribe to command [[Topics]] (e.g., `geometry_msgs/Twist`, `std_msgs/Float64`, `trajectory_msgs/JointTrajectory`) and translate the received ROS messages into the specific low-level commands required by the hardware (e.g., sending motor velocity setpoints over Serial or CAN).
-* **[[Services]] / [[Actions]]:** Drivers might also provide [[Services]] for configuring the hardware (e.g., setting sensor parameters) or [[Actions]] for controlling more complex hardware operations.
-* **Development:** If a standard ROS driver package doesn't exist for a specific piece of hardware, developers need to create a custom node using the appropriate client library (`rclcpp`/`rclpy` or `roscpp`/`rospy`) and low-level communication libraries.
-
----
-
-## Key Setup Steps & Considerations
-
-1.  **Identify Interface & Protocol:** Determine the hardware's physical connection type and the communication protocol it uses. Consult datasheets.
-2.  **Physical Connection:** Connect the device securely to the robot's computer, using appropriate cables and adapters (e.g., USB-to-Serial, USB-to-CAN). Consider electrical aspects like voltage levels and grounding ([[Electric_Circuits_Deep_Dive]]).
-3.  **OS-Level Drivers & Libraries:** Install any necessary operating system drivers (though many common devices like USB-Serial adapters are supported automatically by Linux) or manufacturer-provided SDKs/APIs.
-4.  **Permissions & Device Naming:**
-    * **Permissions:** Ensure the user running ROS has permission to access the device port (e.g., add user to the `dialout` group for serial/USB devices in Linux: `sudo usermod -a -G dialout $USER`).
-    * **[[Udev Rules]]:** Create custom `udev` rules (in `/etc/udev/rules.d/`) to assign persistent, meaningful symbolic links (e.g., `/dev/ttyLidar`, `/dev/ttyIMU`) to devices based on vendor ID, product ID, or serial number. This prevents device names from changing unpredictably (e.g., from `/dev/ttyUSB0` to `/dev/ttyUSB1`) when devices are unplugged or boot order changes. Udev rules can also set permissions automatically.
-5.  **Install/Build ROS Driver:** Find and install the relevant ROS package for the hardware (if available) or build your [[Custom_Packages_and_Nodes|custom driver node]].
-6.  **Configure ROS Node:** Set parameters for the driver node, typically via [[Launch_Files|Launch Files]]. Common parameters include the device port name (using the persistent symlink created by udev), baud rate (for serial), communication timeouts, sensor `frame_id` (for TF), publishing rates, etc.
-7.  **Test & Verify:** Launch the driver node. Use ROS command-line tools (`rostopic list/echo/hz`, `rosservice list/call`) to check if the node is publishing data or offering services correctly. Use [[RViz_Tutorial|RViz]] to visualize sensor data (LaserScans, PointClouds, Images, TF frames) to confirm it makes sense spatially and temporally. Send test commands to actuators and verify physical response.
-
-Setting up hardware interfaces correctly is a critical first step in building any functional robotic system, enabling the software to perceive and act upon the physical world.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Hardware_Interface_Setup]])
