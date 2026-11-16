@@ -1,100 +1,79 @@
 ---
 title: Robust Control
-description: Robust Control is a control strategy used in robotics to ensure stability and performance in the presence of uncertainties and disturbances, providing reliable operation under varying conditions.
+description: "Robust control designs controllers that keep working when the model is wrong, within stated bounds. Covers uncertainty models, stability margins with a computed gain-uncertainty example, H-infinity and mu-synthesis, sliding-mode control, robust MPC, and the learning-era equivalent: domain randomisation, which trains policies to be robust to a range of simulated physics."
+aliases:
+  - H-infinity Control
+  - Sliding Mode Control
+  - Robustness
 tags:
   - control
   - robust-control
-  - dynamics
-  - manipulator-arm
+  - stability
 type: method
-level: intermediate
+level: advanced
 subfield:
   - control
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Feedback_Control]]"
-related:
   - "[[Control_Theory]]"
+  - "[[Control_Theory_and_Principles]]"
+related:
   - "[[Adaptive_Control]]"
-  - "[[Robot_Design]]"
-  - "[[Stability_Analysis]]"
+  - "[[Computed_Torque_Control]]"
+  - "[[Sim-to-Real_Transfer]]"
+  - "[[Model_Predictive_Control_(MPC)]]"
+key_takeaways:
+  - "Robust control accepts that the model is wrong and designs for every plant within a stated uncertainty set, guaranteeing stability and performance across it."
+  - "Margins are the simplest robustness measure: if the plant's gain may be up to 1.5× nominal, the loop needs a gain margin above 1.5 (3.5 dB); a 6 dB margin tolerates up to 2×."
+  - "Domain randomisation is robust control by training: a policy that succeeds across randomised masses, friction, delays and sensor noise in simulation tends to be robust on hardware."
+sources:
+  - "Åström, K. J. and Murray, R. M. (2021). Feedback Systems, 2nd edition, chapters 12–13 (robust performance, fundamental limits). https://fbswiki.org/wiki/index.php/Feedback_Systems:_An_Introduction_for_Scientists_and_Engineers"
+  - "Peng, X. B., Andrychowicz, M., Zaremba, W. and Abbeel, P. (2017). Sim-to-Real Transfer of Robotic Control with Dynamics Randomization. https://arxiv.org/abs/1710.06537"
+  - "Tobin, J. et al. (2017). Domain Randomization for Transferring Deep Neural Networks from Simulation to the Real World. https://arxiv.org/abs/1703.06907"
+  - "Siciliano, B. and Khatib, O., eds. (2016). Springer Handbook of Robotics, 2nd edition, chapter on motion control (robust control of manipulators). https://link.springer.com/referencework/10.1007/978-3-319-32552-1"
 ---
 
 # Robust Control
 
-**Robust Control** is a control strategy used in robotics to ensure stability and performance in the presence of uncertainties and disturbances. It provides reliable operation under varying conditions by designing controllers that can handle model inaccuracies, external disturbances, and parameter variations. Robust control is essential for applications where the system's dynamics are not fully known or change over time, ensuring accurate and stable operation.
+**Robust control** designs a controller for a *family* of possible systems rather than one model. Every model is wrong: payloads vary, friction changes with temperature, gearboxes wear, and simulators differ from hardware. A robust controller states how wrong the model may be and guarantees acceptable behaviour for all of those cases.
 
----
+> **Etymology.** Latin *robustus*, "strong as oak" (*robur*, "oak"). Robust control became a field in the late 1970s and 1980s, when it was shown that some optimal controllers (LQG) could have arbitrarily small stability margins, prompting H-infinity methods (Zames, 1981; Doyle, Glover and others).
 
-## Key Concepts
+## Describing uncertainty
 
-### Uncertainty and Disturbances
+- **Parametric**: known structure, uncertain values (link mass between 1.5 and 3 kg).
+- **Unstructured**: a bounded error at each frequency, for example the unmodelled flexibility of a link at high frequencies.
+- **Disturbances and noise**: bounded external forces and sensor errors.
 
-Uncertainty and disturbances refer to the variations and external influences that affect the behavior of a robotic system. Robust control aims to design controllers that can maintain performance and stability despite these uncertainties and disturbances.
+## Margins: the first robustness check
 
-### Stability Analysis
+The **gain margin** is how much the loop gain can increase before instability; the **phase margin** is how much extra phase lag (delay) it tolerates.
 
-Stability analysis involves evaluating the stability of a control system under various conditions. Robust control ensures that the system remains stable even in the presence of uncertainties and disturbances.
+**Worked example.** A joint's effective gain depends on the payload's inertia: with a heavy tool the motor's torque produces less acceleration, and with no tool more. Suppose the loop gain may be up to 1.5× the nominal value. The loop then needs a gain margin above 1.5, i.e. $20\log_{10}1.5 = 3.5$ dB. Designers commonly require 6 dB (a factor of 2) and 45–60° of phase margin, which covers this case with room for delays.
 
-### Control Algorithms
+## Methods
 
-Robust control uses algorithms that can handle variations and uncertainties in the system's dynamics. These algorithms include techniques such as H-infinity control, sliding mode control, and linear quadratic Gaussian (LQG) control.
+| Method | Idea | Robotics use |
+|---|---|---|
+| **Loop shaping with margins** | Shape the open-loop gain for high gain at low frequency, low gain where the model is poor | Joint and drone loops |
+| **H-infinity / mu-synthesis** | Optimise the worst-case gain from disturbances to errors over the uncertainty set | Precision positioning, flexible structures, aerospace |
+| **Sliding-mode control** | Force the state onto a sliding surface with a switching law that overpowers bounded uncertainty | Robust tracking; needs smoothing to avoid chattering |
+| **Robust MPC** | Plan so constraints hold for all disturbances in a set (tube MPC) | Safety-critical motion with constraints |
+| **Disturbance observers** | Estimate the lumped disturbance and cancel it | Motor control, cobots |
 
-### Performance Optimization
+## Robustness and adaptation
 
-Performance optimization involves designing controllers that achieve the best possible performance under given constraints. Robust control ensures that the system performs optimally despite uncertainties and disturbances.
+[[Adaptive_Control]] *learns* the actual system; robust control *tolerates* a range. Adaptive control can achieve better performance once it has converged; robust control is safe from the first moment. Practical controllers often combine both.
 
----
+## Robustness by training (2017–2026)
 
-## Mathematical Formulation
+**Domain randomisation** trains a policy in simulation over randomised physics: masses, friction, motor strength, latency and sensor noise (Peng et al., 2017), and appearance (Tobin et al., 2017). The policy learns behaviour that works across the whole range, the same goal as robust control, reached through sampling instead of analysis. It is the standard way legged robots, drones and dexterous hands are trained for zero-shot transfer to hardware (see [[Sim-to-Real_Transfer]]). Research now combines the two: robust-control certificates and safety filters around learned policies.
 
-### H-Infinity Control
-
-H-Infinity control is a robust control technique that minimizes the worst-case effect of disturbances on the system's performance. The control law for H-infinity control can be represented as:
-
-$$
-K = \arg \min_{K} \| T_{zw} \|_{\infty}
-$$
-
-where:
-- $K$ is the controller.
-- $T_{zw}$ is the transfer function from the disturbance $w$ to the performance output $z$.
-- $| \cdot \|_{\infty}$ denotes the H-infinity norm.
-
-### Sliding Mode Control
-
-Sliding mode control is a robust control technique that uses a discontinuous control signal to drive the system's state to a predefined sliding surface. The control law for sliding mode control can be represented as:
-
-$$
-u(t) = u_{eq}(t) + u_{sw}(t)
-$$
-
-where:
-- $u_{eq}(t)$ is the equivalent control.
-- $u_{sw}(t)$ is the switching control.
-
-### Example: Robotic Manipulator
-
-Consider a robotic manipulator operating in an environment with uncertainties and disturbances. Robust control is used to design a controller that ensures the manipulator follows a desired trajectory accurately despite these variations. The H-infinity control technique is used to minimize the effect of disturbances on the manipulator's performance, ensuring precise and stable control.
-
----
-
-## Applications in Robotics
-
-- **Manipulation**: Robust control is used to achieve precise and dynamic control of robotic manipulators, enabling tasks such as assembly, welding, and material handling in the presence of uncertainties.
-- **Autonomous Systems**: Enhances the control of autonomous robots, allowing them to navigate and interact with their environment accurately despite disturbances.
-- **Trajectory Tracking**: Ensures that robotic systems follow planned trajectories accurately, improving the performance and reliability of tasks.
-- **Adaptive Control**: Robust control can be combined with adaptive control techniques to handle uncertainties and variations in the system's dynamics, enabling continuous improvement and adaptation.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Robust_Control]])
