@@ -24,7 +24,7 @@ prerequisites:
 related:
   - "[[Transfer_Function]]"
   - "[[State_Space_Representation]]"
-  - "[[Lyapunov_Stability]]"
+  - "[[Nonlinear_Control_Theory]]"
   - "[[Model_Predictive_Control_(MPC)]]"
   - "[[Control_Systems]]"
 key_takeaways:
@@ -60,7 +60,7 @@ sources:
 ## Stability
 
 - **Linear systems** are stable when all **poles**, the roots of the characteristic equation (the eigenvalues of $A$), have negative real parts.
-- **Nonlinear systems**: find a **Lyapunov function** $V(\mathbf x) > 0$ that always decreases along trajectories, $\dot V < 0$. Then the system settles like a ball rolling to the bottom of a bowl (see [[Lyapunov_Stability]]).
+- **Nonlinear systems**: find a **Lyapunov function** $V(\mathbf x) > 0$ that always decreases along trajectories, $\dot V < 0$. Then the system settles like a ball rolling to the bottom of a bowl (see [[Nonlinear_Control_Theory|Lyapunov_Stability]]).
 
 ## How systems respond, computed
 

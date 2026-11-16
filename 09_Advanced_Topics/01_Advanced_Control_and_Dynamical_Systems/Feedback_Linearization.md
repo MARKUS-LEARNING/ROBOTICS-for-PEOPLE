@@ -1,104 +1,75 @@
 ---
 title: Feedback Linearization
-description: Feedback Linearization is a control technique used to transform nonlinear systems into equivalent linear systems through state feedback, enabling the application of linear control methods.
+description: "Feedback linearisation uses the control input to cancel a system's nonlinearities so that the closed loop behaves linearly. Covers full-state and input–output linearisation, relative degree and Lie derivatives, zero dynamics, a worked pendulum example, the robot-arm case (computed torque), and its limits: model accuracy, actuator limits and underactuation."
+aliases:
+  - Feedback Linearisation
+  - Input-Output Linearization
+  - Exact Linearization
 tags:
-  - control
-  - nonlinear-systems
   - feedback-linearization
-  - control-theory
-  - dynamics
-  - mechanism
-  - manipulator-arm
+  - control
+  - mathematics
 type: method
-level: advanced
+level: research
 subfield:
   - control
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Control_Theory]]"
-  - "[[PID_Control]]"
-  - "[[State_Space_Representation]]"
-related:
-  - "[[Control_Theory]]"
   - "[[Nonlinear_Control_Theory]]"
-  - "[[Dynamics]]"
-  - "[[State_Space_Representation]]"
-  - "[[Lyapunov_Stability]]"
-  - "[[PID_Control]]"
-  - "[[Optimal_Control]]"
+  - "[[Computed_Torque_Control]]"
+related:
+  - "[[Robust_Control_Methods]]"
+  - "[[Control_of_Underactuated_Systems]]"
+key_takeaways:
+  - "If a system's nonlinearities enter through the same channel as the input, the input can cancel them exactly, leaving linear dynamics to design for."
+  - "For a pendulum, u = ml²v + b θ̇ + mgl sin θ makes θ̈ = v; at θ = 60° (m = 1 kg, l = 0.5 m) the gravity term alone is 4.25 N·m."
+  - "It needs an accurate model and enough actuator authority, and it fails for underactuated systems whose nonlinearities sit in unactuated directions; there, partial linearisation, energy shaping or learning are used."
+sources:
+  - "Khalil, H. K. (2002). Nonlinear Systems, 3rd edition, chapter 13: Feedback Linearization. https://www.pearson.com/en-us/subject-catalog/p/nonlinear-systems/P200000003364"
+  - "Murray, R. M., Li, Z. and Sastry, S. S. (1994). A Mathematical Introduction to Robotic Manipulation. http://www.cds.caltech.edu/~murray/books/MLS/pdf/mls94-complete.pdf"
+  - "Tedrake, R. (2026). Underactuated Robotics. https://underactuated.csail.mit.edu/"
 ---
 
 # Feedback Linearization
 
-**Feedback Linearization** is a control technique used to transform nonlinear systems into equivalent linear systems through state feedback, enabling the application of linear control methods. This technique is particularly useful in robotics, where many systems exhibit nonlinear dynamics. By linearizing the system, traditional linear control strategies, such as [[PID_Control|PID Control]], can be effectively applied to achieve desired performance and stability.
+**Feedback linearisation** uses the control input to cancel a system's nonlinear terms, so that what remains is a linear system that standard methods (pole placement, LQR) can control. It is the theory behind [[Computed_Torque_Control]] for robot arms.
 
----
+> **Etymology.** *Linearise*: make linear. Unlike Jacobian linearisation, which approximates dynamics near one point, feedback linearisation makes them *exactly* linear across a region, through feedback. The geometric theory was developed in the late 1970s and 1980s (Brockett, Isidori, Hunt, Su and Meyer).
 
-## Key Concepts
+## The idea on a pendulum
 
-### Nonlinear Systems
+For $ml^2\ddot\theta + b\dot\theta + mgl\sin\theta = u$, choose
 
-Nonlinear systems are characterized by dynamics that cannot be described by linear equations. These systems often exhibit complex behaviors such as limit cycles, chaos, and multiple equilibrium points. Feedback linearization provides a method to handle these nonlinearities by transforming the system into a linear form.
+$$u = ml^2 v + b\dot\theta + mgl\sin\theta.$$
 
-### State Feedback
+Substituting gives $\ddot\theta = v$: a double integrator, whatever the angle. Then choose $v = \ddot\theta_d + k_d\dot e + k_p e$ for any desired error dynamics.
 
-State feedback involves using the system's state variables to compute the control input. In feedback linearization, state feedback is used to cancel out the nonlinear terms in the system dynamics, resulting in a linear system.
+**Numbers.** With $m = 1$ kg and $l = 0.5$ m at $\theta = 60°$, the gravity term the controller must cancel is $1 \times 9.81 \times 0.5 \times \sin 60° = 4.25$ N·m. If the motor can deliver only 3 N·m, the cancellation is impossible at that angle. That is the most common practical failure of feedback linearisation: actuator limits.
 
----
+## General theory, briefly
 
-## Mathematical Formulation
+For $\dot{\mathbf x} = f(\mathbf x) + g(\mathbf x)u$ with output $y = h(\mathbf x)$:
+- differentiate $y$ until $u$ appears. Using Lie derivatives, $y^{(r)} = L_f^r h + L_g L_f^{r-1}h\ u$, where $r$ is the **relative degree**;
+- choose $u = (v - L_f^r h)/(L_g L_f^{r-1}h)$, which makes $y^{(r)} = v$: **input–output linearisation**;
+- if $r$ equals the state dimension, the whole state is linearised (full-state linearisation);
+- otherwise the leftover **zero dynamics** must be stable, or the internal state can drift even while the output is perfect. Systems with unstable zero dynamics are called non-minimum phase.
 
-### Nonlinear System Representation
+## Robot arms
 
-Consider a nonlinear system described by:
+Fully actuated arms (one motor per joint) have relative degree 2 in every joint, with no zero dynamics. Computed torque, $\boldsymbol\tau = M(\mathbf q)\mathbf v + C\dot{\mathbf q} + \mathbf g$, linearises them exactly (see [[Computed_Torque_Control]]).
 
-$$
-\dot{\mathbf{x}} = f(\mathbf{x}) + g(\mathbf{x}) \mathbf{u}
-$$
+## Limits
 
-where:
-- $\mathbf{x}$ is the state vector.
-- $\mathbf{u}$ is the control input vector.
-- $f(\mathbf{x})$ and $g(\mathbf{x})$ are nonlinear functions representing the system dynamics.
+- **Model dependence**: cancellation is only as good as the model; errors appear as disturbances. Combine with [[Robust_Control_Methods]] or adaptation.
+- **Actuator limits**: cancelling large nonlinearities needs large inputs.
+- **Underactuation**: legged robots in flight phase, drones and balancing robots cannot cancel everything. Partial feedback linearisation, energy shaping, MPC and learned policies take over (see [[Control_of_Underactuated_Systems]]).
+- **Wasted effort**: cancelling helpful dynamics (for example gravity that would assist a motion) can be inefficient.
 
-### Feedback Linearization
-
-The goal of feedback linearization is to find a control law $\mathbf{u}$ such that the closed-loop system is linear. This is achieved by designing a state feedback control law of the form:
-
-$$
-\mathbf{u} = \alpha(\mathbf{x}) + \beta(\mathbf{x}) \mathbf{v}
-$$
-
-where:
-- $\alpha(\mathbf{x})$ is a function that cancels the nonlinear terms in $f(\mathbf{x})$.
-- $\beta(\mathbf{x})$ is a function that ensures the system is linear with respect to the new input $\mathbf{v}$.
-
-The resulting linear system is:
-
-$$
-\dot{\mathbf{x}} = A \mathbf{x} + B \mathbf{v}
-$$
-
-where $A$ and $B$ are constant matrices.
-
----
-
-## Applications in Robotics
-
-- **Robotic Manipulators**: Feedback linearization is used to control robotic manipulators with nonlinear dynamics, enabling precise and stable motion control.
-- **Autonomous Vehicles**: Ensures stable and efficient control of autonomous vehicles in dynamic and uncertain environments.
-- **Aerospace**: Designing control systems for aircraft and spacecraft that can handle nonlinear aerodynamics and complex maneuvers.
-- **Industrial Automation**: Implementing control strategies for manufacturing processes that involve nonlinear dynamics and constraints.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Feedback_Linearization]])

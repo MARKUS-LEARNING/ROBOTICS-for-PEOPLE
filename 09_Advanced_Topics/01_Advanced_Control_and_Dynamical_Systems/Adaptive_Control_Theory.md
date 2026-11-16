@@ -1,103 +1,85 @@
 ---
 title: Adaptive Control Theory
-description: Adaptive Control Theory focuses on designing control systems that can adjust to changing conditions and uncertainties, ensuring robust performance and stability in dynamic environments.
+description: "The theory behind adaptive control: model-reference adaptive control (MRAC) with a Lyapunov-derived update law, a simulated scalar example that stabilises an unknown unstable plant and learns its ideal gains, persistence of excitation, robustness modifications (sigma, projection), L1 adaptive control, and the relationship to learned adaptation in 2026."
+aliases:
+  - MRAC Theory
+  - Lyapunov-Based Adaptation
 tags:
-  - control
   - adaptive-control
-  - control-theory
-  - dynamics
-  - mechanism
-  - manipulator-arm
-type: method
-level: advanced
+  - control
+  - stability
+type: concept
+level: research
 subfield:
   - control
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Control_Theory]]"
+  - "[[Adaptive_Control]]"
+  - "[[Nonlinear_Control_Theory]]"
 related:
-  - "[[Control_Theory]]"
-  - "[[Optimal_Control]]"
   - "[[Robust_Control_Methods]]"
-  - "[[Lyapunov_Stability]]"
-  - "[[Dynamics]]"
+  - "[[Reinforcement_Learning_for_Robots]]"
+key_takeaways:
+  - "MRAC makes an uncertain plant follow a reference model by adjusting gains with an update law derived from a Lyapunov function, which guarantees bounded signals and convergence of the tracking error."
+  - "In simulation, MRAC stabilised an unstable plant (ẋ = x + u, with the 1 unknown to the controller) and its tracking error fell from 0.32 to 0.001 RMS in 20 s, with gains approaching the ideal −3 and 2."
+  - "Parameters converge only with persistently exciting signals; robustness modifications prevent drift; learned adaptation (e.g. RMA) is the data-driven counterpart."
+sources:
+  - "Slotine, J.-J. E. and Li, W. (1987). On the Adaptive Control of Robot Manipulators. https://journals.sagepub.com/doi/10.1177/027836498700600303"
+  - "Khalil, H. K. (2002). Nonlinear Systems, 3rd edition. https://www.pearson.com/en-us/subject-catalog/p/nonlinear-systems/P200000003364"
+  - "Kumar, A., Fu, Z., Pathak, D. and Malik, J. (2021). RMA: Rapid Motor Adaptation for Legged Robots. https://arxiv.org/abs/2107.04034"
 ---
 
 # Adaptive Control Theory
 
-**Adaptive Control Theory** focuses on designing control systems that can adjust to changing conditions and uncertainties, ensuring robust performance and stability in dynamic environments. Unlike traditional control methods, which rely on fixed parameters, adaptive control systems can modify their behavior in real-time to accommodate variations in system dynamics, external disturbances, and operating conditions. This adaptability is crucial in robotics, where systems often encounter unpredictable scenarios and changing requirements.
+This note gives the theory behind [[Adaptive_Control]]: how an adaptive law is derived so that learning the parameters cannot destabilise the system.
 
----
+> **Etymology.** See [[Adaptive_Control]]. Lyapunov-based design of adaptive laws (Parks, 1966) replaced the earlier "MIT rule", a gradient method that could go unstable, and became the standard way to prove adaptive systems safe.
 
-## Key Concepts
+## Model-reference adaptive control (MRAC)
 
-### Adaptation Mechanism
+**Plant:** $\dot x = a x + u$, with $a$ unknown (it may be unstable). **Reference model:** $\dot x_m = a_m x_m + b_m r$, with $a_m < 0$ (the behaviour we want). **Controller:** $u = k_x x + k_r r$.
 
-Adaptive control systems incorporate mechanisms to adjust control parameters based on real-time feedback and system performance. This adaptation allows the system to maintain optimal performance despite changes in the operating environment or system dynamics.
+If $a$ were known, the ideal gains would be $k_x^* = a_m - a$ and $k_r^* = b_m$. With the tracking error $e = x - x_m$ and the Lyapunov function
 
-### Model Reference Adaptive Control (MRAC)
+$$V = \tfrac12 e^2 + \tfrac{1}{2\gamma}\big[(k_x - k_x^*)^2 + (k_r - k_r^*)^2\big],$$
 
-MRAC is a common adaptive control strategy where the control system adjusts its parameters to match the behavior of a reference model. This approach ensures that the system's performance aligns with desired characteristics, even as conditions change.
+choosing the update laws
 
-### Learning and Optimization
+$$\dot k_x = -\gamma\, e\, x, \qquad \dot k_r = -\gamma\, e\, r$$
 
-Adaptive control often involves learning algorithms that optimize control parameters over time. These algorithms can use historical data and real-time feedback to improve system performance continuously.
+makes $\dot V = a_m e^2 \le 0$. All signals stay bounded and, by Barbalat's lemma, $e \to 0$, without knowing $a$.
 
----
+## Worked example (simulated)
 
-## Mathematical Formulation
+Plant $\dot x = x + u$ (unstable, $a = 1$ unknown to the controller); model $\dot x_m = -2x_m + 2r$; $r$ a ±1 square wave with a 10 s period; $\gamma = 5$; gains start at 0; Euler integration at 1 ms:
 
-### Adaptive Control Law
+| Time window | RMS tracking error |
+|---|---|
+| 0–1 s | 0.321 |
+| 4–5 s | 0.137 |
+| 9–10 s | 0.011 |
+| 19–20 s | 0.0012 |
 
-The adaptive control law is typically represented as:
+After 20 s the gains were $k_x = -2.90$ and $k_r = 1.90$, approaching the ideal $-3$ and $2$. The square-wave reference is **persistently exciting**: it varies enough to reveal both parameters. With a constant reference, the error would still converge but the gains need not reach their ideal values.
 
-$$
-\mathbf{u}(t) = K(t) \cdot \mathbf{e}(t)
-$$
+## Robustness modifications
 
-where:
-- $\mathbf{u}(t)$ is the control input.
-- $K(t)$ is the adaptive gain matrix, which is updated in real-time.
-- $\mathbf{e}(t)$ is the error signal, representing the difference between the desired and actual system outputs.
+Pure adaptive laws can drift under noise and unmodelled dynamics (the "bursting" phenomenon). Standard remedies:
+- **σ-modification and e-modification**: add leakage toward a nominal value;
+- **projection**: keep estimates in a known bounded set;
+- **dead zone**: stop adapting when the error is at noise level.
 
-### Adaptation Law
+**L1 adaptive control** decouples fast adaptation from robustness with a low-pass filter on the control signal, and has been flight-tested on aircraft.
 
-The adaptation law defines how the control parameters are updated over time. A common adaptation law is:
+## Learned adaptation
 
-$$
-\dot{K}(t) = -e(t) \cdot \mathbf{x}^T(t)
-$$
+Modern robots often adapt with networks trained in simulation: an adaptation module infers latent environment parameters from recent history, and the policy conditions on them (RMA, 2021). That approach is data-driven and lacks the Lyapunov guarantees above, but scales to high-dimensional legged dynamics. Combining both, learned adaptation inside a provably stable structure, is an active research topic.
 
-where $\mathbf{x}(t)$ is the state vector of the system. This law adjusts the gain matrix $K(t)$ based on the error and system state, ensuring that the control input adapts to changing conditions.
-
-### Lyapunov-Based Adaptation
-
-Lyapunov-based adaptation uses Lyapunov functions to ensure the stability of the adaptive control system. The Lyapunov function $V(\mathbf{x})$ must satisfy:
-
-$$
-V(\mathbf{x}) > 0 \quad \text{and} \quad \dot{V}(\mathbf{x}) \leq 0
-$$
-
-where $V(\mathbf{x})$ is a positive definite function, and $\dot{V}(\mathbf{x})$ is its time derivative. This ensures that the system remains stable as the control parameters adapt.
-
----
-
-## Applications in Robotics
-
-- **Robotic Manipulators**: Adaptive control is used to handle variations in payload, environmental conditions, and system dynamics, ensuring precise and stable manipulation.
-- **Autonomous Vehicles**: Ensures robust performance in changing environments, such as varying road conditions or obstacles.
-- **Aerospace**: Adaptive control systems are designed to handle uncertainties in aerodynamics and changing flight conditions.
-- **Industrial Automation**: Implementing control strategies that can adapt to variations in manufacturing processes, ensuring consistent performance and quality.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Adaptive_Control_Theory]])

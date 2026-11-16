@@ -20,7 +20,7 @@ last_reviewed: 2026-04-25
 related:
   - "[[Control_Theory]]"
   - "[[Feedback_Control]]"
-  - "[[Lyapunov_Stability]]"
+  - "[[Nonlinear_Control_Theory]]"
   - "[[Root_Locus]]"
   - "[[Bode_Plot]]"
   - "[[Nyquist_Stability_Criterion]]"

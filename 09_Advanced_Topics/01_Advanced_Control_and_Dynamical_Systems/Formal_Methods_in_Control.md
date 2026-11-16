@@ -21,7 +21,7 @@ prerequisites:
 related:
   - "[[Control_Theory]]"
   - "[[Dynamics]]"
-  - "[[Lyapunov_Stability]]"
+  - "[[Nonlinear_Control_Theory]]"
   - "[[Optimal_Control]]"
   - "[[Robust_Control_Methods]]"
 ---

@@ -1,103 +1,78 @@
 ---
 title: Robust Control Methods
-description: Robust Control Methods are designed to ensure stability and performance of control systems in the presence of uncertainties, disturbances, and model inaccuracies.
+description: "The mathematics behind robust control: uncertainty models, the H-infinity norm and small-gain theorem, mixed sensitivity and mu-synthesis, and sliding-mode control with a computed reaching-time bound. A deeper companion to the Robust Control note, with connections to robust MPC and to domain randomisation in learning."
+aliases:
+  - H-infinity
+  - Mu-Synthesis
+  - Small Gain Theorem
 tags:
-  - control
   - robust-control
-  - control-theory
-  - dynamics
-  - mechanism
-  - manipulator-arm
-type: method
-level: advanced
+  - control
+  - mathematics
+type: concept
+level: research
 subfield:
   - control
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 prerequisites:
-  - "[[Control_Theory]]"
-  - "[[Adaptive_Control]]"
-related:
-  - "[[Control_Theory]]"
-  - "[[Optimal_Control]]"
   - "[[Robust_Control]]"
-  - "[[Lyapunov_Stability]]"
-  - "[[Adaptive_Control]]"
-  - "[[Dynamics]]"
+  - "[[Nonlinear_Control_Theory]]"
+related:
+  - "[[Adaptive_Control_Theory]]"
+  - "[[Model_Predictive_Control_(MPC)]]"
+  - "[[Sim-to-Real_Transfer]]"
+key_takeaways:
+  - "The H-infinity norm is a system's worst-case gain over all frequencies; the small-gain theorem guarantees stability when the loop gain through the uncertainty stays below 1."
+  - "Mixed-sensitivity design trades disturbance rejection, noise rejection and robustness by weighting S, T and KS across frequency; mu-synthesis handles structured uncertainty."
+  - "Sliding-mode control rejects any matched disturbance below its switching gain: with |d| ≤ 2 and gain 2.5, the state reaches the sliding surface from |s| = 0.5 within 1 s."
+sources:
+  - "Åström, K. J. and Murray, R. M. (2021). Feedback Systems, 2nd edition, chapters 12–13. https://fbswiki.org/wiki/index.php/Feedback_Systems:_An_Introduction_for_Scientists_and_Engineers"
+  - "Khalil, H. K. (2002). Nonlinear Systems, 3rd edition, chapter 14 (sliding mode control). https://www.pearson.com/en-us/subject-catalog/p/nonlinear-systems/P200000003364"
+  - "Peng, X. B., Andrychowicz, M., Zaremba, W. and Abbeel, P. (2017). Sim-to-Real Transfer of Robotic Control with Dynamics Randomization. https://arxiv.org/abs/1710.06537"
 ---
 
 # Robust Control Methods
 
-**Robust Control Methods** are designed to ensure stability and performance of control systems in the presence of uncertainties, disturbances, and model inaccuracies. These methods are crucial in robotics, where systems often operate in dynamic and unpredictable environments. Robust control aims to maintain system performance and stability despite variations in system parameters and external influences.
+This note goes beneath the overview in [[Robust_Control]] to the tools themselves: how uncertainty is quantified, and how controllers are designed with guarantees for every system within it.
 
----
+> **Etymology.** *H-infinity* refers to the Hardy space $\mathcal H_\infty$ of stable transfer functions with bounded peak gain, named after mathematician G. H. Hardy. George Zames introduced H-infinity control in 1981; Doyle, Glover, Khargonekar and Francis gave the state-space solution in 1989.
 
-## Key Concepts
+## The H-infinity norm and the small-gain theorem
 
-### Uncertainty and Disturbances
+The **H-infinity norm** of a stable system is its peak gain over frequency, $\lVert G\rVert_\infty = \sup_\omega |G(j\omega)|$: the worst-case amplification of any input.
 
-Robust control addresses uncertainties and disturbances that can affect the performance and stability of control systems. These include:
-- **Model Uncertainties**: Inaccuracies or variations in the system model.
-- **External Disturbances**: Unpredictable inputs or changes in the operating environment.
-- **Parameter Variations**: Changes in system parameters over time or due to wear and tear.
+**Small-gain theorem**: if a stable system $M$ is connected in a loop with an uncertainty $\Delta$, and $\lVert M\rVert_\infty \lVert\Delta\rVert_\infty < 1$, the loop is stable. Model the uncertainty as $\Delta$ (for example, the unmodelled flexibility of a link, bounded by a weight $W(s)$), and robust stability becomes a norm condition you can design for.
 
-### Stability and Performance
+## Mixed sensitivity and mu-synthesis
 
-Robust control methods focus on ensuring that the control system remains stable and performs well under adverse conditions. This involves designing controllers that can handle a range of uncertainties and disturbances while maintaining desired performance criteria.
+H-infinity design chooses a controller $K$ to keep weighted closed-loop functions small:
+- $W_1 S$: disturbance rejection and tracking at low frequency;
+- $W_2 T$: robustness to high-frequency model error and noise;
+- $W_3 KS$: limits actuator effort.
 
----
+The waterbed limits (see [[Control_Theory_and_Principles]]) mean the weights must be feasible together. **Mu-synthesis** extends this to structured uncertainty (separate uncertain parameters) using the structured singular value $\mu$.
 
-## Mathematical Formulation
+## Sliding-mode control
 
-### H-infinity Control
+Define a sliding surface, for example $s = \dot e + \lambda e$. On $s = 0$ the error decays as $e^{-\lambda t}$. The control drives $s$ to zero with a switching term:
 
-H-infinity control is a robust control method that minimizes the worst-case gain from disturbances to the system output. It ensures that the system remains stable and performs well even in the presence of significant uncertainties and disturbances.
+$$u = u_{eq} - k\,\operatorname{sign}(s), \qquad \tfrac{d}{dt}\big(\tfrac12 s^2\big) = s\dot s \le -(k - d_{max})\lvert s\rvert.$$
 
-- **Mathematical Representation**:
-  The H-infinity norm of a transfer function $G(s)$ is given by:
-  $$
-  \|G(s)\|_\infty = \sup_{\omega} |G(j\omega)|
-  $$
-  The goal of H-infinity control is to design a controller that minimizes this norm, ensuring robust stability and performance.
+**Worked example.** If the matched disturbance is bounded by $|d| \le 2$ and we choose $k = 2.5$, then $|s|$ decreases at least at rate $k - d_{max} = 0.5$. From $|s(0)| = 0.5$, the state reaches the surface within $0.5/0.5 = 1$ s, and stays there whatever the disturbance does. The price is **chattering** (fast switching), so practical designs replace $\operatorname{sign}(s)$ with a saturation function or use higher-order sliding modes.
 
-### Sliding Mode Control
+## Robust MPC
 
-Sliding mode control is a nonlinear control strategy that forces the system states to slide along a predefined surface, providing robustness to model uncertainties and external disturbances.
+Tube MPC plans a nominal trajectory and a "tube" around it that contains every trajectory the bounded disturbance could produce, tightening the constraints so that all of them stay feasible (see [[Model_Predictive_Control_(MPC)]]).
 
-- **Mathematical Representation**:
-  The control law is designed to drive the system states to a sliding surface $s(\mathbf{x}) = 0$:
-  $$
-  \mathbf{u} = \mathbf{u}_{eq} - K \cdot \text{sign}(s(\mathbf{x}))
-  $$
-  where $\mathbf{u}_{eq}$ is the equivalent control, and $K$ is the control gain.
+## Robustness and learning
 
-### Lyapunov-Based Methods
+Domain randomisation trains a policy to perform across a *distribution* of models, the sampling counterpart of designing for an uncertainty set. Robust-control analysis is increasingly applied to learned policies, estimating their gains and margins, and robust objectives (worst case over randomised parameters) are used in RL training.
 
-Lyapunov-based methods use Lyapunov functions to analyze and ensure the stability of nonlinear systems in the presence of uncertainties.
-
-- **Lyapunov Function**:
-  $$
-  V(\mathbf{x}) > 0 \quad \text{and} \quad \dot{V}(\mathbf{x}) \leq 0
-  $$
-  where $V(\mathbf{x})$ is a positive definite function, and $\dot{V}(\mathbf{x})$ is its time derivative.
-
----
-
-## Applications in Robotics
-
-- **Robotic Manipulators**: Robust control methods are used to stabilize and control robotic manipulators in the presence of uncertainties and disturbances.
-- **Autonomous Vehicles**: Ensures stable and efficient control of autonomous vehicles in dynamic and uncertain environments.
-- **Aerospace**: Designing control systems for aircraft and spacecraft that can handle uncertainties and disturbances in flight conditions.
-- **Industrial Automation**: Implementing control strategies for manufacturing processes that involve uncertainties and require robust performance.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Robust_Control_Methods]])

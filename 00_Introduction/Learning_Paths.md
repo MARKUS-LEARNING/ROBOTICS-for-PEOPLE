@@ -62,13 +62,13 @@ The sequence most robotics courses follow: maths, then how bodies move, how robo
 12. [[Jacobian_Matrix|Jacobian Matrix]] · *intermediate*
 13. [[Inverse_Kinematics|Inverse Kinematics (IK)]] · *intermediate*
 14. [[Singularities]] · *intermediate*
-15. [[DH_Parameters|DH Parameters (Denavit-Hartenberg)]] · *intermediate*
-16. [[Camera_Systems|Camera Systems]] · *intermediate*
-17. [[LIDAR|LIDAR (Light Detection and Ranging)]] · *intermediate*
-18. [[IMU_Sensors|IMU Sensors (Inertial Measurement Unit)]] · *intermediate*
-19. [[Kalman_Filter|Kalman Filter]] · *intermediate*
-20. [[Localization]] · *intermediate*
-21. [[Mapping]] · *intermediate*
+15. [[Camera_Systems|Camera Systems]] · *intermediate*
+16. [[LIDAR|LIDAR (Light Detection and Ranging)]] · *intermediate*
+17. [[IMU_Sensors|IMU Sensors (Inertial Measurement Unit)]] · *intermediate*
+18. [[Kalman_Filter|Kalman Filter]] · *intermediate*
+19. [[Localization]] · *intermediate*
+20. [[Mapping]] · *intermediate*
+21. [[Markov_Decision_Process|Markov Decision Process (MDP)]] · *intermediate*
 22. [[Reinforcement_Learning|Reinforcement Learning]] · *intermediate*
 23. [[Reinforcement_Learning_for_Robots|Reinforcement Learning for Robots]] · *intermediate*
 24. [[Control_Theory|Control Theory]] · *intermediate*
@@ -110,11 +110,11 @@ From machine learning basics to deep and reinforcement learning on real robots.
 6. [[Imitation_Learning|Imitation Learning]] · *intermediate*
 7. [[Deep_Learning|Deep Learning]] · *intermediate*
 8. [[Deep_Learning_in_Robotics|Deep Learning in Robotics]] · *intermediate*
-9. [[Generative_Models|Generative Models]] · *intermediate*
-10. [[Transformers_and_Attention|Transformers and Attention]] · *intermediate*
-11. [[Markov_Decision_Process|Markov Decision Process (MDP)]] · *intermediate*
-12. [[Reinforcement_Learning|Reinforcement Learning]] · *intermediate*
-13. [[Reinforcement_Learning_for_Robots|Reinforcement Learning for Robots]] · *intermediate*
+9. [[Markov_Decision_Process|Markov Decision Process (MDP)]] · *intermediate*
+10. [[Reinforcement_Learning|Reinforcement Learning]] · *intermediate*
+11. [[Reinforcement_Learning_for_Robots|Reinforcement Learning for Robots]] · *intermediate*
+12. [[Generative_Models|Generative Models]] · *intermediate*
+13. [[Transformers_and_Attention|Transformers and Attention]] · *intermediate*
 14. [[World_Models|World Models]] · *advanced*
 15. [[Diffusion_Policy|Diffusion Policy]] · *advanced*
 16. [[Vision-Language-Action_Models|Vision-Language-Action Models (VLAs)]] · *advanced*
@@ -139,37 +139,37 @@ Advanced methods, open problems and the directions still being invented.
 12. [[Adaptive_Control|Adaptive Control]] · *advanced*
 13. [[Robust_Control|Robust Control]] · *advanced*
 14. [[Reconfigurable_Robots|Reconfigurable Robots]] · *advanced*
-15. [[Material_Science|Material Science]] · *advanced*
-16. [[Model_Predictive_Control_(MPC)|Model Predictive Control (MPC)]] · *advanced*
+15. [[Model_Predictive_Control_(MPC)|Model Predictive Control (MPC)]] · *advanced*
+16. [[Material_Science|Material Science]] · *advanced*
 17. [[Optimal_Control|Optimal Control]] · *advanced*
 18. [[Nanotechnology]] · *advanced*
-19. [[Hamilton-Jacobi-Bellman_Equation|Hamilton-Jacobi-Bellman Equation]] · *advanced*
-20. [[Composite_Materials|Composite Materials]] · *advanced*
-21. [[Nanorobots]] · *advanced*
-22. [[Pontryagin's_Minimum_Principle|Pontryagin's Minimum Principle]] · *advanced*
-23. [[Biomaterials]] · *advanced*
-24. [[Nonlinear_Control_Theory|Nonlinear Control Theory]] · *advanced*
-25. [[Robust_Control_Methods|Robust Control Methods]] · *advanced*
-26. [[Smart_Materials|Smart Materials]] · *advanced*
-27. [[Electroactive_Polymers|Electroactive Polymers]] · *advanced*
-28. [[Feedback_Linearization|Feedback Linearization]] · *advanced*
-29. [[MEMS|Microelectromechanical Systems (MEMS)]] · *advanced*
-30. [[Shape_Memory_Alloys|Shape Memory Alloys]] · *advanced*
-31. [[Active_Perception_and_Sensing|Active Perception and Sensing]] · *advanced*
-32. [[Adaptive_Control_Theory|Adaptive Control Theory]] · *advanced*
-33. [[Advanced_Human_Robot_Interaction_(HRI)|Advanced Human-Robot Interaction (HRI)]] · *advanced*
-34. [[Advanced_Sensor_Fusion|Advanced Sensor Fusion]] · *advanced*
-35. [[Bio_Inspired_and_Biomimetic_Robotics|Bio-Inspired and Biomimetic Robotics]] · *advanced*
-36. [[Control_of_Underactuated_Systems|Control of Underactuated Systems]] · *advanced*
-37. [[Event_Based_Sensing_and_Processing|Event-Based Sensing and Processing]] · *advanced*
-38. [[Formal_Methods_in_Control|Formal Methods in Control (Verification, Synthesis)]] · *advanced*
-39. [[Hybrid_Systems_and_Control|Hybrid Systems and Control]] · *advanced*
-40. [[Multi_Robot_Systems|Multi-Robot Systems]] · *advanced*
-41. [[Semantic_Scene_Understanding|Semantic Scene Understanding (Beyond Geometric Mapping)]] · *advanced*
-42. [[Sim-to-Real_Transfer|Sim-to-Real Transfer]] · *advanced*
-43. [[Physics_Engines|Physics Engines]] · *advanced*
-44. [[GPU-Parallel_Simulation|GPU-Parallel Simulation]] · *advanced*
-45. [[Research_and_Development|Research and Development (Robotics, extensive and future-focused, bleeding edge)]] · *research*
+19. [[Composite_Materials|Composite Materials]] · *advanced*
+20. [[Nanorobots]] · *advanced*
+21. [[Biomaterials]] · *advanced*
+22. [[Smart_Materials|Smart Materials]] · *advanced*
+23. [[Control_of_Underactuated_Systems|Control of Underactuated Systems]] · *advanced*
+24. [[Electroactive_Polymers|Electroactive Polymers]] · *advanced*
+25. [[MEMS|Microelectromechanical Systems (MEMS)]] · *advanced*
+26. [[Shape_Memory_Alloys|Shape Memory Alloys]] · *advanced*
+27. [[Active_Perception_and_Sensing|Active Perception and Sensing]] · *advanced*
+28. [[Advanced_Human_Robot_Interaction_(HRI)|Advanced Human-Robot Interaction (HRI)]] · *advanced*
+29. [[Advanced_Sensor_Fusion|Advanced Sensor Fusion]] · *advanced*
+30. [[Bio_Inspired_and_Biomimetic_Robotics|Bio-Inspired and Biomimetic Robotics]] · *advanced*
+31. [[Event_Based_Sensing_and_Processing|Event-Based Sensing and Processing]] · *advanced*
+32. [[Formal_Methods_in_Control|Formal Methods in Control (Verification, Synthesis)]] · *advanced*
+33. [[Hybrid_Systems_and_Control|Hybrid Systems and Control]] · *advanced*
+34. [[Multi_Robot_Systems|Multi-Robot Systems]] · *advanced*
+35. [[Semantic_Scene_Understanding|Semantic Scene Understanding (Beyond Geometric Mapping)]] · *advanced*
+36. [[Sim-to-Real_Transfer|Sim-to-Real Transfer]] · *advanced*
+37. [[Physics_Engines|Physics Engines]] · *advanced*
+38. [[GPU-Parallel_Simulation|GPU-Parallel Simulation]] · *advanced*
+39. [[Research_and_Development|Research and Development (Robotics, extensive and future-focused, bleeding edge)]] · *research*
+40. [[Nonlinear_Control_Theory|Nonlinear Control Theory]] · *research*
+41. [[Hamilton-Jacobi-Bellman_Equation|Hamilton-Jacobi-Bellman Equation]] · *research*
+42. [[Robust_Control_Methods|Robust Control Methods]] · *research*
+43. [[Pontryagin's_Minimum_Principle|Pontryagin's Minimum Principle]] · *research*
+44. [[Adaptive_Control_Theory|Adaptive Control Theory]] · *research*
+45. [[Feedback_Linearization|Feedback Linearization]] · *research*
 
 ## Paths through each subfield
 
@@ -212,6 +212,9 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 18. [[Control_Theory|Control Theory]] · *intermediate*
 19. [[State_Space_Representation|State Space Representation]] · *intermediate*
 20. [[Transfer_Function|Transfer Function]] · *intermediate*
+21. [[Nonlinear_Control_Theory|Nonlinear Control Theory]] · *research*
+22. [[Hamilton-Jacobi-Bellman_Equation|Hamilton-Jacobi-Bellman Equation]] · *research*
+23. [[Pontryagin's_Minimum_Principle|Pontryagin's Minimum Principle]] · *research*
 
 ### Kinematics and Dynamics
 
@@ -261,11 +264,11 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 44. [[Product_of_Exponentials|Product of Exponentials (PoE)]] · *intermediate*
 45. [[Rotational_Dynamics|Rotational Dynamics]] · *intermediate*
 46. [[Angular_Momentum|Angular Momentum]] · *intermediate*
-47. [[Linear_Quadratic_Regulator_(LQR)|Linear Quadratic Regulator (LQR)]] · *intermediate*
-48. [[Robot_Gaits|Robot Gaits]] · *intermediate*
-49. [[Analytical_IK_Solutions|Analytical IK Solutions]] · *intermediate*
-50. [[Instantaneous_Center_of_Rotation_(ICR)|Instantaneous Center of Rotation (ICR)]] · *intermediate*
-51. [[Torque_and_Force_Calculations|Joints]] · *intermediate*
+47. [[Robot_Gaits|Robot Gaits]] · *intermediate*
+48. [[Analytical_IK_Solutions|Analytical IK Solutions]] · *intermediate*
+49. [[Instantaneous_Center_of_Rotation_(ICR)|Instantaneous Center of Rotation (ICR)]] · *intermediate*
+50. [[Torque_and_Force_Calculations|Joints]] · *intermediate*
+51. [[Linear_Quadratic_Regulator_(LQR)|Linear Quadratic Regulator (LQR)]] · *intermediate*
 52. [[Manipulator_Arm_Types|Manipulator Arm Types]] · *intermediate*
 53. [[Motion_Control|Motion Control]] · *intermediate*
 54. [[Nonholonomic_Systems|Nonholonomic Systems]] · *intermediate*
@@ -400,6 +403,8 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 20. [[C++_Motion_Planning|C++ Motion Planning]] · *intermediate*
 21. [[OMPL]] · *intermediate*
 22. [[Advanced_Planning_and_Reasoning|Advanced Planning and Reasoning for Robotics]] · *advanced*
+23. [[Model_Predictive_Control_(MPC)|Model Predictive Control (MPC)]] · *advanced*
+24. [[Optimal_Control|Optimal Control]] · *advanced*
 
 ### Control
 
@@ -432,15 +437,15 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 27. [[Robust_Control|Robust Control]] · *advanced*
 28. [[Model_Predictive_Control_(MPC)|Model Predictive Control (MPC)]] · *advanced*
 29. [[Optimal_Control|Optimal Control]] · *advanced*
-30. [[Hamilton-Jacobi-Bellman_Equation|Hamilton-Jacobi-Bellman Equation]] · *advanced*
-31. [[Pontryagin's_Minimum_Principle|Pontryagin's Minimum Principle]] · *advanced*
-32. [[Nonlinear_Control_Theory|Nonlinear Control Theory]] · *advanced*
-33. [[Robust_Control_Methods|Robust Control Methods]] · *advanced*
-34. [[Feedback_Linearization|Feedback Linearization]] · *advanced*
-35. [[Adaptive_Control_Theory|Adaptive Control Theory]] · *advanced*
-36. [[Control_of_Underactuated_Systems|Control of Underactuated Systems]] · *advanced*
-37. [[Formal_Methods_in_Control|Formal Methods in Control (Verification, Synthesis)]] · *advanced*
-38. [[Hybrid_Systems_and_Control|Hybrid Systems and Control]] · *advanced*
+30. [[Control_of_Underactuated_Systems|Control of Underactuated Systems]] · *advanced*
+31. [[Formal_Methods_in_Control|Formal Methods in Control (Verification, Synthesis)]] · *advanced*
+32. [[Hybrid_Systems_and_Control|Hybrid Systems and Control]] · *advanced*
+33. [[Nonlinear_Control_Theory|Nonlinear Control Theory]] · *research*
+34. [[Hamilton-Jacobi-Bellman_Equation|Hamilton-Jacobi-Bellman Equation]] · *research*
+35. [[Robust_Control_Methods|Robust Control Methods]] · *research*
+36. [[Pontryagin's_Minimum_Principle|Pontryagin's Minimum Principle]] · *research*
+37. [[Adaptive_Control_Theory|Adaptive Control Theory]] · *research*
+38. [[Feedback_Linearization|Feedback Linearization]] · *research*
 
 ### AI and Robot Learning
 
@@ -463,20 +468,20 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 17. [[Deep_Learning|Deep Learning]] · *intermediate*
 18. [[Deep_Learning_in_Robotics|Deep Learning in Robotics]] · *intermediate*
 19. [[Teleoperation_and_Data_Collection|Teleoperation and Data Collection]] · *intermediate*
-20. [[Robot_Learning_Datasets_and_Benchmarks|Robot Learning Datasets and Benchmarks]] · *intermediate*
-21. [[Generative_Models|Generative Models]] · *intermediate*
-22. [[Transformers_and_Attention|Transformers and Attention]] · *intermediate*
-23. [[Markov_Decision_Process|Markov Decision Process (MDP)]] · *intermediate*
-24. [[Reinforcement_Learning|Reinforcement Learning]] · *intermediate*
-25. [[Reinforcement_Learning_for_Robots|Reinforcement Learning for Robots]] · *intermediate*
+20. [[Markov_Decision_Process|Markov Decision Process (MDP)]] · *intermediate*
+21. [[Reinforcement_Learning|Reinforcement Learning]] · *intermediate*
+22. [[Reinforcement_Learning_for_Robots|Reinforcement Learning for Robots]] · *intermediate*
+23. [[Robot_Learning_Datasets_and_Benchmarks|Robot Learning Datasets and Benchmarks]] · *intermediate*
+24. [[Generative_Models|Generative Models]] · *intermediate*
+25. [[Transformers_and_Attention|Transformers and Attention]] · *intermediate*
 26. [[Bias,_Variance,_and_Overfitting|Bias, Variance, and Overfitting]] · *intermediate*
 27. [[Convolutional_Neural_Networks|Convolutional Neural Networks]] · *intermediate*
 28. [[Neural_Networks_and_Backpropagation|Neural Networks and Backpropagation]] · *intermediate*
-29. [[RNN_and_LSTM|RNN and LSTM]] · *intermediate*
-30. [[Knowledge_Representation_and_Reasoning|Knowledge Representation and Reasoning]] · *intermediate*
-31. [[Autoencoders]] · *intermediate*
-32. [[CNN_in_Robotics|CNN in Robotics]] · *intermediate*
-33. [[Optimization_and_Loss_Functions|Optimization and Loss Functions]] · *intermediate*
+29. [[Optimization_and_Loss_Functions|Optimization and Loss Functions]] · *intermediate*
+30. [[RNN_and_LSTM|RNN and LSTM]] · *intermediate*
+31. [[Knowledge_Representation_and_Reasoning|Knowledge Representation and Reasoning]] · *intermediate*
+32. [[Autoencoders]] · *intermediate*
+33. [[CNN_in_Robotics|CNN in Robotics]] · *intermediate*
 34. [[Activation_Functions_(ReLU,_Sigmoid,_Tanh)|Activation Functions (ReLU, Sigmoid, Tanh)]] · *intermediate*
 35. [[Decision_Trees_and_Rule-Based_Systems|Decision Trees and Rule-Based Systems]] · *intermediate*
 36. [[Semi-Supervised_Learning|Semi-Supervised Learning]] · *intermediate*
