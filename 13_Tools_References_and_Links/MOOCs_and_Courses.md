@@ -1,20 +1,19 @@
 ---
 title: MOOCs and Courses
-description: A curated reference of Massive Open Online Courses, university open courseware, YouTube channels, textbooks, and learning paths for robotics at all levels — from beginner to graduate research.
+description: "A guide to online robotics courses by level and platform, checked in November 2026: free university courses (MIT, ETH, Northwestern, Stanford), MOOC platforms (Coursera, edX, Udemy, Udacity after its 2024 change of ownership), and the newer robot-learning courses (Hugging Face), with learning paths from beginner to research."
 tags:
   - courses
   - education
   - references
-  - online-learning
-  - textbook
-  - youtube
 type: reference
 level: beginner
 subfield:
   - creative-education
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 related:
   - "[[Resources_Index]]"
   - "[[Robot_Operating_System_(ROS)]]"
@@ -25,6 +24,15 @@ related:
   - "[[Nav2_Navigation]]"
   - "[[MoveIt2]]"
   - "[[Reinforcement_Learning]]"
+key_takeaways:
+  - "The best robotics courses are free: MIT's Robotic Manipulation and Underactuated Robotics, Northwestern's Modern Robotics, ETH's ROS course and Hugging Face's robot-learning course."
+  - "Paid platforms add structure and certificates; check that a course's software (ROS distribution, simulator) is current before enrolling."
+  - "Udacity's catalogue changed after its 2024 acquisition by Accenture; confirm that a named nanodegree is still offered."
+sources:
+  - "Lynch, K. M. and Park, F. C. (2026). Modern Robotics specialization (Coursera). https://www.coursera.org/specializations/modernrobotics"
+  - "Tedrake, R. (2026). Robotic Manipulation (MIT 6.4210). https://manipulation.csail.mit.edu/"
+  - "Hugging Face (2026). Robotics course. https://huggingface.co/learn/robotics-course"
+  - "ETH Zurich Robotic Systems Lab (2026). Programming for Robotics: ROS. https://rsl.ethz.ch/education-students/lectures/ros.html"
 ---
 
 # MOOCs and Courses for Robotics
@@ -85,6 +93,8 @@ See also: [[Resources_Index]]
   *Graduate level*
 
 ### Udacity
+
+*Udacity was acquired by Accenture in 2024 and has reorganised its catalogue; check that these programs are still offered and use current ROS 2 and Gazebo versions.*
 
 * **Robotics Software Engineer Nanodegree**
   Practical program covering ROS, C++, localization (EKF/AMCL), SLAM, path planning, and a capstone project in Gazebo.

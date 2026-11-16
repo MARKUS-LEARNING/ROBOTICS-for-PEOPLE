@@ -333,7 +333,7 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 | [[#Multi-Robot Systems and Swarms]] | 2 | 0 | 1 | 1 | 0 |
 | [[#Ethics, Safety and Society]] | 4 | 3 | 1 | 0 | 0 |
 | [[#History and Futures of Robotics]] | 5 | 5 | 0 | 0 | 0 |
-| [[#Research Practice]] | 5 | 3 | 1 | 0 | 1 |
+| [[#Research Practice]] | 5 | 3 | 2 | 0 | 0 |
 
 ### Human-Robot Interaction
 
@@ -371,15 +371,15 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 
 *Reading and writing papers, benchmarks, datasets, conferences and reproducibility.* (`subfield: research-practice`)
 
-**Start here:** [[Resources_Index|Resources Index]] → [[Robotics_Lab_Template|Robotics Lab Template]] → [[Research_Papers_Index|Research Papers Index]] → [[Robot_Learning_Datasets_and_Benchmarks|Robot Learning Datasets and Benchmarks]]
+**Start here:** [[Resources_Index|Resources Index]] → [[Robotics_Lab_Template|Robotics Lab Template]] → [[Research_Papers_Index|Research Papers Index]] → [[Research_and_Development|Research and Development]]
 
-**All 5 notes, in reading order:** [[Resources_Index|Resources Index]] · [[Robotics_Lab_Template|Robotics Lab Template]] · [[Research_Papers_Index|Research Papers Index]] · [[Robot_Learning_Datasets_and_Benchmarks|Robot Learning Datasets and Benchmarks]] · [[Research_and_Development|Research and Development (Robotics, extensive and future-focused, bleeding edge)]]
+**All 5 notes, in reading order:** [[Resources_Index|Resources Index]] · [[Robotics_Lab_Template|Robotics Lab Template]] · [[Research_Papers_Index|Research Papers Index]] · [[Research_and_Development|Research and Development]] · [[Robot_Learning_Datasets_and_Benchmarks|Robot Learning Datasets and Benchmarks]]
 
 ## Frontier: directions still being invented
 
 | Subfield | Notes | Beginner | Intermediate | Advanced | Research |
 |---|---:|---:|---:|---:|---:|
-| [[#Emerging Frontiers]] | 4 | 2 | 0 | 2 | 0 |
+| [[#Emerging Frontiers]] | 5 | 2 | 1 | 2 | 0 |
 
 ### Emerging Frontiers
 
@@ -387,8 +387,8 @@ Every note names its subfields in its `subfield:` frontmatter, so this page rebu
 
 **Keystones:** [[World_Models|World Models]]
 
-**Start here:** [[Future_Trends_2025-2035|Future Trends in Robotics (2025-2035)]] → [[Speculative_Robotics_Scenarios|Speculative Robotics Scenarios]] → [[World_Models|World Models]] → [[Advanced_AI_Learning_for_Robotics|Advanced AI Learning for Robotics]]
+**Start here:** [[Future_Trends_2025-2035|Future Trends in Robotics (2025-2035)]] → [[Speculative_Robotics_Scenarios|Speculative Robotics Scenarios]] → [[Research_and_Development|Research and Development]] → [[World_Models|World Models]]
 
-**All 4 notes, in reading order:** [[Future_Trends_2025-2035|Future Trends in Robotics (2025-2035)]] · [[Speculative_Robotics_Scenarios|Speculative Robotics Scenarios]] · [[World_Models|World Models]] · [[Advanced_AI_Learning_for_Robotics|Advanced AI Learning for Robotics]]
+**All 5 notes, in reading order:** [[Future_Trends_2025-2035|Future Trends in Robotics (2025-2035)]] · [[Speculative_Robotics_Scenarios|Speculative Robotics Scenarios]] · [[Research_and_Development|Research and Development]] · [[World_Models|World Models]] · [[Advanced_AI_Learning_for_Robotics|Advanced AI Learning for Robotics]]
 
 <!-- end generated -->

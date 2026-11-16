@@ -1,8 +1,7 @@
 ---
 title: Research Papers Index
-description: A curated index of seminal and influential research papers in robotics, organized by topic, with a paper note template and guide for building a personal research library within this vault.
+description: "A curated index of seminal and recent robotics papers by topic, updated to November 2026 with the robot-foundation-model, world-model and GPU-simulation papers of 2024–2026, plus a paper-note template for building a personal research library in this vault."
 tags:
-  - vault-meta
   - research
   - papers
   - references
@@ -14,9 +13,11 @@ type: reference
 level: beginner
 subfield:
   - research-practice
-status: draft
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
 related:
   - "[[Resources_Index]]"
   - "[[SLAM_with_ROS]]"
@@ -25,6 +26,15 @@ related:
   - "[[MoveIt2]]"
   - "[[Computer_Vision_in_Robotics]]"
   - "[[MOOCs_and_Courses]]"
+key_takeaways:
+  - "Read the seminal papers in each area once, then follow the recent ones: robot learning moves so fast that 2024–2026 papers already define the state of the art."
+  - "Every recent entry here was checked against its arXiv record; venues for 2025–2026 preprints are given as arXiv until published."
+  - "Use the paper-note template so each paper becomes a linked node in the vault's knowledge graph."
+sources:
+  - "Black, K. et al. (2024). π0: A Vision-Language-Action Flow Model for General Robot Control. https://arxiv.org/abs/2410.24164"
+  - "Physical Intelligence (2025). π0.5: a Vision-Language-Action Model with Open-World Generalization. https://arxiv.org/abs/2504.16054"
+  - "Gemini Robotics Team (2025). Gemini Robotics: Bringing AI into the Physical World. https://arxiv.org/abs/2503.20020"
+  - "NVIDIA, Mittal, M. et al. (2025). Isaac Lab: A GPU-Accelerated Simulation Framework for Multi-Modal Robot Learning. https://arxiv.org/abs/2511.04831"
 ---
 
 # Research Papers Index
@@ -158,9 +168,26 @@ related:
 |---|---|---|---|
 | **⭐ A Reduction of Imitation Learning and Structured Prediction to No-Regret Online Learning (DAgger)** | Ross et al. | AISTATS 2011 | Dataset aggregation for imitation learning |
 | **Behavior Cloning from Observation** | Torabi et al. | IJCAI 2018 | Imitation from observations without actions |
-| **Action Chunking with Transformers (ACT)** | Zhao et al. | RSS 2023 | Bimanual manipulation with diffusion-like chunking |
+| **Action Chunking with Transformers (ACT)** | Zhao et al. | RSS 2023 | Bimanual manipulation; transformer predicting action chunks, trained as a conditional VAE |
 | **Diffusion Policy: Visuomotor Policy Learning via Action Diffusion** | Chi et al. | RSS 2023 | Diffusion models for robot policy; strong baseline |
 | **π0: A Vision-Language-Action Flow Model for General Robot Control** | Black et al. | arXiv 2024 | Physical Intelligence foundation model |
+| **OpenVLA: An Open-Source Vision-Language-Action Model** | Kim et al. | arXiv 2024 | Open 7B VLA on a Llama 2 backbone |
+| **GR00T N1: An Open Foundation Model for Generalist Humanoid Robots** | NVIDIA | arXiv 2025 | Dual-system VLA with diffusion-transformer action head |
+| **Gemini Robotics: Bringing AI into the Physical World** | Gemini Robotics Team | arXiv 2025 | Gemini-based VLA and embodied-reasoning model |
+| **π0.5: a Vision-Language-Action Model with Open-World Generalization** | Physical Intelligence | arXiv 2025 | Co-training for generalisation to new homes |
+| **World Action Models are Zero-shot Policies** | Ye et al. | arXiv 2026 | Joint video and action generation as a policy |
+| **π0.7: a Steerable Generalist Robotic Foundation Model with Emergent Capabilities** | Physical Intelligence | arXiv 2026 | Steerable generalist with subgoal imagery |
+
+---
+
+### Simulation for Robot Learning (2021–2026)
+
+| Paper | Authors | Venue | Notes |
+|---|---|---|---|
+| **Isaac Gym: High Performance GPU-Based Physics Simulation For Robot Learning** | Makoviychuk et al. | NeurIPS Datasets 2021 | End-to-end GPU RL |
+| **Learning to Walk in Minutes Using Massively Parallel Deep Reinforcement Learning** | Rudin et al. | CoRL 2021 | Thousands of robots on one GPU |
+| **MuJoCo Playground** | Zakka et al. | arXiv 2025 | GPU-parallel environments and recipes on MJX / MuJoCo Warp |
+| **Isaac Lab: A GPU-Accelerated Simulation Framework for Multi-Modal Robot Learning** | NVIDIA, Mittal et al. | arXiv 2025 | The Isaac Lab framework paper |
 
 ---
 

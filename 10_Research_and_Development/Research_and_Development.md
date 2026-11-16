@@ -1,92 +1,84 @@
 ---
-title: Research and Development (Robotics, extensive and future-focused, bleeding edge)
-description: This entry explores the extensive and future-focused research and development in robotics, highlighting the bleeding-edge advancements and innovative approaches that are shaping the field and driving the development of intelligent and adaptive robotic systems.
+title: Research and Development
+description: "Where robotics research is heading as of late 2026 and how to do it well: the open problems (generalist manipulation, data, evaluation, safety, hardware cost and reliability, long-horizon autonomy), how research moves from paper to product, reading and reproducing papers, avoiding false discoveries (a computed multiple-comparisons example), and where to follow the field."
+aliases:
+  - Robotics Research
+  - R&D
+  - Research and Development (Robotics)
 tags:
+  - research
   - research-and-development
   - future-of-robotics
-  - artificial-intelligence
 type: overview
-level: research
+level: intermediate
 subfield:
   - research-practice
-status: draft
+  - frontiers
+status: reviewed
 author: Jordan_Smith
 date: 2025-05-02
+last_reviewed: 2026-11-15
+as_of: 2026-11
+prerequisites:
+  - "[[Robots]]"
 related:
-  - "[[Artificial_Intelligence]]"
-  - "[[Machine_Learning]]"
-  - "[[Deep_Learning]]"
-  - "[[Robot_Control]]"
-  - "[[Autonomous_Robots]]"
+  - "[[Advanced_AI_Learning_for_Robotics]]"
+  - "[[Research_Papers_Index]]"
+  - "[[Robotics_Lab_Template]]"
+  - "[[Robot_Learning_Datasets_and_Benchmarks]]"
+  - "[[Ethical_and_Social_Implications]]"
+key_takeaways:
+  - "The central open problems in 2026 are generalisation and reliability of learned robot skills, data at scale, trustworthy evaluation, safety, and the cost and durability of hardware."
+  - "Testing 20 independent ideas at p < 0.05 gives a 64% chance of at least one false 'discovery'; pre-registration, held-out evaluation and enough trials guard against it."
+  - "Research moves to products faster than ever (months, not decades), so reproducible code, data and honest evaluation matter for industry as much as academia."
+sources:
+  - "Stanford HAI (2026). The 2026 AI Index Report. https://hai.stanford.edu/ai-index/2026-ai-index-report"
+  - "International Federation of Robotics (2026). Five Million Robots now Operate in Factories Globally (World Robotics 2026). https://ifr.org/ifr-press-releases/news/five-million-robots-now-operate-in-factories-globally"
+  - "Physical Intelligence (2026). π0.7: a Steerable Generalist Robotic Foundation Model with Emergent Capabilities. https://arxiv.org/abs/2604.15483"
+  - "NVIDIA, Mittal, M. et al. (2025). Isaac Lab: A GPU-Accelerated Simulation Framework for Multi-Modal Robot Learning. https://arxiv.org/abs/2511.04831"
 ---
 
-# Research and Development (Robotics, extensive and future-focused, bleeding edge)
+# Research and Development
 
-This entry explores the **extensive and future-focused research and development in robotics**, highlighting the bleeding-edge advancements and innovative approaches that are shaping the field and driving the development of intelligent and adaptive robotic systems. Research and development in robotics involve the exploration and implementation of new technologies, methodologies, and applications that enhance the capabilities, performance, and adaptability of robotic systems in diverse and challenging environments.
+Robotics research in 2026 is moving faster than at any time in its history: foundation models for robot control, GPU-parallel simulation, humanoids leaving labs, and investment pouring in. This page maps the open problems and describes how to do research that holds up.
 
----
+> **Etymology.** *Research* from Old French *recercher*, "to search closely"; *development*, from *développer*, "to unfold". R&D is the path from discovery to working systems.
 
-## Key Concepts
+## Open problems (late 2026)
 
-### Advanced Robotics Systems
+| Problem | Why it is hard | See |
+|---|---|---|
+| **Generalist manipulation** | Policies that handle any object and task reliably, not just demos | [[Vision-Language-Action_Models]] |
+| **Data** | Robot data is scarce and costly; human video and simulation differ from robot experience | [[Robot_Learning_Datasets_and_Benchmarks]], [[Teleoperation_and_Data_Collection]] |
+| **Evaluation** | Real-robot tests are slow and hard to compare; most headline numbers are self-reported | [[Robotics_Lab_Template]] |
+| **Long-horizon autonomy** | Small per-step errors compound over long tasks | [[Autonomous_Robots]] |
+| **Dexterity and touch** | Hands, tactile sensing and contact-rich control | [[Robot_Hands]] |
+| **Safety and verification** | Guarantees for learned behaviour near people | [[Formal_Methods_in_Control]], [[Ethical_and_Social_Implications]] |
+| **Hardware** | Cost, durability, energy and repairability of humanoids and hands | [[Humanoid_Robots]] |
+| **Sim-to-real** | Remaining gaps in contact, deformables and sensing | [[Sim-to-Real_Transfer]] |
 
-Advanced robotics systems involve the development and deployment of robots that can sense, think, and act in the real world, performing tasks such as exploration, manipulation, and interaction. This includes the integration of advanced sensors, actuators, and control systems, enabling the robots to operate effectively in complex and dynamic settings.
+## From paper to product
 
-### Human-Robot Interaction
+Methods published as arXiv preprints now reach products within months: generalist robot foundation models (the π0 family, GR00T, Gemini Robotics), GPU simulation frameworks (Isaac Lab, MuJoCo Playground), and learned locomotion on commercial quadrupeds and humanoids. Open-source code and models, shared datasets and common tools (ROS 2, LeRobot) speed the transfer. The flip side is pressure to publish quickly, which makes careful evaluation more important.
 
-Human-robot interaction focuses on the development of systems that enable robots to understand, interpret, and respond to human actions, intentions, and emotions, enhancing collaboration, communication, and cooperation. This includes techniques such as gesture recognition, speech recognition, and emotion detection, which improve the robot's ability to interact with humans naturally and effectively.
+## Doing research that holds up
 
-### Adaptive and Intelligent Control
+**Worked example: false discoveries.** Test 20 independent ideas, each at the conventional 5% significance level, when none actually works. The chance that at least one *looks* significant is $1 - 0.95^{20} = 0.64$: a 64% chance of a false discovery. In robot learning, trying many variants and reporting the best one is the same trap. Defences:
+- decide the evaluation protocol before looking at results;
+- hold out test conditions (objects, scenes, robots) and touch them once;
+- run enough trials and report uncertainty (see [[Robotics_Lab_Template]]);
+- report failures and ablations, not just the best run;
+- release code, data and models so others can reproduce.
 
-Adaptive and intelligent control involves the adjustment of the robot's behavior based on its performance and the environment's conditions, enabling it to adapt to uncertainties and changes. This includes techniques such as reinforcement learning, adaptive filtering, and model predictive control, which enhance the robot's ability to perform tasks and interact with its environment effectively.
+## Following the field
 
-### Robot Embodiment
+- **Preprints**: arXiv cs.RO, cs.LG and cs.CV.
+- **Conferences**: ICRA, IROS, RSS, CoRL, Humanoids, and machine-learning venues (NeurIPS, ICML, ICLR).
+- **Journals**: Science Robotics, IJRR, IEEE T-RO, RA-L.
+- **Reports**: the IFR's *World Robotics* (industry numbers), the Stanford AI Index (AI trends).
+- **This vault**: [[Research_Papers_Index]], and the generated Frontier and What's New pages.
 
-Robot embodiment focuses on optimizing the form of the robot for diverse environments and enhancing their adaptability and functionality. This includes the development of robots with specialized morphologies, such as legged robots, snake robots, and soft robots, which can adapt to their environment and perform tasks effectively.
-
----
-
-## Conducting Research in Robotics
-
-### Staying Updated with Bleeding-Edge Technology
-
-1. **Follow Leading Research Institutions and Labs**: Keep track of publications and updates from top robotics research institutions like MIT, Stanford, and Carnegie Mellon University. These institutions often lead in innovative research and development.
-
-2. **Attend Conferences and Workshops**: Participate in robotics conferences such as ICRA (International Conference on Robotics and Automation) and IROS (Intelligent Robots and Systems). These events are crucial for networking and learning about the latest advancements.
-
-3. **Engage with Professional Networks**: Join professional organizations and online forums dedicated to robotics. Engaging with these communities can provide insights into emerging trends and collaborative opportunities.
-
-4. **Leverage Online Courses and Certifications**: Enroll in online courses and certifications offered by platforms like Coursera, edX, and Udacity. These courses often cover the latest in robotics technology and applications.
-
-5. **Read Journals and Publications**: Regularly read journals such as the *International Journal of Robotics Research* and *Robotics and Autonomous Systems* to stay informed about the latest research findings and technological breakthroughs.
-
-### Exploring and Tracking Cutting-Edge Discoveries
-
-- **arXiv.org**: A free preprint server for computer science, AI, robotics, and more. Use categories like cs.AI, cs.RO, cs.LG, and eess.SY to find the latest research papers.
-
-- **IEEE Xplore**: A comprehensive database of peer-reviewed robotics and engineering papers. While some content is paywalled, it is a crucial resource for accessing high-quality research.
-
-- **Semantic Scholar**: An AI-powered academic search tool that provides citation graphs and helps track influential papers and authors in the field of robotics.
-
-- **Papers With Code**: Tracks state-of-the-art research papers along with their implementations, making it easier to find practical applications and code for the latest algorithms.
-
-- **Google Scholar**: A general academic search engine that covers a wide range of disciplines. It is useful for finding a broad spectrum of research papers and tracking citations.
-
-### Implementing Research Findings
-
-1. **Prototype Development**: Translate research findings into prototypes. Use simulation tools and robotics platforms to test and refine new ideas and technologies.
-
-2. **Collaborative Projects**: Engage in collaborative projects with other researchers, industry partners, and academic institutions to leverage diverse expertise and resources.
-
-3. **Ethical and Safety Considerations**: Ensure that all research and development activities adhere to ethical guidelines and safety standards, particularly when dealing with autonomous systems and AI.
-
----
-
-## Dataview Plugin Features
-
-To integrate this entry with the Dataview plugin, you can use the following queries to dynamically generate lists and tables:
-
-### List of Related Concepts
+## Dataview
 
 ```dataview
 LIST FROM "" WHERE contains(file.outlinks, [[Research_and_Development]])

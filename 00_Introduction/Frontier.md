@@ -111,10 +111,10 @@ Have an idea for a part of robotics that is not on the list at all? Propose it: 
 | 07 Robot Operating System (ROS) | 16 | 0 | 16 | 0 |
 | 08 Robot Types and Applications | 23 | 0 | 16 | 7 |
 | 09 Advanced Topics | 31 | 0 | 29 | 2 |
-| 10 Research and Development | 1 | 1 | 0 | 0 |
+| 10 Research and Development | 1 | 0 | 1 | 0 |
 | 11 Practical Implementation | 18 | 0 | 15 | 3 |
 | 12 Labs and Tutorials | 7 | 0 | 7 | 0 |
-| 13 Tools References and Links | 4 | 3 | 1 | 0 |
+| 13 Tools References and Links | 4 | 0 | 4 | 0 |
 
 ## Every wanted note, by likely subfield
 

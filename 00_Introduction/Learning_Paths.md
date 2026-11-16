@@ -90,13 +90,13 @@ Hardware, software and tooling: actuators, electronics, ROS 2, simulation and th
 11. [[Electric_Motors|Electric Motors]] · *intermediate*
 12. [[Transmission_Mechanisms|Transmission Mechanisms]] · *intermediate*
 13. [[ROS_2_Overview|ROS 2 Overview]] · *intermediate*
-14. [[TF_and_Topic_Architecture|TF and Topic Architecture]] · *intermediate*
-15. [[Nav2_Navigation|Nav2 Navigation Stack]] · *intermediate*
-16. [[URDF]] · *intermediate*
-17. [[ros2_control]] · *intermediate*
-18. [[MoveIt2|MoveIt 2]] · *intermediate*
-19. [[Soft_Robotics|Soft Robotics]] · *intermediate*
-20. [[Robot_Hands|Robot Hands]] · *intermediate*
+14. [[ros2_control]] · *intermediate*
+15. [[MoveIt2|MoveIt 2]] · *intermediate*
+16. [[TF_and_Topic_Architecture|TF and Topic Architecture]] · *intermediate*
+17. [[Nav2_Navigation|Nav2 Navigation Stack]] · *intermediate*
+18. [[Soft_Robotics|Soft Robotics]] · *intermediate*
+19. [[Robot_Hands|Robot Hands]] · *intermediate*
+20. [[MuJoCo]] · *intermediate*
 
 ### Learning-based robotics
 
@@ -127,32 +127,32 @@ Advanced methods, open problems and the directions still being invented.
 
 1. [[Future_Trends_2025-2035|Future Trends in Robotics (2025-2035)]] · *beginner*
 2. [[Speculative_Robotics_Scenarios|Speculative Robotics Scenarios]] · *beginner*
-3. [[Multi_Robot_Systems|Multi-Robot Systems]] · *advanced*
-4. [[Advanced_Human_Robot_Interaction_(HRI)|Advanced Human-Robot Interaction (HRI)]] · *advanced*
-5. [[Advanced_Planning_and_Reasoning|Advanced Planning and Reasoning]] · *advanced*
-6. [[World_Models|World Models]] · *advanced*
-7. [[Diffusion_Policy|Diffusion Policy]] · *advanced*
-8. [[Vision-Language-Action_Models|Vision-Language-Action Models (VLAs)]] · *advanced*
-9. [[Advanced_AI_Learning_for_Robotics|Advanced AI Learning for Robotics]] · *advanced*
-10. [[Neural_Networks_in_Control|Neural Networks in Control]] · *advanced*
-11. [[Computed_Torque_Control|Computed Torque Control]] · *advanced*
-12. [[Adaptive_Control|Adaptive Control]] · *advanced*
-13. [[Robust_Control|Robust Control]] · *advanced*
-14. [[Reconfigurable_Robots|Reconfigurable Robots]] · *advanced*
-15. [[Model_Predictive_Control_(MPC)|Model Predictive Control (MPC)]] · *advanced*
-16. [[Optimal_Control|Optimal Control]] · *advanced*
-17. [[Nanorobots]] · *advanced*
-18. [[Electroactive_Polymers|Electroactive Polymers]] · *advanced*
-19. [[Active_Perception_and_Sensing|Active Perception and Sensing]] · *advanced*
-20. [[Advanced_Sensor_Fusion|Advanced Sensor Fusion]] · *advanced*
-21. [[Event_Based_Sensing_and_Processing|Event-Based Sensing and Processing]] · *advanced*
-22. [[Semantic_Scene_Understanding|Semantic Scene Understanding]] · *advanced*
-23. [[Sim-to-Real_Transfer|Sim-to-Real Transfer]] · *advanced*
-24. [[Physics_Engines|Physics Engines]] · *advanced*
-25. [[GPU-Parallel_Simulation|GPU-Parallel Simulation]] · *advanced*
-26. [[C++_Motion_Planning|C++ Motion Planning]] · *advanced*
-27. [[CUDA]] · *advanced*
-28. [[Research_and_Development|Research and Development (Robotics, extensive and future-focused, bleeding edge)]] · *research*
+3. [[Research_and_Development|Research and Development]] · *intermediate*
+4. [[Multi_Robot_Systems|Multi-Robot Systems]] · *advanced*
+5. [[Advanced_Human_Robot_Interaction_(HRI)|Advanced Human-Robot Interaction (HRI)]] · *advanced*
+6. [[Advanced_Planning_and_Reasoning|Advanced Planning and Reasoning]] · *advanced*
+7. [[World_Models|World Models]] · *advanced*
+8. [[Diffusion_Policy|Diffusion Policy]] · *advanced*
+9. [[Vision-Language-Action_Models|Vision-Language-Action Models (VLAs)]] · *advanced*
+10. [[Advanced_AI_Learning_for_Robotics|Advanced AI Learning for Robotics]] · *advanced*
+11. [[Neural_Networks_in_Control|Neural Networks in Control]] · *advanced*
+12. [[Computed_Torque_Control|Computed Torque Control]] · *advanced*
+13. [[Adaptive_Control|Adaptive Control]] · *advanced*
+14. [[Robust_Control|Robust Control]] · *advanced*
+15. [[Reconfigurable_Robots|Reconfigurable Robots]] · *advanced*
+16. [[Model_Predictive_Control_(MPC)|Model Predictive Control (MPC)]] · *advanced*
+17. [[Optimal_Control|Optimal Control]] · *advanced*
+18. [[Nanorobots]] · *advanced*
+19. [[Electroactive_Polymers|Electroactive Polymers]] · *advanced*
+20. [[Active_Perception_and_Sensing|Active Perception and Sensing]] · *advanced*
+21. [[Advanced_Sensor_Fusion|Advanced Sensor Fusion]] · *advanced*
+22. [[Event_Based_Sensing_and_Processing|Event-Based Sensing and Processing]] · *advanced*
+23. [[Semantic_Scene_Understanding|Semantic Scene Understanding]] · *advanced*
+24. [[Sim-to-Real_Transfer|Sim-to-Real Transfer]] · *advanced*
+25. [[Physics_Engines|Physics Engines]] · *advanced*
+26. [[GPU-Parallel_Simulation|GPU-Parallel Simulation]] · *advanced*
+27. [[C++_Motion_Planning|C++ Motion Planning]] · *advanced*
+28. [[CUDA]] · *advanced*
 29. [[Nonlinear_Control_Theory|Nonlinear Control Theory]] · *research*
 30. [[Hamilton-Jacobi-Bellman_Equation|Hamilton-Jacobi-Bellman Equation]] · *research*
 31. [[Control_of_Underactuated_Systems|Control of Underactuated Systems]] · *research*
@@ -652,14 +652,15 @@ Every subfield with three or more notes, in reading order. The [[Subfield_Atlas|
 1. [[Resources_Index|Resources Index]] · *beginner*
 2. [[Robotics_Lab_Template|Robotics Lab Template]] · *beginner*
 3. [[Research_Papers_Index|Research Papers Index]] · *beginner*
-4. [[Robot_Learning_Datasets_and_Benchmarks|Robot Learning Datasets and Benchmarks]] · *intermediate*
-5. [[Research_and_Development|Research and Development (Robotics, extensive and future-focused, bleeding edge)]] · *research*
+4. [[Research_and_Development|Research and Development]] · *intermediate*
+5. [[Robot_Learning_Datasets_and_Benchmarks|Robot Learning Datasets and Benchmarks]] · *intermediate*
 
 ### Emerging Frontiers
 
 1. [[Future_Trends_2025-2035|Future Trends in Robotics (2025-2035)]] · *beginner*
 2. [[Speculative_Robotics_Scenarios|Speculative Robotics Scenarios]] · *beginner*
-3. [[World_Models|World Models]] · *advanced*
-4. [[Advanced_AI_Learning_for_Robotics|Advanced AI Learning for Robotics]] · *advanced*
+3. [[Research_and_Development|Research and Development]] · *intermediate*
+4. [[World_Models|World Models]] · *advanced*
+5. [[Advanced_AI_Learning_for_Robotics|Advanced AI Learning for Robotics]] · *advanced*
 
 <!-- end generated -->
